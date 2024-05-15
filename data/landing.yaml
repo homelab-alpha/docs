@@ -11,7 +11,7 @@ hero:
       mobile: "gradient_mobile.webp"
 
   badge:
-    text: "v0.1.1"
+    text: "v0.1.2"
     color: danger # primary, secondary, success, danger, warning, info, light, dark
     pill: false
     soft: true
