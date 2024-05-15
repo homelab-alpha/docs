@@ -45,9 +45,11 @@ ensuring data integrity.
 
 ## Self-signed certificates
 
-**Note**: The script has been upgraded to full Elliptic Curve P-384 (secp384r1)
+{{% alert context="primary" %}}
+The scripts has been upgraded to full Elliptic Curve P-384 (secp384r1)
 for Trusted-ID, Root CA, Sub CA and all Certs scripts. If there are any issues
 with any certificate or script [Please let me know], I thank you in advance.
+{{% /alert %}}
 
 This repository provides scripts and configuration files for generating and
 verifying Self-signed certificates using OpenSSL. These certificates are useful
@@ -70,7 +72,7 @@ with a placeholders to prevent the sample certificates from being used.
 We value your contribution. We want to make it as easy as possible to submit
 your contributions to the Homelab-Alpha - openssl repository. Changes to the
 openssl are handled through pull requests against the `main` branch. To learn
-how to contribute, see [contribute]
+how to contribute, see [contribute].
 
 <br />
 
