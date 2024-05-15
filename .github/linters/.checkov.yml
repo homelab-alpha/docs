@@ -1,0 +1,8 @@
+---
+enable-secret-scan-all-files: true
+framework:
+  - secrets
+quiet: true
+skip-path:
+  - .github/workflows/codeql.yml
+summary-position: bottom

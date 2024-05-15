@@ -1,0 +1,65 @@
+google_fonts = [
+  ["Inter", "100, 200, 300, 400, 500, 600, 700, 800"],
+  ["Fira Code", "100, 200, 300, 400, 500, 600, 700, 800"],
+  ["JetBrains Mono", "100, 200, 300, 400, 500, 600, 700, 800"]
+]
+
+sans_serif_font = "Inter"
+secondary_font  = "Inter"
+mono_font       = "JetBrains Mono"
+
+[footer]
+  copyright = "© :YEAR: Homelab-Alpha"
+  version   = true
+
+[social]
+  github = "homelab-alpha"
+
+[docs]
+  title           = "Homelab-Alpha"
+  pathName        = "docs"
+  themeColor      = "blue"
+  darkMode        = true
+  prism           = true
+  prismTheme      = "main"
+
+  repoURL         = "https://github.com/homelab-alpha/docs"
+  repoBranch      = "main"
+  editPage        = true
+  lastMod         = true
+  lastModRelative = true
+
+  toc             = true
+  tocMobile       = true
+  scrollSpy       = true
+
+  sidebarIcons    = true
+  titleIcon       = true
+
+  breadcrumbs     = true
+  navDesc         = true
+  navDescTrunc    = 30
+
+  listDescTrunc   = 100
+  backToTop       = true
+
+  descriptions    = true
+
+  intLinkTooltip  = true
+  extLinkNewTab   = true
+  logoLinkURL     = "https://homelab-alpha.nl"
+
+[flexsearch]
+  enabled             = true
+  tokenize            = "full"
+  optimize            = true
+  cache               = true
+  minQueryChar        = 3
+  maxResult           = 30
+  searchSectionsIndex = []
+  tag                 = true
+
+[docsearch]
+  # appID     = ""
+  # apiKey    = ""
+  # indexName = ""

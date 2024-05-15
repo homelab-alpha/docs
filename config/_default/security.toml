@@ -1,0 +1,12 @@
+enableInlineShortcodes = false
+
+[exec]
+  allow = ['^(dart-)?sass(-embedded)?$', '^go$', '^npx$', '^postcss$']
+  osEnv = ['(?i)^((HTTPS?|NO)_PROXY|PATH(EXT)?|APPDATA|TE?MP|TERM|GO\w+|(XDG_CONFIG_)?HOME|USERPROFILE|SSH_AUTH_SOCK|DISPLAY|LANG|SYSTEMDRIVE)$']
+
+[funcs]
+  getenv = ['^HUGO_', '^REPOSITORY_URL$', '^BRANCH$']
+
+[http]
+  methods = ['(?i)GET|POST']
+  urls    = ['.*']
