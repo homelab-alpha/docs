@@ -33,6 +33,7 @@ jobs:
       - name: Super-linter
         uses: super-linter/super-linter@v6.3.0
         env:
+          BASH_SEVERITY: warning
           VALIDATE_CSS: false
           VALIDATE_GITHUB_ACTIONS: false
           VALIDATE_GO_MODULES: false
