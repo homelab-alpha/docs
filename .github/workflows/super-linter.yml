@@ -26,12 +26,12 @@ jobs:
       statuses: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.1.6
         with:
           fetch-depth: false
           fetch-tags: false
       - name: Super-linter
-        uses: super-linter/super-linter@v6.3.0
+        uses: super-linter/super-linter@v6.5.0
         env:
           BASH_SEVERITY: warning
           VALIDATE_CSS: false
