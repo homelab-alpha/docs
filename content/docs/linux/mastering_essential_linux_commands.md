@@ -46,10 +46,10 @@ Please note that the Linux shell is case-sensitive.
 ## Introduction
 
 Before diving into the command list, ensure you're familiar with accessing the
-command line interface (CLI). If you need guidance, consider reviewing a CLI
+command-line interface (CLI). If you need guidance, consider reviewing a CLI
 tutorial.
 
-Accessing the command line may vary depending on your Linux distribution, but
+Accessing the command-line may vary depending on your Linux distribution, but
 it's typically found in the Utilities section. On Ubuntu, for example, you can
 open it by pressing `Ctrl+Alt+T.`
 
@@ -711,7 +711,7 @@ echo "Hello, World!"
   clear
   ```
 
-- Utilize TAB for autofilling commands or file names.
+- Utilize TAB for autofilling commands or filenames.
 - `Ctrl+C` to terminate a running command.
 - `Ctrl+Z` to pause a running command, and `bg` to resume it in the background.
 - `Ctrl+S` freezes terminal output; `Ctrl+Q` unfreezes it.
@@ -724,5 +724,5 @@ echo "Hello, World!"
   ```
 
 These examples should provide you with a good starting point for using the Linux
-command line. Experiment with these commands to become more comfortable with the
+command-line. Experiment with these commands to become more comfortable with the
 CLI environment.
