@@ -1,0 +1,11 @@
+# Folders
+public/
+resources/
+
+# Files
+.hugo_build.lock
+go.sum
+
+# Temporary Files and Folders
+temp.md
+temp.sh

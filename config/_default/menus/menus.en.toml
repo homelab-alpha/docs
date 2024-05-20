@@ -1,0 +1,11 @@
+[[primary]]
+  name       = "Docs"
+  url        = "docs"
+  identifier = "docs"
+  weight     = 10
+
+[[primary]]
+  name       = "Community"
+  url        = "https://github.com/homelab-alpha/docs/discussions"
+  identifier = "community"
+  weight     = 20
