@@ -44,12 +44,6 @@ katex: true
 
 <br />
 
-{{% alert context="warning" %}}
-**Caution** - This documentation is in progress
-{{% /alert %}}
-
-<br />
-
 ## Introduction to Vim
 
 Vim, short for `Vi IMproved`, is an enhanced version of the classic Unix text
