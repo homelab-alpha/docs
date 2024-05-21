@@ -45,12 +45,6 @@ katex: true
 
 <br />
 
-{{% alert context="warning" %}}
-**Caution** - This documentation is in progress
-{{% /alert %}}
-
-<br />
-
 ## Introduction to Nano – The Text Editor
 
 To open Nano, simply type `nano` followed by the name of the file you want to
