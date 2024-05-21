@@ -42,68 +42,88 @@ katex: true
 
 ## General Questions
 
-**Q: What is Homelab-Alpha.nl?**\
-**A:** Homelab-Alpha.nl is a website dedicated to exploring and experimenting with
-various technology setups and projects within a home laboratory environment.
+**What is Homelab-Alpha.nl?**\
+Homelab-Alpha.nl is a website dedicated to exploring and experimenting with various
+technology setups and projects within a home laboratory environment. It's a place
+for tech enthusiasts to learn, share, and get inspired by different home lab projects.
 
-**Q: Who is behind Homelab-Alpha.nl?**\
-**A:** Homelab-Alpha.nl is maintained by GJS, a tech enthusiast passionate about
-tinkering with homelab setups and sharing knowledge with the community.
+**Who is behind Homelab-Alpha.nl?**\
+Homelab-Alpha.nl is run by GJS, a tech enthusiast passionate about tinkering with
+homelab setups and sharing knowledge with the community. GJS loves discovering new
+technologies and helping others make the most of their home labs.
+
+<br />
+
+---
 
 <br />
 
 ## Website Usage
 
-**Q: How do I navigate the website?**\
-**A:** You can navigate the website using the menu located at the left of each page.
-Simply click on the desired category or section to explore its contents.
+**How do I navigate the website?**\
+Navigating the website is easy with the menu on the left side of each page. Just
+click on the category or section you're interested in to explore its contents. It's
+designed to be user-friendly and intuitive.
 
-**Q: Is the website mobile-friendly?**\
-**A:** Yes, Homelab-Alpha.nl is optimized for mobile devices to ensure a seamless
-browsing experience on smartphones and tablets.
+**Is the website mobile-friendly?**\
+Yes, Homelab-Alpha.nl is optimized for mobile devices. Whether you're using a smartphone
+or a tablet, you can enjoy a seamless browsing experience.
+
+<br />
+
+---
 
 <br />
 
 ## Documentation
 
-**Q: What type of documentation is available on the site?**\
-**A:** The "docs" section of the website contains comprehensive documentation, tutorials,
-and guides related to various home lab projects, tools, and technologies.
+**What type of documentation is available on the site?**\
+The "docs" section contains comprehensive documentation, tutorials, and guides. You'll
+find a range of information related to various home lab projects, tools, and technologies.
+It's a great resource for both beginners and advanced users.
 
-**Q: Is the information derived from a language model?**\
-**A:** Yes, some of our documentation is contributed by ChatGPT, an AI language model
-developed by OpenAI. When information originates from ChatGPT, it is explicitly indicated
-at the top of the page.
+**Is the information derived from a language model?**\
+Yes, some of the documentation is contributed by ChatGPT, an AI language model developed
+by OpenAI. Whenever the information comes from ChatGPT, it is clearly indicated at
+the top of the page.
 
-**Q: Can I contribute to the documentation?**\
-**A:** Yes, contributions from the community are welcome! Feel free to submit your
-own tutorials, guides, or troubleshooting tips for inclusion in the documentation.
+**Can I contribute to the documentation?**\
+Absolutely! Community contributions are highly encouraged. If you have your own tutorials,
+guides, or troubleshooting tips, feel free to submit them for inclusion in the documentation.
+Sharing your knowledge helps everyone in the community.
+
+<br />
+
+---
 
 <br />
 
 ## Support
 
-**Q: How can I receive assistance for a specific project or issue?**\
-**A:** Currently, Homelab-Alpha does not offer direct support. However, you're encouraged
-to seek help from our vibrant community.
+**How can I receive assistance for a specific project or issue?**\
+Currently, Homelab-Alpha does not offer direct support. However, you're encouraged
+to seek help from our vibrant community of users who might have faced similar issues.
 
-**Q: Is there a community forum or discussion board available?**\
-**A:** While we don't have a dedicated forum on our website yet, you can actively
-engage with other users and seek assistance by participating in discussions on our
-GitHub repository pages. Simply leave your queries or comments on the relevant discussion
-page pertaining to your project. For instance, if you're working on Homelab-Alpha
-Shell-Script repositories, head to the corresponding discussion page for assistance.
-If you encounter any issues with the documentation, feel free to utilize the discussion
-page specific to Homelab-Alpha Docs.
+**Is there a community forum or discussion board available?**\
+While we don't have a dedicated forum on our website yet, you can engage with others
+on our GitHub repository pages. Leave your queries or comments on the relevant discussion
+page for your project. For example, if you're working on the Shell-Script repositories,
+head to the corresponding discussion page for assistance. If you encounter any issues
+with the documentation, use the discussion page specific to Homelab-Alpha Docs.
+
+<br />
+
+---
 
 <br />
 
 ## Miscellaneous
 
-**Q: Can I share content from Homelab-Alpha.nl on social media?**\
-**A:** Absolutely! Feel free to share any content you find interesting or valuable
-on your social media profiles. Sharing is caring!
+**Can I share content from Homelab-Alpha.nl on social media?**\
+Absolutely! Feel free to share any content you find interesting or valuable on your
+social media profiles. Sharing is caring!
 
-**Q: How often is the website updated?**\
-**A:** The website is regularly updated with new content, tutorials, and documentation.
-Be sure to check back frequently for the latest updates.
+**How often is the website updated?**\
+The website is regularly updated with new content, tutorials, and documentation.
+It's a good idea to check back frequently to stay up-to-date with the latest information
+and projects.
