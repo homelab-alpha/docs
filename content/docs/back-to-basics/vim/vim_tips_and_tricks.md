@@ -44,10 +44,6 @@ katex: true
 
 <br />
 
-{{% alert context="warning" text="**Caution**  - This documentation is in progress" /%}}
-
-<br />
-
 ## Master the Basics
 
 Invest time in learning essential commands for navigation, editing, and file
