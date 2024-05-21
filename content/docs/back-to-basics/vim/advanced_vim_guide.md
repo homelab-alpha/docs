@@ -45,12 +45,6 @@ katex: true
 
 <br />
 
-{{% alert context="warning" %}}
-**Caution** - This documentation is in progress
-{{% /alert %}}
-
-<br />
-
 ## Mastering Vim
 
 Vim, a highly customizable text editor, offers a plethora of advanced features
