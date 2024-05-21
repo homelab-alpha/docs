@@ -44,12 +44,6 @@ katex: true
 
 <br />
 
-{{% alert context="warning" %}}
-**Caution** - This documentation is in progress
-{{% /alert %}}
-
-<br />
-
 ## Markdown Syntax
 
 <br />
