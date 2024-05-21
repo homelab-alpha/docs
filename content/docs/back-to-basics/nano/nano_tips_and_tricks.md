@@ -45,12 +45,6 @@ katex: true
 
 <br />
 
-{{% alert context="warning" %}}
-**Caution** - This documentation is in progress
-{{% /alert %}}
-
-<br />
-
 ## Persistent Undo
 
 Enable Nano's persistent undo feature to undo changes even after saving and
