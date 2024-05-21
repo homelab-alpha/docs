@@ -37,10 +37,6 @@ katex: true
 
 <br />
 
-{{% alert context="warning" %}}
-**Caution** - This documentation is in progress
-{{% /alert %}}
-
 {{% alert context="primary" %}}
 ChatGPT has contributed to this
 document. Therefore, it's advisable to treat the information here with caution
