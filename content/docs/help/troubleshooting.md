@@ -171,7 +171,7 @@ For more complex issues, you might need to delve deeper:
 - **Safe Mode**: Boot your system in safe mode to troubleshoot without
   third-party interference.
 - **Event Logs**: Check system event logs for detailed error information.
-- **Command Line**: Use command-line tools for advanced diagnostics and repairs.
+- **Command-Line**: Use command-line tools for advanced diagnostics and repairs.
 
 <br />
 
