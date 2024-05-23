@@ -33,6 +33,10 @@ katex: true
 
 <br />
 
+![Eat Sleep Code Repeat](images/eat_sleep_code_repeat.png)
+
+<br />
+
 ## Homelab-Alpha
 
 Welcome to the Homelab-Alpha User Manual. This guide will show you how to
