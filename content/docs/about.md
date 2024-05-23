@@ -33,7 +33,7 @@ katex: true
 
 <br />
 
-![Eat Sleep Code Repeat](images/eat_sleep_code_repeat.png)
+![Eat Sleep Code Repeat](images/eat_sleep_code_repeat.webp)
 
 <br />
 
