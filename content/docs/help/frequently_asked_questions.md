@@ -54,10 +54,6 @@ technologies and helping others make the most of their home labs.
 
 <br />
 
----
-
-<br />
-
 ## Website Usage
 
 **How do I navigate the website?**\
@@ -68,10 +64,6 @@ designed to be user-friendly and intuitive.
 **Is the website mobile-friendly?**\
 Yes, Homelab-Alpha.nl is optimized for mobile devices. Whether you're using a smartphone
 or a tablet, you can enjoy a seamless browsing experience.
-
-<br />
-
----
 
 <br />
 
@@ -94,10 +86,6 @@ Sharing your knowledge helps everyone in the community.
 
 <br />
 
----
-
-<br />
-
 ## Support
 
 **How can I receive assistance for a specific project or issue?**\
@@ -110,10 +98,6 @@ on our GitHub repository pages. Leave your queries or comments on the relevant d
 page for your project. For example, if you're working on the Shell-Script repositories,
 head to the corresponding discussion page for assistance. If you encounter any issues
 with the documentation, use the discussion page specific to Homelab-Alpha Docs.
-
-<br />
-
----
 
 <br />
 
