@@ -47,7 +47,7 @@ katex: true
 
 <br />
 
-## Code Style and Standards Guides
+## Introduction
 
 Coding standards serve as the guiding principles for creating high-quality
 source code in any project. They encompass a set of guidelines, best practices,
