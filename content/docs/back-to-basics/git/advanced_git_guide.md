@@ -45,10 +45,8 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this
-document. Therefore, it's advisable to treat the information here with caution
-and verify it if necessary.
-{{% /alert %}}
+ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 

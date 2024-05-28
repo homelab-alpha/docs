@@ -94,7 +94,7 @@ occurrence.
 
 ## Other Useful Commands
 
-Use `Ctrl + G` displays the help menu with all available commands. Use\
+Use `Ctrl + G` displays the help menu with all available commands. Use
 `Ctrl + C` shows the current cursor position. Use `Ctrl + \_` (underscore)
 enables or disables soft wrapping of long lines.
 
@@ -102,6 +102,6 @@ enables or disables soft wrapping of long lines.
 
 ## Customization
 
-Nano can be customized by creating or modifying a configuration file called\
+Nano can be customized by creating or modifying a configuration file called
 `.nanorc` in your home directory. You can adjust settings like syntax
 highlighting, key bindings, and more.

@@ -42,12 +42,10 @@ katex: true
 <br />
 
 {{% alert context="warning" %}}
-**Caution** - This documentation is in progress
-{{% /alert %}}
+**Caution** - This documentation is in progress {{% /alert %}}
 
 {{% alert context="primary" %}}
-[Official: Documentation for write hosts blocklists]
-{{% /alert %}}
+[Official: Documentation for write hosts blocklists] {{% /alert %}}
 
 <br />
 
@@ -59,13 +57,13 @@ There are three different approaches to writing hosts blocklists:
   filtering rules based on using a subset of the Adblock-style rule syntax. This
   way blocklists are compatible with browser ad blockers.
 
-- [`/etc/hosts` syntax](#hosts-style-syntax): the old, tried-and-true approach that uses
-  the same syntax that operating systems do for their hosts files.
+- [`/etc/hosts` syntax](#hosts-style-syntax): the old, tried-and-true approach
+  that uses the same syntax that operating systems do for their hosts files.
 
 - [Domains-only syntax](#domains-only-syntax): a simple list of domain names.
 
 If you are creating a blocklist for AdGuard Home, we recommend using the
-[Adblock-style syntax](#adblock-style-syntax).\
+[Adblock-style syntax](#adblock-style-syntax).
 It has a couple of important advantages over the old-style syntax:
 
 - **Blocklists size.** Using pattern matching allows you to have a single rule
@@ -173,8 +171,7 @@ pattern = "/" regexp "/"
 - `@@/example.*/$important` will unblock hosts matching the `example.*` regexp.
 
 {{% alert context="primary" %}}
-Note that this rule also implies the `important` modifier.
-{{% /alert %}}
+Note that this rule also implies the `important` modifier.{{% /alert %}}
 
 <br />
 
@@ -198,10 +195,9 @@ located at the end of the rule after the `$` character and be separated by
 commas.
 
 {{% alert context="primary" %}}
-Modifiers don't work with `/etc/hosts`-style rules.
-For example, `127.0.0.1 example.org$badfilter` will **not** disable the original\
- `127.0.0.1 example.org` rule for example:
-{{% /alert %}}
+Modifiers don't work with `/etc/hosts`-style rules. For example,
+`127.0.0.1 example.org$badfilter` will **not** disable the original
+`127.0.0.1 example.org` rule for example: {{% /alert %}}
 
 - ```adblock
     ||example.org^$important
@@ -227,8 +223,7 @@ For example, `127.0.0.1 example.org$badfilter` will **not** disable the original
 If a rule contains a modifier not listed in this document, the whole
 rule **must be ignored**. This way we avoid false-positives when people are
 trying to use unmodified browser ad blockers' filter lists like EasyList or
-EasyPrivacy.
-{{% /alert %}}
+EasyPrivacy. {{% /alert %}}
 
 <br />
 
@@ -245,9 +240,7 @@ are two main ways to identify a client:
 {{% alert context="primary" %}}
 ClientIDs are not currently supported, only names are. If you have added a
 client with the name “My Client” and ClientID `my-client`, spell your modifier
-as\
-`$client='My Client'` as opposed to `$client=my-client`.
-{{% /alert %}}
+as `$client='My Client'` as opposed to `$client=my-client`. {{% /alert %}}
 
 The syntax is:
 
@@ -375,8 +368,7 @@ Before version **v0.108.0,** AdGuard Home would use the type of the request to
 filter the response records, as opposed to the type of the response record
 itself. That caused issues, since that meant that you could not write rules that
 would allow certain `CNAME` records in responses in `A` and `AAAA` requests. In
-**v0.108.0** that behaviour was changed, so now this:
-{{% /alert %}}
+**v0.108.0** that behaviour was changed, so now this: {{% /alert %}}
 
 ```adblock
 ||canon.example.com^$dnstype=~CNAME
@@ -524,8 +516,7 @@ a final dot, but since **v0.106.0** both forms are accepted. See [RFC 1035].
   `example.org`.
 
 {{% alert context="primary" %}}
-This is available since **v0.107.3**.
-{{% /alert %}}
+This is available since **v0.107.3**. {{% /alert %}}
 
 Exception rules remove one or all rules for example:
 

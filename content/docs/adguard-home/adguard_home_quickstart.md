@@ -54,9 +54,9 @@ terminal:
 curl -s -S -L https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -v
 ```
 
-This command will download the installation script and execute it. The
-flags are used to ensure a `-s` silent, `-S` show errors, and `-L` follow
-redirects respectively. The `-v` flag is optional and stands for verbose output.
+This command will download the installation script and execute it. The flags are
+used to ensure a `-s` silent, `-S` show errors, and `-L` follow redirects
+respectively. The `-v` flag is optional and stands for verbose output.
 
 <br />
 
@@ -69,8 +69,7 @@ wget --no-verbose -O - https://raw.githubusercontent.com/AdguardTeam/AdGuardHome
 ```
 
 Similar to `curl`, this command downloads the script and executes it. The\
-`--no-verbose` flag ensures minimal output, while `-O` redirects the output to
-stdout.
+`--no-verbose` flag ensures minimal output, while `-O` redirects the output to stdout.
 
 <br />
 
@@ -104,8 +103,7 @@ The installation script provides several options:
 
 {{% alert context="warning" %}}
 Please note that the `-r` and `-u` options cannot be used simultaneously as they
-are mutually exclusive.
-{{% /alert %}}
+are mutually exclusive. {{% /alert %}}
 
 <br />
 

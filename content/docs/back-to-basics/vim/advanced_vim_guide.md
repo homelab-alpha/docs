@@ -101,14 +101,14 @@ autocommands in `.vimrc`.
 
 ## Vim Sessions
 
-Save and restore editing sessions with `:mksession [session-file]` and\
+Save and restore editing sessions with `:mksession [session-file]` and
 `:source [session-file]`.
 
 <br />
 
 ## Remote Editing
 
-Edit files over SSH or remote protocols with\
+Edit files over SSH or remote protocols with
 `vim scp://user@host//path/to/file`.
 
 <br />

@@ -40,8 +40,7 @@ katex: true
 ## Fedora
 
 {{% alert context="primary" %}}
-[Official Docker documentation for Fedora]
-{{% /alert %}}
+[Official Docker documentation for Fedora] {{% /alert %}}
 
 ### Set up the DNF repository
 
@@ -151,8 +150,7 @@ sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/dock
 ## Ubuntu
 
 {{% alert context="primary" %}}
-[Official Docker documentation for Ubuntu]
-{{% /alert %}}
+[Official Docker documentation for Ubuntu] {{% /alert %}}
 
 ### Set up the APT repository
 
@@ -180,8 +178,7 @@ sudo apt-get update
 
 {{% alert context="primary" %}}
 If you use an Ubuntu derivative distro, such as Linux Mint, you may need to use
-**UBUNTU_CODENAME** instead of **VERSION_CODENAME**.
-{{% /alert %}}
+**UBUNTU_CODENAME** instead of **VERSION_CODENAME**. {{% /alert %}}
 
 <br />
 

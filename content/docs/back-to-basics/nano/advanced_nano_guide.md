@@ -51,9 +51,9 @@ katex: true
 
 <br />
 
-Nano allows simultaneous editing of multiple buffers. Use\
-`nano -O file1.txt file2.txt` to open multiple files. Navigate between buffers using\
-`Alt + <` and `Alt + >`.
+Nano allows simultaneous editing of multiple buffers. Use
+`nano -O file1.txt file2.txt` to open multiple files. Navigate between buffers
+using `Alt + <` and `Alt + >`.
 
 <br />
 

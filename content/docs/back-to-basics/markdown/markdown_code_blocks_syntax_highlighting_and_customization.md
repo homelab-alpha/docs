@@ -210,8 +210,7 @@ Output:
 ## prism shortcode - `go`
 
 {{% alert context="danger" %}}
-This only applies to Homelab-Alpha website
-{{% /alert %}}
+This only applies to Homelab-Alpha website {{% /alert %}}
 
 Syntax:
 
@@ -300,8 +299,7 @@ return c.Redirect(http.StatusSeeOther, s.URL) } {{< /prism >}}
 ## prism shortcode - `JavaScript`
 
 {{% alert context="danger" %}}
-This only applies to Homelab-Alpha website
-{{% /alert %}}
+This only applies to Homelab-Alpha website {{% /alert %}}
 
 Syntax:
 

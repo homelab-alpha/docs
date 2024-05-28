@@ -101,16 +101,16 @@ and YouCompleteMe for code completion.
 ## Master Regular Expressions
 
 Harness the power of regular expressions for advanced text manipulation tasks.
-Vim supports regular expression patterns in search (`/`) and substitution\
+Vim supports regular expression patterns in search (`/`) and substitution
 (`:%s/old/new/g`) commands.
 
 <br />
 
 ## Embrace Split Windows and Tabs
 
-Work efficiently with multiple files by utilizing Vim's split windows\
-(`:split` or `:vsplit`) and tabs (`:tabnew`). Experiment with different layouts
-to find your optimal workflow.
+Work efficiently with multiple files by utilizing Vim's split windows
+(`:split` or `:vsplit`) and tabs (`:tabnew`). Experiment with different layouts to
+find your optimal workflow.
 
 <br />
 

@@ -159,18 +159,16 @@ services:
 
 ## FAQs
 
-1. **What's the difference between Docker and Docker Compose?**
+**What's the difference between Docker and Docker Compose?**\
+Docker is a platform for running containers, while Docker Compose is a tool for defining
+and running multi-container Docker applications.
 
-   - Docker is a platform for running containers, while Docker Compose is a tool
-     for defining and running multi-container Docker applications.
+**Can I use Docker on Windows and macOS?**\
+Yes, Docker Desktop provides support for both Windows, macOS and Linux.
 
-2. **Can I use Docker on Windows and macOS?**
-
-   - Yes, Docker Desktop provides support for both Windows, macOS and Linux.
-
-3. **How can I create my own Docker image?**
-   - You can create your own Docker image by writing a Dockerfile that defines
-     your application's configuration and dependencies.
+**How can I create my own Docker image?**\
+You can create your own Docker image by writing a Dockerfile that defines your application's
+configuration and dependencies.
 
 <br />
 
@@ -200,7 +198,6 @@ the [license] agreement.
 
 [Docker]: https://www.docker.com
 [Docker Compose]: https://docs.docker.com/compose
-[Docker site]: https://docs.docker.com/get-docker
 [Docker Documentation]: https://docs.docker.com
 [Docker Compose Documentation]: https://docs.docker.com/compose
 [contribute]: docs/../../contributing/code_of_conduct.md

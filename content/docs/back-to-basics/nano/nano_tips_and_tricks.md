@@ -82,9 +82,8 @@ adding `set positionlog` to your `.nanorc`.
 
 ## Clipboard Integration
 
-Copy and paste text between Nano and other applications using\
-`Ctrl + Shift + 6` to copy selected text and `Ctrl + Shift + U` to paste from
-the clipboard.
+Copy and paste text between Nano and other applications using `Ctrl + Shift + 6`
+to copy selected text and `Ctrl + Shift + U` to paste from the clipboard.
 
 <br />
 
@@ -98,7 +97,8 @@ expression search and replace.
 
 ## Marking Text Blocks
 
-Mark text blocks with `Alt + A` for copying or cutting. Use `Alt + 6` to copy or\
+Mark text blocks with `Alt + A` for copying or cutting. Use `Alt + 6` to copy
+or\
 `Alt + K` to cut the marked text.
 
 <br />
@@ -119,7 +119,7 @@ to your `.nanorc`.
 
 ## External Syntax Highlighting Files
 
-Support additional languages with external syntax highlighting files placed in\
+Support additional languages with external syntax highlighting files placed in
 `/usr/share/nano` and included in your `.nanorc`.
 
 <br />

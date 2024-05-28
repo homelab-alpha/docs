@@ -46,9 +46,9 @@ ensuring data integrity.
 ## Self-signed certificates
 
 {{% alert context="primary" %}}
-The scripts has been upgraded to full Elliptic Curve P-384 (secp384r1)
-for Trusted-ID, Root CA, Sub CA and all Certs scripts. If there are any issues
-with any certificate or script [Please let me know], I thank you in advance.
+The scripts has been upgraded to full Elliptic Curve P-384 (secp384r1) for
+Trusted-ID, Root CA, Sub CA and all Certs scripts. If there are any issues with
+any certificate or script [Please let me know], Ithank you in advance.
 {{% /alert %}}
 
 This repository provides scripts and configuration files for generating and

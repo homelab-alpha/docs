@@ -45,9 +45,9 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-Not all projects under Homelab-Alpha are open to
-external contributions. Below is a list of projects for which **no external
-contributions** are requested or accepted:
+Not all projects under Homelab-Alpha are open to external contributions.
+Below is a list of projects for which **no external contributions** are
+requested or accepted:
 
 - Homelab-Alpha - AdGuard Home
 - Homelab-Alpha - Dotfiles

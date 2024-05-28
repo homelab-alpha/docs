@@ -115,7 +115,7 @@ purposes.
 
 By understanding these different types of TLDs, you can make a more informed
 decision when selecting a domain name that aligns with your needs and
-objectives. For the most up-to-date information, always refer to the
-[IANA Root Zone Database].
+objectives. For the most up-to-date information, always refer to the [IANA Root
+Zone Database].
 
 [IANA Root Zone Database]: https://www.iana.org/domains/root/db

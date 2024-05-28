@@ -38,8 +38,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-Please note that the Linux shell is case-sensitive.
-{{% /alert %}}
+Please note that the Linux shell is case-sensitive. {{% /alert %}}
 
 <br />
 
@@ -207,8 +206,7 @@ rmdir emptydir
 Delete directories and their contents using `rm`.
 
 {{% alert context="warning" %}}
-Be careful: this action is irreversible.
-{{% /alert %}}
+Be careful: this action is irreversible. {{% /alert %}}
 
 ```bash
 rm filename.ext
