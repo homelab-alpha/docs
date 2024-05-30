@@ -206,7 +206,7 @@ check_key_file_existence() {
 
 <br />
 
-#### Command Line Options Parsing
+#### Command-Line Options Parsing
 
 - **parse_command_line_options()**: This function parses the command-line
   options (`-v` for verbose mode and `-d` for specifying the GPG directory). It
@@ -278,7 +278,7 @@ check_required_software
 verbose=false
 ```
 
-5. **Parse Command Line Options**: Parses any provided command-line options.
+5. **Parse Command-Line Options**: Parses any provided command-line options.
 
 ```bash
 parse_command_line_options "$@"
