@@ -315,7 +315,7 @@ Here's a detailed explanation:
    check_required_software
    ```
 
-2. **Initialize Options**: Parses command line options for verbose mode and
+2. **Initialize Options**: Parses command-line options for verbose mode and
    custom SSH directory.
 
    ```sh
