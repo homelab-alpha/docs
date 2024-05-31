@@ -75,7 +75,7 @@ Here's a detailed explanation:
 ## Detailed Explanation
 
 The script provides functions to run the Super Linter Docker container with
-different options, processes command line arguments, and presents a menu for the
+different options, processes command-line arguments, and presents a menu for the
 user to choose which linting mode to run.
 
 <br />
@@ -136,7 +136,7 @@ to `/tmp/lint/file`.
 
 <br />
 
-### Processing Command Line Options
+### Processing Command-Line Options
 
 ```bash
 while [[ "$#" -gt 0 ]]; do
@@ -153,7 +153,7 @@ while [[ "$#" -gt 0 ]]; do
 done
 ```
 
-The script processes command line arguments to check if the debug mode should be
+The script processes command-line arguments to check if the debug mode should be
 enabled (`-d` or `--debug`). If an unknown parameter is provided, it prints an
 error message and exits.
 
