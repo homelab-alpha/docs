@@ -2,11 +2,16 @@
 version: 2
 updates:
   - package-ecosystem: "github-actions"
+    target-branch: "main"
     directory: "/.github/workflows"
     schedule:
       interval: "daily"
       time: "02:00"
       timezone: "Europe/Amsterdam"
+    update-types:
+      - "version-update:semver-patch"
+      - "version-update:semver-minor"
+      - "version-update:semver-major"
     commit-message:
       prefix: "dependabot"
     labels:
