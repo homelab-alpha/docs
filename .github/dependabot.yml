@@ -9,9 +9,9 @@ updates:
       time: "02:00"
       timezone: "Europe/Amsterdam"
     update-types:
-      - "version-update:semver-patch"
-      - "version-update:semver-minor"
-      - "version-update:semver-major"
+      - "patch"
+      - "minor"
+      - "major"
     commit-message:
       prefix: "dependabot"
     labels:
