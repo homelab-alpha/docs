@@ -8,10 +8,6 @@ updates:
       interval: "daily"
       time: "02:00"
       timezone: "Europe/Amsterdam"
-    update-types:
-      - "patch"
-      - "minor"
-      - "major"
     commit-message:
       prefix: "dependabot"
     labels:
