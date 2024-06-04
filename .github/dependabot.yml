@@ -3,7 +3,7 @@ version: 2
 updates:
   - package-ecosystem: "github-actions"
     target-branch: "main"
-    directory: "/.github/workflows"
+    directory: "/"
     schedule:
       interval: "daily"
       time: "02:00"
@@ -13,3 +13,17 @@ updates:
     labels:
       - "auto-merge"
       - "dependencies"
+    open-pull-requests-limit: 5
+
+  - package-ecosystem: "gomod"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "02:00"
+      timezone: "Europe/Amsterdam"
+    commit-message:
+      prefix: "dependabot"
+    labels:
+      - "auto-merge"
+      - "dependencies"
+    open-pull-requests-limit: 5
