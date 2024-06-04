@@ -13,6 +13,7 @@ updates:
     labels:
       - "auto-merge"
       - "dependencies"
+      - "github-actions"
     open-pull-requests-limit: 5
 
   - package-ecosystem: "gomod"
@@ -26,4 +27,5 @@ updates:
     labels:
       - "auto-merge"
       - "dependencies"
+      - "go-mod"
     open-pull-requests-limit: 5
