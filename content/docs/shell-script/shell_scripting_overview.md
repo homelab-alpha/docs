@@ -73,7 +73,7 @@ Replace `script_name.sh` with the name of the script you want to run.
 
 <br />
 
-## Homelab-Alpha Scripts
+## Homelab-Alpha Shell Scripts
 
 Here's a brief overview of the scripts available in Homelab-Alpha Shell Script
 repository:
@@ -240,7 +240,7 @@ and organizes them into system and normal user categories.\
 
 <br />
 
-## Homelab-Alpha Functions
+## Homelab-Alpha Function Scripts
 
 Here's a brief overview of the function scripts available in Homelab-Alpha Shell
 Script repository:
@@ -337,6 +337,30 @@ specified number of directory levels in the file system. To use it, execute the
 script in a terminal and provide the number of levels to move up.\
 **Detailed Explanation:** [up.info]\
 **RAW Script:** [up.sh]
+
+<br />
+
+## Homelab-Alpha Other Scripts
+
+Here's a brief overview of scripts that are available in other Homelab-Alpha
+repositories:
+
+### dotfiles_installer.sh
+
+**Description:** The script provides a function to install and uninstall
+dotfiles, including creating backups and restoring them if necessary.\
+**Detailed Explanation:** [dotfiles_installer.info]\
+**RAW Script:** [dotfiles_installer.sh]
+
+<br />
+
+### openssl_installer.sh
+
+**Description:** This script adds specified content to the ~/.bashrc file,
+avoiding duplication. It checks if ~/.bashrc exists and appends the content to
+the end if it doesn't already exist..\
+**Detailed Explanation:** [openssl_installer.info]\
+**RAW Script:** [openssl_installer.sh]
 
 <br />
 
@@ -471,6 +495,12 @@ the [license] agreement.
 [up.info]: docs/../../shell-script/function-Information/up.info.md
 [up.sh]:
   https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/up.sh
+[dotfiles_installer.info]: docs/../../dotfiles/dotfiles_install.info.md
+[dotfiles_installer.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/dotfiles/main/dotfiles_installer.sh
+[openssl_installer.info]: docs/../../openssl/openssl_installer.info.md
+[openssl_installer.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/main/openssl_installer.sh
 [contribute]: docs/../../contributing/code_of_conduct.md
 [ShellCheck]: https://www.shellcheck.net/
 [Bash Scripting Guide]: https://www.tldp.org/LDP/abs/html/
