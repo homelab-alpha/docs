@@ -39,7 +39,7 @@ katex: true
 1. **Clone the Repository**: Clone the OpenSSL repository to your local machine:
 
    ```bash
-   git clone https://github.com/homelab-alpha/openssl.git && cd openssl && ./install.sh && cd && exec bash
+   git clone https://github.com/homelab-alpha/openssl.git && cd openssl && ./openssl_installer.sh && cd && exec bash
    ```
 
 2. **Create the OpenSSL Directories and Configuration Files**:
