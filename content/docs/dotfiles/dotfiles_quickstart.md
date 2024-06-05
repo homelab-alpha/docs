@@ -37,7 +37,7 @@ katex: true
 ## Quick install
 
 ```bash
-git clone https://github.com/homelab-alpha/dotfiles.git && cd dotfiles && echo 1 | ./install.sh
+git clone https://github.com/homelab-alpha/dotfiles.git && cd dotfiles && echo 1 | ./dotfiles_installer.sh
 ```
 
 <br />
@@ -72,7 +72,7 @@ cd $HOME/dotfiles
 Once you are in the `dotfiles` folder, run the installation script with:
 
 ```bash
-./install.sh
+./dotfiles_installer
 ```
 
 This script installs the dotfiles according to the specified configuration.
