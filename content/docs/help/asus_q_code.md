@@ -45,6 +45,8 @@ and fix the most frequent issues you might encounter.
 
 <br />
 
+## Q-Code
+
 | Q-CODE | Description                                                                   | Common | TYPE | Solution                 |
 | ------ | ----------------------------------------------------------------------------- | ------ | ---- | ------------------------ |
 | 00     | Not used                                                                      | YES    | 6    |                          |
@@ -182,6 +184,8 @@ and fix the most frequent issues you might encounter.
 | 0xAA   | System has transitioned into ACPI mode. Interrupt controller is in APIC mode. |        |      |                          |
 
 <br />
+
+## Problem type
 
 | TYPE | Problem                                                            |
 | ---- | ------------------------------------------------------------------ |
