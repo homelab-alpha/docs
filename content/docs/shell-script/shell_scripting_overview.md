@@ -73,10 +73,10 @@ Replace `script_name.sh` with the name of the script you want to run.
 
 <br />
 
-## Homelab-Alpha Shell Scripts
+## Shell Scripts
 
 Here's a brief overview of the scripts available in Homelab-Alpha Shell Script
-repository:
+repository. Feel free to explore each script documentation for more details.
 
 ### audio_converter.sh
 
@@ -240,7 +240,7 @@ and organizes them into system and normal user categories.\
 
 <br />
 
-## Homelab-Alpha Function Scripts
+## Function Scripts
 
 Here's a brief overview of the function scripts available in Homelab-Alpha Shell
 Script repository:
@@ -340,10 +340,12 @@ script in a terminal and provide the number of levels to move up.\
 
 <br />
 
-## Homelab-Alpha Other Scripts
+## Dotfiles Scripts
 
-Here's a brief overview of scripts that are available in other Homelab-Alpha
-repositories:
+Here's a brief overview of scripts that are available in Homelab-Alpha Dotfiles
+repositorie:
+
+<br />
 
 ### dotfiles_installer.sh
 
@@ -353,6 +355,11 @@ dotfiles, including creating backups and restoring them if necessary.\
 **RAW Script:** [dotfiles_installer.sh]
 
 <br />
+
+## OpenSSL Scripts
+
+Here's a brief overview of scripts that are available in Homelab-Alpha OpenSSl
+repositorie:
 
 ### openssl_installer.sh
 
@@ -364,8 +371,98 @@ the end if it doesn't already exist..\
 
 <br />
 
-Feel free to explore each script's documentation for detailed usage
-instructions.
+### openssl_setup.sh
+
+**Description:** Sets up SSL certificate management directories, generates
+random serial numbers, and creates OpenSSL configuration files.\
+**Detailed Explanation:** [openssl_setup.info]\
+**RAW Script:** [openssl_setup.sh]
+
+<br />
+
+### trusted-id.sh
+
+**Description:** This script generates and manages a trusted root certificate,
+including key generation, certificate creation, verification, and format
+conversion.\
+**Detailed Explanation:** [trusted-id.info]\
+**RAW Script:** [trusted-id.sh]
+
+<br />
+
+### root_ca.sh
+
+**Description:** This script sets up and manages a Root Certificate Authority,
+handling key generation, CSR creation, certificate issuance, and verification
+processes.\
+**Detailed Explanation:** [root_ca.info]\
+**RAW Script:** [root_ca.sh]
+
+<br />
+
+### ca.sh
+
+**Description:** This script manages an Intermediate Certificate Authority,
+handling key generation, CSR creation, certificate issuance, and verification
+processes.\
+**Detailed Explanation:** [ca.info]\
+**RAW Script:** [ca.sh]
+
+<br />
+
+### cert_ecdsa_localhost.sh
+
+**Description:** This script automates the generation of an ECDSA certificate
+for localhost, handling key generation, CSR creation, certificate issuance, and
+verification.\
+**Detailed Explanation:** [cert_ecdsa_localhost.info]\
+**RAW Script:** [cert_ecdsa_localhost.sh]
+
+<br />
+
+### cert_ecdsa_server.sh
+
+**Description:** This script automates the generation of an ECDSA server
+certificate, handling key generation, CSR creation, certificate issuance, and
+verification.\
+**Detailed Explanation:** [cert_ecdsa_server.info]\
+**RAW Script:** [cert_ecdsa_server.sh]
+
+<br />
+
+### cert_ecdsa_client.sh
+
+**Description:** This script automates the generation of an ECDSA client
+certificate, including key creation, CSR generation, certificate issuance, and
+verification.\
+**Detailed Explanation:** [cert_ecdsa_client.info]\
+**RAW Script:** [cert_ecdsa_client.sh] Feel free to explore each script's
+documentation for detailed usage instructions. **Description:** This script
+automates the process of creating and managing RSA certificates for server
+authentication, including key generation, CSR creation, certificate issuance,
+verification, and preparation of certificate chain bundles.\
+**Detailed Explanation:** [cert_rsa_server.info]\
+**RAW Script:** [cert_rsa_server.sh]
+
+<br />
+
+### cert_rsa_client.sh
+
+**Description:** Automates the process of creating and managing RSA client
+certificates, including key generation, CSR creation, certificate issuance,
+verification, and preparation of certificate chain bundles.\
+**Detailed Explanation:** [cert_rsa_client.info]\
+**RAW Script:** [cert_rsa_client.sh]
+
+<br />
+
+### openssl_verify_certificates.sh
+
+**Description:** This script verifies SSL/TLS certificates by checking them
+against their corresponding chain of trust. It includes options for verbose
+output for detailed verification processes.\
+**Detailed Explanation:** [openssl_verify_certificates.info]\
+**RAW Script:** [openssl_verify_certificates.sh]
 
 <br />
 
@@ -498,9 +595,47 @@ the [license] agreement.
 [dotfiles_installer.info]: docs/../../dotfiles/dotfiles_install.info.md
 [dotfiles_installer.sh]:
   https://raw.githubusercontent.com/homelab-alpha/dotfiles/main/dotfiles_installer.sh
-[openssl_installer.info]: docs/../../openssl/openssl_installer.info.md
+[openssl_installer.info]:
+  docs/../../openssl/script-information/openssl_installer.info.md
 [openssl_installer.sh]:
   https://raw.githubusercontent.com/homelab-alpha/openssl/main/openssl_installer.sh
+[openssl_setup.info]:
+  docs/../../openssl/script-information/openssl_setup.info.md
+[openssl_setup.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/main/openssl_setup.sh
+[trusted-id.info]: docs/../../openssl/script-information/trusted-id.info.md
+[trusted-id.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate-authority/trusted-id.sh
+[root_ca.info]: docs/../../openssl/script-information/root_ca.info.md
+[root_ca.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate-authority/root_ca.sh
+[ca.info]: docs/../../openssl/script-information/ca.info.md
+[ca.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/main/intermediate-certificate-authority/ca.sh
+[cert_ecdsa_localhost.info]:
+  docs/../../openssl/script-information/cert_ecdsa_localhost.info.md
+[cert_ecdsa_localhost.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate/cert_ecdsa_localhost.sh
+[cert_ecdsa_server.info]:
+  docs/../../openssl/script-information/cert_ecdsa_server.info.md
+[cert_ecdsa_server.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate/cert_ecdsa_server.sh
+[cert_ecdsa_client.info]:
+  docs/../../openssl/script-information/cert_ecdsa_client.info.md
+[cert_ecdsa_client.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate/cert_ecdsa_client.sh
+[cert_rsa_server.info]:
+  docs/../../openssl/script-information/cert_rsa_server.info.md
+[cert_rsa_server.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate/cert_rsa_server.sh
+[cert_rsa_client.info]:
+  docs/../../openssl/script-information/cert_rsa_client.info.md
+[cert_rsa_client.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate/cert_rsa_client.sh
+[openssl_verify_certificates.info]:
+  docs/../../openssl/script-information/openssl_verify_certificates.info.md
+[openssl_verify_certificates.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/main/openssl_verify_certificates.sh
 [contribute]: docs/../../contributing/code_of_conduct.md
 [ShellCheck]: https://www.shellcheck.net/
 [Bash Scripting Guide]: https://www.tldp.org/LDP/abs/html/
