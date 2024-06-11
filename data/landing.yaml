@@ -11,8 +11,8 @@ hero:
       mobile: "gradient_mobile.webp"
 
   badge:
-    text: "v0.1.2"
-    color: danger # primary, secondary, success, danger, warning, info, light, dark
+    text: "v0.1.3"
+    color: secondary # primary, secondary, success, danger, warning, info, light, dark
     pill: false
     soft: true
 
@@ -29,7 +29,7 @@ hero:
   ctaButton:
     icon: rocket_launch
     btnText: "Get Started"
-    url: "https://homelab-alpha.nl/notice"
+    url: "https://homelab-alpha.nl/docs"
   cta2Button:
     icon: construction
     btnText: "In Development"
