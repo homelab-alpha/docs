@@ -59,7 +59,7 @@ Here's a detailed explanation:
 
 ## Script Metadata
 
-- **Script Name**: `new_docker_container.sh`
+- **Filename**: `new_docker_container.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: May 18, 2024
 - **Version**: 1.0.1

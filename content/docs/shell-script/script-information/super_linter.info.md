@@ -59,7 +59,7 @@ Here's a detailed explanation:
 
 ## Script Metadata
 
-- **Script Name**: `super_linter.sh`
+- **Filename**: `super_linter.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: May 20, 2024
 - **Version**: 1.1.2

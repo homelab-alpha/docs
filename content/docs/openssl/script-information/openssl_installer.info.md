@@ -52,7 +52,7 @@ Here’s a detailed explanation:
 
 ## Script Metadata
 
-- **Script Name**: `openssl_installer.sh`
+- **Filename**: `openssl_installer.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: June 5, 2024
 - **Version**: 1.0.1

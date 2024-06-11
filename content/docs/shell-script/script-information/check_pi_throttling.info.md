@@ -55,7 +55,7 @@ Here's a detailed explanation:
 
 ## Script Metadata
 
-- **Script Name**: `check_pi_throttling.sh`
+- **Filename**: `check_pi_throttling.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: May 18, 2024
 - **Version**: 1.0

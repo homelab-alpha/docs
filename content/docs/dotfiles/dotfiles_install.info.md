@@ -60,7 +60,7 @@ Here's a detailed explanation:
 
 ## Script Metadata
 
-- **Script Name**: `dotfiles_installer.sh`
+- **Filename**: `dotfiles_installer.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: June 5, 2024
 - **Version**: 1.0.1

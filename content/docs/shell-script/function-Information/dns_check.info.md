@@ -60,7 +60,7 @@ Here's a detailed explanation:
 
 ## Script Metadata
 
-- **Script Name**: `dns_check.sh`
+- **Filename**: `dns_check.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: 2024-05-26
 - **Version**: 1.0.1

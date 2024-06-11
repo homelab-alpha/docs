@@ -63,7 +63,7 @@ Here's a detailed explanation:
 
 ## Script Metadata
 
-- **Script Name**: `check_system_info.sh`
+- **Filename**: `check_system_info.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: May 18, 2024
 - **Version**: 1.0.1

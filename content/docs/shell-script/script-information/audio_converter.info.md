@@ -61,7 +61,7 @@ Here's a detailed explanation:
 
 ## Script Metadata
 
-- **Script Name**: `audio_converter.sh`
+- **Filename**: `audio_converter.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: May 18, 2024
 - **Version**: 1.0.1

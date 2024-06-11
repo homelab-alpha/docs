@@ -64,7 +64,7 @@ Here’s a detailed explanation:
 
 ## Script Metadata
 
-- **Script Name**: `openssl_verify_certificates.sh`
+- **Filename**: `openssl_verify_certificates.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: June 9, 2024
 - **Version**: 1.0.1

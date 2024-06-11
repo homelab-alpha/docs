@@ -51,7 +51,7 @@ Here's a detailed explanation:
 
 ## Script Metadata
 
-- **Script Name**: `cronjob_template.sh`
+- **Filename**: `cronjob_template.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: May 18, 2024
 - **Version**: 1.0.1
@@ -68,7 +68,7 @@ Here's a detailed explanation:
 
 ### Script Header
 
-The header includes metadata such as the script name, author, date, version, and
+The header includes metadata such as the filename, author, date, version, and
 a brief description of its functionality.
 
 <br />

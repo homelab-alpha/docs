@@ -57,7 +57,7 @@ Here's a detailed explanation:
 
 ## Script Metadata
 
-- **Script Name**: `mvg.sh`
+- **Filename**: `mvg.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: May 26, 2024
 - **Version**: 1.0.1

@@ -60,7 +60,7 @@ Here’s a detailed explanation:
 
 ## Script Metadata
 
-- **Script Name**: `ca.sh`
+- **Filename**: `ca.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: June 9, 2024
 - **Version**: 1.0.1

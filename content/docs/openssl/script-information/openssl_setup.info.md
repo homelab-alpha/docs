@@ -58,7 +58,7 @@ Here's a detailed explanation:
 
 ## Script Metadata
 
-- **Script Name**: `openssl_setup.sh`
+- **Filename**: `openssl_setup.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: June 10, 2024
 - **Version**: 1.0.1

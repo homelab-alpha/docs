@@ -62,7 +62,7 @@ Here's a detailed explanation:
 
 ## Script Metadata
 
-- **Script Name**: `new_docker_compose_file.sh`
+- **Filename**: `new_docker_compose_file.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: May 18, 2024
 - **Version**: 1.0.1

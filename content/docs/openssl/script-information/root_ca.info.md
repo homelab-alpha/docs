@@ -54,7 +54,7 @@ Here’s a detailed explanation:
 
 ## Script Metadata
 
-- **Script Name**: `root_ca.sh`
+- **Filename**: `root_ca.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: June 9, 2024
 - **Version**: 1.0.1

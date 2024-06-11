@@ -58,7 +58,7 @@ Here's a detailed explanation:
 
 ## Script Metadata
 
-- **Script Name**: `gnome_keybindings_backup_restore.sh`
+- **Filename**: `gnome_keybindings_backup_restore.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: May 18, 2024
 - **Version**: 1.1.1

@@ -55,7 +55,7 @@ Here's a detailed explanation:
 
 ## Script Metadata
 
-- **Script Name**: `encrypt_and_decrypt.sh`
+- **Filename**: `encrypt_and_decrypt.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: May 26, 2024
 - **Version**: 1.0.1
