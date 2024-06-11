@@ -64,8 +64,6 @@ Here's a detailed explanation:
   service configurations to ensure Portainer runs smoothly and securely.
 - **RAW Compose File**: [docker-compose.yml]
 
-Here's a detailed explanation:
-
 <br />
 
 ## Detailed Explanation
