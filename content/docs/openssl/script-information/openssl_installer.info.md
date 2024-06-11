@@ -48,6 +48,8 @@ add specific configuration content to the `~/.bashrc` file without duplicating
 existing entries. This ensures that certain aliases or configurations are loaded
 from a separate file.
 
+Here’s a detailed explanation:
+
 ## Script Metadata
 
 - **Script Name**: `openssl_installer.sh`
