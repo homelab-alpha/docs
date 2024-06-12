@@ -1,8 +1,9 @@
 ---
 title: "portainer.info"
 description:
-  "Comprehensive guide to setting up Portainer using Docker Compose for
-  efficient Docker management."
+  "Deploy Portainer for managing Docker environments. It covers the
+  configuration of a custom Docker network and the Portainer service, ensuring
+  effective and secure operation."
 url: "docker/compose-info/portainer"
 aliases: ""
 icon: "code"
