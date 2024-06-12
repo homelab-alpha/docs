@@ -57,8 +57,8 @@ Here's a detailed explanation:
 ## Compose File Metadata
 
 - **Filename**: `docker-compose.yml`
-- **Author**: Not specified
-- **Date**: Not specified
+- **Author**: GJS (homelab-alpha)
+- **Date**: Jun 12, 2024
 - **Version**: 3.9
 - **Description**: This file configures a custom Docker network and a Watchtower
   service for automated container updates. It includes detailed network settings
