@@ -59,7 +59,6 @@ Here's a detailed explanation:
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 12, 2024
-- **Version**: 3.9
 - **Description**: This file configures a custom Docker network and a Netdata
   service to monitor and troubleshoot infrastructure. It includes detailed
   network settings and service configurations to ensure Netdata runs smoothly
@@ -67,6 +66,8 @@ Here's a detailed explanation:
 - **RAW Compose File**: [docker-compose.yml]
 
 <br />
+
+## Detailed Explanation
 
 ### Networks Configuration
 

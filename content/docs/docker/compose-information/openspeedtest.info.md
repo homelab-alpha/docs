@@ -60,7 +60,6 @@ Here's a detailed explanation:
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 13, 2024
-- **Version**: 3.9
 - **Description**: This file configures a custom Docker network and an
   OpenSpeedTest service, including detailed network settings and service
   configurations for reliable and secure operation.

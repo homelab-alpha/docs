@@ -59,7 +59,6 @@ Here's a detailed explanation:
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 11, 2024
-- **Version**: 3.9
 - **Description**: This file configures a custom Docker network and a Portainer
   service to manage Docker containers. It includes detailed network settings and
   service configurations to ensure Portainer runs smoothly and securely.
@@ -69,30 +68,7 @@ Here's a detailed explanation:
 
 ## Detailed Explanation
 
-### Overview
-
-This `docker-compose` file sets up a Docker environment with the following
-components:
-
-1. **Network Configuration**: Defines a custom bridge network for the containers
-   to communicate.
-2. **Portainer Service**: Deploys the Portainer container to manage Docker
-   environments through a web interface.
-
-<br />
-
-### Version
-
-```yaml
-version: "3.9"
-```
-
-- **version: "3.9"**: Specifies the version of the `docker-compose` file format.
-  Version 3.9 is a recent version that supports many advanced features.
-
-<br />
-
-### Networks
+### Networks Configuration
 
 ```yaml
 networks:
@@ -143,7 +119,7 @@ networks:
 
 <br />
 
-### Services
+### Services Configuration
 
 ```yaml
 services:

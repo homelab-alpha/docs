@@ -63,7 +63,6 @@ Here's a detailed explanation:
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 13, 2024
-- **Version**: 3.9
 - **Description**: This file configures a custom Docker network and a Xen
   Orchestra service. It includes detailed network settings and service
   configurations to ensure Xen Orchestra runs smoothly and securely.

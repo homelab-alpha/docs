@@ -59,13 +59,14 @@ Here's a detailed explanation:
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 12, 2024
-- **Version**: 3.9
 - **Description**: This file configures a custom Docker network and a Jellyfin
   service to manage and stream media. It includes detailed network settings and
   service configurations to ensure Jellyfin runs smoothly and securely.
 - **RAW Compose File**: [docker-compose.yml]
 
 <br />
+
+## Detailed Explanation
 
 ### Networks Configuration
 
