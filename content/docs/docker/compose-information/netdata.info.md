@@ -1,9 +1,9 @@
 ---
 title: "netdata.info"
 description:
-  "Deploy a Netdata instance for infrastructure monitoring and troubleshooting.
-  It details the configuration of a custom Docker network and the Netdata
-  service, ensuring effective and secure monitoring."
+  "Deploy Netdata instance for infrastructure monitoring and troubleshooting. It
+  details the configuration of a custom Docker network and the Netdata service,
+  ensuring effective and secure monitoring."
 url: "docker/compose-info/netdata"
 aliases: ""
 icon: "code"
