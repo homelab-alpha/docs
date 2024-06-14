@@ -1,7 +1,7 @@
 ---
 title: "xen-orchestra.info"
 description:
-  "Deploying Xen Orchestra, enabling efficient management of XCP-ng or XenServer
+  "Deploy Xen Orchestra, enabling efficient management of XCP-ng or XenServer
   infrastructure through Docker Compose. It covers network configurations,
   service settings, and security options to ensure smooth and secure operation."
 url: "docker/compose-info/xen-orchestra"
