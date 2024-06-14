@@ -1,9 +1,9 @@
 ---
 title: "openspeedtest.info"
 description:
-  "Deploying OpenSpeedTest, a network speed test server. It includes custom
-  Docker network settings, service configurations, and security measures to
-  ensure reliable and secure operation."
+  "Deploy OpenSpeedTest, a network speed test server. It includes custom Docker
+  network settings, service configurations, and security measures to ensure
+  reliable and secure operation."
 url: "docker/compose-info/openspeedtest"
 aliases: ""
 icon: "code"
