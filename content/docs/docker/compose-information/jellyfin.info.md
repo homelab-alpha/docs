@@ -1,7 +1,7 @@
 ---
 title: "jellyfin.info"
 description:
-  "Deploy a Jellyfin media server. It includes comprehensive instructions on
+  "Deploy Jellyfin media server. It includes comprehensive instructions on
   configuring a custom Docker network and Jellyfin service, ensuring smooth and
   secure media management and streaming."
 url: "docker/compose-info/jellyfin"
