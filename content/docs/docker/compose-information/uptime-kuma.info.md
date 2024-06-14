@@ -1,7 +1,7 @@
 ---
 title: "uptime-kuma.info"
 description:
-  "Deploy an Uptime Kuma instance for monitoring website uptime and alerting. It
+  "Deploy Uptime Kuma instance for monitoring website uptime and alerting. It
   covers the configuration of a custom Docker network and the Uptime Kuma
   service, ensuring effective and secure operation."
 url: "docker/compose-info/uptime-kuma"
@@ -45,6 +45,7 @@ katex: true
 {{% alert context="primary" %}}
 ChatGPT has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
+
 <br />
 
 Let's break down what this `docker-compose.yml` file does in detail. This file
