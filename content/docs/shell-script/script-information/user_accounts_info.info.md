@@ -79,11 +79,9 @@ and displays the information in a tabular format.
 
 <br />
 
-## Detailed Explanation
+## Functions
 
-### Functions
-
-#### `print_header()`
+### `print_header()`
 
 This function prints a formatted header for the output. It uses `echo` and
 `printf` to create a table-like header.
@@ -98,9 +96,9 @@ print_header() {
 
 <br />
 
-### Main Program
+## Main Program
 
-#### File Paths
+### File Paths
 
 The script defines the paths to the `login.defs` and `passwd` files.
 
@@ -111,7 +109,7 @@ passwd_file="/etc/passwd"
 
 <br />
 
-#### File Existence Check
+### File Existence Check
 
 It checks if the required files (`login.defs` and `passwd`) exist. If either
 file is missing, the script exits with an error message.
@@ -125,7 +123,7 @@ fi
 
 <br />
 
-#### Retrieve UID and GID Limits
+### Retrieve UID and GID Limits
 
 The script extracts the minimum and maximum UID and GID values from the
 `login.defs` file using `awk`.
@@ -139,7 +137,7 @@ max_gid=$(awk '/^GID_MAX/{print $2}' "$login_defs")
 
 <br />
 
-#### Check for `awk` Availability
+### Check for `awk` Availability
 
 It verifies if `awk` is available on the system. If not, the script exits with
 an error message.
@@ -153,7 +151,7 @@ fi
 
 <br />
 
-### Print System User Accounts
+## Print System User Accounts
 
 The script prints the header for system user accounts and then uses `awk` to
 process the `passwd` file. It filters out accounts that fall outside the range
@@ -175,7 +173,7 @@ awk -F':' -v "min_uid=$min_uid" -v "max_uid=$max_uid" -v "min_gid=$min_gid" -v "
 
 <br />
 
-### Print Normal User Accounts
+## Print Normal User Accounts
 
 Similarly, the script prints the header for normal user accounts and uses `awk`
 to process and display details for users within the specified UID and GID

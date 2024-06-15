@@ -50,9 +50,9 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's go through the `docker-compose.yml` file for setting up the NetBoot
-service, which enables you to boot into various operating systems or utility
-disks over a network.
+Let's break down what this `docker-compose.yml` file does in detail. This file
+is used to configure and deploy the NetBoot service using Docker Compose,
+enabling network booting of various operating systems and utility disks.
 
 Here's a detailed explanation:
 
@@ -67,9 +67,7 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
-### Networks Configuration
+## Networks Configuration
 
 ```yaml
 networks:
@@ -124,7 +122,7 @@ networks:
 
 <br />
 
-### Services Configuration
+## Services Configuration
 
 ```yaml
 services:

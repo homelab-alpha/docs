@@ -71,9 +71,7 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
-### Function Definition
+## Function Definition
 
 ```bash
 function targzip() {
@@ -100,7 +98,7 @@ The function `targzip` starts by defining several local variables:
 
 <br />
 
-### Create Tar Archive
+## Create Tar Archive
 
 ```bash
   tar --create --file="$tmpFile" --verify --verbose "$source" || return 1
@@ -119,7 +117,7 @@ If the tar command fails, the function returns 1, indicating an error.
 
 <br />
 
-### Determine File Size
+## Determine File Size
 
 ```bash
   local size
@@ -147,7 +145,7 @@ successful, it prints the size of the tar file.
 
 <br />
 
-### Compress Tar Archive
+## Compress Tar Archive
 
 ```bash
   local cmd="gzip"
@@ -168,7 +166,7 @@ If the compression succeeds, it deletes the original tar file.
 
 <br />
 
-### Verify Compressed File
+## Verify Compressed File
 
 ```bash
   echo ""
@@ -187,7 +185,7 @@ by the owner and readable by others (`chmod 644`).
 
 <br />
 
-### Call the Function
+## Call the Function
 
 ```bash
 targzip "$1"

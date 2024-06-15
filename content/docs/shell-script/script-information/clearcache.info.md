@@ -68,22 +68,20 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
 The script is designed to clear system caches, which is particularly useful for
 system administrators who want to ensure that their Linux systems run
 efficiently by freeing up unused memory.
 
 <br />
 
-### Logging Configuration
+## Logging Configuration
 
 - **Log Directory**: `$HOME/.bash_script`
 - **Log File**: `$log_dir/clearcache_cron.log`
 
 <br />
 
-### Logging Function
+## Logging Function
 
 `log_message()`: This function takes a message as an argument and logs it to the
 specified log file with a timestamp.
@@ -98,7 +96,7 @@ log_message() {
 
 <br />
 
-### Initial Logging
+## Initial Logging
 
 The script starts logging by adding a blank line and a start message to the log
 file.
@@ -111,7 +109,7 @@ log_message "INFO: Script execution started."
 
 <br />
 
-### Root User Check
+## Root User Check
 
 The script checks if it is being run as root or with sudo. If not, it logs an
 error message and exits.
@@ -126,7 +124,7 @@ fi
 
 <br />
 
-### Log Directory Creation
+## Log Directory Creation
 
 The script checks if the log directory exists. If not, it attempts to create it
 and logs the result.
@@ -144,7 +142,7 @@ fi
 
 <br />
 
-### Log File Creation
+## Log File Creation
 
 The script checks if the log file exists. If not, it attempts to create it and
 logs the result.
@@ -162,7 +160,7 @@ fi
 
 <br />
 
-### File System Synchronization
+## File System Synchronization
 
 The script synchronizes the file system to ensure all buffered modifications are
 written to disk.
@@ -173,7 +171,7 @@ sync
 
 <br />
 
-### Clearing Caches
+## Clearing Caches
 
 The script checks if the file `/proc/sys/vm/drop_caches` exists. If it does, it
 writes `1` to this file to clear the caches and logs the result.
@@ -191,7 +189,7 @@ fi
 
 <br />
 
-### Completion Logging
+## Completion Logging
 
 The script logs a success message indicating that it has completed successfully
 and ends the log.

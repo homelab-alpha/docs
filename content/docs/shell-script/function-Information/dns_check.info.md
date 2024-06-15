@@ -70,14 +70,12 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
 The script employs a function named `dns-checker()` to carry out the network
 checks. Let's dissect its components:
 
 <br />
 
-### ANSI Color Codes
+## ANSI Color Codes
 
 ```bash
 green="\e[32m"   # Green color code
@@ -90,7 +88,7 @@ formatting, enhancing the readability of log messages.
 
 <br />
 
-### Timestamp
+## Timestamp
 
 ```bash
 stamp="$(date +'[%b %d, %Y - %H%M%S]')" # Timestamp for log messages
@@ -101,7 +99,7 @@ chronological context for network events.
 
 <br />
 
-### Logging Function
+## Logging Function
 
 ```bash
 function log_message() {
@@ -115,7 +113,7 @@ provided messages and echoing them to the console.
 
 <br />
 
-### Ping Checking Function
+## Ping Checking Function
 
 ```bash
 function check_ping() {
@@ -133,7 +131,7 @@ single ping. It returns 0 if successful and 1 if unsuccessful.
 
 <br />
 
-### DNS Server Checks
+## DNS Server Checks
 
 The script checks the availability of primary and secondary local (internal) DNS
 servers, such as PiHole or AdGuard Home, as well as overall internet
@@ -153,7 +151,7 @@ determine if the problem lies with DNS failures or broader network issues.
 
 <br />
 
-### Network Interface Logging
+## Network Interface Logging
 
 ```bash
 ifconfig >>"DNS_failure_interface_${stamp}.txt"

@@ -64,12 +64,10 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
 The script defines a function named `health-check` that performs the URL
 availability check. Let's go through the script line by line.
 
-### Function Definition
+## Function Definition
 
 ```bash
 function health-check() {
@@ -84,7 +82,7 @@ success, red for failure, and resetting to default color).
 
 <br />
 
-### Checking for URL Argument
+## Checking for URL Argument
 
 ```bash
   if [ -z "$1" ]; then
@@ -99,7 +97,7 @@ of 1, indicating an error.
 
 <br />
 
-### URL and Protocols
+## URL and Protocols
 
 ```bash
   url="$1"
@@ -112,7 +110,7 @@ defined, containing the strings `"https"` and `"http"`.
 
 <br />
 
-### Loop Through Protocols
+## Loop Through Protocols
 
 ```bash
   for protocol in "${protocols[@]}"; do
@@ -139,7 +137,7 @@ indicating success.
 
 <br />
 
-### If Both Protocols Fail
+## If Both Protocols Fail
 
 ```bash
   echo -e "Both https://$url and http://$url are ${red}DOWN${end}"

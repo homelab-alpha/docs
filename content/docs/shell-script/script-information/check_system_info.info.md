@@ -75,8 +75,6 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
 ## Script Structure and Functions
 
 ### Print Section Separators

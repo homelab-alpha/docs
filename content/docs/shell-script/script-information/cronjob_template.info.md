@@ -60,20 +60,16 @@ Here's a detailed explanation:
 - **Usage**: The script should be executed with root privileges using `sudo`.
 - **RAW Script**: [cronjob_template.sh]
 
-## Script Structure and Components
-
 <br />
 
-## Detailed Explanation
-
-### Script Header
+## Script Header
 
 The header includes metadata such as the filename, author, date, version, and
 a brief description of its functionality.
 
 <br />
 
-### Usage Instructions
+## Usage Instructions
 
 The script provides usage instructions, emphasizing the need for `curl` to be
 installed and the script to be run with root privileges. It also includes an
@@ -82,7 +78,7 @@ intervals.
 
 <br />
 
-### Cron Job Example
+## Cron Job Example
 
 The script includes a template for setting up a cron job. This example runs the
 script every 3 hours from 07:00 to 23:00:
@@ -93,7 +89,7 @@ script every 3 hours from 07:00 to 23:00:
 
 <br />
 
-### Logging Functions
+## Logging Functions
 
 Several functions handle logging messages to a file:
 
@@ -104,7 +100,7 @@ Several functions handle logging messages to a file:
 
 <br />
 
-### Ping Function
+## Ping Function
 
 The function **`send_ping_to_monitor_server()`** handles sending a ping to the
 monitoring server:
@@ -119,7 +115,7 @@ monitoring server:
 
 The main part of the script handles:
 
-### Command-Line Options
+## Command-Line Options
 
 The script parses command-line options to enable verbose and debug logging:
 
@@ -144,7 +140,7 @@ done
 
 <br />
 
-### Log Directory and File Setup
+## Log Directory and File Setup
 
 The script sets up paths for the log directory and file:
 
@@ -155,7 +151,7 @@ log_file="$log_dir/cronjob_template_cron.log"
 
 <br />
 
-### Monitoring Server URL and Certificate
+## Monitoring Server URL and Certificate
 
 It sets up the monitoring server URL and the certificate name:
 
@@ -166,7 +162,7 @@ cert_name="<insert_cert.crt>"
 
 <br />
 
-### Root Privileges Check
+## Root Privileges Check
 
 The script checks if it is being run with root privileges:
 
@@ -179,7 +175,7 @@ fi
 
 <br />
 
-### Certificate File Path
+## Certificate File Path
 
 It determines the path to the certificate file based on the operating system:
 
@@ -196,7 +192,7 @@ fi
 
 <br />
 
-### Log Directory and File Creation
+## Log Directory and File Creation
 
 It ensures the log directory and file exist, creating them if necessary:
 
@@ -212,7 +208,7 @@ fi
 
 <br />
 
-### Sending the Ping
+## Sending the Ping
 
 Finally, the script sends a ping to the monitoring server and logs the result:
 

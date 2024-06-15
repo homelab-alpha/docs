@@ -50,9 +50,8 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's go over the `docker-compose.yml` file for setting up the Dockge service,
-which is a self-hosted Docker Compose stack with a fancy, easy-to-use, and
-reactive interface.
+Let's break down what this `docker-compose.yml` file does in detail for
+deploying Dockge, a user-friendly Docker Compose stack management interface.
 
 Here's a detailed explanation:
 
@@ -67,9 +66,7 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
-### Networks Configuration
+## Networks Configuration
 
 ```yaml
 networks:
@@ -124,7 +121,7 @@ networks:
 
 <br />
 
-### Services Configuration
+## Services Configuration
 
 ```yaml
 services:

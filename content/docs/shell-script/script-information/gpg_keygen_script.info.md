@@ -68,18 +68,16 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
-### Script Header
+## Script Header
 
 The script begins with metadata and usage instructions, providing a clear
 overview of its purpose, options, and examples of how to use it.
 
 <br />
 
-### Functions
+## Functions
 
-#### Color and Header Printing
+### Color and Header Printing
 
 - **print_cyan()**: This function prints text in cyan color, enhancing
   readability.
@@ -103,7 +101,7 @@ print_section_header() {
 
 <br />
 
-#### Verbose Information Display
+### Verbose Information Display
 
 - **display_verbose_info()**: If the verbose mode is enabled, this function
   lists the GPG keys in long format.
@@ -119,7 +117,7 @@ display_verbose_info() {
 
 <br />
 
-#### Logging
+### Logging
 
 - **log_message()**: This function logs messages with a timestamp to a specified
   log file. It ensures that all actions and errors are recorded.
@@ -136,7 +134,7 @@ log_message() {
 
 <br />
 
-#### Usage Instructions
+### Usage Instructions
 
 - **display_usage()**: This function displays usage instructions and exits the
   script. It is invoked when the user provides incorrect command-line options.
@@ -153,7 +151,7 @@ display_usage() {
 
 <br />
 
-#### Software Check
+### Software Check
 
 - **check_required_software()**: This function checks if GPG is installed. If
   not, it logs an error and exits the script.
@@ -171,7 +169,7 @@ check_required_software() {
 
 <br />
 
-#### Key Pair Generation
+### Key Pair Generation
 
 - **generate_key_pair()**: This function generates a new GPG key pair using
   `gpg --full-generate-key`. It logs the command and prints a section header.
@@ -187,7 +185,7 @@ generate_key_pair() {
 
 <br />
 
-#### Key File Existence Check
+### Key File Existence Check
 
 - **check_key_file_existence()**: This function checks if a GPG key pair already
   exists in the specified directory. If found, it logs a message and exits to
@@ -206,7 +204,7 @@ check_key_file_existence() {
 
 <br />
 
-#### Command-Line Options Parsing
+### Command-Line Options Parsing
 
 - **parse_command_line_options()**: This function parses the command-line
   options (`-v` for verbose mode and `-d` for specifying the GPG directory). It
@@ -235,7 +233,7 @@ parse_command_line_options() {
 
 <br />
 
-### Signal Trapping
+## Signal Trapping
 
 - **trap_handler**: This function is set to handle interrupt signals (like
   `SIGINT` and `SIGTERM`). It ensures that the script handles interruptions
@@ -247,7 +245,7 @@ trap trap_handler SIGINT SIGTERM
 
 <br />
 
-### Main Program Execution
+## Main Program Execution
 
 1. **Default Values**: Sets default values for the GPG directory and log file.
 

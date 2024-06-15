@@ -69,9 +69,7 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
-### Check for sudo Permissions
+## Check for sudo Permissions
 
 ```sh
 if [ "$EUID" -ne 0 ]; then
@@ -85,7 +83,7 @@ permissions for creating directories and files.
 
 <br />
 
-### Validate Existence of Required Commands
+## Validate Existence of Required Commands
 
 ```sh
 for cmd in mkdir touch chown; do
@@ -102,7 +100,7 @@ exit with an error message.
 
 <br />
 
-### Display Message Function
+## Display Message Function
 
 ```sh
 display_message() {
@@ -114,7 +112,7 @@ This function is used to display messages to the user in a formatted manner.
 
 <br />
 
-### Prompt for Docker Container Name
+## Prompt for Docker Container Name
 
 ```sh
 display_message "What is the name of the new Docker container:"
@@ -126,7 +124,7 @@ reads the input into the variable `container_name`.
 
 <br />
 
-### Validate Container Name
+## Validate Container Name
 
 ```sh
 if [[ ! "$container_name" =~ ^[a-zA-Z0-9_-]+$ ]]; then
@@ -140,7 +138,7 @@ underscores, and hyphens.
 
 <br />
 
-### Set Base Directory for Docker Containers
+## Set Base Directory for Docker Containers
 
 ```sh
 base_dir="${docker_base_dir:-/docker}"
@@ -153,7 +151,7 @@ container is constructed.
 
 <br />
 
-### Check if Directory Already Exists
+## Check if Directory Already Exists
 
 ```sh
 if [ -d "$dir_path" ]; then
@@ -167,7 +165,7 @@ it does, the script exits with a message.
 
 <br />
 
-### Create Required Directories
+## Create Required Directories
 
 ```sh
 declare -a directories=(
@@ -188,7 +186,7 @@ including directories for notes, production, and testing environments.
 
 <br />
 
-### Create Docker Startup Files
+## Create Docker Startup Files
 
 ```sh
 if ! touch "$dir_path/.dockerignore" "$dir_path/.env" "$dir_path/docker-compose.yml" "$dir_path/Dockerfile" "$dir_path/README.md"; then
@@ -202,7 +200,7 @@ directory.
 
 <br />
 
-### Add Content to `.dockerignore`
+## Add Content to `.dockerignore`
 
 ```sh
 cat <<EOL >"$dir_path/.dockerignore"
@@ -217,7 +215,7 @@ certain files from Docker builds.
 
 <br />
 
-### Add Content to `.env`
+## Add Content to `.env`
 
 ```sh
 cat <<EOL >"$dir_path/.env"
@@ -245,7 +243,7 @@ details, to the `.env` file.
 
 <br />
 
-### Add Content to `docker-compose.yml`
+## Add Content to `docker-compose.yml`
 
 ```sh
 cat <<EOL >"$dir_path/docker-compose.yml"
@@ -296,7 +294,7 @@ configuration for Docker services and networks.
 
 <br />
 
-### Add Content to `Dockerfile`
+## Add Content to `Dockerfile`
 
 ```sh
 cat <<EOL >"$dir_path/Dockerfile"
@@ -308,7 +306,7 @@ instructions.
 
 <br />
 
-### Add Content to `README.md`
+## Add Content to `README.md`
 
 ```sh
 cat <<EOL >"$dir_path/README.md"
@@ -357,7 +355,7 @@ and customization instructions.
 
 <br />
 
-### Completion Message
+## Completion Message
 
 ```sh
 display_message "Docker container directory structure created in $dir_path."

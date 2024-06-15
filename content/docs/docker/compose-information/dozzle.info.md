@@ -50,8 +50,8 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's dive into the `docker-compose.yml` file for setting up the Dozzle service,
-which provides a web-based interface to monitor Docker logs in real-time.
+Let's break down what this `docker-compose.yml` file does in detail for
+deploying Dozzle, a web-based interface for real-time Docker log monitoring.
 
 Here's a detailed explanation:
 
@@ -66,9 +66,7 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
-### Networks Configuration
+## Networks Configuration
 
 ```yaml
 networks:
@@ -123,7 +121,7 @@ networks:
 
 <br />
 
-### Services Configuration
+## Services Configuration
 
 ```yaml
 services:

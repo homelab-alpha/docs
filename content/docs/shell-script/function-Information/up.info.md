@@ -69,9 +69,7 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
-### Function Definition
+## Function Definition
 
 ```bash
 function up() {
@@ -86,7 +84,7 @@ provided. This determines how many directory levels to move up.
 
 <br />
 
-### Loop to Construct Path
+## Loop to Construct Path
 
 ```bash
   for ((i = 1; i <= levels; i++)); do
@@ -100,7 +98,7 @@ the desired number of directory levels.
 
 <br />
 
-### Handling Edge Cases
+## Handling Edge Cases
 
 ```bash
   if [ -z "$target" ]; then
@@ -113,7 +111,7 @@ ensures there's always a valid path to navigate.
 
 <br />
 
-### Change Directory Command
+## Change Directory Command
 
 ```bash
   cd "$target" || return 1 # Go to the target directory or return an error code if it fails
@@ -128,7 +126,7 @@ target directory doesn't exist), the function will return an error code `1`.
 
 ## Usage Examples
 
-### Move up one directory level
+## Move up one directory level
 
 ```bash
 up
@@ -138,7 +136,7 @@ This is equivalent to `cd ..`.
 
 <br />
 
-### Move up three directory levels
+## Move up three directory levels
 
 ```bash
 up 3

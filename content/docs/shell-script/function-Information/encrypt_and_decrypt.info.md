@@ -65,9 +65,7 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
-### Script Overview
+## Script Overview
 
 The script defines two main functions:
 
@@ -76,16 +74,16 @@ The script defines two main functions:
 
 <br />
 
-### Function: file-encrypt
+## Function: file-encrypt
 
-#### Purpose
+### Purpose
 
 The `file-encrypt` function encrypts files or directories using the AES-256
 encryption algorithm with OpenSSL.
 
 <br />
 
-#### Usage
+### Usage
 
 ```bash
 file-encrypt <input_file_or_directory>
@@ -95,7 +93,7 @@ file-encrypt <input_file_or_directory>
 
 <br />
 
-#### Code Breakdown
+### Code Breakdown
 
 ```bash
 function file-encrypt() {
@@ -142,16 +140,16 @@ function file-encrypt() {
 
 <br />
 
-### Function: file-decrypt
+## Function: file-decrypt
 
-#### Purpose
+### Purpose
 
 The `file-decrypt` function decrypts files or directories that were encrypted
 using the AES-256 encryption algorithm with OpenSSL.
 
 <br />
 
-#### Usage
+### Usage
 
 ```bash
 file-decrypt <input_file>
@@ -161,7 +159,7 @@ file-decrypt <input_file>
 
 <br />
 
-#### Code Breakdown
+### Code Breakdown
 
 ```bash
 function file-decrypt() {

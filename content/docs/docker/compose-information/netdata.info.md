@@ -49,8 +49,8 @@ information here with caution and verify it if necessary. {{% /alert %}}
 <br />
 
 Let's break down what this `docker-compose.yml` file does in detail. This file
-is used to configure and deploy services using Docker Compose, specifically
-setting up a Netdata instance for monitoring and troubleshooting infrastructure.
+is used to configure and deploy a Netdata instance for monitoring and
+troubleshooting infrastructure using Docker Compose.
 
 Here's a detailed explanation:
 
@@ -67,9 +67,7 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
-### Networks Configuration
+## Networks Configuration
 
 ```yaml
 networks:
@@ -124,7 +122,7 @@ networks:
 
 <br />
 
-### Services Configuration
+## Services Configuration
 
 ```yaml
 services:

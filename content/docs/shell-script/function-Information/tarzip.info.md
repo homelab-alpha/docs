@@ -73,12 +73,10 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
 The script is written in Bash and defines a single function called `tarzip`.
 Let's go through it step by step.
 
-### Function Definition and Input Validation
+## Function Definition and Input Validation
 
 ```bash
 function tarzip() {
@@ -105,7 +103,7 @@ error message and exits with a return code of 1.
 
 <br />
 
-### Generating a Timestamp and Filenames
+## Generating a Timestamp and Filenames
 
 ```bash
   local timestamp
@@ -124,7 +122,7 @@ zip filename by appending the timestamp to the input folder name.
 
 <br />
 
-### Creating the Tar Archive
+## Creating the Tar Archive
 
 ```bash
   echo "Creating .tar archive for $input_folder..."
@@ -137,7 +135,7 @@ specified filename (`--file="$tmp_file"`) and verbose output (`--verbose`).
 
 <br />
 
-### Checking the Tar File Size
+## Checking the Tar File Size
 
 ```bash
   local size
@@ -151,7 +149,7 @@ formats (`-c` and `-f`) for compatibility with different systems.
 
 <br />
 
-### Compressing the Tar Archive
+## Compressing the Tar Archive
 
 ```bash
   local cmd="zip"
@@ -180,7 +178,7 @@ formats (`-c` and `-f`) for compatibility with different systems.
 
 <br />
 
-### Verifying the Zip Archive
+## Verifying the Zip Archive
 
 ```bash
   echo ""
@@ -194,7 +192,7 @@ with verbose output (`--verbose`).
 
 <br />
 
-### Finalizing
+## Finalizing
 
 ```bash
   echo ""

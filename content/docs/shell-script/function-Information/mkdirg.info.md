@@ -67,9 +67,7 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
-### Function Definition
+## Function Definition
 
 The script defines a function `mkdirg`:
 
@@ -79,7 +77,7 @@ function mkdirg() {
 
 <br />
 
-### Argument Check
+## Argument Check
 
 The function first checks if exactly one argument is provided, which should be
 the name of the directory to create:
@@ -97,7 +95,7 @@ returns with a status of 1, indicating an error.
 
 <br />
 
-### Directory Name Storage
+## Directory Name Storage
 
 The provided directory name is stored in a local variable:
 
@@ -108,7 +106,7 @@ The provided directory name is stored in a local variable:
 
 <br />
 
-### Directory Existence Check
+## Directory Existence Check
 
 The script checks if the directory already exists:
 
@@ -124,7 +122,7 @@ If the directory exists, it prints a message and returns with a status of 1.
 
 <br />
 
-### Directory Creation and Navigation
+## Directory Creation and Navigation
 
 If the directory does not exist, it creates the directory and navigates into it:
 
@@ -141,7 +139,7 @@ script exits if the `cd` command fails.
 
 <br />
 
-### Script Metadata Checks and Updates
+## Script Metadata Checks and Updates
 
 The script includes a mechanism to check if certain comments are present and
 adds them if they are missing:
@@ -159,7 +157,7 @@ to insert them if they are not found.
 
 <br />
 
-### Displaying the Script
+## Displaying the Script
 
 Finally, the script prints its own contents:
 

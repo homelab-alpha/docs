@@ -74,9 +74,7 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
-### Function Declaration
+## Function Declaration
 
 ```bash
 # Function: ex
@@ -88,7 +86,7 @@ handling the extraction of different archive formats.
 
 <br />
 
-### File Existence Check
+## File Existence Check
 
 ```bash
   # Check if the input file exists
@@ -100,7 +98,7 @@ The function starts by checking if the input file (passed as the first argument
 
 <br />
 
-### Case Statement for File Type Detection
+## Case Statement for File Type Detection
 
 ```bash
     # Determine the file type and perform extraction accordingly
@@ -112,7 +110,7 @@ extension of the input file.
 
 <br />
 
-### Handling Different File Types
+## Handling Different File Types
 
 Each case within the `case` statement handles a specific file extension:
 
@@ -220,7 +218,7 @@ Each case within the `case` statement handles a specific file extension:
 
 <br />
 
-### Unsupported File Format
+## Unsupported File Format
 
 ```bash
     *) echo "$1 cannot be extracted/mounted via ex()" ;; # Unsupported file format
@@ -231,7 +229,7 @@ prints a message indicating that the file cannot be extracted.
 
 <br />
 
-### Non-Existent File Handling
+## Non-Existent File Handling
 
 ```bash
   else

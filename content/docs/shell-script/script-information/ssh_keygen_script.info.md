@@ -74,9 +74,7 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
-### Usage Instructions
+## Usage Instructions
 
 - **Usage**: `./ssh_keygen_script.sh [-v] [-d /path/to/ssh_directory]`
 - **Options**:
@@ -93,7 +91,7 @@ Here's a detailed explanation:
 
 <br />
 
-### Default Values and Configuration
+## Default Values and Configuration
 
 - **Default SSH Directory**: `$HOME/.ssh`
 - **Default File Extension for Converted Keys**: `ppk`
@@ -101,9 +99,9 @@ Here's a detailed explanation:
 
 <br />
 
-### Script Functions
+## Script Functions
 
-#### Utility Functions
+### Utility Functions
 
 1. **Print in Cyan Color**: The `print_cyan` function prints text in cyan color
    for better readability in the terminal.
@@ -158,7 +156,7 @@ Here's a detailed explanation:
 
 <br />
 
-#### Main Functionalities
+### Main Functionalities
 
 1. **Start Logging**: Initializes logging at the start of script execution.
 
@@ -307,7 +305,7 @@ Here's a detailed explanation:
 
 <br />
 
-#### Script Execution
+### Script Execution
 
 1. **Check Required Software**: Ensures necessary software is installed.
 

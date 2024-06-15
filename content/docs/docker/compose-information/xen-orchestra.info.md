@@ -70,9 +70,7 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
-### Networks Configuration
+## Networks Configuration
 
 ```yaml
 networks:
@@ -129,7 +127,7 @@ networks:
 
 <br />
 
-### Services Configuration
+## Services Configuration
 
 ```yaml
 services:

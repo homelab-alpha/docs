@@ -65,9 +65,7 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
-### Description
+## Description
 
 The script is designed to streamline the process of cleaning up a Git
 repository. It creates a new branch without the previous commit history, adds
@@ -77,7 +75,7 @@ can help in managing the repository more effectively.
 
 <br />
 
-### Create a New Branch Without History
+## Create a New Branch Without History
 
 ```sh
 git checkout --orphan cleaned-history
@@ -89,7 +87,7 @@ history.
 
 <br />
 
-### Add All Files to the Staging Area
+## Add All Files to the Staging Area
 
 ```sh
 git add -A
@@ -100,7 +98,7 @@ commit.
 
 <br />
 
-### Make an Initial Commit
+## Make an Initial Commit
 
 ```sh
 git commit -am "maintenance: New start, a clean history"
@@ -111,7 +109,7 @@ maintenance action to start with a clean history.
 
 <br />
 
-### Delete the Old `main` Branch
+## Delete the Old `main` Branch
 
 ```sh
 git branch -D main
@@ -122,7 +120,7 @@ the old branch with the new one.
 
 <br />
 
-### Rename the Current Branch to `main`
+## Rename the Current Branch to `main`
 
 ```sh
 git branch -m main
@@ -133,7 +131,7 @@ it the new main branch of the repository.
 
 <br />
 
-### Push the New `main` Branch to the Remote Repository
+## Push the New `main` Branch to the Remote Repository
 
 ```sh
 git push -f origin main
@@ -145,7 +143,7 @@ histories of the branches do not match.
 
 <br />
 
-### Close the Terminal
+## Close the Terminal
 
 ```sh
 exit 0

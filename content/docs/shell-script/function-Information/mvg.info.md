@@ -67,16 +67,14 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
-### Function: `mvg`
+## Function: `mvg`
 
 The function `mvg` is the core of the script. Here's a step-by-step breakdown of
 what it does:
 
 <br />
 
-#### Argument Check
+### Argument Check
 
 ```bash
 if [ $# -ne 2 ]; then
@@ -91,7 +89,7 @@ function with a status of `1`.
 
 <br />
 
-#### Variable Assignment
+### Variable Assignment
 
 ```bash
 local source="$1"
@@ -103,7 +101,7 @@ The script assigns the first argument to `source` and the second argument to
 
 <br />
 
-#### Source Existence Check
+### Source Existence Check
 
 ```bash
 if [ ! -e "$source" ]; then
@@ -117,7 +115,7 @@ it prints an error message and exits the function with a status of `1`.
 
 <br />
 
-#### Destination Validity Check
+### Destination Validity Check
 
 ```bash
 if [ ! -d "$destination" ]; then
@@ -132,7 +130,7 @@ function with a status of `1`.
 
 <br />
 
-#### Move and Enter Directory
+### Move and Enter Directory
 
 ```bash
 mv "$source" "$destination" && cd "$destination/$(basename "$source")" || exit
@@ -144,12 +142,12 @@ moved source using `cd`. If either of these commands fails, it exits the script.
 
 <br />
 
-### Script Metadata Management
+## Script Metadata Management
 
 The script also includes functionality to add metadata descriptions and usage
 examples if they are missing from the script.
 
-#### Add Description
+### Add Description
 
 ```bash
 description=$(grep -c "# Description:" "$0")
@@ -163,7 +161,7 @@ it inserts the description after the second line using `sed`.
 
 <br />
 
-#### Add Usage Example
+### Add Usage Example
 
 ```bash
 usage_example=$(grep -c "# Example usage:" "$0")

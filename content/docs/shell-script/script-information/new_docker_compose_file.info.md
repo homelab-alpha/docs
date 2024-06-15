@@ -72,9 +72,7 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
-### Command Validation
+## Command Validation
 
 The script starts by validating the existence of required commands (`mkdir`,
 `touch`, `chown`). If any of these commands are not found, it exits with an
@@ -91,7 +89,7 @@ done
 
 <br />
 
-### Message Display Function
+## Message Display Function
 
 A function `display_message` is defined to format and display messages to the
 user.
@@ -104,7 +102,7 @@ display_message() {
 
 <br />
 
-### User Input for Container Name
+## User Input for Container Name
 
 The script prompts the user to input the name of the new Docker container. It
 reads the input and validates it to ensure it only contains letters, numbers,
@@ -122,7 +120,7 @@ fi
 
 <br />
 
-### Directory Setup
+## Directory Setup
 
 The base directory for Docker containers is specified, and the path for the new
 container is determined. The script checks if the directory already exists, and
@@ -146,7 +144,7 @@ fi
 
 <br />
 
-### Creating Configuration Files
+## Creating Configuration Files
 
 The script creates `.env` and `docker-compose.yml` files in the specified
 directory. If it fails to create these files, it exits with an error message.
@@ -160,7 +158,7 @@ fi
 
 <br />
 
-### Populating `.env` File
+## Populating `.env` File
 
 The `.env` file is populated with template content, including placeholders for
 API keys, secrets, and MySQL configuration.
@@ -188,7 +186,7 @@ EOL
 
 <br />
 
-### Populating `docker-compose.yml` File
+## Populating `docker-compose.yml` File
 
 The `docker-compose.yml` file is populated with a template configuration for the
 Docker services. This includes network settings, service definitions, and
@@ -347,7 +345,7 @@ EOL
 
 <br />
 
-### Completion Message
+## Completion Message
 
 Finally, the script displays a message indicating that the Docker Compose file
 has been created in the specified directory.

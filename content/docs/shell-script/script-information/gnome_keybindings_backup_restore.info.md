@@ -69,9 +69,7 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
-### Script Header
+## Script Header
 
 The script starts with a typical bash script header and includes metadata
 comments that provide information about the script, its author, version, and
@@ -83,7 +81,7 @@ purpose. It also outlines the requirements and usage instructions:
 
 <br />
 
-### Check and Create Backup Directory
+## Check and Create Backup Directory
 
 The function `check_create_backup_dir` ensures that a backup directory exists:
 
@@ -104,7 +102,7 @@ check_create_backup_dir() {
 
 <br />
 
-### Perform Backup
+## Perform Backup
 
 The function `perform_backup` handles the backup process:
 
@@ -135,7 +133,7 @@ perform_backup() {
 
 <br />
 
-### Perform Restore
+## Perform Restore
 
 The function `perform_restore` manages the restoration process:
 
@@ -199,7 +197,7 @@ perform_restore() {
 
 <br />
 
-### Main Menu
+## Main Menu
 
 The script presents a simple menu to the user:
 
@@ -228,7 +226,7 @@ esac
 
 <br />
 
-### End of Script
+## End of Script
 
 The script concludes here, having either backed up or restored the GNOME
 keybindings based on the user's choice.

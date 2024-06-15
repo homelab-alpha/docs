@@ -71,15 +71,13 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
 The script provides functions to run the Super Linter Docker container with
 different options, processes command-line arguments, and presents a menu for the
 user to choose which linting mode to run.
 
 <br />
 
-### Default Debug Mode
+## Default Debug Mode
 
 ```bash
 DEBUG=false
@@ -90,7 +88,7 @@ The script starts by setting a default value for the debug mode, which is
 
 <br />
 
-### Function to Run Docker with Standard Options
+## Function to Run Docker with Standard Options
 
 ```bash
 run_docker_super_linter() {
@@ -112,7 +110,7 @@ current working directory to `/tmp/lint` inside the container.
 
 <br />
 
-### Function to Run Docker with Extra Options
+## Function to Run Docker with Extra Options
 
 ```bash
 run_docker_super_linter_file() {
@@ -135,7 +133,7 @@ to `/tmp/lint/file`.
 
 <br />
 
-### Processing Command-Line Options
+## Processing Command-Line Options
 
 ```bash
 while [[ "$#" -gt 0 ]]; do
@@ -158,7 +156,7 @@ error message and exits.
 
 <br />
 
-### Check if Debug Mode is Enabled
+## Check if Debug Mode is Enabled
 
 ```bash
 if [ "$DEBUG" = true ]; then
@@ -170,7 +168,7 @@ If the debug mode is enabled, it prints a message indicating so.
 
 <br />
 
-### Menu for User Choice
+## Menu for User Choice
 
 ```bash
 echo "Choose an option:"
@@ -184,7 +182,7 @@ directory or a specific file/folder.
 
 <br />
 
-### Execute the Selected Option
+## Execute the Selected Option
 
 ```bash
 case $choice in

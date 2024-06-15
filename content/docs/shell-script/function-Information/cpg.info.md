@@ -72,12 +72,10 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
 The main part of this script is the function `cpg`. Let's go through what it
 does step by step.
 
-### Function Definition and Argument Check
+## Function Definition and Argument Check
 
 ```bash
 function cpg() {
@@ -93,7 +91,7 @@ arguments passed is exactly 2. If not, it prints a usage message
 
 <br />
 
-### Variables Assignment
+## Variables Assignment
 
 ```bash
   local source="$1"
@@ -106,7 +104,7 @@ readable and easier to work with.
 
 <br />
 
-### Directory Check and Recursive Copy
+## Directory Check and Recursive Copy
 
 ```bash
   if [ -d "$source" ]; then
@@ -132,14 +130,14 @@ script exits with an error.
 
 <br />
 
-### Single File Copy
+## Single File Copy
 
 If the `source` is not a directory, the script simply copies the `source` file
 to the `destination` using the `cp` command.
 
 <br />
 
-### Error Handling
+## Error Handling
 
 The script includes basic error handling. If the `destination` is not a
 directory when the `source` is a directory, it prints an error message

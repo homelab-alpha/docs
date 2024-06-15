@@ -64,9 +64,7 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
-### Fetching the Latest Version
+## Fetching the Latest Version
 
 The script starts by fetching the latest version of Hugo using the GitHub API.
 It uses `curl` to send a request to the GitHub API endpoint for Hugo releases
@@ -80,7 +78,7 @@ LATEST_VERSION=$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/lat
 
 <br />
 
-### Error Handling for Version Fetching
+## Error Handling for Version Fetching
 
 The script checks if the version fetching was successful by verifying if the
 `LATEST_VERSION` variable is not empty. If it is empty, an error message is
@@ -95,7 +93,7 @@ fi
 
 <br />
 
-### Constructing the Download URL
+## Constructing the Download URL
 
 Using the fetched version number, the script constructs the URL to download the
 latest Hugo binary.
@@ -106,7 +104,7 @@ DOWNLOAD_URL="https://github.com/gohugoio/hugo/releases/download/v${LATEST_VERSI
 
 <br />
 
-### Defining the Download Directory
+## Defining the Download Directory
 
 The script defines a directory where the downloaded file will be saved. In this
 case, it uses the `Downloads` directory in the user's home directory.
@@ -117,7 +115,7 @@ DOWNLOAD_DIR="$HOME/Downloads"
 
 <br />
 
-### Downloading the Latest Version
+## Downloading the Latest Version
 
 The script uses `wget` to download the Hugo tar.gz file to the specified
 download directory.
@@ -128,7 +126,7 @@ wget "$DOWNLOAD_URL" -O "$DOWNLOAD_DIR"/hugo_extended_"${LATEST_VERSION}"_linux-
 
 <br />
 
-### Error Handling for Downloading
+## Error Handling for Downloading
 
 It checks if `wget` successfully downloaded the file by using `wget -q --spider`
 to test the URL. If the download fails, an error message is displayed, and the
@@ -145,7 +143,7 @@ echo "Successfully downloaded Hugo version ${LATEST_VERSION} to $DOWNLOAD_DIR."
 
 <br />
 
-### Extracting the Downloaded File
+## Extracting the Downloaded File
 
 The script extracts the contents of the downloaded tar.gz file to the download
 directory using `tar`.
@@ -156,7 +154,7 @@ tar -xzf "$DOWNLOAD_DIR"/hugo_extended_"${LATEST_VERSION}"_linux-amd64.tar.gz -C
 
 <br />
 
-### Preparing the Installation Directory
+## Preparing the Installation Directory
 
 The script creates the target directory `/usr/local/hugo-extended` if it does
 not already exist. It then removes any previous installations in that directory
@@ -169,7 +167,7 @@ sudo rm -rf /usr/local/hugo-extended/*
 
 <br />
 
-### Moving Files to the Installation Directory
+## Moving Files to the Installation Directory
 
 The script moves the Hugo binary and additional files (LICENSE and README.md) to
 the target directory.
@@ -182,7 +180,7 @@ sudo mv "$DOWNLOAD_DIR"/README.md /usr/local/hugo-extended/
 
 <br />
 
-### Verifying the Installation
+## Verifying the Installation
 
 It checks if the Hugo binary was successfully moved to the target directory. If
 the binary is not found, an error message is displayed, and the script exits
@@ -199,7 +197,7 @@ echo "Successfully installed Hugo version ${LATEST_VERSION} to /usr/local/hugo-e
 
 <br />
 
-### Cleaning Up
+## Cleaning Up
 
 The script removes the downloaded tar.gz file from the download directory to
 clean up unnecessary files.
@@ -213,7 +211,7 @@ echo ""
 
 <br />
 
-### Checking for Hugo Command Availability
+## Checking for Hugo Command Availability
 
 Finally, the script checks if the `hugo` command is available in the user's
 PATH. If it is not found, it provides instructions for adding Hugo to the PATH.

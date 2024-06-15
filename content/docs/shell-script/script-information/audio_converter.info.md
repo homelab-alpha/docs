@@ -73,9 +73,7 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
-### Setup
+## Setup
 
 1. **Enable Case-Insensitive Matching**:
 
@@ -107,7 +105,7 @@ Here's a detailed explanation:
 
 <br />
 
-### File Conversion
+## File Conversion
 
 4. **Loop Through Files in the Current Directory**:
 
@@ -167,7 +165,7 @@ Here's a detailed explanation:
 
 <br />
 
-### Cleanup
+## Cleanup
 
 6. **Disable Case-Insensitive Matching**:
 

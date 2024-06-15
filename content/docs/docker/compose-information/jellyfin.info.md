@@ -49,8 +49,8 @@ information here with caution and verify it if necessary. {{% /alert %}}
 <br />
 
 Let's break down what this `docker-compose.yml` file does in detail. This file
-is used to configure and deploy services using Docker Compose, specifically
-setting up a Jellyfin instance for managing and streaming media.
+is used to configure and deploy a Jellyfin media server using Docker Compose,
+ensuring smooth management and streaming of media content.
 
 Here's a detailed explanation:
 
@@ -66,9 +66,7 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
-### Networks Configuration
+## Networks Configuration
 
 ```yaml
 networks:
@@ -123,7 +121,7 @@ networks:
 
 <br />
 
-### Services Configuration
+## Services Configuration
 
 ```yaml
 services:

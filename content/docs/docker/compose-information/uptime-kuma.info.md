@@ -50,7 +50,7 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 Let's break down what this `docker-compose.yml` file does in detail. This file
 is used to configure and deploy a service using Docker Compose, specifically
-setting up an Uptime Kuma instance for monitoring and alerting.
+setting up an Uptime Kuma instance for monitoring website uptime and alerting.
 
 Here's a detailed explanation:
 
@@ -67,9 +67,7 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
-### Networks Configuration
+## Networks Configuration
 
 ```yaml
 networks:
@@ -125,7 +123,7 @@ networks:
 
 <br />
 
-### Services Configuration
+## Services Configuration
 
 ```yaml
 services:

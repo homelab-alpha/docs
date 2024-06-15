@@ -65,9 +65,7 @@ Here's a detailed explanation:
 
 <br />
 
-## Detailed Explanation
-
-### Flag Bits
+## Flag Bits
 
 These are hexadecimal constants representing different throttling conditions:
 
@@ -97,7 +95,7 @@ HAS_SOFT_TEMPLIMIT=0x80000
 
 <br />
 
-### Text Colors
+## Text Colors
 
 These define color codes for output text using `tput` for better readability:
 
@@ -113,7 +111,7 @@ NC=$(tput sgr0)
 
 <br />
 
-### Output Strings
+## Output Strings
 
 These are used to standardize "good" and "bad" status messages:
 
@@ -127,7 +125,7 @@ BAD="${RED}YES${NC}"
 
 <br />
 
-### Get Status and Extract Hex Value
+## Get Status and Extract Hex Value
 
 This part queries the `vcgencmd` tool and extracts the status:
 
@@ -143,7 +141,7 @@ STATUS=${STATUS#*=}
 
 <br />
 
-### Display Status
+## Display Status
 
 This part of the script displays the current status in a readable format:
 
@@ -160,7 +158,7 @@ echo ""
 
 <br />
 
-### Detailed Condition Checks
+## Detailed Condition Checks
 
 The script then checks and displays whether each specific condition is currently
 active and if it has ever been active:
