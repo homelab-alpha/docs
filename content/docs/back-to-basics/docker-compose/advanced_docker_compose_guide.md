@@ -4,7 +4,7 @@ description:
   "Unlock the full potential of Docker Compose with advanced techniques for
   orchestrating multi-container applications efficiently."
 url: "back-to-basics/docker-compose/advanced-guide"
-icon: "bug_report"
+icon: "description"
 
 author:
   name: "Homelab-Alpha"

@@ -5,7 +5,7 @@ description:
   advanced commands, manage repositories, resolve conflicts, and more."
 url: "back-to-basics/git/crash-course"
 aliases: ""
-icon: "bug_report"
+icon: "description"
 
 params:
   author:

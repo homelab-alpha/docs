@@ -5,7 +5,7 @@ description:
   branch, merge, rebase, stash, and rewrite history effectively."
 url: "back-to-basics/git/advanced-guide"
 aliases: ""
-icon: "bug_report"
+icon: "description"
 
 params:
   author:

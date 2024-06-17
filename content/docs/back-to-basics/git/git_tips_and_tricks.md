@@ -5,7 +5,7 @@ description:
   workflow, from basic commands to advanced techniques."
 url: "back-to-basics/git/tips-and-tricks"
 aliases: ""
-icon: "bug_report"
+icon: "description"
 
 params:
   author:

@@ -5,7 +5,7 @@ description:
    syntax for /etc/hosts, or domains-only syntax. Create effective
    blocklists compatible with browser ad blockers and AdGuard Home."
 url: "adguard-home/how-to-write-hosts-blocklists"
-icon: "list_alt_add"
+icon: "description"
 
 params:
   author:

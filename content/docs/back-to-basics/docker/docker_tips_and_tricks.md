@@ -6,7 +6,7 @@ description:
   monitoring resource usage, securing hosts and containers, automating updates,
   and more."
 url: "back-to-basics/docker/tips-and-tricks"
-icon: "bug_report"
+icon: "description"
 
 params:
   author:
