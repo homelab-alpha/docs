@@ -1,5 +1,5 @@
 ---
-title: "MarkDown 101"
+title: "Markdown 101"
 description:
   "Get started with Markdown effortlessly through this beginner-friendly guide."
 url: "back-to-basics/markdown"
