@@ -138,6 +138,7 @@ services:
       options:
         max-size: "1M"
         max-file: "2"
+    stop_grace_period: 1m
     container_name: xen-orchestra
     image: ronivay/xen-orchestra:latest
     pull_policy: if_not_present
@@ -193,6 +194,8 @@ services:
     - **driver: "json-file"**: Uses JSON file logging driver.
     - **max-size: "1M"**: Limits log file size to 1MB.
     - **max-file: "2"**: Keeps a maximum of 2 log files.
+  - **stop_grace_period**: Sets a 1-minute grace period before forcefully
+    stopping the container.
   - **container_name: xen-orchestra**: Names the container "xen-orchestra".
   - **image: ronivay/xen-orchestra:latest**: Uses the latest Xen Orchestra image
     from Docker Hub.
