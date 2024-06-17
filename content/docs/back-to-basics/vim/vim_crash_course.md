@@ -4,7 +4,7 @@ description:
   "Jumpstart your Vim journey with this crash course, covering essential
   commands and modes for efficient text editing."
 url: "back-to-basics/vim/crash-course"
-icon: "bug_report"
+icon: "description"
 
 params:
   author:
@@ -36,7 +36,7 @@ keywords:
   - Vim basics
   - Vim features
 
-weight: 106001
+weight: 107001
 
 toc: true
 katex: true

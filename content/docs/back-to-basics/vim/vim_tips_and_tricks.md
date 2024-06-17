@@ -4,7 +4,7 @@ description:
   "Discover essential tips and tricks to master Vim efficiently and enhance your
   productivity."
 url: "back-to-basics/vim/tips-and-tricks"
-icon: "bug_report"
+icon: "description"
 
 params:
   author:
@@ -36,7 +36,7 @@ keywords:
   - text manipulation
   - editing efficiency
 
-weight: 106003
+weight: 107003
 
 toc: true
 katex: true

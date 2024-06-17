@@ -6,5 +6,5 @@ description:
 url: "back-to-basics/vim"
 icon: "foundation"
 
-weight: 106000
+weight: 107000
 ---

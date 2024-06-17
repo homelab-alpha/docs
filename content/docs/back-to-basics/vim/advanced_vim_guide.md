@@ -4,7 +4,7 @@ description:
   "Unlock the full potential of Vim with advanced techniques and customization
   options for efficient text editing."
 url: "back-to-basics/vim/advanced-guide"
-icon: "bug_report"
+icon: "description"
 
 params:
   author:
@@ -37,7 +37,7 @@ keywords:
   - remote editing
   - version control integration
 
-weight: 106002
+weight: 107002
 
 toc: true
 katex: true
