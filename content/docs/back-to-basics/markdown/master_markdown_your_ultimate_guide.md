@@ -5,6 +5,7 @@ description:
   crash course designed to supercharge your Markdown skills and unleash your
   document formatting potential!"
 url: "back-to-basics/markdown/crash-course"
+aliases: ""
 icon: "description"
 
 params:

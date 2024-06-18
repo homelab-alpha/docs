@@ -4,6 +4,7 @@ description:
   "Discover essential tips and tricks to master Vim efficiently and enhance your
   productivity."
 url: "back-to-basics/vim/tips-and-tricks"
+aliases: ""
 icon: "description"
 
 params:

@@ -4,6 +4,7 @@ description:
   "Learn how to contribute code, improve documentation, and support the
   Homelab-Alpha community."
 url: "contributing/contribute"
+aliases: ""
 icon: "volunteer_activism"
 
 params:

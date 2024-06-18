@@ -2,6 +2,7 @@
 title: "Notice"
 description: "Homelab-Alpha: Website Under Development"
 url: "notice"
+aliases: ""
 icon: "handyman"
 
 params:

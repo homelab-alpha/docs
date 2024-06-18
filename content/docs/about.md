@@ -2,6 +2,7 @@
 title: "About Us"
 description: "Discover Homelab-Alpha's Open Source Documentation Hub"
 url: "about"
+aliases: ""
 icon: "info_i"
 
 params:

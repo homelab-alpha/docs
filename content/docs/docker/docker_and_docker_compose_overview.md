@@ -4,6 +4,7 @@ description:
   "Discover Docker and Docker Compose with this detailed overview, covering
   their features, functionalities, and benefits for development and deployment."
 url: "docker/overview"
+aliases: ""
 icon: "overview"
 
 params:

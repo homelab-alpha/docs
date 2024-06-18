@@ -5,6 +5,7 @@ description:
   specific or rare styling cases. Explore shortcode notifications/alerts,
   manipulate image sizes, and create ordered/unordered heading lists."
 url: "back-to-basics/markdown/unorthodox"
+aliases: ""
 icon: "fingerprint"
 
 params:

@@ -5,6 +5,7 @@ description:
   advanced techniques such as multiple buffer editing, syntax highlighting,
   regex search and replace, and more."
 url: "back-to-basics/nano/advanced-guide"
+aliases: ""
 icon: "description"
 
 params:

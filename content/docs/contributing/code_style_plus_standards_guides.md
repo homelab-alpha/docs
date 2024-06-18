@@ -4,6 +4,7 @@ description:
   "Explore the code style of conduct and standards guides to maintain
   consistency and clarity in project development."
 url: "contributing/code-style-plus-standards-guides"
+aliases: ""
 icon: "handshake"
 
 params:

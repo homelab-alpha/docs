@@ -5,6 +5,7 @@ description:
   basic commands, creating Dockerfiles, building images, running containers, and
   publishing to Docker Hub."
 url: "back-to-basics/docker/crash-course"
+aliases: ""
 icon: "description"
 
 params:

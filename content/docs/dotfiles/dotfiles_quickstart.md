@@ -2,6 +2,7 @@
 title: "Dotfiles Quickstart"
 description: "Start Managing Your Dotfiles with This Quickstart Guide"
 url: "dotfiles/quickstart"
+aliases: ""
 icon: "rocket_launch"
 
 params:

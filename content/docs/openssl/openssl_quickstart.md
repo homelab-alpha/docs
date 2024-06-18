@@ -2,6 +2,7 @@
 title: "OpenSSL Quickstart"
 description: "Jumpstart Your Journey with OpenSSL Using This Quickstart Guide"
 url: "openssl/quickstart"
+aliases: ""
 icon: "rocket_launch"
 
 params:

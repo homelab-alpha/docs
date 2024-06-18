@@ -4,6 +4,7 @@ description:
   "Learn how to use Markdown's code block features, including syntax
   highlighting with Prism and customization options."
 url: "back-to-basics/markdown/code-blocks"
+aliases: ""
 icon: "code_blocks"
 
 params:

@@ -5,6 +5,7 @@ description:
   informative quickstart guide, empowering you to enhance your internet security
   and privacy."
 url: "adguard-home/quickstart"
+aliases: ""
 icon: "rocket_launch"
 
 params:

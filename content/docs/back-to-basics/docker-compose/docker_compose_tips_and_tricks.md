@@ -4,6 +4,7 @@ description:
   "Learn essential Docker Compose tips and tricks to streamline your workflow
   and enhance container management."
 url: "back-to-basics/docker-compose/tips-and-tricks"
+aliases: ""
 icon: "description"
 
 params:

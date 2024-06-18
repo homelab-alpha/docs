@@ -4,6 +4,7 @@ description:
   "Explore the Contributor Covenant Code of Conduct for a welcoming and
   inclusive community environment."
 url: "contributing/code-of-conduct"
+aliases: ""
 icon: "handshake"
 
 params:

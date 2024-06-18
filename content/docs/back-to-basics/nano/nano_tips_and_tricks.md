@@ -3,6 +3,7 @@ title: "Nano Tips and Tricks"
 description:
   "Enhance your text editing experience with helpful tips and tricks for Nano."
 url: "back-to-basics/nano/tips-and-tricks"
+aliases: ""
 icon: "description"
 
 params:

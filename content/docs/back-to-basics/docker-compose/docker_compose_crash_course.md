@@ -4,6 +4,7 @@ description:
   "Learn Docker Compose from scratch with this comprehensive crash course.
   Explore Docker container management, orchestration, and DevOps practices."
 url: "back-to-basics/docker-compose/crash-course"
+aliases: ""
 icon: "description"
 
 params:

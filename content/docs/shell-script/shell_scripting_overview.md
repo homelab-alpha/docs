@@ -3,6 +3,7 @@ title: "Shell Scripting Overview"
 description:
   "Discover the Fundamentals of Shell Scripting with This Comprehensive Overview"
 url: "shell-script/overview"
+aliases: ""
 icon: "overview"
 
 params:

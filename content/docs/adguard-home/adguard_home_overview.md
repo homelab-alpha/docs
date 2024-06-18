@@ -4,6 +4,7 @@ description:
   "Explore the features and functionalities of AdGuard Home in this
   comprehensive overview."
 url: "adguard-home/overview"
+aliases: ""
 icon: "overview"
 
 params:

@@ -6,6 +6,7 @@ description:
   practices, private registries, service discovery, CI/CD integration,
   Kubernetes, microservices, Infrastructure as Code, and monitoring/logging."
 url: "back-to-basics/docker/advanced-guide"
+aliases: ""
 icon: "description"
 
 params:

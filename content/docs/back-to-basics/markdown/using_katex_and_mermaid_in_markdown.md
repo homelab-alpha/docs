@@ -4,6 +4,7 @@ description:
   "Discover how to leverage KaTeX for LaTeX mathematical expressions and Mermaid
   for a variety of diagrams within Markdown documents."
 url: "back-to-basics/markdown/katex-plus-mermaid"
+aliases: ""
 icon: "function"
 
 params:

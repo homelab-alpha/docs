@@ -4,6 +4,7 @@ description:
   "Unlock the full potential of Vim with advanced techniques and customization
   options for efficient text editing."
 url: "back-to-basics/vim/advanced-guide"
+aliases: ""
 icon: "description"
 
 params:

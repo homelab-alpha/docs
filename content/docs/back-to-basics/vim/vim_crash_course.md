@@ -4,6 +4,7 @@ description:
   "Jumpstart your Vim journey with this crash course, covering essential
   commands and modes for efficient text editing."
 url: "back-to-basics/vim/crash-course"
+aliases: ""
 icon: "description"
 
 params:

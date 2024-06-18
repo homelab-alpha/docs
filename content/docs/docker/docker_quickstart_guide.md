@@ -2,6 +2,7 @@
 title: "Docker Quickstart Guide"
 description: "Start Your Docker Journey with This Quickstart Guide"
 url: "docker/quickstart"
+aliases: ""
 icon: "rocket_launch"
 
 params:

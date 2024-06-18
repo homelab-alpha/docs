@@ -2,6 +2,7 @@
 title: "OpenSSL Overview"
 description: "Explore OpenSSL with This Comprehensive Overview"
 url: "openssl/overview"
+aliases: ""
 icon: "overview"
 
 params:

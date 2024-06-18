@@ -4,6 +4,7 @@ description:
   "Quickly get up to speed with Nano, covering basic navigation, editing,
   saving, and more."
 url: "back-to-basics/nano/crash-course"
+aliases: ""
 icon: "description"
 
 params:

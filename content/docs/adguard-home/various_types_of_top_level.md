@@ -4,6 +4,7 @@ description:
   "Explore the diverse landscape of TLDs, from country codes to specialized
   domains."
 url: "adguard-home/various-types-of-top-level"
+aliases: ""
 icon: "overview"
 
 params:

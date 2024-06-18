@@ -4,6 +4,7 @@ description:
   "Take your Markdown skills to the next level with an in-depth exploration of
   syntax, philosophy, block elements, and span elements."
 url: "back-to-basics/markdown/vanilla"
+aliases: ""
 icon: "icecream"
 
 params:

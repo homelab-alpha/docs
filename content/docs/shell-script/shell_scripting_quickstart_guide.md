@@ -2,6 +2,7 @@
 title: "Shell Scripting Quickstart Guide"
 description: "Embark on Your Shell Scripting Journey with This Quickstart Guide"
 url: "shell-script/quickstart"
+aliases: ""
 icon: "rocket_launch"
 
 params:

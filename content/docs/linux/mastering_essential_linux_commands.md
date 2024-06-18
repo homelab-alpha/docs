@@ -5,6 +5,7 @@ description:
   Navigate directories, manage files, and optimize system administration
   effortlessly. Perfect for both beginners and seasoned users."
 url: "linux/linux-commands"
+aliases: ""
 icon: "terminal"
 
 params:

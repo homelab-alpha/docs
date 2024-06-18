@@ -2,6 +2,7 @@
 title: "Dotfiles Overview"
 description: "Get Acquainted with Dotfiles and Their Customizations"
 url: "dotfiles/overview"
+aliases: ""
 icon: "overview"
 
 params:
