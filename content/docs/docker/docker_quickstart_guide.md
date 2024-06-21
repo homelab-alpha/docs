@@ -104,6 +104,11 @@ sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/dock
 
    You have now successfully installed and started Docker Engine.
 
+   Once Docker is installed, setting up Portainer is straightforward. You can
+   choose between the Portainer Community Edition (CE) or the Business Edition
+   (BE). Simply copy and paste the command from the
+   [quick install guide portainer](#quick-install-guide-portainer) to get started.
+
 <br />
 
 ### Uninstall Docker Engine
@@ -225,6 +230,11 @@ If you use an Ubuntu derivative distro, such as Linux Mint, you may need to use
 
    You have now successfully installed and started Docker Engine.
 
+   Once Docker is installed, setting up Portainer is straightforward. You can
+   choose between the Portainer Community Edition (CE) or the Business Edition
+   (BE). Simply copy and paste the command from the
+   [quick install guide portainer](#quick-install-guide-portainer) to get started.
+
 <br />
 
 ### Uninstall Docker Engine
@@ -266,6 +276,125 @@ If you use an Ubuntu derivative distro, such as Linux Mint, you may need to use
    ```
 
    You have now successfully uninstalled Docker Engine.
+
+<br />
+
+## Quick install guide Portainer
+
+Once Docker is installed, setting up Portainer is straightforward. You can
+choose between the Portainer Community Edition (CE) or the Business Edition
+(BE). Simply copy and paste the command from the
+[quick install guide portainer](#quick-install-guide-portainer) into your
+terminal and hit enter. Docker will create the necessary network and pull the
+Portainer container from Docker Hub.
+
+After that, open your browser and navigate to the IP address of your local
+machine where Docker is installed. For example, if your server's IP address is
+`192.168.10.10`, go to `http://192.168.10.10:9000` or
+`https://192.168.10.10:9443` to access the Portainer GUI. Follow the
+instructions there to complete the installation of Portainer.
+
+Congratulations, you have now installed Portainer. From now on, you will use
+Portainer to start new Docker projects.
+
+{{% alert context="primary" %}}
+**Note:**
+If you use one of Homelab-Alpha's Docker run commands or Docker Compose files,
+persistent volumes are utilized. You can find your data from your containers in
+the root directory named `docker/`. For example, all data from the Portainer
+container is stored in `docker/portainer`. {{% /alert %}}
+
+### Community Edition (CE)
+
+```bash
+docker network create \
+  --driver=bridge \
+  --subnet=172.20.1.0/24 \
+  --ip-range=172.20.1.0/24 \
+  --gateway=172.20.1.1 \
+  --opt "com.docker.network.bridge.default_bridge"="false" \
+  --opt "com.docker.network.bridge.enable_icc"="true" \
+  --opt "com.docker.network.bridge.enable_ip_masquerade"="true" \
+  --opt "com.docker.network.bridge.host_binding_ipv4"="0.0.0.0" \
+  --opt "com.docker.network.bridge.name"="portainer" \
+  --opt "com.docker.network.driver.mtu"="1500" \
+  --label "com.portainer.network.description"="is an isolated network." \
+  portainer_net
+
+docker run \
+  --detach \
+  --network portainer_net \
+  --restart always \
+  --log-driver json-file \
+  --log-opt max-size=1M \
+  --log-opt max-file=2 \
+  --name portainer \
+  --pull missing \
+  --volume /docker/portainer/production/app:/data \
+  --volume /var/run/docker.sock:/var/run/docker.sock \
+  --env TZ=Europe/Amsterdam \
+  --domainname portainer.local \
+  --hostname portainer \
+  --ip 172.20.1.2 \
+  --publish 8000:8000/tcp \
+  --publish 8000:8000/udp \
+  --publish 9000:9000/tcp \
+  --publish 9000:9000/udp \
+  --publish 9443:9443/tcp \
+  --publish 9443:9443/udp \
+  --security-opt="no-new-privileges=true" \
+  --label "com.docker.compose.project"="portainer" \
+  --label "com.portainer.description"="deploy, configure, troubleshoot and secure containers." \
+  --no-healthcheck \
+  portainer/portainer-ce:latest
+```
+
+<br />
+
+### Business Edition (BE)
+
+```bash
+docker network create \
+  --driver=bridge \
+  --subnet=172.20.1.0/24 \
+  --ip-range=172.20.1.0/24 \
+  --gateway=172.20.1.1 \
+  --opt "com.docker.network.bridge.default_bridge"="false" \
+  --opt "com.docker.network.bridge.enable_icc"="true" \
+  --opt "com.docker.network.bridge.enable_ip_masquerade"="true" \
+  --opt "com.docker.network.bridge.host_binding_ipv4"="0.0.0.0" \
+  --opt "com.docker.network.bridge.name"="portainer" \
+  --opt "com.docker.network.driver.mtu"="1500" \
+  --label "com.portainer.network.description"="is an isolated network." \
+  portainer_net
+
+docker run \
+  --detach \
+  --network portainer_net \
+  --restart always \
+  --log-driver json-file \
+  --log-opt max-size=1M \
+  --log-opt max-file=2 \
+  --name portainer \
+  --pull missing \
+  --volume /docker/portainer/production/app:/data \
+  --volume /var/run/docker.sock:/var/run/docker.sock \
+  --env TZ=Europe/Amsterdam \
+  --domainname portainer.local \
+  --hostname portainer \
+  --ip 172.20.1.2 \
+  --publish 8000:8000/tcp \
+  --publish 8000:8000/udp \
+  --publish 9000:9000/tcp \
+  --publish 9000:9000/udp \
+  --publish 9443:9443/tcp \
+  --publish 9443:9443/udp \
+  --security-opt="no-new-privileges=true" \
+  --label "com.docker.compose.project"="portainer" \
+  --label "com.portainer.description"="deploy, configure, troubleshoot and secure containers." \
+  --no-healthcheck \
+  portainer/portainer-ee:latest
+```
 
 [Official Docker documentation for Fedora]:
   https://docs.docker.com/desktop/install/fedora
