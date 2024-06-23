@@ -1,9 +1,9 @@
 ---
-title: "Ultimate IP Subnet Cheat Sheet"
+title: "IP Subnet Cheat Sheet"
 description:
   "Your ultimate guide for mastering IP subnetting, including IP address
   classes, subnet masks, CIDR notation, and practical subnetting calculations."
-url: "back-to-basics/network/ultimate-ip-subnet-cheat-sheet"
+url: "back-to-basics/network/ip-subnet-cheat-sheet"
 aliases: ""
 icon: "description"
 
@@ -13,9 +13,9 @@ params:
     email: ""
 
 categories:
-  - Network
+  - Back to Basics
 series:
-  - IP Subnet
+  - Network
 tags:
   - IP subnet
   - subnetting
