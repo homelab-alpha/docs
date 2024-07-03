@@ -179,6 +179,16 @@ official GitHub repository, downloads it, installs it to
 
 <br />
 
+### install_latest_jetbrains_mono.sh
+
+**Description:** The script fetches the latest version of JetBrains Mono from
+the official GitHub repository, downloads it, installs it to the system-wide
+fonts directory, and cleans up the downloaded files.\
+**Detailed Explanation:** [install_latest_jetbrains_mono.info]\
+**RAW Script:** [install_latest_jetbrains_mono.sh]
+
+<br />
+
 ### maintain_git_repo.sh
 
 **Description:** This script automates the maintenance process of a Git
@@ -537,6 +547,10 @@ the [license] agreement.
   docs/../../shell-script/script-information/install_latest_hugo.info.md
 [install_latest_hugo.sh]:
   https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/install_latest_hugo.sh
+[install_latest_jetbrains_mono.info]:
+  docs/../../shell-script/script-information/install_latest_jetbrains_mono.info.md
+[install_latest_jetbrains_mono.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/install_latest_jetbrains_mono.sh
 [maintain_git_repo.info]:
   docs/../../shell-script/script-information/maintain_git_repo.info.md
 [maintain_git_repo.sh]:
