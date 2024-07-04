@@ -447,11 +447,16 @@ verification.\
 certificate, including key creation, CSR generation, certificate issuance, and
 verification.\
 **Detailed Explanation:** [cert_ecdsa_client.info]\
-**RAW Script:** [cert_ecdsa_client.sh] Feel free to explore each script's
-documentation for detailed usage instructions. **Description:** This script
-automates the process of creating and managing RSA certificates for server
-authentication, including key generation, CSR creation, certificate issuance,
-verification, and preparation of certificate chain bundles.\
+**RAW Script:** [cert_ecdsa_client.sh]
+
+<br />
+
+### cert_rsa_server.info
+
+**Description:** This script automates the process of creating and managing RSA
+certificates for server authentication, including key generation, CSR creation,
+certificate issuance, verification, and preparation of certificate chain
+bundles.\
 **Detailed Explanation:** [cert_rsa_server.info]\
 **RAW Script:** [cert_rsa_server.sh]
 
