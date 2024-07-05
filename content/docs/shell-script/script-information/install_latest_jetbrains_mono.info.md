@@ -61,8 +61,8 @@ Here's a detailed explanation:
 
 - **Filename**: `install_latest_jetbrains_mono.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jul 03, 2024
-- **Version**: 1.0.0
+- **Date**: Jul 05, 2024
+- **Version**: 1.1.0
 - **Description**: The script fetches the latest version of JetBrains Mono from
   the official GitHub repository, downloads it, installs it to the system-wide
   fonts directory, and cleans up the downloaded files.
@@ -122,6 +122,19 @@ DOWNLOAD_DIR="$HOME/Downloads"
 
 <br />
 
+## Checking and Creating the Download Directory
+
+The script checks if the download directory exists, and if not, it creates it.
+
+```bash
+if [ ! -d "$DOWNLOAD_DIR" ]; then
+  mkdir -p "$DOWNLOAD_DIR"
+  echo "Created directory: $DOWNLOAD_DIR"
+fi
+```
+
+<br />
+
 ## Downloading the Latest Version
 
 The script uses `wget` to download the JetBrains Mono zip file to the specified
@@ -167,7 +180,23 @@ The script creates the target directory `/usr/share/fonts/jetbrains-mono` if it
 does not already exist.
 
 ```bash
-sudo mkdir -p /usr/share/fonts/jetbrains-mono
+JETBRAINS_MONO_DIR="/usr/share/fonts/jetbrains-mono"
+
+if [ ! -d "$JETBRAINS_MONO_DIR" ]; then
+  sudo mkdir -p "$JETBRAINS_MONO_DIR"
+  echo "Created directory: $JETBRAINS_MONO_DIR"
+fi
+```
+
+<br />
+
+## Removing Previous Installations
+
+To avoid conflicts, the script removes any previous installations of JetBrains
+Mono fonts in the target directory.
+
+```bash
+sudo rm -rf $JETBRAINS_MONO_DIR/*
 ```
 
 <br />
@@ -177,7 +206,7 @@ sudo mkdir -p /usr/share/fonts/jetbrains-mono
 The script moves the font files to the system-wide fonts directory.
 
 ```bash
-sudo mv "$DOWNLOAD_DIR/JetBrainsMono-${LATEST_VERSION}/fonts/"* /usr/share/fonts/jetbrains-mono/
+sudo mv "$DOWNLOAD_DIR/JetBrainsMono-${LATEST_VERSION}/fonts/"* $JETBRAINS_MONO_DIR
 ```
 
 <br />
@@ -189,12 +218,12 @@ the files are not found, an error message is displayed, and the script exits
 with a status of 1.
 
 ```bash
-if [ ! -f "/usr/share/fonts/jetbrains-mono/ttf/JetBrainsMono-Regular.ttf" ]; then
-  echo "Failed to move JetBrains Mono fonts to /usr/share/fonts/jetbrains-mono."
+if [ ! -f "$JETBRAINS_MONO_DIR/ttf/JetBrainsMono-Regular.ttf" ]; then
+  echo "Failed to move JetBrains Mono fonts to $JETBRAINS_MONO_DIR."
   exit 1
 fi
 
-echo "Successfully installed JetBrains Mono version ${LATEST_VERSION} to /usr/share/fonts/jetbrains-mono."
+echo "Successfully installed JetBrains Mono version ${LATEST_VERSION} to $JETBRAINS_MONO_DIR."
 ```
 
 <br />
