@@ -1,11 +1,10 @@
 ---
-title: "Terms of Use"
+title: "Terms of Homelab-Alpha"
 description:
-  "Read the Terms of Use for Homelab-Alpha services, ensuring transparency,
+  "Read the Terms of Homelab-Alpha services, ensuring transparency,
   privacy, and security."
-url: "help/terms-of-use"
-aliases:
-  - /legal
+url: "terms-of-homelab-alpha"
+aliases: ""
 icon: "gavel"
 
 params:
@@ -29,7 +28,7 @@ keywords:
   - security best practices
   - legal documents
 
-weight: 120003
+weight: 104
 
 toc: true
 katex: true

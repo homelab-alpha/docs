@@ -1,9 +1,8 @@
 ---
 title: "FAQ"
 description: "Explore Answers to Frequently Asked Questions with Homelab-Alpha"
-url: "help/faq"
-aliases:
-  - /faq
+url: "faq"
+aliases: ""
 icon: "quiz"
 
 params:
@@ -32,7 +31,7 @@ keywords:
   - community
   - support
 
-weight: 120001
+weight: 102
 
 toc: true
 katex: true

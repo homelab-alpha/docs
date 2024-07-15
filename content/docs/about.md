@@ -26,7 +26,7 @@ keywords:
   - innovation
   - problem-solving
 
-weight: 900000001
+weight: 101
 
 toc: true
 katex: true

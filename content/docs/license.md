@@ -1,9 +1,8 @@
 ---
 title: "License"
 description: "Understand the Licensing and Copyright Terms for Homelab-Alpha"
-url: "help/license"
-aliases:
-  - /license
+url: "license"
+aliases: ""
 icon: "copyright"
 
 params:
@@ -26,7 +25,7 @@ keywords:
   - Creative Commons
   - non-commercial use
 
-weight: 120002
+weight: 103
 
 toc: true
 katex: true
