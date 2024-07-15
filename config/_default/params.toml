@@ -33,17 +33,17 @@ mono_font       = "JetBrains Mono"
   lastModRelative = true
 
   toc             = true
-  tocMobile       = true
+  tocMobile       = false
   scrollSpy       = true
 
   sidebarIcons    = true
-  titleIcon       = true
+  titleIcon       = false
 
-  breadcrumbs     = true
+  breadcrumbs     = false
   navDesc         = true
-  navDescTrunc    = 30
+  navDescTrunc    = 50
 
-  listDescTrunc   = 100
+  listDescTrunc   = 50
   backToTop       = true
 
   descriptions    = true
