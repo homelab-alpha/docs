@@ -50,7 +50,7 @@ mono_font       = "JetBrains Mono"
 
   intLinkTooltip  = true
   extLinkNewTab   = true
-  logoLinkURL     = "https://homelab-alpha.nl/docs"
+  logoLinkURL     = "https://homelab-alpha.nl"
 
 [flexsearch]
   enabled             = true
