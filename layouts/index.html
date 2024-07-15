@@ -1,15 +1,12 @@
 {{ define "main" }}
-    {{ $landingPageEnabled := .Site.Params.landingpage.enabled | default true }}
+    {{ $landingPageEnabled := .Site.Params.landingpage.enabled | default false }}
 
     {{ if $landingPageEnabled }}
         {{ $landingData := .Site.Data.landing }}
         {{ $sections := slice }}
-
-        {{ range $key, $value := $landingData }}
-            {{ $sectionTitle := $key }}
+        {{ range $sectionTitle, $value := $landingData }}
             {{ $weight := printf "%v" $value.weight }}
             {{ $template := replaceRE `( |-{1,})` "_" $value.template }}
-
             {{ $section := dict "sectionTitle" $sectionTitle "weight" $weight "template" $template }}
             {{ $sections = $sections | append $section }}
         {{ end }}
@@ -18,8 +15,7 @@
 
         {{ range $sortedSections }}
             {{ $.Scratch.Set "sectionTitle" .sectionTitle }}
-            {{ $path := printf "landing/%s.html" .template }}
-            {{ partial $path $.Page }}
+            {{ partial (printf "landing/%s.html" .template) $.Page }}
         {{ end }}
     {{ else }}
         <meta http-equiv="refresh" content="0; url=/docs" />
