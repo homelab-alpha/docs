@@ -8,6 +8,9 @@ sans_serif_font = "Inter"
 secondary_font  = "Inter"
 mono_font       = "JetBrains Mono"
 
+[landingpage]
+  enabled = false
+
 [footer]
   copyright = "© :YEAR: Homelab-Alpha"
   version   = true
@@ -47,7 +50,7 @@ mono_font       = "JetBrains Mono"
 
   intLinkTooltip  = true
   extLinkNewTab   = true
-  logoLinkURL     = "https://homelab-alpha.nl"
+  logoLinkURL     = "https://homelab-alpha.nl/docs"
 
 [flexsearch]
   enabled             = true
