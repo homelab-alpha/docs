@@ -6,5 +6,5 @@ description:
 url: "back-to-basics/nano"
 icon: "foundation"
 
-weight: 105000
+weight: 2500
 ---

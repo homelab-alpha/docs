@@ -5,5 +5,5 @@ description:
 url: "back-to-basics/markdown"
 icon: "foundation"
 
-weight: 104000
+weight: 2400
 ---

@@ -38,7 +38,7 @@ keywords:
   - command line audio converter
   - automate audio conversion
 
-weight: 6100
+weight: 9100
 
 toc: true
 katex: true

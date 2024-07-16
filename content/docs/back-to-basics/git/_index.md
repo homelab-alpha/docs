@@ -6,5 +6,5 @@ description:
 url: "back-to-basics/git"
 icon: "foundation"
 
-weight: 103000
+weight: 2300
 ---

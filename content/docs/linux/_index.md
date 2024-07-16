@@ -10,5 +10,5 @@ description:
 url: "linux"
 icon: "code"
 
-weight: 4000
+weight: 7000
 ---

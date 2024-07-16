@@ -5,5 +5,5 @@ description:
 url: "back-to-basics/docker"
 icon: "foundation"
 
-weight: 101000
+weight: 2100
 ---

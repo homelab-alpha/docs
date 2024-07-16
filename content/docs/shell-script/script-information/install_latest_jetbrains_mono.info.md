@@ -35,7 +35,7 @@ keywords:
   - Linux automation
   - font management
 
-weight: 6100
+weight: 9100
 
 toc: true
 katex: true

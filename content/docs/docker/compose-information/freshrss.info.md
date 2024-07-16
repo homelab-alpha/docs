@@ -32,7 +32,7 @@ keywords:
   - Self-hosted RSS aggregator Docker
   - Docker MariaDB setup for FreshRSS
 
-weight: 2100
+weight: 4100
 
 toc: true
 katex: true

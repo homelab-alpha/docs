@@ -6,5 +6,5 @@ description:
 url: "help"
 icon: "question_mark"
 
-weight: 120000
+weight: 6000
 ---

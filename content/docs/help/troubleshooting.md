@@ -24,7 +24,7 @@ keywords:
   - troubleshooting tips
   - troubleshooting techniques
 
-weight: 120004
+weight: 6000
 
 toc: true
 katex: true

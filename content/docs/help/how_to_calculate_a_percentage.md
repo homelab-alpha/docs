@@ -31,7 +31,7 @@ keywords:
   - percentage difference
   - calculator tips
 
-weight: 120006
+weight: 6000
 
 toc: true
 katex: true

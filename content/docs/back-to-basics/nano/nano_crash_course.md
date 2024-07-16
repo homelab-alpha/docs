@@ -38,7 +38,7 @@ keywords:
   - Nano features
   - Nano tutorial
 
-weight: 105001
+weight: 2500
 
 toc: true
 katex: true

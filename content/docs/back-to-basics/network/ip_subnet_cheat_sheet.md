@@ -27,7 +27,7 @@ keywords:
   - subnetting calculations
   - network administration
 
-weight: 106000
+weight: 2600
 
 toc: true
 katex: true

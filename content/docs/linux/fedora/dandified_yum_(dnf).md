@@ -34,7 +34,7 @@ keywords:
   - Red Hat Enterprise Linux
   - DNF commands
 
-weight: 4100
+weight: 7100
 
 toc: true
 katex: true

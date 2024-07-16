@@ -7,5 +7,5 @@ description:
 url: "back-to-basics"
 icon: "design_services"
 
-weight: 100000
+weight: 2000
 ---

@@ -37,7 +37,7 @@ keywords:
   - bash script
   - function information
 
-weight: 6200
+weight: 9200
 
 toc: true
 katex: true

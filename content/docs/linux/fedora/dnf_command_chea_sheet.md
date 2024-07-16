@@ -35,7 +35,7 @@ keywords:
   - manage repositories in Linux
   - remove old kernels Fedora
 
-weight: 4100
+weight: 7100
 
 toc: true
 katex: true

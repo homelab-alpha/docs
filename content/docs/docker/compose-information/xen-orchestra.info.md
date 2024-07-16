@@ -38,7 +38,7 @@ keywords:
   - XCP-ng Management
   - XenServer Management
 
-weight: 2100
+weight: 4100
 
 toc: true
 katex: true

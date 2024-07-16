@@ -28,7 +28,8 @@ keywords:
   - automate server monitoring
   - ping monitoring server
   - cron job example
-weight: 6100
+
+weight: 9100
 
 toc: true
 katex: true

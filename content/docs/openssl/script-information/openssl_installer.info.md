@@ -28,7 +28,7 @@ keywords:
   - Alias management
   - Shell scripting
 
-weight: 5101
+weight: 8101
 
 toc: true
 katex: true

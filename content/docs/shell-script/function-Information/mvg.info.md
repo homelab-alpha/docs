@@ -33,7 +33,7 @@ keywords:
   - automation tools
   - linux commands
 
-weight: 6200
+weight: 9200
 
 toc: true
 katex: true

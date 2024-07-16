@@ -30,7 +30,7 @@ keywords:
   - tmux configuration
   - dotfiles repository
 
-weight: 3001
+weight: 5001
 
 toc: true
 katex: true

@@ -36,7 +36,7 @@ keywords:
   - directory linting
   - linting tool
 
-weight: 6100
+weight: 9100
 
 katex: true
 ---

@@ -7,5 +7,5 @@ description:
 url: "back-to-basics/network"
 icon: "foundation"
 
-weight: 106000
+weight: 2600
 ---

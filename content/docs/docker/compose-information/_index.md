@@ -7,5 +7,5 @@ description:
 url: "docker/compose-info"
 icon: "foundation"
 
-weight: 2100
+weight: 4100
 ---

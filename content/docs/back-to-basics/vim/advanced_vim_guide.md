@@ -38,7 +38,7 @@ keywords:
   - remote editing
   - version control integration
 
-weight: 107002
+weight: 2700
 
 toc: true
 katex: true

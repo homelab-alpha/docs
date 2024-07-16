@@ -29,7 +29,7 @@ keywords:
   - Git commands
   - Advanced Git techniques
 
-weight: 103003
+weight: 2300
 
 toc: true
 katex: true

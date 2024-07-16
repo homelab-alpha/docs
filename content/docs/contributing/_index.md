@@ -6,5 +6,5 @@ description:
 url: "contributing"
 icon: "heart_plus"
 
-weight: 110000
+weight: 3000
 ---

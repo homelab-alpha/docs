@@ -35,7 +35,7 @@ keywords:
   - Git dotfiles
   - Homelab-Alpha
 
-weight: 3003
+weight: 5003
 
 toc: true
 katex: true

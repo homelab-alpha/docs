@@ -31,7 +31,7 @@ keywords:
   - system health monitoring
   - shell scripting
 
-weight: 6100
+weight: 9100
 
 toc: true
 katex: true

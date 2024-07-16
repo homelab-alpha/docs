@@ -39,7 +39,7 @@ keywords:
   - zip command
   - automated backup
 
-weight: 6200
+weight: 9200
 
 toc: true
 katex: true

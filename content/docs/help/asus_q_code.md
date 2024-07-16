@@ -22,7 +22,7 @@ tags:
 keywords:
   - Q-CODE
 
-weight: 120005
+weight: 6000
 
 toc: true
 katex: true

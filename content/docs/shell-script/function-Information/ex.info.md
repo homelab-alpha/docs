@@ -38,7 +38,7 @@ keywords:
   - automation tools
   - command-line utilities
 
-weight: 6200
+weight: 9200
 
 toc: true
 katex: true

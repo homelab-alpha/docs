@@ -6,5 +6,5 @@ description:
 url: "shell-script"
 icon: "deployed_code"
 
-weight: 6000
+weight: 9000
 ---

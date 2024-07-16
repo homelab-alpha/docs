@@ -37,7 +37,7 @@ keywords:
   - text manipulation
   - editing efficiency
 
-weight: 107003
+weight: 2700
 
 toc: true
 katex: true

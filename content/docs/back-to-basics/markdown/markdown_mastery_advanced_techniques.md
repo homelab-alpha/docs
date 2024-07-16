@@ -38,7 +38,7 @@ keywords:
   - Markdown image sizes
   - Markdown heading lists
 
-weight: 104004
+weight: 2400
 
 toc: true
 katex: true

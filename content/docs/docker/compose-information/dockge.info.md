@@ -36,7 +36,7 @@ keywords:
   - Infrastructure Monitoring
   - Self-hosted Docker Management
 
-weight: 2100
+weight: 4100
 
 toc: true
 katex: true

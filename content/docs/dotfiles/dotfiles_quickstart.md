@@ -27,7 +27,7 @@ keywords:
   - dotfiles uninstallation
   - dotfiles log files
 
-weight: 3002
+weight: 5002
 
 toc: true
 katex: true

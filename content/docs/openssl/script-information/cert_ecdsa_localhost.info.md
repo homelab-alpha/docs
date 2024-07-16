@@ -32,7 +32,7 @@ keywords:
   - HAProxy SSL
   - certificate format conversion
 
-weight: 5106
+weight: 8106
 
 toc: true
 katex: true

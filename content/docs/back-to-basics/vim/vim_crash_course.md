@@ -37,7 +37,7 @@ keywords:
   - Vim basics
   - Vim features
 
-weight: 107001
+weight: 2700
 
 toc: true
 katex: true

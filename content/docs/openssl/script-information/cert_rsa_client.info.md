@@ -31,7 +31,7 @@ keywords:
   - certificate verification
   - certificate chain bundles
 
-weight: 5110
+weight: 8110
 
 toc: true
 katex: true

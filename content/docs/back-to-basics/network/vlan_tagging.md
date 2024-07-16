@@ -39,7 +39,7 @@ keywords:
   - VoIP Traffic Management
   - Network Scalability
 
-weight: 106000
+weight: 2600
 
 toc: true
 katex: true

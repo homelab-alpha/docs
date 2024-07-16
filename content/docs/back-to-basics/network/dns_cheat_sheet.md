@@ -36,7 +36,7 @@ keywords:
   - DNSSEC
   - Network best practices
 
-weight: 106000
+weight: 2600
 
 toc: true
 katex: true

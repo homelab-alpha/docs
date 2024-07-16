@@ -32,7 +32,7 @@ keywords:
   - Access layer design
   - Ubiquiti UniFi equipment
 
-weight: 106000
+weight: 2600
 
 toc: true
 katex: true

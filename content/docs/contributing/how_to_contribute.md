@@ -37,7 +37,7 @@ keywords:
   - feature request template
   - Homelab-Alpha discussions
 
-weight: 110001
+weight: 3001
 
 toc: true
 katex: true

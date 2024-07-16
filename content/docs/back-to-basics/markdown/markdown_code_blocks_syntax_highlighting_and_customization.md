@@ -27,7 +27,7 @@ keywords:
   - Syntax Highlighting
   - Prism
 
-weight: 104001
+weight: 2400
 
 toc: true
 katex: true
