@@ -172,8 +172,9 @@ warranties regarding the accuracy, reliability, or suitability of the services.
 ### Changes to Terms
 
 Homelab-Alpha reserves the right to amend these terms of use pages at any time
-without prior notice. Continued use of [Homelab-Alpha's website] and GitHub
-repositories constitutes acceptance of the revised terms.
+without prior notice. Continued use of [Homelab-Alpha's website] and
+[Homelab-Alpha's GitHub repositories] constitutes acceptance of the revised
+terms.
 
 <br />
 
