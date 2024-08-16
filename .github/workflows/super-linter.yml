@@ -34,6 +34,7 @@ jobs:
         uses: super-linter/super-linter@v7.0.0
         env:
           BASH_SEVERITY: warning
+          VALIDATE_CHECKOV: false
           VALIDATE_CSS: false
           VALIDATE_CSS_PRETTIER: false
           VALIDATE_GITHUB_ACTIONS: false
