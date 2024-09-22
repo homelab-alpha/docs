@@ -1,0 +1,31 @@
+---
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    target-branch: "main"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "02:00"
+      timezone: "Europe/Amsterdam"
+    commit-message:
+      prefix: "dependabot"
+    labels:
+      - "auto-merge"
+      - "dependencies"
+      - "github-actions"
+    open-pull-requests-limit: 5
+
+  - package-ecosystem: "gomod"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "02:00"
+      timezone: "Europe/Amsterdam"
+    commit-message:
+      prefix: "dependabot"
+    labels:
+      - "auto-merge"
+      - "dependencies"
+      - "go-mod"
+    open-pull-requests-limit: 5

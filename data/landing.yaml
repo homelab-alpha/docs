@@ -1,0 +1,38 @@
+---
+hero:
+  enable: true
+  weight: 10
+  template: hero
+
+  backgroundImage:
+    path: "images/landing-page"
+    filename:
+      desktop: "gradient_desktop.webp"
+      mobile: "gradient_mobile.webp"
+
+  badge:
+    text: "v0.1.3"
+    color: secondary # primary, secondary, success, danger, warning, info, light, dark
+    pill: false
+    soft: true
+
+  title: Homelab-Alpha
+  subtitle: Your gateway to Homelab-Alpha's open source documentation.
+
+  image:
+    path: "images"
+    filename: "homelab-alpha_screenshot.webp"
+    alt: "Homelab-Alpha Screenshot"
+    boxShadow: true
+    rounded: true
+
+  ctaButton:
+    icon: rocket_launch
+    btnText: "Get Started"
+    url: "https://homelab-alpha.nl/docs"
+  cta2Button:
+    icon: construction
+    btnText: "In Development"
+    url: "https://github.com/homelab-alpha/docs"
+
+  # info:
