@@ -6,7 +6,5 @@ description:
 url: "dotfiles"
 icon: "home_storage"
 
-date: "Apr 20, 2024"
-
 weight: 5000
 ---
