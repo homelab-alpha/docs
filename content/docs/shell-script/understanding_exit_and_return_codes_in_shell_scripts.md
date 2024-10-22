@@ -4,7 +4,7 @@ description:
   "A comprehensive guide to exit and return codes in shell scripts. Learn what
   these codes mean, their common values, and how to use them effectively in your
   scripts."
-url: "shell-script/understanding_exit_and_return_codes_in_shell_scripts"
+url: "shell-script/understanding-exit-and-return-codes-in-shell-scripts"
 aliases: ""
 icon: "overview"
 
