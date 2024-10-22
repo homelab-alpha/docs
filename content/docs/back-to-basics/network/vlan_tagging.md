@@ -5,7 +5,7 @@ description:
   network traffic within a VLAN. This detailed guide explores how VLAN tagging
   works, the types of tags used, and their practical applications in modern
   network management."
-url: "back-to-basics/network/vlan_tagging"
+url: "back-to-basics/network/vlan-tagging"
 aliases: ""
 icon: "description"
 
