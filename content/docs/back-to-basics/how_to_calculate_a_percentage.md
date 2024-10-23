@@ -4,9 +4,9 @@ description:
   "Learn how to calculate percentages with this comprehensive guide. Understand
   the formulas and steps to determine percentages, increase and decrease values
   by a percentage, and find percentage differences."
-url: "help/how-to-calculate-a-percentage"
+url: "back-to-basics/how-to-calculate-a-percentage"
 aliases: ""
-icon: "tools_wrench"
+icon: "description"
 
 params:
   author:
@@ -16,7 +16,7 @@ params:
 categories:
   - Homelab-Alpha
 series:
-  - Help
+  - Back to Basics
 tags:
   - Troubleshooting
   - Math Guide
@@ -31,7 +31,7 @@ keywords:
   - percentage difference
   - calculator tips
 
-weight: 6000
+weight: 2900
 
 toc: true
 katex: true
