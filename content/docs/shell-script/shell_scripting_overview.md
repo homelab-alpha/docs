@@ -242,6 +242,16 @@ folder.\
 
 <br />
 
+### uptime_kuma_pr_test_v2.sh
+
+**Description:** Enables developers to verify pull requests for Uptime-Kuma by
+running a Docker container with the specified Uptime-Kuma image on designated
+ports for the app and API.\
+**Detailed Explanation:** [uptime_kuma_pr_test_v2.info]\
+**RAW Script:** [uptime_kuma_pr_test_v2.sh]
+
+<br />
+
 ### user_accounts_info.sh
 
 **Description:** This script retrieves information about system user accounts
@@ -576,6 +586,10 @@ the [license] agreement.
   docs/../../shell-script/script-information/super_linter.info.md
 [super_linter.sh]:
   https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/super_linter.sh
+[uptime_kuma_pr_test_v2.info]:
+  docs/../../shell-script/script-information/uptime_kuma_pr_test_v2.info.md
+[uptime_kuma_pr_test_v2.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/uptime_kuma_pr_test_v2.sh
 [user_accounts_info.info]:
   docs/../../shell-script/script-information/user_accounts_info.info.md
 [user_accounts_info.sh]:
