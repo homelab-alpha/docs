@@ -45,6 +45,11 @@ katex: true
 
 ### Set up the DNF repository
 
+{{% alert context="danger" %}}
+Setting up the DNF repository for Docker and Docker Compose will not work for
+Fedora 41 and later at the moment!
+{{% /alert %}}
+
 Before you install Docker Engine for the first time on a new host machine, you
 need to set up the Docker repository. Afterward, you can install and update
 Docker from the repository.
