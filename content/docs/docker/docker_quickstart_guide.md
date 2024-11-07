@@ -128,7 +128,7 @@ sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/dock
 2. Remove user from the docker group:
 
    ```bash
-   sudo deluser ${USER} docker
+   sudo gpasswd -d ${USER} docker
    ```
 
 3. Uninstall the Docker Engine, CLI, containerd, and Docker Compose packages:
