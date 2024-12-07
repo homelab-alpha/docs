@@ -61,7 +61,7 @@ Here's a detailed explanation:
 
 - **Filename**: `install_latest_jetbrains_mono.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jul 05, 2024
+- **Date**: Dec 07, 2024
 - **Version**: 1.1.0
 - **Description**: The script fetches the latest version of JetBrains Mono from
   the official GitHub repository, downloads it, installs it to the system-wide
@@ -93,7 +93,7 @@ displayed, and the script exits with a status of 1.
 
 ```bash
 if [ -z "$LATEST_VERSION" ]; then
-  echo "Failed to fetch the latest version of JetBrains Mono."
+  log_error "Failed to fetch the latest version of JetBrains Mono. Exiting."
   exit 1
 fi
 ```
@@ -127,10 +127,8 @@ DOWNLOAD_DIR="$HOME/Downloads"
 The script checks if the download directory exists, and if not, it creates it.
 
 ```bash
-if [ ! -d "$DOWNLOAD_DIR" ]; then
-  mkdir -p "$DOWNLOAD_DIR"
-  echo "Created directory: $DOWNLOAD_DIR"
-fi
+log "Ensuring download directory exists: $DOWNLOAD_DIR"
+mkdir -p "$DOWNLOAD_DIR"
 ```
 
 <br />
@@ -141,7 +139,10 @@ The script uses `wget` to download the JetBrains Mono zip file to the specified
 download directory.
 
 ```bash
-wget -v "$DOWNLOAD_URL" -O "$DOWNLOAD_DIR"/JetBrainsMono-"${LATEST_VERSION}".zip
+if ! wget -v "$DOWNLOAD_URL" -O "$DOWNLOAD_DIR/JetBrainsMono-${LATEST_VERSION}.zip"; then
+  log_error "Failed to download JetBrains Mono version ${LATEST_VERSION}. Exiting."
+  exit 1
+fi
 ```
 
 <br />
@@ -153,12 +154,7 @@ If the download fails, an error message is displayed, and the script exits with
 a status of 1.
 
 ```bash
-if [ ! -f "$DOWNLOAD_DIR"/JetBrainsMono-"${LATEST_VERSION}".zip ]; then
-  echo "Failed to download JetBrains Mono version ${LATEST_VERSION}."
-  exit 1
-fi
-
-echo "Successfully downloaded JetBrains Mono version ${LATEST_VERSION} to $DOWNLOAD_DIR."
+log "Successfully downloaded JetBrains Mono to $DOWNLOAD_DIR."
 ```
 
 <br />
@@ -169,7 +165,7 @@ The script extracts the contents of the downloaded zip file to the download
 directory using `unzip`.
 
 ```bash
-unzip "$DOWNLOAD_DIR"/JetBrainsMono-"${LATEST_VERSION}".zip -d "$DOWNLOAD_DIR/JetBrainsMono-${LATEST_VERSION}"
+unzip "$DOWNLOAD_DIR/JetBrainsMono-${LATEST_VERSION}.zip" -d "$DOWNLOAD_DIR/JetBrainsMono-${LATEST_VERSION}"
 ```
 
 <br />
@@ -181,11 +177,7 @@ does not already exist.
 
 ```bash
 JETBRAINS_MONO_DIR="/usr/share/fonts/jetbrains-mono"
-
-if [ ! -d "$JETBRAINS_MONO_DIR" ]; then
-  sudo mkdir -p "$JETBRAINS_MONO_DIR"
-  echo "Created directory: $JETBRAINS_MONO_DIR"
-fi
+sudo mkdir -p "$JETBRAINS_MONO_DIR"
 ```
 
 <br />
@@ -196,7 +188,7 @@ To avoid conflicts, the script removes any previous installations of JetBrains
 Mono fonts in the target directory.
 
 ```bash
-sudo rm -rf $JETBRAINS_MONO_DIR/*
+sudo rm -rf "$JETBRAINS_MONO_DIR"/*
 ```
 
 <br />
@@ -206,7 +198,7 @@ sudo rm -rf $JETBRAINS_MONO_DIR/*
 The script moves the font files to the system-wide fonts directory.
 
 ```bash
-sudo mv "$DOWNLOAD_DIR/JetBrainsMono-${LATEST_VERSION}/fonts/"* $JETBRAINS_MONO_DIR
+sudo mv "$DOWNLOAD_DIR/JetBrainsMono-${LATEST_VERSION}/fonts/"* "$JETBRAINS_MONO_DIR"
 ```
 
 <br />
@@ -219,11 +211,9 @@ with a status of 1.
 
 ```bash
 if [ ! -f "$JETBRAINS_MONO_DIR/ttf/JetBrainsMono-Regular.ttf" ]; then
-  echo "Failed to move JetBrains Mono fonts to $JETBRAINS_MONO_DIR."
+  log_error "Failed to move JetBrains Mono fonts to $JETBRAINS_MONO_DIR. Exiting."
   exit 1
 fi
-
-echo "Successfully installed JetBrains Mono version ${LATEST_VERSION} to $JETBRAINS_MONO_DIR."
 ```
 
 <br />
@@ -244,11 +234,8 @@ The script removes the downloaded zip file and the extracted directory to clean
 up unnecessary files.
 
 ```bash
-rm "$DOWNLOAD_DIR"/JetBrainsMono-"${LATEST_VERSION}".zip
+rm "$DOWNLOAD_DIR/JetBrainsMono-${LATEST_VERSION}.zip"
 rm -r "$DOWNLOAD_DIR/JetBrainsMono-${LATEST_VERSION}"
-
-echo "Cleanup complete."
-echo ""
 ```
 
 <br />
@@ -261,11 +248,10 @@ found, an error message is displayed; otherwise, a success message is shown.
 
 ```bash
 if ! fc-list | grep -q "JetBrains Mono"; then
-  echo "JetBrains Mono font not found. Installation may have failed."
+  log_error "JetBrains Mono font not found. Installation may have failed."
   exit 1
-else
-  echo "JetBrains Mono font successfully installed."
 fi
+log "JetBrains Mono font installed successfully."
 ```
 
 <br />
