@@ -55,8 +55,8 @@ Here's a detailed explanation:
 
 - **Filename**: `install_latest_dart_sass.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: May 18, 2024
-- **Version**: 1.1.1
+- **Date**: December 7, 2024
+- **Version**: 1.1.0
 - **Description**: This script fetches the latest version of Dart Sass from the
   official GitHub repository, downloads it, installs it to
   `/usr/local/dart-sass`, and cleans up the downloaded files.
@@ -86,7 +86,7 @@ displayed, and the script exits with a status of 1.
 
 ```bash
 if [ -z "$LATEST_VERSION" ]; then
-  echo "Failed to fetch the latest version of Dart Sass."
+  log_error "Unable to fetch the latest version of Dart Sass. Exiting."
   exit 1
 fi
 ```
@@ -123,11 +123,10 @@ successful.
 
 ```bash
 if ! wget "$DOWNLOAD_URL" -O "$DOWNLOAD_DIR/dart-sass-${LATEST_VERSION}-linux-x64.tar.gz"; then
-  echo "Failed to download Dart Sass version ${LATEST_VERSION}."
+  log_error "Failed to download Dart Sass version ${LATEST_VERSION}. Exiting."
   exit 1
 fi
-
-echo "Successfully downloaded Dart Sass version ${LATEST_VERSION} to $DOWNLOAD_DIR."
+log "Successfully downloaded Dart Sass version ${LATEST_VERSION} to $DOWNLOAD_DIR."
 ```
 
 <br />
@@ -163,11 +162,10 @@ handling to check if the move was successful.
 
 ```bash
 if ! sudo mv "$DOWNLOAD_DIR/dart-sass"/* /usr/local/dart-sass/; then
-  echo "Failed to move Dart Sass files to /usr/local/dart-sass."
+  log_error "Failed to move Dart Sass files to /usr/local/dart-sass. Exiting."
   exit 1
 fi
-
-echo "Successfully installed Dart Sass version ${LATEST_VERSION} to /usr/local/dart-sass."
+log "Dart Sass version ${LATEST_VERSION} installed successfully."
 ```
 
 <br />
@@ -180,8 +178,7 @@ the download directory to clean up unnecessary files.
 ```bash
 rm -r "$DOWNLOAD_DIR/dart-sass-${LATEST_VERSION}-linux-x64.tar.gz"
 rm -rf "$DOWNLOAD_DIR/dart-sass"
-echo "Cleanup complete."
-echo ""
+log "Cleanup complete."
 ```
 
 <br />
@@ -194,17 +191,12 @@ PATH.
 
 ```bash
 if ! command -v sass &>/dev/null; then
-  echo "Sass command not found. You may need to add Dart Sass to your PATH."
-  echo "To do this, add the following line to your ~/.bashrc or ~/.bash_profile:"
-  echo ""
-  echo "export PATH=\$PATH:/usr/local/dart-sass"
-  echo ""
-  echo "Then, run: source ~/.bashrc"
-  echo "and/or"
-  echo "Then, run: source ~/.bash_profile"
+  log_error "Sass command not found. You may need to add Dart Sass to your PATH."
+  log_error "To do this, add the following line to your ~/.bashrc or ~/.bash_profile:"
+  log_error "export PATH=\$PATH:/usr/local/dart-sass"
   exit 1
 else
-  echo "Sass version: $(sass --version)"
+  log "Sass version: $(sass --version)"
 fi
 ```
 
