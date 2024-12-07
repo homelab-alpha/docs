@@ -85,7 +85,7 @@ The script includes a template for setting up a cron job. This example runs the
 script every 3 hours from 07:00 to 23:00:
 
 ```sh
-10 07-23/3 * * * /bin/bash /path/to/.bash_script/cronjob_template.sh
+10 07-23/3 * * * /bin/bash /path/to/.bash-script/cronjob_template.sh
 ```
 
 <br />
@@ -146,7 +146,7 @@ done
 The script sets up paths for the log directory and file:
 
 ```sh
-log_dir="$HOME/.bash_script"
+log_dir="$HOME/.bash-script"
 log_file="$log_dir/cronjob_template_cron.log"
 ```
 
