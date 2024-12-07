@@ -44,19 +44,18 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this script does in detail. The script is named
-`install_latest_hugo.sh`, authored by GJS (homelab-alpha), and its purpose is to
-fetch, download, install, and clean up the latest version of Hugo from the
-official GitHub repository.
+This script, named `install_latest_hugo.sh` and authored by GJS (homelab-alpha),
+automates the process of fetching, downloading, installing, and cleaning up the
+latest version of Hugo from the official GitHub repository.
 
-Here's a detailed explanation:
+Here's a breakdown of the script's operations:
 
 ## Script Metadata
 
 - **Filename**: `install_latest_hugo.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: May 18, 2024
-- **Version**: 1.1.1
+- **Date**: December 7, 2024
+- **Version**: 1.1.0
 - **Description**: This script fetches the latest version of Hugo from the
   official GitHub repository, downloads it, installs it to
   `/usr/local/hugo-extended`, and cleans up the downloaded files.
@@ -66,11 +65,9 @@ Here's a detailed explanation:
 
 ## Fetching the Latest Version
 
-The script starts by fetching the latest version of Hugo using the GitHub API.
-It uses `curl` to send a request to the GitHub API endpoint for Hugo releases
-and `grep` to extract the tag name of the latest release. The tag name, which
-includes the version number, is then cleaned up using `sed` to isolate just the
-version number.
+The script fetches the latest version of Hugo using the GitHub API. It sends a
+`curl` request to the GitHub API endpoint for Hugo releases and uses `grep` and
+`sed` to extract and clean the version number.
 
 ```bash
 LATEST_VERSION=$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
@@ -80,13 +77,13 @@ LATEST_VERSION=$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/lat
 
 ## Error Handling for Version Fetching
 
-The script checks if the version fetching was successful by verifying if the
-`LATEST_VERSION` variable is not empty. If it is empty, an error message is
-displayed, and the script exits with a status of 1.
+If the script fails to fetch the latest version of Hugo, it checks if the
+`LATEST_VERSION` variable is empty. If so, it logs an error and exits with a
+status of 1.
 
 ```bash
 if [ -z "$LATEST_VERSION" ]; then
-  echo "Failed to fetch the latest version of Hugo."
+  log_error "Failed to fetch the latest version of Hugo. Exiting."
   exit 1
 fi
 ```
@@ -95,8 +92,8 @@ fi
 
 ## Constructing the Download URL
 
-Using the fetched version number, the script constructs the URL to download the
-latest Hugo binary.
+The script constructs the download URL for the Hugo binary using the fetched
+version number.
 
 ```bash
 DOWNLOAD_URL="https://github.com/gohugoio/hugo/releases/download/v${LATEST_VERSION}/hugo_extended_${LATEST_VERSION}_linux-amd64.tar.gz"
@@ -106,8 +103,8 @@ DOWNLOAD_URL="https://github.com/gohugoio/hugo/releases/download/v${LATEST_VERSI
 
 ## Defining the Download Directory
 
-The script defines a directory where the downloaded file will be saved. In this
-case, it uses the `Downloads` directory in the user's home directory.
+The script saves the downloaded file in the `Downloads` directory located in the
+user's home directory.
 
 ```bash
 DOWNLOAD_DIR="$HOME/Downloads"
@@ -117,48 +114,41 @@ DOWNLOAD_DIR="$HOME/Downloads"
 
 ## Downloading the Latest Version
 
-The script uses `wget` to download the Hugo tar.gz file to the specified
-download directory.
+The script uses `wget` to download the tar.gz file for the latest Hugo version.
 
 ```bash
-wget "$DOWNLOAD_URL" -O "$DOWNLOAD_DIR"/hugo_extended_"${LATEST_VERSION}"_linux-amd64.tar.gz
+wget "$DOWNLOAD_URL" -O "$DOWNLOAD_DIR/hugo_extended_${LATEST_VERSION}_linux-amd64.tar.gz"
 ```
 
 <br />
 
 ## Error Handling for Downloading
 
-It checks if `wget` successfully downloaded the file by using `wget -q --spider`
-to test the URL. If the download fails, an error message is displayed, and the
-script exits with a status of 1.
+If the download fails, the script logs an error and exits.
 
 ```bash
-if ! wget -q --spider "$DOWNLOAD_URL"; then
-  echo "Failed to download Hugo version ${LATEST_VERSION}."
+if ! wget "$DOWNLOAD_URL" -O "$DOWNLOAD_DIR/hugo_extended_${LATEST_VERSION}_linux-amd64.tar.gz"; then
+  log_error "Failed to download Hugo version ${LATEST_VERSION}. Exiting."
   exit 1
 fi
-
-echo "Successfully downloaded Hugo version ${LATEST_VERSION} to $DOWNLOAD_DIR."
 ```
 
 <br />
 
 ## Extracting the Downloaded File
 
-The script extracts the contents of the downloaded tar.gz file to the download
-directory using `tar`.
+The script extracts the downloaded tar.gz file into the download directory.
 
 ```bash
-tar -xzf "$DOWNLOAD_DIR"/hugo_extended_"${LATEST_VERSION}"_linux-amd64.tar.gz -C "$DOWNLOAD_DIR"
+tar -xzf "$DOWNLOAD_DIR/hugo_extended_${LATEST_VERSION}_linux-amd64.tar.gz" -C "$DOWNLOAD_DIR"
 ```
 
 <br />
 
 ## Preparing the Installation Directory
 
-The script creates the target directory `/usr/local/hugo-extended` if it does
-not already exist. It then removes any previous installations in that directory
-to ensure a clean installation.
+The script ensures the target directory `/usr/local/hugo-extended` exists and
+cleans up any existing Hugo installation.
 
 ```bash
 sudo mkdir -p /usr/local/hugo-extended
@@ -169,66 +159,57 @@ sudo rm -rf /usr/local/hugo-extended/*
 
 ## Moving Files to the Installation Directory
 
-The script moves the Hugo binary and additional files (LICENSE and README.md) to
-the target directory.
+The Hugo binary and related files are moved to the target installation
+directory.
 
 ```bash
-sudo mv "$DOWNLOAD_DIR"/hugo /usr/local/hugo-extended/
-sudo mv "$DOWNLOAD_DIR"/LICENSE /usr/local/hugo-extended/
-sudo mv "$DOWNLOAD_DIR"/README.md /usr/local/hugo-extended/
+sudo mv "$DOWNLOAD_DIR/hugo" /usr/local/hugo-extended/
+sudo mv "$DOWNLOAD_DIR/LICENSE" /usr/local/hugo-extended/
+sudo mv "$DOWNLOAD_DIR/README.md" /usr/local/hugo-extended/
 ```
 
 <br />
 
 ## Verifying the Installation
 
-It checks if the Hugo binary was successfully moved to the target directory. If
-the binary is not found, an error message is displayed, and the script exits
-with a status of 1.
+If the Hugo binary is not found in the target directory, an error is logged, and
+the script exits with a failure status.
 
 ```bash
 if [ ! -f "/usr/local/hugo-extended/hugo" ]; then
-  echo "Failed to move Hugo binary to /usr/local/hugo-extended."
+  log_error "Failed to move Hugo binary to /usr/local/hugo-extended. Exiting."
   exit 1
 fi
-
-echo "Successfully installed Hugo version ${LATEST_VERSION} to /usr/local/hugo-extended."
 ```
 
 <br />
 
 ## Cleaning Up
 
-The script removes the downloaded tar.gz file from the download directory to
-clean up unnecessary files.
+The script cleans up the downloaded tar.gz file from the `Downloads` directory.
 
 ```bash
-rm "$DOWNLOAD_DIR"/hugo_extended_"${LATEST_VERSION}"_linux-amd64.tar.gz
-
-echo "Cleanup complete."
-echo ""
+rm "$DOWNLOAD_DIR/hugo_extended_${LATEST_VERSION}_linux-amd64.tar.gz"
+log "Cleanup complete."
 ```
 
 <br />
 
 ## Checking for Hugo Command Availability
 
-Finally, the script checks if the `hugo` command is available in the user's
-PATH. If it is not found, it provides instructions for adding Hugo to the PATH.
+Finally, the script verifies whether the `hugo` command is available in the
+user's `PATH`. If it is not, the script suggests adding it to the `PATH` and
+provides instructions for doing so.
 
 ```bash
 if ! command -v hugo &>/dev/null; then
-  echo "Hugo command not found. You may need to add Hugo to your PATH."
-  echo "To do this, add the following line to your ~/.bashrc or ~/.bash_profile:"
-  echo ""
-  echo "export PATH=\$PATH:/usr/local/hugo-extended"
-  echo ""
-  echo "Then, run: source ~/.bashrc"
-  echo "Or"
-  echo "Then, run: source ~/.bash_profile"
+  log_error "Hugo command not found. You may need to add Hugo to your PATH."
+  log_error "To do this, add the following line to your ~/.bashrc or ~/.bash_profile:"
+  log_error "export PATH=\$PATH:/usr/local/hugo-extended"
   exit 1
 else
-  echo "Hugo version: $(hugo version)"
+  log "Verification: Hugo is installed and available."
+  log "Hugo version: $(hugo version)"
 fi
 ```
 
@@ -237,9 +218,9 @@ fi
 ## Conclusion
 
 This script automates the process of downloading and installing the latest
-version of Hugo, ensuring that users always have the most up-to-date version
-with minimal manual intervention. It includes comprehensive error handling and
-provides clear instructions for users to finalize their setup if necessary.
+version of Hugo, ensuring that users always have the most up-to-date version. It
+includes comprehensive error handling and provides clear instructions to
+complete the installation if needed.
 
 [install_latest_hugo.sh]:
   https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/install_latest_hugo.sh
