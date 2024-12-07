@@ -54,8 +54,8 @@ Here's a detailed explanation:
 
 - **Filename**: `install_latest_go.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: May 18, 2024
-- **Version**: 1.1.1
+- **Date**: December 7, 2024
+- **Version**: 1.1.0
 - **Description**: This script fetches the latest version of Go from the
   official Go download page, downloads it, installs it to `/usr/local/go`, and
   cleans up the downloaded files.
@@ -95,7 +95,7 @@ displayed, and the script exits with a status of 1.
 
 ```bash
 if [ -z "$LATEST_VERSION" ]; then
-  echo "Failed to fetch the latest version of Go."
+  log_error "Failed to fetch the latest version of Go. Exiting."
   exit 1
 fi
 ```
@@ -131,11 +131,10 @@ directory. It includes error handling to check if the download was successful.
 
 ```bash
 if ! wget "$DOWNLOAD_URL" -O "$DOWNLOAD_DIR/go${LATEST_VERSION}.linux-amd64.tar.gz"; then
-  echo "Failed to download Go version ${LATEST_VERSION}."
+  log_error "Failed to download Go version ${LATEST_VERSION}. Exiting."
   exit 1
 fi
-
-echo "Successfully downloaded Go version ${LATEST_VERSION} to $DOWNLOAD_DIR."
+log "Successfully downloaded Go version ${LATEST_VERSION} to $DOWNLOAD_DIR."
 ```
 
 <br />
@@ -171,11 +170,10 @@ handling to check if the move was successful.
 
 ```bash
 if ! sudo mv "$DOWNLOAD_DIR/go" /usr/local/; then
-  echo "Failed to move Go files to /usr/local/go."
+  log_error "Failed to move Go files to /usr/local/go. Exiting."
   exit 1
 fi
-
-echo "Successfully installed Go version ${LATEST_VERSION} to /usr/local/go."
+log "Go version ${LATEST_VERSION} installed successfully to /usr/local/go."
 ```
 
 <br />
@@ -187,8 +185,7 @@ clean up unnecessary files.
 
 ```bash
 rm "$DOWNLOAD_DIR/go${LATEST_VERSION}.linux-amd64.tar.gz"
-echo "Cleanup complete."
-echo ""
+log "Cleanup complete."
 ```
 
 <br />
@@ -200,17 +197,12 @@ If it is not found, it provides instructions for adding Go to the PATH.
 
 ```bash
 if ! command -v go &>/dev/null; then
-  echo "Go command not found. You may need to add Go to your PATH."
-  echo "To do this, add the following line to your ~/.bashrc or ~/.bash_profile:"
-  echo ""
-  echo "export PATH=\$PATH:/usr/local/go/bin"
-  echo ""
-  echo "Then, run: source ~/.bashrc"
-  echo "and/or"
-  echo "Then, run: source ~/.bash_profile"
+  log_error "Go command not found. You may need to add Go to your PATH."
+  log_error "To do this, add the following line to your ~/.bashrc or ~/.bash_profile:"
+  log_error "export PATH=\$PATH:/usr/local/go/bin"
   exit 1
 else
-  echo "Go version: $(go version)"
+  log "Go version: $(go version)"
 fi
 ```
 
