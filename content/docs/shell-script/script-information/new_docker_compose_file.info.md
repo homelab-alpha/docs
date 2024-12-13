@@ -740,10 +740,10 @@ binlog-format = ROW
 log-bin-compress = 1
 
 # Optionally, you can encrypt binary logs for added security. The encryption option is currently
-# commented out here. It can be enabled for environments requiring higher security.
+# disable. It can be enabled for environments requiring higher security.
 encrypt-binlog = 0
 
-# Enable native AIO (asynchronous I/O) support for InnoDB. This improves performance
+# Disable native AIO (asynchronous I/O) support for InnoDB. This improves performance
 # by allowing multiple disk I/O operations to be performed concurrently.
 innodb_use_native_aio = 0
 
