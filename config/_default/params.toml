@@ -12,8 +12,8 @@ mono_font       = "JetBrains Mono"
   enabled = false
 
 [footer]
-  copyright = "© :YEAR: Homelab-Alpha"
-  version   = true
+copyright = "[Homelab-Alpha](https://homelab-alpha.nl) © :YEAR: by [GJS](https://github.com/homelab-alpha) is licensed under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)"
+  version = true
 
 [social]
   github = "homelab-alpha"
