@@ -41,14 +41,16 @@ katex: true
 ## Fedora
 
 {{% alert context="primary" %}}
-[Official Docker documentation for Fedora] {{% /alert %}}
+[Official Docker documentation for Fedora]
+
+Supported versions:
+
+- Fedora 40
+- Fedora 41
+
+{{% /alert %}}
 
 ### Set up the DNF repository
-
-{{% alert context="danger" %}}
-Setting up the DNF repository for Docker and Docker Compose will not work for
-Fedora 41 and later at the moment!
-{{% /alert %}}
 
 Before you install Docker Engine for the first time on a new host machine, you
 need to set up the Docker repository. Afterward, you can install and update
@@ -59,7 +61,7 @@ your dnf repositories) and set up the repository:
 
 ```bash
 sudo dnf -y install dnf-plugins-core
-sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
 ```
 
 <br />
@@ -74,7 +76,6 @@ sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/dock
     docker-buildx-plugin \
     docker-ce \
     docker-ce-cli \
-    docker-compose \
     docker-compose-plugin
    ```
 
@@ -140,7 +141,6 @@ sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/dock
     docker-buildx-plugin \
     docker-ce \
     docker-ce-cli \
-    docker-compose \
     docker-compose-plugin
    ```
 
@@ -161,7 +161,16 @@ sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/dock
 ## Ubuntu
 
 {{% alert context="primary" %}}
-[Official Docker documentation for Ubuntu] {{% /alert %}}
+[Official Docker documentation for Ubuntu]
+
+Supported versions:
+
+- Ubuntu Focal 20.04 (LTS)
+- Ubuntu Jammy 22.04 (LTS)
+- Ubuntu Noble 24.04 (LTS)
+- Ubuntu Oracular 24.10
+
+{{% /alert %}}
 
 ### Set up the APT repository
 
@@ -203,7 +212,6 @@ If you use an Ubuntu derivative distro, such as Linux Mint, you may need to use
     docker-buildx-plugin \
     docker-ce \
     docker-ce-cli \
-    docker-compose \
     docker-compose-plugin
    ```
 
@@ -266,7 +274,6 @@ If you use an Ubuntu derivative distro, such as Linux Mint, you may need to use
     docker-ce \
     docker-ce-cli \
     docker-ce-rootless-extras \
-    docker-compose \
     docker-compose-plugin
    ```
 
