@@ -48,15 +48,17 @@ adjustments.
 
 ## Who is Homelab-Alpha?
 
-Hey there! 👋 I'm GJS, a creative problem-solver with a passion for technology,
-and I run my own homelab. I thrive on coming up with innovative solutions to
-various challenges. My Homelab is my playground where I test out new
-technologies, experiment with different setups, and continuously seek ways to
-make my environment smarter and more efficient. Whether it's setting up
-automated processes, exploring new gadgets, or simply challenging myself with
-complex technical projects, I'm always in my element when tinkering. In short,
-I'm a tech enthusiast who isn't afraid to get my hands dirty and continually
-learns in the realms of innovation and problem-solving.
+Hey there! 👋 I'm GJS, a creative problem solver with a passion for technology.
+I run my own homelab, a space where I experiment with new technologies, try out
+different setups, and constantly look for ways to make my environment smarter
+and more efficient.
+
+I get excited about coming up with innovative solutions to various challenges.
+Whether it's setting up automated processes, exploring new gadgets, or taking on
+complex technical projects, I always feel at my best when I'm tinkering.
+
+In short, I'm a technology enthusiast who isn't afraid to get my hands dirty and
+is constantly learning in the fields of innovation and problem solving.
 
 <br />
 
