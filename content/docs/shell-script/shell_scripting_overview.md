@@ -126,6 +126,18 @@ monitoring server for system health check. \
 
 <br />
 
+### github_pr_inspector.sh
+
+**Description:** This script provides an interactive interface for generating
+.patch and .diff links for GitHub pull requests. It allows users to inspect PR
+changes directly in their terminal by accessing these links. The script supports
+interactive menu options, hardcoded repositories, and custom input, ensuring a
+flexible user experience \
+**Detailed Explanation:** [github_pr_inspector.info]\
+**RAW Script:** [github_pr_inspector.sh]
+
+<br />
+
 ### gnome_keybindings_backup_restore.sh
 
 **Description:** This script allows you to easily create backups of GNOME
@@ -542,6 +554,10 @@ the [license] agreement.
   docs/../../shell-script/script-information/cronjob_template.info.md
 [cronjob_template.sh]:
   https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/cronjob_template.sh
+[github_pr_inspector.info]:
+  docs/../../shell-script/script-information/github_pr_inspector.info.md
+[github_pr_inspector.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/github_pr_inspector.sh
 [gnome_keybindings_backup_restore.info]:
   docs/../../shell-script/script-information/gnome_keybindings_backup_restore.info.md
 [gnome_keybindings_backup_restore.sh]:
