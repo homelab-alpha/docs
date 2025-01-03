@@ -54,8 +54,8 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 Let's break down what this script does in detail. The script is named
 `github_pr_inspector.sh`, authored by GJS (homelab-alpha), and its purpose is to
-manage GNOME keybindings by allowing users to create backups of their current
-keybindings and restore them when needed.
+manage GitHub pull request inspection by allowing users to generate `.patch` and
+`.diff` links and view PR changes directly in the terminal.
 
 Here's a detailed explanation:
 
