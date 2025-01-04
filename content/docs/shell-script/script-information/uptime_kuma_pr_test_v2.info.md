@@ -53,8 +53,8 @@ Here's a detailed explanation:
 
 - **Filename**: `uptime_kuma_pr_test_v2.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: December 21, 2024
-- **Version**: 1.1.0
+- **Date**: January 04, 2025
+- **Version**: 1.2.0
 - **Description**: Enables developers to verify pull requests for Uptime-Kuma by
   running a Docker container with the specified Uptime-Kuma image on designated
   ports for the app and API.
@@ -235,12 +235,13 @@ version_2() {
     --env PGID="$pgid" \
     --name uptime-kuma-pr-test-v2 \
     --pull=always \
-    --rm \
     --publish "$port_app:3000/tcp" \
     --publish "$port_api:3001/tcp" \
-    --security-opt no-new-privileges:true \
+    --security-opt="no-new-privileges=true" \
     --interactive \
     --tty \
+    --no-healthcheck \
+    --rm \
     louislam/uptime-kuma:pr-test2 || {
     echo
     echo "Exiting container. Goodbye! Use CTRL+C to terminate."
@@ -256,8 +257,12 @@ storage:
 - Checks if a container with the name `uptime-kuma-pr-test-v2` is already
   running. If it is, the function exits.
 - Runs the container with the Uptime-Kuma image using the set environment
-  variables (`PUID`, `PGID`), publishes the ports, and enforces limited
-  privileges using `--security-opt no-new-privileges:true`.
+  variables (`RUN_LOCAL`, `UPTIME_KUMA_GH_REPO`, `PUID`, `PGID`), publishes the
+  ports (`$port_app:3000/tcp`, `$port_api:3001/tcp`), and enforces limited
+  privileges using `--security-opt="no-new-privileges=true"`.
+- Removes the container after execution (`--rm`), disables health checks
+  (`--no-healthcheck`), and runs it interactively with a terminal
+  (`--interactive`, `--tty`).
 
 <br />
 
@@ -282,13 +287,14 @@ version_2_persistent_storage() {
     --env PGID="$pgid" \
     --name uptime-kuma-pr-test-v2 \
     --pull=always \
-    --rm \
+    --volume uptime-kuma-pr-test-v2:/app/data \
     --publish "$port_app:3000/tcp" \
     --publish "$port_api:3001/tcp" \
-    --security-opt no-new-privileges:true \
+    --security-opt="no-new-privileges=true" \
     --interactive \
     --tty \
-    --volume uptime-kuma-pr-test-v2:/app/data \
+    --no-healthcheck \
+    --rm \
     louislam/uptime-kuma:pr-test2 || {
     echo
     echo "Exiting container. Goodbye! Use CTRL+C to terminate."
