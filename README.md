@@ -174,7 +174,7 @@ the [license] agreement.
 [bug report]:
   https://github.com/homelab-alpha/docs/issues/new?assignees=homelab-alpha&labels=bug&projects=&template=bug_report.yml
 [security report]:
-  https://github.com/homelab-alpha/docs/issues/new?assignees=homelab-alpha&labels=security&projects=&template=security_report.yml&title=GitHub+Security+Advisory
+  https://github.com/homelab-alpha/docs/issues/new?assignees=homelab-alpha&labels=security&projects=&template=security_report.yml
 [give feedback]:
   https://github.com/homelab-alpha/docs/discussions/categories/feedback
 [ideas]: https://github.com/homelab-alpha/docs/discussions/categories/ideas
