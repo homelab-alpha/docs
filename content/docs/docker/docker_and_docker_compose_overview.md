@@ -98,7 +98,7 @@ For using Docker Compose, create a `docker-compose.yml` file with your app's
 configuration and then run the following command:
 
 ```bash
-docker-compose up
+docker compose up
 ```
 
 This will start all services as specified in the YAML file.
