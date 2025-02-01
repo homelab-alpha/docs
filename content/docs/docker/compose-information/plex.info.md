@@ -56,10 +56,12 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 15, 2024
+- **Date**: Feb 1, 2025
 - **Description**: Configures a Docker network and service for Plex Media
   Server.
 - **RAW Compose File**: [docker-compose.yml]
+- **RAW .env File**: [.env]
+- **RAW stack.env File**: [stack.env]
 
 <br />
 
@@ -68,6 +70,7 @@ Here's a detailed explanation:
 ```yaml
 networks:
   plex_net:
+    attachable: false
     internal: false
     external: false
     name: plex
@@ -90,6 +93,8 @@ networks:
 ```
 
 - **networks**: Defines a custom network named `plex_net`.
+- **attachable**: Set to `false`, meaning other containers can't attach to this
+  network.
 - **internal: false**: The network is accessible externally.
 - **external: false**: The network is created within this `docker-compose` file,
   not externally defined.
@@ -129,6 +134,7 @@ services:
       options:
         max-size: "1M"
         max-file: "2"
+    stop_grace_period: 1m
     container_name: plex
     image: plexinc/pms-docker:latest
     pull_policy: if_not_present
@@ -136,12 +142,19 @@ services:
       - /docker/plex/production/app/config:/config
       - /docker/plex/production/app/temp:/transcode
       - /docker/media:/data:ro
+    env_file:
+      # Choose the correct environment file:
+      # - Use '.env' for Docker Compose.
+      # - Use 'stack.env' for Portainer.
+      # Comment out the file you are not using in the Compose file to avoid issues.
+      - .env
+      - stack.env
     environment:
       PUID: "1000"
       PGID: "1000"
       TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
-      PLEX_CLAIM: "claim-a1b2c3d4e5f6g7h8i9j0" # Visit https://www.plex.tv/claim to get a claim token for logging into your Plex server with your Plex account.
-      ADVERTISE_IP: "http://192.168.1.1:32400/" # Customize this with your own server IP address, e.g., `192.168.1.1:32400` to `192.168.69.69:32400`.
+      PLEX_CLAIM: ${PLEX_CLAIM_TOKEN} # Fill in the value in both the .env and stack.env files
+      ADVERTISE_IP: ${IP_ADDRESS} # Fill in the value in both the .env and stack.env files
       CHANGE_CONFIG_DIR_OWNERSHIP: "false"
       # ALLOWED_NETWORKS: ""
     domainname: plex.local # Customize this with your own domain, e.g., `plex.local` to `plex.your-fqdn-here.com`.
@@ -174,13 +187,14 @@ services:
 ```
 
 - **plex_app**: The service name for the Plex container.
-
   - **restart: unless-stopped**: Ensures the container restarts unless it is
     explicitly stopped.
   - **logging**: Configures logging for the container.
     - **driver: "json-file"**: Uses JSON file logging driver.
     - **max-size: "1M"**: Limits log file size to 1MB.
     - **max-file: "2"**: Keeps a maximum of 2 log files.
+  - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
+    stopping the container.
   - **container_name: plex**: Names the container "plex".
   - **image: plexinc/pms-docker:latest**: Uses the latest Plex Media Server
     image from Docker Hub.
@@ -192,6 +206,9 @@ services:
     - **/docker/plex/production/app/temp:/transcode**: Mounts the transcode
       directory.
     - **/docker/media:/data:ro**: Mounts the media directory (read-only).
+  - **env_file**: Specifies environment files.
+    - **.env**: For Docker Compose.
+    - **stack.env**: For Portainer.
   - **environment**: Sets environment variables.
     - **PUID: "1000"**: Sets the user ID.
     - **PGID: "1000"**: Sets the group ID.
@@ -232,6 +249,38 @@ services:
 
 <br />
 
+## Environment Variables
+
+This file contains configuration settings that various applications (such as
+Docker containers or MySQL servers) can use. By storing these values outside the
+source code, sensitive data—like passwords and tokens—remains secure.
+
+<br />
+
+### Variables in this File
+
+```env
+# Visit https://www.plex.tv/claim to get a claim token for logging into your Plex server with your Plex account.
+PLEX_CLAIM_TOKEN=claim-a1b2c3d4e5f6g7h8i9j0
+```
+
+- **PLEX_CLAIM_TOKEN**: This token is required to authenticate and log into your
+  Plex server with your Plex account. You can generate the token by visiting
+  [Plex Claim](https://www.plex.tv/claim).
+
+<br />
+
+```env
+# Customize this with your own server IP address, e.g., `192.168.1.1:32400` to `192.168.69.69:32400`.
+IP_ADDRESS=http://192.168.1.1:32400/
+```
+
+- **IP_ADDRESS**: The IP address of your server, used to connect to services
+  such as Plex. You can include the full URL with the port number, like
+  `http://192.168.1.1:32400`.
+
+<br />
+
 ## Conclusion
 
 This `docker-compose.yml` file sets up a Plex Media Server with its own custom
@@ -245,3 +294,7 @@ options enhance container security by preventing privilege escalation.
 
 [docker-compose.yml]:
   https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/plex/docker-compose.yml
+[.env]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/plex/.env
+[stack.env]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/plex/stack.env
