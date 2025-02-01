@@ -56,10 +56,13 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 15, 2024
+- **Date**: Feb 1, 2025
 - **Description**: Configures a Docker network and services for FreshRSS and its
   MariaDB database.
 - **RAW Compose File**: [docker-compose.yml]
+- **RAW .env File**: [.env]
+- **RAW stack.env File**: [stack.env]
+- **RAW my.cnf File**: [my.cnf]
 
 <br />
 
@@ -68,6 +71,7 @@ Here's a detailed explanation:
 ```yaml
 networks:
   freshrss_net:
+    attachable: false
     internal: false
     external: false
     name: freshrss
@@ -90,6 +94,8 @@ networks:
 ```
 
 - **networks**: Defines a custom network named `freshrss_net`.
+- **attachable**: Set to `false`, meaning other containers can't attach to this
+  network.
 - **internal: false**: The network is accessible externally.
 - **external: false**: The network is created within this `docker-compose` file,
   not externally defined.
@@ -129,25 +135,24 @@ services:
       options:
         max-size: "1M"
         max-file: "2"
+    stop_grace_period: 1m
     container_name: freshrss_db
     image: mariadb:latest
     pull_policy: if_not_present
     volumes:
       - /docker/freshrss/production/db:/var/lib/mysql
+      - /docker/freshrss/production/my.cnf:/etc/my.cnf
+    env_file:
+      - .env
+      - stack.env
     environment:
       PUID: "1000"
       PGID: "1000"
       TZ: Europe/Amsterdam
-      MYSQL_ROOT_PASSWORD: "sprD3KmxVgS5u4UaBbyRedLkWt6fn" # Change the MySQL root password to a strong, unique password of your choice.  Avoid using symbols like !";#$%&'()*+,-./:;<=>?@[]^_`{|}~
-      MYSQL_DATABASE: "freshrss_db"
-      MYSQL_USER: "freshrss"
-      MYSQL_PASSWORD: "bNg5cEUFTvRH2XMxzSksemh8PrJ4u" # Change the MySQL password to a strong, unique password of your choice. Avoid using symbols like !";#$%&'()*+,-./:;<=>?@[]^_`{|}~
-    command:
-      [
-        "--transaction-isolation=READ-COMMITTED",
-        "--log-bin=binlog",
-        "--binlog-format=ROW",
-      ]
+      MYSQL_ROOT_PASSWORD: ${ROOT_PASSWORD_DB} # Fill in the value in both the .env and stack.env files
+      MYSQL_DATABASE: ${NAME_DB} # Fill in the value in both the .env and stack.env files
+      MYSQL_USER: ${USER_DB} # Fill in the value in both the .env and stack.env files
+      MYSQL_PASSWORD: ${PASSWORD_DB} # Fill in the value in both the .env and stack.env files
     hostname: freshrss_db
     networks:
       freshrss_net:
@@ -157,7 +162,13 @@ services:
     labels:
       com.freshrss.db.description: "is a MySQL database."
     healthcheck:
-      disable: true
+      disable: false
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+      start_interval: 5s
 ```
 
 - **freshrss_db**: The service name for the MariaDB container.
@@ -167,6 +178,8 @@ services:
     - **driver: "json-file"**: Uses JSON file logging driver.
     - **max-size: "1M"**: Limits log file size to 1MB.
     - **max-file: "2"**: Keeps a maximum of 2 log files.
+    - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
+      stopping the container.
   - **container_name: freshrss_db**: Names the container "freshrss_db".
   - **image: mariadb:latest**: Uses the latest MariaDB image from Docker Hub.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
@@ -174,19 +187,19 @@ services:
   - **volumes**: Mounts host directories or files into the container.
     - **/docker/freshrss/production/db:/var/lib/mysql**: Mounts the MySQL data
       directory.
+    - **/docker/freshrss/production/my.cnf:/etc/my.cnf**: Mounts the custom
+      MySQL configuration file.
+  - **env_file**: Specifies environment files.
+    - **.env**: For Docker Compose.
+    - **stack.env**: For Portainer.
   - **environment**: Sets environment variables.
     - **PUID: "1000"**: Sets the user ID.
     - **PGID: "1000"**: Sets the group ID.
     - **TZ: Europe/Amsterdam**: Sets the timezone to Amsterdam.
     - **MYSQL_ROOT_PASSWORD**: Sets the MySQL root password.
-    - **MYSQL_DATABASE: "freshrss_db"**: Creates a database named "freshrss_db".
-    - **MYSQL_USER: "freshrss"**: Creates a MySQL user named "freshrss".
+    - **MYSQL_DATABASE**: Sets the database name.
+    - **MYSQL_USER**: Sets the MySQL user.
     - **MYSQL_PASSWORD**: Sets the MySQL user password.
-  - **command**: Configures MariaDB startup commands.
-    - **--transaction-isolation=READ-COMMITTED**: Sets transaction isolation
-      level.
-    - **--log-bin=binlog**: Enables binary logging.
-    - **--binlog-format=ROW**: Sets binary log format to ROW.
   - **hostname: freshrss_db**: Sets the hostname for the container.
   - **networks**: Connects the service to the `freshrss_net` network.
     - **ipv4_address: 172.20.6.2**: Assigns a static IP address to the
@@ -198,7 +211,9 @@ services:
     - **com.freshrss.db.description**: Description label for the MariaDB
       container.
   - **healthcheck**: Healthcheck configuration.
-    - **disable: true**: Disables health checks for the container.
+    - **disable: false**: Enables the health check.
+    - **test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]**:
+      Defines the health check command.
 
 <br />
 
@@ -212,27 +227,31 @@ freshrss_app:
     options:
       max-size: "1M"
       max-file: "2"
+  stop_grace_period: 1m
   container_name: freshrss
   image: freshrss/freshrss:latest
   pull_policy: if_not_present
   depends_on:
     freshrss_db:
-      condition: service_started
+      condition: service_healthy
   links:
     - freshrss_db
   volumes:
     - /docker/freshrss/production/app/data:/var/www/FreshRSS/data
     - /docker/freshrss/extensions:/var/www/FreshRSS/extensions
+  env_file:
+    - .env
+    - stack.env
   environment:
     PUID: "1000"
     PGID: "1000"
     TZ: Europe/Amsterdam
     CRON_MIN: "*/10"
-    MYSQL_HOST: "freshrss_db"
-    MYSQL_PORT: 3306
-    MYSQL_NAME: "freshrss_db"
-    MYSQL_USER: "freshrss"
-    MYSQL_PASSWORD: "bNg5cEUFTvRH2XMxzSksemh8PrJ4u" # Change the MySQL password to a strong, unique password of your choice. Avoid using symbols like !";#$%&'()*+,-./:;<=>?@[]^_`{|}~
+    MYSQL_HOST: ${HOST_DB} # Fill in the value in both the .env and stack.env files
+    MYSQL_PORT: ${PORT_DB} # Fill in the value in both the .env and stack.env files
+    MYSQL_NAME: ${NAME_DB} # Fill in the value in both the .env and stack.env files
+    MYSQL_USER: ${USER_DB} # Fill in the value in both the .env and stack.env files
+    MYSQL_PASSWORD: ${PASSWORD_DB} # Fill in the value in both the .env and stack.env files
   domainname: freshrss.local
   hostname: freshrss
   networks:
@@ -257,13 +276,15 @@ freshrss_app:
     - **driver: "json-file"**: Uses JSON file logging driver.
     - **max-size: "1M"**: Limits log file size to 1MB.
     - **max-file: "2"**: Keeps a maximum of 2 log files.
+  - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
+    stopping the container.
   - **container_name: freshrss**: Names the container "freshrss".
   - **image: freshrss/freshrss:latest**: Uses the latest FreshRSS image from
     Docker Hub.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **depends_on**: Specifies dependencies for this service.
-    - **freshrss_db**: Waits for the database service to start.
+    - **freshrss_db**: Waits for the database service to be healthy.
   - **links**: Links to the database container.
     - **freshrss_db**: Links to the `freshrss_db` container.
   - **volumes**: Mounts host directories or files into the container.
@@ -276,18 +297,18 @@ freshrss_app:
     - **PGID: "1000"**: Sets the group ID.
     - **TZ: Europe/Amsterdam**: Sets the timezone to Amsterdam.
     - **CRON_MIN: "\*/10"**: Sets the cron job interval.
-    - **MYSQL_HOST: "freshrss_db"**: Sets the database host.
-    - **MYSQL_PORT: 3306**: Sets the database port.
-    - **MYSQL_NAME: "freshrss_db"**: Sets the database name.
-    - **MYSQL_USER: "freshrss"**: Sets the database user.
-    - **MYSQL_PASSWORD**: Sets the database user password.
+    - **MYSQL_HOST**: The database host.
+    - **MYSQL_PORT**: The database port.
+    - **MYSQL_NAME**: The database name.
+    - **MYSQL_USER**: The database user.
+    - **MYSQL_PASSWORD**: The database user password.
   - **domainname: freshrss.local**: Sets the domain name for the container.
   - **hostname: freshrss**: Sets the hostname for the container.
   - **networks**: Connects the service to the `freshrss_net` network.
     - **ipv4_address: 172.20.6.3**: Assigns a static IP address to the
       container.
   - **ports**: Maps container ports to host ports.
-    - **3002:80/tcp**: Maps the HTTP port.
+    - **3002:80/tcp**: Maps the HTTP port (TCP).
     - **3002:80/udp**: Maps the HTTP port (UDP).
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
@@ -297,6 +318,172 @@ freshrss_app:
     - **com.freshrss.description**: Description label for FreshRSS.
   - **healthcheck**: Healthcheck configuration.
     - **disable: true**: Disables health checks for the container.
+
+<br />
+
+## Environment Variables
+
+This file contains configuration settings that can be used by various
+applications (such as Docker containers or your MySQL server). The values are
+variables stored outside the source code for security purposes.
+
+<br />
+
+### Variables in this file
+
+```env
+# Database configuration: ROOT
+ROOT_PASSWORD_DB="ThisIsADemoRootPassword"
+```
+
+- **`ROOT_PASSWORD_DB`**: The password for the root user of the MySQL database.
+  This account has full access to the database. It’s important to make this
+  password strong and unique to secure access to your database.
+
+<br />
+
+```env
+# Database configuration: USER
+HOST_DB="freshrss_db"
+PORT_DB=3306
+NAME_DB=freshrss_db
+USER_DB=freshrss
+PASSWORD_DB="ThisIsADemoPassword"
+```
+
+- **HOST_DB**: The name or IP address of the host where the database is running.
+  In this case, it's set to `freshrss_db`, which is likely the name of the
+  database container or network within Docker.
+- **PORT_DB**: The port the MySQL server is listening on, which is `3306` by
+  default for MySQL.
+- **NAME_DB**: The name of the database being used. Here it's `freshrss_db`,
+  probably for an application like FreshRSS.
+- **USER_DB**: The username for accessing the database. In this case, it's
+  `freshrss`.
+- **PASSWORD_DB**: The password for the `freshrss` user. As with the root user,
+  it’s important to have a strong password here as well.
+
+<br />
+
+## MariaDB/MySQL Configuration
+
+This file contains configuration settings for the MariaDB/MySQL server. It
+determines how the database behaves, such as connection settings, performance,
+and security.
+
+<br />
+
+### Sections in this file
+
+```cnf
+[mysqld]
+# ============================================
+# General Server Settings
+# ============================================
+server-id = 1
+datadir = /var/lib/mysql/
+pid-file = /var/run/mysqld/mysqld.pid
+skip-name-resolve
+default-storage-engine = InnoDB
+transaction-isolation = REPEATABLE-READ
+skip-symbolic-links
+```
+
+- **server-id**: This is a unique ID for the server, important if you want to
+  set up replication with MariaDB/MySQL. It’s set to `1` here.
+- **datadir**: The directory where the database files are stored on disk.
+- **pid-file**: This file holds the process ID of the running MySQL server.
+- **skip-name-resolve**: This prevents DNS resolution for client connections,
+  improving connection speed.
+- **default-storage-engine**: The default storage engine for new tables, set to
+  `InnoDB`, which is ACID-compliant (Atomicity, Consistency, Isolation,
+  Durability).
+- **transaction-isolation**: The isolation level for transactions, set to
+  `REPEATABLE-READ` (a common default in MySQL).
+- **skip-symbolic-links**: Prevents the use of symbolic links, enhancing data
+  security.
+
+<br />
+
+```cnf
+# ============================================
+# Performance Optimizations
+# ============================================
+innodb-buffer-pool-size = 2G
+innodb-log-file-size = 1G
+innodb-log-buffer-size = 32M
+innodb-flush-log-at-trx-commit = 1
+innodb-read-io-threads = 8
+innodb-write-io-threads = 8
+```
+
+- **innodb-buffer-pool-size**: The amount of memory allocated to cache data in
+  the InnoDB storage engine. This should be a significant portion of your total
+  RAM (here, it's set to 2GB).
+- **innodb-log-file-size**: The size of the InnoDB redo log files. Larger log
+  files can improve performance for write-heavy workloads.
+- **innodb-log-buffer-size**: The size of the memory buffer for the InnoDB log
+  files. Larger buffers reduce disk I/O.
+- **innodb-flush-log-at-trx-commit**: Ensures that logs are written to disk with
+  each transaction commit, providing ACID guarantees, though it can impact
+  performance.
+- **innodb-read-io-threads and innodb-write-io-threads**: The number of threads
+  InnoDB uses for read and write operations. These can improve performance for
+  high I/O workloads.
+
+<br />
+
+```cnf
+# ============================================
+# Binary Logging and Replication
+# ============================================
+log-bin = freshrss_binlog
+max-binlog-size = 500M
+expire-logs-days = 7
+binlog-format = ROW
+```
+
+- **log-bin**: Enables binary logging, which is needed for replication and
+  point-in-time recovery. The log will be stored as `freshrss_binlog`.
+- **max-binlog-size**: The maximum size for each binary log file. A new log file
+  is created when this limit is reached (500MB in this case).
+- **expire-logs-days**: The number of days after which binary logs will be
+  automatically purged. Here, it’s set to 7 days to save disk space.
+- **binlog-format**: The format for binary logging, set to `ROW`, which ensures
+  data consistency for replication.
+
+<br />
+
+```cnf
+# ============================================
+# Character Set and Encoding
+# ============================================
+character-set-server = utf8mb4
+collation-server = utf8mb4_general_ci
+```
+
+- **character-set-server** and **collation-server**: These settings ensure that
+  the database uses UTF-8 encoding by default, which is important for
+  international support. `utf8mb4` supports a wider range of characters than the
+  older `utf8` encoding.
+
+<br />
+
+```cnf
+# ============================================
+# SSL/TLS Security
+# ============================================
+# ssl-ca = /etc/mysql/ssl/ca-cert.pem
+# ssl-cert = /etc/mysql/ssl/server-cert.pem
+# ssl-key = /etc/mysql/ssl/server-key.pem
+# require-secure-transport = 1
+```
+
+- **SSL/TLS settings**: These settings enable SSL certificates for encrypted
+  connections. It's disabled (commented out), but can be configured for added
+  security.
+
+<br />
 
 ## Conclusion
 
@@ -311,3 +498,9 @@ securely.
 
 [docker-compose.yml]:
   https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/freshrss/docker-compose.yml
+[.env]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/freshrss/.env
+[stack.env]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/freshrss/stack.env
+[my.cnf]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/freshrss/my.cnf
