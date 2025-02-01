@@ -143,6 +143,10 @@ services:
       - /docker/freshrss/production/db:/var/lib/mysql
       - /docker/freshrss/production/my.cnf:/etc/my.cnf
     env_file:
+      # Choose the correct environment file:
+      # - Use '.env' for Docker Compose.
+      # - Use 'stack.env' for Portainer.
+      # Comment out the file you are not using in the Compose file to avoid issues
       - .env
       - stack.env
     environment:
@@ -240,6 +244,10 @@ freshrss_app:
     - /docker/freshrss/production/app/data:/var/www/FreshRSS/data
     - /docker/freshrss/extensions:/var/www/FreshRSS/extensions
   env_file:
+    # Choose the correct environment file:
+    # - Use '.env' for Docker Compose.
+    # - Use 'stack.env' for Portainer.
+    # Comment out the file you are not using in the Compose file to avoid issues
     - .env
     - stack.env
   environment:
@@ -292,6 +300,9 @@ freshrss_app:
       the FreshRSS data directory.
     - **/docker/freshrss/extensions:/var/www/FreshRSS/extensions**: Mounts the
       FreshRSS extensions directory.
+  - **env_file**: Specifies environment files.
+    - **.env**: For Docker Compose.
+    - **stack.env**: For Portainer.
   - **environment**: Sets environment variables.
     - **PUID: "1000"**: Sets the user ID.
     - **PGID: "1000"**: Sets the group ID.
