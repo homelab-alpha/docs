@@ -59,7 +59,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 13, 2024
+- **Date**: Feb 1, 2025
 - **Description**: Configures a Docker network and the Dockge service for
   managing Docker Compose stacks.
 - **RAW Compose File**: [docker-compose.yml]
@@ -71,6 +71,7 @@ Here's a detailed explanation:
 ```yaml
 networks:
   dockge_net:
+    attachable: false
     internal: false
     external: false
     name: dockge
@@ -93,6 +94,8 @@ networks:
 ```
 
 - **networks**: This section defines a custom network named `dockge_net`.
+- **attachable**: Set to `false`, meaning other containers can't attach to this
+  network.
 - **internal: false**: The network is accessible externally.
 - **external: false**: The network is created within this `docker-compose` file,
   not externally defined.
@@ -132,6 +135,7 @@ services:
       options:
         max-size: "1M"
         max-file: "2"
+    stop_grace_period: 1m
     container_name: dockge
     image: louislam/dockge:latest
     pull_policy: if_not_present
@@ -170,6 +174,8 @@ services:
     - **driver: "json-file"**: Uses JSON file logging driver.
     - **max-size: "1M"**: Limits log file size to 1MB.
     - **max-file: "2"**: Keeps a maximum of 2 log files.
+  - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
+    stopping the container.
   - **container_name: dockge**: Names the container "dockge".
   - **image: louislam/dockge:latest**: Uses the latest Dockge image from Docker
     Hub.

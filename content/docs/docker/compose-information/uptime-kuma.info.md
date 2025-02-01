@@ -58,7 +58,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 12, 2024
+- **Date**: Feb 1, 2025
 - **Description**: This file configures a custom Docker network and an Uptime
   Kuma service for monitoring website uptime and alerting. It includes detailed
   network settings and service configurations to ensure Uptime Kuma runs
@@ -72,6 +72,7 @@ Here's a detailed explanation:
 ```yaml
 networks:
   uptime-kuma_net:
+    attachable: false
     internal: false
     external: false
     name: uptime-kuma
@@ -94,6 +95,8 @@ networks:
 ```
 
 - **networks**: This section defines a custom network named `uptime-kuma_net`.
+- **attachable**: Set to `false`, meaning other containers can't attach to this
+  network.
 - **internal: false**: The network is accessible externally.
 - **external: false**: The network is not an externally defined one but created
   within this `docker-compose` file.
@@ -134,6 +137,7 @@ services:
       options:
         max-size: "1M"
         max-file: "2"
+    stop_grace_period: 1m
     container_name: uptime-kuma
     image: louislam/uptime-kuma:latest
     pull_policy: if_not_present
@@ -148,7 +152,7 @@ services:
     hostname: status
     networks:
       uptime-kuma_net:
-        ipv4_address: 172.20.3.2
+        ipv4_address: 172.20.3.3
     ports:
       - "3001:3001/tcp" # HTTP
       - "3001:3001/udp" # HTTP
@@ -170,6 +174,8 @@ services:
     - **driver: "json-file"**: Uses JSON file logging driver.
     - **max-size: "1M"**: Limits log file size to 1MB.
     - **max-file: "2"**: Keeps a maximum of 2 log files.
+  - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
+    stopping the container.
   - **container_name: uptime-kuma**: Names the container "uptime-kuma".
   - **image: louislam/uptime-kuma:latest**: Uses the latest Uptime Kuma image
     from Docker Hub.

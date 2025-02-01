@@ -58,7 +58,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 12, 2024
+- **Date**: Feb 1, 2025
 - **Description**: This file configures a custom Docker network and a Netdata
   service to monitor and troubleshoot infrastructure. It includes detailed
   network settings and service configurations to ensure Netdata runs smoothly
@@ -72,6 +72,7 @@ Here's a detailed explanation:
 ```yaml
 networks:
   netdata_net:
+    attachable: false
     internal: false
     external: false
     name: netdata
@@ -94,6 +95,8 @@ networks:
 ```
 
 - **networks**: This section defines a custom network named `netdata_net`.
+- **attachable**: Set to `false`, meaning other containers can't attach to this
+  network.
 - **internal: false**: The network is accessible externally.
 - **external: false**: The network is not an externally defined one but created
   within this `docker-compose` file.
@@ -133,6 +136,7 @@ services:
       options:
         max-size: "1M"
         max-file: "2"
+    stop_grace_period: 1m
     container_name: netdata
     image: netdata/netdata:latest
     pull_policy: if_not_present
@@ -182,6 +186,8 @@ services:
     - **driver: "json-file"**: Uses JSON file logging driver.
     - **max-size: "1M"**: Limits log file size to 1MB.
     - **max-file: "2"**: Keeps a maximum of 2 log files.
+  - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
+    stopping the container.
   - **container_name: netdata**: Names the container "netdata".
   - **image: netdata/netdata:latest**: Uses the latest Netdata image from Docker
     Hub.

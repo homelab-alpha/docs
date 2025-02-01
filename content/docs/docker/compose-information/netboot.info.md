@@ -60,7 +60,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 13, 2024
+- **Date**: Feb 1, 2025
 - **Description**: Configures a Docker network and the NetBoot service,
   providing an environment for network booting various OS and utility disks.
 - **RAW Compose File**: [docker-compose.yml]
@@ -72,6 +72,7 @@ Here's a detailed explanation:
 ```yaml
 networks:
   netboot_net:
+    attachable: false
     internal: false
     external: false
     name: netboot
@@ -94,6 +95,8 @@ networks:
 ```
 
 - **networks**: This section defines a custom network named `netboot_net`.
+- **attachable**: Set to `false`, meaning other containers can't attach to this
+  network.
 - **internal: false**: The network is accessible externally.
 - **external: false**: The network is created within this `docker-compose` file,
   not externally defined.
@@ -133,14 +136,13 @@ services:
       options:
         max-size: "1M"
         max-file: "2"
+    stop_grace_period: 1m
     container_name: netboot
     image: netbootxyz/netbootxyz:latest
     pull_policy: if_not_present
     volumes:
       - /docker/netboot/production/app:/config
       - /docker/media/images/netboot/assets:/assets
-      - /docker/media/images/iso:/assets
-      - /docker/media/images/dmg:/assets
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -179,6 +181,8 @@ services:
     - **driver: "json-file"**: Uses JSON file logging driver.
     - **max-size: "1M"**: Limits log file size to 1MB.
     - **max-file: "2"**: Keeps a maximum of 2 log files.
+  - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
+    stopping the container.
   - **container_name: netboot**: Names the container "netboot".
   - **image: netbootxyz/netbootxyz:latest**: Uses the latest NetBootXYZ image
     from Docker Hub.

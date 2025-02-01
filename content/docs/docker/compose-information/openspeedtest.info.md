@@ -59,7 +59,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 13, 2024
+- **Date**: Feb 1, 2025
 - **Description**: This file configures a custom Docker network and an
   OpenSpeedTest service, including detailed network settings and service
   configurations for reliable and secure operation.
@@ -72,6 +72,7 @@ Here's a detailed explanation:
 ```yaml
 networks:
   openspeedtest_net:
+    attachable: false
     internal: false
     external: false
     name: openspeedtest
@@ -94,6 +95,8 @@ networks:
 ```
 
 - **networks**: This section defines a custom network named `openspeedtest_net`.
+- **attachable**: Set to `false`, meaning other containers can't attach to this
+  network.
 - **internal: false**: The network is accessible externally.
 - **external: false**: The network is not externally defined but created within
   this `docker-compose` file.
@@ -135,6 +138,7 @@ services:
       options:
         max-size: "1M"
         max-file: "2"
+    stop_grace_period: 1m
     container_name: openspeedtest
     image: openspeedtest/latest
     pull_policy: if_not_present
@@ -177,6 +181,8 @@ services:
     - **driver: "json-file"**: Uses JSON file logging driver.
     - **max-size: "1M"**: Limits log file size to 1MB.
     - **max-file: "2"**: Keeps a maximum of 2 log files.
+  - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
+    stopping the container.
   - **container_name: openspeedtest**: Names the container "openspeedtest".
   - **image: openspeedtest/latest**: Uses the latest OpenSpeedTest image from
     Docker Hub.

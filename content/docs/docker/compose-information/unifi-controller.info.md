@@ -56,7 +56,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 15, 2024
+- **Date**: Feb 1, 2025
 - **Description**: Configures a Docker network and service for Unifi Controller.
 - **RAW Compose File**: [docker-compose.yml]
 
@@ -67,6 +67,7 @@ Here's a detailed explanation:
 ```yaml
 networks:
   unifi-controller_net:
+    attachable: false
     internal: false
     external: false
     name: unifi-controller
@@ -89,6 +90,8 @@ networks:
 ```
 
 - **networks**: Defines a custom network named `unifi-controller_net`.
+- **attachable**: Set to `false`, meaning other containers can't attach to this
+  network.
 - **internal: false**: The network is accessible externally.
 - **external: false**: The network is created within this `docker-compose` file,
   not externally defined.
@@ -130,6 +133,7 @@ services:
       options:
         max-size: "1M"
         max-file: "2"
+    stop_grace_period: 1m
     container_name: unifi-controller
     image: linuxserver/unifi-controller:latest
     pull_policy: if_not_present
@@ -173,6 +177,8 @@ services:
     - **driver: "json-file"**: Uses JSON file logging driver.
     - **max-size: "1M"**: Limits log file size to 1MB.
     - **max-file: "2"**: Keeps a maximum of 2 log files.
+  - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
+    stopping the container.
   - **container_name: unifi-controller**: Names the container
     "unifi-controller".
   - **image: linuxserver/unifi-controller:latest**: Uses the latest Unifi

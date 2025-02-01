@@ -62,7 +62,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 13, 2024
+- **Date**: Feb 1, 2025
 - **Description**: This file configures a custom Docker network and a Xen
   Orchestra service. It includes detailed network settings and service
   configurations to ensure Xen Orchestra runs smoothly and securely.
@@ -75,6 +75,7 @@ Here's a detailed explanation:
 ```yaml
 networks:
   xen-orchestra_net:
+    attachable: false
     internal: false
     external: false
     name: xen-orchestra
@@ -97,6 +98,8 @@ networks:
 ```
 
 - **networks**: This section defines a custom network named `xen-orchestra_net`.
+- **attachable**: Set to `false`, meaning other containers can't attach to this
+  network.
 - **internal: false**: The network is accessible externally.
 - **external: false**: The network is not externally defined but created within
   this `docker-compose` file.
@@ -194,7 +197,7 @@ services:
     - **driver: "json-file"**: Uses JSON file logging driver.
     - **max-size: "1M"**: Limits log file size to 1MB.
     - **max-file: "2"**: Keeps a maximum of 2 log files.
-  - **stop_grace_period**: Sets a 1-minute grace period before forcefully
+  - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: xen-orchestra**: Names the container "xen-orchestra".
   - **image: ronivay/xen-orchestra:latest**: Uses the latest Xen Orchestra image
