@@ -58,7 +58,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Feb 1, 2025
+- **Date**: Feb 9, 2025
 - **Description**: This file configures a custom Docker network and an Uptime
   Kuma service for monitoring website uptime and alerting. It includes detailed
   network settings and service configurations to ensure Uptime Kuma runs
