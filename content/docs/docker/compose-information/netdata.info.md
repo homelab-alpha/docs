@@ -175,7 +175,13 @@ services:
       com.netdata.description:
         "is an infrastructure monitoring and troubleshooting."
     healthcheck:
-      disable: true
+      disable: false
+      test: ["CMD", "/usr/sbin/health.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+      start_interval: 5s
 ```
 
 - **services**: Defines services to be deployed.
@@ -238,7 +244,17 @@ services:
     - **com.docker.compose.project: "netdata"**: Project label.
     - **com.netdata.description**: Description label for Netdata.
   - **healthcheck**: Healthcheck configuration.
-    - **disable: true**: Disables health checks for the container.
+    - **disable: false**: Enables health checks for the container.
+    - **test**: Specifies the command to be run for the health check. In this
+      case, it is `["CMD", "/usr/sbin/health.sh"]`.
+    - **interval**: The time between running health checks (10 seconds).
+    - **timeout**: The time a health check is allowed to run before it is
+      considered to have failed (5 seconds).
+    - **retries**: The number of consecutive failures required before the
+      container is considered unhealthy (3 retries).
+    - **start_period**: The initial period during which a health check failure
+      will not be counted towards the retries (10 seconds).
+    - **start_interval**: The time between starting health checks (5 seconds).
 
 <br />
 
