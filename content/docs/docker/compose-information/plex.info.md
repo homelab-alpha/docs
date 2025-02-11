@@ -56,7 +56,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Feb 9, 2025
+- **Date**: Feb 11, 2025
 - **Description**: Configures a Docker network and service for Plex Media
   Server.
 - **RAW Compose File**: [docker-compose.yml]
@@ -273,27 +273,28 @@ source code, sensitive data—like passwords and tokens—remains secure.
 
 <br />
 
-### Variables in this File
+### Variables in this file
 
 ```env
+# Plex Claim Token Configuration
 # Visit https://www.plex.tv/claim to get a claim token for logging into your Plex server with your Plex account.
-PLEX_CLAIM_TOKEN=claim-a1b2c3d4e5f6g7h8i9j0
+# Replace the placeholder with your unique claim token.
+PLEX_CLAIM_TOKEN=YourUniqueClaimTokenHere12345
+
+# Server IP Address Configuration
+# Customize this with your Plex server's IP address, e.g., `192.168.1.1:32400` to `192.168.69.69:32400`.
+# Make sure to replace the placeholder with your actual server IP address.
+IP_ADDRESS=http://YourServerIPHere:32400/
 ```
 
-- **PLEX_CLAIM_TOKEN**: This token is required to authenticate and log into your
-  Plex server with your Plex account. You can generate the token by visiting
-  [Plex Claim](https://www.plex.tv/claim).
-
-<br />
-
-```env
-# Customize this with your own server IP address, e.g., `192.168.1.1:32400` to `192.168.69.69:32400`.
-IP_ADDRESS=http://192.168.1.1:32400/
-```
-
-- **IP_ADDRESS**: The IP address of your server, used to connect to services
-  such as Plex. You can include the full URL with the port number, like
-  `http://192.168.1.1:32400`.
+- **`PLEX_CLAIM_TOKEN`**: The claim token used to authenticate your Plex server
+  with your Plex account. Visit [Plex Claim](https://www.plex.tv/claim) to get a
+  claim token for logging into your server. Replace the placeholder with the
+  unique claim token you receive.
+- **`IP_ADDRESS`**: The IP address of your Plex server, including the port. It
+  is typically in the format `http://<IP_ADDRESS>:32400/`. Replace the
+  placeholder with the actual IP address of your server, ensuring you use the
+  correct format for your setup.
 
 <br />
 
