@@ -56,7 +56,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Feb 1, 2025
+- **Date**: Feb 11, 2025
 - **Description**: Configures a Docker network and services for FreshRSS and its
   MariaDB database.
 - **RAW Compose File**: [docker-compose.yml]
@@ -343,36 +343,42 @@ variables stored outside the source code for security purposes.
 ### Variables in this file
 
 ```env
-# Database configuration: ROOT
-ROOT_PASSWORD_DB="ThisIsADemoRootPassword"
+# Database Configuration: ROOT USER
+# Change the MySQL root password to a strong, unique password of your choice.
+# Ensure the password is complex and not easily guessable.
+ROOT_PASSWORD_DB=StrongUniqueRootPassword1234
+
+# Database Configuration: USER
+# Database host and connection settings
+HOST_DB=freshrss_db
+
+# Database name:
+NAME_DB=freshrss_db
+
+# MySQL user password: Change this to a strong, unique password
+PASSWORD_DB=StrongUniqueUserPassword5678
+
+# MySQL connection port (default: 3306)
+PORT_DB=3306
+
+# MySQL username: Change this to your desired username
+USER_DB=freshrss
 ```
 
 - **`ROOT_PASSWORD_DB`**: The password for the root user of the MySQL database.
-  This account has full access to the database. It’s important to make this
-  password strong and unique to secure access to your database.
-
-<br />
-
-```env
-# Database configuration: USER
-HOST_DB="freshrss_db"
-PORT_DB=3306
-NAME_DB=freshrss_db
-USER_DB=freshrss
-PASSWORD_DB="ThisIsADemoPassword"
-```
-
+  This account has full access to all databases. Make sure this password is
+  strong, unique, and complex to prevent unauthorized access.
 - **HOST_DB**: The name or IP address of the host where the database is running.
-  In this case, it's set to `freshrss_db`, which is likely the name of the
-  database container or network within Docker.
-- **PORT_DB**: The port the MySQL server is listening on, which is `3306` by
-  default for MySQL.
-- **NAME_DB**: The name of the database being used. Here it's `freshrss_db`,
-  probably for an application like FreshRSS.
-- **USER_DB**: The username for accessing the database. In this case, it's
-  `freshrss`.
-- **PASSWORD_DB**: The password for the `freshrss` user. As with the root user,
-  it’s important to have a strong password here as well.
+  In this example, it's `freshrss_db`, which may refer to the name of a database
+  container or network within Docker.
+- **NAME_DB**: The name of the database being used. Here, it's `freshrss_db`,
+  indicating this is for an application like FreshRSS.
+- **PASSWORD_DB**: The password for the `freshrss` user. Ensure this password is
+  strong and unique, as it grants access to the database.
+- **PORT_DB**: The port MySQL is listening on. The default is `3306` unless
+  configured differently.
+- **USER_DB**: The username for accessing the database. In this case, the user
+  is `freshrss`.
 
 <br />
 
