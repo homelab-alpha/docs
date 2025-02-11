@@ -239,6 +239,10 @@ services:
       - /docker/${container_name}/production/my.cnf:/etc/my.cnf
     env_file:
       # adds environment variables to the container based on the file content.
+      # Choose the correct environment file:
+      # - Use '.env' for Docker Compose.
+      # - Use 'stack.env' for Portainer.
+      # Comment out the file you are not using in the Compose file to avoid issues.
       - .env
       - stack.env
     environment:
@@ -322,6 +326,10 @@ services:
       # - /docker/${container_name}/production/redis:/change_me
     env_file:
       # adds environment variables to the container based on the file content.
+      # Choose the correct environment file:
+      # - Use '.env' for Docker Compose.
+      # - Use 'stack.env' for Portainer.
+      # Comment out the file you are not using in the Compose file to avoid issues.
       - .env
       - stack.env
     environment:
@@ -462,6 +470,10 @@ services:
       - /docker/${container_name}/testing/my.cnf:/etc/my.cnf
     env_file:
       # adds environment variables to the container based on the file content.
+      # Choose the correct environment file:
+      # - Use '.env' for Docker Compose.
+      # - Use 'stack.env' for Portainer.
+      # Comment out the file you are not using in the Compose file to avoid issues.
       - .env
       - stack.env
     environment:
@@ -545,6 +557,10 @@ services:
       # - /docker/${container_name}/testing/redis:/change_me
     env_file:
       # adds environment variables to the container based on the file content.
+      # Choose the correct environment file:
+      # - Use '.env' for Docker Compose.
+      # - Use 'stack.env' for Portainer.
+      # Comment out the file you are not using in the Compose file to avoid issues.
       - .env
       - stack.env
     environment:
@@ -628,27 +644,49 @@ placeholders for database and application configurations.
 
 ```bash
 cat <<EOL >"$dir_path/.env"
-# Database configuration: ROOT
-ROOT_PASSWORD_DB="change_me"
+# Database Configuration: ROOT USER
+# Change the MySQL root password to a strong, unique password of your choice.
+# Ensure the password is complex and not easily guessable.
+ROOT_PASSWORD_DB=StrongUniqueRootPassword1234
 
-# Database configuration: USER
-HOST_DB="${container_name}_db"
-PORT_DB=3306
+# Database Configuration: USER
+# Database host and connection settings
+HOST_DB=${container_name}_db
+
+# Database name: Change this to your desired database name
 NAME_DB=${container_name}_db
+
+# MySQL user password: Change this to a strong, unique password
+PASSWORD_DB=StrongUniqueUserPassword5678
+
+# MySQL connection port (default: 3306)
+PORT_DB=3306
+
+# MySQL username: Change this to your desired username
 USER_DB=${container_name}
-PASSWORD_DB="change_me"
 EOL
 
 cat <<EOL >"$dir_path/stack.env"
-# Database configuration: ROOT
-ROOT_PASSWORD_DB="change_me"
+# Database Configuration: ROOT USER
+# Change the MySQL root password to a strong, unique password of your choice.
+# Ensure the password is complex and not easily guessable.
+ROOT_PASSWORD_DB=StrongUniqueRootPassword1234
 
-# Database configuration: USER
-HOST_DB="${container_name}_db"
-PORT_DB=3306
+# Database Configuration: USER
+# Database host and connection settings
+HOST_DB=${container_name}_db
+
+# Database name: Change this to your desired database name
 NAME_DB=${container_name}_db
+
+# MySQL user password: Change this to a strong, unique password
+PASSWORD_DB=StrongUniqueUserPassword5678
+
+# MySQL connection port (default: 3306)
+PORT_DB=3306
+
+# MySQL username: Change this to your desired username
 USER_DB=${container_name}
-PASSWORD_DB="change_me"
 EOL
 ```
 
