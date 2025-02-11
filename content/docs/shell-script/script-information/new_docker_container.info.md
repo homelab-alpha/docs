@@ -42,6 +42,10 @@ katex: true
 
 <br />
 
+{{% alert context="danger" %}}
+The documentation is out of date and will be updated soon.
+{{% /alert %}}
+
 {{% alert context="primary" %}}
 ChatGPT has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
