@@ -46,10 +46,6 @@ katex: true
 
 <br />
 
-{{% alert context="danger" %}}
-The documentation is out of date and will be updated soon.
-{{% /alert %}}
-
 {{% alert context="primary" %}}
 ChatGPT has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
@@ -68,8 +64,8 @@ Here's a detailed explanation:
 
 - **Filename**: `new_docker_compose_file.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: December 18, 2024
-- **Version**: 1.3.0
+- **Date**: Feb 11, 2025
+- **Version**: 2.0.0
 - **Description**: The script automates the creation of Docker-Compose and
   configuration files, setting up a Docker container with the specified
   environment and MySQL configurations.
@@ -182,7 +178,7 @@ networks:
   ${container_name}_net:
     attachable: false # If is set to true: then standalone containers should be able to attach to this network.
     internal: false # when set to true, allows you to create an externally isolated network.
-    external: false # If set to true: specifies that this network’s lifecycle is maintained outside of that of the application.
+    external: false # If set to true: specifies that this networks lifecycle is maintained outside of that of the application.
     name: ${container_name}
     driver: bridge # host: Use the hosts networking stack and none: Turn off networking.
     ipam:
@@ -253,7 +249,7 @@ services:
       # Any boolean values; "true", "false", "yes", "no", should be enclosed in quotes.
       PUID: "1000" # UserID
       PGID: "1000" # GroupID
-      TZ: Europe/Amsterdam
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
       MYSQL_ROOT_PASSWORD: \${ROOT_PASSWORD_DB}
       MYSQL_DATABASE: \${NAME_DB}
       MYSQL_USER: \${USER_DB}
@@ -340,7 +336,7 @@ services:
       # Any boolean values; "true", "false", "yes", "no", should be enclosed in quotes.
       PUID: "1000" # UserID
       PGID: "1000" # GroupID
-      TZ: Europe/Amsterdam
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
       MYSQL_HOST: \${HOST_DB}
       MYSQL_PORT: \${PORT_DB}
       MYSQL_NAME: \${NAME_DB}
@@ -350,7 +346,7 @@ services:
     entrypoint: ["change_me"]
       # declares the default entrypoint for the service container.
       # This overrides the ENTRYPOINT instruction from the services Dockerfile.
-    domainname: ${container_name}.local
+    domainname: ${container_name}.local # Customize this with your own domain, e.g., \`${container_name}.local\` to \`${container_name}\`.your-fqdn-here.com.
     hostname: ${container_name}
     extra_hosts:
       ${container_name}: "0.0.0.0"
@@ -413,20 +409,20 @@ networks:
   ${container_name}_testing_net:
     attachable: false # If is set to true: then standalone containers should be able to attach to this network.
     internal: false # when set to true, allows you to create an externally isolated network.
-    external: false # If set to true: specifies that this network’s lifecycle is maintained outside of that of the application.
+    external: false # If set to true: specifies that this networks lifecycle is maintained outside of that of the application.
     name: ${container_name}_testing
     driver: bridge # host: Use the hosts networking stack and none: Turn off networking.
     ipam:
       driver: default
       config:
-        - subnet: 172.20.0.0/24   # Subnet in CIDR format that represents a network segment
-          ip_range: 172.20.0.0/24 # Range of IPs from which to allocate container IPs
-          gateway: 172.20.0.1     # IPv4 or IPv6 gateway for the master subnet
+        - subnet: 172.19.0.0/24   # Subnet in CIDR format that represents a network segment
+          ip_range: 172.19.0.0/24 # Range of IPs from which to allocate container IPs
+          gateway: 172.19.0.1     # IPv4 or IPv6 gateway for the master subnet
           # Auxiliary IPv4 or IPv6 addresses used by Network driver, as a mapping from hostname to IP
           # aux_addresses:
-          #   host1: 172.20.0.2
-          #   host2: 172.20.0.3
-          #   host3: 172.20.0.4
+          #   host1: 172.19.0.2
+          #   host2: 172.19.0.3
+          #   host3: 172.19.0.4
     driver_opts:
       com.docker.network.bridge.default_bridge: "false"
       com.docker.network.bridge.enable_icc: "true"
@@ -484,7 +480,7 @@ services:
       # Any boolean values; "true", "false", "yes", "no", should be enclosed in quotes.
       PUID: "1000" # UserID
       PGID: "1000" # GroupID
-      TZ: Europe/Amsterdam
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
       MYSQL_ROOT_PASSWORD: \${ROOT_PASSWORD_DB}
       MYSQL_DATABASE: \${NAME_DB}
       MYSQL_USER: \${USER_DB}
@@ -492,7 +488,7 @@ services:
     hostname: ${container_name}_testing_db
     networks:
       ${container_name}_testing_net:
-        ipv4_address: 172.20.0.2
+        ipv4_address: 172.19.0.2
     # ports:
     #   - target: 3306       # container port
     #     host_ip: 127.0.0.1 # The Host IP mapping, unspecified means all network interfaces (0.0.0.0)
@@ -571,7 +567,7 @@ services:
       # Any boolean values; "true", "false", "yes", "no", should be enclosed in quotes.
       PUID: "1000" # UserID
       PGID: "1000" # GroupID
-      TZ: Europe/Amsterdam
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
       MYSQL_HOST: \${HOST_DB}
       MYSQL_PORT: \${PORT_DB}
       MYSQL_NAME: \${NAME_DB}
@@ -581,13 +577,12 @@ services:
     entrypoint: ["change_me"]
       # declares the default entrypoint for the service container.
       # This overrides the ENTRYPOINT instruction from the services Dockerfile.
-    domainname: ${container_name}_testing.local
-    hostname: ${container_name}_testing
+    domainname: ${container_name}.local # Customize this with your own domain, e.g., \`${container_name}.local\` to \`${container_name}\`.your-fqdn-here.com.
     extra_hosts:
       ${container_name}_testing: "0.0.0.0"
     networks:
       ${container_name}_testing_net:
-        ipv4_address: 172.20.0.3
+        ipv4_address: 172.19.0.3
     dns:
       # defines custom DNS servers to set on the container network interface configuration.
       # It can be a single value or a list.
@@ -647,7 +642,8 @@ Both `.env` and `stack.env` files are populated with template content, including
 placeholders for database and application configurations.
 
 ```bash
-cat <<EOL >"$dir_path/.env"
+for file in "$dir_path/.env" "$dir_path/stack.env"; do
+  cat <<EOL >"$file"
 # Database Configuration: ROOT USER
 # Change the MySQL root password to a strong, unique password of your choice.
 # Ensure the password is complex and not easily guessable.
@@ -669,29 +665,7 @@ PORT_DB=3306
 # MySQL username: Change this to your desired username
 USER_DB=${container_name}
 EOL
-
-cat <<EOL >"$dir_path/stack.env"
-# Database Configuration: ROOT USER
-# Change the MySQL root password to a strong, unique password of your choice.
-# Ensure the password is complex and not easily guessable.
-ROOT_PASSWORD_DB=StrongUniqueRootPassword1234
-
-# Database Configuration: USER
-# Database host and connection settings
-HOST_DB=${container_name}_db
-
-# Database name: Change this to your desired database name
-NAME_DB=${container_name}_db
-
-# MySQL user password: Change this to a strong, unique password
-PASSWORD_DB=StrongUniqueUserPassword5678
-
-# MySQL connection port (default: 3306)
-PORT_DB=3306
-
-# MySQL username: Change this to your desired username
-USER_DB=${container_name}
-EOL
+done
 ```
 
 <br />
