@@ -59,12 +59,13 @@ requiring third-party validation.
 
 <br />
 
-## Samples
+## Example directory structure
 
-In this repository you will find a folder called samples. In this folder you can
-see how the folder structure with the associated certificates and files is
-created. However, I removed the certificates and private keys and replaced them
-with a placeholders to prevent the sample certificates from being used.
+In this repository you will find a folder called `example directory structure`.
+In this folder you can see how the folder structure with the associated
+certificates and files is created. However, I removed the certificates and
+private keys and replaced them with a placeholders to prevent the sample
+certificates from being used.
 
 <br />
 
