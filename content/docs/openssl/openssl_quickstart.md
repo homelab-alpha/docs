@@ -35,6 +35,12 @@ katex: true
 
 <br />
 
+{{% alert context="danger" %}}
+The Documentation is out of date and will be updated soon.
+{{% /alert %}}
+
+<br />
+
 ## Getting Started
 
 1. **Clone the Repository**: Clone the OpenSSL repository to your local machine:
