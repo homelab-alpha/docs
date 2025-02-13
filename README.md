@@ -1,6 +1,6 @@
 # Homelab-Alpha
 
-[![Super-Linter](https://github.com/homelab-alpha/docs/actions/workflows/super-linter.yml/badge.svg)](https://github.com/homelab-alpha/docs/actions/workflows/super-linter.yml)
+[![Super Linter](https://github.com/homelab-alpha/docs/actions/workflows/super_linter.yml/badge.svg)](https://github.com/homelab-alpha/docs/actions/workflows/super_linter.yml)
 [![CodeQL](https://github.com/homelab-alpha/docs/actions/workflows/codeql.yml/badge.svg)](https://github.com/homelab-alpha/docs/actions/workflows/codeql.yml)
 [![Build & Deploy](https://github.com/homelab-alpha/docs/actions/workflows/hugo.yml/badge.svg)](https://github.com/homelab-alpha/docs/actions/workflows/hugo.yml)
 
