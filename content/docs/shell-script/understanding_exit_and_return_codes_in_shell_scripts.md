@@ -28,7 +28,7 @@ keywords:
   - handling errors in shell scripts
   - script status codes
 
-weight: 9003
+weight: 9903
 
 toc: true
 katex: true

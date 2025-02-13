@@ -30,7 +30,7 @@ keywords:
   - Docker setup
   - Docker uninstallation
 
-weight: 4002
+weight: 4902
 
 toc: true
 katex: true

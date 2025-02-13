@@ -25,7 +25,7 @@ keywords:
   - shell script commands
   - shell script examples
 
-weight: 9002
+weight: 9902
 
 toc: true
 katex: true
