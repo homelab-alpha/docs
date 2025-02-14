@@ -59,13 +59,58 @@ requiring third-party validation.
 
 <br />
 
-## Example directory structure
+## Examples
 
-In this repository you will find a folder called `example directory structure`.
-In this folder you can see how the folder structure with the associated
-certificates and files is created. However, I removed the certificates and
-private keys and replaced them with a placeholders to prevent the sample
-certificates from being used.
+In the OpenSSL repository, you will find a folder named `examples`, which
+contains various sample configurations demonstrating how the SSL folder
+structure is organized. This includes associated certificates and files. While
+the certificates and private keys are provided, their contents have been
+modified for security reasons. The actual certificate and key data have been
+replaced with placeholder text, such as:
+
+### .csr/.pem - Certificate Signing Request Example
+
+```pem
+-----BEGIN CERTIFICATE REQUEST-----
+This is a demonstration Certificate Signing Request (CSR).
+
+**WARNING:**
+This CSR is for demonstration purposes only.
+**DO NOT use it in production environments.**
+-----END CERTIFICATE REQUEST-----
+```
+
+<br />
+
+### .crt/.pem - Certificate Example
+
+```pem
+-----BEGIN CERTIFICATE-----
+This is a demonstration certificate.
+
+**WARNING:**
+This certificate is for demonstration purposes only.
+**DO NOT use it in production environments.**
+-----END CERTIFICATE-----
+```
+
+<br />
+
+### .key/.pem - Private Key Example
+
+```pem
+-----BEGIN EC PARAMETERS-----
+This is a demonstration Elliptic Curve (EC) parameter set.
+-----END EC PARAMETERS-----
+-----BEGIN EC PRIVATE KEY-----
+**WARNING:**
+This private key is for demonstration purposes only.
+**DO NOT use it in production environments.**
+-----END EC PRIVATE KEY-----
+```
+
+This ensures that no actual certificates or private keys are shared, while still
+demonstrating the correct structure.
 
 <br />
 
