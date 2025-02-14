@@ -36,7 +36,9 @@ katex: true
 <br />
 
 {{% alert context="warning" %}}
-**Caution** - This documentation is in progress
+**Caution** – This documentation is a work in progress.
+
+The **Getting Started** section is functional, but it needs additional content and information.
 {{% /alert %}}
 
 <br />
@@ -46,7 +48,7 @@ katex: true
 1. **Clone the Repository**: Clone the OpenSSL repository to your local machine:
 
    ```bash
-   git clone https://github.com/homelab-alpha/openssl.git && cd openssl && ./ssl_dotfiles_installer.sh && cd && exec bash
+   git clone https://github.com/homelab-alpha/openssl.git && cd openssl/scripts && ./ssl_dotfiles_installer.sh && cd && exec bash
    ```
 
 2. **Create the OpenSSL Directories and Configuration Files**:
