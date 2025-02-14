@@ -45,39 +45,69 @@ The **Getting Started** section is functional, but it needs additional content a
 
 ## Getting Started
 
-1. **Clone the Repository**: Clone the OpenSSL repository to your local machine:
+{{% alert context="danger" %}}
+Before proceeding, please review the [existing bug] to avoid potential issues.
+{{% /alert %}}
+
+1. **Quick Install**: If you've used the quick install method, skip to step 3.
+
+   Run the following command to quickly install:
 
    ```bash
    git clone https://github.com/homelab-alpha/openssl.git && cd openssl/scripts && ./ssl_dotfiles_installer.sh && cd && exec bash
    ```
 
-2. **Create the OpenSSL Directories and Configuration Files**:
+2. **Normal Install**:
+
+   First, clone the OpenSSL repository to your local machine:
 
    ```bash
-   new-ssl-directorie-setup
+   git clone https://github.com/homelab-alpha/openssl.git
    ```
 
-3. **Create a Trusted Authority (self-signed)**:
+   Navigate to the `scripts` directory:
+
+   ```bash
+   cd openssl/scripts
+   ```
+
+   Run the installation script:
+
+   ```bash
+   ./ssl_dotfiles_installer.sh
+   ```
+
+   Reset the shell environment to apply changes:
+
+   ```bash
+   cd && exec bash
+   ```
+
+3. **Create the OpenSSL Directories and Configuration Files**:
+
+   ```bash
+   new-ssl-directories-setup
+   ```
+
+4. **Create a Trusted Authority (Self-Signed Certificate)**:
 
    ```bash
    new-trusted-id
    ```
 
-4. **Create a Root Certificate Authority (signed by Trusted Authority)**:
+5. **Create a Root Certificate Authority (Signed by Trusted Authority)**:
 
    ```bash
    new-root-ca
    ```
 
-5. **Create a Intermediate Certificate Authority (signed by Root Certificate
-   Authority)**:
+6. **Create an Intermediate Certificate Authority (Signed by Root Certificate Authority)**:
 
    ```bash
    new-ca
    ```
 
-6. **Create a Certificate for localhost (signed by Intermediate Certificate
-   Authority)**:
+7. **Create a Certificate for Localhost (Signed by Intermediate Certificate Authority)**:
 
    ```bash
    new-cert-localhost
@@ -115,3 +145,5 @@ The **Getting Started** section is functional, but it needs additional content a
 
 These commands will help you set up certificates for server and client
 applications according to your requirements.
+
+[existing bug]: known_bug.md
