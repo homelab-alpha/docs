@@ -216,4 +216,4 @@ trusted root certificate is performed correctly and securely, from key
 generation to certificate conversion.
 
 [trusted-id.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate-authority/trusted-id.sh
+  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/certificate-authority/trusted-id.sh

@@ -345,4 +345,4 @@ ECDSA certificate for localhost is performed correctly and securely, from key
 generation to certificate verification and format conversion.
 
 [cert_ecdsa_localhost.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate/cert_ecdsa_localhost.sh
+  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/certificate/cert_ecdsa_localhost.sh

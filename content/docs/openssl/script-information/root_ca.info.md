@@ -264,4 +264,4 @@ Root Certificate Authority is performed correctly and securely, from key
 generation to certificate verification.
 
 [root_ca.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate-authority/root_ca.sh
+  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/certificate-authority/root_ca.sh

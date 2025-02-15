@@ -270,4 +270,4 @@ Intermediate Certificate Authority is performed correctly and securely, from key
 generation to certificate verification.
 
 [ca.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/main/intermediate-certificate-authority/ca.sh
+  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/intermediate-certificate-authority/ca.sh
