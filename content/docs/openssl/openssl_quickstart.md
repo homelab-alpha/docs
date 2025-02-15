@@ -100,7 +100,7 @@ Run the following command to create the necessary directories and configuration
 files:
 
 ```bash
-new-ssl-directories-setup
+new-ssl-directorie-setup
 ```
 
 <br />
