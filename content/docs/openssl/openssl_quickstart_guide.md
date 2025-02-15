@@ -1,7 +1,7 @@
 ---
-title: "OpenSSL Quickstart"
+title: "OpenSSL Quickstart Guide"
 description: "Jumpstart Your Journey with OpenSSL Using This Quickstart Guide"
-url: "openssl/quickstart"
+url: "openssl/quickstart-guide"
 aliases: ""
 icon: "rocket_launch"
 
@@ -17,15 +17,17 @@ series:
 tags:
   - openssl
   - quickstart
+  - ssl
+  - tls
+  - certificate-authority
+  - security
 keywords:
-  - openssl quickstart
   - openssl tutorial
-  - openssl commands
-  - openssl setup
-  - openssl certificates
+  - openssl setup guide
+  - ssl certificate management
+  - tls certificates
+  - self-signed certificates
   - openssl configuration
-  - certificate authority
-  - SSL/TLS certificates
 
 weight: 8902
 
@@ -37,17 +39,9 @@ katex: true
 
 {{% alert context="warning" %}}
 **Caution** – This documentation is a work in progress.
-
-The **Getting Started** section is functional, but it needs additional content and information.
 {{% /alert %}}
 
 <br />
-
-## Getting Started
-
-{{% alert context="danger" %}}
-Before proceeding, please review the [existing bug] to avoid potential issues.
-{{% /alert %}}
 
 ## Quick Install
 
@@ -57,8 +51,7 @@ To quickly install, run the following command:
 git clone https://github.com/homelab-alpha/openssl.git && cd openssl/scripts && ./ssl_dotfiles_installer.sh && cd && exec bash
 ```
 
-If you've used the quick install method, you can skip to
-[get started.](#get-started)
+If you've used the quick install method, you can skip to [get started].
 
 <br />
 
@@ -150,6 +143,72 @@ now have successfully created your first certificate.
 
 <br />
 
+## Unique Subject in OpenSSL
+
+<br />
+
+{{% alert context="primary" %}}
+**Important:** Our default OpenSSL configuration requires a unique subject per
+certificate. This means that each certificate has a unique identifier,
+preventing duplication.
+{{% /alert %}}
+
+### Should You Adjust This Configuration?
+
+For most users, it is **strongly recommended** to apply the change below.
+
+If you do not use our script `revoke_ssl_certificate.sh` (which is still in
+development) or prefer a simple setup, you must apply this change to avoid
+errors.
+
+<br />
+
+{{% alert context="warning" %}}
+**Make sure to follow all steps from the [Get Started] section first.**
+{{% /alert %}}
+
+Adjust the configuration by opening the terminal and adding the following lines:
+
+```bash
+echo "unique_subject = no" >> $HOME/ssl/intermediate/db/index.txt.attr
+echo "unique_subject = no" >> $HOME/ssl/root/db/index.txt.attr
+```
+
+Check if the files have been changed by running:
+
+```bash
+cat $HOME/ssl/intermediate/db/index.txt.attr
+```
+
+and
+
+```bash
+cat $HOME/ssl/root/db/index.txt.attr
+```
+
+<br />
+
+### Why Is This Change Important?
+
+If you do not adjust this setting and try to create a new SSL certificate with
+the same **Common Name** (for example, `localhost`), OpenSSL may reject the
+request because the name already exists in the index file.
+
+By setting `unique_subject = no`:
+
+- You can create multiple certificates with the same **Common Name** without
+  issues.
+- You will avoid errors when generating a new certificate.
+- You will simplify certificate management, especially if you do not revoke
+  certificates via the script.
+
+For a smoother experience, it is recommended to apply this change unless you
+have a specific reason to retain the default setting.
+
+Now you can proceed to the next chapter: **[Create Your Own Certificate]**.
+
+<br />
+
 ## Create Your Own Certificate
 
 ### 1. Certificate for Server Application
@@ -187,4 +246,5 @@ new-cert-rsa-client
 These commands will help you create certificates tailored for your server or
 client applications.
 
-[existing bug]: known_bug.md
+[get started]: #get-started
+[Create Your Own Certificate]: #create-your-own-certificate
