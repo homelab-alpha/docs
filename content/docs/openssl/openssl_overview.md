@@ -76,7 +76,7 @@ This is a demonstration Certificate Signing Request (CSR).
 
 **WARNING:**
 This CSR is for demonstration purposes only.
-**DO NOT use it in production environments.**
+**DO NOT use in testing or production environments.**
 -----END CERTIFICATE REQUEST-----
 ```
 
@@ -90,7 +90,7 @@ This is a demonstration certificate.
 
 **WARNING:**
 This certificate is for demonstration purposes only.
-**DO NOT use it in production environments.**
+**DO NOT use in testing or production environments.**
 -----END CERTIFICATE-----
 ```
 
@@ -105,7 +105,7 @@ This is a demonstration Elliptic Curve (EC) parameter set.
 -----BEGIN EC PRIVATE KEY-----
 **WARNING:**
 This private key is for demonstration purposes only.
-**DO NOT use it in production environments.**
+**DO NOT use in testing or production environments.**
 -----END EC PRIVATE KEY-----
 ```
 
