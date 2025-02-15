@@ -1,10 +1,10 @@
 ---
-title: "openssl_setup.info"
+title: "ssl_directory_setup.info"
 description:
   "Automates the setup of SSL certificate management directories, generates
   random serial numbers, and creates necessary OpenSSL configuration files for a
   root certificate authority (CA) and a time-stamping authority (TSA)."
-url: "openssl/script-info/openssl-setup"
+url: "openssl/script-info/ssl-directory-setup"
 aliases: ""
 icon: "code"
 
@@ -47,26 +47,26 @@ information here with caution and verify it if necessary. {{% /alert %}}
 <br />
 
 Let's break down what this script does in detail. The script is named
-`openssl_setup.sh`, authored by GJS (homelab-alpha), and its purpose is to set
-up a directory structure for SSL certificate management, generate random serial
-numbers for certificate databases, and create OpenSSL configuration files for a
-trusted identity (root certificate authority) and a time-stamping authority
-(TSA). The script requires OpenSSL to be installed and write permissions in the
-specified directories.
+`ssl_directory_setup.sh`, authored by GJS (homelab-alpha), and its purpose is to
+set up a directory structure for SSL certificate management, generate random
+serial numbers for certificate databases, and create OpenSSL configuration files
+for a trusted identity (root certificate authority) and a time-stamping
+authority (TSA). The script requires OpenSSL to be installed and write
+permissions in the specified directories.
 
 Here's a detailed explanation:
 
 ## Script Metadata
 
-- **Filename**: `openssl_setup.sh`
+- **Filename**: `ssl_directory_setup.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: June 10, 2024
-- **Version**: 1.0.1
+- **Date**: February 15, 2025
+- **Version**: 1.1.0
 - **Description**: Sets up SSL certificate management directories, generates
   random serial numbers, and creates OpenSSL configuration files.
 - **Requirements**: OpenSSL installed, write permissions in specified
   directories.
-- **RAW Script**: [openssl_setup.sh]
+- **RAW Script**: [ssl_directory_setup.sh]
 
 <br />
 
@@ -124,6 +124,7 @@ root_dir="$ssl_dir/root"
 intermediate_dir="$ssl_dir/intermediate"
 certificates_dir="$ssl_dir/certificates"
 tsa_dir="$ssl_dir/tsa"
+crl_backup_dir="$ssl_dir/crl-backups"
 ```
 
 Defines the main directory and subdirectories for SSL certificates and related
@@ -138,7 +139,8 @@ print_section_header "Create directory structure"
 mkdir -p "$root_dir"/{certs,crl,csr,db,newcerts,private} \
   "$intermediate_dir"/{certs,crl,csr,db,newcerts,private} \
   "$certificates_dir"/{certs,csr,extfile,private} \
-  "$tsa_dir"/{cacerts,db,private,tsacerts}
+  "$tsa_dir"/{cacerts,db,private,tsacerts} \
+  "$crl_backup_dir"
 ```
 
 Creates the necessary directory structure for managing SSL certificates,
@@ -164,11 +166,13 @@ Creates index files for the certificate databases.
 
 ```bash
 print_section_header "Renew db serial numbers"
-for dir in "$ssl_dir/root/db" "$intermediate_dir/db" "$ssl_dir/tsa/db"; do
-  generate_random_hex >"$dir/serial"
+for dir in "$root_dir/db" "$intermediate_dir/db" "$tsa_dir/db"; do
+  generate_random_hex > "$dir/serial"
 done
-generate_random_hex >"$ssl_dir/root/db/crlnumber"
-generate_random_hex >"$intermediate_dir/db/crlnumber"
+
+generate_random_hex > "$root_dir/db/crlnumber"
+generate_random_hex > "$intermediate_dir/db/crlnumber"
+generate_random_hex > "$tsa_dir/db/crlnumber"
 ```
 
 Generates new random serial numbers for the certificate databases and CRL
@@ -235,7 +239,7 @@ extensions, and paths to certificate files and databases.
 
 ## Conclusion
 
-The `openssl_setup.sh` script automates the setup of an SSL certificate
+The `ssl_directory_setup.sh` script automates the setup of an SSL certificate
 management environment. It creates a structured directory layout, initializes
 database files, generates unique serial numbers, and sets up configuration files
 for a root CA and TSA. By using functions for printing and generating random
@@ -243,5 +247,5 @@ values, the script ensures clarity and security throughout the process. This
 setup is crucial for managing SSL/TLS certificates in a controlled and organized
 manner.
 
-[openssl_setup.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/main/openssl_setup.sh
+[ssl_directory_setup.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/ssl_directory_setup.sh
