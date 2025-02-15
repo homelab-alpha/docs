@@ -1,10 +1,10 @@
 ---
-title: "openssl_verify_certificates.info"
+title: "verify_ssl_certificates.info"
 description:
   "A comprehensive guide and script for verifying SSL/TLS certificates using
   OpenSSL, ensuring proper chain of trust validation from root to individual
   certificates."
-url: "openssl/script-info/openssl-verify-certificates"
+url: "openssl/script-info/verify-ssl-certificates"
 aliases: ""
 icon: "code"
 
@@ -54,24 +54,24 @@ information here with caution and verify it if necessary. {{% /alert %}}
 <br />
 
 Let's break down what this script does in detail. The script is named
-`openssl_verify_certificates.sh`, authored by GJS (homelab-alpha), and its
-purpose is to verify SSL/TLS certificates by checking them against their
-corresponding chain of trust. It performs various checks, including verification
-of root, intermediate, and individual certificates, with support for a verbose
-mode to provide detailed output during the verification process.
+`verify_ssl_certificates.sh`, authored by GJS (homelab-alpha), and its purpose
+is to verify SSL/TLS certificates by checking them against their corresponding
+chain of trust. It performs various checks, including verification of root,
+intermediate, and individual certificates, with support for a verbose mode to
+provide detailed output during the verification process.
 
 Here’s a detailed explanation:
 
 ## Script Metadata
 
-- **Filename**: `openssl_verify_certificates.sh`
+- **Filename**: `verify_ssl_certificates.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: June 9, 2024
-- **Version**: 1.0.1
+- **Date**: February 15, 2025
+- **Version**: 1.1.0
 - **Description**: This script verifies SSL/TLS certificates by checking them
   against their corresponding chain of trust. It includes options for verbose
   output for detailed verification processes.
-- **RAW Script**: [openssl_verify_certificates.sh]
+- **RAW Script**: [verify_ssl_certificates.sh]
 
 <br />
 
@@ -242,5 +242,5 @@ are correctly chained to trusted root and intermediate certificates. The use of
 the `openssl` command ensures thorough verification, and the optional verbose
 mode provides additional detail for debugging or inspection purposes.
 
-[openssl_verify_certificates.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/main/openssl_verify_certificates.sh
+[verify_ssl_certificates.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/verify_ssl_certificates.sh
