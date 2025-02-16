@@ -172,6 +172,7 @@ Adjust the configuration by opening the terminal and adding the following lines:
 ```bash
 echo "unique_subject = no" > $HOME/ssl/intermediate/db/index.txt.attr
 echo "unique_subject = no" > $HOME/ssl/root/db/index.txt.attr
+echo "unique_subject = no" > $HOME/ssl/tsa/db/index.txt.attr
 ```
 
 Check if the files have been changed by running:
