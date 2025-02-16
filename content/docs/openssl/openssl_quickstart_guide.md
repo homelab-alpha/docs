@@ -163,10 +163,6 @@ errors.
 
 <br />
 
-{{% alert context="warning" %}}
-**Make sure to follow all steps from the [Get Started] section first.**
-{{% /alert %}}
-
 Adjust the configuration by opening the terminal and adding the following lines:
 
 ```bash
