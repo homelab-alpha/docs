@@ -148,22 +148,20 @@ now have successfully created your first certificate.
 <br />
 
 {{% alert context="primary" %}}
-**Important:** Our default OpenSSL configuration requires a unique subject per
-certificate. This means that each certificate has a unique identifier,
-preventing duplication.
-{{% /alert %}}
+**Important:** Our default OpenSSL configuration requires a **unique subject**
+for each certificate. This ensures that each certificate has a unique identifier,
+preventing duplication. {{% /alert %}}
 
 ### Should You Adjust This Configuration?
 
-For most users, it is **strongly recommended** to apply the change below.
+For most users, it is **strongly recommended** to apply the change outlined
+below.
 
 If you do not use our script `revoke_ssl_certificate.sh` (which is still in
-development) or prefer a simple setup, you must apply this change to avoid
-errors.
+development) or prefer a simpler setup, you must apply this change to avoid
+potential errors.
 
-<br />
-
-Adjust the configuration by opening the terminal and adding the following lines:
+To adjust the configuration, open the terminal and add the following lines:
 
 ```bash
 echo "unique_subject = no" > $HOME/ssl/intermediate/db/index.txt.attr
@@ -171,38 +169,43 @@ echo "unique_subject = no" > $HOME/ssl/root/db/index.txt.attr
 echo "unique_subject = no" > $HOME/ssl/tsa/db/index.txt.attr
 ```
 
-Check if the files have been changed by running:
+Afterward, verify the changes by running the following commands:
 
-```bash
-cat $HOME/ssl/intermediate/db/index.txt.attr
-```
-
-and
+### For Certificate Authority
 
 ```bash
 cat $HOME/ssl/root/db/index.txt.attr
 ```
 
-<br />
+### For Intermediate Certificate Authority
+
+```bash
+cat $HOME/ssl/intermediate/db/index.txt.attr
+```
+
+### For Timestamping Authority
+
+```bash
+cat $HOME/ssl/tsa/db/index.txt.attr
+```
 
 ### Why Is This Change Important?
 
-If you do not adjust this setting and try to create a new SSL certificate with
-the same **Common Name** (for example, `localhost`), OpenSSL may reject the
+If this setting is not adjusted and you attempt to create a new SSL certificate
+with the same **Common Name** (for example, `localhost`), OpenSSL may reject the
 request because the name already exists in the index file.
 
-By setting `unique_subject = no`:
+By setting `unique_subject = no`, you will be able to:
 
-- You can create multiple certificates with the same **Common Name** without
-  issues.
-- You will avoid errors when generating a new certificate.
-- You will simplify certificate management, especially if you do not revoke
-  certificates via the script.
+- Create multiple certificates with the same **Common Name** without issues.
+- Avoid errors when generating new certificates.
+- Simplify certificate management, especially if you do not revoke certificates
+  using the script.
 
-For a smoother experience, it is recommended to apply this change unless you
-have a specific reason to retain the default setting.
+For a smoother experience, we recommend applying this change unless you have a
+specific reason to keep the default setting.
 
-Now you can proceed to the next chapter: **[Create Your Own Certificate]**.
+Proceed to the next chapter: **[Create Your Own Certificate]**.
 
 <br />
 
