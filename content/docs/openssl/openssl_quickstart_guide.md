@@ -164,8 +164,9 @@ potential errors.
 To adjust the configuration, open the terminal and add the following lines:
 
 ```bash
-echo "unique_subject = no" > $HOME/ssl/intermediate/db/index.txt.attr
 echo "unique_subject = no" > $HOME/ssl/root/db/index.txt.attr
+echo "unique_subject = no" > $HOME/ssl/intermediate/db/index.txt.attr
+echo "unique_subject = no" > $HOME/ssl/certificates/db/index.txt.attr
 echo "unique_subject = no" > $HOME/ssl/tsa/db/index.txt.attr
 ```
 
@@ -181,6 +182,12 @@ cat $HOME/ssl/root/db/index.txt.attr
 
 ```bash
 cat $HOME/ssl/intermediate/db/index.txt.attr
+```
+
+### For Certificate
+
+```bash
+cat $HOME/ssl/certificates/db/index.txt.attr
 ```
 
 ### For Timestamping Authority
