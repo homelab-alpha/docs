@@ -56,14 +56,12 @@ Certificate Signing Requests (CSRs), issues the intermediate certificate, and
 verifies the intermediate CA chain bundle. It ensures the validity and integrity
 of the generated keys, CSRs, and certificates.
 
-Here’s a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `ca.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: June 9, 2024
-- **Version**: 1.0.1
+- **Date**: February 20, 2025
+- **Version**: 2.6.3
 - **Description**: This script manages an Intermediate Certificate Authority,
   handling key generation, CSR creation, certificate issuance, and verification
   processes.
@@ -73,6 +71,15 @@ Here’s a detailed explanation:
 
 ## Detailed Explanation
 
+Before diving into the script, it’s important to know that the script will stop
+execution on any error using the following line:
+
+```bash
+set -e
+```
+
+<br />
+
 ### Functions
 
 1. **print_cyan**: This function is used to print text in cyan color for better
@@ -80,7 +87,7 @@ Here’s a detailed explanation:
 
    ```bash
    print_cyan() {
-     echo -e "\e[36m$1\e[0m" # \e[36m sets text color to cyan, \e[0m resets it
+     echo -e "\e[36m$1\e[0m"
    }
    ```
 
@@ -91,7 +98,7 @@ Here’s a detailed explanation:
 
    ```bash
    generate_random_hex() {
-     openssl rand -hex 16
+     openssl rand -hex 16 || return 1
    }
    ```
 
@@ -103,8 +110,21 @@ Here’s a detailed explanation:
    ```bash
    print_section_header() {
      echo ""
-     echo ""
-     echo -e "$(print_cyan "=== $1 === ")"
+     print_cyan "=== $1 ==="
+   }
+   ```
+
+    <br />
+
+4. **check_success**: This function checks the success of the last command and
+   exits the script if the command failed.
+
+   ```bash
+   check_success() {
+     if [ $? -ne 0 ]; then
+       echo "[ERROR] $1" >&2
+       exit 1
+     fi
    }
    ```
 
@@ -114,152 +134,199 @@ Here’s a detailed explanation:
 
 ### Define Directory Paths
 
-The script sets up necessary directory paths for the root and intermediate CA.
+The script defines necessary directory paths for the Intermediate Certificate
+Authority components.
 
 ```bash
 print_section_header "Define directory paths"
-ssl_dir="$HOME/ssl"
-root_dir="$ssl_dir/root"
-intermediate_dir="$ssl_dir/intermediate"
+base_dir="$HOME/ssl"
+certs_dir="$base_dir/certs"
+csr_dir="$base_dir/csr"
+private_dir="$base_dir/private"
+db_dir="$base_dir/db"
+openssl_conf_dir="$base_dir/openssl.cnf"
+```
+
+The following directories are specifically defined for the Intermediate
+Certificate Authority components:
+
+```bash
+certs_root_dir="$certs_dir/root"
+certs_intermediate_dir="$certs_dir/intermediate"
+private_intermediate_dir="$private_dir/intermediate"
 ```
 
 <br />
 
-### Renew Database Serial Numbers
+### Renew Database Serial Numbers and CRL
 
-It renews database serial numbers by generating random hex values and writing
-them to the respective serial files for the root, intermediate, and TSA
-directories.
+The script renews database serial numbers and CRL by generating random
+hexadecimal values and writing them to the respective files.
 
 ```bash
-print_section_header "Renew db serial numbers"
-for dir in "$ssl_dir/root/db" "$intermediate_dir/db" "$ssl_dir/tsa/db"; do
-  generate_random_hex >"$dir/serial"
+print_section_header "Renew db numbers (serial and CRL)"
+for type in "serial" "crlnumber"; do
+  for dir in $db_dir; do
+    generate_random_hex >"$dir/$type" || check_success "Failed to generate $type for $dir"
+  done
 done
-generate_random_hex >"$ssl_dir/root/db/crlnumber"
-generate_random_hex >"$intermediate_dir/db/crlnumber"
+```
+
+<br />
+
+### Check if Unique Subject and Intermediate Certificate Authority Exists
+
+The script checks whether the `unique_subject` flag is set to `yes` in the
+`index.txt.attr` file, and whether the Intermediate Certificate Authority
+(`ca.pem`) already exists.
+
+```bash
+unique_subject="no"
+if grep -q "^unique_subject\s*=\s*yes" "$db_dir/index.txt.attr" 2>/dev/null; then
+  unique_subject="yes"
+fi
+
+ca_path="$certs_intermediate_dir/ca.pem"
+ca_exists=false
+if [[ -f "$ca_path" ]]; then
+  ca_exists=true
+fi
+```
+
+If `unique_subject` is enabled and the Intermediate Certificate Authority
+exists, the script stops and reports an error. If not, it prompts the user for
+confirmation before overwriting the Intermediate Certificate Authority.
+
+```bash
+if [[ "$unique_subject" == "yes" && "$ca_exists" == "true" ]]; then
+  echo "[ERROR] unique_subject is enabled and Intermediate Certificate Authority already exists." >&2
+  exit 1
+fi
+
+if [[ "$unique_subject" == "no" && -f "$ca_path" ]]; then
+  print_section_header "⚠️  WARNING: Overwriting Intermediate Certificate Authority"
+
+  echo "[WARNING] Intermediate Certificate Authority already exists and will be OVERWRITTEN!" >&2
+  echo "[WARNING] This action will require REGENERATING ALL ISSUED CERTIFICATES!" >&2
+  echo "[WARNING] If you continue, all issued certificates will become INVALID!" >&2
+
+  read -r -p "Do you want to continue? (yes/no): " confirm
+  if [[ "$confirm" != "yes" ]]; then
+    echo "[INFO] Operation aborted by user." >&2
+    exit 1
+  fi
+fi
 ```
 
 <br />
 
 ### Generate ECDSA Key
 
-The script generates an ECDSA key using the secp384r1 curve and saves it to the
-private directory of the intermediate CA.
+The script generates an ECDSA key for the Intermediate Certificate Authority
+using the secp384r1 curve and saves it to the private directory.
 
 ```bash
 print_section_header "Generate ECDSA key"
-openssl ecparam -name secp384r1 -genkey -out "$intermediate_dir/private/ca.pem"
+openssl ecparam -name secp384r1 -genkey -out "$private_intermediate_dir/ca.pem"
+check_success "Failed to generate ECDSA key"
 ```
 
 <br />
 
 ### Generate Certificate Signing Request (CSR)
 
-It creates a CSR for the intermediate CA using the generated ECDSA key and the
-configuration file.
+A CSR for the Intermediate Certificate Authority is generated using the
+generated ECDSA key.
 
 ```bash
-print_section_header "Generate Certificate Signing Request (CSR)"
-openssl req -new -sha384 -config "$intermediate_dir/ca.cnf" -key "$intermediate_dir/private/ca.pem" -out "$intermediate_dir/csr/ca.pem"
+print_section_header "Generate Certificate Signing Request"
+openssl req -new -sha384 -config "$openssl_conf_dir/ca.cnf" -key "$private_intermediate_dir/ca.pem" -out "$csr_dir/ca.pem"
+check_success "Failed to generate Certificate Signing Request"
 ```
 
 <br />
 
 ### Generate Intermediate Certificate Authority
 
-The script then issues the intermediate certificate, valid for 1826 days, based
-on the CSR.
+The Intermediate Certificate Authority is generated and signed for a validity of
+1826 days (5 years).
 
 ```bash
 print_section_header "Generate Intermediate Certificate Authority"
-openssl ca -config "$intermediate_dir/ca.cnf" -extensions v3_intermediate_ca -notext -batch -in "$intermediate_dir/csr/ca.pem" -days 1826 -out "$intermediate_dir/certs/ca.pem"
+openssl ca -config "$openssl_conf_dir/ca.cnf" -extensions v3_intermediate_ca -notext -batch -in "$csr_dir/ca.pem" -days 1826 -out "$certs_intermediate_dir/ca.pem"
+check_success "Failed to generate Intermediate Certificate Authority"
+
 ```
 
 <br />
 
 ### Create Intermediate Certificate Authority Chain Bundle
 
-It creates a chain bundle by concatenating the intermediate certificate and the
-root CA chain bundle.
+The Intermediate Certificate Authority and Root Certificate Authority are
+concatenated into a chain bundle.
 
 ```bash
 print_section_header "Create Intermediate Certificate Authority Chain Bundle"
-cat "$intermediate_dir/certs/ca.pem" "$root_dir/certs/root_ca_chain_bundle.pem" >"$intermediate_dir/certs/ca_chain_bundle.pem"
+cat "$certs_intermediate_dir/ca.pem" "$certs_root_dir/root_ca_chain_bundle.pem" >"$certs_intermediate_dir/ca_chain_bundle.pem"
+check_success "Failed to create Intermediate Certificate Authority Chain Bundle"
 ```
 
 <br />
 
-### Verification Steps
+### Verify Certificates
 
-The script performs several verification steps to ensure the integrity and
-correctness of the certificates and keys.
+The script verifies the integrity of the certificates using `openssl verify`.
 
-1. **Verify Intermediate CA against the Intermediate CA Chain Bundle**
+```bash
+print_section_header "Verify Certificates"
+verify_certificate() {
+  openssl verify -CAfile "$1" "$2"
+  check_success "Verification failed for $2"
+}
 
-   ```bash
-   print_section_header "Verify Intermediate Certificate Authority against the Intermediate Certificate Authority Chain Bundle"
-   openssl verify -CAfile "$intermediate_dir/certs/ca_chain_bundle.pem" "$intermediate_dir/certs/ca.pem"
-   ```
-
-    <br />
-
-2. **Verify Intermediate CA against Root CA Chain Bundle**
-
-   ```bash
-   print_section_header "Verify Intermediate Certificate Authority against Root Certificate Authority Chain Bundle"
-   openssl verify -CAfile "$root_dir/certs/root_ca_chain_bundle.pem" "$intermediate_dir/certs/ca.pem"
-   ```
-
-    <br />
-
-3. **Verify Intermediate CA Chain Bundle against Root CA Chain Bundle**
-
-   ```bash
-   print_section_header "Verify Intermediate Certificate Authority Chain Bundle against Root Certificate Authority Chain Bundle"
-   openssl verify -CAfile "$root_dir/certs/root_ca_chain_bundle.pem" "$intermediate_dir/certs/ca_chain_bundle.pem"
-   ```
+verify_certificate "$certs_intermediate_dir/ca_chain_bundle.pem" "$certs_intermediate_dir/ca.pem"
+verify_certificate "$certs_root_dir/root_ca_chain_bundle.pem" "$certs_intermediate_dir/ca.pem"
+verify_certificate "$certs_root_dir/root_ca_chain_bundle.pem" "$certs_intermediate_dir/ca_chain_bundle.pem"
+```
 
 <br />
 
-### Check Generated Files
+### Convert Certificate from PEM to CRT Format
 
-The script also includes steps to check the private key, CSR, intermediate CA
-certificate, and the CA chain bundle to verify their contents.
+The Intermediate Certificate Authority and chain bundle are converted from PEM
+to CRT format.
 
-1. **Check Private Key**
+```bash
+print_section_header "Convert Intermediate Certificate Authority from .pem to .crt"
+cp "$certs_intermediate_dir/ca.pem" "$certs_intermediate_dir/ca.crt"
+cp "$certs_intermediate_dir/ca_chain_bundle.pem" "$certs_intermediate_dir/ca_chain_bundle.crt"
+check_success "Failed to convert Intermediate Certificate Authority from .pem to .crt"
+echo
+print_cyan "--> ca.crt"
+print_cyan "--> ca_chain_bundle.crt"
+```
 
-   ```bash
-   print_section_header "Check Private Key"
-   openssl ecparam -in "$intermediate_dir/private/ca.pem" -text -noout
-   ```
+<br />
 
-    <br />
+### Script Completion Message
 
-2. **Check CSR**
+The script prints a completion message when the process is successfully
+completed.
 
-   ```bash
-   print_section_header "Check Certificate Signing Request (CSR)"
-   openssl req -text -noout -verify -in "$intermediate_dir/csr/ca.pem"
-   ```
+```bash
+echo
+print_cyan "Intermediate Certificate Authority process successfully completed."
+```
 
-    <br />
+<br />
 
-3. **Check Intermediate CA**
+### Exit
 
-   ```bash
-   print_section_header "Check Intermediate Certificate Authority"
-   openssl x509 -in "$intermediate_dir/certs/ca.pem" -text -noout
-   ```
+The script exits with a success code (`0`).
 
-    <br />
-
-4. **Check CA Chain Bundle**
-
-   ```bash
-   print_section_header "Check Intermediate Certificate Authority Chain Bundle"
-   openssl x509 -in "$intermediate_dir/certs/ca_chain_bundle.pem" -text -noout
-   ```
+```bash
+exit 0
+```
 
 <br />
 

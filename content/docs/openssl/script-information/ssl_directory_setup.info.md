@@ -54,14 +54,12 @@ for a trusted identity (root certificate authority) and a time-stamping
 authority (TSA). The script requires OpenSSL to be installed and write
 permissions in the specified directories.
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `ssl_directory_setup.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: February 15, 2025
-- **Version**: 1.1.0
+- **Date**: February 20, 2025
+- **Version**: 2.5.0
 - **Description**: Sets up SSL certificate management directories, generates
   random serial numbers, and creates OpenSSL configuration files.
 - **Requirements**: OpenSSL installed, write permissions in specified
@@ -72,79 +70,130 @@ Here's a detailed explanation:
 
 ## Detailed Explanation
 
-## Functions
-
-### Print Text in Cyan
+Before diving into the script, it’s important to know that the script will stop
+execution on any error using the following line:
 
 ```bash
-print_cyan() {
-  echo -e "\e[36m$1\e[0m" # \e[36m sets text color to cyan, \e[0m resets it
+set -e
+```
+
+<br />
+
+## Functions
+
+### Function to check if OpenSSL is installed
+
+Checks if OpenSSL is installed on the system. If OpenSSL is not found, it prints
+an error message and exits the script.
+
+```bash
+check_openssl_installed() {
+  if ! command -v openssl &>/dev/null; then
+    echo "Error: OpenSSL is not installed. Please install it before running this script."
+    exit 1
+  fi
 }
 ```
 
-This function prints text in cyan color for better visibility in the terminal.
+<br />
+
+### Print Text in Cyan
+
+This function prints text in cyan color to improve visibility in the terminal
+output.
+
+```bash
+print_cyan() {
+  echo -e "\e[36m$1\e[0m"
+}
+```
 
 <br />
 
 ### Generate Random Hex Value
 
+Generates a random 16-byte hexadecimal value using OpenSSL's random number
+generator. If the generation fails, it displays an error and exits the script.
+
 ```bash
 generate_random_hex() {
-  openssl rand -hex 16
+  openssl rand -hex 16 || {
+    echo "Error: Failed to generate random hex."
+    exit 1
+  }
 }
 ```
-
-Generates a random 16-byte hexadecimal value using OpenSSL's random number
-generator.
 
 <br />
 
 ### Print Section Header
 
+Prints section headers in cyan to clearly distinguish different parts of the
+script's output.
+
 ```bash
 print_section_header() {
   echo ""
-  echo ""
-  echo -e "$(print_cyan "=== $1 === ")"
+  print_cyan "=== $1 ==="
 }
 ```
 
-Prints section headers in cyan to distinguish different parts of the script
-output.
-
 <br />
 
-## Directory Structure
+### Directory Structure
 
-### Define Directories
+Defines the main directory and subdirectories used for SSL certificates and
+related files. The structure is designed for managing root and intermediate CAs,
+certificates, and other essential components.
 
 ```bash
-ssl_dir="$HOME/ssl"
-root_dir="$ssl_dir/root"
-intermediate_dir="$ssl_dir/intermediate"
-certificates_dir="$ssl_dir/certificates"
-tsa_dir="$ssl_dir/tsa"
-crl_backup_dir="$ssl_dir/crl-backups"
-```
+# Set base directory
+base_dir="$HOME/ssl"
+certs_dir="$base_dir/certs"
+crl_dir="$base_dir/crl"
+crl_backup_dir="$base_dir/crl-backup"
+csr_dir="$base_dir/csr"
+extfile_dir="$base_dir/extfiles"
+newcerts_dir="$base_dir/newcerts"
+private_dir="$base_dir/private"
+db_dir="$base_dir/db"
+log_dir="$base_dir/log"
+openssl_conf_dir="$base_dir/openssl.cnf"
+tsa_dir="$base_dir/tsa"
 
-Defines the main directory and subdirectories for SSL certificates and related
-files.
+# Set directories for various components (for future use)
+# certs_root_dir="$certs_dir/root"
+# certs_intermediate_dir="$certs_dir/intermediate"
+# certs_certificates_dir="$certs_dir/certificates"
+# private_root_dir="$private_dir/root"
+# private_intermediate_dir="$private_dir/intermediate"
+# private_certificates_dir="$private_dir/certificates"
+# tsa_certs_dir="$tsa_dir/certs"
+# tsa_private_dir="$tsa_dir/private"
+```
 
 <br />
 
 ### Create Directory Structure
 
-```bash
-print_section_header "Create directory structure"
-mkdir -p "$root_dir"/{certs,crl,csr,db,newcerts,private} \
-  "$intermediate_dir"/{certs,crl,csr,db,newcerts,private} \
-  "$certificates_dir"/{certs,csr,extfile,private} \
-  "$tsa_dir"/{cacerts,db,private,tsacerts} \
-  "$crl_backup_dir"
-```
+Creates the necessary directory structure for SSL certificate management,
+including directories for root and intermediate certificate authorities (CAs),
+certificates, Certificate Revocation Lists (CRLs), and other key components.
 
-Creates the necessary directory structure for managing SSL certificates,
-including directories for root and intermediate CAs, certificates, and TSA.
+```bash
+print_section_header "Creating directory structure"
+mkdir -p "$certs_dir"/{root,intermediate,certificates} \
+  "$crl_dir" \
+  "$crl_backup_dir" \
+  "$csr_dir" \
+  "$extfile_dir" \
+  "$newcerts_dir" \
+  "$private_dir"/{root,intermediate,certificates} \
+  "$db_dir" \
+  "$log_dir" \
+  "$openssl_conf_dir" \
+  "$tsa_dir"/{certs,private,db}
+```
 
 <br />
 
@@ -152,90 +201,66 @@ including directories for root and intermediate CAs, certificates, and TSA.
 
 ### Create Database Files
 
-```bash
-print_section_header "Create DataBase files"
-touch "$root_dir/db/index.txt"
-touch "$intermediate_dir/db/index.txt"
-```
+Creates the index files for the certificate databases and ensures that the
+`unique_subject` attribute is set to `yes` for both the main and TSA databases.
 
-Creates index files for the certificate databases.
+```bash
+print_section_header "Creating db files and setting unique_subject attribute"
+touch "$db_dir/index.txt"
+touch "$tsa_dir/db/index.txt"
+
+for dir in "$db_dir" "$tsa_dir/db"; do
+  touch "$dir/index.txt.attr"
+  echo "unique_subject = yes" >"$dir/index.txt.attr"
+done
+```
 
 <br />
 
 ### Renew DB Serial Numbers
 
+Generates new random serial numbers for both the main database and the TSA's
+certificate revocation list (CRL) numbers.
+
 ```bash
-print_section_header "Renew db serial numbers"
-for dir in "$root_dir/db" "$intermediate_dir/db" "$tsa_dir/db"; do
-  generate_random_hex > "$dir/serial"
+print_section_header "Renewing db numbers (serial and CRL)"
+for type in "serial" "crlnumber"; do
+  for dir in "$db_dir" "$tsa_dir/db"; do
+    generate_random_hex >"$dir/$type"
+  done
 done
-
-generate_random_hex > "$root_dir/db/crlnumber"
-generate_random_hex > "$intermediate_dir/db/crlnumber"
-generate_random_hex > "$tsa_dir/db/crlnumber"
 ```
-
-Generates new random serial numbers for the certificate databases and CRL
-numbers.
 
 <br />
 
-## OpenSSL Configuration Files
+### OpenSSL Configuration Files
 
-### Create OpenSSL Config for Trusted Identity
+Copies the OpenSSL configuration files from the user's local directory to the
+target directory for the SSL setup. If the source directory doesn't exist, it
+will print a warning and skip the copy operation.
 
 ```bash
-print_section_header "Create openssl config files for trusted-id"
-cat <<EOF >"$root_dir/trusted-id.cnf"
-# Configuration file content truncated for brevity
-EOF
+print_section_header "Copying OpenSSL configuration files"
+if [ -d "$HOME/openssl/openssl.cnf" ]; then
+  cp -r "$HOME/openssl/openssl.cnf"/* "$openssl_conf_dir/"
+else
+  echo "Warning: OpenSSL configuration directory not found at $HOME/openssl/openssl.cnf."
+  echo "Skipping OpenSSL configuration files copy."
+fi
 ```
-
-Creates an OpenSSL configuration file for the trusted identity (root CA). This
-file contains various settings and extensions used in generating and managing
-certificates.
 
 <br />
 
-### Create OpenSSL Config for Root Certificate Authority
+### Script Completion Message
+
+Finally, the script exits with a success message:
 
 ```bash
-print_section_header "Create openssl config files for Root Certificate Authority"
-cat <<EOF >"$root_dir/root_ca.cnf"
-# Configuration file content truncated for brevity
-EOF
+echo
+print_cyan "SSL directory setup completed successfully."
 ```
-
-Creates an OpenSSL configuration file for the Root Certificate Authority (CA),
-detailing policies, extensions, and paths to certificate files and databases.
 
 <br />
-
-### Create OpenSSL Config for Certificate Authority
-
-```bash
-print_section_header "Create openssl config files for Certificate Authority"
-cat <<EOF >"$intermediate_dir/ca.cnf"
-# Configuration file content truncated for brevity
-EOF
-```
-
-Creates an OpenSSL configuration file for the Certificate Authority (CA),
-detailing policies, extensions, and paths to certificate files and databases.
-
-<br />
-
-### Create OpenSSL Config for Certificate
-
-```bash
-print_section_header "Create openssl config files for Certificate"
-cat <<EOF >"$certificates_dir/cert.cnf"
-# Configuration file content truncated for brevity
-EOF
-```
-
-Creates an OpenSSL configuration file for a Certificate, detailing policies,
-extensions, and paths to certificate files and databases.
 
 ## Conclusion
 

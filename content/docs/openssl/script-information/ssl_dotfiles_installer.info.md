@@ -48,14 +48,12 @@ add specific configuration content to the `~/.bashrc` file without duplicating
 existing entries. This ensures that certain aliases or configurations are loaded
 from a separate file.
 
-Here’s a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `ssl_dotfiles_installer.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: February 15, 2025
-- **Version**: 2.0.0
+- **Date**: February 20, 2025
+- **Version**: 2.5.0
 - **Description**: This script ensures the `.bashrc` file is updated with the
   necessary OpenSSL alias configurations without adding duplicates.
 - **RAW Script**: [ssl_dotfiles_installer.sh]
@@ -63,6 +61,17 @@ Here’s a detailed explanation:
 <br />
 
 ## Detailed Explanation
+
+Before diving into the script, it’s important to know that the script will stop
+execution on any error using the following line:
+
+```bash
+set -e
+```
+
+<br />
+
+## Functions
 
 ### BASHRC_PATH and ALIASES_PATH Variables
 
@@ -79,15 +88,15 @@ ALIASES_PATH="$HOME/openssl/dotfiles/.bash_aliases"
 
 ### Checking for Write Permission and Existence of .bashrc
 
+This check ensures that the `.bashrc` file is writable before proceeding. If
+not, the script exits with an error message.
+
 ```bash
 if [ ! -w "$BASHRC_PATH" ]; then
     echo "Error: $BASHRC_PATH is not writable. Please check your permissions."
     exit 1
 fi
 ```
-
-- This check ensures that the `.bashrc` file is writable before proceeding. If
-  not, the script exits with an error message.
 
 <br />
 
@@ -121,6 +130,10 @@ fi
 
 ### Removing Unnecessary Files
 
+The script identifies and removes unnecessary files from the OpenSSL directory,
+such as version control and documentation files that are not essential for its
+operation.
+
 ```bash
 files_to_remove=(
     "$HOME/openssl/.git"
@@ -132,7 +145,6 @@ files_to_remove=(
     "$HOME/openssl/CONTRIBUTING.md"
 )
 
-# Remove the files and check if they exist
 for file in "${files_to_remove[@]}"; do
     if [ -e "$file" ]; then
         rm -rf "$file"
@@ -143,20 +155,19 @@ for file in "${files_to_remove[@]}"; do
 done
 ```
 
-- The script identifies and removes unnecessary files from the OpenSSL
-  directory, such as version control and documentation files that are not
-  essential for its operation.
-
 <br />
 
 ### Completion and Exit
+
+After updating the `.bashrc` file and removing unnecessary files, the script
+prints a completion message.
 
 ```bash
 echo "Installation completed. .bashrc has been updated, and the specified files have been removed."
 ```
 
-- After updating the `.bashrc` file and removing unnecessary files, the script
-  prints a completion message.
+Finally, the script exits. An optional line is included to restart the shell, if
+desired.
 
 ```bash
 # Optionally, restart the shell (optional line to consider uncommenting if needed)
@@ -164,9 +175,6 @@ echo "Installation completed. .bashrc has been updated, and the specified files 
 
 exit 0
 ```
-
-- Finally, the script exits. An optional line is included to restart the shell,
-  if desired.
 
 <br />
 
