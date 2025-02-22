@@ -56,7 +56,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Feb 1, 2025
+- **Date**: February 22, 2025
 - **Description**: Configures a Docker network and service for Unifi Controller.
 - **RAW Compose File**: [docker-compose.yml]
 
@@ -83,7 +83,7 @@ networks:
       com.docker.network.bridge.enable_icc: "true"
       com.docker.network.bridge.enable_ip_masquerade: "true"
       com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"
-      com.docker.network.bridge.name: "unifi-controller"
+      com.docker.network.bridge.name: "unifi"
       com.docker.network.driver.mtu: "1500"
     labels:
       com.unifi-controller.network.description: "is an isolated bridge network."
@@ -112,7 +112,7 @@ networks:
     traffic to appear as if it came from the host.
   - **com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"**: Binds the bridge
     to all available IP addresses on the host.
-  - **com.docker.network.bridge.name: "unifi-controller"**: Names the bridge
+  - **com.docker.network.bridge.name: "unifi"**: Names the bridge
     network.
   - **com.docker.network.driver.mtu: "1500"**: Sets the Maximum Transmission
     Unit size for the network.
