@@ -59,7 +59,7 @@ Pi-hole on Docker.
 
 - **Filename**: `docker-compose.yml`
 - **Author**: Homelab-Alpha
-- **Date**: Feb 11, 2025
+- **Date**: February 22, 2025
 - **Description**: Configures a Docker network and the Pi-hole service for
   ad-blocking and DHCP functionalities.
 - **RAW Compose File**: [docker-compose.yml]
@@ -141,7 +141,7 @@ services:
     image: pihole/pihole:latest
     pull_policy: if_not_present
     volumes:
-      - ./etc-pihole:/etc/pihole
+      - /docker/pi-hole/production/app:/etc/pihole
       - ./etc-dnsmasq.d:/etc/dnsmasq.d
     environment:
       PUID: "1000"
@@ -154,8 +154,8 @@ services:
       pi-hole_net:
         ipv4_address: 172.20.17.2
     ports:
-      - "53:53/tcp" # plain DNS
-      - "53:53/udp" # plain DNS
+      - "5353:53/tcp" # plain DNS
+      - "5353:53/udp" # plain DNS
       - "67:67/udp" # DHCP
       - "3080:80/tcp" # HTTP
     security_opt:
@@ -168,7 +168,7 @@ services:
         "is a Linux network-level advertisement and Internet tracker blocking
         application which acts as a DNS sinkhole and optionally a DHCP server."
     healthcheck:
-      disable: true # Healthcheck is temporarily disabled because the service hasn't been tested yet.
+      disable: false
       test: ["CMD", "dig", "+short", "+norecurse", "+retry=0", "@127.0.0.1", "pi.hole"]
       interval: 10s
       timeout: 5s
@@ -194,7 +194,7 @@ services:
     present locally.
   - **volumes**: Mounts host directories into the container for persistent data
     storage.
-    - **./etc-pihole:/etc/pihole**: Mounts the Pi-hole configuration directory.
+    - **./docker/pi-hole/production/app:/etc/pihole**: Mounts the Pi-hole configuration directory.
     - **./etc-dnsmasq.d:/etc/dnsmasq.d**: Mounts the DNS configuration
       directory.
   - **environment**: Sets environment variables for configuration.
@@ -210,8 +210,8 @@ services:
   - **networks**: Connects the service to the `pi-hole_net` network.
     - **ipv4_address: 172.20.17.2**: Assigns a static IP address.
   - **ports**: Maps container ports to host ports for DNS and DHCP services.
-    - **53:53/tcp**: Maps TCP DNS port.
-    - **53:53/udp**: Maps UDP DNS port.
+    - **5353:53/tcp**: Maps TCP DNS port.
+    - **5353:53/udp**: Maps UDP DNS port.
     - **67:67/udp**: Maps the DHCP port.
     - **3080:80/tcp**: Maps HTTP port for the web interface.
   - **security_opt**: Adds security options to the container.
@@ -224,8 +224,7 @@ services:
     - **com.pi-hole.description**: Describes Pi-hole as a DNS sinkhole and
       optional DHCP server.
   - **healthcheck**: Health check configuration.
-    - **disable: true**: Healthcheck is currently disabled as the service isn't
-      fully tested.
+    - **disable: false**: Enables the health check.
     - **test**: Runs `dig` command to test Pi-hole functionality.
     - **interval: 10s**: Run the health check every 10 seconds.
     - **timeout: 5s**: Allow up to 5 seconds for the health check to complete.
