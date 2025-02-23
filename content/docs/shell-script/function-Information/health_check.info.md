@@ -50,8 +50,6 @@ Let's break down what this script does in detail. The script is named
 `health_check.sh`, authored by GJS (homelab-alpha), and its purpose is to check
 the availability of a given URL using both HTTP and HTTPS protocols.
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `health_check.sh`

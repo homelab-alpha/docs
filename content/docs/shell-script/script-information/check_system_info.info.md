@@ -59,8 +59,6 @@ check various aspects of system information. It provides details about system
 uptime, hardware information, system temperature, systemctl status, RAM/SWAP
 usage, disk usage, disk usage inodes, and last reboot/shutdown events.
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `check_system_info.sh`

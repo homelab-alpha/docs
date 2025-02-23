@@ -56,8 +56,6 @@ function called `targzip` that creates a tar archive of a directory or file and
 compresses it using gzip. The script handles the creation of the archive,
 compression, and verification of the compressed file.
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `targzip.sh`

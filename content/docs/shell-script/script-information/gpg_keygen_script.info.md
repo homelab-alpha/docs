@@ -52,8 +52,6 @@ generate a GPG key pair for secure communication. The script checks for required
 software, generates the key pair, and logs the actions. It also provides options
 for verbose output and specifying the GPG directory.
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `gpg_keygen_script.sh`

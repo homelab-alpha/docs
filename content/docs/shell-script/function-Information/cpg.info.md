@@ -57,8 +57,6 @@ authored by GJS (homelab-alpha), and its purpose is to create a function called
 location. The script handles both single files and directories, including
 recursive copying for directories.
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `cpg.sh`
@@ -72,10 +70,12 @@ Here's a detailed explanation:
 
 <br />
 
+## Function: cpg
+
 The main part of this script is the function `cpg`. Let's go through what it
 does step by step.
 
-## Function Definition and Argument Check
+## Definition and Argument Check
 
 ```bash
 function cpg() {

@@ -55,8 +55,6 @@ facilitate local linting of code repositories using the GitHub Super Linter
 tool. It wraps the Super Linter Docker container, providing options for linting
 either a local Git repository or a specific folder.
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `super_linter.sh`

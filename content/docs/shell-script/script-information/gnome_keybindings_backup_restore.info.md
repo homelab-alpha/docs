@@ -54,8 +54,6 @@ Let's break down what this script does in detail. The script is named
 purpose is to manage GNOME keybindings by allowing users to create backups of
 their current keybindings and restore them when needed.
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `gnome_keybindings_backup_restore.sh`

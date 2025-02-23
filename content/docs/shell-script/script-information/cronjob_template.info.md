@@ -48,8 +48,6 @@ Let's break down what this script does in detail. The script is named
 provide a template for a cron job that sends a ping to a monitoring server for
 system health checks.
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `cronjob_template.sh`

@@ -55,8 +55,6 @@ purpose is to fetch the latest version of JetBrains Mono from the official
 GitHub repository, download it, install it to the system-wide fonts directory,
 and clean up the downloaded files.
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `install_latest_jetbrains_mono.sh`

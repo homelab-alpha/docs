@@ -56,8 +56,6 @@ retrieve and organize information about system user accounts. It categorizes the
 accounts into system and normal user categories and displays relevant details in
 a formatted manner.
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `user_accounts_info.sh`

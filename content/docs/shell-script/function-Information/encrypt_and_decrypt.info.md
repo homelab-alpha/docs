@@ -51,8 +51,6 @@ Let's break down what this script does in detail. The script is named
 provide functions to encrypt and decrypt files or directories using the AES-256
 encryption algorithm with OpenSSL.
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `encrypt_and_decrypt.sh`
@@ -75,8 +73,6 @@ The script defines two main functions:
 <br />
 
 ## Function: file-encrypt
-
-### Purpose
 
 The `file-encrypt` function encrypts files or directories using the AES-256
 encryption algorithm with OpenSSL.

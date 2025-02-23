@@ -57,8 +57,6 @@ specify the desired key type, filename for the key pair, and SSH directory.
 Additionally, the script logs all actions and errors to a designated log file
 for traceability.
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `ssh_keygen_script.sh`

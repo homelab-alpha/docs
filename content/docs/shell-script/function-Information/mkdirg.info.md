@@ -53,8 +53,6 @@ function called `mkdirg` that creates a directory if it doesn't already exist
 and then navigates into that directory. This script handles the creation of
 directories and changes the current working directory to the newly created one.
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `mkdirg.sh`

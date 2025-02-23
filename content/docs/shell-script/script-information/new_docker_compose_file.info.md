@@ -58,8 +58,6 @@ is to create a new Docker-Compose file along with configuration files based on
 user input. This can help streamline the setup of Docker containers with
 specific configurations.
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `new_docker_compose_file.sh`

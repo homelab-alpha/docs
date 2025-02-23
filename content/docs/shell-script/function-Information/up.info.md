@@ -54,8 +54,6 @@ authored by GJS (homelab-alpha), and its purpose is to create a function called
 the file system. This is useful for quickly moving up multiple directory levels
 without having to type `cd ../../..` repeatedly.
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `up.sh`

@@ -48,8 +48,6 @@ Let's break down what this script does in detail. The script is named
 fetch, download, install, and clean up the latest version of Go from the
 official Go download page.
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `install_latest_go.sh`

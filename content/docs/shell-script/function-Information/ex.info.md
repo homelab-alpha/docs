@@ -58,8 +58,6 @@ to extract various archive formats. It simplifies the extraction process by
 automatically detecting the file format and applying the appropriate extraction
 method.
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `ex.sh`

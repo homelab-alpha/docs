@@ -50,8 +50,6 @@ and resetting the commit history to provide a fresh start. This can be useful
 after importing from another version control system or to ensure a clean history
 for better project management and collaboration.
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `maintain_git_repo.sh`

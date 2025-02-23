@@ -57,8 +57,6 @@ Let's break down what this script does in detail. The script is named
 manage GitHub pull request inspection by allowing users to generate `.patch` and
 `.diff` links and view PR changes directly in the terminal.
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `github_pr_inspector.sh`

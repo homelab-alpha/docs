@@ -54,8 +54,6 @@ clean caches and reclaimable slab objects like dentries and inodes on a Linux
 system. This script ensures that the file system's caches are cleared, which can
 help in freeing up memory and improving system performance.
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `clearcache.sh`

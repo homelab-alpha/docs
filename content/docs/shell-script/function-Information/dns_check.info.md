@@ -56,8 +56,6 @@ network connectivity and the availability of DNS servers. While it doesn't
 execute specific tasks, it's instrumental in diagnosing potential
 network-related issues.
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `dns_check.sh`
@@ -69,6 +67,8 @@ Here's a detailed explanation:
 - **RAW Script**: [dns_check.sh]
 
 <br />
+
+## Function: dns-checker
 
 The script employs a function named `dns-checker()` to carry out the network
 checks. Let's dissect its components:

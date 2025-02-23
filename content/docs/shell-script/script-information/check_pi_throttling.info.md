@@ -51,8 +51,6 @@ check the throttling status of a Raspberry Pi by querying the `vcgencmd` tool.
 This is useful for monitoring the system's health and ensuring it is operating
 within safe parameters.
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `check_pi_throttling.sh`

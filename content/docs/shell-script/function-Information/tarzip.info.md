@@ -57,8 +57,6 @@ Let's break down what this script does in detail. The script is named
 `tarzip.sh`, authored by GJS (homelab-alpha), and its purpose is to create a
 compressed archive (.zip) of a specified folder using tar and zip commands.
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `tarzip.sh`

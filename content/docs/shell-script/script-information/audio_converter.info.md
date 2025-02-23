@@ -57,8 +57,6 @@ Let's break down what this script does in detail. The script is named
 convert audio files in various formats (m4a, mp3, wma) to MP3 format with
 specific settings for bitrate, sampling rate, and channel configuration.
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `audio_converter.sh`

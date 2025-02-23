@@ -55,8 +55,6 @@ based on user input. The script ensures that the necessary tools are available,
 checks for proper execution permissions, and creates a comprehensive directory
 structure and configuration files for Docker containers.
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `new_docker_container.sh`

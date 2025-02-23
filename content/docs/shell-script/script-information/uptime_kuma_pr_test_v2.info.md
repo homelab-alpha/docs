@@ -47,8 +47,6 @@ Let's break down what this script does in detail. The script is named
 to facilitate the testing of pull requests for Uptime-Kuma version 2.x.x in a
 Docker container environment. Here’s a detailed look at each section:
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `uptime_kuma_pr_test_v2.sh`

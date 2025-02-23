@@ -49,8 +49,6 @@ Let's break down what this script does in detail. The script is named
 is to fetch, download, install, and clean up the latest version of Dart Sass
 from the official GitHub repository.
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `install_latest_dart_sass.sh`

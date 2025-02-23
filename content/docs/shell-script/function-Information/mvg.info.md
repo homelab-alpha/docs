@@ -53,8 +53,6 @@ authored by GJS (homelab-alpha), and its purpose is to create a function called
 the destination directory. The script also ensures the source and destination
 are valid and provides functionality to add metadata to itself if it's missing.
 
-Here's a detailed explanation:
-
 ## Script Metadata
 
 - **Filename**: `mvg.sh`
