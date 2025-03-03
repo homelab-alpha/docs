@@ -46,13 +46,16 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-Not all projects under Homelab-Alpha are open to external contributions.
-Below is a list of projects for which **no external contributions** are
-requested or accepted:
+Not all projects under **Homelab-Alpha** are open to external contributions.
+However, the following projects welcome or actively seek contributions from the
+community:
 
-- Homelab-Alpha - AdGuard Home
-- Homelab-Alpha - Dotfiles
+**Homelab-Alpha Repositories Open to External Contributions:**
 
+- **[Docker]**
+- **[OpenSSL]**
+- **[Shell Script]**
+- **[Uptime Kuma]** (a fork of [louislam/uptime-kuma])
 {{% /alert %}}
 
 <br />
@@ -155,3 +158,8 @@ anticipate your contributions!
 [pull request]: https://github.com/homelab-alpha/docs/pulls
 [ideas]: https://github.com/homelab-alpha/docs/discussions/categories/ideas
 [Homelab-Alpha license]: docs/../../help/license.md
+[Docker]: https://github.com/homelab-alpha/docker
+[OpenSSL]: https://github.com/homelab-alpha/openssl
+[Shell Script]: https://github.com/homelab-alpha/shell-script
+[Uptime Kuma]: https://github.com/homelab-alpha/uptime-kuma
+[louislam/uptime-kuma]: https://github.com/louislam/uptime-kuma
