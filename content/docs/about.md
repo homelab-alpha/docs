@@ -88,9 +88,9 @@ hands-on environment.
   environment, primarily for testing purposes. Avoid for production use.
 - **[Shell Script]:** Unlock the power of shell scripting to simplify complex
   tasks, automate processes, enhance efficiency, and boost productivity.
-- **[Uptime Kuma]** (a fork of [louislam/uptime-kuma])**:** A self-hosted monitoring
-  tool that allows you to monitor uptime, status, and notifications for various
-  services and domains.
+- **[Uptime Kuma]** (a fork of [louislam/uptime-kuma])**:** A self-hosted
+  monitoring tool that allows you to monitor uptime, status, and notifications
+  for various services and domains.
 
 <br />
 
@@ -112,11 +112,12 @@ hands-on environment.
 
 ## Disclaimer
 
-The content on the [Homelab-Alpha website] and [GitHub repositories] is based on
-my personal experience and is provided "as-is." Use it at your own discretion
-and risk. For further details, please refer to the following sections in the
-repository: **README**, **CODE OF CONDUCT**, **CONTRIBUTING**, **CODE STYLE AND
-STANDARDS GUIDES**, **SECURITY**, and **LICENSE**.
+The content on the [Homelab-Alpha website] and [Homelab-Alpha GitHub
+repositories] is based on my personal experience and is provided "as-is." Use it
+at your own discretion and risk. For further details, please refer to the
+following sections in the repository: **README**, **CODE OF CONDUCT**,
+**CONTRIBUTING**, **CODE STYLE AND STANDARDS GUIDES**, **SECURITY**, and
+**LICENSE**.
 
 [My Skills]:
   https://skillicons.dev/icons?i=bash,bitbucket,debian,docker,git,github,githubactions,gitlab,linux,markdown,raspberrypi,redhat,ubuntu,visualstudio,vscode&theme=dark&perline=15
@@ -126,4 +127,4 @@ STANDARDS GUIDES**, **SECURITY**, and **LICENSE**.
 [Uptime Kuma]: https://github.com/homelab-alpha/uptime-kuma
 [louislam/uptime-kuma]: https://github.com/louislam/uptime-kuma
 [Homelab-Alpha website]: https://homelab-alpha.nl
-[GitHub repositories]: https://github.com/homelab-alpha
+[Homelab-Alpha GitHub repositories]: https://github.com/homelab-alpha
