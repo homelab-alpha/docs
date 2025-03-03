@@ -88,7 +88,7 @@ hands-on environment.
   environment, primarily for testing purposes. Avoid for production use.
 - **[Shell Script]:** Unlock the power of shell scripting to simplify complex
   tasks, automate processes, enhance efficiency, and boost productivity.
-- **[Uptime Kuma (forked from louislam/uptime-kuma)]:** A self-hosted monitoring
+- **[Uptime Kuma]** (a fork of [louislam/uptime-kuma])**:** A self-hosted monitoring
   tool that allows you to monitor uptime, status, and notifications for various
   services and domains.
 
@@ -123,6 +123,7 @@ STANDARDS GUIDES**, **SECURITY**, and **LICENSE**.
 [Docker]: https://github.com/homelab-alpha/docker
 [OpenSSL]: https://github.com/homelab-alpha/openssl
 [Shell Script]: https://github.com/homelab-alpha/shell-script
-[Uptime Kuma (forked from louislam/uptime-kuma)]: https://github.com/homelab-alpha/uptime-kuma
+[Uptime Kuma]: https://github.com/homelab-alpha/uptime-kuma
+[louislam/uptime-kuma]: https://github.com/louislam/uptime-kuma
 [Homelab-Alpha website]: https://homelab-alpha.nl
 [GitHub repositories]: https://github.com/homelab-alpha
