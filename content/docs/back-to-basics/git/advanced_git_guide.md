@@ -36,7 +36,7 @@ keywords:
   - Git hooks
   - Git workflows
 
-weight: 2300
+weight: 2400
 
 toc: true
 katex: true

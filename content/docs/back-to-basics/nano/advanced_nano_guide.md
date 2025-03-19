@@ -40,7 +40,7 @@ keywords:
   - Nano regex
   - Nano window splitting
 
-weight: 2500
+weight: 2600
 
 toc: true
 katex: true

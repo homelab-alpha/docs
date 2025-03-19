@@ -29,7 +29,7 @@ keywords:
   - Git workflow
   - version control system
 
-weight: 2300
+weight: 2400
 
 toc: true
 katex: true

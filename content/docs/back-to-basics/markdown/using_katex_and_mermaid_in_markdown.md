@@ -34,7 +34,7 @@ keywords:
   - mathematical expressions examples
   - Markdown diagrams
 
-weight: 2400
+weight: 2500
 
 toc: true
 katex: true

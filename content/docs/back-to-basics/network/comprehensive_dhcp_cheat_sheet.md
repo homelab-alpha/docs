@@ -38,7 +38,7 @@ keywords:
   - DHCP failover
   - Linux DHCP configuration
 
-weight: 2600
+weight: 2700
 
 toc: true
 katex: true

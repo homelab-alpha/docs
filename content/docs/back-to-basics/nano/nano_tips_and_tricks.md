@@ -38,7 +38,7 @@ keywords:
   - backup files
   - smart Home key
 
-weight: 2500
+weight: 2600
 
 toc: true
 katex: true

@@ -36,7 +36,7 @@ keywords:
   - Dockerizing applications
   - Docker Hub registry
 
-weight: 2100
+weight: 2200
 
 toc: true
 katex: true

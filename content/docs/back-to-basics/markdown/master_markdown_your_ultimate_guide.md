@@ -33,7 +33,7 @@ keywords:
   - Markdown basics
   - Markdown crash course
 
-weight: 2400
+weight: 2500
 
 toc: true
 katex: true

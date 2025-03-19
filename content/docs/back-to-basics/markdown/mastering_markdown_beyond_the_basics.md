@@ -37,7 +37,7 @@ keywords:
   - Markdown formatting
   - Markdown examples
 
-weight: 2400
+weight: 2500
 
 toc: true
 katex: true
