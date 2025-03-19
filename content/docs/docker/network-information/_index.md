@@ -6,5 +6,5 @@ description:
   container management and networking visibility."
 url: "docker/network-info"
 icon: "foundation"
-weight: 4100
+weight: 4200
 ---

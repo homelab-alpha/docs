@@ -5,5 +5,5 @@ description:
 url: "back-to-basics/docker-compose"
 icon: "foundation"
 
-weight: 2200
+weight: 2300
 ---
