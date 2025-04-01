@@ -151,6 +151,7 @@ services:
       DOZZLE_HOSTNAME: docker-server
       DOZZLE_LEVEL: info
       DOZZLE_NO_ANALYTICS: "true"
+      DOZZLE_ENABLE_SHELL: "false"
       # DOZZLE_REMOTE_HOST: tcp://192.168.*.*:2376|dozzle-remote.local
     domainname: dozzle.local # Customize this with your own domain, e.g., `dozzle.local` to `dozzle.your-fqdn-here.com`.
     hostname: dozzle
@@ -206,6 +207,7 @@ services:
     - **DOZZLE_HOSTNAME: docker-server**: Sets the hostname for Dozzle.
     - **DOZZLE_LEVEL: info**: Sets the logging level to info.
     - **DOZZLE_NO_ANALYTICS: "true"**: Disables analytics.
+    - **DOZZLE_ENABLE_SHELL: "false"**: Disables shell access
     - **DOZZLE_REMOTE_HOST**: Optionally specifies a remote host for Docker
       (commented out).
   - **domainname: dozzle.local**: Sets the domain name for the container.
