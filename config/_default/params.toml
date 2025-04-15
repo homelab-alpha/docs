@@ -31,6 +31,7 @@ copyright = "&copy; [Homelab-Alpha](https://homelab-alpha.nl) 2024. Developed by
   editPage        = true
   lastMod         = true
   lastModRelative = true
+  GitLastmodTime  = true
 
   toc             = true
   tocMobile       = false
