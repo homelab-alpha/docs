@@ -55,7 +55,6 @@ community:
 - **[Docker]**
 - **[OpenSSL]**
 - **[Shell Script]**
-- **[Uptime Kuma]** (a fork of [louislam/uptime-kuma])
 {{% /alert %}}
 
 <br />
