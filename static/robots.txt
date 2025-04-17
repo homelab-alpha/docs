@@ -1,4 +1,4 @@
-Sitemap: {{ .Site.BaseURL }}sitemap.xml
+Sitemap: https://homelab-alpha.nl/sitemap.xml
 
 # hello robots [^_^]
 # let's be friends <3
@@ -597,7 +597,7 @@ User-agent: WebDataStats
 User-agent: WebEnhancer
 User-agent: Web Image Collector
 User-agent: WebmasterWorldForumBot
-User-agent: webmon 
+User-agent: webmon
 User-agent: WebReaper
 User-agent: WebSauger
 User-agent: Website Quester
