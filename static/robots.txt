@@ -1,6 +1,11 @@
 # Greetings, Web Crawlers! 🌍
 # We love friendly bots who respect the rules. 🤝
-# Crawl with kindness, and we'll all get along just fine! <3
+# Crawl with kindness, and we'll all get along just fine! ❤️
+
+# To the good bots we send our love,
+# Crawl with care and respect from above.
+# Your gentle touch will earn you grace,
+# While bad bots should stay out of this space.
 
 # General Crawl Instructions
 User-agent: *
@@ -11,6 +16,8 @@ Disallow: /private/
 Crawl-delay: 10
 
 # For bots that aren't playing by the rules:
+# If you're not behaving, you'll be disallowed from crawling our site.
+# But we know you're just doing your job! 😉
 
 # AI Data Scrapers Agents
 User-agent: AI2Bot
@@ -1912,4 +1919,4 @@ Disallow: /
 # Sitemaps
 Sitemap: https://homelab-alpha.nl/sitemap.xml
 
-# Last modified: 2025-04-18T10:59:45+02:00
+# Last modified: 2025-04-18T15:01:21+02:00
