@@ -9,10 +9,8 @@
 
 # General Crawl Instructions
 User-agent: *
-Allow: /
-Disallow: /admin/
-Disallow: /login/
-Disallow: /private/
+Allow: /docs/
+Disallow: /
 Crawl-delay: 10
 
 # For bots that aren't playing by the rules:
@@ -1919,4 +1917,4 @@ Disallow: /
 # Sitemaps
 Sitemap: https://homelab-alpha.nl/sitemap.xml
 
-# Last modified: 2025-04-18T15:01:21+02:00
+# Last modified: 2025-04-18T15:39:35+02:00
