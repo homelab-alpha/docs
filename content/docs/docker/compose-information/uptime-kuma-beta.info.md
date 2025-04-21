@@ -58,7 +58,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Feb 9, 2025
+- **Date**: Apr 21, 2025
 - **Description**: Configures a Docker network and the Uptime Kuma Beta service
   for monitoring uptime and status of various services.
 - **RAW Compose File**: [docker-compose.yml]
@@ -94,6 +94,8 @@ networks:
     labels:
       com.uptime-kuma-beta.network.description: "is an isolated bridge network."
 ```
+
+<br />
 
 - **networks**: This section defines a custom network named
   `uptime-kuma-beta_net`.
@@ -143,6 +145,7 @@ services:
     volumes:
       - /docker/uptime-kuma-beta/production/db:/var/lib/mysql
       - /docker/uptime-kuma-beta/production/my.cnf:/etc/my.cnf
+      - /sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure
     env_file:
       # Choose the correct environment file:
       # - Use '.env' for Docker Compose.
@@ -231,9 +234,10 @@ services:
       start_interval: 5s
 ```
 
+<br />
+
 - **services**: Defines services to be deployed.
 - **uptime-kuma-beta_db**: The service for the MySQL database.
-
   - **restart: unless-stopped**: Ensures the container restarts unless it is
     explicitly stopped.
   - **logging**: Configures logging for the container.
@@ -247,8 +251,13 @@ services:
   - **image: mariadb:latest**: Uses the latest MariaDB image from Docker Hub.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
-  - **volumes**: Mounts host directories or files into the container for
-    persistent storage.
+  - **volumes**: Mounts directories or files into the container.
+    - **/docker/uptime-kuma-beta/production/db:/var/lib/mysql**: Mounts the database
+      storage directory.
+    - **/docker/uptime-kuma-beta/production/my.cnf:/etc/my.cnf**: Mounts the custom
+      MariaDB configuration file.
+    - **/sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure**: Mounts
+      system memory pressure info for monitoring.
   - **env_file**: Specifies environment files.
     - **.env**: For Docker Compose.
     - **stack.env**: For Portainer.
@@ -257,6 +266,8 @@ services:
   - **networks**: Connects the service to the `uptime-kuma-beta_net` network.
     - **ipv4_address**: Assigns a static IP address to the container.
   - **healthcheck**: Health check configuration for the database service.
+
+<br />
 
 - **uptime-kuma-beta_app**: The service for the Uptime Kuma Beta app.
   - **restart: unless-stopped**: Ensures the container restarts unless it is

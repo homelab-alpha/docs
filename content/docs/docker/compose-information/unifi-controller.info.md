@@ -89,6 +89,8 @@ networks:
       com.unifi-controller.network.description: "is an isolated bridge network."
 ```
 
+<br />
+
 - **networks**: Defines a custom network named `unifi-controller_net`.
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
@@ -122,7 +124,7 @@ networks:
 
 <br />
 
-## Unifi Controller Service
+## Services Configuration
 
 ```yaml
 services:
@@ -170,6 +172,9 @@ services:
       disable: true
 ```
 
+<br />
+
+- **services**: Defines services to be deployed.
 - **unifi-controller_app**: The service name for the Unifi Controller container.
   - **restart: unless-stopped**: Ensures the container restarts unless it is
     explicitly stopped.

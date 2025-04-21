@@ -93,6 +93,8 @@ networks:
       com.dockge.network.description: "is an isolated bridge network."
 ```
 
+<br />
+
 - **networks**: This section defines a custom network named `dockge_net`.
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
@@ -171,6 +173,8 @@ services:
       start_period: 10s
       start_interval: 5s
 ```
+
+<br />
 
 - **services**: Defines services to be deployed.
 - **dockge_app**: The service name for the Dockge container.

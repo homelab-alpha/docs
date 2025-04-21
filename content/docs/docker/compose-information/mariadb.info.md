@@ -56,7 +56,7 @@ maintain the system's stability.
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Feb 11, 2025
+- **Date**: Apr 21, 2025
 - **Description**: Configures a custom network and a MariaDB service using
   Docker Compose.
 - **RAW Compose File**: [docker-compose.yml]
@@ -92,6 +92,8 @@ networks:
     labels:
       com.mariadb.network.description: "is an isolated bridge network."
 ```
+
+<br />
 
 - **networks**: Defines a custom network named `mariadb_net`.
 - **attachable**: Set to `false`, preventing other containers from attaching to
@@ -143,7 +145,7 @@ services:
     volumes:
       - /docker/mariadb/production/db:/var/lib/mysql
       - /docker/mariadb/production/my.cnf:/etc/my.cnf
-      - /sys/fs/cgroup:ro
+      - /sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure
     env_file:
       # Choose the correct environment file:
       # - Use '.env' for Docker Compose.
@@ -177,6 +179,8 @@ services:
       start_interval: 5s
 ```
 
+<br />
+
 - **services**: Defines services to be deployed.
 - **mariadb_db**: The service name for the MariaDB container.
   - **restart: unless-stopped**: The container will restart unless explicitly
@@ -196,7 +200,8 @@ services:
       storage directory.
     - **/docker/mariadb/production/my.cnf:/etc/my.cnf**: Mounts the custom
       MariaDB configuration file.
-    - **/sys/fs/cgroup:ro**: Mounts system cgroup information in read-only mode.
+    - **/sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure**: Mounts
+      system memory pressure info for monitoring.
   - **env_file**: Specifies environment files.
     - **.env**: For Docker Compose.
     - **stack.env**: For Portainer.
@@ -231,6 +236,14 @@ services:
     - **start_period**: The period after which health check failures are
       considered (10 seconds).
     - **start_interval**: The time between health checks (5 seconds).
+
+<br />
+
+## Environment Variables
+
+This file contains configuration settings that can be used by various
+applications (such as Docker containers or your MySQL server). The values are
+variables stored outside the source code for security purposes.
 
 <br />
 

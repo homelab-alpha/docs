@@ -97,6 +97,8 @@ networks:
       com.edge-agent.network.description: "is an isolated bridge network."
 ```
 
+<br />
+
 - **networks**: This section defines a custom network named `edge-agent_net` for
   the Portainer Edge Agent.
 - **attachable**: Set to `false`, meaning other containers can't attach to this
@@ -173,6 +175,8 @@ services:
     healthcheck:
       disable: true
 ```
+
+<br />
 
 - **services**: Defines services to be deployed.
 - **edge-agent_app**: The service name for the Portainer Edge Agent container.

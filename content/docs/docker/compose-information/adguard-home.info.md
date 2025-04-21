@@ -92,6 +92,8 @@ networks:
       com.adguard-home.network.description: "is an isolated bridge network."
 ```
 
+<br />
+
 - **networks**: This section defines a custom network named `adguard-home_net`.
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
@@ -177,6 +179,8 @@ services:
     healthcheck:
       disable: true
 ```
+
+<br />
 
 - **services**: Defines services to be deployed.
 - **adguard-home_app**: The service name for the AdGuard Home container.

@@ -93,6 +93,8 @@ networks:
       com.watchtower.network.description: "is an isolated network."
 ```
 
+<br />
+
 - **networks**: This section defines a custom network named `watchtower_net`.
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
@@ -164,6 +166,8 @@ services:
       start_period: 10s
       start_interval: 5s
 ```
+
+<br />
 
 - **services**: Defines services to be deployed.
 - **watchtower_app**: The service name for the Watchtower container.

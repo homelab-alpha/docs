@@ -56,7 +56,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Feb 11, 2025
+- **Date**: Apr 21, 2025
 - **Description**: Configures a Docker network and services for FreshRSS and its
   MariaDB database.
 - **RAW Compose File**: [docker-compose.yml]
@@ -93,6 +93,8 @@ networks:
       com.freshrss.network.description: "is an isolated bridge network."
 ```
 
+<br />
+
 - **networks**: Defines a custom network named `freshrss_net`.
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
@@ -124,7 +126,7 @@ networks:
 
 <br />
 
-## MariaDB Database Service
+## Services Configuration
 
 ```yaml
 services:
@@ -142,6 +144,7 @@ services:
     volumes:
       - /docker/freshrss/production/db:/var/lib/mysql
       - /docker/freshrss/production/my.cnf:/etc/my.cnf
+      - /sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure
     env_file:
       # Choose the correct environment file:
       # - Use '.env' for Docker Compose.
@@ -173,8 +176,63 @@ services:
       retries: 3
       start_period: 10s
       start_interval: 5s
+
+  freshrss_app:
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1M"
+        max-file: "2"
+    stop_grace_period: 1m
+    container_name: freshrss
+    image: freshrss/freshrss:latest
+    pull_policy: if_not_present
+    depends_on:
+      freshrss_db:
+        condition: service_healthy
+    links:
+      - freshrss_db
+    volumes:
+      - /docker/freshrss/production/app/data:/var/www/FreshRSS/data
+      - /docker/freshrss/extensions:/var/www/FreshRSS/extensions
+    env_file:
+      # Choose the correct environment file:
+      # - Use '.env' for Docker Compose.
+      # - Use 'stack.env' for Portainer.
+      # Comment out the file you are not using in the Compose file to avoid issues
+      - .env
+      - stack.env
+    environment:
+      PUID: "1000"
+      PGID: "1000"
+      TZ: Europe/Amsterdam
+      CRON_MIN: "*/10"
+      MYSQL_HOST: ${HOST_DB} # Fill in the value in both the .env and stack.env files
+      MYSQL_PORT: ${PORT_DB} # Fill in the value in both the .env and stack.env files
+      MYSQL_NAME: ${NAME_DB} # Fill in the value in both the .env and stack.env files
+      MYSQL_USER: ${USER_DB} # Fill in the value in both the .env and stack.env files
+      MYSQL_PASSWORD: ${PASSWORD_DB} # Fill in the value in both the .env and stack.env files
+    domainname: freshrss.local
+    hostname: freshrss
+    networks:
+      freshrss_net:
+        ipv4_address: 172.20.6.3
+    ports:
+      - "3002:80/tcp" # HTTP
+      - "3002:80/udp" # HTTP
+    security_opt:
+      - no-new-privileges:true
+    labels:
+      com.docker.compose.project: "freshrss"
+      com.freshrss.description: "is a free, self-hostable feeds aggregator."
+    healthcheck:
+      disable: true
 ```
 
+<br />
+
+- **services**: Defines services to be deployed.
 - **freshrss_db**: The service name for the MariaDB container.
   - **restart: unless-stopped**: Ensures the container restarts unless it is
     explicitly stopped.
@@ -188,11 +246,13 @@ services:
   - **image: mariadb:latest**: Uses the latest MariaDB image from Docker Hub.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
-  - **volumes**: Mounts host directories or files into the container.
-    - **/docker/freshrss/production/db:/var/lib/mysql**: Mounts the MySQL data
-      directory.
+  - **volumes**: Mounts directories or files into the container.
+    - **/docker/freshrss/production/db:/var/lib/mysql**: Mounts the database
+      storage directory.
     - **/docker/freshrss/production/my.cnf:/etc/my.cnf**: Mounts the custom
-      MySQL configuration file.
+      MariaDB configuration file.
+    - **/sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure**: Mounts
+      system memory pressure info for monitoring.
   - **env_file**: Specifies environment files.
     - **.env**: For Docker Compose.
     - **stack.env**: For Portainer.
@@ -220,62 +280,6 @@ services:
       Defines the health check command.
 
 <br />
-
-### FreshRSS Application Service
-
-```yaml
-freshrss_app:
-  restart: unless-stopped
-  logging:
-    driver: "json-file"
-    options:
-      max-size: "1M"
-      max-file: "2"
-  stop_grace_period: 1m
-  container_name: freshrss
-  image: freshrss/freshrss:latest
-  pull_policy: if_not_present
-  depends_on:
-    freshrss_db:
-      condition: service_healthy
-  links:
-    - freshrss_db
-  volumes:
-    - /docker/freshrss/production/app/data:/var/www/FreshRSS/data
-    - /docker/freshrss/extensions:/var/www/FreshRSS/extensions
-  env_file:
-    # Choose the correct environment file:
-    # - Use '.env' for Docker Compose.
-    # - Use 'stack.env' for Portainer.
-    # Comment out the file you are not using in the Compose file to avoid issues
-    - .env
-    - stack.env
-  environment:
-    PUID: "1000"
-    PGID: "1000"
-    TZ: Europe/Amsterdam
-    CRON_MIN: "*/10"
-    MYSQL_HOST: ${HOST_DB} # Fill in the value in both the .env and stack.env files
-    MYSQL_PORT: ${PORT_DB} # Fill in the value in both the .env and stack.env files
-    MYSQL_NAME: ${NAME_DB} # Fill in the value in both the .env and stack.env files
-    MYSQL_USER: ${USER_DB} # Fill in the value in both the .env and stack.env files
-    MYSQL_PASSWORD: ${PASSWORD_DB} # Fill in the value in both the .env and stack.env files
-  domainname: freshrss.local
-  hostname: freshrss
-  networks:
-    freshrss_net:
-      ipv4_address: 172.20.6.3
-  ports:
-    - "3002:80/tcp" # HTTP
-    - "3002:80/udp" # HTTP
-  security_opt:
-    - no-new-privileges:true
-  labels:
-    com.docker.compose.project: "freshrss"
-    com.freshrss.description: "is a free, self-hostable feeds aggregator."
-  healthcheck:
-    disable: true
-```
 
 - **freshrss_app**: The service name for the FreshRSS container.
   - **restart: unless-stopped**: Ensures the container restarts unless it is

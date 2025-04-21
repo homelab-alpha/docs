@@ -97,6 +97,8 @@ networks:
       com.xen-orchestra.network.description: "is an isolated bridge network."
 ```
 
+<br />
+
 - **networks**: This section defines a custom network named `xen-orchestra_net`.
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
@@ -194,6 +196,8 @@ services:
       start_period: 10s
       start_interval: 5s
 ```
+
+<br />
 
 - **services**: Defines services to be deployed.
 - **xen-orchestra_app**: The service name for the Xen Orchestra container.

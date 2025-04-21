@@ -93,6 +93,8 @@ networks:
       com.pi-hole.network.description: "is an isolated bridge network."
 ```
 
+<br />
+
 - **networks**: This section defines a custom network named `pi-hole_net`.
 - **attachable: false**: Other containers cannot attach to this network.
 - **internal: false**: The network is accessible externally.
@@ -176,6 +178,8 @@ services:
       start_period: 10s
       start_interval: 5s
 ```
+
+<br />
 
 - **services**: This section defines the services to be deployed.
 - **pi-hole_app**: The service name for the Pi-hole container.

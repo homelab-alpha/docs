@@ -93,6 +93,8 @@ networks:
       com.portainer.network.description: "is an isolated network."
 ```
 
+<br />
+
 - **networks**: This section defines a custom network named `portainer_net`.
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
@@ -161,6 +163,8 @@ services:
     healthcheck:
       disable: true
 ```
+
+<br />
 
 - **services**: Defines services to be deployed.
 - **portainer_app**: The service name for the Portainer container.

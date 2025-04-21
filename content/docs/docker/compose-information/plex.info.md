@@ -92,6 +92,8 @@ networks:
       com.plex.network.description: "is an isolated bridge network."
 ```
 
+<br />
+
 - **networks**: Defines a custom network named `plex_net`.
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
@@ -191,6 +193,8 @@ services:
       start_period: 10s
       start_interval: 5s
 ```
+
+<br />
 
 - **plex_app**: The service name for the Plex container.
   - **restart: unless-stopped**: Ensures the container restarts unless it is
