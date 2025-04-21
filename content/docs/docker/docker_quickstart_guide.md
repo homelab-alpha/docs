@@ -313,8 +313,8 @@ Portainer to start new Docker projects.
 **Note:**
 If you use one of Homelab-Alpha's Docker run commands or Docker Compose files,
 persistent volumes are utilized. You can find your data from your containers in
-the root directory named `docker/`. For example, all data from the Portainer
-container is stored in `docker/portainer`. {{% /alert %}}
+the root directory named `/docker`. For example, all data from the Portainer
+container is stored in `/docker/portainer`. {{% /alert %}}
 
 ### Community Edition (CE)
 
