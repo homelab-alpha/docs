@@ -88,9 +88,6 @@ hands-on environment.
   environment, primarily for testing purposes. Avoid for production use.
 - **[Shell Script]:** Unlock the power of shell scripting to simplify complex
   tasks, automate processes, enhance efficiency, and boost productivity.
-- **[Uptime Kuma]** (a fork of [louislam/uptime-kuma])**:** A self-hosted
-  monitoring tool that allows you to monitor uptime, status, and notifications
-  for various services and domains.
 
 <br />
 
