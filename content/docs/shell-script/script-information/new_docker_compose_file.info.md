@@ -62,8 +62,8 @@ specific configurations.
 
 - **Filename**: `new_docker_compose_file.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Apr 22, 2025
-- **Version**: 2.1.0
+- **Date**: Feb 11, 2025
+- **Version**: 2.0.0
 - **Description**: The script automates the creation of Docker-Compose and
   configuration files, setting up a Docker container with the specified
   environment and MySQL configurations.
@@ -740,11 +740,6 @@ innodb-use-native-aio = 0
 # Set the size of the InnoDB buffer pool. This should be 70-80% of the available memory.
 # Larger values allow more data to be cached in memory, improving performance.
 innodb-buffer-pool-size = 2G
-
-# Split the InnoDB buffer pool into multiple instances.
-# Improves concurrency and performance in multi-core systems by reducing contention.
-# Recommended: 1 instance per 1GB of buffer pool size.
-innodb-buffer-pool-instances = 2
 
 # Configure the size of the InnoDB redo log files. Larger log files can improve
 # performance for write-heavy workloads but require more recovery time after a crash.
