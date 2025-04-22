@@ -56,7 +56,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Apr 21, 2025
+- **Date**: Apr 22, 2025
 - **Description**: Configures a Docker network and services for FreshRSS and its
   MariaDB database.
 - **RAW Compose File**: [docker-compose.yml]
@@ -431,6 +431,7 @@ skip-symbolic-links
 # Performance Optimizations
 # ============================================
 innodb-buffer-pool-size = 2G
+innodb-buffer-pool-instances = 2
 innodb-log-file-size = 1G
 innodb-log-buffer-size = 32M
 innodb-flush-log-at-trx-commit = 1
@@ -441,6 +442,10 @@ innodb-write-io-threads = 8
 - **innodb-buffer-pool-size**: The amount of memory allocated to cache data in
   the InnoDB storage engine. This should be a significant portion of your total
   RAM (here, it's set to 2GB).
+- **innodb-buffer-pool-instances**: Divides the InnoDB buffer pool into multiple
+  smaller pools to reduce contention and improve concurrency. Particularly useful
+  for multi-core systems or larger buffer pools (1GB+). With a 2GB pool, setting
+  this to 2 provides a good balance between parallelism and simplicity.
 - **innodb-log-file-size**: The size of the InnoDB redo log files. Larger log
   files can improve performance for write-heavy workloads.
 - **innodb-log-buffer-size**: The size of the memory buffer for the InnoDB log
