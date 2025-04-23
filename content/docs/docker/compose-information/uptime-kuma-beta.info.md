@@ -58,7 +58,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Apr 21, 2025
+- **Date**: Apr 23, 2025
 - **Description**: Configures a Docker network and the Uptime Kuma Beta service
   for monitoring uptime and status of various services.
 - **RAW Compose File**: [docker-compose.yml]
@@ -132,6 +132,12 @@ networks:
 ```yaml
 services:
   uptime-kuma-beta_db:
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 1G
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -179,6 +185,12 @@ services:
       start_interval: 5s
 
   uptime-kuma-beta_app:
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 1G
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -238,6 +250,9 @@ services:
 
 - **services**: Defines services to be deployed.
 - **uptime-kuma-beta_db**: The service for the MySQL database.
+  - **deploy: "resources"**: Configuration for managing compute resource usage.
+    - **Limits: "memory"**: Caps memory usage at 1 GB.
+    - **Reservations: "memory"**: Reserves 1 GB of memory for the container.
   - **restart: unless-stopped**: Ensures the container restarts unless it is
     explicitly stopped.
   - **logging**: Configures logging for the container.
@@ -270,6 +285,9 @@ services:
 <br />
 
 - **uptime-kuma-beta_app**: The service for the Uptime Kuma Beta app.
+  - **deploy: "resources"**: Configuration for managing compute resource usage.
+    - **Limits: "memory"**: Caps memory usage at 1 GB.
+    - **Reservations: "memory"**: Reserves 1 GB of memory for the container.
   - **restart: unless-stopped**: Ensures the container restarts unless it is
     explicitly stopped.
   - **logging**: Configures logging for the container.
@@ -386,7 +404,7 @@ skip-symbolic-links
 # ============================================
 # Performance Optimizations
 # ============================================
-innodb-buffer-pool-size = 2G
+innodb-buffer-pool-size = 1G
 innodb-log-file-size = 1G
 innodb-log-buffer-size = 32M
 innodb-flush-log-at-trx-commit = 1
@@ -396,7 +414,7 @@ innodb-write-io-threads = 8
 
 - **innodb-buffer-pool-size**: The amount of memory allocated to cache data in
   the InnoDB storage engine. This should be a significant portion of your total
-  RAM (here, it's set to 2GB).
+  RAM (here, it's set to 1GB).
 - **innodb-log-file-size**: The size of the InnoDB redo log files. Larger log
   files can improve performance for write-heavy workloads.
 - **innodb-log-buffer-size**: The size of the memory buffer for the InnoDB log

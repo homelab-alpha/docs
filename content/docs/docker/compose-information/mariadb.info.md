@@ -56,7 +56,7 @@ maintain the system's stability.
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Apr 21, 2025
+- **Date**: Apr 23, 2025
 - **Description**: Configures a custom network and a MariaDB service using
   Docker Compose.
 - **RAW Compose File**: [docker-compose.yml]
@@ -132,6 +132,12 @@ networks:
 ```yaml
 services:
   mariadb_db:
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 1G
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -183,6 +189,9 @@ services:
 
 - **services**: Defines services to be deployed.
 - **mariadb_db**: The service name for the MariaDB container.
+  - **deploy: "resources"**: Configuration for managing compute resource usage.
+    - **Limits: "memory"**: Caps memory usage at 1 GB.
+    - **Reservations: "memory"**: Reserves 1 GB of memory for the container.
   - **restart: unless-stopped**: The container will restart unless explicitly
     stopped.
   - **logging**: Configures logging for the container.
@@ -334,7 +343,7 @@ skip-symbolic-links
 # ============================================
 # Performance Optimizations
 # ============================================
-innodb-buffer-pool-size = 2G
+innodb-buffer-pool-size = 1G
 innodb-log-file-size = 1G
 innodb-log-buffer-size = 32M
 innodb-flush-log-at-trx-commit = 1
@@ -344,7 +353,7 @@ innodb-write-io-threads = 8
 
 - **innodb-buffer-pool-size**: The amount of memory allocated to cache data in
   the InnoDB storage engine. This should be a significant portion of your total
-  RAM (here, it's set to 2GB).
+  RAM (here, it's set to 1GB).
 - **innodb-log-file-size**: The size of the InnoDB redo log files. Larger log
   files can improve performance for write-heavy workloads.
 - **innodb-log-buffer-size**: The size of the memory buffer for the InnoDB log
