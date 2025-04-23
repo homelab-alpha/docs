@@ -62,8 +62,8 @@ specific configurations.
 
 - **Filename**: `new_docker_compose_file.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Feb 11, 2025
-- **Version**: 2.0.0
+- **Date**: Apr 23, 2025
+- **Version**: 2.1.1
 - **Description**: The script automates the creation of Docker-Compose and
   configuration files, setting up a Docker container with the specified
   environment and MySQL configurations.
@@ -215,6 +215,13 @@ services:
     #     delay: 5s
     #     max_attempts: 3
     #     window: 120s
+    #   update_config:
+    #     parallelism: 2 # The number of containers updated simultaneously during an update process.
+    #     delay: 10s # Time interval between updating each batch of containers (ns|us|ms|s|m|h). Default: 10s.
+    #     failure_action: pause # Action to take if an update fails: continue, rollback, or pause. Default: pause.
+    #     monitor: 60s # Monitoring duration after updating each task to check for stability (ns|us|ms|s|m|h). Default: 60s. Requires a healthcheck.
+    #     max_failure_ratio: 0 # Tolerable failure rate during updates. High availability: 0.1 (10%), flexible applications: 0.5 (50%), test environments: 1.0 (100%).
+    #     order: stop-first # Update order: stop-first (stop old task before starting the new one), or start-first (start new task before stopping the old one) Default: stop-first.
     restart: unless-stopped #"no", always, unless-stopped.
     logging:
       driver: "json-file"
@@ -289,6 +296,13 @@ services:
     #     delay: 5s
     #     max_attempts: 3
     #     window: 120s
+    #   update_config:
+    #     parallelism: 2 # The number of containers updated simultaneously during an update process.
+    #     delay: 10s # Time interval between updating each batch of containers (ns|us|ms|s|m|h). Default: 10s.
+    #     failure_action: pause # Action to take if an update fails: continue, rollback, or pause. Default: pause.
+    #     monitor: 60s # Monitoring duration after updating each task to check for stability (ns|us|ms|s|m|h). Default: 60s. Requires a healthcheck.
+    #     max_failure_ratio: 0 # Tolerable failure rate during updates. High availability: 0.1 (10%), flexible applications: 0.5 (50%), test environments: 1.0 (100%).
+    #     order: stop-first # Update order: stop-first (stop old task before starting the new one), or start-first (start new task before stopping the old one) Default: stop-first.
     restart: unless-stopped #"no", always, unless-stopped.
     logging:
       driver: "json-file"
@@ -446,6 +460,13 @@ services:
     #     delay: 5s
     #     max_attempts: 3
     #     window: 120s
+    #   update_config:
+    #     parallelism: 2 # The number of containers updated simultaneously during an update process.
+    #     delay: 10s # Time interval between updating each batch of containers (ns|us|ms|s|m|h). Default: 10s.
+    #     failure_action: pause # Action to take if an update fails: continue, rollback, or pause. Default: pause.
+    #     monitor: 60s # Monitoring duration after updating each task to check for stability (ns|us|ms|s|m|h). Default: 60s. Requires a healthcheck.
+    #     max_failure_ratio: 0 # Tolerable failure rate during updates. High availability: 0.1 (10%), flexible applications: 0.5 (50%), test environments: 1.0 (100%).
+    #     order: stop-first # Update order: stop-first (stop old task before starting the new one), or start-first (start new task before stopping the old one) Default: stop-first.
     restart: unless-stopped #"no", always, unless-stopped.
     logging:
       driver: "json-file"
@@ -520,6 +541,13 @@ services:
     #     delay: 5s
     #     max_attempts: 3
     #     window: 120s
+    #   update_config:
+    #     parallelism: 2 # The number of containers updated simultaneously during an update process.
+    #     delay: 10s # Time interval between updating each batch of containers (ns|us|ms|s|m|h). Default: 10s.
+    #     failure_action: pause # Action to take if an update fails: continue, rollback, or pause. Default: pause.
+    #     monitor: 60s # Monitoring duration after updating each task to check for stability (ns|us|ms|s|m|h). Default: 60s. Requires a healthcheck.
+    #     max_failure_ratio: 0 # Tolerable failure rate during updates. High availability: 0.1 (10%), flexible applications: 0.5 (50%), test environments: 1.0 (100%).
+    #     order: stop-first # Update order: stop-first (stop old task before starting the new one), or start-first (start new task before stopping the old one) Default: stop-first.
     restart: unless-stopped #"no", always, unless-stopped.
     logging:
       driver: "json-file"
@@ -739,7 +767,7 @@ innodb-use-native-aio = 0
 
 # Set the size of the InnoDB buffer pool. This should be 70-80% of the available memory.
 # Larger values allow more data to be cached in memory, improving performance.
-innodb-buffer-pool-size = 2G
+innodb-buffer-pool-size = 1G
 
 # Configure the size of the InnoDB redo log files. Larger log files can improve
 # performance for write-heavy workloads but require more recovery time after a crash.
