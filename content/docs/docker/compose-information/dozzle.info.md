@@ -44,9 +44,9 @@ katex: true
 
 <br />
 
-{{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
-information here with caution and verify it if necessary. {{% /alert %}}
+{{% alert context="primary" %}} ChatGPT has contributed to this document.
+Therefore, it's advisable to treat the information here with caution and verify
+it if necessary. {{% /alert %}}
 
 <br />
 
@@ -59,7 +59,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Feb 9, 2025
+- **Date**: May 05, 2025
 - **Description**: Configures a Docker network and the Dozzle service for
   real-time Docker log monitoring.
 - **RAW Compose File**: [docker-compose.yml]
@@ -143,12 +143,14 @@ services:
     pull_policy: if_not_present
     volumes:
       - /docker/dozzle/production/app:/data
+      - /docker/dozzle/users.yml:/data/users.yml
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       PUID: "1000"
       PGID: "1000"
       TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
-      DOZZLE_AUTH_PROVIDER: "none" # none, simple, forward-proxy
+      DOZZLE_AUTH_PROVIDER: "none" # Options: none, simple, forward-proxy. Use "simple" to enable authentication via users.yml.
+      DOZZLE_AUTH_TTL: 48h
       DOZZLE_ENABLE_ACTIONS: "false"
       DOZZLE_HOSTNAME: docker-server
       DOZZLE_LEVEL: info
@@ -199,6 +201,8 @@ services:
     present locally.
   - **volumes**: Mounts host directories or files into the container.
     - **/docker/dozzle/production/app:/data**: Mounts the app data directory.
+    - **/docker/dozzle/users.yml:/data/users.yml**: Mounts a custom users.yml
+      file for user authentication configuration.
     - **/var/run/docker.sock:/var/run/docker.sock:ro**: Mounts the Docker socket
       as read-only.
   - **environment**: Sets environment variables.
@@ -207,6 +211,8 @@ services:
     - **TZ: Europe/Amsterdam**: Sets the timezone to Amsterdam.
     - **DOZZLE_AUTH_PROVIDER: "none"**: Disables authentication (options: none,
       simple, forward-proxy).
+    - **DOZZLE_AUTH_TTL: 48h:** Extends the authentication cookie's lifetime to
+      48 hours.
     - **DOZZLE_ENABLE_ACTIONS: "false"**: Disables actions within Dozzle.
     - **DOZZLE_HOSTNAME: docker-server**: Sets the hostname for Dozzle.
     - **DOZZLE_LEVEL: info**: Sets the logging level to info.
@@ -240,6 +246,62 @@ services:
     - **start_period**: The initial period during which a health check failure
       will not be counted towards the retries (10 seconds).
     - **start_interval**: The time between starting health checks (5 seconds).
+
+<br />
+
+## User Configuration
+
+{{% alert context="primary" %}} Dozzle does not support Bcrypt-hashed passwords
+that contain the characters . or / If your generated hash includes either of
+these characters, rerun the command below until you get a compatible hash.
+{{% /alert %}}
+
+### Generate a Bcrypt-Hashed Password
+
+Run the following command to create a Bcrypt-hashed password:
+
+```bash
+htpasswd -nbB username 'StrongUniqueUserPassword1234'
+```
+
+You will get an output like this:
+
+```bash
+username:$2y$05$tK8ahNrufhDMcyrMGELXAONvKZ1ydGvwVxtyiwIO7wJYN50XoYsIG
+```
+
+<br />
+
+### Using the Hash
+
+Copy **only** the hashed portion (everything after the colon `:`) and paste it
+into the `password` field for the corresponding user:
+
+```bash
+$2y$05$tK8ahNrufhDMcyrMGELXAONvKZ1ydGvwVxtyiwIO7wJYN50XoYsIG
+```
+
+<br />
+
+### users.yml
+
+```yml
+---
+users:
+  # Administrator Account
+  admin: # Change "admin" to a custom username if desired
+    email: admin@email.net # Administrator email address
+    name: Admin # Display name in the UI
+    password: # Insert the Bcrypt-hashed password here
+    filter: # Optional: Custom filter rules for this user
+
+  # Guest Account
+  guest: # Change "guest" to a custom username if desired
+    email: guest@email.net # Guest user email address
+    name: Guest # Display name in the UI
+    password: # Insert the Bcrypt-hashed password here
+    filter: "label=com.example.app" # Optional: Example filter to restrict guest access
+```
 
 <br />
 
