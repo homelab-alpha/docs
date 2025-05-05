@@ -65,6 +65,9 @@ being blocked, allowed, and/or redirected before using any of them.
   parties (sellers and traders) known to be fraudulent.
 - [**IDNs:**] Filter consisting of a list that blocks Internationalized Domain
   Names.
+- [**LabHost phishing domains:**] Filter consisting 41,962 phishing domains.
+  Domains are associated with LabHost, a phishing-as-a-service (PhaaS) platform
+  identified by the FBI.
 - [**Malicious IP Addresses:**] Filter consisting of a list of known malicious
   IP addresses. (safeguard your network from potential threats.)
 - [**Microsoft Whitelist:**] Filter consisting of specific DNS whitelist for
@@ -107,6 +110,8 @@ the [license] agreement.
   https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/fraudulent_trading_parties.txt
 [**IDNs:**]:
   https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/idns.txt
+[**LabHost phishing domains:**]:
+  https://raw.githubusercontent.com/homelab-alpha/adguard-home/refs/heads/main/filters/labhost_phishing_domains.txt
 [**Malicious IP Addresses:**]:
   https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/malicious_ip_addresses.txt
 [**Microsoft Whitelist:**]:
