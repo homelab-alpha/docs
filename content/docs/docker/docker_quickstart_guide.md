@@ -45,8 +45,9 @@ katex: true
 
 Supported versions:
 
-- Fedora 40
+- Fedora 42
 - Fedora 41
+- Fedora 40
 
 {{% /alert %}}
 
@@ -59,10 +60,32 @@ Docker from the repository.
 Install the `dnf-plugins-core` package (which provides the commands to manage
 your dnf repositories) and set up the repository:
 
+{{< tabs tabTotal="2" >}}
+{{% tab tabName="Fedora 42" %}}
+
+### Set Up Docker Repository on Fedora 42
+
+Run the following commands to enable the official Docker repository:
+
+```bash
+sudo dnf -y install dnf-plugins-core
+sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+````
+
+{{% /tab %}}
+{{% tab tabName="Fedora 41 & 40" %}}
+
+### Set Up Docker Repository on Fedora 41 and 40
+
+For older Fedora versions (41 and 40), use `dnf-3` to add the Docker repository:
+
 ```bash
 sudo dnf -y install dnf-plugins-core
 sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
 ```
+
+{{% /tab %}}
+{{< /tabs >}}
 
 <br />
 
@@ -165,10 +188,10 @@ sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/do
 
 Supported versions:
 
-- Ubuntu Focal 20.04 (LTS)
-- Ubuntu Jammy 22.04 (LTS)
-- Ubuntu Noble 24.04 (LTS)
 - Ubuntu Oracular 24.10
+- Ubuntu Noble 24.04 (LTS)
+- Ubuntu Jammy 22.04 (LTS)
+- Ubuntu Focal 20.04 (LTS)
 
 {{% /alert %}}
 
