@@ -19,7 +19,7 @@
                         <li class="sidebar-dropdown {{ if eq .Site.Params.docs.sidebarIcons true -}}{{ else }}no-icon{{ end }} {{ if $active }}current active{{ end }}">
                             <button class="btn">
                                 {{ if eq .Site.Params.docs.sidebarIcons true -}}
-                                    {{ if eq .Params.icontype "simple" -}}
+                                    {{ if eq .Params.icontype "simple-icons" -}}
                                         <i class="si si-{{ .Params.icon }} me-2"></i>
                                     {{ else -}}
                                         <i class="material-icons me-2">{{- .Params.icon | default "notes" }}</i>
@@ -98,7 +98,7 @@
                         <li class="{{ if $active }}current{{ end }}">
                             <a class="sidebar-root-link" href="{{ .Permalink }}">
                                 {{ if eq .Site.Params.docs.sidebarIcons true -}}
-                                    {{ if eq .Params.icontype "simple" -}}
+                                    {{ if eq .Params.icontype "simple-icons" -}}
                                         <i class="si si-{{ .Params.icon }} me-2"></i>
                                     {{ else -}}
                                         <i class="material-icons me-2">{{ .Params.icon }}</i>
