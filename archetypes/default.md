@@ -4,6 +4,7 @@ description: ""
 url: ""
 aliases: ""
 icon: "edit_document"
+icontype: "simple"
 
 params:
   author:

@@ -39,6 +39,7 @@ copyright = "&copy; [Homelab-Alpha](https://homelab-alpha.nl) 2024. Developed by
 
   sidebarIcons    = true
   titleIcon       = false
+  simpleIcons     = true
 
   breadcrumbs     = false
   navDesc         = true
