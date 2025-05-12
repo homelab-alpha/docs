@@ -108,6 +108,7 @@ Syntax:
 ````plaintext
 ```mermaid
 sequenceDiagram
+autonumber
 Alice ->> Bob: Hello Bob, how are you?
 Bob-->>John: How about you John?
 Bob--x Alice: I am good thanks!
@@ -123,6 +124,7 @@ Output:
 
 ```mermaid
 sequenceDiagram
+autonumber
 Alice ->> Bob: Hello Bob, how are you?
 Bob-->>John: How about you John?
 Bob--x Alice: I am good thanks!
@@ -166,6 +168,7 @@ Syntax:
 ````plaintext
 ```mermaid
 sequenceDiagram
+autonumber
 Alice->>John: Hello John, how are you?
 loop Healthcheck
     John->>John: Fight against hypochondria
@@ -180,6 +183,7 @@ Output:
 
 ```mermaid
 sequenceDiagram
+autonumber
 Alice->>John: Hello John, how are you?
 loop Healthcheck
     John->>John: Fight against hypochondria
