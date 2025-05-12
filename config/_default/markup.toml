@@ -1,10 +1,10 @@
 defaultMarkdownHandler = "goldmark"
 
-[highlight]
+[markup.highlight]
   codeFences = false
   lineNumbersInTable = true
 
-[tableOfContents]
+[markup.tableOfContents]
   endLevel = 3
   ordered = false
   startLevel = 1
