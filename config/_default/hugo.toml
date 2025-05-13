@@ -21,7 +21,7 @@ title                  = "Homelab-Alpha | Your gateway to Homelab-Alpha's open s
     disable = false
 
 [taxonomies]
-  category = 'categories'
-  series   = 'series'
-  tag      = 'tags'
-  keyword  = 'keywords'
+  category = "categories"
+  series   = "series"
+  tag      = "tags"
+  keyword  = "keywords"
