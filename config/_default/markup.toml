@@ -4,7 +4,7 @@ defaultMarkdownHandler = "goldmark"
   codeFences = false
   lineNumbersInTable = true
 
-[markup.tableOfContents]
+[tableOfContents]
   endLevel = 3
   ordered = false
   startLevel = 1
