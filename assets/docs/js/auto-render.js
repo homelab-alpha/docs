@@ -45,7 +45,7 @@
         /******/ __webpack_modules__[moduleId](
           module,
           module.exports,
-          __webpack_require__
+          __webpack_require__,
         );
         /******/
         /******/ // Return the exports of the module
@@ -122,7 +122,7 @@
         var findEndOfMath = function findEndOfMath(
           delimiter,
           text,
-          startIndex
+          startIndex,
         ) {
           // Adapted from
           // https://github.com/Khan/perseus/blob/master/src/perseus-markdown.jsx
@@ -168,7 +168,7 @@
                   return escapeRegex(x.left);
                 })
                 .join("|") +
-              ")"
+              ")",
           );
 
           while (true) {
@@ -192,7 +192,7 @@
             index = findEndOfMath(
               delimiters[i].right,
               text,
-              delimiters[i].left.length
+              delimiters[i].left.length,
             );
 
             if (index === -1) {
@@ -233,7 +233,7 @@
         var renderMathInText = function renderMathInText(text, optionsCopy) {
           var data = auto_render_splitAtDelimiters(
             text,
-            optionsCopy.delimiters
+            optionsCopy.delimiters,
           );
 
           if (data.length === 1 && data[0].type === "text") {
@@ -270,7 +270,7 @@
                   "KaTeX auto-render: Failed to parse `" +
                     data[i].data +
                     "` with ",
-                  e
+                  e,
                 );
                 fragment.appendChild(document.createTextNode(data[i].rawData));
                 continue;
@@ -323,7 +323,7 @@
                 var className = " " + childNode.className + " ";
                 var shouldRender =
                   optionsCopy.ignoredTags.indexOf(
-                    childNode.nodeName.toLowerCase()
+                    childNode.nodeName.toLowerCase(),
                   ) === -1 &&
                   optionsCopy.ignoredClasses.every(function (x) {
                     return className.indexOf(" " + x + " ") === -1;
@@ -419,5 +419,5 @@
       /******/ return __webpack_exports__;
       /******/
     })();
-  }
+  },
 );

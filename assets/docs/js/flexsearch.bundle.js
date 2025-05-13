@@ -351,7 +351,7 @@
                         L(g + (d / 2 > g ? 0 : 1), d, r, h - 1, k - 1),
                         a,
                         c,
-                        p ? l : f
+                        p ? l : f,
                       );
                     }
             }
@@ -635,17 +635,17 @@
     try {
       d = b
         ? eval(
-            'new (require("worker_threads")["Worker"])("../dist/node/node.js")'
+            'new (require("worker_threads")["Worker"])("../dist/node/node.js")',
           )
         : a
-        ? new Worker(
-            URL.createObjectURL(
-              new Blob(["onmessage=" + va.toString()], {
-                type: "text/javascript",
-              })
+          ? new Worker(
+              URL.createObjectURL(
+                new Blob(["onmessage=" + va.toString()], {
+                  type: "text/javascript",
+                }),
+              ),
             )
-          )
-        : new Worker(x(c) ? c : "worker/worker.js", { type: "module" });
+          : new Worker(x(c) ? c : "worker/worker.js", { type: "module" });
     } catch (e) {}
     return d;
   }
@@ -1063,6 +1063,6 @@
         return Z;
       })
     : W.exports
-    ? (W.exports = Z)
-    : (W.FlexSearch = Z);
+      ? (W.exports = Z)
+      : (W.FlexSearch = Z);
 })(this);

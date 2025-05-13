@@ -3,7 +3,7 @@ const scrollArea = document.getElementById("content");
 const tocBtn = document.getElementById("toc-dropdown-btn");
 scrollArea.addEventListener("activate.bs.scrollspy", function () {
   var currentItem = document.querySelector(
-    ".dropdown-menu li > a.active"
+    ".dropdown-menu li > a.active",
   ).innerHTML;
   tocBtn.innerHTML = currentItem;
 });

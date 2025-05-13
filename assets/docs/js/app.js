@@ -78,7 +78,7 @@ function activateMenu() {
       } else {
         var parentOfParent = getClosest(
           matchingMenuItem,
-          ".parent-parent-menu-item"
+          ".parent-parent-menu-item",
         );
         if (parentOfParent) {
           parentOfParent.classList.add("active");
@@ -91,7 +91,7 @@ function activateMenu() {
 // Sidebar Menu
 function activateSidebarMenu() {
   var current = location.pathname.substring(
-    location.pathname.lastIndexOf("/") + 1
+    location.pathname.lastIndexOf("/") + 1,
   );
   if (current !== "" && document.getElementById("sidebar")) {
     var menuItems = document.querySelectorAll("#sidebar button");
@@ -125,7 +125,7 @@ if (!window.matchMedia("(min-width: 1024px)").matches) {
     const closeSidebar = document.getElementById("close-sidebar");
     const sidebar = document.getElementById("sidebar");
     const sidebarMenuLinks = Array.from(
-      document.querySelectorAll(".sidebar-root-link,.sidebar-nested-link")
+      document.querySelectorAll(".sidebar-root-link,.sidebar-nested-link"),
     );
     // Close sidebar by clicking outside
     document.addEventListener("click", function (elem) {
@@ -234,7 +234,7 @@ if (document.getElementsByClassName("dd-menu")) {
 // Active Sidebar
 (function () {
   var current = location.pathname.substring(
-    location.pathname.lastIndexOf("/") + 1
+    location.pathname.lastIndexOf("/") + 1,
   );
   if (current === "") return;
   var menuItems = document.querySelectorAll(".sidebar-nav a");
@@ -255,10 +255,10 @@ if (document.getElementById("relativetime")) {
 
 // Initialize Bootstrap Tooltips
 const tooltipTriggerList = document.querySelectorAll(
-  '[data-bs-toggle="tooltip"]'
+  '[data-bs-toggle="tooltip"]',
 );
 const tooltipList = [...tooltipTriggerList].map(
-  (tooltipTriggerEl) => new Tooltip(tooltipTriggerEl)
+  (tooltipTriggerEl) => new Tooltip(tooltipTriggerEl),
 );
 
 /**
