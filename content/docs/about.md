@@ -121,7 +121,5 @@ following sections in the repository: **README**, **CODE OF CONDUCT**,
 [Docker]: https://github.com/homelab-alpha/docker
 [OpenSSL]: https://github.com/homelab-alpha/openssl
 [Shell Script]: https://github.com/homelab-alpha/shell-script
-[Uptime Kuma]: https://github.com/homelab-alpha/uptime-kuma
-[louislam/uptime-kuma]: https://github.com/louislam/uptime-kuma
 [Homelab-Alpha website]: https://homelab-alpha.nl
 [Homelab-Alpha GitHub repositories]: https://github.com/homelab-alpha
