@@ -2994,8 +2994,10 @@ Prism.languages.js = Prism.languages.javascript;
 
     var autoloaderPath = script.getAttribute("data-autoloader-path");
     if (autoloaderPath != null) {
-      // data-autoloader-path is set, so just use it
-      languages_path = autoloaderPath.trim().replace(/\/?$/, "/");
+      // Sanitize the data-autoloader-path value
+      var sanitizedPath = new URL(autoloaderPath, window.location.origin)
+        .pathname;
+      languages_path = sanitizedPath.trim().replace(/\/?$/, "/");
     } else {
       var src = script.src;
       if (autoloaderFile.test(src)) {
@@ -3023,7 +3025,7 @@ Prism.languages.js = Prism.languages.javascript;
    */
   function addScript(src, success, error) {
     var s = document.createElement("script");
-    s.src = src;
+    s.src = new URL(src, window.location.origin).toString();
     s.async = true;
     s.onload = function () {
       document.body.removeChild(s);

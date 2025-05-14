@@ -12540,7 +12540,7 @@
           Bmatrix: ["\\{", "\\}"],
           vmatrix: ["|", "|"],
           Vmatrix: ["\\Vert", "\\Vert"],
-        }[context.envName.replace("*", "")]; // \hskip -\arraycolsep in amsmath
+        }[context.envName.replace(/\*/g, "")]; // \hskip -\arraycolsep in amsmath
 
         var colAlign = "c";
         var payload = {
@@ -13288,7 +13288,7 @@
 
         if (group.leftDelim != null) {
           var leftOp = new mathMLTree.MathNode("mo", [
-            new mathMLTree.TextNode(group.leftDelim.replace("\\", "")),
+            new mathMLTree.TextNode(group.leftDelim.replace(/\\/g, "")),
           ]);
           leftOp.setAttribute("fence", "true");
           withDelims.push(leftOp);
@@ -13298,7 +13298,7 @@
 
         if (group.rightDelim != null) {
           var rightOp = new mathMLTree.MathNode("mo", [
-            new mathMLTree.TextNode(group.rightDelim.replace("\\", "")),
+            new mathMLTree.TextNode(group.rightDelim.replace(/\\/g, "")),
           ]);
           rightOp.setAttribute("fence", "true");
           withDelims.push(rightOp);
@@ -18591,9 +18591,6 @@
             return token;
           }
         } // Flow unable to figure out that this pathway is impossible.
-        // https://github.com/facebook/flow/issues/4808
-
-        throw new Error(); // eslint-disable-line no-unreachable
       };
       /**
        * Fully expand the given macro name and return the resulting list of
