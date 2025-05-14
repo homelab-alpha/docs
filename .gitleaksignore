@@ -1,4 +1,7 @@
-# GitHub Workspace
+# GitLeaks ignore
+
+## GitHub Workspace
+
 /github/workspace/content/docs/back-to-basics/markdown/markdown_code_blocks_syntax_highlighting_and_customization.md:generic-api-key:231
 /github/workspace/content/docs/back-to-basics/markdown/markdown_code_blocks_syntax_highlighting_and_customization.md:generic-api-key:272
 /github/workspace/content/docs/docker/compose-information/freshrss.info.md:generic-api-key:141
@@ -7,7 +10,8 @@
 /github/workspace/content/docs/docker/compose-information/plex.info.md:generic-api-key:280
 /github/workspace/content/docs/openssl/openssl_overview.md:private-key:105
 
-# Super Linter Local
+## Super Linter Local
+
 /tmp/lint/content/docs/back-to-basics/markdown/markdown_code_blocks_syntax_highlighting_and_customization.md:generic-api-key:231
 /tmp/lint/content/docs/back-to-basics/markdown/markdown_code_blocks_syntax_highlighting_and_customization.md:generic-api-key:272
 /tmp/lint/content/docs/docker/compose-information/freshrss.info.md:generic-api-key:141
