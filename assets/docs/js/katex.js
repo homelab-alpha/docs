@@ -12540,7 +12540,7 @@
           Bmatrix: ["\\{", "\\}"],
           vmatrix: ["|", "|"],
           Vmatrix: ["\\Vert", "\\Vert"],
-        }[context.envName.replace("*", "")]; // \hskip -\arraycolsep in amsmath
+        }[context.envName.replace(/\*/g, "")]; // \hskip -\arraycolsep in amsmath
 
         var colAlign = "c";
         var payload = {
