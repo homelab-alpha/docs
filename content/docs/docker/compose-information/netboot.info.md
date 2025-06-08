@@ -60,7 +60,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Feb 1, 2025
+- **Date**: Jun 08, 2025
 - **Description**: Configures a Docker network and the NetBoot service,
   providing an environment for network booting various OS and utility disks.
 - **RAW Compose File**: [docker-compose.yml]
@@ -172,7 +172,13 @@ services:
         utility disk without the need of having to go spend time retrieving the
         ISO just to run it."
     healthcheck:
-      disable: true
+      disable: false
+      test: ["CMD", "/healthcheck.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+      start_interval: 5s
 ```
 
 <br />
@@ -221,7 +227,17 @@ services:
     - **com.docker.compose.project: "netboot"**: Project label.
     - **com.netboot.description**: Description label for NetBoot.
   - **healthcheck**: Healthcheck configuration.
-    - **disable: true**: Disables health checks for the container.
+    - **disable: false**: Enables health checks for the container.
+    - **test**: Specifies the command to be run for the health check. In this
+      case, it is `["CMD", "/healthcheck.sh"]`.
+    - **interval**: The time between running health checks (10 seconds).
+    - **timeout**: The time a health check is allowed to run before it is
+      considered to have failed (5 seconds).
+    - **retries**: The number of consecutive failures required before the
+      container is considered unhealthy (3 retries).
+    - **start_period**: The initial period during which a health check failure
+      will not be counted towards the retries (10 seconds).
+    - **start_interval**: The time between starting health checks (5 seconds).
 
 <br />
 
