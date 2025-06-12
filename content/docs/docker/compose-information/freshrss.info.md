@@ -56,7 +56,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Apr 23, 2025
+- **Date**: Jun 12, 2025
 - **Description**: Configures a Docker network and services for FreshRSS and its
   MariaDB database.
 - **RAW Compose File**: [docker-compose.yml]
@@ -233,7 +233,13 @@ services:
       com.docker.compose.project: "freshrss"
       com.freshrss.description: "is a free, self-hostable feeds aggregator."
     healthcheck:
-      disable: true
+      disable: false
+      test: php -r "readfile('http://localhost/i/');" | grep -q 'jsonVars' || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+      start_interval: 5s
 ```
 
 <br />
@@ -341,7 +347,17 @@ services:
     - **com.docker.compose.project: "freshrss"**: Project label.
     - **com.freshrss.description**: Description label for FreshRSS.
   - **healthcheck**: Healthcheck configuration.
-    - **disable: true**: Disables health checks for the container.
+    - **disable: false**: Enables health checks for the container.
+    - **test**: Specifies the command to be run for the health check. In this
+      case, it is `php -r "readfile('http://localhost/i/');" | grep -q 'jsonVars' || exit 1`.
+    - **interval**: The time between running health checks (10 seconds).
+    - **timeout**: The time a health check is allowed to run before it is
+      considered to have failed (5 seconds).
+    - **retries**: The number of consecutive failures required before the
+      container is considered unhealthy (3 retries).
+    - **start_period**: The initial period during which a health check failure
+      will not be counted towards the retries (10 seconds).
+    - **start_interval**: The time between starting health checks (5 seconds).
 
 <br />
 
