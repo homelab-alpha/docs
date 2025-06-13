@@ -9,6 +9,9 @@
     ":automergeMinor",
     ":automergePatch"
   ],
+  "assignees": [
+    "homelab-alpha"
+  ],
   "rangeStrategy": "auto",
   "ignoreDeps": [],
   "labels": [
@@ -52,7 +55,35 @@
         "minor",
         "patch"
       ],
-      "automerge": false
+      "automerge": false,
+      "automergeType": "squash"
+    },
+    {
+      "matchPackageNames": [
+        "hugo"
+      ],
+      "matchManagers": [
+        "custom.regex"
+      ],
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "automerge": false,
+      "automergeType": "squash"
+    }
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/.github/workflows/.*\\.ya?ml$/"
+      ],
+      "matchStrings": [
+        "HUGO_VERSION:\\s*(?<currentValue>\\d+\\.\\d+\\.\\d+)"
+      ],
+      "depNameTemplate": "hugo",
+      "datasourceTemplate": "github-releases",
+      "packageNameTemplate": "gohugoio/hugo"
     }
   ]
 }
