@@ -58,7 +58,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Feb 9, 2025
+- **Date**: Jun 16, 2025
 - **Description**: This file configures a custom Docker network and a Watchtower
   service for automated container updates. It includes detailed network settings
   and service configurations to ensure Watchtower runs smoothly and securely.
@@ -139,7 +139,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: watchtower
-    image: containrrr/watchtower:latest
+    image: ghcr.io/containrrr/watchtower:latest
     pull_policy: if_not_present
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -179,8 +179,7 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: watchtower**: Names the container "watchtower".
-  - **image: containrrr/watchtower:latest**: Uses the latest Watchtower image
-    from Docker Hub.
+  - **image: ghcr.io/containrrr/watchtower:latest**: Uses the latest Watchtower image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.

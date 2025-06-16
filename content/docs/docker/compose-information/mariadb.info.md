@@ -56,7 +56,7 @@ maintain the system's stability.
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 12, 2025
+- **Date**: Jun 16, 2025
 - **Description**: Configures a custom network and a MariaDB service using
   Docker Compose.
 - **RAW Compose File**: [docker-compose.yml]
@@ -146,7 +146,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: mariadb_db
-    image: mariadb:latest
+    image: docker.io/mariadb:latest
     pull_policy: if_not_present
     volumes:
       - /docker/mariadb/production/db:/var/lib/mysql
@@ -163,10 +163,10 @@ services:
       PUID: "1000"
       PGID: "1000"
       TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
-      MYSQL_ROOT_PASSWORD: ${ROOT_PASSWORD_DB}
-      MYSQL_DATABASE: ${NAME_DB}
-      MYSQL_USER: ${USER_DB}
-      MYSQL_PASSWORD: ${PASSWORD_DB}
+      MARIADB_ROOT_PASSWORD: ${ROOT_PASSWORD_DB}
+      MARIADB_DATABASE: ${NAME_DB}
+      MARIADB_USER: ${USER_DB}
+      MARIADB_PASSWORD: ${PASSWORD_DB}
     hostname: mariadb_db
     networks:
       mariadb_net:
@@ -174,7 +174,7 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.mariadb.db.description: "is a MySQL database."
+      com.mariadb.db.description: "is a MariaDB database."
     healthcheck:
       disable: false
       test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
@@ -201,7 +201,7 @@ services:
   - **stop_grace_period: 1m**: Allows a grace period of 1 minute for the
     container to stop.
   - **container_name: mariadb_db**: Names the container `mariadb_db`.
-  - **image: mariadb:latest**: Uses the latest MariaDB image.
+  - **image: docker.io/mariadb:latest**: Uses the latest MariaDB image.
   - **pull_policy: if_not_present**: Pulls the image only if it is not already
     present locally.
   - **volumes**: Mounts directories or files into the container.
@@ -219,12 +219,12 @@ services:
     - **PGID**: Sets the group ID for the container.
     - **TZ**: Configures the timezone, which should be updated to match your
       local timezone.
-    - **MYSQL_ROOT_PASSWORD**: Defines the MariaDB root password (using a
+    - **MARIADB_ROOT_PASSWORD**: Defines the MariaDB root password (using a
       variable from the `.env` file).
-    - **MYSQL_DATABASE**: Defines the default database name (from the `.env`
+    - **MARIADB_DATABASE**: Defines the default database name (from the `.env`
       file).
-    - **MYSQL_USER**: Defines the database user (from the `.env` file).
-    - **MYSQL_PASSWORD**: Defines the database user's password (from the `.env`
+    - **MARIADB_USER**: Defines the database user (from the `.env` file).
+    - **MARIADB_PASSWORD**: Defines the database user's password (from the `.env`
       file).
   - **hostname: mariadb_db**: Configures the container's hostname as
     `mariadb_db`.
@@ -234,7 +234,7 @@ services:
     - **no-new-privileges:true**: Ensures that the container cannot gain new
       privileges.
   - **labels**: Metadata for the container.
-    - **com.mariadb.db.description**: Describes the service as a MySQL database.
+    - **com.mariadb.db.description**: Describes the service as a MariaDB database.
   - **healthcheck**: Configures the health check for the service.
     - **disable: false**: Enables the health check.
     - **test**: Specifies the health check command (using `healthcheck.sh`).
@@ -251,7 +251,7 @@ services:
 ## Environment Variables
 
 This file contains configuration settings that can be used by various
-applications (such as Docker containers or your MySQL server). The values are
+applications (such as Docker containers or your MariaDB server). The values are
 variables stored outside the source code for security purposes.
 
 <br />
@@ -260,7 +260,7 @@ variables stored outside the source code for security purposes.
 
 ```env
 # Database Configuration: ROOT USER
-# Change the MySQL root password to a strong, unique password of your choice.
+# Change the MariaDB root password to a strong, unique password of your choice.
 # Ensure the password is complex and not easily guessable.
 ROOT_PASSWORD_DB=StrongUniqueRootPassword1234
 
@@ -271,17 +271,17 @@ HOST_DB=mariadb_db
 # Database name: Change this to your desired database name
 NAME_DB=mariadb_db
 
-# MySQL user password: Change this to a strong, unique password
+# MariaDB user password: Change this to a strong, unique password
 PASSWORD_DB=StrongUniqueUserPassword5678
 
-# MySQL connection port (default: 3306)
+# MariaDB connection port (default: 3306)
 PORT_DB=3306
 
-# MySQL username: Change this to your desired username
+# MariaDB username: Change this to your desired username
 USER_DB=mariadb
 ```
 
-- **`ROOT_PASSWORD_DB`**: The password for the root user of the MySQL database.
+- **`ROOT_PASSWORD_DB`**: The password for the root user of the MariaDB database.
   This account has full access to all databases. Make sure this password is
   strong, unique, and complex to prevent unauthorized access.
 - **HOST_DB**: The name or IP address of the host where the database is running.
@@ -292,16 +292,16 @@ USER_DB=mariadb
 - **PASSWORD_DB**: The password for the `mariadb` user. As with the root
   password, make sure this password is strong and unique to secure access to the
   database.
-- **PORT_DB**: The port MySQL is listening on. The default port is `3306` unless
+- **PORT_DB**: The port MariaDB is listening on. The default port is `3306` unless
   configured otherwise.
 - **USER_DB**: The username for accessing the database. In this case, it’s
   `mariadb`.
 
 <br />
 
-## MariaDB/MySQL Configuration
+## MariaDB/MariaDB Configuration
 
-This file contains configuration settings for the MariaDB/MySQL server. It
+This file contains configuration settings for the MariaDB/MariaDB server. It
 determines how the database behaves, such as connection settings, performance,
 and security.
 

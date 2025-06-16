@@ -59,7 +59,7 @@ Pi-hole on Docker.
 
 - **Filename**: `docker-compose.yml`
 - **Author**: Homelab-Alpha
-- **Date**: February 22, 2025
+- **Date**: Jun 16, 2025
 - **Description**: Configures a Docker network and the Pi-hole service for
   ad-blocking and DHCP functionalities.
 - **RAW Compose File**: [docker-compose.yml]
@@ -140,7 +140,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: pi-hole
-    image: pihole/pihole:latest
+    image: ghcr.io/pihole/pihole:latest
     pull_policy: if_not_present
     volumes:
       - /docker/pi-hole/production/app:/etc/pihole
@@ -192,8 +192,7 @@ services:
   - **stop_grace_period: 1m**: The grace period before forcibly stopping the
     container.
   - **container_name: pi-hole**: Names the container `pi-hole`.
-  - **image: pihole/pihole:latest**: Uses the latest Pi-hole image from Docker
-    Hub.
+  - **image: ghcr.io/pihole/pihole:latest**: Uses the latest Pi-hole image.
   - **pull_policy: if_not_present**: Only pulls the image if it's not already
     present locally.
   - **volumes**: Mounts host directories into the container for persistent data

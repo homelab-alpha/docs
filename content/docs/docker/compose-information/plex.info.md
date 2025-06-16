@@ -56,7 +56,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Feb 11, 2025
+- **Date**: Jun 16, 2025
 - **Description**: Configures a Docker network and service for Plex Media
   Server.
 - **RAW Compose File**: [docker-compose.yml]
@@ -138,7 +138,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: plex
-    image: plexinc/pms-docker:latest
+    image: docker.io/plexinc/pms-docker:latest
     pull_policy: if_not_present
     volumes:
       - /docker/plex/production/app/config:/config
@@ -206,8 +206,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: plex**: Names the container "plex".
-  - **image: plexinc/pms-docker:latest**: Uses the latest Plex Media Server
-    image from Docker Hub.
+  - **image: docker.io/plexinc/pms-docker:latest**: Uses the latest Plex Media Server
+    image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.

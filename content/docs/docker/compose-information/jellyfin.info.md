@@ -58,7 +58,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Feb 9, 2025
+- **Date**: Jun 16, 2025
 - **Description**: This file configures a custom Docker network and a Jellyfin
   service to manage and stream media. It includes detailed network settings and
   service configurations to ensure Jellyfin runs smoothly and securely.
@@ -139,7 +139,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: jellyfin
-    image: jellyfin/jellyfin:latest
+    image: ghcr.io/jellyfin/jellyfin:latest
     pull_policy: if_not_present
     volumes:
       - /docker/jellyfin/production/app:/config
@@ -195,8 +195,7 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: jellyfin**: Names the container "jellyfin".
-  - **image: jellyfin/jellyfin:latest**: Uses the latest Jellyfin image from
-    Docker Hub.
+  - **image: ghcr.io/jellyfin/jellyfin:latest**: Uses the latest Jellyfin image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.

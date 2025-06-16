@@ -61,7 +61,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Feb 11, 2025
+- **Date**: Jun 16, 2025
 - **Description**: Configures a Docker network and the Portainer Edge Agent
   service for managing Docker Compose stacks.
 - **RAW Compose File**: [docker-compose.yml]
@@ -144,7 +144,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: edge-agent
-    image: portainer/agent:latest
+    image: docker.io/portainer/agent:latest
     volumes:
       - /docker/portainer/edge-agent/production/app:/data
       - /var/run/docker.sock:/var/run/docker.sock
@@ -188,8 +188,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: edge-agent**: Names the container "edge-agent".
-  - **image: portainer/agent:latest**: Uses the latest Portainer Edge Agent
-    image from Docker Hub.
+  - **image: docker.io/portainer/agent:latest**: Uses the latest Portainer Edge Agent
+    image.
   - **volumes**: Mounts host directories or files into the container.
     - **/docker/portainer/edge-agent/production/app:/data**: Mounts the
       application data directory.

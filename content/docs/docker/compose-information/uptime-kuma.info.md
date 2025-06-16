@@ -58,7 +58,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Feb 9, 2025
+- **Date**: Jun 16, 2025
 - **Description**: This file configures a custom Docker network and an Uptime
   Kuma service for monitoring website uptime and alerting. It includes detailed
   network settings and service configurations to ensure Uptime Kuma runs
@@ -141,7 +141,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: uptime-kuma
-    image: louislam/uptime-kuma:latest
+    image: ghcr.io/louislam/uptime-kuma:latest
     pull_policy: if_not_present
     volumes:
       - /docker/uptime-kuma/production/app:/app/data
@@ -187,8 +187,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: uptime-kuma**: Names the container "uptime-kuma".
-  - **image: louislam/uptime-kuma:latest**: Uses the latest Uptime Kuma image
-    from Docker Hub.
+  - **image: ghcr.io/louislam/uptime-kuma:latest**: Uses the latest Uptime Kuma image
+    from.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.

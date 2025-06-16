@@ -60,7 +60,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 08, 2025
+- **Date**: Jun 16, 2025
 - **Description**: Configures a Docker network and the NetBoot service,
   providing an environment for network booting various OS and utility disks.
 - **RAW Compose File**: [docker-compose.yml]
@@ -140,7 +140,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: netboot
-    image: netbootxyz/netbootxyz:latest
+    image: ghcr.io/netbootxyz/netbootxyz:latest
     pull_policy: if_not_present
     volumes:
       - /docker/netboot/production/app:/config
@@ -194,8 +194,7 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: netboot**: Names the container "netboot".
-  - **image: netbootxyz/netbootxyz:latest**: Uses the latest NetBootXYZ image
-    from Docker Hub.
+  - **image: ghcr.io/netbootxyz/netbootxyz:latest**: Uses the latest NetBootXYZ image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.

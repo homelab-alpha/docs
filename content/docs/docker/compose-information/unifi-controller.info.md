@@ -56,7 +56,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: February 22, 2025
+- **Date**: Jun 16, 2025
 - **Description**: Configures a Docker network and service for Unifi Controller.
 - **RAW Compose File**: [docker-compose.yml]
 
@@ -137,7 +137,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: unifi-controller
-    image: linuxserver/unifi-controller:latest
+    image: ghcr.io/linuxserver/unifi-controller:latest
     pull_policy: if_not_present
     volumes:
       - /docker/unifi-controller/production/app:/config
@@ -186,8 +186,8 @@ services:
     stopping the container.
   - **container_name: unifi-controller**: Names the container
     "unifi-controller".
-  - **image: linuxserver/unifi-controller:latest**: Uses the latest Unifi
-    Controller image from Docker Hub.
+  - **image: ghcr.io/linuxserver/unifi-controller:latest**: Uses the latest Unifi
+    Controller image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.

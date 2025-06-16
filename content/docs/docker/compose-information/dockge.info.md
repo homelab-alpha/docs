@@ -59,7 +59,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Feb 9, 2025
+- **Date**: Jun 16, 2025
 - **Description**: Configures a Docker network and the Dockge service for
   managing Docker Compose stacks.
 - **RAW Compose File**: [docker-compose.yml]
@@ -139,7 +139,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: dockge
-    image: louislam/dockge:latest
+    image: ghcr.io/louislam/dockge:latest
     pull_policy: if_not_present
     volumes:
       - /docker/dockge/production/app/data:/app/data
@@ -187,8 +187,7 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: dockge**: Names the container "dockge".
-  - **image: louislam/dockge:latest**: Uses the latest Dockge image from Docker
-    Hub.
+  - **image: ghcr.io/louislam/dockge:latest**: Uses the latest Dockge image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.

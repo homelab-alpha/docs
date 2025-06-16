@@ -61,7 +61,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Feb 11, 2025
+- **Date**: Jun 16, 2025
 - **Description**: Configures a Docker network and the CloudBeaver service for
   data management using Docker Compose.
 - **RAW Compose File**: [docker-compose.yml]
@@ -142,7 +142,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: cloudbeaver
-    image: dbeaver/cloudbeaver:latest
+    image: docker.io/dbeaver/cloudbeaver:latest
     pull_policy: if_not_present
     volumes:
       - /docker/cloudbeaver/production/app:/opt/cloudbeaver/workspace
@@ -187,8 +187,7 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: cloudbeaver**: Names the container "cloudbeaver".
-  - **image: dbeaver/cloudbeaver:latest**: Uses the latest CloudBeaver image
-    from Docker Hub.
+  - **image: docker.io/dbeaver/cloudbeaver:latest**: Uses the latest CloudBeaver image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.

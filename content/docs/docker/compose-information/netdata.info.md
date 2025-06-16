@@ -58,7 +58,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Feb 9, 2025
+- **Date**: Jun 16, 2025
 - **Description**: This file configures a custom Docker network and a Netdata
   service to monitor and troubleshoot infrastructure. It includes detailed
   network settings and service configurations to ensure Netdata runs smoothly
@@ -140,7 +140,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: netdata
-    image: netdata/netdata:latest
+    image: ghcr.io/netdata/netdata:latest
     pull_policy: if_not_present
     volumes:
       - /docker/netdata/production/app/cache:/var/cache/netdata
@@ -199,8 +199,7 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: netdata**: Names the container "netdata".
-  - **image: netdata/netdata:latest**: Uses the latest Netdata image from Docker
-    Hub.
+  - **image: ghcr.io/netdata/netdata:latest**: Uses the latest Netdata image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.

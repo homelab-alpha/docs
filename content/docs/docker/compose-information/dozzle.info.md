@@ -59,7 +59,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: May 05, 2025
+- **Date**: Jun 16, 2025
 - **Description**: Configures a Docker network and the Dozzle service for
   real-time Docker log monitoring.
 - **RAW Compose File**: [docker-compose.yml]
@@ -139,7 +139,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: dozzle
-    image: amir20/dozzle:latest
+    image: ghcr.io/amir20/dozzle:latest
     pull_policy: if_not_present
     volumes:
       - /docker/dozzle/production/app:/data
@@ -195,8 +195,7 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: dozzle**: Names the container "dozzle".
-  - **image: amir20/dozzle:latest**: Uses the latest Dozzle image from Docker
-    Hub.
+  - **image: ghcr.io/amir20/dozzle:latest**: Uses the latest Dozzle image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.

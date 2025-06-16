@@ -58,7 +58,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 12, 2025
+- **Date**: Jun 16, 2025
 - **Description**: Configures a Docker network and the Uptime Kuma Beta service
   for monitoring uptime and status of various services.
 - **RAW Compose File**: [docker-compose.yml]
@@ -146,7 +146,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: uptime-kuma-beta_db
-    image: mariadb:latest
+    image: docker.io/mariadb:latest
     pull_policy: if_not_present
     volumes:
       - /docker/uptime-kuma-beta/production/db:/var/lib/mysql
@@ -163,10 +163,10 @@ services:
       PUID: "1000"
       PGID: "1000"
       TZ: Europe/Amsterdam
-      MYSQL_ROOT_PASSWORD: ${ROOT_PASSWORD_DB}
-      MYSQL_DATABASE: ${NAME_DB}
-      MYSQL_USER: ${USER_DB}
-      MYSQL_PASSWORD: ${PASSWORD_DB}
+      MARIADB_ROOT_PASSWORD: ${ROOT_PASSWORD_DB}
+      MARIADB_DATABASE: ${NAME_DB}
+      MARIADB_USER: ${USER_DB}
+      MARIADB_PASSWORD: ${PASSWORD_DB}
     hostname: uptime-kuma-beta_db
     networks:
       uptime-kuma-beta_net:
@@ -174,7 +174,7 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.uptime-kuma-beta.db.description: "is an MySQL database."
+      com.uptime-kuma-beta.db.description: "is an MariaDB database."
     healthcheck:
       disable: false
       test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
@@ -199,7 +199,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: uptime-kuma-beta
-    image: louislam/uptime-kuma:beta
+    image: ghcr.io/louislam/uptime-kuma:beta
     pull_policy: if_not_present
     depends_on:
       uptime-kuma-beta_db:
@@ -217,11 +217,11 @@ services:
       PUID: "1000"
       PGID: "1000"
       TZ: Europe/Amsterdam
-      MYSQL_HOST: ${HOST_DB}
-      MYSQL_PORT: ${PORT_DB}
-      MYSQL_NAME: ${NAME_DB}
-      MYSQL_USER: ${USER_DB}
-      MYSQL_PASSWORD: ${PASSWORD_DB}
+      MARIADB_HOST: ${HOST_DB}
+      MARIADB_PORT: ${PORT_DB}
+      MARIADB_NAME: ${NAME_DB}
+      MARIADB_USER: ${USER_DB}
+      MARIADB_PASSWORD: ${PASSWORD_DB}
     domainname: status.local
     hostname: status
     networks:
@@ -249,7 +249,7 @@ services:
 <br />
 
 - **services**: Defines services to be deployed.
-- **uptime-kuma-beta_db**: The service for the MySQL database.
+- **uptime-kuma-beta_db**: The service for the MariaDB database.
   - **deploy: "resources"**: Configuration for managing compute resource usage.
     - **Limits: "memory"**: Caps memory usage at 1 GB.
     - **Reservations: "memory"**: Reserves 1 GB of memory for the container.
@@ -263,7 +263,7 @@ services:
     stopping the container.
   - **container_name: uptime-kuma-beta_db**: Names the container
     `uptime-kuma-beta_db`.
-  - **image: mariadb:latest**: Uses the latest MariaDB image from Docker Hub.
+  - **image: docker.io/mariadb:latest**: Uses the latest MariaDB image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts directories or files into the container.
@@ -298,7 +298,7 @@ services:
     stopping the container.
   - **container_name: uptime-kuma-beta**: Names the container
     `uptime-kuma-beta`.
-  - **image: louislam/uptime-kuma:beta**: Uses the specified Uptime Kuma
+  - **image: ghcr.io/louislam/uptime-kuma:beta**: Uses the specified Uptime Kuma
     Beta image.
   - **depends_on**: Ensures that the database service is healthy before starting
     the app service.
@@ -313,7 +313,7 @@ services:
 ## Environment Variables
 
 This file contains configuration settings that can be used by various
-applications (such as Docker containers or your MySQL server). The values are
+applications (such as Docker containers or your MariaDB server). The values are
 variables stored outside the source code for security purposes.
 
 <br />
@@ -322,7 +322,7 @@ variables stored outside the source code for security purposes.
 
 ```env
 # Database Configuration: ROOT USER
-# Change the MySQL root password to a strong, unique password of your choice.
+# Change the MariaDB root password to a strong, unique password of your choice.
 # Ensure the password is complex and not easily guessable.
 ROOT_PASSWORD_DB=StrongUniqueRootPassword1234
 
@@ -333,17 +333,17 @@ HOST_DB=uptime-kuma-beta_db
 # Database name:
 NAME_DB=uptime_kuma_beta_db
 
-# MySQL user password: Change this to a strong, unique password
+# MariaDB user password: Change this to a strong, unique password
 PASSWORD_DB=StrongUniqueUserPassword5678
 
-# MySQL connection port (default: 3306)
+# MariaDB connection port (default: 3306)
 PORT_DB=3306
 
-# MySQL username: Change this to your desired username
+# MariaDB username: Change this to your desired username
 USER_DB=uptime-kuma
 ```
 
-- **`ROOT_PASSWORD_DB`**: The password for the root user of the MySQL database.
+- **`ROOT_PASSWORD_DB`**: The password for the root user of the MariaDB database.
   This account has full access to all databases. Make sure this password is
   strong, unique, and complex to prevent unauthorized access.
 - **HOST_DB**: The name or IP address of the host where the database is running.
@@ -355,7 +355,7 @@ USER_DB=uptime-kuma
 - **PASSWORD_DB**: The password for the `uptime-kuma` user. As with the root
   password, it’s important to use a strong and unique password here to secure
   the database.
-- **PORT_DB**: The port MySQL is listening on. The default port is `3306` unless
+- **PORT_DB**: The port MariaDB is listening on. The default port is `3306` unless
   configured differently.
 - **USER_DB**: The username for accessing the database. In this case, the user
   is `uptime-kuma`.
@@ -484,7 +484,7 @@ collation-server = utf8mb4_general_ci
 
 This `docker-compose.yml` file sets up a Docker environment for Uptime Kuma
 Beta, a self-hosted monitoring tool. The configuration defines a custom bridge
-network with specific IP settings, a MySQL database service, and the Uptime Kuma
+network with specific IP settings, a MariaDB database service, and the Uptime Kuma
 Beta application. This setup ensures that both services run efficiently and
 securely, with proper health checks, logging, and restart policies.
 

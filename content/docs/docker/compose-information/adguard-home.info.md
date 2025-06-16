@@ -58,7 +58,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: Homelab-Alpha
-- **Date**: Feb 11, 2025
+- **Date**: Jun 16, 2025
 - **Description**: Configures a Docker network and the AdGuard Home service for
   blocking ads and tracking across a network.
 - **RAW Compose File**: [docker-compose.yml]
@@ -140,7 +140,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: adguard-home
-    image: adguard/adguardhome:latest
+    image: docker.io/adguard/adguardhome:latest
     pull_policy: if_not_present
     volumes:
       - /docker/adguard-home/production/app:/opt/adguard-home/work
@@ -193,8 +193,7 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: adguard-home**: Names the container "adguard-home".
-  - **image: adguard/adguardhome:latest**: Uses the latest AdGuard Home image
-    from Docker Hub.
+  - **image: docker.io/adguard/adguardhome:latest**: Uses the latest AdGuard Home image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.

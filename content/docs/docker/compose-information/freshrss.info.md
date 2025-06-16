@@ -56,7 +56,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 12, 2025
+- **Date**: Jun 16, 2025
 - **Description**: Configures a Docker network and services for FreshRSS and its
   MariaDB database.
 - **RAW Compose File**: [docker-compose.yml]
@@ -145,7 +145,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: freshrss_db
-    image: mariadb:latest
+    image: docker.io/mariadb:latest
     pull_policy: if_not_present
     volumes:
       - /docker/freshrss/production/db:/var/lib/mysql
@@ -162,10 +162,10 @@ services:
       PUID: "1000"
       PGID: "1000"
       TZ: Europe/Amsterdam
-      MYSQL_ROOT_PASSWORD: ${ROOT_PASSWORD_DB} # Fill in the value in both the .env and stack.env files
-      MYSQL_DATABASE: ${NAME_DB} # Fill in the value in both the .env and stack.env files
-      MYSQL_USER: ${USER_DB} # Fill in the value in both the .env and stack.env files
-      MYSQL_PASSWORD: ${PASSWORD_DB} # Fill in the value in both the .env and stack.env files
+      MARIADB_ROOT_PASSWORD: ${ROOT_PASSWORD_DB} # Fill in the value in both the .env and stack.env files
+      MARIADB_DATABASE: ${NAME_DB} # Fill in the value in both the .env and stack.env files
+      MARIADB_USER: ${USER_DB} # Fill in the value in both the .env and stack.env files
+      MARIADB_PASSWORD: ${PASSWORD_DB} # Fill in the value in both the .env and stack.env files
     hostname: freshrss_db
     networks:
       freshrss_net:
@@ -173,7 +173,7 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.freshrss.db.description: "is a MySQL database."
+      com.freshrss.db.description: "is a MariaDB database."
     healthcheck:
       disable: false
       test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
@@ -192,7 +192,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: freshrss
-    image: freshrss/freshrss:latest
+    image: docker.io/freshrss/freshrss:latest
     pull_policy: if_not_present
     depends_on:
       freshrss_db:
@@ -214,11 +214,11 @@ services:
       PGID: "1000"
       TZ: Europe/Amsterdam
       CRON_MIN: "*/10"
-      MYSQL_HOST: ${HOST_DB} # Fill in the value in both the .env and stack.env files
-      MYSQL_PORT: ${PORT_DB} # Fill in the value in both the .env and stack.env files
-      MYSQL_NAME: ${NAME_DB} # Fill in the value in both the .env and stack.env files
-      MYSQL_USER: ${USER_DB} # Fill in the value in both the .env and stack.env files
-      MYSQL_PASSWORD: ${PASSWORD_DB} # Fill in the value in both the .env and stack.env files
+      MARIADB_HOST: ${HOST_DB} # Fill in the value in both the .env and stack.env files
+      MARIADB_PORT: ${PORT_DB} # Fill in the value in both the .env and stack.env files
+      MARIADB_NAME: ${NAME_DB} # Fill in the value in both the .env and stack.env files
+      MARIADB_USER: ${USER_DB} # Fill in the value in both the .env and stack.env files
+      MARIADB_PASSWORD: ${PASSWORD_DB} # Fill in the value in both the .env and stack.env files
     domainname: freshrss.local
     hostname: freshrss
     networks:
@@ -258,7 +258,7 @@ services:
     - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
       stopping the container.
   - **container_name: freshrss_db**: Names the container "freshrss_db".
-  - **image: mariadb:latest**: Uses the latest MariaDB image from Docker Hub.
+  - **image: docker.io/mariadb:latest**: Uses the latest MariaDB image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts directories or files into the container.
@@ -275,10 +275,10 @@ services:
     - **PUID: "1000"**: Sets the user ID.
     - **PGID: "1000"**: Sets the group ID.
     - **TZ: Europe/Amsterdam**: Sets the timezone to Amsterdam.
-    - **MYSQL_ROOT_PASSWORD**: Sets the MySQL root password.
-    - **MYSQL_DATABASE**: Sets the database name.
-    - **MYSQL_USER**: Sets the MySQL user.
-    - **MYSQL_PASSWORD**: Sets the MySQL user password.
+    - **MARIADB_ROOT_PASSWORD**: Sets the MariaDB root password.
+    - **MARIADB_DATABASE**: Sets the database name.
+    - **MARIADB_USER**: Sets the MariaDB user.
+    - **MARIADB_PASSWORD**: Sets the MariaDB user password.
   - **hostname: freshrss_db**: Sets the hostname for the container.
   - **networks**: Connects the service to the `freshrss_net` network.
     - **ipv4_address: 172.20.6.2**: Assigns a static IP address to the
@@ -306,8 +306,7 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: freshrss**: Names the container "freshrss".
-  - **image: freshrss/freshrss:latest**: Uses the latest FreshRSS image from
-    Docker Hub.
+  - **image: docker.io/freshrss/freshrss:latest**: Uses the latest FreshRSS image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **depends_on**: Specifies dependencies for this service.
@@ -327,11 +326,11 @@ services:
     - **PGID: "1000"**: Sets the group ID.
     - **TZ: Europe/Amsterdam**: Sets the timezone to Amsterdam.
     - **CRON_MIN: "\*/10"**: Sets the cron job interval.
-    - **MYSQL_HOST**: The database host.
-    - **MYSQL_PORT**: The database port.
-    - **MYSQL_NAME**: The database name.
-    - **MYSQL_USER**: The database user.
-    - **MYSQL_PASSWORD**: The database user password.
+    - **MARIADB_HOST**: The database host.
+    - **MARIADB_PORT**: The database port.
+    - **MARIADB_NAME**: The database name.
+    - **MARIADB_USER**: The database user.
+    - **MARIADB_PASSWORD**: The database user password.
   - **domainname: freshrss.local**: Sets the domain name for the container.
   - **hostname: freshrss**: Sets the hostname for the container.
   - **networks**: Connects the service to the `freshrss_net` network.
@@ -364,7 +363,7 @@ services:
 ## Environment Variables
 
 This file contains configuration settings that can be used by various
-applications (such as Docker containers or your MySQL server). The values are
+applications (such as Docker containers or your MariaDB server). The values are
 variables stored outside the source code for security purposes.
 
 <br />
@@ -373,7 +372,7 @@ variables stored outside the source code for security purposes.
 
 ```env
 # Database Configuration: ROOT USER
-# Change the MySQL root password to a strong, unique password of your choice.
+# Change the MariaDB root password to a strong, unique password of your choice.
 # Ensure the password is complex and not easily guessable.
 ROOT_PASSWORD_DB=StrongUniqueRootPassword1234
 
@@ -384,17 +383,17 @@ HOST_DB=freshrss_db
 # Database name:
 NAME_DB=freshrss_db
 
-# MySQL user password: Change this to a strong, unique password
+# MariaDB user password: Change this to a strong, unique password
 PASSWORD_DB=StrongUniqueUserPassword5678
 
-# MySQL connection port (default: 3306)
+# MariaDB connection port (default: 3306)
 PORT_DB=3306
 
-# MySQL username: Change this to your desired username
+# MariaDB username: Change this to your desired username
 USER_DB=freshrss
 ```
 
-- **`ROOT_PASSWORD_DB`**: The password for the root user of the MySQL database.
+- **`ROOT_PASSWORD_DB`**: The password for the root user of the MariaDB database.
   This account has full access to all databases. Make sure this password is
   strong, unique, and complex to prevent unauthorized access.
 - **HOST_DB**: The name or IP address of the host where the database is running.
@@ -404,16 +403,16 @@ USER_DB=freshrss
   indicating this is for an application like FreshRSS.
 - **PASSWORD_DB**: The password for the `freshrss` user. Ensure this password is
   strong and unique, as it grants access to the database.
-- **PORT_DB**: The port MySQL is listening on. The default is `3306` unless
+- **PORT_DB**: The port MariaDB is listening on. The default is `3306` unless
   configured differently.
 - **USER_DB**: The username for accessing the database. In this case, the user
   is `freshrss`.
 
 <br />
 
-## MariaDB/MySQL Configuration
+## MariaDB/MariaDB Configuration
 
-This file contains configuration settings for the MariaDB/MySQL server. It
+This file contains configuration settings for the MariaDB/MariaDB server. It
 determines how the database behaves, such as connection settings, performance,
 and security.
 

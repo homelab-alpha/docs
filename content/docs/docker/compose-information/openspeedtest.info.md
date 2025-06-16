@@ -59,7 +59,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Feb 1, 2025
+- **Date**: Jun 16, 2025
 - **Description**: This file configures a custom Docker network and an
   OpenSpeedTest service, including detailed network settings and service
   configurations for reliable and secure operation.
@@ -142,7 +142,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: openspeedtest
-    image: openspeedtest/latest
+    image: docker.io/openspeedtest/latest
     pull_policy: if_not_present
     volumes:
       - /docker/openspeedtest/production/config/nginx.conf:/etc/nginx.conf
@@ -188,8 +188,7 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: openspeedtest**: Names the container "openspeedtest".
-  - **image: openspeedtest/latest**: Uses the latest OpenSpeedTest image from
-    Docker Hub.
+  - **image: docker.io/openspeedtest/latest**: Uses the latest OpenSpeedTest image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.
