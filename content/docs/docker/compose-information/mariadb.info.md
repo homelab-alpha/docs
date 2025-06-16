@@ -299,9 +299,9 @@ USER_DB=mariadb
 
 <br />
 
-## MariaDB/MariaDB Configuration
+## MariaDB/MySQL Configuration
 
-This file contains configuration settings for the MariaDB/MariaDB server. It
+This file contains configuration settings for the MariaDB/MySQL server. It
 determines how the database behaves, such as connection settings, performance,
 and security.
 
