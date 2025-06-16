@@ -1,10 +1,10 @@
 ---
-title: "new_docker_container.info"
+title: "new_docker_project.info"
 description:
   "This script automates the creation of a new Docker container's directory
   structure and configuration files based on user input, ensuring all necessary
   tools and permissions are in place."
-url: "shell-script/script-info/new-docker-container"
+url: "shell-script/script-info/new-docker-project"
 aliases: ""
 icon: "code"
 
@@ -24,7 +24,7 @@ tags:
   - DevOps
   - Containerization
 keywords:
-  - Docker container setup
+  - Docker project setup
   - Shell script automation
   - Docker directory structure
   - DevOps tools
@@ -49,7 +49,7 @@ information here with caution and verify it if necessary. {{% /alert %}}
 <br />
 
 Let's break down what this script does in detail. The script is named
-`new_docker_container.sh`, authored by GJS (homelab-alpha), and its purpose is
+`new_docker_project.sh`, authored by GJS (homelab-alpha), and its purpose is
 to create a new Docker container directory structure and configuration files
 based on user input. The script ensures that the necessary tools are available,
 checks for proper execution permissions, and creates a comprehensive directory
@@ -57,13 +57,13 @@ structure and configuration files for Docker containers.
 
 ## Script Metadata
 
-- **Filename**: `new_docker_container.sh`
+- **Filename**: `new_docker_project.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 16, 2025
 - **Version**: 2.1.3
 - **Description**: This script creates a new Docker container directory
   structure and configuration files based on user input.
-- **RAW Script**: [new_docker_container.sh]
+- **RAW Script**: [new_docker_project.sh]
 
 <br />
 
@@ -1119,5 +1119,5 @@ structure with essential configuration files for Docker containers. This can
 significantly streamline the setup process for Docker-based projects, ensuring
 consistency and reducing the risk of errors.
 
-[new_docker_container.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/new_docker_container.sh
+[new_docker_project.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/new_docker_project.sh
