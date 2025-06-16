@@ -62,11 +62,11 @@ specific configurations.
 
 - **Filename**: `new_docker_compose_file.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 12, 2025
-- **Version**: 2.1.2
+- **Date**: Jun 16, 2025
+- **Version**: 2.1.3
 - **Description**: The script automates the creation of Docker-Compose and
   configuration files, setting up a Docker container with the specified
-  environment and MySQL configurations.
+  environment and MariaDB configurations.
 - **RAW Script**: [new_docker_compose_file.sh]
 
 <br />
@@ -255,10 +255,10 @@ services:
       PUID: "1000" # UserID
       PGID: "1000" # GroupID
       TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
-      MYSQL_ROOT_PASSWORD: \${ROOT_PASSWORD_DB}
-      MYSQL_DATABASE: \${NAME_DB}
-      MYSQL_USER: \${USER_DB}
-      MYSQL_PASSWORD: \${PASSWORD_DB}
+      MARIADB_ROOT_PASSWORD: \${ROOT_PASSWORD_DB}
+      MARIADB_DATABASE: \${NAME_DB}
+      MARIADB_USER: \${USER_DB}
+      MARIADB_PASSWORD: \${PASSWORD_DB}
     hostname: ${container_name}_db
     networks:
       ${container_name}_net:
@@ -272,7 +272,7 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.${container_name}.db.description: "is a MySQL database."
+      com.${container_name}.db.description: "is a MariaDB database."
     healthcheck:
       disable: false
       test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
@@ -349,11 +349,11 @@ services:
       PUID: "1000" # UserID
       PGID: "1000" # GroupID
       TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
-      MYSQL_HOST: \${HOST_DB}
-      MYSQL_PORT: \${PORT_DB}
-      MYSQL_NAME: \${NAME_DB}
-      MYSQL_USER: \${USER_DB}
-      MYSQL_PASSWORD: \${PASSWORD_DB}
+      MARIADB_HOST: \${HOST_DB}
+      MARIADB_PORT: \${PORT_DB}
+      MARIADB_NAME: \${NAME_DB}
+      MARIADB_USER: \${USER_DB}
+      MARIADB_PASSWORD: \${PASSWORD_DB}
     command: ["change_me"]
     entrypoint: ["change_me"]
       # declares the default entrypoint for the service container.
@@ -500,10 +500,10 @@ services:
       PUID: "1000" # UserID
       PGID: "1000" # GroupID
       TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
-      MYSQL_ROOT_PASSWORD: \${ROOT_PASSWORD_DB}
-      MYSQL_DATABASE: \${NAME_DB}
-      MYSQL_USER: \${USER_DB}
-      MYSQL_PASSWORD: \${PASSWORD_DB}
+      MARIADB_ROOT_PASSWORD: \${ROOT_PASSWORD_DB}
+      MARIADB_DATABASE: \${NAME_DB}
+      MARIADB_USER: \${USER_DB}
+      MARIADB_PASSWORD: \${PASSWORD_DB}
     hostname: ${container_name}_testing_db
     networks:
       ${container_name}_testing_net:
@@ -517,7 +517,7 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.${container_name}.test.db.description: "is a MySQL database."
+      com.${container_name}.test.db.description: "is a MariaDB database."
     healthcheck:
       disable: false
       test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
@@ -594,11 +594,11 @@ services:
       PUID: "1000" # UserID
       PGID: "1000" # GroupID
       TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
-      MYSQL_HOST: \${HOST_DB}
-      MYSQL_PORT: \${PORT_DB}
-      MYSQL_NAME: \${NAME_DB}
-      MYSQL_USER: \${USER_DB}
-      MYSQL_PASSWORD: \${PASSWORD_DB}
+      MARIADB_HOST: \${HOST_DB}
+      MARIADB_PORT: \${PORT_DB}
+      MARIADB_NAME: \${NAME_DB}
+      MARIADB_USER: \${USER_DB}
+      MARIADB_PASSWORD: \${PASSWORD_DB}
     command: ["change_me"]
     entrypoint: ["change_me"]
       # declares the default entrypoint for the service container.
@@ -671,7 +671,7 @@ placeholders for database and application configurations.
 for file in "$dir_path/.env" "$dir_path/stack.env"; do
   cat <<EOL >"$file"
 # Database Configuration: ROOT USER
-# Change the MySQL root password to a strong, unique password of your choice.
+# Change the MariaDB root password to a strong, unique password of your choice.
 # Ensure the password is complex and not easily guessable.
 ROOT_PASSWORD_DB=StrongUniqueRootPassword1234
 
@@ -682,13 +682,13 @@ HOST_DB=${container_name}_db
 # Database name: Change this to your desired database name
 NAME_DB=${container_name}_db
 
-# MySQL user password: Change this to a strong, unique password
+# MariaDB user password: Change this to a strong, unique password
 PASSWORD_DB=StrongUniqueUserPassword5678
 
-# MySQL connection port (default: 3306)
+# MariaDB connection port (default: 3306)
 PORT_DB=3306
 
-# MySQL username: Change this to your desired username
+# MariaDB username: Change this to your desired username
 USER_DB=${container_name}
 EOL
 done
