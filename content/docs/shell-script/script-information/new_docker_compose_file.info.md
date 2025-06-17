@@ -62,8 +62,8 @@ specific configurations.
 
 - **Filename**: `new_docker_compose_file.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 16, 2025
-- **Version**: 2.1.3
+- **Date**: Jun 17, 2025
+- **Version**: 2.1.4
 - **Description**: The script automates the creation of Docker-Compose and
   configuration files, setting up a Docker container with the specified
   environment and MariaDB configurations.
@@ -764,6 +764,10 @@ skip-symbolic-links
 
 # Enable native asynchronous I/O for improved performance in InnoDB.
 innodb-use-native-aio = 0
+
+# Set the size of the InnoDB buffer pool. This should be 70-80% of the available memory.
+# Larger values allow more data to be cached in memory, improving performance.
+innodb-buffer-pool-size = 1G
 
 # Minimum InnoDB buffer pool size when auto-shrinking under memory pressure.
 # Shrinks pool halfway between current size and this value. 0 = no minimum.

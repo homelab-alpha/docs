@@ -56,7 +56,7 @@ maintain the system's stability.
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 16, 2025
+- **Date**: Jun 17, 2025
 - **Description**: Configures a custom network and a MariaDB service using
   Docker Compose.
 - **RAW Compose File**: [docker-compose.yml]
@@ -343,6 +343,7 @@ skip-symbolic-links
 # ============================================
 # Performance Optimizations
 # ============================================
+innodb-buffer-pool-size = 1G
 innodb-buffer-pool-size-auto-min = 0
 innodb-log-file-size = 1G
 innodb-log-buffer-size = 32M
@@ -351,6 +352,9 @@ innodb-read-io-threads = 8
 innodb-write-io-threads = 8
 ```
 
+- **innodb-buffer-pool-size**: The amount of memory allocated to cache data in
+  the InnoDB storage engine. This should be a significant portion of your total
+  RAM (here, it's set to 1GB).
 - **innodb-buffer-pool-size-auto-min**: Minimum InnoDB buffer pool size when
   auto-shrinking under memory pressure. Shrinks pool halfway between current
   size and this value. 0 = no minimum.
