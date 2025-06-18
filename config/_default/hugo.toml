@@ -1,7 +1,7 @@
 baseURL                = "https://homelab-alpha.nl"
 defaultContentLanguage = "en"
 disableAliases         = false
-disableKinds           = ["RSS"]
+disableKinds           = ["rss"]
 enableEmoji            = true
 enableGitInfo          = true
 languageCode           = "en-NL"
