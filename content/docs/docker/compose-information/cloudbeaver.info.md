@@ -149,21 +149,20 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
-    domainname: cloudbeaver.local # Customize this with your own domain, e.g., `cloudbeaver.local` to `cloudbeaver.your-fqdn-here.com`.
+      TZ: Europe/Amsterdam
+    domainname: cloudbeaver.local
     hostname: cloudbeaver
     networks:
       cloudbeaver_net:
         ipv4_address: 172.20.14.3
     ports:
-      - "3978:8978/tcp" # HTTP(s)
-      - "3978:8978/udp" # HTTP(s)
+      - "3978:8978/tcp"
+      - "3978:8978/udp"
     security_opt:
       - no-new-privileges:true
     labels:
       com.docker.compose.project: "cloudbeaver"
-      com.cloudbeaver.description:
-        "is an lightweight web application for all-around data management."
+      com.cloudbeaver.description: "is an lightweight web application for all-around data management."
     healthcheck:
       disable: false
       test: ["CMD", "curl", "-f", "http://localhost:8978/status"]
@@ -236,5 +235,4 @@ persistent storage for application data. The setup ensures CloudBeaver runs
 efficiently and securely, with appropriate logging, restart policies, and health
 checks, making it an excellent tool for managing data and infrastructure.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/cloudbeaver/docker-compose.yml
+[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/cloudbeaver/docker-compose.yml

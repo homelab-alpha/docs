@@ -174,7 +174,16 @@ services:
         and streaming your media."
     healthcheck:
       disable: false
-      test: ["CMD", "curl", "--noproxy", "localhost", "-Lk", "-fsS", "http://localhost:8096/health",]
+      test:
+        [
+          "CMD",
+          "curl",
+          "--noproxy",
+          "localhost",
+          "-Lk",
+          "-fsS",
+          "http://localhost:8096/health",
+        ]
       interval: 10s
       timeout: 5s
       retries: 3
@@ -262,5 +271,4 @@ service is configured with persistent storage, access to media directories, and
 various network and security options. The configuration ensures that Jellyfin
 runs continuously, restarts on failure, and logs efficiently.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/jellyfin/docker-compose.yml
+[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/jellyfin/docker-compose.yml

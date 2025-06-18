@@ -148,22 +148,21 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /usr/local/share/ca-certificates:/app/data/docker-tls
     environment:
-      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
-      # NODE_EXTRA_CA_CERTS: /app/data/docker-tls/change_me # Replace `change_me` with the name of your own certificate to add your trusted root certificates.
-    domainname: status.local # Customize this with your own domain, e.g., `status.local` to `status.your-fqdn-here.com`.
+      TZ: Europe/Amsterdam
+      # NODE_EXTRA_CA_CERTS: /app/data/docker-tls/change_me
+    domainname: status.local
     hostname: status
     networks:
       uptime-kuma_net:
         ipv4_address: 172.20.3.3
     ports:
-      - "3001:3001/tcp" # HTTP
-      - "3001:3001/udp" # HTTP
+      - "3001:3001/tcp"
+      - "3001:3001/udp"
     security_opt:
       - no-new-privileges:true
     labels:
       com.docker.compose.project: "uptime-kuma"
-      com.uptime-kuma.description:
-        "it is a self-hosted monitoring tool like uptime robot."
+      com.uptime-kuma.description: "it is a self-hosted monitoring tool like uptime robot."
     healthcheck:
       disable: false
       test: ["CMD", "extra/healthcheck"]
@@ -244,5 +243,4 @@ host directories, and various network and security options. The configuration
 ensures that Uptime Kuma runs continuously, restarts on failure, and logs
 efficiently.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/uptime-kuma/docker-compose.yml
+[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/uptime-kuma/docker-compose.yml

@@ -174,8 +174,7 @@ services:
       - SYS_ADMIN
     labels:
       com.docker.compose.project: "netdata"
-      com.netdata.description:
-        "is an infrastructure monitoring and troubleshooting."
+      com.netdata.description: "is an infrastructure monitoring and troubleshooting."
     healthcheck:
       disable: false
       test: ["CMD", "/usr/sbin/health.sh"]
@@ -270,5 +269,4 @@ Netdata service is configured with persistent storage, access to essential host
 directories, and various network and security options. The configuration ensures
 that Netdata runs continuously, restarts on failure, and logs efficiently.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/netdata/docker-compose.yml
+[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/netdata/docker-compose.yml

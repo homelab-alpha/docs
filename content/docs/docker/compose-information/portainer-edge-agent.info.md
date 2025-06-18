@@ -151,14 +151,10 @@ services:
       - /var/lib/docker/volumes:/var/lib/docker/volumes
       - /:/host
     env_file:
-      # Choose the correct environment file:
-      # - Use '.env' for Docker Compose.
-      # - Use 'stack.env' for Portainer.
-      # Comment out the file you are not using in the Compose file to avoid issues.
       - .env
       - stack.env
     environment:
-      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+      TZ: Europe/Amsterdam
       EDGE: 1
       EDGE_ID: ${PORTAINER_AGENT_ID}
       EDGE_KEY: ${PORTAINER_AGENT_KEY}
@@ -170,8 +166,7 @@ services:
       - no-new-privileges:true
     labels:
       com.docker.compose.project: "portainer agent"
-      com.edge-agent.description:
-        "a remote environment is not directly accessible from docker server."
+      com.edge-agent.description: "a remote environment is not directly accessible from docker server."
     healthcheck:
       disable: true
 ```
@@ -261,9 +256,6 @@ persistent storage for application data and Docker volumes. The setup ensures
 the Portainer Edge Agent runs efficiently and securely, with appropriate logging
 and restart policies.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/portainer-edge-agent/docker-compose.yml
-[.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/portainer-edge-agent/.env
-[stack.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/portainer-edge-agent/stack.env
+[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/portainer-edge-agent/docker-compose.yml
+[.env]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/portainer-edge-agent/.env
+[stack.env]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/portainer-edge-agent/stack.env

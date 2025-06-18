@@ -148,22 +148,21 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+      TZ: Europe/Amsterdam
       DOCKGE_STACKS_DIR: /opt/stacks
-    domainname: dockge.local # Customize this with your own domain, e.g., `dockge.local` to `dockge.your-fqdn-here.com`.
+    domainname: dockge.local
     hostname: dockge
     networks:
       dockge_net:
         ipv4_address: 172.20.7.2
     ports:
-      - "3005:5001/tcp" # HTTP
-      - "3005:5001/udp" # HTTP
+      - "3005:5001/tcp"
+      - "3005:5001/udp"
     security_opt:
       - no-new-privileges:true
     labels:
       com.docker.compose.project: "dockge"
-      com.dockge.description:
-        "a fancy, easy-to-use and reactive self-hosted docker compose.yml stack."
+      com.dockge.description: "a fancy, easy-to-use and reactive self-hosted docker compose.yml stack."
     healthcheck:
       disable: false
       test: ["CMD", "extra/healthcheck"]
@@ -241,5 +240,4 @@ ensures Dockge runs efficiently and securely, with appropriate logging and
 restart policies, making it an excellent tool for managing Docker Compose
 stacks.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/dockge/docker-compose.yml
+[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/dockge/docker-compose.yml

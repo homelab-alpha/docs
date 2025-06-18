@@ -145,36 +145,32 @@ services:
       - /docker/plex/production/app/temp:/transcode
       - /docker/media:/data:ro
     env_file:
-      # Choose the correct environment file:
-      # - Use '.env' for Docker Compose.
-      # - Use 'stack.env' for Portainer.
-      # Comment out the file you are not using in the Compose file to avoid issues.
       - .env
       - stack.env
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
-      PLEX_CLAIM: ${PLEX_CLAIM_TOKEN} # Fill in the value in both the .env and stack.env files
-      ADVERTISE_IP: ${IP_ADDRESS} # Fill in the value in both the .env and stack.env files
+      TZ: Europe/Amsterdam
+      PLEX_CLAIM: ${PLEX_CLAIM_TOKEN}
+      ADVERTISE_IP: ${IP_ADDRESS}
       CHANGE_CONFIG_DIR_OWNERSHIP: "false"
       # ALLOWED_NETWORKS: ""
-    domainname: plex.local # Customize this with your own domain, e.g., `plex.local` to `plex.your-fqdn-here.com`.
+    domainname: plex.local
     hostname: plex
     networks:
       plex_net:
         ipv4_address: 172.20.12.2
     ports:
-      - 32400:32400/tcp # HTTP
-      - 32400:32400/udp # HTTP
-      - 5353:5353/udp # older Bonjour/Avahi network discovery (not is use anymore)
-      - 8324:8324/tcp # controlling Plex for Roku via Plex Companion
-      - 1900:1900/udp # Plex DLNA Server
-      - 32469:32469/tcp # Plex DLNA Server
-      - 32410:32410/udp # GDM network discovery
-      - 32412:32412/udp # GDM network discovery
-      - 32413:32413/udp # GDM network discovery
-      - 32414:32414/udp # GDM network discovery
+      - 32400:32400/tcp
+      - 32400:32400/udp
+      - 5353:5353/udp
+      - 8324:8324/tcp
+      - 1900:1900/udp
+      - 32469:32469/tcp
+      - 32410:32410/udp
+      - 32412:32412/udp
+      - 32413:32413/udp
+      - 32414:32414/udp
     devices:
       - /dev/dri:/dev/dri
     security_opt:
@@ -313,9 +309,6 @@ retention. The network settings ensure the Plex container has a static IP within
 the specified subnet, and various ports are mapped for Plex services. Security
 options enhance container security by preventing privilege escalation.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/plex/docker-compose.yml
-[.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/plex/.env
-[stack.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/plex/stack.env
+[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/plex/docker-compose.yml
+[.env]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/plex/.env
+[stack.env]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/plex/stack.env

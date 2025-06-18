@@ -144,7 +144,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
-      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+      TZ: Europe/Amsterdam
     command: ["--schedule", "0 0 * * * *", "--cleanup", "--debug"]
     hostname: watchtower
     networks:
@@ -227,5 +227,4 @@ set schedule, with persistent storage and various network and security options.
 The configuration ensures that Watchtower runs continuously, restarts on
 failure, and logs efficiently.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/watchtower/docker-compose.yml
+[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/watchtower/docker-compose.yml

@@ -148,18 +148,18 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+      TZ: Europe/Amsterdam
       WEBPASSWORD: "set a secure password here or it will be random"
-    domainname: pi-hole.local # Customize this with your own domain, e.g., `pi-hole.local` to `pi-hole.your-fqdn-here.com`.
+    domainname: pi-hole.local
     hostname: pi-hole
     networks:
       pi-hole_net:
         ipv4_address: 172.20.17.2
     ports:
-      - "5353:53/tcp" # plain DNS
-      - "5353:53/udp" # plain DNS
-      - "67:67/udp" # DHCP
-      - "3080:80/tcp" # HTTP
+      - "5353:53/tcp"
+      - "5353:53/udp"
+      - "67:67/udp"
+      - "3080:80/tcp"
     security_opt:
       - no-new-privileges:true
     cap_add:
@@ -171,7 +171,16 @@ services:
         application which acts as a DNS sinkhole and optionally a DHCP server."
     healthcheck:
       disable: false
-      test: ["CMD", "dig", "+short", "+norecurse", "+retry=0", "@127.0.0.1", "pi.hole"]
+      test:
+        [
+          "CMD",
+          "dig",
+          "+short",
+          "+norecurse",
+          "+retry=0",
+          "@127.0.0.1",
+          "pi.hole",
+        ]
       interval: 10s
       timeout: 5s
       retries: 3
@@ -248,5 +257,4 @@ options. This configuration ensures that Pi-hole operates efficiently and
 securely as part of your Docker setup, helping block unwanted ads and trackers
 on your network.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/pi-hole/docker-compose.yml
+[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/pi-hole/docker-compose.yml

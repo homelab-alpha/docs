@@ -1,7 +1,6 @@
 ---
 title: "portainer.info"
-description:
-  "Deploy Portainer for managing Docker environments. It covers the
+description: "Deploy Portainer for managing Docker environments. It covers the
   configuration of a custom Docker network and the Portainer service, ensuring
   effective and secure operation."
 url: "docker/compose-info/portainer"
@@ -158,8 +157,7 @@ services:
       - no-new-privileges:true
     labels:
       com.docker.compose.project: "portainer"
-      com.portainer.description:
-        "deploy, configure, troubleshoot and secure containers."
+      com.portainer.description: "deploy, configure, troubleshoot and secure containers."
     healthcheck:
       disable: true
 ```
@@ -224,5 +222,4 @@ configured with persistent storage, access to the Docker socket, and various
 network and security options. The configuration ensures that Portainer runs
 continuously, restarts on failure, and logs efficiently.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/portainer/docker-compose.yml
+[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/portainer/docker-compose.yml

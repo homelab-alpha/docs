@@ -152,16 +152,12 @@ services:
       - /docker/mariadb/production/my.cnf:/etc/my.cnf
       - /sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure
     env_file:
-      # Choose the correct environment file:
-      # - Use '.env' for Docker Compose.
-      # - Use 'stack.env' for Portainer.
-      # Comment out the file you are not using in the Compose file to avoid issues.
       - .env
       - stack.env
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+      TZ: Europe/Amsterdam
       MARIADB_ROOT_PASSWORD: ${ROOT_PASSWORD_DB}
       MARIADB_DATABASE: ${NAME_DB}
       MARIADB_USER: ${USER_DB}

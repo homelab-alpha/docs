@@ -1,9 +1,10 @@
 ---
-title: "uptime-kuma-beta.info"
+title: "speedtest-tracker.info"
 description:
-  "Deploy Uptime Kuma Beta, a self-hosted monitoring tool that allows you to
-  monitor uptime, status, and notifications for various services and domains."
-url: "docker/compose-info/uptime-kuma-beta"
+  "Deploy and manage Speedtest Tracker using Docker Compose. A self-hosted
+  application that monitors your internet speed and uptime, backed by a MariaDB
+  database for persistent data storage."
+url: "docker/compose-info/speedtest-tracker"
 aliases: ""
 icon: "code"
 
@@ -18,22 +19,20 @@ series:
   - Docker Compose
 tags:
   - Docker
-  - Uptime Kuma
   - Docker Compose
-  - Container Management
-  - Infrastructure Monitoring
+  - Speedtest Tracker
+  - Internet Monitoring
+  - Self-Hosted
+  - MariaDB
+  - Network Performance
 keywords:
-  - Docker
-  - Uptime Kuma
-  - Docker Compose
-  - Container Management
-  - Docker Network
-  - Uptime Kuma Configuration
-  - Docker Setup
-  - Docker Containers
-  - Docker Environment
-  - Infrastructure Monitoring
-  - Self-hosted Monitoring
+  - speedtest tracker
+  - internet speed monitoring
+  - self-hosted internet monitor
+  - docker compose setup
+  - mariadb docker
+  - network performance monitoring
+  - uptime monitoring
 
 weight: 4100
 
@@ -50,7 +49,8 @@ information here with caution and verify it if necessary. {{% /alert %}}
 <br />
 
 Let's break down what this `docker-compose.yml` file does in detail for
-deploying Uptime Kuma Beta, a self-hosted monitoring tool.
+deploying Speedtest Tracker, a self-hostable internet performance monitoring
+application, along with its MariaDB database.
 
 Here's a detailed explanation:
 
@@ -59,8 +59,8 @@ Here's a detailed explanation:
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 18, 2025
-- **Description**: Configures a Docker network and the Uptime Kuma Beta service
-  for monitoring uptime and status of various services.
+- **Description**: Docker Compose setup for Speedtest Tracker with MariaDB for
+  self-hosted internet speed and uptime monitoring.
 - **RAW Compose File**: [docker-compose.yml]
 - **RAW .env File**: [.env]
 - **RAW stack.env File**: [stack.env]
@@ -71,44 +71,47 @@ Here's a detailed explanation:
 ## Networks Configuration
 
 ```yaml
+---
 networks:
-  uptime-kuma-beta_net:
+  speedtest-tracker_net:
     attachable: false
     internal: false
     external: false
-    name: uptime-kuma-beta
+    name: speedtest-tracker
     driver: bridge
     ipam:
       driver: default
       config:
-        - subnet: 172.19.3.0/24
-          ip_range: 172.19.3.0/24
-          gateway: 172.19.3.1
+        - subnet: 172.20.23.0/24
+          ip_range: 172.20.23.0/24
+          gateway: 172.20.23.1
     driver_opts:
       com.docker.network.bridge.default_bridge: "false"
       com.docker.network.bridge.enable_icc: "true"
       com.docker.network.bridge.enable_ip_masquerade: "true"
       com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"
-      com.docker.network.bridge.name: "uptimekuma-beta"
+      com.docker.network.bridge.name: "speed-tracker"
       com.docker.network.driver.mtu: "1500"
     labels:
-      com.uptime-kuma-beta.network.description: "is an isolated bridge network."
+      com.speedtest-tracker.network.description: "is an isolated bridge network."
 ```
 
 <br />
 
-- **networks**: This section defines a custom network named
-  `uptime-kuma-beta_net`.
-- **attachable**: Set to `false`, meaning other containers cannot attach to this
+- **networks**: Defines a custom network named `speedtest-tracker_net`.
+- **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
-- **internal**: Set to `false`, meaning the network is accessible externally.
-- **external**: Set to `false`, indicating the network is created within the
-  `docker-compose` file.
-- **name**: The name of the network is `uptime-kuma-beta`.
-- **driver**: The network uses the `bridge` driver for isolation.
+- **internal: false**: The network is accessible externally.
+- **external: false**: The network is created within this `docker-compose` file,
+  not externally defined.
+- **name: speedtest-tracker**: Specifies the name of the network.
+- **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
-  - **driver**: Uses the default IPAM driver.
-  - **config**: Specifies the subnet, IP range, and gateway for the network.
+  - **driver: default**: Uses the default IPAM driver.
+  - **config**: Sets up the IP address configuration.
+    - **subnet**: Defines the subnet for the network.
+    - **ip_range**: Restricts the IP range within the subnet.
+    - **gateway**: Sets the gateway for the network.
 - **driver_opts**: Additional options for the network driver.
   - **com.docker.network.bridge.default_bridge: "false"**: Indicates this is not
     the default Docker bridge.
@@ -118,12 +121,11 @@ networks:
     traffic to appear as if it came from the host.
   - **com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"**: Binds the bridge
     to all available IP addresses on the host.
-  - **com.docker.network.bridge.name: "uptimekuma-beta"**: Names the bridge
-    network.
+  - **com.docker.network.bridge.name: "speed-tracker"**: Names the bridge network.
   - **com.docker.network.driver.mtu: "1500"**: Sets the Maximum Transmission
-    Unit for the network.
-- **labels**: Metadata for the network, describing it as an isolated bridge
-  network.
+    Unit size for the network.
+- **labels**: Metadata for the network.
+  - **com.freshrss.network.description**: A description label for the network.
 
 <br />
 
@@ -131,13 +133,7 @@ networks:
 
 ```yaml
 services:
-  uptime-kuma-beta_db:
-    deploy:
-      resources:
-        limits:
-          memory: 1G
-        reservations:
-          memory: 1G
+  speedtest-tracker_db:
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -145,18 +141,14 @@ services:
         max-size: "1M"
         max-file: "2"
     stop_grace_period: 1m
-    container_name: uptime-kuma-beta_db
+    container_name: speedtest-tracker_db
     image: docker.io/mariadb:latest
     pull_policy: if_not_present
     volumes:
-      - /docker/uptime-kuma-beta/production/db:/var/lib/mysql
-      - /docker/uptime-kuma-beta/production/my.cnf:/etc/my.cnf
+      - /docker/speedtest-tracker/production/db:/var/lib/mysql
+      - /docker/speedtest-tracker/production/my.cnf:/etc/my.cnf
       - /sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure
     env_file:
-      # Choose the correct environment file:
-      # - Use '.env' for Docker Compose.
-      # - Use 'stack.env' for Portainer.
-      # Comment out the file you are not using in the Compose file to avoid issues.
       - .env
       - stack.env
     environment:
@@ -167,14 +159,14 @@ services:
       MARIADB_DATABASE: ${NAME_DB}
       MARIADB_USER: ${USER_DB}
       MARIADB_PASSWORD: ${PASSWORD_DB}
-    hostname: uptime-kuma-beta_db
+    hostname: speedtest-tracker_db
     networks:
-      uptime-kuma-beta_net:
-        ipv4_address: 172.19.3.2
+      speedtest-tracker_net:
+        ipv4_address: 172.20.23.2
     security_opt:
       - no-new-privileges:true
     labels:
-      com.uptime-kuma-beta.db.description: "is an MariaDB database."
+      com.speedtest-tracker.db.description: "is a MariaDB database."
     healthcheck:
       disable: false
       test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
@@ -184,13 +176,7 @@ services:
       start_period: 10s
       start_interval: 5s
 
-  uptime-kuma-beta_app:
-    deploy:
-      resources:
-        limits:
-          memory: 1G
-        reservations:
-          memory: 1G
+  speedtest-tracker_app:
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -198,18 +184,18 @@ services:
         max-size: "1M"
         max-file: "2"
     stop_grace_period: 1m
-    container_name: uptime-kuma-beta
-    image: ghcr.io/louislam/uptime-kuma:beta
+    container_name: speedtest-tracker
+    image: linuxserver/speedtest-tracker:latest
     pull_policy: if_not_present
     depends_on:
-      uptime-kuma-beta_db:
+      speedtest-tracker_db:
         condition: service_healthy
+        restart: true
     links:
-      - uptime-kuma-beta_db
+      - speedtest-tracker_db
     volumes:
-      - /docker/uptime-kuma-beta/production/app:/app/data
-      - /usr/local/share/ca-certificates:/app/data/docker-tls
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /docker/speedtest-tracker/production/.cert:/config/keys
+      - /docker/speedtest-tracker/production/app:/config
     env_file:
       - .env
       - stack.env
@@ -222,22 +208,51 @@ services:
       MARIADB_NAME: ${NAME_DB}
       MARIADB_USER: ${USER_DB}
       MARIADB_PASSWORD: ${PASSWORD_DB}
-    domainname: status.local
-    hostname: status
+      APP_NAME: speedtest-tracker
+      APP_KEY: ${APP_KEY}
+      ADMIN_NAME: ${ADMIN_NAME}
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      # ALLOWED_IPS: ""
+      # APP_URL: https://speedtest-tracker.local
+      # ASSET_URL: https://speedtest-tracker.local
+      APP_TIMEZONE: Europe/Amsterdam
+      CHART_BEGIN_AT_ZERO: "true"
+      CHART_DATETIME_FORMAT: "m/j G:i"
+      DATETIME_FORMAT: "M j, Y G:i:s"
+      DISPLAY_TIMEZONE: "Europe/Amsterdam"
+      # CONTENT_WIDTH: "7x1"
+      PUBLIC_DASHBOARD: "true"
+      # SPEEDTEST_SKIP_IPS: ""
+      SPEEDTEST_SCHEDULE: "*/10 * * * *"
+      # SPEEDTEST_SERVERS: ""
+      # SPEEDTEST_BLOCKED_SERVERS: ""
+      # SPEEDTEST_INTERFACE: ""
+      # SPEEDTEST_CHECKINTERNET_URL: ""
+      THRESHOLD_ENABLED: "true"
+      THRESHOLD_DOWNLOAD: "900"
+      THRESHOLD_UPLOAD: "900"
+      THRESHOLD_PING: "25"
+      PRUNE_RESULTS_OLDER_THAN: "31"
+      API_RATE_LIMIT: "30"
+    domainname: speedtest-tracker.local
+    hostname: speedtest-tracker
     networks:
-      uptime-kuma-beta_net:
-        ipv4_address: 172.19.3.3
+      speedtest-tracker_net:
+        ipv4_address: 172.20.23.3
     ports:
-      - "3001:3001/tcp"
-      - "3001:3001/udp"
+      - "3013:80/tcp"
+      - "3013:80/upd"
+      - "3013:443/tcp"
+      - "3013:443/udp"
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "uptime-kuma-beta"
-      com.uptime-kuma-beta.description: "is a self-hosted monitoring tool for uptime and status notifications."
+      com.docker.compose.project: "speedtest-tracker"
+      com.speedtest-tracker.description: "a self-hosted application that monitors the performance and uptime of your internet connection."
     healthcheck:
       disable: false
-      test: ["CMD", "extra/healthcheck"]
+      test: curl -fSs APP_URL/api/healthcheck | jq -r .message || exit 1
       interval: 10s
       timeout: 5s
       retries: 3
@@ -248,37 +263,48 @@ services:
 <br />
 
 - **services**: Defines services to be deployed.
-- **uptime-kuma-beta_db**: The service for the MariaDB database.
-  - **deploy: "resources"**: Configuration for managing compute resource usage.
-    - **Limits: "memory"**: Caps memory usage at 1 GB.
-    - **Reservations: "memory"**: Reserves 1 GB of memory for the container.
+- **speedtest-tracker_db**: The service name for the MariaDB container.
   - **restart: unless-stopped**: Ensures the container restarts unless it is
     explicitly stopped.
   - **logging**: Configures logging for the container.
     - **driver: "json-file"**: Uses JSON file logging driver.
-    - **max-size: "1M"**: Limits log file size to 1MB.
-    - **max-file: "2"**: Keeps a maximum of 2 log files.
+    - **options**:
+      - **max-size: "1M"**: Limits log file size to 1MB.
+      - **max-file: "2"**: Keeps a maximum of 2 log files.
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
-  - **container_name: uptime-kuma-beta_db**: Names the container
-    `uptime-kuma-beta_db`.
+  - **container_name: speedtest-tracker_db**: Names the container "speedtest-tracker_db".
   - **image: docker.io/mariadb:latest**: Uses the latest MariaDB image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts directories or files into the container.
-    - **/docker/uptime-kuma-beta/production/db:/var/lib/mysql**: Mounts the database
+    - **/docker/speedtest-tracker/production/db:/var/lib/mysql**: Mounts the database
       storage directory.
-    - **/docker/uptime-kuma-beta/production/my.cnf:/etc/my.cnf**: Mounts the custom
+    - **/docker/speedtest-tracker/production/my.cnf:/etc/my.cnf**: Mounts the custom
       MariaDB configuration file.
     - **/sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure**: Mounts
       system memory pressure info for monitoring.
   - **env_file**: Specifies environment files.
     - **.env**: For Docker Compose.
     - **stack.env**: For Portainer.
-  - **environment**: Sets environment variables for the database connection.
-  - **hostname: uptime-kuma-beta_db**: Sets the container hostname.
-  - **networks**: Connects the service to the `uptime-kuma-beta_net` network.
-    - **ipv4_address**: Assigns a static IP address to the container.
+  - **environment**: Sets environment variables.
+    - **PUID: "1000"**: Sets the user ID.
+    - **PGID: "1000"**: Sets the group ID.
+    - **TZ: Europe/Amsterdam**: Sets the timezone to Amsterdam.
+    - **MARIADB_ROOT_PASSWORD**: Sets the MariaDB root password.
+    - **MARIADB_DATABASE**: Sets the database name.
+    - **MARIADB_USER**: Sets the MariaDB user.
+    - **MARIADB_PASSWORD**: Sets the MariaDB user password.
+  - **hostname: speedtest-tracker_db**: Sets the hostname for the container.
+  - **networks**: Connects the service to the `speedtest-tracker_net` network.
+    - **ipv4_address: 172.20.23.2**: Assigns a static IP address to the
+      container.
+  - **security_opt**: Security options for the container.
+    - **no-new-privileges:true**: Ensures the container does not gain new
+      privileges.
+  - **labels**: Metadata for the container.
+    - **com.speedtest-tracker.db.description**: Description label for the MariaDB
+      container.
   - **healthcheck**: Configures the health check for the service.
     - **disable: false**: Enables the health check.
     - **test**: Specifies the health check command (using `healthcheck.sh`).
@@ -292,10 +318,7 @@ services:
 
 <br />
 
-- **uptime-kuma-beta_app**: The service for the Uptime Kuma Beta app.
-  - **deploy: "resources"**: Configuration for managing compute resource usage.
-    - **Limits: "memory"**: Caps memory usage at 1 GB.
-    - **Reservations: "memory"**: Reserves 1 GB of memory for the container.
+- **speedtest-tracker_app**: The service name for the Speedtest Tracker container.
   - **restart: unless-stopped**: Ensures the container restarts unless it is
     explicitly stopped.
   - **logging**: Configures logging for the container.
@@ -304,20 +327,69 @@ services:
     - **max-file: "2"**: Keeps a maximum of 2 log files.
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
-  - **container_name: uptime-kuma-beta**: Names the container
-    `uptime-kuma-beta`.
-  - **image: ghcr.io/louislam/uptime-kuma:beta**: Uses the specified Uptime Kuma
-    Beta image.
-  - **depends_on**: Ensures that the database service is healthy before starting
-    the app service.
+  - **container_name: speedtest-tracker**: Names the container "speedtest-tracker".
+  - **image: linuxserver/speedtest-tracker:latest**: Uses the latest Speedtest Tracker image from linuxserver.
+  - **pull_policy: if_not_present**: Pulls the image only if it's not already
+    present locally.
+  - **depends_on**: Specifies dependencies for this service.
+    - **speedtest-tracker_db**: Waits for the database service to be healthy.
+  - **links**: Links to the database container.
+    - **speedtest-tracker_db**: Links to the `speedtest-tracker_db` container.
   - **volumes**: Mounts host directories or files into the container.
-  - **environment**: Sets environment variables for the Uptime Kuma Beta app.
-  - **domainname: status.local**: Customizes the domain name for the container.
+    - **/docker/speedtest-tracker/production/.cert:/config/keys**: Mounts the
+      TLS certificate keys.
+    - **/docker/speedtest-tracker/production/app:/config**: Mounts the main
+      application configuration directory.
+  - **env_file**: Specifies environment files.
+    - **.env**: For Docker Compose.
+    - **stack.env**: For Portainer.
+  - **environment**: Sets environment variables.
+    - **PUID: "1000"**: Sets the user ID.
+    - **PGID: "1000"**: Sets the group ID.
+    - **TZ: Europe/Amsterdam**: Sets the timezone to Amsterdam.
+    - **MARIADB_HOST**: The database host.
+    - **MARIADB_PORT**: The database port.
+    - **MARIADB_NAME**: The database name.
+    - **MARIADB_USER**: The database user.
+    - **MARIADB_PASSWORD**: The database user password.
+    - **APP_NAME: speedtest-tracker**: The application name.
+    - **APP_KEY**: Application encryption key.
+    - **ADMIN_NAME**: Name of the admin user.
+    - **ADMIN_EMAIL**: Admin user's email address.
+    - **ADMIN_PASSWORD**: Admin user's password.
+    - **APP_TIMEZONE: Europe/Amsterdam**: Timezone for the application.
+    - **CHART_BEGIN_AT_ZERO: "true"**: Charts start from zero.
+    - **CHART_DATETIME_FORMAT: "m/j G:i"**: Format for chart date and time.
+    - **DATETIME_FORMAT: "M j, Y G:i:s"**: Format for general date and time.
+    - **DISPLAY_TIMEZONE: "Europe/Amsterdam"**: Display timezone setting.
+    - **PUBLIC_DASHBOARD: "true"**: Enables public access to the dashboard.
+    - **SPEEDTEST_SCHEDULE: "\*/10 \* \* \*"**: Runs speed tests every 10 minutes.
+    - **THRESHOLD_ENABLED: "true"**: Enables speed thresholds.
+    - **THRESHOLD_DOWNLOAD: "900"**: Download threshold in Mbps.
+    - **THRESHOLD_UPLOAD: "900"**: Upload threshold in Mbps.
+    - **THRESHOLD_PING: "25"**: Ping threshold in milliseconds.
+    - **PRUNE_RESULTS_OLDER_THAN: "31"**: Prune results older than 31 days.
+    - **API_RATE_LIMIT: "30"**: API rate limit (requests per minute).
+  - **domainname: speedtest-tracker.local**: Sets the domain name for the container.
+  - **hostname: speedtest-tracker**: Sets the hostname for the container.
+  - **networks**: Connects the service to the `speedtest-tracker_net` network.
+    - **ipv4_address: 172.20.23.3**: Assigns a static IP address to the
+      container.
   - **ports**: Maps container ports to host ports.
+    - **3013:80/tcp**: Maps HTTP port (TCP).
+    - **3013:80/upd**: Maps HTTP port (UDP).
+    - **3013:443/tcp**: Maps HTTPS port (TCP).
+    - **3013:443/udp**: Maps HTTPS port (UDP).
+  - **security_opt**: Security options for the container.
+    - **no-new-privileges:true**: Ensures the container does not gain new
+      privileges.
+  - **labels**: Metadata for the container.
+    - **com.docker.compose.project: "speedtest-tracker"**: Project label.
+    - **com.speedtest-tracker.description**: Description label for Speedtest Tracker.
   - **healthcheck**: Healthcheck configuration.
     - **disable: false**: Enables health checks for the container.
     - **test**: Specifies the command to be run for the health check. In this
-      case, it is `["CMD", "extra/healthcheck"]`.
+      case, it uses `curl` to call the app's healthcheck API.
     - **interval**: The time between running health checks (10 seconds).
     - **timeout**: The time a health check is allowed to run before it is
       considered to have failed (5 seconds).
@@ -347,10 +419,10 @@ ROOT_PASSWORD_DB=StrongUniqueRootPassword1234
 
 # Database Configuration: USER
 # Database host and connection settings
-HOST_DB=uptime-kuma-beta_db
+HOST_DB=speedtest-tracker_db
 
-# Database name:
-NAME_DB=uptime_kuma_beta_db
+# Database name: Change this to your desired database name
+NAME_DB=speedtest-tracker_db
 
 # MariaDB user password: Change this to a strong, unique password
 PASSWORD_DB=StrongUniqueUserPassword5678
@@ -359,18 +431,48 @@ PASSWORD_DB=StrongUniqueUserPassword5678
 PORT_DB=3306
 
 # MariaDB username: Change this to your desired username
-USER_DB=uptime-kuma
+USER_DB=speedtest-tracker
+
+# Application Key
+# Define a secure application key for encryption.
+# To generate a new secure key, run the following in the terminal:
+#
+#   echo -n 'base64:'; openssl rand -base64 32
+#
+# This will output a base64 encoded key.
+# Example output: base64:BehUUH9rR5A+DDVqJDJLrj31X13asZ8YNNt9J+dauGg=
+APP_KEY=Insert_the_App_key_here
+
+# Admin Credentials for Dashboard Access
+# Choose strong and unique credentials for admin access to the application dashboard.
+# Avoid using default usernames and passwords in production.
+ADMIN_EMAIL=admin@example.com
+ADMIN_NAME=admin
+ADMIN_PASSWORD=StrongUniqueUserPassword9012
 ```
 
 - **`ROOT_PASSWORD_DB`**: The root user's password for the MariaDB instance.
-  This user has full administrative privileges. Use a secure and unique value.
-- **`HOST_DB`**: Hostname or IP address of the database server. In Docker-based
-  setups, this usually matches the service name (`uptime-kuma-beta_db`).
-- **`NAME_DB`**: The name of the database to be used by the application (e.g., uptime_kuma_beta_db).
-- **`PASSWORD_DB`**: The password for the non-root database user (`USER_DB`).
-  Ensure this is secure.
-- **`PORT_DB`**: The port number MariaDB listens on (default: 3306).
-- **`USER_DB`**: The username used to connect to the database.
+  This user has full administrative privileges. Use a strong, unique, and
+  complex password that is not easily guessable.
+- **`HOST_DB`**: Hostname of the database server. In Docker environments, this
+  typically matches the database service name (`speedtest-tracker_db`).
+- **`NAME_DB`**: The name of the MariaDB database to be created and used by
+  Speedtest Tracker. You may customize this name as desired.
+- **`PASSWORD_DB`**: The password associated with the non-root database user
+  (`USER_DB`). It should be strong and unique for production use.
+- **`PORT_DB`**: The database port used for the MariaDB connection. The default
+  is `3306`, but you may change this if needed.
+- **`USER_DB`**: The name of the non-root MariaDB user used by the application
+  to authenticate with the database.
+- **`APP_KEY`**: A secure key used for application encryption. Generate this
+  using the command `echo -n 'base64:'; openssl rand -base64 32`. Do not share
+  this key publicly.
+- **`ADMIN_EMAIL`**: The email address of the admin user for Speedtest Tracker.
+  This is used for logging into the dashboard. Choose a valid and secure address.
+- **`ADMIN_NAME`**: The display name for the admin user. Choose a name that is
+  not generic in production environments.
+- **`ADMIN_PASSWORD`**: The login password for the admin user. This should be a
+  strong and secure password that is not reused across other services.
 
 <br />
 
@@ -471,7 +573,7 @@ secure-file-priv = /var/lib/mysql/
 #### Binary Logging and Replication
 
 ```cnf
-log-bin = uptime-kuma-beta_binlog
+log-bin = speedtest-tracker_binlog
 max-binlog-size = 500M
 expire-logs-days = 7
 binlog-checksum = CRC32
@@ -569,13 +671,18 @@ general-log = 0
 
 ## Conclusion
 
-This `docker-compose.yml` file sets up a Docker environment for Uptime Kuma
-Beta, a self-hosted monitoring tool. The configuration defines a custom bridge
-network with specific IP settings, a MariaDB database service, and the Uptime Kuma
-Beta application. This setup ensures that both services run efficiently and
-securely, with proper health checks, logging, and restart policies.
+This `docker-compose` file sets up a Docker environment for Speedtest Tracker and
+its MariaDB database. The configuration defines a custom bridge network with
+specific IP settings and security configurations. The MariaDB service is
+expected to be healthy before the Speedtest Tracker service starts. The
+Speedtest Tracker service is configured to run with persistent storage for its
+configuration and certificates. It includes detailed environment variables for
+customizing application behavior, scheduling speed tests, setting thresholds,
+and enabling a public dashboard. Both services are configured with appropriate
+logging, health checks, and restart policies, ensuring they operate efficiently,
+reliably, and securely.
 
-[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/uptime-kuma-beta/docker-compose.yml
-[.env]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/uptime-kuma-beta/.env
-[stack.env]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/uptime-kuma-beta/stack.env
-[my.cnf]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/uptime-kuma-beta/my.cnf
+[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/speedtest-tracker/docker-compose.yml
+[.env]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/speedtest-tracker/.env
+[stack.env]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/speedtest-tracker/stack.env
+[my.cnf]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/speedtest-tracker/my.cnf

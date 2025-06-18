@@ -152,20 +152,16 @@ services:
       - /docker/freshrss/production/my.cnf:/etc/my.cnf
       - /sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure
     env_file:
-      # Choose the correct environment file:
-      # - Use '.env' for Docker Compose.
-      # - Use 'stack.env' for Portainer.
-      # Comment out the file you are not using in the Compose file to avoid issues
       - .env
       - stack.env
     environment:
       PUID: "1000"
       PGID: "1000"
       TZ: Europe/Amsterdam
-      MARIADB_ROOT_PASSWORD: ${ROOT_PASSWORD_DB} # Fill in the value in both the .env and stack.env files
-      MARIADB_DATABASE: ${NAME_DB} # Fill in the value in both the .env and stack.env files
-      MARIADB_USER: ${USER_DB} # Fill in the value in both the .env and stack.env files
-      MARIADB_PASSWORD: ${PASSWORD_DB} # Fill in the value in both the .env and stack.env files
+      MARIADB_ROOT_PASSWORD: ${ROOT_PASSWORD_DB}
+      MARIADB_DATABASE: ${NAME_DB}
+      MARIADB_USER: ${USER_DB}
+      MARIADB_PASSWORD: ${PASSWORD_DB}
     hostname: freshrss_db
     networks:
       freshrss_net:
@@ -203,10 +199,6 @@ services:
       - /docker/freshrss/production/app/data:/var/www/FreshRSS/data
       - /docker/freshrss/extensions:/var/www/FreshRSS/extensions
     env_file:
-      # Choose the correct environment file:
-      # - Use '.env' for Docker Compose.
-      # - Use 'stack.env' for Portainer.
-      # Comment out the file you are not using in the Compose file to avoid issues
       - .env
       - stack.env
     environment:
@@ -214,19 +206,19 @@ services:
       PGID: "1000"
       TZ: Europe/Amsterdam
       CRON_MIN: "*/10"
-      MARIADB_HOST: ${HOST_DB} # Fill in the value in both the .env and stack.env files
-      MARIADB_PORT: ${PORT_DB} # Fill in the value in both the .env and stack.env files
-      MARIADB_NAME: ${NAME_DB} # Fill in the value in both the .env and stack.env files
-      MARIADB_USER: ${USER_DB} # Fill in the value in both the .env and stack.env files
-      MARIADB_PASSWORD: ${PASSWORD_DB} # Fill in the value in both the .env and stack.env files
+      MARIADB_HOST: ${HOST_DB}
+      MARIADB_PORT: ${PORT_DB}
+      MARIADB_NAME: ${NAME_DB}
+      MARIADB_USER: ${USER_DB}
+      MARIADB_PASSWORD: ${PASSWORD_DB}
     domainname: freshrss.local
     hostname: freshrss
     networks:
       freshrss_net:
         ipv4_address: 172.20.6.3
     ports:
-      - "3002:80/tcp" # HTTP
-      - "3002:80/udp" # HTTP
+      - "3002:80/tcp"
+      - "3002:80/udp"
     security_opt:
       - no-new-privileges:true
     labels:

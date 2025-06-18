@@ -144,23 +144,23 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+      TZ: Europe/Amsterdam
       MEM_LIMIT: "2048M"
-    domainname: unifi-controller.local # Customize this with your own domain, e.g., `unifi-controller.local` to `unifi-controller.your-fqdn-here.com`.
+    domainname: unifi-controller.local
     hostname: unifi-controller
     networks:
       unifi-controller_net:
         ipv4_address: 172.20.13.2
     ports:
-      - "1900:1900/udp" # Required for Make controller discoverable on L2
-      - "3478:3478/udp" # Unifi STUN port
-      - "5514:5514/tcp" # Remote syslog port
-      - "6789:6789/tcp" # For mobile throughput test
-      - "8080:8080/tcp" # Required for device communication
-      - "8443:8443/tcp" # Unifi web admin port
-      - "8843:8843/tcp" # Unifi guest portal HTTPS redirect port
-      - "8880:8880/tcp" # Unifi guest portal HTTP redirect port
-      - "10001:10001/udp" # Required for AP discovery
+      - "1900:1900/udp"
+      - "3478:3478/udp"
+      - "5514:5514/tcp"
+      - "6789:6789/tcp"
+      - "8080:8080/tcp"
+      - "8443:8443/tcp"
+      - "8843:8843/tcp"
+      - "8880:8880/tcp"
+      - "10001:10001/udp"
     security_opt:
       - no-new-privileges:true
     labels:
@@ -240,5 +240,4 @@ The network settings ensure the Unifi container has a static IP within the
 specified subnet, and various ports are mapped for Unifi services. Security
 options enhance container security by preventing privilege escalation.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/unifi-controller/docker-compose.yml
+[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/unifi-controller/docker-compose.yml

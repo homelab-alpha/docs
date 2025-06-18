@@ -156,22 +156,22 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+      TZ: Europe/Amsterdam
       HTTP_PORT: 80
       HTTPS_PORT: 443
       REDIRECT_TO_HTTPS: false
       # CERT_PATH: "/docker/xen-orchestra/production/.cert/client-cert.pem"
       # KEY_PATH: "/docker/xen-orchestra/production/.cert/client-key.pem"
-    domainname: xo.local # Customize this with your own domain, e.g., `xo.local` to `xo.your-fqdn-here.com`.
+    domainname: xo.local
     hostname: xo
     networks:
       xen-orchestra_net:
         ipv4_address: 172.20.8.2
     ports:
-      - "3006:80/tcp" # HTTP
-      - "3006:80/udp" # HTTP
-      # - "3007:443/tcp" # HTTPS
-      # - "3007:443/udp" # HTTPS
+      - "3006:80/tcp"
+      - "3006:80/udp"
+      # - "3007:443/tcp"
+      # - "3007:443/udp"
     devices:
       - "/dev/fuse:/dev/fuse"
       - "/dev/loop-control:/dev/loop-control"
@@ -276,5 +276,4 @@ your XCP-ng or XenServer infrastructure with persistent storage, network, and
 security options. The configuration ensures that Xen Orchestra runs
 continuously, restarts on failure, and logs efficiently.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/xen-orchestra/docker-compose.yml
+[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/xen-orchestra/docker-compose.yml

@@ -148,34 +148,33 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
-    domainname: adguard-home.local # Customize this with your own domain, e.g., `adguard-home.local` to `adguard-home.your-fqdn-here.com`.
+      TZ: Europe/Amsterdam
+    domainname: adguard-home.local
     hostname: adguard-home
     networks:
       adguard-home_net:
         ipv4_address: 172.20.15.2
     ports:
-      - "53:53/tcp" # plain DNS
-      - "53:53/udp" # plain DNS
-      - "67:67/udp" # DHCP server
-      - "68:68/udp" # Client DHCP
-      - "80:80/tcp" # HTTP
-      - "443:443/tcp" # HTTPS
-      - "443:443/udp" # HTTPS
-      - "784:784/udp" # DNS over QUIC
-      - "853:853/tcp" # DNS over TLS
-      - "853:853/udp" # DNS over TLS
-      - "3000:3000/tcp" # web admin port
-      - "5443:5443/tcp" # DNSCrypt
-      - "5443:5443/udp" # DNSCrypt
-      # - "6060:6060/tcp" # HTTP (pprof)
-      - "8853:8853/udp" # DNS over QUIC
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "68:68/udp"
+      - "80:80/tcp"
+      - "443:443/tcp"
+      - "443:443/udp"
+      - "784:784/udp"
+      - "853:853/tcp"
+      - "853:853/udp"
+      - "3000:3000/tcp"
+      - "5443:5443/tcp"
+      - "5443:5443/udp"
+      # - "6060:6060/tcp"
+      - "8853:8853/udp"
     security_opt:
       - no-new-privileges:true
     labels:
       com.docker.compose.project: "adguard-home"
-      com.adguard-home.description:
-        "is a network-wide software for blocking ads and tracking."
+      com.adguard-home.description: "is a network-wide software for blocking ads and tracking."
     healthcheck:
       disable: true
 ```
@@ -242,5 +241,4 @@ for application data. The setup ensures AdGuard Home runs efficiently and
 securely, with appropriate logging and restart policies, making it an excellent
 tool for network-wide ad blocking.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/adguard-home/docker-compose.yml
+[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/adguard-home/docker-compose.yml

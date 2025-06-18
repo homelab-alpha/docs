@@ -151,26 +151,25 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+      TZ: Europe/Amsterdam
       ENABLE_LETSENCRYPT: false
-      DOMAIN_NAME: speedtest.local # Customize this with your own domain, e.g., `openspeedtest.local` to `openspeedtest.your-fqdn-here.com`.
+      DOMAIN_NAME: speedtest.local
       # USER_EMAIL: info@example.com
-    domainname: openspeedtest.local # Customize this with your own domain, e.g., `openspeedtest.local` to `openspeedtest.your-fqdn-here.com`.
+    domainname: openspeedtest.local
     hostname: openspeedtest
     networks:
       openspeedtest_net:
         ipv4_address: 172.20.10.2
     ports:
-      - "3009:3000/tcp" # HTTP
-      - "3009:3000/udp" # HTTP
-      - "3010:3001/tcp" # HTTPS
-      - "3010:3001/udp" # HTTPS
+      - "3009:3000/tcp"
+      - "3009:3000/udp"
+      - "3010:3001/tcp"
+      - "3010:3001/udp"
     security_opt:
       - no-new-privileges:true
     labels:
       com.docker.compose.project: "openspeedtest"
-      com.openspeedtest.description:
-        "is a Free and Open-Source HTML5 Network Speed Test Software."
+      com.openspeedtest.description: "is a Free and Open-Source HTML5 Network Speed Test Software."
     healthcheck:
       disable: true
 ```
@@ -235,5 +234,4 @@ with persistent storage for configuration and logs, and includes options for
 enabling HTTPS with Let's Encrypt. The configuration ensures that OpenSpeedTest
 runs efficiently and securely, with appropriate logging and restart policies.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/openspeedtest/docker-compose.yml
+[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/openspeedtest/docker-compose.yml

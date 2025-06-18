@@ -148,21 +148,21 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+      TZ: Europe/Amsterdam
       # MENU_VERSION: 2.0.79 # optional
       # PORT_RANGE: 30000:30010 # optional
       # SUBFOLDER: / # optional
-    domainname: netboot.local # Customize this with your own domain, e.g., `netboot.local` to `netboot.your-fqdn-here.com`.
+    domainname: netboot.local
     hostname: netboot
     networks:
       netboot_net:
         ipv4_address: 172.20.11.2
     ports:
-      - "69:69/udp" # TFTP Port
-      - "3011:3000/tcp" # Web configuration interface.
-      - "3011:3000/udp" # Web configuration interface.
-      # - "3012:80/tcp" # NGINX server for hosting assets.
-      # - "3012:80/udp" # NGINX server for hosting assets.
+      - "69:69/udp"
+      - "3011:3000/tcp"
+      - "3011:3000/udp"
+      # - "3012:80/tcp"
+      # - "3012:80/udp"
     security_opt:
       - no-new-privileges:true
     labels:
@@ -250,5 +250,4 @@ with persistent storage for configuration and assets, and includes options for
 setting the TFTP port and web configuration interface. The setup ensures NetBoot
 runs efficiently and securely, with appropriate logging and restart policies.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/netboot/docker-compose.yml
+[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/netboot/docker-compose.yml

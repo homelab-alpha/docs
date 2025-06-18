@@ -148,8 +148,8 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
-      DOZZLE_AUTH_PROVIDER: "none" # Options: none, simple, forward-proxy. Use "simple" to enable authentication via users.yml.
+      TZ: Europe/Amsterdam
+      DOZZLE_AUTH_PROVIDER: "none"
       DOZZLE_AUTH_TTL: 48h
       DOZZLE_ENABLE_ACTIONS: "false"
       DOZZLE_HOSTNAME: docker-server
@@ -157,14 +157,14 @@ services:
       DOZZLE_NO_ANALYTICS: "true"
       DOZZLE_ENABLE_SHELL: "false"
       # DOZZLE_REMOTE_HOST: tcp://192.168.*.*:2376|dozzle-remote.local
-    domainname: dozzle.local # Customize this with your own domain, e.g., `dozzle.local` to `dozzle.your-fqdn-here.com`.
+    domainname: dozzle.local
     hostname: dozzle
     networks:
       dozzle_net:
         ipv4_address: 172.20.9.2
     ports:
-      - "3008:8080/tcp" # HTTP
-      - "3008:8080/udp" # HTTP
+      - "3008:8080/tcp"
+      - "3008:8080/udp"
     security_opt:
       - no-new-privileges:true
     labels:
@@ -288,17 +288,17 @@ $2y$05$tK8ahNrufhDMcyrMGELXAONvKZ1ydGvwVxtyiwIO7wJYN50XoYsIG
 ---
 users:
   # Administrator Account
-  admin:                            # Change "admin" to a custom username if desired
-    email: admin@email.net          # Administrator email address
-    name: Admin                     # Display name in the UI
-    password:                       # Insert the Bcrypt-hashed password here
-    filter:                         # Optional: Custom filter rules for this user
+  admin: # Change "admin" to a custom username if desired
+    email: admin@email.net # Administrator email address
+    name: Admin # Display name in the UI
+    password: # Insert the Bcrypt-hashed password here
+    filter: # Optional: Custom filter rules for this user
 
   # Guest Account
-  guest:                            # Change "guest" to a custom username if desired
-    email: guest@email.net          # Guest user email address
-    name: Guest                     # Display name in the UI
-    password:                       # Insert the Bcrypt-hashed password here
+  guest: # Change "guest" to a custom username if desired
+    email: guest@email.net # Guest user email address
+    name: Guest # Display name in the UI
+    password: # Insert the Bcrypt-hashed password here
     filter: "label=com.example.app" # Optional: Example filter to restrict guest access
 ```
 
@@ -315,5 +315,4 @@ to the Docker socket. The setup ensures Dozzle runs efficiently and securely,
 with appropriate logging and restart policies, making it an excellent tool for
 real-time Docker log monitoring.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/dozzle/docker-compose.yml
+[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/dozzle/docker-compose.yml
