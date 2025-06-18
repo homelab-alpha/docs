@@ -58,7 +58,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 17, 2025
+- **Date**: Jun 18, 2025
 - **Description**: Configures a Docker network and the Uptime Kuma Beta service
   for monitoring uptime and status of various services.
 - **RAW Compose File**: [docker-compose.yml]
@@ -234,8 +234,7 @@ services:
       - no-new-privileges:true
     labels:
       com.docker.compose.project: "uptime-kuma-beta"
-      com.uptime-kuma-beta.description:
-        "is a self-hosted monitoring tool for uptime and status notifications."
+      com.uptime-kuma-beta.description: "is a self-hosted monitoring tool for uptime and status notifications."
     healthcheck:
       disable: false
       test: ["CMD", "extra/healthcheck"]
@@ -280,7 +279,16 @@ services:
   - **hostname: uptime-kuma-beta_db**: Sets the container hostname.
   - **networks**: Connects the service to the `uptime-kuma-beta_net` network.
     - **ipv4_address**: Assigns a static IP address to the container.
-  - **healthcheck**: Health check configuration for the database service.
+  - **healthcheck**: Configures the health check for the service.
+    - **disable: false**: Enables the health check.
+    - **test**: Specifies the health check command (using `healthcheck.sh`).
+    - **interval**: Defines the health check interval (10 seconds).
+    - **timeout**: Defines the timeout for health checks (5 seconds).
+    - **retries**: The number of retries before considering the container
+      unhealthy (3 retries).
+    - **start_period**: The period after which health check failures are
+      considered (10 seconds).
+    - **start_interval**: The time between health checks (5 seconds).
 
 <br />
 
@@ -306,15 +314,26 @@ services:
   - **environment**: Sets environment variables for the Uptime Kuma Beta app.
   - **domainname: status.local**: Customizes the domain name for the container.
   - **ports**: Maps container ports to host ports.
-  - **healthcheck**: Health check configuration for the app service.
+  - **healthcheck**: Healthcheck configuration.
+    - **disable: false**: Enables health checks for the container.
+    - **test**: Specifies the command to be run for the health check. In this
+      case, it is `["CMD", "extra/healthcheck"]`.
+    - **interval**: The time between running health checks (10 seconds).
+    - **timeout**: The time a health check is allowed to run before it is
+      considered to have failed (5 seconds).
+    - **retries**: The number of consecutive failures required before the
+      container is considered unhealthy (3 retries).
+    - **start_period**: The initial period during which a health check failure
+      will not be counted towards the retries (10 seconds).
+    - **start_interval**: The time between starting health checks (5 seconds).
 
 <br />
 
 ## Environment Variables
 
 This file contains configuration settings that can be used by various
-applications (such as Docker containers or your MariaDB server). The values are
-variables stored outside the source code for security purposes.
+applications (such as Docker containers or your MariaDB server). These values are
+stored outside the source code to enhance **security, portability, and flexibility**.
 
 <br />
 
@@ -343,38 +362,31 @@ PORT_DB=3306
 USER_DB=uptime-kuma
 ```
 
-- **`ROOT_PASSWORD_DB`**: The password for the root user of the MariaDB database.
-  This account has full access to all databases. Make sure this password is
-  strong, unique, and complex to prevent unauthorized access.
-- **HOST_DB**: The name or IP address of the host where the database is running.
-  In this case, it’s `uptime-kuma-beta_db`, which could refer to the name of a
-  database container or network in a Docker setup for the Uptime Kuma
-  application.
-- **NAME_DB**: The name of the database being used. Here, it’s
-  `uptime_kuma_beta_db`, likely related to the Uptime Kuma application.
-- **PASSWORD_DB**: The password for the `uptime-kuma` user. As with the root
-  password, it’s important to use a strong and unique password here to secure
-  the database.
-- **PORT_DB**: The port MariaDB is listening on. The default port is `3306` unless
-  configured differently.
-- **USER_DB**: The username for accessing the database. In this case, the user
-  is `uptime-kuma`.
+- **`ROOT_PASSWORD_DB`**: The root user's password for the MariaDB instance.
+  This user has full administrative privileges. Use a secure and unique value.
+- **`HOST_DB`**: Hostname or IP address of the database server. In Docker-based
+  setups, this usually matches the service name (`uptime-kuma-beta_db`).
+- **`NAME_DB`**: The name of the database to be used by the application (e.g., uptime_kuma_beta_db).
+- **`PASSWORD_DB`**: The password for the non-root database user (`USER_DB`).
+  Ensure this is secure.
+- **`PORT_DB`**: The port number MariaDB listens on (default: 3306).
+- **`USER_DB`**: The username used to connect to the database.
+
+<br />
 
 ## MariaDB/MySQL Configuration
 
-This file contains configuration settings for the MariaDB/MySQL server. It
-determines how the database behaves, such as connection settings, performance,
-and security.
+This file configures MariaDB or MySQL behavior, covering server operations,
+performance tuning, replication, security, and character encoding.
 
 <br />
 
 ### Sections in this file
 
+#### General Server Settings
+
 ```cnf
 [mysqld]
-# ============================================
-# General Server Settings
-# ============================================
 server-id = 1
 datadir = /var/lib/mysql/
 pid-file = /var/run/mysqld/mysqld.pid
@@ -384,26 +396,22 @@ transaction-isolation = REPEATABLE-READ
 skip-symbolic-links
 ```
 
-- **server-id**: This is a unique ID for the server, important if you want to
-  set up replication with MariaDB/MySQL. It’s set to `1` here.
-- **datadir**: The directory where the database files are stored on disk.
-- **pid-file**: This file holds the process ID of the running MySQL server.
-- **skip-name-resolve**: This prevents DNS resolution for client connections,
-  improving connection speed.
-- **default-storage-engine**: The default storage engine for new tables, set to
-  `InnoDB`, which is ACID-compliant (Atomicity, Consistency, Isolation,
-  Durability).
-- **transaction-isolation**: The isolation level for transactions, set to
-  `REPEATABLE-READ` (a common default in MySQL).
-- **skip-symbolic-links**: Prevents the use of symbolic links, enhancing data
-  security.
+- **`server-id`**: Unique identifier for the MariaDB instance (used in replication).
+- **`datadir`**: Directory path where database files are stored.
+- **`pid-file`**: Stores the process ID of the running server.
+- **`skip-name-resolve`**: Disables DNS resolution for hostnames—improves performance.
+- **`default-storage-engine`**: Sets InnoDB as the default engine (reliable and
+  ACID-compliant).
+- **`transaction-isolation`**: Defines transaction behavior. `REPEATABLE-READ`
+  prevents non-repeatable reads.
+- **`skip-symbolic-links`**: Disallows symbolic links in data files for security reasons.
 
 <br />
 
+#### Performance Optimizations
+
 ```cnf
-# ============================================
-# Performance Optimizations
-# ============================================
+innodb-use-native-aio = 0
 innodb-buffer-pool-size = 1G
 innodb-buffer-pool-size-auto-min = 0
 innodb-log-file-size = 1G
@@ -411,76 +419,151 @@ innodb-log-buffer-size = 32M
 innodb-flush-log-at-trx-commit = 1
 innodb-read-io-threads = 8
 innodb-write-io-threads = 8
+innodb-io-capacity = 6000
+innodb-io-capacity-max = 8000
+query-cache-type = 0
+tmp-table-size = 64M
+max-heap-table-size = 64M
+max-connections = 200
+thread-cache-size = 50
+table-definition-cache = 4000
+table-open-cache = 4000
+aria-pagecache-buffer-size = 128M
 ```
 
-- **innodb-buffer-pool-size**: The amount of memory allocated to cache data in
-  the InnoDB storage engine. This should be a significant portion of your total
-  RAM (here, it's set to 1GB).
-- **innodb-buffer-pool-size-auto-min**: Minimum InnoDB buffer pool size when
-  auto-shrinking under memory pressure. Shrinks pool halfway between current
-  size and this value. 0 = no minimum.
-- **innodb-log-file-size**: The size of the InnoDB redo log files. Larger log
-  files can improve performance for write-heavy workloads.
-- **innodb-log-buffer-size**: The size of the memory buffer for the InnoDB log
-  files. Larger buffers reduce disk I/O.
-- **innodb-flush-log-at-trx-commit**: Ensures that logs are written to disk with
-  each transaction commit, providing ACID guarantees, though it can impact
-  performance.
-- **innodb-read-io-threads and innodb-write-io-threads**: The number of threads
-  InnoDB uses for read and write operations. These can improve performance for
-  high I/O workloads.
+- **`innodb-buffer-pool-size`**: Memory allocated for caching InnoDB data and indexes.
+- **`innodb-buffer-pool-size-auto-min`**: Minimum size for the buffer pool when
+  auto-shrinking (0 disables minimum).
+- **`innodb-log-file-size`**: Size of each InnoDB redo log file.
+- **`innodb-log-buffer-size`**: RAM buffer size for InnoDB logs before flushing to disk.
+- **`innodb-flush-log-at-trx-commit`**: Controls transaction durability (1 = safest).
+- **`innodb-io-capacity` / `innodb-io-capacity-max`**: Tuning values for I/O performance.
+- **`query-cache-type`**: Set to 0 to disable query cache (recommended for InnoDB).
+- **`tmp-table-size`** / **`max-heap-table-size`**: Max size for temporary
+  in-memory tables.
+- **`max-connections`**: Maximum number of simultaneous client connections.
+- **`thread-cache-size`**: Cached threads to reduce thread creation overhead.
+- **`table-definition-cache` / `table-open-cache`**: Improves performance with
+  many tables.
+- **`aria-pagecache-buffer-size`**: Buffer size for Aria storage engine (if used).
 
 <br />
 
+#### Security Settings
+
 ```cnf
-# ============================================
-# Binary Logging and Replication
-# ============================================
+secure-file-priv = /var/lib/mysql/
+# plugin-load-add = validate_password.so
+# validate-password-policy = STRONG
+# validate-password-length = 12
+# validate-password-mixed-case-count = 1
+# validate-password-number-count = 1
+# validate-password-special-char-count = 1
+```
+
+- **`secure-file-priv`**: Limits the directories used for file import/export operations.
+- **`plugin-load-add`**: Optional—enables the password validation plugin.
+- **`validate-password-*`**: Enforces strong password policies when creating
+  users. Uncomment to enable.
+
+<br />
+
+#### Binary Logging and Replication
+
+```cnf
 log-bin = uptime-kuma-beta_binlog
 max-binlog-size = 500M
 expire-logs-days = 7
+binlog-checksum = CRC32
 binlog-format = ROW
+log-bin-compress = 1
+encrypt-binlog = 0
+relay-log-purge = 1
+relay-log-recovery = 1
+slave_connections_needed_for_purge = 0
 ```
 
-- **log-bin**: Enables binary logging, which is needed for replication and
-  point-in-time recovery. The log will be stored as `uptime-kuma-beta_binlog`.
-- **max-binlog-size**: The maximum size for each binary log file. A new log file
-  is created when this limit is reached (500MB in this case).
-- **expire-logs-days**: The number of days after which binary logs will be
-  automatically purged. Here, it’s set to 7 days to save disk space.
-- **binlog-format**: The format for binary logging, set to `ROW`, which ensures
-  data consistency for replication.
+- **`log-bin`**: Enables binary logging for replication and recovery.
+- **`max-binlog-size`**: Maximum size for individual binary log files.
+- **`expire-logs-days`**: Days before old binary logs are purged.
+- **`binlog-format`**: Set to `ROW` for row-based replication (most accurate).
+- **`log-bin-compress`**: Compresses binary logs to save space.
+- **`encrypt-binlog`**: Encrypts binary logs (disabled here).
+- **`relay-log-purge`** / **`relay-log-recovery`**: Helps maintain a clean and
+  recoverable replica.
+- **`slave_connections_needed_for_purge`**: Controls purge dependency on
+  replication status.
 
 <br />
 
+#### Character Set and Encoding
+
 ```cnf
-# ============================================
-# Character Set and Encoding
-# ============================================
 character-set-server = utf8mb4
 collation-server = utf8mb4_general_ci
+init-connect = 'SET NAMES utf8mb4'
 ```
 
-- **character-set-server** and **collation-server**: These settings ensure that
-  the database uses UTF-8 encoding by default, which is important for
-  international support. `utf8mb4` supports a wider range of characters than the
-  older `utf8` encoding.
+- **`character-set-server` / `collation-server`**: Defines UTF-8 as the default
+  character set and collation.
+- **`init-connect`**: Ensures clients use the same character set on connection.
 
 <br />
 
+#### Monitoring and Debugging
+
 ```cnf
-# ============================================
-# SSL/TLS Security
-# ============================================
+performance-schema = 1
+performance-schema-consumer-events-statements-history = 1
+performance-schema-consumer-events-transactions-history = 1
+performance-schema-consumer-events-waits-history = 1
+innodb-status-output = 0
+innodb-status-output-locks = 0
+general-log = 0
+```
+
+- **`performance-schema`**: Enables the collection of performance data.
+- **`*-history` options**: Enables tracking of query, transaction, and wait histories.
+- **`innodb-status-output` / `innodb-status-output-locks`**: Output InnoDB
+  monitoring info to logs (disabled here).
+- **`general-log`**: Logs every query—disabled by default for performance.
+
+<br />
+
+#### Temporary Files
+
+```cnf
+# tmpdir = /tmp
+```
+
+- **`tmpdir`**: Directory for storing temporary files. Uncomment and customize
+  for specific storage needs.
+
+<br />
+
+#### SSL/TLS Security
+
+```cnf
 # ssl-ca = /etc/mysql/ssl/ca-cert.pem
 # ssl-cert = /etc/mysql/ssl/server-cert.pem
 # ssl-key = /etc/mysql/ssl/server-key.pem
 # require-secure-transport = 1
 ```
 
-- **SSL/TLS settings**: These settings enable SSL certificates for encrypted
-  connections. It's disabled (commented out), but can be configured for added
-  security.
+- **SSL/TLS settings**: Optional configuration for encrypted client-server
+  communication. Uncomment and configure as needed.
+
+<br />
+
+#### Inclusion of Additional Configuration Files
+
+```cnf
+!includedir /etc/mysql/conf.d/
+!includedir /etc/mysql/mariadb.conf.d/
+```
+
+- **`!includedir`**: Includes additional configuration files from specified
+  directories, allowing modular config management.
 
 <br />
 
@@ -492,11 +575,7 @@ network with specific IP settings, a MariaDB database service, and the Uptime Ku
 Beta application. This setup ensures that both services run efficiently and
 securely, with proper health checks, logging, and restart policies.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/uptime-kuma-beta/docker-compose.yml
-[.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/uptime-kuma-beta/.env
-[stack.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/uptime-kuma-beta/stack.env
-[my.cnf]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/uptime-kuma-beta/my.cnf
+[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/uptime-kuma-beta/docker-compose.yml
+[.env]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/uptime-kuma-beta/.env
+[stack.env]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/uptime-kuma-beta/stack.env
+[my.cnf]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/uptime-kuma-beta/my.cnf
