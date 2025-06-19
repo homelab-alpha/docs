@@ -65,7 +65,7 @@ Here's a detailed explanation:
 
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 18, 2025
+- **Date**: Jun 19, 2025
 - **Description**: Docker Compose configuration for Immich with PostgreSQL,
   Redis, and machine learning services for self-hosted media management.
 - **RAW Compose File**: [docker-compose.yml]
@@ -148,7 +148,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: immich_db
-    image: ghcr.io/immich-app/postgres:14-vectorchord0.3.0-pgvectors0.2.0@sha256:fa4f6e0971f454cd95fec5a9aaed2ed93d8f46725cc6bc61e0698e97dba96da1
+    image: ghcr.io/immich-app/postgres:14-vectorchord0.4.1-pgvectors0.2.0
     pull_policy: if_not_present
     volumes:
       - /docker/immich/production/db:/var/lib/postgresql/data
@@ -310,7 +310,7 @@ services:
     stopping the container.
   - **container_name: immich_db**: Names the container "immich_db".
   - **image**: Specifies the PostgreSQL database image with a specific digest.
-    - **ghcr.io/immich-app/postgres:14-vectorchord0.3.0-pgvectors0.2.0@sha256:fa4f6e0971f454cd95fec5a9aaed2ed93d8f46725cc6bc61e0698e97dba96da1**
+    - **ghcr.io/immich-app/postgres:14-vectorchord0.4.1-pgvectors0.2.0**
   - **pull_policy: if_not_present**: Pulls the image only if it is not already
     present locally.
   - **volumes**: Mounts host directories into the container.
