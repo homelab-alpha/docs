@@ -90,7 +90,7 @@ networks:
       com.docker.network.bridge.name: "watchtower"
       com.docker.network.driver.mtu: "1500"
     labels:
-      com.watchtower.network.description: "is an isolated network."
+      com.watchtower.network.description: "is an isolated bridge network."
 ```
 
 <br />

@@ -89,7 +89,7 @@ networks:
       com.docker.network.bridge.name: "portainer"
       com.docker.network.driver.mtu: "1500"
     labels:
-      com.portainer.network.description: "is an isolated network."
+      com.portainer.network.description: "is an isolated bridge network."
 ```
 
 <br />
