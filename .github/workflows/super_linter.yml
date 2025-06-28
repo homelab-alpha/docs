@@ -33,13 +33,12 @@ jobs:
         uses: super-linter/super-linter@v7.4.0
         env:
           BASH_SEVERITY: warning
+          VALIDATE_ALL_CODEBASE: true
           VALIDATE_CHECKOV: false
           VALIDATE_CSS: false
           VALIDATE_CSS_PRETTIER: false
-          VALIDATE_GITHUB_ACTIONS: false
-          VALIDATE_GO: false
+          VALIDATE_GIT_COMMITLINT: false
           VALIDATE_GO_MODULES: false
-          VALIDATE_GRAPHQL_PRETTIER: false
           VALIDATE_HTML: false
           VALIDATE_HTML_PRETTIER: false
           VALIDATE_JAVASCRIPT_ES: false
@@ -48,10 +47,6 @@ jobs:
           VALIDATE_JSCPD: false
           VALIDATE_JSON_PRETTIER: false
           VALIDATE_JSONC_PRETTIER: false
-          VALIDATE_JSX_PRETTIER: false
           VALIDATE_MARKDOWN_PRETTIER: false
           VALIDATE_POWERSHELL: false
-          VALIDATE_TYPESCRIPT_PRETTIER: false
-          VALIDATE_VUE_PRETTIER: false
-          VALIDATE_YAML_PRETTIER: false
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

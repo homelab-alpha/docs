@@ -9,127 +9,65 @@
     ":automergeMinor",
     ":automergePatch"
   ],
-  "assignees": [
-    "homelab-alpha"
-  ],
+  "assignees": ["homelab-alpha"],
   "rangeStrategy": "auto",
   "ignoreDeps": [],
-  "labels": [
-    "dependencies"
-  ],
+  "labels": ["dependencies"],
   "semanticCommits": "enabled",
   "packageRules": [
     {
-      "matchUpdateTypes": [
-        "major"
-      ],
-      "labels": [
-        "dependencies",
-        "breaking change",
-        "P0: critical"
-      ],
+      "matchUpdateTypes": ["major"],
+      "labels": ["dependencies", "breaking change", "P0: critical"],
       "automerge": false,
       "automergeType": "squash"
     },
     {
-      "matchUpdateTypes": [
-        "minor"
-      ],
-      "labels": [
-        "dependencies",
-        "P1: high"
-      ],
+      "matchUpdateTypes": ["minor"],
+      "labels": ["dependencies", "P1: high"],
       "automerge": false,
       "automergeType": "squash"
     },
     {
-      "matchUpdateTypes": [
-        "patch"
-      ],
-      "labels": [
-        "dependencies",
-        "P3: low"
-      ],
+      "matchUpdateTypes": ["patch"],
+      "labels": ["dependencies", "P3: low"],
       "automerge": false,
       "automergeType": "squash"
     },
     {
-      "matchDepTypes": [
-        "devDependencies"
-      ],
-      "matchUpdateTypes": [
-        "minor"
-      ],
-      "labels": [
-        "dependencies",
-        "P2: moderate"
-      ],
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor"],
+      "labels": ["dependencies", "P2: moderate"],
       "automerge": false,
       "automergeType": "squash"
     },
     {
-      "matchDepTypes": [
-        "devDependencies"
-      ],
-      "matchUpdateTypes": [
-        "patch"
-      ],
-      "labels": [
-        "dependencies",
-        "P4: negligible"
-      ],
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["patch"],
+      "labels": ["dependencies", "P4: negligible"],
       "automerge": false,
       "automergeType": "squash"
     },
     {
-      "matchPackageNames": [
-        "hugo"
-      ],
-      "matchManagers": [
-        "custom.regex"
-      ],
-      "matchUpdateTypes": [
-        "major"
-      ],
-      "labels": [
-        "dependencies",
-        "breaking change",
-        "P0: critical"
-      ],
+      "matchPackageNames": ["hugo"],
+      "matchManagers": ["custom.regex"],
+      "matchUpdateTypes": ["major"],
+      "labels": ["dependencies", "breaking change", "P0: critical"],
       "automerge": false,
       "automergeType": "squash"
     },
     {
-      "matchPackageNames": [
-        "hugo"
-      ],
-      "matchManagers": [
-        "custom.regex"
-      ],
-      "matchUpdateTypes": [
-        "minor"
-      ],
-      "labels": [
-        "dependencies",
-        "P2: moderate"
-      ],
+      "matchPackageNames": ["hugo"],
+      "matchManagers": ["custom.regex"],
+      "matchUpdateTypes": ["minor"],
+      "labels": ["dependencies", "P2: moderate"],
       "automerge": false,
       "automergeType": "squash"
     },
     {
-      "matchPackageNames": [
-        "hugo"
-      ],
-      "matchManagers": [
-        "custom.regex"
-      ],
-      "matchUpdateTypes": [
-        "patch"
-      ],
-      "labels": [
-        "dependencies",
-        "P3: low"
-      ],
+      "matchPackageNames": ["hugo"],
+      "matchManagers": ["custom.regex"],
+      "matchUpdateTypes": ["patch"],
+      "labels": ["dependencies", "P3: low"],
       "automerge": false,
       "automergeType": "squash"
     }
@@ -137,12 +75,8 @@
   "customManagers": [
     {
       "customType": "regex",
-      "managerFilePatterns": [
-        "/.github/workflows/.*\\.ya?ml$/"
-      ],
-      "matchStrings": [
-        "HUGO_VERSION:\\s*(?<currentValue>\\d+\\.\\d+\\.\\d+)"
-      ],
+      "managerFilePatterns": ["/.github/workflows/.*\\.ya?ml$/"],
+      "matchStrings": ["HUGO_VERSION:\\s*(?<currentValue>\\d+\\.\\d+\\.\\d+)"],
       "depNameTemplate": "hugo",
       "datasourceTemplate": "github-releases",
       "packageNameTemplate": "gohugoio/hugo"
