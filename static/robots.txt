@@ -38,6 +38,9 @@ Disallow: /
 User-agent: Cotoyogi
 Disallow: /
 
+User-agent: Datenbank Crawler
+Disallow: /
+
 User-agent: Diffbot
 Disallow: /
 
@@ -47,13 +50,13 @@ Disallow: /
 User-agent: Factset_spyderbot
 Disallow: /
 
-User-agent: Google-CloudVertexBot
-Disallow: /
-
 User-agent: Google-Extended
 Disallow: /
 
 User-agent: GPTBot
+Disallow: /
+
+User-agent: ICC-Crawler
 Disallow: /
 
 User-agent: Kangaroo Bot
@@ -62,19 +65,22 @@ Disallow: /
 User-agent: Meta-ExternalAgent
 Disallow: /
 
+User-agent: netEstate Imprint Crawler
+Disallow: /
+
 User-agent: omgili
 Disallow: /
 
 User-agent: PanguBot
 Disallow: /
 
-User-agent: QualifiedBot
+User-agent: PetalBot
+Disallow: /
+
+User-agent: SemrushBot-OCOB
 Disallow: /
 
 User-agent: Timpibot
-Disallow: /
-
-User-agent: WARDBot
 Disallow: /
 
 User-agent: Webzio-Extended
@@ -267,6 +273,9 @@ Disallow: /
 User-agent: auramundi
 Disallow: /
 
+User-agent: Awario
+Disallow: /
+
 User-agent: AwarioRssBot
 Disallow: /
 
@@ -303,10 +312,16 @@ Disallow: /
 User-agent: BehloolBot
 Disallow: /
 
+User-agent: BestChange Bot
+Disallow: /
+
 User-agent: betaBot
 Disallow: /
 
 User-agent: Better Uptime Bot
+Disallow: /
+
+User-agent: Bibliotheque Nacional de France Crawler
 Disallow: /
 
 User-agent: bidswitchbot
@@ -513,6 +528,9 @@ Disallow: /
 User-agent: CriteoBot
 Disallow: /
 
+User-agent: Critical CSS Bot
+Disallow: /
+
 User-agent: CrunchBot
 Disallow: /
 
@@ -550,6 +568,9 @@ User-agent: deepcrawl
 Disallow: /
 
 User-agent: deepnoc
+Disallow: /
+
+User-agent: Determ
 Disallow: /
 
 User-agent: DeuSu
@@ -744,6 +765,9 @@ Disallow: /
 User-agent: FreeWebMonitoring SiteChecker
 Disallow: /
 
+User-agent: Freshping
+Disallow: /
+
 User-agent: FreshpingBot
 Disallow: /
 
@@ -801,6 +825,12 @@ Disallow: /
 User-agent: Google-Certificates-Bridge
 Disallow: /
 
+User-agent: Google-CloudVertexBot
+Disallow: /
+
+User-agent: GoogleOther
+Disallow: /
+
 User-agent: Google-PhysicalWeb
 Disallow: /
 
@@ -852,6 +882,9 @@ Disallow: /
 User-agent: HelloWork
 Disallow: /
 
+User-agent: HubSpot Crawler
+Disallow: /
+
 User-agent: humanlinks
 Disallow: /
 
@@ -862,9 +895,6 @@ User-agent: IAS crawler
 Disallow: /
 
 User-agent: ICBot
-Disallow: /
-
-User-agent: ICC-Crawler
 Disallow: /
 
 User-agent: ichiro
@@ -886,6 +916,9 @@ User-agent: infoobot
 Disallow: /
 
 User-agent: infoseek
+Disallow: /
+
+User-agent: Instapaper
 Disallow: /
 
 User-agent: integromedb
@@ -963,6 +996,9 @@ Disallow: /
 User-agent: kbcrawl
 Disallow: /
 
+User-agent: kb.dk_bot
+Disallow: /
+
 User-agent: Kemvibot
 Disallow: /
 
@@ -1003,6 +1039,9 @@ User-agent: Leikibot
 Disallow: /
 
 User-agent: LexiBot
+Disallow: /
+
+User-agent: Library Of Congress Web Archiving
 Disallow: /
 
 User-agent: libWeb
@@ -1125,6 +1164,9 @@ Disallow: /
 User-agent: minicrawler
 Disallow: /
 
+User-agent: MirrorWebCrawler
+Disallow: /
+
 User-agent: Mister PiX
 Disallow: /
 
@@ -1240,6 +1282,9 @@ User-agent: NLUX_IAHarvester
 Disallow: /
 
 User-agent: Nmap Scripting Engine
+Disallow: /
+
+User-agent: Noibu JS Beautifier
 Disallow: /
 
 User-agent: NPBot
@@ -1491,6 +1536,12 @@ Disallow: /
 User-agent: SEOstats
 Disallow: /
 
+User-agent: ServerHunterSpider
+Disallow: /
+
+User-agent: SilktideBot
+Disallow: /
+
 User-agent: SimpleCrawler
 Disallow: /
 
@@ -1636,6 +1687,9 @@ User-agent: TeleportPro
 Disallow: /
 
 User-agent: Telesoft
+Disallow: /
+
+User-agent: Termly
 Disallow: /
 
 User-agent: The Intraformant
@@ -1991,4 +2045,4 @@ Disallow: /
 # Sitemaps
 Sitemap: https://homelab-alpha.nl/sitemap.xml
 
-# Last modified: 2025-06-27T18:29:29+02:00
+# Last modified: 2025-07-04T10:01:01+02:00
