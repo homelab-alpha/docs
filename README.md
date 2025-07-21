@@ -1,8 +1,9 @@
-# Homelab-Alpha
+# Docs
 
 [![Super Linter](https://github.com/homelab-alpha/docs/actions/workflows/super_linter.yml/badge.svg)](https://github.com/homelab-alpha/docs/actions/workflows/super_linter.yml)
 [![CodeQL](https://github.com/homelab-alpha/docs/actions/workflows/codeql.yml/badge.svg)](https://github.com/homelab-alpha/docs/actions/workflows/codeql.yml)
 [![Build & Deploy](https://github.com/homelab-alpha/docs/actions/workflows/hugo.yml/badge.svg)](https://github.com/homelab-alpha/docs/actions/workflows/hugo.yml)
+[![Last commit](https://img.shields.io/github/last-commit/homelab-alpha/docs?style=flat&logo=github&logoColor=96a1a9&label=Last%20commit&labelColor=313A41&color=BA935B&cacheSeconds=3600)](https://github.com/homelab-alpha/docs/commits/main/)
 
 Welcome to the Homelab-Alpha Docs repository. This is the source for
 Homelab-Alpha Documentation.
