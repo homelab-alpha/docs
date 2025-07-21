@@ -1,36 +1,26 @@
 ---
-name: "CodeQL"
+name: CodeQL
 
 on:
-  # push:
-  #   branches:
-  #     - main
-  # pull_request:
-  #   branches:
-  #     - main
-
-  workflow_dispatch:
   schedule:
-    - cron: "0 3 * * 0"
-
-permissions:
-  security-events: write
-  packages: read
-  actions: read
-  contents: read
+    - cron: "00 03 * * 0"
+  workflow_dispatch:
 
 jobs:
   analyze:
     name: Analyze (${{ matrix.language }})
     runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
     timeout-minutes: ${{ (matrix.language == 'swift' && 120) || 360 }}
+    permissions:
+      security-events: write
+      packages: read
+      actions: read
+      contents: read
 
     strategy:
       fail-fast: false
       matrix:
         include:
-          - language: actions
-            build-mode: none
           - language: javascript-typescript
             build-mode: none
 
@@ -45,7 +35,6 @@ jobs:
           build-mode: ${{ matrix.build-mode }}
 
       - if: matrix.build-mode == 'manual'
-        shell: bash
         run: |
           echo 'If you are using a "manual" build mode for one or more of the' \
             'languages you are analyzing, replace this with the commands to build' \
