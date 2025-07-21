@@ -93,8 +93,8 @@ $$
 \Gamma(z) = \int_0^\infty t^{z-1}e^{-t}dt\,.
 $$
 
-
 > You can find more information about **LaTeX** mathematical expressions [here].
+> You can find more information about **LaTeX** mathematical expressions [in this detailed post].
 
 <br />
 
@@ -527,6 +527,5 @@ Rel(SystemC, customerA, "Sends e-mails to")
 ```
 
 [KaTeX]: https://khan.github.io/KaTeX
-[here]:
-  http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference
+[in this detailed post]: http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference
 [Mermaid]: https://mermaidjs.github.io

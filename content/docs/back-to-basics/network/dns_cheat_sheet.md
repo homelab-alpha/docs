@@ -161,7 +161,7 @@ figure out which one best suits your needs, Homelab-Alpha recommends
 | **Name**                    | Quad9                                             |
 | --------------------------- | ------------------------------------------------- |
 | **Description**             | Non-profit, free security and privacy-focused DNS |
-| **Privacy Policy**          | [Link](https://www.quad9.net/privacy/policy/)     |
+| **Privacy Policy**          | [Quad9](https://www.quad9.net/privacy/policy/)    |
 | **IPv4 Addresses**          | `9.9.9.9`, `149.112.112.112`                      |
 | **IPv6 Addresses**          | `2620:fe::fe`, `2620:fe::9`                       |
 | **DNS over UDP/TCP (Do53)** | Yes                                               |
@@ -178,81 +178,81 @@ figure out which one best suits your needs, Homelab-Alpha recommends
 
 ### AdGuard DNS
 
-| **Name**                    | AdGuard DNS                                      |
-| --------------------------- | ------------------------------------------------ |
-| **Description**             | DNS service focused on blocking ads and trackers |
-| **Privacy Policy**          | [Link](https://adguard.com/en/privacy.html)      |
-| **IPv4 Addresses**          | `94.140.14.14`, `94.140.15.15`                   |
-| **IPv6 Addresses**          | `2a10:50c0::ad1:ff`, `2a10:50c0::ad2:ff`         |
-| **DNS over UDP/TCP (Do53)** | Yes                                              |
-| **DNS over HTTPS (DoH)**    | `https://dns.adguard-dns.com/dns-query`          |
-| **DNS over TLS (DoT)**      | `tls://dns.adguard-dns.com`                      |
-| **DNS over QUIC (DoQ)**     | `quic://dns.adguard-dns.com`                     |
-| **DNSCrypt**                | No                                               |
-| **DNSSEC**                  | Yes                                              |
-| **EDNS Padding**            | Yes                                              |
-| **Filters**                 | Ad blocking, Tracking                            |
-| **Remarks**                 | Ideal for ad and tracker blocking                |
+| **Name**                    | AdGuard DNS                                        |
+| --------------------------- | -------------------------------------------------- |
+| **Description**             | DNS service focused on blocking ads and trackers   |
+| **Privacy Policy**          | [AdGuard DNS](https://adguard.com/en/privacy.html) |
+| **IPv4 Addresses**          | `94.140.14.14`, `94.140.15.15`                     |
+| **IPv6 Addresses**          | `2a10:50c0::ad1:ff`, `2a10:50c0::ad2:ff`           |
+| **DNS over UDP/TCP (Do53)** | Yes                                                |
+| **DNS over HTTPS (DoH)**    | `https://dns.adguard-dns.com/dns-query`            |
+| **DNS over TLS (DoT)**      | `tls://dns.adguard-dns.com`                        |
+| **DNS over QUIC (DoQ)**     | `quic://dns.adguard-dns.com`                       |
+| **DNSCrypt**                | No                                                 |
+| **DNSSEC**                  | Yes                                                |
+| **EDNS Padding**            | Yes                                                |
+| **Filters**                 | Ad blocking, Tracking                              |
+| **Remarks**                 | Ideal for ad and tracker blocking                  |
 
 <br />
 
 ### Cloudflare
 
-| **Name**                    | Cloudflare                                        |
-| --------------------------- | ------------------------------------------------- |
-| **Description**             | Fast, privacy-first DNS resolver                  |
-| **Privacy Policy**          | [Link](https://www.cloudflare.com/privacypolicy/) |
-| **IPv4 Addresses**          | `1.1.1.1`, `1.0.0.1`                              |
-| **IPv6 Addresses**          | `2606:4700:4700::1111`, `2606:4700:4700::1001`    |
-| **DNS over UDP/TCP (Do53)** | Yes                                               |
-| **DNS over HTTPS (DoH)**    | `https://dns.cloudflare.com/dns-query`            |
-| **DNS over TLS (DoT)**      | `tls://1dot1dot1dot1.cloudflare-dns.com`          |
-| **DNS over QUIC (DoQ)**     | Not supported                                     |
-| **DNSCrypt**                | No                                                |
-| **DNSSEC**                  | Yes                                               |
-| **EDNS Padding**            | Yes                                               |
-| **Filters**                 | Malware, Adult Content                            |
-| **Remarks**                 | Known for speed and privacy                       |
+| **Name**                    | Cloudflare                                              |
+| --------------------------- | ------------------------------------------------------- |
+| **Description**             | Fast, privacy-first DNS resolver                        |
+| **Privacy Policy**          | [Cloudflare](https://www.cloudflare.com/privacypolicy/) |
+| **IPv4 Addresses**          | `1.1.1.1`, `1.0.0.1`                                    |
+| **IPv6 Addresses**          | `2606:4700:4700::1111`, `2606:4700:4700::1001`          |
+| **DNS over UDP/TCP (Do53)** | Yes                                                     |
+| **DNS over HTTPS (DoH)**    | `https://dns.cloudflare.com/dns-query`                  |
+| **DNS over TLS (DoT)**      | `tls://1dot1dot1dot1.cloudflare-dns.com`                |
+| **DNS over QUIC (DoQ)**     | Not supported                                           |
+| **DNSCrypt**                | No                                                      |
+| **DNSSEC**                  | Yes                                                     |
+| **EDNS Padding**            | Yes                                                     |
+| **Filters**                 | Malware, Adult Content                                  |
+| **Remarks**                 | Known for speed and privacy                             |
 
 <br />
 
 ### Google Public DNS
 
-| **Name**                    | Google Public DNS                              |
-| --------------------------- | ---------------------------------------------- |
-| **Description**             | Free, global DNS resolution service            |
-| **Privacy Policy**          | [Link](https://policies.google.com/privacy)    |
-| **IPv4 Addresses**          | `8.8.8.8`, `8.8.4.4`                           |
-| **IPv6 Addresses**          | `2001:4860:4860::8888`, `2001:4860:4860::8844` |
-| **DNS over UDP/TCP (Do53)** | Yes                                            |
-| **DNS over HTTPS (DoH)**    | `https://dns.google/dns-query`                 |
-| **DNS over TLS (DoT)**      | `tls://dns.google`                             |
-| **DNS over QUIC (DoQ)**     | Not supported                                  |
-| **DNSCrypt**                | No                                             |
-| **DNSSEC**                  | Yes                                            |
-| **EDNS Padding**            | Yes                                            |
-| **Filters**                 | No                                             |
-| **Remarks**                 | Fast, reliable, no filters                     |
+| **Name**                    | Google Public DNS                                        |
+| --------------------------- | -------------------------------------------------------- |
+| **Description**             | Free, global DNS resolution service                      |
+| **Privacy Policy**          | [Google Public DNS](https://policies.google.com/privacy) |
+| **IPv4 Addresses**          | `8.8.8.8`, `8.8.4.4`                                     |
+| **IPv6 Addresses**          | `2001:4860:4860::8888`, `2001:4860:4860::8844`           |
+| **DNS over UDP/TCP (Do53)** | Yes                                                      |
+| **DNS over HTTPS (DoH)**    | `https://dns.google/dns-query`                           |
+| **DNS over TLS (DoT)**      | `tls://dns.google`                                       |
+| **DNS over QUIC (DoQ)**     | Not supported                                            |
+| **DNSCrypt**                | No                                                       |
+| **DNSSEC**                  | Yes                                                      |
+| **EDNS Padding**            | Yes                                                      |
+| **Filters**                 | No                                                       |
+| **Remarks**                 | Fast, reliable, no filters                               |
 
 <br />
 
 ### Cisco OpenDNS
 
-| **Name**                    | OpenDNS                                                             |
-| --------------------------- | ------------------------------------------------------------------- |
-| **Description**             | DNS service with customizable security and filtering options        |
-| **Privacy Policy**          | [Link](https://www.cisco.com/c/en/us/about/legal/privacy-full.html) |
-| **IPv4 Addresses**          | `208.67.222.222`, `208.67.220.220`                                  |
-| **IPv6 Addresses**          | `2620:119:35::35`, `2620:119:53::53`                                |
-| **DNS over UDP/TCP (Do53)** | Yes                                                                 |
-| **DNS over HTTPS (DoH)**    | `https://doh.opendns.com/dns-query`                                 |
-| **DNS over TLS (DoT)**      | `doh.opendns.com`                                                   |
-| **DNS over QUIC (DoQ)**     | Not supported                                                       |
-| **DNSCrypt**                | No                                                                  |
-| **DNSSEC**                  | Yes                                                                 |
-| **EDNS Padding**            | No                                                                  |
-| **Filters**                 | Malware, Phishing, Custom                                           |
-| **Remarks**                 | Great for families and small businesses                             |
+| **Name**                    | OpenDNS                                                                |
+| --------------------------- | ---------------------------------------------------------------------- |
+| **Description**             | DNS service with customizable security and filtering options           |
+| **Privacy Policy**          | [OpenDNS](https://www.cisco.com/c/en/us/about/legal/privacy-full.html) |
+| **IPv4 Addresses**          | `208.67.222.222`, `208.67.220.220`                                     |
+| **IPv6 Addresses**          | `2620:119:35::35`, `2620:119:53::53`                                   |
+| **DNS over UDP/TCP (Do53)** | Yes                                                                    |
+| **DNS over HTTPS (DoH)**    | `https://doh.opendns.com/dns-query`                                    |
+| **DNS over TLS (DoT)**      | `doh.opendns.com`                                                      |
+| **DNS over QUIC (DoQ)**     | Not supported                                                          |
+| **DNSCrypt**                | No                                                                     |
+| **DNSSEC**                  | Yes                                                                    |
+| **EDNS Padding**            | No                                                                     |
+| **Filters**                 | Malware, Phishing, Custom                                              |
+| **Remarks**                 | Great for families and small businesses                                |
 
 <br />
 
@@ -341,7 +341,8 @@ host 192.168.1.1
    On macOS (Monterey, Big Sur and Catalina)
 
    ```bash
-   sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder
+   sudo dscacheutil -flushcache
+   sudo killall -HUP mDNSResponder
    ```
 
    On macOS (Mojave, High Sierra and Sierra)
