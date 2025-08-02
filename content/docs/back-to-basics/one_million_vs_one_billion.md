@@ -1,7 +1,9 @@
 ---
 title: "One Million vs One Billion"
 description: |
-  Explore the vast difference between one million and one billion. Understand how these large numbers relate to time, and gain a clearer perspective on the surprising scale of one billion seconds compared to one million seconds.
+  "Explore the vast difference between one million and one billion. Understand
+  how these large numbers relate to time, and gain a clearer perspective on the
+  surprising scale of one billion seconds compared to one million seconds."
 url: "back-to-basics/one-million-vs-one-billion"
 aliases: ""
 icon: "description"
@@ -112,8 +114,9 @@ relatable examples:
   have children of their own—typically spans about 30 years, which is roughly
   equal to 1 billion seconds.
 - **Historical events**: The Apollo 11 moon landing in 1969 occurred about 55
-  years ago (as of 2024), which is less than 2 billion seconds! This shows how the
-  time span of one billion seconds aligns with significant historical events.
+  years ago (as of 2024), which is less than 2 billion seconds! This shows how
+  the time span of one billion seconds aligns with significant historical
+  events.
 
 <br />
 
