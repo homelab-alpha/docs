@@ -34,6 +34,8 @@ jobs:
         env:
           BASH_SEVERITY: warning
           VALIDATE_ALL_CODEBASE: true
+          VALIDATE_BIOME_FORMAT: false
+          VALIDATE_BIOME_LINT: false
           VALIDATE_CHECKOV: false
           VALIDATE_CSS: false
           VALIDATE_CSS_PRETTIER: false
