@@ -17,7 +17,7 @@ Crawl-delay: 10
 # But we know you're just doing your job! 😉
 
 # AI Data Scrapers Agents
-User-agent: Ai2Bot
+User-agent: Ai2Bot-Dolma
 Disallow: /
 
 User-agent: Applebot-Extended
@@ -27,6 +27,9 @@ User-agent: Bytespider
 Disallow: /
 
 User-agent: CCBot
+Disallow: /
+
+User-agent: ChatGLM-Spider
 Disallow: /
 
 User-agent: ClaudeBot
@@ -78,6 +81,9 @@ User-agent: PanguBot
 Disallow: /
 
 User-agent: Timpibot
+Disallow: /
+
+User-agent: VelenPublicWebCrawler
 Disallow: /
 
 User-agent: webzio-extended
@@ -1949,4 +1955,4 @@ Disallow: /
 # Sitemaps
 Sitemap: https://homelab-alpha.nl/sitemap.xml
 
-# Last modified: 2025-10-24T10:02:02+02:00
+# Last modified: 2025-10-31T10:02:01+01:00
