@@ -20,12 +20,24 @@
     <meta name="robots" content="noindex">
     {{- end }}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {{- with .Description | default ($.Param "description") }}
+    {{- with .Description | default (.Site.Params.head.description) }}
     <meta name="description" content="{{ . }}">
     {{- end }}
-    <meta name="keywords" content="Homelab-Alpha, Homelab-Alpha Documentation, GitHub, GitHub Repositories, GitHub Projects, Documentation, Homelab, Aplha, Open Source" />
-    <meta name="author" content="Homelab-Alpha" />
-    <meta name="website" content="https://homelab-alpha.nl" />
+    {{- with .Params.keywords | default (.Site.Params.head.keywords)}}
+    <meta name="keywords" content="{{.}}" />
+    {{- end }}
+    {{- with .Params.author | default (.Site.Params.head.author)}}
+    <meta name="author" content="{{.}}" />
+    {{- end }}
+    {{- with .Params.email | default (.Site.Params.head.email)}}
+    <meta name="email" content="{{.}}" />
+    {{- end }}
+    {{- with .Params.website | default (.Site.Params.head.website)}}
+    <meta name="website" content="{{.}}" />
+    {{- end }}
+    {{- with .Params.version | default (.Site.Params.head.version)}}
+    <meta name="Version" content="{{.}}" />
+    {{- end }}
     <!-- favicon -->
     {{ block "favicon" . }}{{ partialCached (printf "%s/%s" ($.Scratch.Get "pathName") "head/favicon.html") . }}{{ end }}
     {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "head/opengraph") . }}
