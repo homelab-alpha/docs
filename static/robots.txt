@@ -65,7 +65,16 @@ Disallow: /
 User-agent: ICC-Crawler
 Disallow: /
 
+User-agent: imageSpider
+Disallow: /
+
 User-agent: Kangaroo Bot
+Disallow: /
+
+User-agent: laion-huggingface-processor
+Disallow: /
+
+User-agent: LCC
 Disallow: /
 
 User-agent: meta-externalagent
@@ -78,6 +87,12 @@ User-agent: omgili
 Disallow: /
 
 User-agent: PanguBot
+Disallow: /
+
+User-agent: SBIntuitionsBot
+Disallow: /
+
+User-agent: Spider
 Disallow: /
 
 User-agent: Timpibot
@@ -97,6 +112,12 @@ User-agent: Arquivo-web-crawler
 Disallow: /
 
 User-agent: Authory
+Disallow: /
+
+User-agent: bl.uk_lddc_bot
+Disallow: /
+
+User-agent: bne.es_bot
 Disallow: /
 
 User-agent: bnf.fr_bot
@@ -124,6 +145,9 @@ User-agent: netarkivindsamling
 Disallow: /
 
 User-agent: Nicecrawler
+Disallow: /
+
+User-agent: special_archiver
 Disallow: /
 
 User-agent: Turnitin
@@ -161,7 +185,13 @@ Disallow: /
 User-agent: IndeedJobBot
 Disallow: /
 
+User-agent: KrawlerBot
+Disallow: /
+
 User-agent: MetaInspector
+Disallow: /
+
+User-agent: MetaJobBot
 Disallow: /
 
 User-agent: newspaper
@@ -207,7 +237,13 @@ Disallow: /
 User-agent: 5erue
 Disallow: /
 
+User-agent: 7Siters
+Disallow: /
+
 User-agent: A6-Indexer
+Disallow: /
+
+User-agent: ABEvalBot
 Disallow: /
 
 User-agent: Aboundex
@@ -231,6 +267,12 @@ Disallow: /
 User-agent: Acunetix Web Vulnerability Scanner
 Disallow: /
 
+User-agent: adbeat-check-access-script
+Disallow: /
+
+User-agent: AdBot
+Disallow: /
+
 User-agent: adequat
 Disallow: /
 
@@ -244,6 +286,9 @@ User-agent: adscanner
 Disallow: /
 
 User-agent: AdsTxtCrawler
+Disallow: /
+
+User-agent: AdsTxtCrawler-CyberAgent
 Disallow: /
 
 User-agent: AdvBot
@@ -279,6 +324,9 @@ Disallow: /
 User-agent: AppInsights
 Disallow: /
 
+User-agent: AppleNewsBot
+Disallow: /
+
 User-agent: Aqua_Products
 Disallow: /
 
@@ -303,6 +351,9 @@ Disallow: /
 User-agent: auramundi
 Disallow: /
 
+User-agent: Automattic Feed Fetcher
+Disallow: /
+
 User-agent: AwarioRssBot
 Disallow: /
 
@@ -319,6 +370,9 @@ User-agent: BackDoorBot
 Disallow: /
 
 User-agent: BacklinkCrawler
+Disallow: /
+
+User-agent: BacklinksExtendedBot
 Disallow: /
 
 User-agent: Baiduspider-image
@@ -381,9 +435,6 @@ Disallow: /
 User-agent: BLP_bbot
 Disallow: /
 
-User-agent: BomboraBot
-Disallow: /
-
 User-agent: Bookmark search tool
 Disallow: /
 
@@ -408,13 +459,19 @@ Disallow: /
 User-agent: BrandONbot
 Disallow: /
 
+User-agent: Brightbot
+Disallow: /
+
+User-agent: brokenlinkcheck.com
+Disallow: /
+
 User-agent: BTWebClient
 Disallow: /
 
 User-agent: BUbiNG
 Disallow: /
 
-User-agent: Buck
+User-agent: Buddybot
 Disallow: /
 
 User-agent: BuiltBotTough
@@ -429,13 +486,28 @@ Disallow: /
 User-agent: buzzbot
 Disallow: /
 
+User-agent: CandidateCrawler
+Disallow: /
+
 User-agent: CapsuleChecker
+Disallow: /
+
+User-agent: carbon-umbrella-bot
 Disallow: /
 
 User-agent: careerbot
 Disallow: /
 
+User-agent: caveman-hunter
+Disallow: /
+
+User-agent: cc_bot
+Disallow: /
+
 User-agent: CC Metadata Scaper
+Disallow: /
+
+User-agent: CDSCbot
 Disallow: /
 
 User-agent: Cegbfeieh
@@ -445,9 +517,6 @@ User-agent: Centurybot
 Disallow: /
 
 User-agent: changedetection
-Disallow: /
-
-User-agent: CheckMarkNetwork
 Disallow: /
 
 User-agent: CheeseBot
@@ -462,9 +531,6 @@ Disallow: /
 User-agent: CherryPickerSE
 Disallow: /
 
-User-agent: Chirp
-Disallow: /
-
 User-agent: Cision
 Disallow: /
 
@@ -474,10 +540,13 @@ Disallow: /
 User-agent: citeseerxbot
 Disallow: /
 
-User-agent: ClarityBot
+User-agent: Clarity-Bot
 Disallow: /
 
 User-agent: Clickagy
+Disallow: /
+
+User-agent: Clickagy Intelligence Bot
 Disallow: /
 
 User-agent: Cliqzbot
@@ -486,10 +555,25 @@ Disallow: /
 User-agent: CloudFlare-AlwaysOnline
 Disallow: /
 
+User-agent: cludo.com bot
+Disallow: /
+
+User-agent: CMS-Checker
+Disallow: /
+
 User-agent: coccoc
 Disallow: /
 
+User-agent: CodaBot
+Disallow: /
+
 User-agent: coexel
+Disallow: /
+
+User-agent: colly
+Disallow: /
+
+User-agent: CommaFeed
 Disallow: /
 
 User-agent: Companybook-Crawler
@@ -516,10 +600,16 @@ Disallow: /
 User-agent: Corporama
 Disallow: /
 
+User-agent: Corporama matcher
+Disallow: /
+
 User-agent: Cosmos
 Disallow: /
 
 User-agent: crawler4j
+Disallow: /
+
+User-agent: crawler_eb_germany
 Disallow: /
 
 User-agent: CrawlyProjectCrawler
@@ -546,10 +636,19 @@ Disallow: /
 User-agent: Cutbot
 Disallow: /
 
+User-agent: CyberFindCrawler
+Disallow: /
+
 User-agent: CyberPatrol
 Disallow: /
 
+User-agent: CyotekWebCopy
+Disallow: /
+
 User-agent: DareBoost
+Disallow: /
+
+User-agent: Datadog Agent
 Disallow: /
 
 User-agent: Datafeedwatch
@@ -564,7 +663,7 @@ Disallow: /
 User-agent: Daumoa
 Disallow: /
 
-User-agent: deepcrawl
+User-agent: Dazzle BlueSky Bot
 Disallow: /
 
 User-agent: deepnoc
@@ -594,6 +693,12 @@ Disallow: /
 User-agent: DittoSpyder
 Disallow: /
 
+User-agent: DnBCrawler-Analytics
+Disallow: /
+
+User-agent: DNSScanner
+Disallow: /
+
 User-agent: DnyzBot
 Disallow: /
 
@@ -603,19 +708,19 @@ Disallow: /
 User-agent: Domain Re-Animator Bot
 Disallow: /
 
+User-agent: Domains Project
+Disallow: /
+
 User-agent: Dow Jones Searchbot
 Disallow: /
 
 User-agent: Download Ninja
 Disallow: /
 
-User-agent: Dragonbot
-Disallow: /
-
 User-agent: drupact
 Disallow: /
 
-User-agent: Dubbotbot
+User-agent: Drupalbot
 Disallow: /
 
 User-agent: EasyBib AutoCite
@@ -645,6 +750,9 @@ Disallow: /
 User-agent: EmailWolf
 Disallow: /
 
+User-agent: emetriqContextualBot
+Disallow: /
+
 User-agent: eMoney Advisor
 Disallow: /
 
@@ -652,6 +760,9 @@ User-agent: epicbot
 Disallow: /
 
 User-agent: eright
+Disallow: /
+
+User-agent: ErisBot
 Disallow: /
 
 User-agent: EroCrawler
@@ -676,6 +787,9 @@ User-agent: Exabot
 Disallow: /
 
 User-agent: Experibot
+Disallow: /
+
+User-agent: ExteContextCrawl
 Disallow: /
 
 User-agent: ExtLinksBot
@@ -708,19 +822,31 @@ Disallow: /
 User-agent: FediDB
 Disallow: /
 
+User-agent: FediIndex
+Disallow: /
+
+User-agent: FediList Agent
+Disallow: /
+
+User-agent: Fedineko
+Disallow: /
+
 User-agent: fedoraplanet
 Disallow: /
 
 User-agent: FedReporter Bot for FFIEC
 Disallow: /
 
-User-agent: feedbot
+User-agent: FeedDiscovery
 Disallow: /
 
-User-agent: FeedBurner
+User-agent: Feedsearch Bot
 Disallow: /
 
-User-agent: Feedspot
+User-agent: Feedsearch-Crawler
+Disallow: /
+
+User-agent: Feedspot SSL asset Proxy
 Disallow: /
 
 User-agent: FeedValidator
@@ -732,9 +858,6 @@ Disallow: /
 User-agent: Fever
 Disallow: /
 
-User-agent: FindITAnswersbot
-Disallow: /
-
 User-agent: findlink
 Disallow: /
 
@@ -742,6 +865,9 @@ User-agent: findthatfile
 Disallow: /
 
 User-agent: findxbot
+Disallow: /
+
+User-agent: fiperbot
 Disallow: /
 
 User-agent: Flaming AttackBot
@@ -753,6 +879,12 @@ Disallow: /
 User-agent: fluffy
 Disallow: /
 
+User-agent: fluid
+Disallow: /
+
+User-agent: Flyriverbot
+Disallow: /
+
 User-agent: Foobot
 Disallow: /
 
@@ -762,10 +894,10 @@ Disallow: /
 User-agent: FreeWebMonitoring SiteChecker
 Disallow: /
 
-User-agent: Freshping
+User-agent: Freshbot
 Disallow: /
 
-User-agent: FreshpingBot
+User-agent: Freshping
 Disallow: /
 
 User-agent: fuelbot
@@ -813,19 +945,25 @@ Disallow: /
 User-agent: GnowitNewsbot
 Disallow: /
 
+User-agent: Google-Ads-Creatives-Assistant
+Disallow: /
+
+User-agent: Google-Calendar-Importer
+Disallow: /
+
 User-agent: Google-Certificates-Bridge
 Disallow: /
 
-User-agent: Google-CloudVertexBot
+User-agent: Google-Display-Ads-Bot
 Disallow: /
 
 User-agent: Google-PhysicalWeb
 Disallow: /
 
-User-agent: Google-Structured-Data-Testing-Tool
+User-agent: google-xrawler
 Disallow: /
 
-User-agent: google-xrawler
+User-agent: GoParserBot
 Disallow: /
 
 User-agent: Gowikibot
@@ -855,7 +993,16 @@ Disallow: /
 User-agent: Gwene
 Disallow: /
 
+User-agent: HaloBot
+Disallow: /
+
+User-agent: HanaleiBot
+Disallow: /
+
 User-agent: Harvest
+Disallow: /
+
+User-agent: Hatena::Russia::Crawler
 Disallow: /
 
 User-agent: HawaiiBot
@@ -864,7 +1011,19 @@ Disallow: /
 User-agent: HelloWork
 Disallow: /
 
+User-agent: HetrixTools Uptime Monitoring Bot
+Disallow: /
+
+User-agent: hgfAlphaXCrawl
+Disallow: /
+
+User-agent: HTTP Banner Detection
+Disallow: /
+
 User-agent: humanlinks
+Disallow: /
+
+User-agent: HyScore
 Disallow: /
 
 User-agent: hyscore.io
@@ -873,10 +1032,16 @@ Disallow: /
 User-agent: ias-va
 Disallow: /
 
+User-agent: IbouBot
+Disallow: /
+
 User-agent: ICBot
 Disallow: /
 
 User-agent: ichiro
+Disallow: /
+
+User-agent: Impact.com Agent
 Disallow: /
 
 User-agent: imrbot
@@ -885,7 +1050,7 @@ Disallow: /
 User-agent: IndeedBot
 Disallow: /
 
-User-agent: INETDEX-BOT
+User-agent: INETDEX-Bot
 Disallow: /
 
 User-agent: InfoNaviRobot
@@ -904,6 +1069,9 @@ User-agent: intelium_bot
 Disallow: /
 
 User-agent: InterfaxScanBot
+Disallow: /
+
+User-agent: ips-agent
 Disallow: /
 
 User-agent: ip-web-crawler.com
@@ -951,9 +1119,6 @@ Disallow: /
 User-agent: JobboerseBot
 Disallow: /
 
-User-agent: Jooblebot
-Disallow: /
-
 User-agent: jpg-newsbot
 Disallow: /
 
@@ -963,7 +1128,7 @@ Disallow: /
 User-agent: k2spider
 Disallow: /
 
-User-agent: K7MLWCBot
+User-agent: kaikki.org-digital-archive
 Disallow: /
 
 User-agent: kbcrawl
@@ -976,6 +1141,9 @@ User-agent: Kemvibot
 Disallow: /
 
 User-agent: Kenjin Spider
+Disallow: /
+
+User-agent: Keydrop.io
 Disallow: /
 
 User-agent: keys-so-bot
@@ -994,6 +1162,12 @@ User-agent: Konqueror
 Disallow: /
 
 User-agent: KosmioBot
+Disallow: /
+
+User-agent: l9scan
+Disallow: /
+
+User-agent: LamarkBot
 Disallow: /
 
 User-agent: Landau-Media-Spider
@@ -1027,6 +1201,9 @@ User-agent: linkapediabot
 Disallow: /
 
 User-agent: LinkArchiver
+Disallow: /
+
+User-agent: LinkCheck
 Disallow: /
 
 User-agent: LinkCheck by Siteimprove.com
@@ -1083,22 +1260,25 @@ Disallow: /
 User-agent: MagnetmeBot
 Disallow: /
 
+User-agent: MakeMerryBot
+Disallow: /
+
 User-agent: mappydata
+Disallow: /
+
+User-agent: MastodonInstances
 Disallow: /
 
 User-agent: Mata Hari
 Disallow: /
 
+User-agent: MatchorySearch
+Disallow: /
+
 User-agent: MauiBot
 Disallow: /
 
-User-agent: MBCrawler
-Disallow: /
-
 User-agent: MegaIndex
-Disallow: /
-
-User-agent: MegaIndex.ru
 Disallow: /
 
 User-agent: Meltawer
@@ -1116,9 +1296,6 @@ Disallow: /
 User-agent: mention
 Disallow: /
 
-User-agent: MetaJobBot
-Disallow: /
-
 User-agent: MetaURI
 Disallow: /
 
@@ -1131,10 +1308,16 @@ Disallow: /
 User-agent: minicrawler
 Disallow: /
 
+User-agent: Minoru's Fediverse Crawler
+Disallow: /
+
 User-agent: MirrorWebCrawler
 Disallow: /
 
 User-agent: Mister PiX
+Disallow: /
+
+User-agent: mithril-crawler
 Disallow: /
 
 User-agent: MixnodeCache
@@ -1146,13 +1329,13 @@ Disallow: /
 User-agent: moatbot
 Disallow: /
 
+User-agent: ModatScanner
+Disallow: /
+
 User-agent: moget
 Disallow: /
 
 User-agent: mojeek
-Disallow: /
-
-User-agent: monitoring360bot
 Disallow: /
 
 User-agent: MoodleBot
@@ -1179,6 +1362,12 @@ Disallow: /
 User-agent: Multiviewbot
 Disallow: /
 
+User-agent: MxToolbox
+Disallow: /
+
+User-agent: MyEducationalCrawler
+Disallow: /
+
 User-agent: mytwip
 Disallow: /
 
@@ -1197,9 +1386,6 @@ Disallow: /
 User-agent: NetAnts
 Disallow: /
 
-User-agent: Neticle Crawler
-Disallow: /
-
 User-agent: NetMechanic
 Disallow: /
 
@@ -1207,6 +1393,9 @@ User-agent: NetResearchServer
 Disallow: /
 
 User-agent: NetSystemsResearch
+Disallow: /
+
+User-agent: newsai
 Disallow: /
 
 User-agent: newsharecounts
@@ -1236,10 +1425,16 @@ Disallow: /
 User-agent: NINJA bot
 Disallow: /
 
+User-agent: Nitro-Optimizer-Agent
+Disallow: /
+
+User-agent: Nitro-Warmup-Agent
+Disallow: /
+
 User-agent: NLUX_IAHarvester
 Disallow: /
 
-User-agent: Nmap Scripting Engine
+User-agent: NoahBot
 Disallow: /
 
 User-agent: Noibu JS Beautifier
@@ -1257,7 +1452,7 @@ Disallow: /
 User-agent: officestorebot
 Disallow: /
 
-User-agent: omgilibot
+User-agent: Omgilibot
 Disallow: /
 
 User-agent: Openbot
@@ -1284,25 +1479,40 @@ Disallow: /
 User-agent: OrangeBot
 Disallow: /
 
+User-agent: Orbbot
+Disallow: /
+
 User-agent: Orthogaffe
 Disallow: /
 
 User-agent: OutclicksBot
 Disallow: /
 
+User-agent: OWLer-W
+Disallow: /
+
 User-agent: Page2RSS
 Disallow: /
 
-User-agent: PagePeeker
+User-agent: PageThing
 Disallow: /
 
-User-agent: PageThing
+User-agent: Paqlebot
+Disallow: /
+
+User-agent: parisbot
+Disallow: /
+
+User-agent: PDFBot
 Disallow: /
 
 User-agent: peer39_crawler
 Disallow: /
 
 User-agent: PerMan
+Disallow: /
+
+User-agent: PiBot
 Disallow: /
 
 User-agent: Pingdom
@@ -1314,10 +1524,25 @@ Disallow: /
 User-agent: PiplBot
 Disallow: /
 
+User-agent: Pixalate.com
+Disallow: /
+
+User-agent: PlagAwareBot
+Disallow: /
+
+User-agent: Plesk screenshot bot
+Disallow: /
+
+User-agent: Poduptime
+Disallow: /
+
 User-agent: postrank
 Disallow: /
 
 User-agent: PR-CY.RU
+Disallow: /
+
+User-agent: PriEcoBot
 Disallow: /
 
 User-agent: Primalbot
@@ -1329,6 +1554,9 @@ Disallow: /
 User-agent: ProPowerBot
 Disallow: /
 
+User-agent: Pro Sitemaps Generator
+Disallow: /
+
 User-agent: ProWebWalker
 Disallow: /
 
@@ -1338,7 +1566,13 @@ Disallow: /
 User-agent: psbot
 Disallow: /
 
+User-agent: PubMatic Crawler Bot
+Disallow: /
+
 User-agent: PulsePoint
+Disallow: /
+
+User-agent: PulsePoint-Crawler
 Disallow: /
 
 User-agent: purebot
@@ -1360,6 +1594,12 @@ User-agent: RankActiveLinkBot
 Disallow: /
 
 User-agent: RankFlex
+Disallow: /
+
+User-agent: RasaBot
+Disallow: /
+
+User-agent: rawweb-bot
 Disallow: /
 
 User-agent: Refindbot
@@ -1389,6 +1629,9 @@ Disallow: /
 User-agent: Rivva
 Disallow: /
 
+User-agent: robots-ai-permissions
+Disallow: /
+
 User-agent: Robozilla
 Disallow: /
 
@@ -1398,13 +1641,13 @@ Disallow: /
 User-agent: RSSingBot
 Disallow: /
 
+User-agent: rss-is-dead.lol web bot
+Disallow: /
+
 User-agent: RukiCrawler
 Disallow: /
 
 User-agent: RuxitSynthetic
-Disallow: /
-
-User-agent: RyteBot
 Disallow: /
 
 User-agent: SafeDNSBot
@@ -1423,9 +1666,6 @@ User-agent: ScoutJet
 Disallow: /
 
 User-agent: scribdbot
-Disallow: /
-
-User-agent: Scrubby
 Disallow: /
 
 User-agent: SearchAtlas
@@ -1452,16 +1692,19 @@ Disallow: /
 User-agent: Semanticbot
 Disallow: /
 
+User-agent: semantic-visions.com crawler
+Disallow: /
+
 User-agent: sempi.tech
 Disallow: /
 
 User-agent: SemrushBot-BM
 Disallow: /
 
-User-agent: SentiBot
+User-agent: SEOkicks-Robot
 Disallow: /
 
-User-agent: SEOkicks-Robot
+User-agent: SeoLyt
 Disallow: /
 
 User-agent: seoscanners
@@ -1471,6 +1714,15 @@ User-agent: seostar.co
 Disallow: /
 
 User-agent: SEOstats
+Disallow: /
+
+User-agent: ShapBot
+Disallow: /
+
+User-agent: ShellBot
+Disallow: /
+
+User-agent: Sidetrade indexer bot
 Disallow: /
 
 User-agent: SilktideBot
@@ -1483,6 +1735,9 @@ User-agent: SimpleScraper
 Disallow: /
 
 User-agent: Sindup
+Disallow: /
+
+User-agent: SirdataBot
 Disallow: /
 
 User-agent: sistrix crawler
@@ -1503,13 +1758,19 @@ Disallow: /
 User-agent: Siteimprove.com
 Disallow: /
 
+User-agent: siteimprove-lookup
+Disallow: /
+
 User-agent: SiteSnagger
+Disallow: /
+
+User-agent: SitesOverPagesBot
 Disallow: /
 
 User-agent: SiteSucker
 Disallow: /
 
-User-agent: Slackbot
+User-agent: Sleuth
 Disallow: /
 
 User-agent: slurp
@@ -1542,6 +1803,12 @@ Disallow: /
 User-agent: spbot
 Disallow: /
 
+User-agent: SpeedyIndexBot
+Disallow: /
+
+User-agent: SpiderLing
+Disallow: /
+
 User-agent: Spinn3r
 Disallow: /
 
@@ -1549,6 +1816,12 @@ User-agent: spotter
 Disallow: /
 
 User-agent: SputnikBot
+Disallow: /
+
+User-agent: SQWatcher
+Disallow: /
+
+User-agent: star-finder.de Bot
 Disallow: /
 
 User-agent: StorygizeBot
@@ -1560,6 +1833,12 @@ Disallow: /
 User-agent: Streamline3Bot
 Disallow: /
 
+User-agent: Sucuri Integrity Monitor
+Disallow: /
+
+User-agent: Sucuri Uptime Monitor
+Disallow: /
+
 User-agent: SummalyBot
 Disallow: /
 
@@ -1569,10 +1848,16 @@ Disallow: /
 User-agent: SuperBot
 Disallow: /
 
+User-agent: superpagesbot2.0
+Disallow: /
+
 User-agent: SurveyBot
 Disallow: /
 
 User-agent: suzuran
+Disallow: /
+
+User-agent: sv-watchagent
 Disallow: /
 
 User-agent: Swiftbot
@@ -1582,6 +1867,9 @@ User-agent: SWIMGBot
 Disallow: /
 
 User-agent: Synthesio
+Disallow: /
+
+User-agent: synthetic-monitoring-agent
 Disallow: /
 
 User-agent: Sysomos
@@ -1599,6 +1887,9 @@ Disallow: /
 User-agent: TangibleeBot
 Disallow: /
 
+User-agent: TaraGroup Intelligent Bot
+Disallow: /
+
 User-agent: Teleport
 Disallow: /
 
@@ -1611,6 +1902,9 @@ Disallow: /
 User-agent: Termly
 Disallow: /
 
+User-agent: TerraCotta
+Disallow: /
+
 User-agent: The Intraformant
 Disallow: /
 
@@ -1620,6 +1914,9 @@ Disallow: /
 User-agent: theoldreader.com
 Disallow: /
 
+User-agent: Thinkbot
+Disallow: /
+
 User-agent: Thinklab
 Disallow: /
 
@@ -1627,6 +1924,9 @@ User-agent: TigerBot
 Disallow: /
 
 User-agent: Titan
+Disallow: /
+
+User-agent: TLS tester
 Disallow: /
 
 User-agent: toCrawl
@@ -1668,10 +1968,16 @@ Disallow: /
 User-agent: TruliaBot
 Disallow: /
 
+User-agent: TSMbot
+Disallow: /
+
 User-agent: turingos
 Disallow: /
 
 User-agent: TweetedTimes
+Disallow: /
+
+User-agent: TweetedTimes Bot
 Disallow: /
 
 User-agent: twengabot
@@ -1683,10 +1989,13 @@ Disallow: /
 User-agent: UbiCrawler
 Disallow: /
 
-User-agent: um-IC
+User-agent: UGAResearchAgent
 Disallow: /
 
 User-agent: Updownerbot
+Disallow: /
+
+User-agent: updown.io daemon
 Disallow: /
 
 User-agent: Upflow
@@ -1717,9 +2026,6 @@ User-agent: UsineNouvelleCrawler
 Disallow: /
 
 User-agent: UT-Dorkbot
-Disallow: /
-
-User-agent: Validator.nu
 Disallow: /
 
 User-agent: VCI
@@ -1773,6 +2079,12 @@ Disallow: /
 User-agent: W3C_Unicorn
 Disallow: /
 
+User-agent: WadooBot
+Disallow: /
+
+User-agent: WanScannerBot
+Disallow: /
+
 User-agent: WASALive-Bot
 Disallow: /
 
@@ -1824,6 +2136,9 @@ Disallow: /
 User-agent: WebSauger
 Disallow: /
 
+User-agent: Website-info.net-Robot
+Disallow: /
+
 User-agent: Website Quester
 Disallow: /
 
@@ -1831,6 +2146,12 @@ User-agent: WebStripper
 Disallow: /
 
 User-agent: WebZIP
+Disallow: /
+
+User-agent: WikiDo
+Disallow: /
+
+User-agent: WincherBot
 Disallow: /
 
 User-agent: winello
@@ -1851,9 +2172,6 @@ Disallow: /
 User-agent: woobot
 Disallow: /
 
-User-agent: woorankreview
-Disallow: /
-
 User-agent: WordupInfoSearch
 Disallow: /
 
@@ -1866,7 +2184,19 @@ Disallow: /
 User-agent: WOVN Crawler
 Disallow: /
 
+User-agent: wpbot
+Disallow: /
+
+User-agent: WPMU DEV Broken Link Checker Local Engine
+Disallow: /
+
+User-agent: ws-bot-v1
+Disallow: /
+
 User-agent: WWW-Collector-E
+Disallow: /
+
+User-agent: www.deadlinkchecker.com
 Disallow: /
 
 User-agent: WWW-Mechanize
@@ -1887,19 +2217,19 @@ Disallow: /
 User-agent: Xenu's Link Sleuth 1.1c
 Disallow: /
 
+User-agent: Xing Bot
+Disallow: /
+
+User-agent: XML Sitemaps Generator
+Disallow: /
+
 User-agent: xovibot
 Disallow: /
 
-User-agent: YaDirectFetcher
+User-agent: Xpanse-bot
 Disallow: /
 
 User-agent: Yahoo Pipes 1.0
-Disallow: /
-
-User-agent: YaK
-Disallow: /
-
-User-agent: YandexMobileBot
 Disallow: /
 
 User-agent: YandexVideo
@@ -1909,6 +2239,12 @@ User-agent: yanga
 Disallow: /
 
 User-agent: Yellowbrandprotectionbot
+Disallow: /
+
+User-agent: Y!J-ASR
+Disallow: /
+
+User-agent: Y!J-DLC
 Disallow: /
 
 User-agent: yoozBot
@@ -1955,4 +2291,4 @@ Disallow: /
 # Sitemaps
 Sitemap: https://homelab-alpha.nl/sitemap.xml
 
-# Last modified: 2025-10-31T10:02:01+01:00
+# Last modified: 2025-11-28T10:02:01+01:00
