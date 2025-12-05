@@ -105,6 +105,9 @@ User-agent: webzio-extended
 Disallow: /
 
 # Archivers Agents
+User-agent: Archive-It
+Disallow: /
+
 User-agent: archive.org_bot
 Disallow: /
 
@@ -147,6 +150,9 @@ Disallow: /
 User-agent: Nicecrawler
 Disallow: /
 
+User-agent: SmarshBot
+Disallow: /
+
 User-agent: special_archiver
 Disallow: /
 
@@ -156,15 +162,14 @@ Disallow: /
 User-agent: XY-Archive-Compliance
 Disallow: /
 
-# Headless Agents
-User-agent: Dark Visitor Client
-Disallow: /
-
-User-agent: HeadlessChrome
+User-agent: XY-Archive-Compliance-Archiver
 Disallow: /
 
 # Scrapers Agents
 User-agent: 008
+Disallow: /
+
+User-agent: AdsTxtCrawler
 Disallow: /
 
 User-agent: Dataprovider.com
@@ -198,6 +203,9 @@ User-agent: newspaper
 Disallow: /
 
 User-agent: Nutch
+Disallow: /
+
+User-agent: nyt_scraping
 Disallow: /
 
 User-agent: Offline Explorer
@@ -249,6 +257,9 @@ Disallow: /
 User-agent: Aboundex
 Disallow: /
 
+User-agent: absearch-crawler
+Disallow: /
+
 User-agent: AcademicBotRTU
 Disallow: /
 
@@ -283,9 +294,6 @@ User-agent: admantx
 Disallow: /
 
 User-agent: adscanner
-Disallow: /
-
-User-agent: AdsTxtCrawler
 Disallow: /
 
 User-agent: AdsTxtCrawler-CyberAgent
@@ -391,9 +399,6 @@ User-agent: BDCbot
 Disallow: /
 
 User-agent: BehloolBot
-Disallow: /
-
-User-agent: BestChange Bot
 Disallow: /
 
 User-agent: betaBot
@@ -513,6 +518,9 @@ Disallow: /
 User-agent: Cegbfeieh
 Disallow: /
 
+User-agent: CentComBot
+Disallow: /
+
 User-agent: Centurybot
 Disallow: /
 
@@ -546,16 +554,16 @@ Disallow: /
 User-agent: Clickagy
 Disallow: /
 
-User-agent: Clickagy Intelligence Bot
-Disallow: /
-
 User-agent: Cliqzbot
 Disallow: /
 
 User-agent: CloudFlare-AlwaysOnline
 Disallow: /
 
-User-agent: cludo.com bot
+User-agent: cloudflare-csup
+Disallow: /
+
+User-agent: CloudflareDiagnostics
 Disallow: /
 
 User-agent: CMS-Checker
@@ -636,6 +644,9 @@ Disallow: /
 User-agent: Cutbot
 Disallow: /
 
+User-agent: CybaaBot
+Disallow: /
+
 User-agent: CyberFindCrawler
 Disallow: /
 
@@ -664,6 +675,9 @@ User-agent: Daumoa
 Disallow: /
 
 User-agent: Dazzle BlueSky Bot
+Disallow: /
+
+User-agent: dbot
 Disallow: /
 
 User-agent: deepnoc
@@ -724,6 +738,9 @@ User-agent: Drupalbot
 Disallow: /
 
 User-agent: EasyBib AutoCite
+Disallow: /
+
+User-agent: easyDNS Monitoring
 Disallow: /
 
 User-agent: ec2linkfinder
@@ -954,9 +971,6 @@ Disallow: /
 User-agent: Google-Certificates-Bridge
 Disallow: /
 
-User-agent: Google-Display-Ads-Bot
-Disallow: /
-
 User-agent: Google-PhysicalWeb
 Disallow: /
 
@@ -1002,9 +1016,6 @@ Disallow: /
 User-agent: Harvest
 Disallow: /
 
-User-agent: Hatena::Russia::Crawler
-Disallow: /
-
 User-agent: HawaiiBot
 Disallow: /
 
@@ -1015,6 +1026,9 @@ User-agent: HetrixTools Uptime Monitoring Bot
 Disallow: /
 
 User-agent: hgfAlphaXCrawl
+Disallow: /
+
+User-agent: hstspreload-bot
 Disallow: /
 
 User-agent: HTTP Banner Detection
@@ -1030,9 +1044,6 @@ User-agent: hyscore.io
 Disallow: /
 
 User-agent: ias-va
-Disallow: /
-
-User-agent: IbouBot
 Disallow: /
 
 User-agent: ICBot
@@ -1117,6 +1128,9 @@ User-agent: JikeSpider
 Disallow: /
 
 User-agent: JobboerseBot
+Disallow: /
+
+User-agent: jobswithgptcom-bot
 Disallow: /
 
 User-agent: jpg-newsbot
@@ -1260,6 +1274,9 @@ Disallow: /
 User-agent: MagnetmeBot
 Disallow: /
 
+User-agent: Magus Bot
+Disallow: /
+
 User-agent: MakeMerryBot
 Disallow: /
 
@@ -1276,6 +1293,9 @@ User-agent: MatchorySearch
 Disallow: /
 
 User-agent: MauiBot
+Disallow: /
+
+User-agent: Mavifinds
 Disallow: /
 
 User-agent: MegaIndex
@@ -1336,6 +1356,9 @@ User-agent: moget
 Disallow: /
 
 User-agent: mojeek
+Disallow: /
+
+User-agent: MonitageUptime
 Disallow: /
 
 User-agent: MoodleBot
@@ -1425,9 +1448,6 @@ Disallow: /
 User-agent: NINJA bot
 Disallow: /
 
-User-agent: Nitro-Optimizer-Agent
-Disallow: /
-
 User-agent: Nitro-Warmup-Agent
 Disallow: /
 
@@ -1435,9 +1455,6 @@ User-agent: NLUX_IAHarvester
 Disallow: /
 
 User-agent: NoahBot
-Disallow: /
-
-User-agent: Noibu JS Beautifier
 Disallow: /
 
 User-agent: NPBot
@@ -1554,9 +1571,6 @@ Disallow: /
 User-agent: ProPowerBot
 Disallow: /
 
-User-agent: Pro Sitemaps Generator
-Disallow: /
-
 User-agent: ProWebWalker
 Disallow: /
 
@@ -1614,6 +1628,9 @@ Disallow: /
 User-agent: RepoMonkey Bait & Tackle
 Disallow: /
 
+User-agent: research/recap
+Disallow: /
+
 User-agent: RetrevoPageAnalyzer
 Disallow: /
 
@@ -1648,6 +1665,9 @@ User-agent: RukiCrawler
 Disallow: /
 
 User-agent: RuxitSynthetic
+Disallow: /
+
+User-agent: s4a
 Disallow: /
 
 User-agent: SafeDNSBot
@@ -1725,9 +1745,6 @@ Disallow: /
 User-agent: Sidetrade indexer bot
 Disallow: /
 
-User-agent: SilktideBot
-Disallow: /
-
 User-agent: simplecrawler
 Disallow: /
 
@@ -1768,6 +1785,9 @@ User-agent: SitesOverPagesBot
 Disallow: /
 
 User-agent: SiteSucker
+Disallow: /
+
+User-agent: SiteUptime.com
 Disallow: /
 
 User-agent: Sleuth
@@ -1867,9 +1887,6 @@ User-agent: SWIMGBot
 Disallow: /
 
 User-agent: Synthesio
-Disallow: /
-
-User-agent: synthetic-monitoring-agent
 Disallow: /
 
 User-agent: Sysomos
@@ -1995,9 +2012,6 @@ Disallow: /
 User-agent: Updownerbot
 Disallow: /
 
-User-agent: updown.io daemon
-Disallow: /
-
 User-agent: Upflow
 Disallow: /
 
@@ -2014,6 +2028,9 @@ User-agent: URL Control
 Disallow: /
 
 User-agent: URL_Spider_Pro
+Disallow: /
+
+User-agent: urlsuma.de crawler
 Disallow: /
 
 User-agent: URLy Warning
@@ -2115,6 +2132,9 @@ Disallow: /
 User-agent: WebCopier v3.2a
 Disallow: /
 
+User-agent: WebCrawler
+Disallow: /
+
 User-agent: WebDataStats
 Disallow: /
 
@@ -2193,6 +2213,9 @@ Disallow: /
 User-agent: ws-bot-v1
 Disallow: /
 
+User-agent: WSM
+Disallow: /
+
 User-agent: WWW-Collector-E
 Disallow: /
 
@@ -2235,6 +2258,9 @@ Disallow: /
 User-agent: YandexVideo
 Disallow: /
 
+User-agent: YandoriRSSBot
+Disallow: /
+
 User-agent: yanga
 Disallow: /
 
@@ -2242,6 +2268,9 @@ User-agent: Yellowbrandprotectionbot
 Disallow: /
 
 User-agent: Y!J-ASR
+Disallow: /
+
+User-agent: Y!J-BRW
 Disallow: /
 
 User-agent: Y!J-DLC
@@ -2291,4 +2320,4 @@ Disallow: /
 # Sitemaps
 Sitemap: https://homelab-alpha.nl/sitemap.xml
 
-# Last modified: 2025-11-28T10:02:01+01:00
+# Last modified: 2025-12-05T10:02:01+01:00
