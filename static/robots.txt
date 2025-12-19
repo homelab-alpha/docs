@@ -290,9 +290,6 @@ Disallow: /
 User-agent: adequat-systems
 Disallow: /
 
-User-agent: admantx
-Disallow: /
-
 User-agent: adscanner
 Disallow: /
 
@@ -464,6 +461,9 @@ Disallow: /
 User-agent: BrandONbot
 Disallow: /
 
+User-agent: br-crawler
+Disallow: /
+
 User-agent: Brightbot
 Disallow: /
 
@@ -537,6 +537,9 @@ User-agent: CherryPickerElite
 Disallow: /
 
 User-agent: CherryPickerSE
+Disallow: /
+
+User-agent: cis5550-crawler
 Disallow: /
 
 User-agent: Cision
@@ -1316,6 +1319,9 @@ Disallow: /
 User-agent: mention
 Disallow: /
 
+User-agent: MetadataScraper
+Disallow: /
+
 User-agent: MetaURI
 Disallow: /
 
@@ -1485,6 +1491,9 @@ User-agent: OpenGraphCheck
 Disallow: /
 
 User-agent: OpenHoseBot
+Disallow: /
+
+User-agent: OpenTheBoxBot
 Disallow: /
 
 User-agent: opinion-tracker
@@ -1677,6 +1686,9 @@ User-agent: SafeSearch microdata crawler
 Disallow: /
 
 User-agent: SBL-BOT
+Disallow: /
+
+User-agent: Schema-Markup-Validator
 Disallow: /
 
 User-agent: score3
@@ -1884,6 +1896,9 @@ User-agent: Swiftbot
 Disallow: /
 
 User-agent: SWIMGBot
+Disallow: /
+
+User-agent: SynthesiBot
 Disallow: /
 
 User-agent: Synthesio
@@ -2320,4 +2335,4 @@ Disallow: /
 # Sitemaps
 Sitemap: https://homelab-alpha.nl/sitemap.xml
 
-# Last modified: 2025-12-05T10:02:01+01:00
+# Last modified: 2025-12-19T10:02:01+01:00
