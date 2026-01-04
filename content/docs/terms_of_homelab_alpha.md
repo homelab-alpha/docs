@@ -189,8 +189,7 @@ become effective when posted on this page.
 
 ### Contact Us
 
-If you have any questions about this Privacy Policy, you can reach us by
-visiting this page on our website: [Homelab-Alpha's contact]
+If you have any questions about our Privacy Policy, please contact us by emailing the **[Homelab-Alpha team](mailto:homelab.api@gmail.com)**.
 
 <br />
 
@@ -203,4 +202,3 @@ the Netherlands.
 
 [Homelab-Alpha's website]: https://homelab-alpha.nl
 [Homelab-Alpha's GitHub repositories]: https://github.com/homelab-alpha
-[Homelab-Alpha's contact]: https://homelab-alpha.nl/contact
