@@ -155,10 +155,8 @@ anticipate your contributions!
 [Code Style + Standards Guides]:
   docs/../../contributing/code_style_plus_standards_guides.md
 [pull request]: https://github.com/homelab-alpha/docs/pulls
-[ideas]: https://github.com/homelab-alpha/docs/discussions/categories/ideas
+[ideas]: https://github.com/homelab-alpha/homelab-alpha/discussions/categories/ideas
 [Homelab-Alpha license]: docs/../../help/license.md
 [Docker]: https://github.com/homelab-alpha/docker
 [OpenSSL]: https://github.com/homelab-alpha/openssl
 [Shell Script]: https://github.com/homelab-alpha/shell-script
-[Uptime Kuma]: https://github.com/homelab-alpha/uptime-kuma
-[louislam/uptime-kuma]: https://github.com/louislam/uptime-kuma
