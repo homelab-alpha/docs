@@ -38,14 +38,6 @@ katex: true
 
 <br />
 
-## Homelab-Alpha
-
-Welcome to the Homelab-Alpha User Manual. This guide will show you how to
-kickstart your new project with our technical documentation, including making
-adjustments.
-
-<br />
-
 ## Who is Homelab-Alpha?
 
 Hey there! 👋
