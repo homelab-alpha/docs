@@ -289,10 +289,16 @@ User-agent: XY-Archive-Compliance-Archiver
 Disallow: /
 
 # Automated Agents
+User-agent: Amazon Bedrock AgentCore Browser
+Disallow: /
+
 User-agent: Anchor Browser
 Disallow: /
 
 User-agent: Browserbase
+Disallow: /
+
+User-agent: Cloudflare Browser Rendering
 Disallow: /
 
 User-agent: Dark Visitor Client
@@ -3422,4 +3428,4 @@ Disallow: /
 # Sitemaps
 Sitemap: https://homelab-alpha.nl/sitemap.xml
 
-# Last modified: 2025-12-23T15:36:04+01:00
+# Last modified: 2026-01-30T14:04:03+01:00
