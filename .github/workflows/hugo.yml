@@ -1,5 +1,5 @@
 ---
-name: Build & Deploy
+name: 🚀 Build & Deploy Hugo Site
 
 on:
   push:
@@ -21,63 +21,120 @@ defaults:
 
 jobs:
   build:
+    name: 🏗️ Build Hugo Site
     runs-on: ubuntu-latest
     env:
       HUGO_VERSION: 0.155.2
 
     steps:
-      - name: Install Hugo CLI
+      - name: 🏁 Notify start of build
         run: |
-          wget -O "${{ runner.temp }}/hugo.deb" "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb" \
-          && sudo dpkg -i "${{ runner.temp }}/hugo.deb"
+          echo "::notice title=Build Started::🏗️ Hugo build process initialized"
 
-      - name: Install Dart Sass
+      - name: 📥 Install Hugo CLI
+        run: |
+          echo "::group::📥 Downloading and installing Hugo v${{ env.HUGO_VERSION }}"
+          if ! wget -O "${{ runner.temp }}/hugo.deb" "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb"; then
+            echo "::error title=Hugo Download Failed::❌ Could not download Hugo binary"
+            exit 1
+          fi
+          sudo dpkg -i "${{ runner.temp }}/hugo.deb"
+          echo "::endgroup::"
+
+      - name: 🎨 Install Dart Sass
         run: sudo snap install dart-sass
 
-      - name: Checkout
+      - name: 📑 Checkout source code
         uses: actions/checkout@v6.0.2
-
         with:
           submodules: recursive
           fetch-depth: 0
 
-      - name: Setup Pages
+      - name: ⚙️ Setup Pages
         id: pages
         uses: actions/configure-pages@v5.0.0
 
-      - name: Install Node.js dependencies
+      - name: 📦 Install Node.js dependencies
         run: |
+          echo "::group::📦 NPM Dependency Check"
           if [[ -f package-lock.json || -f npm-shrinkwrap.json ]]; then
             npm ci
+          else
+            echo "::notice::No lockfile found, skipping npm ci"
           fi
+          echo "::endgroup::"
 
-      - name: Build with Hugo
+      - name: 🔨 Build with Hugo
+        id: hugo_build
         env:
           HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
           HUGO_ENVIRONMENT: production
           TZ: Europe/Amsterdam
-
         run: |
-          hugo \
-            --gc \
-            --minify \
-            --baseURL "${{ steps.pages.outputs.base_url }}/"
+          echo "::group::🔨 Hugo Compilation"
+          if ! hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"; then
+            echo "::error title=Hugo Build Failed::❌ Hugo compilation encountered errors"
+            exit 1
+          fi
+          echo "::endgroup::"
 
-      - name: Upload artifact
+      - name: 📤 Upload artifact
         uses: actions/upload-pages-artifact@v4.0.0
-
         with:
           path: ./public
 
+      - name: 📊 Generate job summary
+        if: always()
+        run: |
+          echo "::group::📊 Generating Summary Report"
+          BUILD_STATUS="${{ steps.hugo_build.outcome == 'success' && '✅ Success' || '❌ Failed' }}"
+
+          cat <<EOF >> "$GITHUB_STEP_SUMMARY"
+          ## 🏗️ Build Summary
+
+          Execution completed at: $(date -u)
+
+          ### 📈 Execution Results
+          | Step | Result |
+          | :--- | :--- |
+          | Hugo Compilation | $BUILD_STATUS |
+          | Artifact Upload | ${{ steps.hugo_build.outcome == 'success' && '✅ Uploaded' || '⏭️ Skipped' }} |
+
+          ### ⚙️ Configuration
+          - **Hugo Version:** ${{ env.HUGO_VERSION }}
+          - **Environment:** production
+          - **Base URL:** ${{ steps.pages.outputs.base_url }}
+
+          ### 🧩 Workflow Details
+          - Run ID: [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          EOF
+          echo "::endgroup::"
+
   deploy:
+    name: 🚀 Deploy to Production
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
     runs-on: ubuntu-latest
     needs: build
 
     steps:
-      - name: Deploy to GitHub Pages
+      - name: 🚀 Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4.0.5
+
+      - name: 📊 Generate deployment summary
+        if: always()
+        run: |
+          echo "::group::📊 Generating Deployment Summary"
+          DEPLOY_STATUS="${{ steps.deployment.outcome == 'success' && '✅ Success' || '❌ Failed' }}"
+
+          cat <<EOF >> "$GITHUB_STEP_SUMMARY"
+          ## 🚀 Deployment Summary
+
+          ### 📈 Results
+          | Status | URL |
+          | :--- | :--- |
+          | $DEPLOY_STATUS | [View Live Site](${{ steps.deployment.outputs.page_url }}) |
+          EOF
+          echo "::endgroup::"
