@@ -80,17 +80,20 @@ jobs:
           Execution completed at: $(date -u)
 
           ### 📈 Scan Results
+
           | Component | Language | Result |
           | :--- | :--- | :--- |
           | 🔐 Security Scan | ${{ matrix.language }} | $ANALYSIS_RESULT |
           | 🏗️ Build Mode | ${{ matrix.build-mode }} | ✅ Configured |
 
           ### ⚙️ Runtime Configuration
+
           - **Runner OS:** ${{ runner.os }}
           - **Database Category:** /language:${{ matrix.language }}
           - **Workflow Run:** [View Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
 
           ### 🧩 Notes
+
           - Results are uploaded to the **Security** tab under Code Scanning alerts.
           EOF
 

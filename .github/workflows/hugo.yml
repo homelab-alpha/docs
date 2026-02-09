@@ -34,11 +34,16 @@ jobs:
       - name: 📥 Install Hugo CLI
         run: |
           echo "::group::📥 Downloading and installing Hugo v${{ env.HUGO_VERSION }}"
-          if ! wget -O "${{ runner.temp }}/hugo.deb" "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb"; then
+
+          if ! wget -O "${{ runner.temp }}/hugo.deb" "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb";
+
+          then
             echo "::error title=Hugo Download Failed::❌ Could not download Hugo binary"
             exit 1
           fi
+
           sudo dpkg -i "${{ runner.temp }}/hugo.deb"
+
           echo "::endgroup::"
 
       - name: 🎨 Install Dart Sass
@@ -54,16 +59,6 @@ jobs:
         id: pages
         uses: actions/configure-pages@v5.0.0
 
-      - name: 📦 Install Node.js dependencies
-        run: |
-          echo "::group::📦 NPM Dependency Check"
-          if [[ -f package-lock.json || -f npm-shrinkwrap.json ]]; then
-            npm ci
-          else
-            echo "::notice::No lockfile found, skipping npm ci"
-          fi
-          echo "::endgroup::"
-
       - name: 🔨 Build with Hugo
         id: hugo_build
         env:
@@ -72,10 +67,13 @@ jobs:
           TZ: Europe/Amsterdam
         run: |
           echo "::group::🔨 Hugo Compilation"
+
           if ! hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"; then
+
             echo "::error title=Hugo Build Failed::❌ Hugo compilation encountered errors"
             exit 1
           fi
+
           echo "::endgroup::"
 
       - name: 📤 Upload artifact
@@ -95,19 +93,23 @@ jobs:
           Execution completed at: $(date -u)
 
           ### 📈 Execution Results
+
           | Step | Result |
           | :--- | :--- |
           | Hugo Compilation | $BUILD_STATUS |
           | Artifact Upload | ${{ steps.hugo_build.outcome == 'success' && '✅ Uploaded' || '⏭️ Skipped' }} |
 
           ### ⚙️ Configuration
+
           - **Hugo Version:** ${{ env.HUGO_VERSION }}
           - **Environment:** production
           - **Base URL:** ${{ steps.pages.outputs.base_url }}
 
           ### 🧩 Workflow Details
+
           - Run ID: [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
           EOF
+
           echo "::endgroup::"
 
   deploy:
@@ -127,14 +129,17 @@ jobs:
         if: always()
         run: |
           echo "::group::📊 Generating Deployment Summary"
+
           DEPLOY_STATUS="${{ steps.deployment.outcome == 'success' && '✅ Success' || '❌ Failed' }}"
 
           cat <<EOF >> "$GITHUB_STEP_SUMMARY"
           ## 🚀 Deployment Summary
 
           ### 📈 Results
+
           | Status | URL |
           | :--- | :--- |
           | $DEPLOY_STATUS | [View Live Site](${{ steps.deployment.outputs.page_url }}) |
           EOF
+
           echo "::endgroup::"

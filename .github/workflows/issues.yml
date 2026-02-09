@@ -61,8 +61,8 @@ jobs:
 
         We truly appreciate your time and effort — thank you for helping improve this project! 🙌
 
-        [Code of Conduct]: https://github.com/homelab-alpha/template/blob/main/CODE_OF_CONDUCT.md
-        [Contribution Guidelines]: https://github.com/homelab-alpha/template/blob/main/CONTRIBUTING.md
+        [Code of Conduct]: https://github.com/homelab-alpha/docs/blob/main/CODE_OF_CONDUCT.md
+        [Contribution Guidelines]: https://github.com/homelab-alpha/docs/blob/main/CONTRIBUTING.md
 
       BACKLOG_MSG: |
         ## 🗂️ This issue has been moved to the backlog
@@ -107,6 +107,7 @@ jobs:
           echo "::notice title=Issue opened::ℹ️ Posting welcome message"
 
           if ! gh issue comment "$ISSUE_NUMBER" --repo "$REPO" --body "$NEW_ISSUE_MSG"; then
+
             echo "::error title=Comment failed::❌ Unable to post welcome message to issue #$ISSUE_NUMBER"
             exit 1
           fi
@@ -121,6 +122,7 @@ jobs:
           echo "::notice title=Issue reopened::ℹ️ Applying reopen label"
 
           if ! gh issue edit "$ISSUE_NUMBER" --repo "$REPO" --add-label "$LABEL_REOPEN"; then
+
             echo "::error title=Label failed::❌ Unable to apply reopen label to issue #$ISSUE_NUMBER"
             exit 1
           fi
@@ -135,6 +137,7 @@ jobs:
           echo "::notice title=Backlog::ℹ️ Updating labels and notifying contributor"
 
           echo "::group::🧹 Modifying labels"
+
           if ! gh issue edit "$ISSUE_NUMBER" --repo "$REPO" \
             --remove-label "$LABEL_P0_CRITICAL" \
             --remove-label "$LABEL_P1_HIGH" \
@@ -143,12 +146,15 @@ jobs:
             --remove-label "$LABEL_WONTFIX" \
             --add-label "$LABEL_BACKLOG" \
             --add-label "$LABEL_P3_LOW"; then
+
             echo "::error title=Label update failed::❌ Unable to update backlog labels for issue #$ISSUE_NUMBER"
             exit 1
           fi
+
           echo "::endgroup::"
 
           if ! gh issue comment "$ISSUE_NUMBER" --repo "$REPO" --body "$BACKLOG_MSG"; then
+
             echo "::error title=Comment failed::❌ Unable to notify backlog status for issue #$ISSUE_NUMBER"
             exit 1
           fi
@@ -164,6 +170,7 @@ jobs:
           echo "::notice title=Wontfix::❌ Closing issue"
 
           echo "::group::🧹 Modifying labels"
+
           if ! gh issue edit "$ISSUE_NUMBER" --repo "$REPO" \
             --remove-label "$LABEL_BACKLOG" \
             --remove-label "$LABEL_P0_CRITICAL" \
@@ -172,12 +179,15 @@ jobs:
             --remove-label "$LABEL_P3_LOW" \
             --remove-label "$LABEL_P4_NEGLEGIBLE" \
             --add-label "$LABEL_WONTFIX"; then
+
             echo "::error title=Label update failed::❌ Unable to update labels for issue #$ISSUE_NUMBER"
             exit 1
           fi
+
           echo "::endgroup::"
 
           if ! gh issue close "$ISSUE_NUMBER" --repo "$REPO" --reason "not planned" --comment "$WONTFIX_MSG"; then
+
             echo "::error title=Close failed::❌ Unable to close issue #$ISSUE_NUMBER"
             exit 1
           fi
@@ -192,15 +202,18 @@ jobs:
           echo "::notice title=Issue closed::🧹 Cleaning up labels"
 
           echo "::group::🔍 Removal details"
+
           if ! gh issue edit "$ISSUE_NUMBER" --repo "$REPO" \
             --remove-label "$LABEL_P0_CRITICAL" \
             --remove-label "$LABEL_P1_HIGH" \
             --remove-label "$LABEL_P2_MODERATE" \
             --remove-label "$LABEL_P3_LOW" \
             --remove-label "$LABEL_P4_NEGLEGIBLE"; then
+
             echo "::error title=Cleanup failed::❌ Unable to clean up labels for issue #$ISSUE_NUMBER"
             exit 1
           fi
+
           echo "::endgroup::"
 
       - name: 📊 Generate job summary
@@ -216,6 +229,7 @@ jobs:
           Execution completed at: $(date -u)
 
           ### 📈 Execution Results
+
           | Metric | Detail |
           | :--- | :--- |
           | 🎯 **Event Action** | \`${{ github.event.action }}\` |
@@ -224,6 +238,7 @@ jobs:
           | 🚥 **Final Status** | $FINAL_STATUS |
 
           ### 🧩 Step Outcomes
+
           - Welcome Message: ${{ steps.welcome_step.outcome || '⏭️ Skipped' }}
           - Reopen Label: ${{ steps.reopen_step.outcome || '⏭️ Skipped' }}
           - Backlog Update: ${{ steps.backlog_step.outcome || '⏭️ Skipped' }}
@@ -231,6 +246,7 @@ jobs:
           - Priority Cleanup: ${{ steps.cleanup_step.outcome || '⏭️ Skipped' }}
 
           ---
+
           *Workflow Run: [View Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})*
           EOF
 
