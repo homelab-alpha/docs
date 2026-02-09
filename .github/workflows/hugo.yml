@@ -24,7 +24,7 @@ jobs:
     name: 🏗️ Build Hugo Site
     runs-on: ubuntu-latest
     env:
-      HUGO_VERSION: 0.155.2
+      HUGO_VERSION: 0.155.3
 
     steps:
       - name: 🏁 Notify start of build
