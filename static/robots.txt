@@ -301,10 +301,10 @@ Disallow: /
 User-agent: Cloudflare Browser Rendering
 Disallow: /
 
-User-agent: Dark Visitor Client
+User-agent: HeadlessChrome
 Disallow: /
 
-User-agent: HeadlessChrome
+User-agent: Known Agents Browser
 Disallow: /
 
 # Fetchers
@@ -1727,6 +1727,9 @@ Disallow: /
 User-agent: DareBoost
 Disallow: /
 
+User-agent: Dark Visitor
+Disallow: /
+
 User-agent: Datadog Agent
 Disallow: /
 
@@ -2999,9 +3002,6 @@ Disallow: /
 User-agent: Termly
 Disallow: /
 
-User-agent: TerraCotta
-Disallow: /
-
 User-agent: The Intraformant
 Disallow: /
 
@@ -3420,6 +3420,9 @@ Disallow: /
 User-agent: KunatoCrawler
 Disallow: /
 
+User-agent: TerraCotta
+Disallow: /
+
 User-agent: WRTNBot
 Disallow: /
 
@@ -3428,4 +3431,4 @@ Disallow: /
 # Sitemaps
 Sitemap: https://homelab-alpha.nl/sitemap.xml
 
-# Last modified: 2026-01-30T14:04:03+01:00
+# Last modified: 2026-02-12T09:50:22+01:00
