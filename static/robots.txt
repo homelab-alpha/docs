@@ -39,6 +39,9 @@ Disallow: /
 User-agent: AI2Bot-DeepResearchEval
 Disallow: /
 
+User-agent: Amzn-User
+Disallow: /
+
 User-agent: bigsur.ai
 Disallow: /
 
@@ -58,6 +61,9 @@ User-agent: Gemini-Deep-Research
 Disallow: /
 
 User-agent: Google-NotebookLM
+Disallow: /
+
+User-agent: kagi-fetcher
 Disallow: /
 
 User-agent: KlaviyoAIBot
@@ -89,6 +95,9 @@ Disallow: /
 
 # AI Data Scrapers
 User-agent: Ai2Bot-Dolma
+Disallow: /
+
+User-agent: Amazonbot
 Disallow: /
 
 User-agent: Applebot-Extended
@@ -179,7 +188,7 @@ Disallow: /
 User-agent: AddSearchBot
 Disallow: /
 
-User-agent: Amazonbot
+User-agent: Amzn-SearchBot
 Disallow: /
 
 User-agent: Anomura
@@ -189,6 +198,9 @@ User-agent: Applebot
 Disallow: /
 
 User-agent: atlassian-bot
+Disallow: /
+
+User-agent: AzureAI-SearchBot
 Disallow: /
 
 User-agent: Bravebot
@@ -680,6 +692,9 @@ Disallow: /
 User-agent: RSSAPI
 Disallow: /
 
+User-agent: RSS.Social
+Disallow: /
+
 User-agent: scoopit-crawler
 Disallow: /
 
@@ -844,6 +859,9 @@ User-agent: AdsBot-Google-Mobile
 Disallow: /
 
 User-agent: aiHitBot
+Disallow: /
+
+User-agent: Amazing-SearchBot
 Disallow: /
 
 User-agent: Amazon AdBot
@@ -1084,6 +1102,9 @@ User-agent: NetSeer crawler
 Disallow: /
 
 User-agent: Netvibes
+Disallow: /
+
+User-agent: NewsRoom.BI
 Disallow: /
 
 User-agent: NostoCrawlerBot
@@ -1562,6 +1583,9 @@ Disallow: /
 User-agent: CapsuleChecker
 Disallow: /
 
+User-agent: CapterraBot
+Disallow: /
+
 User-agent: carbon-umbrella-bot
 Disallow: /
 
@@ -1877,6 +1901,9 @@ Disallow: /
 User-agent: Experibot
 Disallow: /
 
+User-agent: expo-research-bot
+Disallow: /
+
 User-agent: ExteContextCrawl
 Disallow: /
 
@@ -1917,6 +1944,9 @@ User-agent: FediList Agent
 Disallow: /
 
 User-agent: Fedineko
+Disallow: /
+
+User-agent: fedistatsCrawler
 Disallow: /
 
 User-agent: fedoraplanet
@@ -1962,6 +1992,9 @@ User-agent: Flaming AttackBot
 Disallow: /
 
 User-agent: Flamingo_SearchEngine
+Disallow: /
+
+User-agent: FleebsBot
 Disallow: /
 
 User-agent: fluffy
@@ -2279,6 +2312,9 @@ Disallow: /
 User-agent: libWeb
 Disallow: /
 
+User-agent: Light Crawler
+Disallow: /
+
 User-agent: Linguee Bot
 Disallow: /
 
@@ -2432,6 +2468,9 @@ Disallow: /
 User-agent: mojeek
 Disallow: /
 
+User-agent: MomentumFetcher
+Disallow: /
+
 User-agent: MonitageUptime
 Disallow: /
 
@@ -2493,6 +2532,9 @@ User-agent: NetSystemsResearch
 Disallow: /
 
 User-agent: newsai
+Disallow: /
+
+User-agent: NewsBot
 Disallow: /
 
 User-agent: newsharecounts
@@ -2628,6 +2670,9 @@ User-agent: Plesk screenshot bot
 Disallow: /
 
 User-agent: Poduptime
+Disallow: /
+
+User-agent: Pomothy-Bot
 Disallow: /
 
 User-agent: postrank
@@ -2858,6 +2903,9 @@ Disallow: /
 User-agent: siteimprove-lookup
 Disallow: /
 
+User-agent: SitemapCrawler
+Disallow: /
+
 User-agent: SiteSnagger
 Disallow: /
 
@@ -2868,6 +2916,9 @@ User-agent: SiteSucker
 Disallow: /
 
 User-agent: SiteUptime.com
+Disallow: /
+
+User-agent: SlaccaleBot
 Disallow: /
 
 User-agent: Sleuth
@@ -3104,6 +3155,9 @@ Disallow: /
 User-agent: urlappendbot
 Disallow: /
 
+User-agent: UrlBeeBot
+Disallow: /
+
 User-agent: URL Control
 Disallow: /
 
@@ -3234,6 +3288,9 @@ User-agent: WebReaper
 Disallow: /
 
 User-agent: WebSauger
+Disallow: /
+
+User-agent: websearch-bot
 Disallow: /
 
 User-agent: Website-info.net-Robot
@@ -3431,4 +3488,4 @@ Disallow: /
 # Sitemaps
 Sitemap: https://homelab-alpha.nl/sitemap.xml
 
-# Last modified: 2026-02-12T09:50:22+01:00
+# Last modified: 2026-02-21T07:42:26+01:00
