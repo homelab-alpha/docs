@@ -5,7 +5,7 @@
             window.location.href = "/docs/";
         </script>
     {{- else -}}
-        {{- $landingData := .Site.Data.landing -}}
+        {{- $landingData := hugo.Data.landing -}}
         {{- $sections := slice -}}
         {{- range $sectionTitle, $value := $landingData -}}
             {{- $weight := printf "%v" $value.weight -}}
