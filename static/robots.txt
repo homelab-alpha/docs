@@ -341,6 +341,9 @@ Disallow: /
 User-agent: AllAfrica NewsBot
 Disallow: /
 
+User-agent: ArenaUnfurlBot
+Disallow: /
+
 User-agent: artemis web reader
 Disallow: /
 
@@ -363,6 +366,9 @@ User-agent: bitlybot
 Disallow: /
 
 User-agent: BlingERP
+Disallow: /
+
+User-agent: Bloglines
 Disallow: /
 
 User-agent: Blogtrottr
@@ -426,6 +432,9 @@ User-agent: Embedly
 Disallow: /
 
 User-agent: eMoneyBot
+Disallow: /
+
+User-agent: EvernoteRichLinkBot
 Disallow: /
 
 User-agent: facebook
@@ -779,6 +788,9 @@ Disallow: /
 User-agent: SteamChat
 Disallow: /
 
+User-agent: SubstackContentFetch
+Disallow: /
+
 User-agent: Superfeedr
 Disallow: /
 
@@ -1066,6 +1078,9 @@ User-agent: Macrobondbot
 Disallow: /
 
 User-agent: magpie-crawler
+Disallow: /
+
+User-agent: McontextualBot
 Disallow: /
 
 User-agent: MedialogiaBot
@@ -1403,6 +1418,9 @@ Disallow: /
 User-agent: AdvBot
 Disallow: /
 
+User-agent: air.ai/scanning
+Disallow: /
+
 User-agent: AISearchBot
 Disallow: /
 
@@ -1452,6 +1470,9 @@ User-agent: AspiegelBot
 Disallow: /
 
 User-agent: asterias
+Disallow: /
+
+User-agent: AtVowBot
 Disallow: /
 
 User-agent: Augure
@@ -1649,6 +1670,9 @@ Disallow: /
 User-agent: CherryPickerSE
 Disallow: /
 
+User-agent: ChimeUnfurlAgent
+Disallow: /
+
 User-agent: cis5550-crawler
 Disallow: /
 
@@ -1838,10 +1862,16 @@ Disallow: /
 User-agent: DomainCrawler
 Disallow: /
 
+User-agent: DomainMapper
+Disallow: /
+
 User-agent: Domain Re-Animator Bot
 Disallow: /
 
 User-agent: Domains Project
+Disallow: /
+
+User-agent: DominicBot
 Disallow: /
 
 User-agent: Dow Jones Searchbot
@@ -1914,6 +1944,9 @@ User-agent: evc-batch
 Disallow: /
 
 User-agent: e.ventures Investment Crawler
+Disallow: /
+
+User-agent: everyfeed-spider
 Disallow: /
 
 User-agent: EveryoneSocialBot
@@ -2147,7 +2180,16 @@ Disallow: /
 User-agent: HawaiiBot
 Disallow: /
 
+User-agent: HeadOnlyScraper
+Disallow: /
+
+User-agent: HeadOnlyScraperV2
+Disallow: /
+
 User-agent: HelloWork
+Disallow: /
+
+User-agent: HenkBot
 Disallow: /
 
 User-agent: HetrixTools Uptime Monitoring Bot
@@ -2534,6 +2576,9 @@ Disallow: /
 User-agent: mytwip
 Disallow: /
 
+User-agent: NapBot
+Disallow: /
+
 User-agent: NAVER Blog Rssbot
 Disallow: /
 
@@ -2771,6 +2816,9 @@ Disallow: /
 User-agent: rawweb-bot
 Disallow: /
 
+User-agent: RecordedFuture Global Inventory Crawler
+Disallow: /
+
 User-agent: Refindbot
 Disallow: /
 
@@ -2781,6 +2829,9 @@ User-agent: RepoMonkey
 Disallow: /
 
 User-agent: RepoMonkey Bait & Tackle
+Disallow: /
+
+User-agent: ResearchBot
 Disallow: /
 
 User-agent: research/recap
@@ -2876,6 +2927,9 @@ Disallow: /
 User-agent: semantic-visions.com crawler
 Disallow: /
 
+User-agent: semantic-visions-discovery
+Disallow: /
+
 User-agent: sempi.tech
 Disallow: /
 
@@ -2940,6 +2994,9 @@ User-agent: Siteimprove.com
 Disallow: /
 
 User-agent: siteimprove-lookup
+Disallow: /
+
+User-agent: SitemapBot
 Disallow: /
 
 User-agent: SitemapCrawler
@@ -3008,6 +3065,9 @@ Disallow: /
 User-agent: spotter
 Disallow: /
 
+User-agent: SpringserveBot
+Disallow: /
+
 User-agent: SputnikBot
 Disallow: /
 
@@ -3032,10 +3092,16 @@ Disallow: /
 User-agent: Sucuri Uptime Monitor
 Disallow: /
 
+User-agent: SumbleBot
+Disallow: /
+
 User-agent: SummalyBot
 Disallow: /
 
 User-agent: Summify
+Disallow: /
+
+User-agent: Supabase Paired Crawler
 Disallow: /
 
 User-agent: SuperBot
@@ -3507,6 +3573,9 @@ Disallow: /
 User-agent: ApifyBot
 Disallow: /
 
+User-agent: Aranet-SearchBot
+Disallow: /
+
 User-agent: Claude-Web
 Disallow: /
 
@@ -3542,4 +3611,4 @@ Disallow: /
 # Sitemaps
 Sitemap: https://homelab-alpha.nl/sitemap.xml
 
-# Last modified: 2026-03-12T09:23:38+01:00
+# Last modified: 2026-03-25T10:22:45+01:00
