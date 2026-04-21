@@ -335,5 +335,4 @@ This script ensures that every step in generating and managing an RSA client
 certificate is performed correctly and securely, from key generation to
 certificate verification and format conversion.
 
-[cert_rsa_client.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/certificate/cert_rsa_client.sh
+[cert_rsa_client.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/certificate/cert_rsa_client.sh

@@ -187,5 +187,4 @@ streamline the process of managing OpenSSL-related shell configurations.
 
 <br />
 
-[ssl_dotfiles_installer.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/ssl_dotfiles_installer.sh
+[ssl_dotfiles_installer.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/ssl_dotfiles_installer.sh

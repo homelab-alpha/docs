@@ -1,7 +1,6 @@
 ---
 title: "Code Style + Standards Guides"
-description:
-  "Explore the code style of conduct and standards guides to maintain
+description: "Explore the code style of conduct and standards guides to maintain
   consistency and clarity in project development."
 url: "contributing/code-style-plus-standards-guides"
 aliases: ""
@@ -526,8 +525,7 @@ not only functional but also elegant and easy to comprehend.
 [Python]: https://www.python.org/dev/peps/pep-0008/
 [TypeScript]: https://www.typescriptlang.org/
 [XML]: https://www.w3schools.com/xml/default.asp
-[Google JavaScript Style Guide]:
-  https://google.github.io/styleguide/jsguide.html
+[Google JavaScript Style Guide]: https://google.github.io/styleguide/jsguide.html
 [Airbnb JavaScript Style Guide]: https://github.com/airbnb/javascript
 [PEP 8 - Python Style Guide]: https://www.python.org/dev/peps/pep-0008
 [Google Java Style Guide]: https://google.github.io/styleguide/javaguide.html

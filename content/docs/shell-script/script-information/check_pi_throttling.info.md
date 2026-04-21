@@ -194,7 +194,6 @@ echo ""
 For each condition (Undervolted, Throttled, Frequency Capped, and Softlimit):
 
 1. **Current Status**:
-
    - `echo -n "Now: "`: Prints "Now: " without a newline.
    - `((STATUS & CONDITION != 0)) && echo "${BAD}" || echo "${GOOD}"`: Checks if
      the specific condition is currently active and prints "YES" (in red) if
@@ -214,5 +213,4 @@ By running this script, users can quickly see if their Raspberry Pi has
 encountered any power or thermal issues that could affect performance. The use
 of color-coded output makes it easy to identify problems at a glance.
 
-[check_pi_throttling.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/check_pi_throttling.sh
+[check_pi_throttling.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/check_pi_throttling.sh

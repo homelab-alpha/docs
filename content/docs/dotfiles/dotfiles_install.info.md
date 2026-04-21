@@ -288,5 +288,4 @@ dotfiles, installs new dotfiles, and can restore the original files during
 uninstallation. The script is user-friendly, providing a menu for selecting
 actions and logging the process to a log file.
 
-[dotfiles_installer.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/dotfiles/main/dotfiles_installer.sh
+[dotfiles_installer.sh]: https://raw.githubusercontent.com/homelab-alpha/dotfiles/main/dotfiles_installer.sh

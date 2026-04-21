@@ -122,7 +122,6 @@ specific settings for bitrate, sampling rate, and channel configuration.
 
    This part of the script handles files based on their extensions. Let's break
    down each case:
-
    - **MP3 Files**:
 
      ```bash
@@ -191,5 +190,4 @@ and avoids overwriting existing files.
 This script effectively converts various audio formats to MP3 while maintaining
 the original directory structure and handling errors gracefully.
 
-[audio_converter.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/audio_converter.sh
+[audio_converter.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/audio_converter.sh

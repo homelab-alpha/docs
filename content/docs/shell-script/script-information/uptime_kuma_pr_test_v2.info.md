@@ -424,5 +424,4 @@ This script provides a flexible and interactive way for developers to test
 Uptime-Kuma pull requests, whether they require temporary or persistent Docker
 environments.
 
-[uptime_kuma_pr_test_v2.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/uptime_kuma_pr_test_v2.sh
+[uptime_kuma_pr_test_v2.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/uptime_kuma_pr_test_v2.sh

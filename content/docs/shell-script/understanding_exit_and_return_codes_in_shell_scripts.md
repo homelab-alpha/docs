@@ -178,7 +178,6 @@ exit 0  # Successfully executed
 ### Differences
 
 1. **Context of Use**:
-
    - **Exit Code**: Indicates the status of an entire script after execution. An
      exit code of `0` generally indicates success.
    - **Return Code**: Used within shell functions to indicate the status of the

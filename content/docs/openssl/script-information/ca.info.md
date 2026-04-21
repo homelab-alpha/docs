@@ -336,5 +336,4 @@ This comprehensive script ensures that every step in setting up and managing an
 Intermediate Certificate Authority is performed correctly and securely, from key
 generation to certificate verification.
 
-[ca.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/intermediate-certificate-authority/ca.sh
+[ca.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/intermediate-certificate-authority/ca.sh

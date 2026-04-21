@@ -70,7 +70,7 @@ Run the following commands to enable the official Docker repository:
 ```bash
 sudo dnf -y install dnf-plugins-core
 sudo dnf config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo
-````
+```
 
 {{% /tab %}}
 {{% tab tabName="Fedora 41 & 40" %}}
@@ -431,7 +431,5 @@ docker run \
   portainer/portainer-ee:latest
 ```
 
-[Official Docker documentation for Fedora]:
-  https://docs.docker.com/desktop/install/fedora
-[Official Docker documentation for Ubuntu]:
-  https://docs.docker.com/desktop/install/ubuntu
+[Official Docker documentation for Fedora]: https://docs.docker.com/desktop/install/fedora
+[Official Docker documentation for Ubuntu]: https://docs.docker.com/desktop/install/ubuntu

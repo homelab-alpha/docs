@@ -1,7 +1,6 @@
 ---
 title: "Terms of Homelab-Alpha"
-description:
-  "Read the Terms of Homelab-Alpha services, ensuring transparency,
+description: "Read the Terms of Homelab-Alpha services, ensuring transparency,
   privacy, and security."
 url: "terms-of-homelab-alpha"
 aliases: ""

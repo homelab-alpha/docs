@@ -1,8 +1,6 @@
 ---
-title:
-  "Mastering the SQ3R Reading Method: A Complete Guide to Effective Reading"
-description:
-  "Explore the SQ3R Reading Method, a structured approach to improve
+title: "Mastering the SQ3R Reading Method: A Complete Guide to Effective Reading"
+description: "Explore the SQ3R Reading Method, a structured approach to improve
   comprehension and retention through active engagement with texts."
 url: "back-to-basics/mastering-the-sq3r-reading-method"
 aliases:

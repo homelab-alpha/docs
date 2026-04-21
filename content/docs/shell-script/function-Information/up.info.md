@@ -151,5 +151,4 @@ This script is simple but powerful, allowing users to navigate their filesystem
 more efficiently by specifying the number of levels to move up directly within
 the command.
 
-[up.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/up.sh
+[up.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/up.sh

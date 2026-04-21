@@ -175,5 +175,4 @@ Overall, the `mkdirg.sh` script is a useful tool for creating directories and
 navigating into them while also ensuring that necessary metadata is present in
 the script itself.
 
-[mkdirg.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/mkdirg.sh
+[mkdirg.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/mkdirg.sh

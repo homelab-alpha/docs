@@ -206,5 +206,4 @@ function file-decrypt() {
 By following these steps, the script ensures secure encryption and decryption of
 files and directories, making it useful for protecting sensitive data.
 
-[encrypt_and_decrypt.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/encrypt_and_decrypt.sh
+[encrypt_and_decrypt.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/encrypt_and_decrypt.sh

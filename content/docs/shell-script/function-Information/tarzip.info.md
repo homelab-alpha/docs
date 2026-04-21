@@ -165,7 +165,6 @@ formats (`-c` and `-f`) for compatibility with different systems.
    `zip` command.
 3. The `zip` command is used to compress the tar file (`$tmp_file`) into a zip
    file (`$zip_file`). The options used are:
-
    - `--encrypt` to enable encryption.
    - `--recurse-paths` to include directories and their contents.
    - `-9` for maximum compression.
@@ -213,5 +212,4 @@ timestamps, and ensures the integrity of the compressed file through
 verification. The detailed messages and verbose output help in understanding
 each step of the process.
 
-[tarzip.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/tarzip.sh
+[tarzip.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/tarzip.sh

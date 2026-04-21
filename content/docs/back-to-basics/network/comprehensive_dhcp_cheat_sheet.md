@@ -1,6 +1,5 @@
 ---
-title:
-  "Comprehensive DHCP Cheat Sheet: Essentials, Configuration, and
+title: "Comprehensive DHCP Cheat Sheet: Essentials, Configuration, and
   Troubleshooting"
 description:
   "A detailed guide on DHCP, covering key concepts, configuration steps, message
@@ -199,17 +198,17 @@ Securing your DHCP infrastructure is crucial to maintaining a safe and efficient
 network. Here are some security practices to consider:
 
 1. **Isolate the DHCP Server**: Place the DHCP server on a dedicated network
-  segment to limit access.
+   segment to limit access.
 2. **Use DHCP Snooping**: Enable DHCP snooping on your network switches to
-  prevent rogue DHCP servers from distributing IP addresses.
+   prevent rogue DHCP servers from distributing IP addresses.
 3. **Authentication**: Implement 802.1X network access control to ensure only
-  authenticated devices receive IP addresses.
+   authenticated devices receive IP addresses.
 4. **Monitor DHCP Traffic**: Use network monitoring tools to keep an eye on DHCP
-  traffic and identify unusual activity.
+   traffic and identify unusual activity.
 5. **Access Control Lists (ACLs)**: Apply ACLs to restrict which devices can send
-  or receive DHCP traffic.
+   or receive DHCP traffic.
 6. **Regular Updates**: Keep the DHCP server software updated to protect against
-  known vulnerabilities.
+   known vulnerabilities.
 
 <br />
 

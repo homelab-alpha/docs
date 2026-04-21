@@ -213,5 +213,4 @@ version of Go, ensuring that users always have the most up-to-date version with
 minimal manual intervention. It includes comprehensive error handling and
 provides clear instructions for users to finalize their setup if necessary.
 
-[install_latest_go.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/install_latest_go.sh
+[install_latest_go.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/install_latest_go.sh

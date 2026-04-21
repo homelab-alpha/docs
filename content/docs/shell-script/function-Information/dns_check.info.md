@@ -168,5 +168,4 @@ In essence, `dns_check.sh` provides a comprehensive network diagnostic tool,
 assessing DNS server availability and network connectivity, and logging relevant
 information for troubleshooting purposes.
 
-[dns_check.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/dns_check.sh
+[dns_check.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/dns_check.sh

@@ -246,5 +246,4 @@ This script effectively handles the extraction of various archive formats,
 making it a handy tool for simplifying the process of dealing with compressed
 files.
 
-[ex.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/ex.sh
+[ex.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/ex.sh

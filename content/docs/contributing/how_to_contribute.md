@@ -55,7 +55,7 @@ community:
 - **[Docker]**
 - **[OpenSSL]**
 - **[Shell Script]**
-{{% /alert %}}
+  {{% /alert %}}
 
 <br />
 
@@ -152,8 +152,7 @@ anticipate your contributions!
 
 [GitHub flow]: https://guides.github.com/introduction/flow
 [Conventional Commits specification]: https://conventionalcommits.org/
-[Code Style + Standards Guides]:
-  docs/../../contributing/code_style_plus_standards_guides.md
+[Code Style + Standards Guides]: docs/../../contributing/code_style_plus_standards_guides.md
 [pull request]: https://github.com/homelab-alpha/docs/pulls
 [ideas]: https://github.com/homelab-alpha/homelab-alpha/discussions/categories/ideas
 [Homelab-Alpha license]: docs/../../help/license.md

@@ -222,5 +222,4 @@ changes directly in the terminal. Its interactive menu, support for custom
 repositories, and file extension toggling ensure a flexible and efficient
 experience for GitHub users.
 
-[github_pr_inspector.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/github_pr_inspector.sh
+[github_pr_inspector.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/github_pr_inspector.sh

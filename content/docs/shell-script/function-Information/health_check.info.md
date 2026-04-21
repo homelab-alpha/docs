@@ -157,5 +157,4 @@ or down. By using `curl` with appropriate options, it efficiently handles the
 URL checking process. This script is handy for quick health checks of web
 services.
 
-[health_check.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/health_check.sh
+[health_check.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/health_check.sh

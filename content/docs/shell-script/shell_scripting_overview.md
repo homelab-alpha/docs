@@ -1,7 +1,6 @@
 ---
 title: "Shell Scripting Overview"
-description:
-  "Discover the Fundamentals of Shell Scripting with This Comprehensive Overview"
+description: "Discover the Fundamentals of Shell Scripting with This Comprehensive Overview"
 url: "shell-script/overview"
 aliases: ""
 icon: "overview"
@@ -535,157 +534,88 @@ learn how to contribute, see [contribute].
 &copy; 2024 Homelab-Alpha and its repositories are licensed under the terms of
 the [license] agreement.
 
-[audio_converter.info]:
-  docs/../../shell-script/script-information/audio_converter.info.md
-[audio_converter.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/audio_converter.sh
-[check_pi_throttling.info]:
-  docs/../../shell-script/script-information/check_pi_throttling.info.md
-[check_pi_throttling.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/check_pi_throttling.sh
-[check_system_info.info]:
-  docs/../../shell-script/script-information/check_system_info.info.md
-[check_system_info.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/check_system_info.sh
+[audio_converter.info]: docs/../../shell-script/script-information/audio_converter.info.md
+[audio_converter.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/audio_converter.sh
+[check_pi_throttling.info]: docs/../../shell-script/script-information/check_pi_throttling.info.md
+[check_pi_throttling.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/check_pi_throttling.sh
+[check_system_info.info]: docs/../../shell-script/script-information/check_system_info.info.md
+[check_system_info.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/check_system_info.sh
 [clearcache.info]: docs/../../shell-script/script-information/clearcache.info.md
-[clearcache.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/clearcache.sh
-[cronjob_template.info]:
-  docs/../../shell-script/script-information/cronjob_template.info.md
-[cronjob_template.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/cronjob_template.sh
-[github_pr_inspector.info]:
-  docs/../../shell-script/script-information/github_pr_inspector.info.md
-[github_pr_inspector.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/github_pr_inspector.sh
-[gnome_keybindings_backup_restore.info]:
-  docs/../../shell-script/script-information/gnome_keybindings_backup_restore.info.md
-[gnome_keybindings_backup_restore.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/gnome_keybindings_backup_restore.sh
-[gpg_keygen_script.info]:
-  docs/../../shell-script/script-information/gpg_keygen_script.info.md
-[gpg_keygen_script.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/gpg_keygen_script.sh
-[install_latest_dart_sass.info]:
-  docs/../../shell-script/script-information/install_latest_dart_sass.info.md
-[install_latest_dart_sass.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/install_latest_dart_sass.sh
-[install_latest_go.info]:
-  docs/../../shell-script/script-information/install_latest_go.info.md
-[install_latest_go.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/install_latest_go.sh
-[install_latest_hugo.info]:
-  docs/../../shell-script/script-information/install_latest_hugo.info.md
-[install_latest_hugo.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/install_latest_hugo.sh
-[install_latest_jetbrains_mono.info]:
-  docs/../../shell-script/script-information/install_latest_jetbrains_mono.info.md
-[install_latest_jetbrains_mono.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/install_latest_jetbrains_mono.sh
-[maintain_git_repo.info]:
-  docs/../../shell-script/script-information/maintain_git_repo.info.md
-[maintain_git_repo.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/maintain_git_repo.sh
-[new_docker_compose_file.info]:
-  docs/../../shell-script/script-information/new_docker_compose_file.info.md
-[new_docker_compose_file.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/new_docker_compose_file.sh
-[new_docker_container.info]:
-  docs/../../shell-script/script-information/new_docker_container.info.md
-[new_docker_container.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/new_docker_container.sh
-[ssh_keygen_script.info]:
-  docs/../../shell-script/script-information/ssh_keygen_script.info.md
-[ssh_keygen_script.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/ssh_keygen_script.sh
-[super_linter.info]:
-  docs/../../shell-script/script-information/super_linter.info.md
-[super_linter.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/super_linter.sh
-[uptime_kuma_pr_test_v2.info]:
-  docs/../../shell-script/script-information/uptime_kuma_pr_test_v2.info.md
-[uptime_kuma_pr_test_v2.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/uptime_kuma_pr_test_v2.sh
-[user_accounts_info.info]:
-  docs/../../shell-script/script-information/user_accounts_info.info.md
-[user_accounts_info.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/user_accounts_info.sh
+[clearcache.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/clearcache.sh
+[cronjob_template.info]: docs/../../shell-script/script-information/cronjob_template.info.md
+[cronjob_template.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/cronjob_template.sh
+[github_pr_inspector.info]: docs/../../shell-script/script-information/github_pr_inspector.info.md
+[github_pr_inspector.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/github_pr_inspector.sh
+[gnome_keybindings_backup_restore.info]: docs/../../shell-script/script-information/gnome_keybindings_backup_restore.info.md
+[gnome_keybindings_backup_restore.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/gnome_keybindings_backup_restore.sh
+[gpg_keygen_script.info]: docs/../../shell-script/script-information/gpg_keygen_script.info.md
+[gpg_keygen_script.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/gpg_keygen_script.sh
+[install_latest_dart_sass.info]: docs/../../shell-script/script-information/install_latest_dart_sass.info.md
+[install_latest_dart_sass.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/install_latest_dart_sass.sh
+[install_latest_go.info]: docs/../../shell-script/script-information/install_latest_go.info.md
+[install_latest_go.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/install_latest_go.sh
+[install_latest_hugo.info]: docs/../../shell-script/script-information/install_latest_hugo.info.md
+[install_latest_hugo.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/install_latest_hugo.sh
+[install_latest_jetbrains_mono.info]: docs/../../shell-script/script-information/install_latest_jetbrains_mono.info.md
+[install_latest_jetbrains_mono.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/install_latest_jetbrains_mono.sh
+[maintain_git_repo.info]: docs/../../shell-script/script-information/maintain_git_repo.info.md
+[maintain_git_repo.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/maintain_git_repo.sh
+[new_docker_compose_file.info]: docs/../../shell-script/script-information/new_docker_compose_file.info.md
+[new_docker_compose_file.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/new_docker_compose_file.sh
+[new_docker_container.info]: docs/../../shell-script/script-information/new_docker_container.info.md
+[new_docker_container.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/new_docker_container.sh
+[ssh_keygen_script.info]: docs/../../shell-script/script-information/ssh_keygen_script.info.md
+[ssh_keygen_script.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/ssh_keygen_script.sh
+[super_linter.info]: docs/../../shell-script/script-information/super_linter.info.md
+[super_linter.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/super_linter.sh
+[uptime_kuma_pr_test_v2.info]: docs/../../shell-script/script-information/uptime_kuma_pr_test_v2.info.md
+[uptime_kuma_pr_test_v2.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/uptime_kuma_pr_test_v2.sh
+[user_accounts_info.info]: docs/../../shell-script/script-information/user_accounts_info.info.md
+[user_accounts_info.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/user_accounts_info.sh
 [cpg.info]: docs/../../shell-script/function-Information/cpg.info.md
-[cpg.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/cpg.sh
+[cpg.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/cpg.sh
 [dns_check.info]: docs/../../shell-script/function-Information/dns_check.info.md
-[dns_check.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/dns_check.sh
-[encrypt_and_decrypt.info]:
-  docs/../../shell-script/function-Information/encrypt_and_decrypt.info.md
-[encrypt_and_decrypt.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/encrypt_and_decrypt.sh
+[dns_check.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/dns_check.sh
+[encrypt_and_decrypt.info]: docs/../../shell-script/function-Information/encrypt_and_decrypt.info.md
+[encrypt_and_decrypt.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/encrypt_and_decrypt.sh
 [ex.info]: docs/../../shell-script/function-Information/ex.info.md
-[ex.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/ex.sh
-[health_check.info]:
-  docs/../../shell-script/function-Information/health_check.info.md
-[health_check.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/health_check.sh
+[ex.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/ex.sh
+[health_check.info]: docs/../../shell-script/function-Information/health_check.info.md
+[health_check.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/health_check.sh
 [mkdirg.info]: docs/../../shell-script/function-Information/mkdirg.info.md
-[mkdirg.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/mkdirg.sh
+[mkdirg.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/mkdirg.sh
 [mvg.info]: docs/../../shell-script/function-Information/mvg.info.md
-[mvg.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/mvg.sh
+[mvg.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/mvg.sh
 [targzip.info]: docs/../../shell-script/function-Information/targzip.info.md
-[targzip.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/targzip.sh
+[targzip.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/targzip.sh
 [tarzip.info]: docs/../../shell-script/function-Information/tarzip.info.md
-[tarzip.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/tarzip.sh
+[tarzip.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/tarzip.sh
 [up.info]: docs/../../shell-script/function-Information/up.info.md
-[up.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/up.sh
+[up.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/up.sh
 [dotfiles_installer.info]: docs/../../dotfiles/dotfiles_install.info.md
-[dotfiles_installer.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/dotfiles/main/dotfiles_installer.sh
-[openssl_installer.info]:
-  docs/../../openssl/script-information/openssl_installer.info.md
-[openssl_installer.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/main/openssl_installer.sh
-[openssl_setup.info]:
-  docs/../../openssl/script-information/openssl_setup.info.md
-[openssl_setup.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/main/openssl_setup.sh
+[dotfiles_installer.sh]: https://raw.githubusercontent.com/homelab-alpha/dotfiles/main/dotfiles_installer.sh
+[openssl_installer.info]: docs/../../openssl/script-information/openssl_installer.info.md
+[openssl_installer.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/openssl_installer.sh
+[openssl_setup.info]: docs/../../openssl/script-information/openssl_setup.info.md
+[openssl_setup.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/openssl_setup.sh
 [trusted-id.info]: docs/../../openssl/script-information/trusted-id.info.md
-[trusted-id.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate-authority/trusted-id.sh
+[trusted-id.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate-authority/trusted-id.sh
 [root_ca.info]: docs/../../openssl/script-information/root_ca.info.md
-[root_ca.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate-authority/root_ca.sh
+[root_ca.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate-authority/root_ca.sh
 [ca.info]: docs/../../openssl/script-information/ca.info.md
-[ca.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/main/intermediate-certificate-authority/ca.sh
-[cert_ecdsa_localhost.info]:
-  docs/../../openssl/script-information/cert_ecdsa_localhost.info.md
-[cert_ecdsa_localhost.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate/cert_ecdsa_localhost.sh
-[cert_ecdsa_server.info]:
-  docs/../../openssl/script-information/cert_ecdsa_server.info.md
-[cert_ecdsa_server.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate/cert_ecdsa_server.sh
-[cert_ecdsa_client.info]:
-  docs/../../openssl/script-information/cert_ecdsa_client.info.md
-[cert_ecdsa_client.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate/cert_ecdsa_client.sh
-[cert_rsa_server.info]:
-  docs/../../openssl/script-information/cert_rsa_server.info.md
-[cert_rsa_server.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate/cert_rsa_server.sh
-[cert_rsa_client.info]:
-  docs/../../openssl/script-information/cert_rsa_client.info.md
-[cert_rsa_client.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate/cert_rsa_client.sh
-[openssl_verify_certificates.info]:
-  docs/../../openssl/script-information/openssl_verify_certificates.info.md
-[openssl_verify_certificates.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/main/openssl_verify_certificates.sh
+[ca.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/intermediate-certificate-authority/ca.sh
+[cert_ecdsa_localhost.info]: docs/../../openssl/script-information/cert_ecdsa_localhost.info.md
+[cert_ecdsa_localhost.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate/cert_ecdsa_localhost.sh
+[cert_ecdsa_server.info]: docs/../../openssl/script-information/cert_ecdsa_server.info.md
+[cert_ecdsa_server.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate/cert_ecdsa_server.sh
+[cert_ecdsa_client.info]: docs/../../openssl/script-information/cert_ecdsa_client.info.md
+[cert_ecdsa_client.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate/cert_ecdsa_client.sh
+[cert_rsa_server.info]: docs/../../openssl/script-information/cert_rsa_server.info.md
+[cert_rsa_server.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate/cert_rsa_server.sh
+[cert_rsa_client.info]: docs/../../openssl/script-information/cert_rsa_client.info.md
+[cert_rsa_client.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate/cert_rsa_client.sh
+[openssl_verify_certificates.info]: docs/../../openssl/script-information/openssl_verify_certificates.info.md
+[openssl_verify_certificates.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/openssl_verify_certificates.sh
 [contribute]: docs/../../contributing/code_of_conduct.md
 [ShellCheck]: https://www.shellcheck.net/
 [Bash Scripting Guide]: https://www.tldp.org/LDP/abs/html/

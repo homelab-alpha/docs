@@ -112,8 +112,7 @@ following sections in the repository: **README**, **CODE OF CONDUCT**,
 **CONTRIBUTING**, **CODE STYLE AND STANDARDS GUIDES**, **SECURITY**, and
 **LICENSE**.
 
-[My Skills]:
-  https://skillicons.dev/icons?i=bash,bitbucket,debian,docker,git,github,githubactions,gitlab,linux,markdown,raspberrypi,redhat,ubuntu,visualstudio,vscode&theme=dark&perline=15
+[My Skills]: https://skillicons.dev/icons?i=bash,bitbucket,debian,docker,git,github,githubactions,gitlab,linux,markdown,raspberrypi,redhat,ubuntu,visualstudio,vscode&theme=dark&perline=15
 [Docker]: https://github.com/homelab-alpha/docker
 [OpenSSL]: https://github.com/homelab-alpha/openssl
 [Shell Script]: https://github.com/homelab-alpha/shell-script

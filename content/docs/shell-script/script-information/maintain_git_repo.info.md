@@ -173,5 +173,4 @@ its history and organizing its structure. It is particularly useful for
 maintaining a clear and concise project history, which can enhance collaboration
 and project management.
 
-[maintain_git_repo.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/maintain_git_repo.sh
+[maintain_git_repo.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/maintain_git_repo.sh

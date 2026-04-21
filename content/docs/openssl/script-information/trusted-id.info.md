@@ -319,5 +319,4 @@ This comprehensive script ensures that every step in generating and managing a
 trusted root certificate is performed correctly and securely, from key
 generation to certificate conversion.
 
-[trusted_id.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/certificate-authority/trusted_id.sh
+[trusted_id.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/certificate-authority/trusted_id.sh

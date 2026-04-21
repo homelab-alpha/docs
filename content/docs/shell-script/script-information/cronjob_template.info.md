@@ -225,5 +225,4 @@ health check ping to a monitoring server. It includes detailed logging, error
 handling, and flexibility for different environments through command-line
 options and certificate management.
 
-[cronjob_template.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/cronjob_template.sh
+[cronjob_template.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/cronjob_template.sh

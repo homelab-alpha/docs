@@ -237,5 +237,4 @@ By understanding each part of the script, you can see how it effectively manages
 GNOME keybinding configurations, providing a straightforward way to back them up
 and restore them as needed.
 
-[gnome_keybindings_backup_restore.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/gnome_keybindings_backup_restore.sh
+[gnome_keybindings_backup_restore.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/gnome_keybindings_backup_restore.sh

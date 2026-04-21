@@ -73,7 +73,6 @@ command to export the database:
 throughout this guide.
 {{% /alert %}}
 
-
 {{% alert context="primary" %}}
 **Note**: Replace `testing_db` with the name of the database you want to export.
 Use this name consistently throughout this guide.

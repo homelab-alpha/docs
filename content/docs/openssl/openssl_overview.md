@@ -155,8 +155,7 @@ libraries and protocols.
 &copy; 2024 Homelab-Alpha and its repositories are licensed under the terms of
 the [license] agreement.
 
-[Please let me know]:
-  https://github.com/homelab-alpha/openssl/discussions/categories/feedback
+[Please let me know]: https://github.com/homelab-alpha/openssl/discussions/categories/feedback
 [contribute]: docs/../../contributing/code_of_conduct.md
 [OpenSSL Official Site]: https://www.openssl.org
 [OpenSSL Wiki]: https://wiki.openssl.org

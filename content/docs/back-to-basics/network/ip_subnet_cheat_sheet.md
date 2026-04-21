@@ -43,7 +43,6 @@ IP addresses are divided into different classes based on their leading bits.
 Here’s a quick overview:
 
 - **Class A**: `1.0.0.0` to `126.0.0.0`
-
   - Default Subnet Mask: `255.0.0.0` (`/8`)
   - Number of Networks: 128 (2^7)
   - Hosts per Network: 16,777,214
@@ -51,7 +50,6 @@ Here’s a quick overview:
   <br />
 
 - **Class B**: `128.0.0.0` to `191.255.0.0`
-
   - Default Subnet Mask: `255.255.0.0` (`/16`)
   - Number of Networks: 16,384 (2^14)
   - Hosts per Network: 65,534
@@ -59,7 +57,6 @@ Here’s a quick overview:
   <br />
 
 - **Class C**: `192.0.0.0` to `223.255.255.0`
-
   - Default Subnet Mask: `255.255.255.0` (`/24`)
   - Number of Networks: 2,097,152 (2^21)
   - Hosts per Network: 254

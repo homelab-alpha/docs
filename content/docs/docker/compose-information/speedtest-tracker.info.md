@@ -93,8 +93,7 @@ networks:
       com.docker.network.bridge.name: "speed-tracker"
       com.docker.network.driver.mtu: "1500"
     labels:
-      com.speedtest-tracker.network.description:
-        "is an isolated bridge network."
+      com.speedtest-tracker.network.description: "is an isolated bridge network."
 ```
 
 <br />
@@ -708,11 +707,7 @@ and enabling a public dashboard. Both services are configured with appropriate
 logging, health checks, and restart policies, ensuring they operate efficiently,
 reliably, and securely.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/speedtest-tracker/docker-compose.yml
-[.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/speedtest-tracker/.env
-[stack.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/speedtest-tracker/stack.env
-[my.cnf]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/speedtest-tracker/my.cnf
+[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/speedtest-tracker/docker-compose.yml
+[.env]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/speedtest-tracker/.env
+[stack.env]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/speedtest-tracker/stack.env
+[my.cnf]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/speedtest-tracker/my.cnf

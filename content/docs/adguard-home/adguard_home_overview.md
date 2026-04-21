@@ -1,7 +1,6 @@
 ---
 title: "AdGuard Home Overview"
-description:
-  "Explore the features and functionalities of AdGuard Home in this
+description: "Explore the features and functionalities of AdGuard Home in this
   comprehensive overview."
 url: "adguard-home/overview"
 aliases: ""
@@ -98,35 +97,19 @@ No external contributions are currently being accepted for this project.
 the [license] agreement.
 
 [license]: docs/../../help/license.md
-[**Bekende Malafide Handelspartijen:**]:
-  https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/bekende_malafide_handelspartijen.txt
-[**Blocklist:**]:
-  https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/blocklist.txt
-[**Cookies:**]:
-  https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/cookies.txt
-[**DNS type:**]:
-  https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/dns_type.txt
-[**Fraudulent Trading Parties**]:
-  https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/fraudulent_trading_parties.txt
-[**IDNs:**]:
-  https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/idns.txt
-[**LabHost phishing domains:**]:
-  https://raw.githubusercontent.com/homelab-alpha/adguard-home/refs/heads/main/filters/labhost_phishing_domains.txt
-[**Malicious IP Addresses:**]:
-  https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/malicious_ip_addresses.txt
-[**Microsoft Whitelist:**]:
-  https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/microsoft_whitelist.txt
-[**Regex:**]:
-  https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/regex.txt
-[**SLDs:**]:
-  https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/slds.txt
-[**Sociale Media:**]:
-  https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/sociale_media.txt
-[**Third Level Domains:**]:
-  https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/third_level_domains.txt
-[**TLDs:**]:
-  https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/tlds.txt
-[**Whitelist:**]:
-  https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/whitelist.txt
-[**Wildcard:**]:
-  https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/wildcard.txt
+[**Bekende Malafide Handelspartijen:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/bekende_malafide_handelspartijen.txt
+[**Blocklist:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/blocklist.txt
+[**Cookies:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/cookies.txt
+[**DNS type:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/dns_type.txt
+[**Fraudulent Trading Parties**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/fraudulent_trading_parties.txt
+[**IDNs:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/idns.txt
+[**LabHost phishing domains:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/refs/heads/main/filters/labhost_phishing_domains.txt
+[**Malicious IP Addresses:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/malicious_ip_addresses.txt
+[**Microsoft Whitelist:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/microsoft_whitelist.txt
+[**Regex:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/regex.txt
+[**SLDs:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/slds.txt
+[**Sociale Media:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/sociale_media.txt
+[**Third Level Domains:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/third_level_domains.txt
+[**TLDs:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/tlds.txt
+[**Whitelist:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/whitelist.txt
+[**Wildcard:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/wildcard.txt

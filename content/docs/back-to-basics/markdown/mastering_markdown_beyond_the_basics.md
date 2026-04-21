@@ -170,7 +170,7 @@ code blocks:
 
 Syntax:
 
-```plaintext
+````plaintext
 > ## This is a header
 >
 > 1. This is the first list item.
@@ -181,7 +181,7 @@ Syntax:
 > ```bash
 > return shell_exec("echo $input | $markdown_script");
 > ```
-```
+````
 
 Output:
 
@@ -235,9 +235,9 @@ Syntax:
 
 Output:
 
-+ Red
-+ Green
-+ Blue
+- Red
+- Green
+- Blue
 
 and:
 
@@ -251,9 +251,9 @@ Syntax:
 
 Output:
 
-* Red
-* Green
-* Blue
+- Red
+- Green
+- Blue
 
 Ordered lists use numbers followed by periods:
 
@@ -573,13 +573,13 @@ __double underscores__
 
 Output:
 
-*single asterisks*
+_single asterisks_
 
 _single underscores_
 
 **double asterisks**
 
-__double underscores__
+**double underscores**
 
 <br />
 

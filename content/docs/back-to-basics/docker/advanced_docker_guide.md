@@ -528,18 +528,15 @@ of how you might structure your microservices architecture using Docker
 containers:
 
 1. **User Service:**
-
    - Dockerize the user service as a separate container.
    - Expose RESTful APIs for user authentication, registration, and profile
      management.
 
 2. **Product Service:**
-
    - Dockerize the product service as another container.
    - Expose RESTful APIs for product listing, details, and search functionality.
 
 3. **Order Service:**
-
    - Dockerize the order service as a separate container.
    - Expose RESTful APIs for order creation, retrieval, and management.
 
@@ -605,7 +602,6 @@ Below is a simplified example of how you might set up monitoring and logging
 using Prometheus and the ELK stack:
 
 1. **Monitoring with Prometheus:**
-
    - Deploy Prometheus alongside your application using Docker Compose
 
    ```yaml
@@ -625,7 +621,7 @@ using Prometheus and the ELK stack:
    services.
 
 2. **Logging with ELK Stack:** Deploy Elasticsearch, Logstash, and Kibana\
-  (ELK Stack) using Docker Compose.
+   (ELK Stack) using Docker Compose.
 
    ```yml
    version: "3"

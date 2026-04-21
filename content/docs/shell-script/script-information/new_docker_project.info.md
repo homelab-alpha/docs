@@ -748,7 +748,6 @@ done
 This writes configuration settings, including secrets, and database
 details, to the `.env` and `stack.env` file.
 
-
 ## Add Content to `my.cnf`
 
 ```bash
@@ -1123,5 +1122,4 @@ structure with essential configuration files for Docker containers. This can
 significantly streamline the setup process for Docker-based projects, ensuring
 consistency and reducing the risk of errors.
 
-[new_docker_project.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/new_docker_project.sh
+[new_docker_project.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/new_docker_project.sh

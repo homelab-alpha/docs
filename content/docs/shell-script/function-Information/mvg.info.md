@@ -179,5 +179,4 @@ This script is a useful tool for moving files or directories to a new location
 and ensuring the working directory is updated to the new location, while also
 maintaining its own documentation.
 
-[mvg.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/mvg.sh
+[mvg.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/mvg.sh

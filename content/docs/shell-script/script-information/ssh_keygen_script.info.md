@@ -381,5 +381,4 @@ This script provides a comprehensive solution for generating and converting SSH
 key pairs with built-in logging, verbose output options, and robust error
 handling to ensure a smooth and traceable execution process.
 
-[ssh_keygen_script.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/ssh_keygen_script.sh
+[ssh_keygen_script.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/ssh_keygen_script.sh

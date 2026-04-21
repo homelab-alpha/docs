@@ -155,7 +155,6 @@ Output:
 
 <br />
 
-
 # Markdown Headings
 
 # Heading \<h1\>
@@ -243,7 +242,6 @@ Output:
 - #### Heading
 
 1. #### Heading
-
 
 <br />
 

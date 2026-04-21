@@ -1,7 +1,6 @@
 ---
 title: "Markdown Code Blocks: Syntax Highlighting and Customization"
-description:
-  "Learn how to use Markdown's code block features, including syntax
+description: "Learn how to use Markdown's code block features, including syntax
   highlighting with Prism and customization options."
 url: "back-to-basics/markdown/code-blocks"
 aliases: ""
@@ -215,7 +214,7 @@ This only applies to Homelab-Alpha website {{% /alert %}}
 
 Syntax:
 
-````plaintext
+```plaintext
 {{< prism lang="go" start="46" line="6-13,15-25,27-44,45,46,48-52" >}} package
 main
 
@@ -253,7 +252,7 @@ s, \_ := session.New(params)
 if err != nil { return err }
 
 return c.Redirect(http.StatusSeeOther, s.URL) } {{< /prism >}}
-````
+```
 
 Output:
 

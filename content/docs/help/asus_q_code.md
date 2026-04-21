@@ -200,8 +200,7 @@ and fix the most frequent issues you might encounter.
 | 9    | [Boot into the BIOS]                                               |
 | 10   | Boot into the system                                               |
 
-[Official ASUS Documentation For Q-Code]:
-  https://www.asus.com/support/faq/1043948/
+[Official ASUS Documentation For Q-Code]: https://www.asus.com/support/faq/1043948/
 [CPU abnormal]: https://www.asus.com/support/faq/1043948/#2
 [Graphic Card abnormal]: https://www.asus.com/support/faq/1043948/#3
 [Memory abnormal]: https://www.asus.com/support/faq/1043948/#4

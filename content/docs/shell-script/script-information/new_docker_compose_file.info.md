@@ -969,5 +969,4 @@ commands are available, validates user input, creates necessary files and
 directories, and populates the configuration files with appropriate template
 content.
 
-[new_docker_compose_file.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/new_docker_compose_file.sh
+[new_docker_compose_file.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/new_docker_compose_file.sh

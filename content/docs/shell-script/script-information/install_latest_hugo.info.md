@@ -222,5 +222,4 @@ version of Hugo, ensuring that users always have the most up-to-date version. It
 includes comprehensive error handling and provides clear instructions to
 complete the installation if needed.
 
-[install_latest_hugo.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/install_latest_hugo.sh
+[install_latest_hugo.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/install_latest_hugo.sh

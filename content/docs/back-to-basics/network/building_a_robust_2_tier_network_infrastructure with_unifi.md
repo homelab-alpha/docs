@@ -1,11 +1,11 @@
 ---
 title: "Building a Robust 2-Tier Network Infrastructure with UniFi"
-description: "Explore how to design a scalable and efficient 2-tier network using
+description:
+  "Explore how to design a scalable and efficient 2-tier network using
   Ubiquiti's UniFi equipment. This guide covers the essentials of combining Core
   and Distribution layers while maintaining a separate Access layer for small to
   medium-sized networks."
-url:
-  "back-to-basics/network/building-a-robust-2-tier-network-infrastructure
+url: "back-to-basics/network/building-a-robust-2-tier-network-infrastructure
   with-unifi"
 aliases: ""
 icon: "description"

@@ -328,5 +328,4 @@ This comprehensive script ensures that every step in setting up and managing a
 Root Certificate Authority is performed correctly and securely, from key
 generation to certificate verification.
 
-[root_ca.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/certificate-authority/root_ca.sh
+[root_ca.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/certificate-authority/root_ca.sh

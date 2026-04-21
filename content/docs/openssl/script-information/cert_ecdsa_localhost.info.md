@@ -56,7 +56,6 @@ chain. Additionally, it sets up a certificate bundle for HAProxy, performs
 various verification checks, and converts the certificate to different formats
 for compatibility with various applications.
 
-
 ## Script Metadata
 
 - **Filename**: `cert_ecdsa_localhost.sh`
@@ -356,5 +355,4 @@ This comprehensive script ensures that every step in generating and managing an
 ECDSA certificate for localhost is performed correctly and securely, from key
 generation to certificate verification and format conversion.
 
-[cert_ecdsa_localhost.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/certificate/cert_ecdsa_localhost.sh
+[cert_ecdsa_localhost.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/certificate/cert_ecdsa_localhost.sh

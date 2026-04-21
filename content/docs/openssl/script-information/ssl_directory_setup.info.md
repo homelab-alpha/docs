@@ -272,5 +272,4 @@ values, the script ensures clarity and security throughout the process. This
 setup is crucial for managing SSL/TLS certificates in a controlled and organized
 manner.
 
-[ssl_directory_setup.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/ssl_directory_setup.sh
+[ssl_directory_setup.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/ssl_directory_setup.sh

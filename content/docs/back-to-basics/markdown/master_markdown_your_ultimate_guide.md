@@ -108,7 +108,6 @@ Output:
 
 By using \~~two tildes\~~ the text will be ~~striked through~~.
 
-
 <br />
 
 ## Blockquotes
@@ -821,9 +820,7 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit [...]
 
 ![Semantic desc.][image identifier]
 
-[image identifier]:
-  https://raw.githubusercontent.com/homelab-alpha/docs/main/assets/images/logos/logo.png
-  "Title"
+[image identifier]: https://raw.githubusercontent.com/homelab-alpha/docs/main/assets/images/logos/logo.png "Title"
 
 <br />
 

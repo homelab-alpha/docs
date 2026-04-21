@@ -1,9 +1,9 @@
 ---
 title: "How to write hosts blocklists for AdGuard Home"
 description:
-   "Learn how to write hosts blocklists for AdGuard Home using Adblock-style
-   syntax for /etc/hosts, or domains-only syntax. Create effective
-   blocklists compatible with browser ad blockers and AdGuard Home."
+  "Learn how to write hosts blocklists for AdGuard Home using Adblock-style
+  syntax for /etc/hosts, or domains-only syntax. Create effective
+  blocklists compatible with browser ad blockers and AdGuard Home."
 url: "adguard-home/how-to-write-hosts-blocklists"
 aliases: ""
 icon: "description"
@@ -598,7 +598,6 @@ apply to the client for example:
 The list of allowed tags:
 
 - By device type:
-
   - `device_audio`: audio devices.
   - `device_camera`: cameras.
   - `device_gameconsole`: game consoles.
@@ -613,7 +612,6 @@ The list of allowed tags:
   - `device_other`: other devices.
 
 - By operating system:
-
   - `os_android`: Android.
   - `os_ios`: iOS.
   - `os_linux`: Linux.
@@ -622,7 +620,6 @@ The list of allowed tags:
   - `os_other`: other OSes.
 
 - By user group:
-
   - `user_admin`: administrators.
   - `user_regular`: regular users.
   - `user_child`: children.
@@ -690,12 +687,9 @@ What it's capable of:
 3. Cleanup the resulting list: deduplicate, remove invalid rules, and compress
    the list.
 
-
-[Official: Documentation for write hosts blocklists]:
-  https://github.com/AdguardTeam/AdGuardHome/wiki/Hosts-Blocklists
-[Hostlist compiler]:https://github.com/AdguardTeam/HostlistCompiler
-[traditional Adblock-style]:
-  https://kb.adguard.com/en/general/how-to-create-your-own-ad-filters
+[Official: Documentation for write hosts blocklists]: https://github.com/AdguardTeam/AdGuardHome/wiki/Hosts-Blocklists
+[Hostlist compiler]: https://github.com/AdguardTeam/HostlistCompiler
+[traditional Adblock-style]: https://kb.adguard.com/en/general/how-to-create-your-own-ad-filters
 [regular expressions]: https://github.com/google/re2/wiki/Syntax
 [RFC 1035]: https://tools.ietf.org/html/rfc1035#section-3.5
 [Hostlists compiler]: https://github.com/AdguardTeam/HostlistCompiler
