@@ -12,7 +12,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: pages-${{ github.ref }}
   cancel-in-progress: false
 
 defaults:
@@ -23,31 +23,60 @@ jobs:
   build:
     name: 🏗️ Build Hugo Site
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    if: |
+      github.event.sender.type != 'Bot' &&
+      !contains(github.actor, '[bot]')
+
     env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       HUGO_VERSION: 0.160.1
 
     steps:
       - name: 🏁 Notify start of build
         run: |
+          set -Eeuo pipefail
           echo "::notice title=Build Started::🏗️ Hugo build process initialized"
+          echo "::group::ℹ️ Execution context"
+          echo "Repository: ${{ github.repository }}"
+          echo "Workflow ref: ${{ github.ref }}"
+          echo "Runner OS: ${{ runner.os }}"
+          echo "Hugo version: ${{ env.HUGO_VERSION }}"
+          echo "::endgroup::"
 
       - name: 📥 Install Hugo CLI
         run: |
+          set -Eeuo pipefail
           echo "::group::📥 Downloading and installing Hugo v${{ env.HUGO_VERSION }}"
 
-          if ! wget -O "${{ runner.temp }}/hugo.deb" "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb";
-
-          then
+          if ! wget -O "${{ runner.temp }}/hugo.deb" \
+            "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb"; then
             echo "::error title=Hugo Download Failed::❌ Could not download Hugo binary"
             exit 1
           fi
 
-          sudo dpkg -i "${{ runner.temp }}/hugo.deb"
+          if ! sudo dpkg -i "${{ runner.temp }}/hugo.deb"; then
+            echo "::error title=Hugo Install Failed::❌ Could not install Hugo package"
+            exit 1
+          fi
 
+          echo "::notice title=Hugo Installed::✅ Hugo v${{ env.HUGO_VERSION }} installed successfully"
           echo "::endgroup::"
 
       - name: 🎨 Install Dart Sass
-        run: sudo snap install dart-sass
+        id: dart_sass
+        run: |
+          set -Eeuo pipefail
+          echo "::group::🎨 Installing Dart Sass"
+
+          if ! sudo snap install dart-sass; then
+            echo "::error title=Dart Sass Failed::❌ Could not install Dart Sass"
+            exit 1
+          fi
+
+          echo "::notice title=Dart Sass Installed::✅ Dart Sass installed successfully"
+          echo "::endgroup::"
 
       - name: 📑 Checkout source code
         uses: actions/checkout@v6.0.2
@@ -66,17 +95,21 @@ jobs:
           HUGO_ENVIRONMENT: production
           TZ: Europe/Amsterdam
         run: |
+          set -Eeuo pipefail
           echo "::group::🔨 Hugo Compilation"
 
-          if ! hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"; then
-
+          if ! hugo --gc --minify \
+            --baseURL "${{ steps.pages.outputs.base_url }}/"; then
             echo "::error title=Hugo Build Failed::❌ Hugo compilation encountered errors"
+            echo "::endgroup::"
             exit 1
           fi
 
+          echo "::notice title=Hugo Build::✅ Site compiled successfully"
           echo "::endgroup::"
 
       - name: 📤 Upload artifact
+        id: upload
         uses: actions/upload-pages-artifact@v5.0.0
         with:
           path: ./public
@@ -84,8 +117,12 @@ jobs:
       - name: 📊 Generate job summary
         if: always()
         run: |
+          set -Eeuo pipefail
           echo "::group::📊 Generating Summary Report"
+
           BUILD_STATUS="${{ steps.hugo_build.outcome == 'success' && '✅ Success' || '❌ Failed' }}"
+          SASS_STATUS="${{ steps.dart_sass.outcome == 'success' && '✅ Success' || '❌ Failed' }}"
+          UPLOAD_STATUS="${{ steps.upload.outcome == 'success' && '✅ Uploaded' || '⏭️ Skipped' }}"
 
           cat <<EOF >> "$GITHUB_STEP_SUMMARY"
           ## 🏗️ Build Summary
@@ -94,31 +131,35 @@ jobs:
 
           ### 📈 Execution Results
 
-          | Step | Result |
-          | :--- | :--- |
-          | Hugo Compilation | $BUILD_STATUS |
-          | Artifact Upload | ${{ steps.hugo_build.outcome == 'success' && '✅ Uploaded' || '⏭️ Skipped' }} |
+          | Step                 | Result         |
+          | :------------------- | :------------- |
+          | 🎨 Dart Sass Install | $SASS_STATUS   |
+          | 🔨 Hugo Compilation  | $BUILD_STATUS  |
+          | 📤 Artifact Upload   | $UPLOAD_STATUS |
 
-          ### ⚙️ Configuration
+          ### ⚙️ Runtime Configuration
 
           - **Hugo Version:** ${{ env.HUGO_VERSION }}
           - **Environment:** production
           - **Base URL:** ${{ steps.pages.outputs.base_url }}
+          - **Timezone:** Europe/Amsterdam
 
           ### 🧩 Workflow Details
 
-          - Run ID: [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          - **Workflow Run:** [View Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
           EOF
 
           echo "::endgroup::"
 
   deploy:
     name: 🚀 Deploy to Production
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: build
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
 
     steps:
       - name: 🚀 Deploy to GitHub Pages
@@ -128,6 +169,7 @@ jobs:
       - name: 📊 Generate deployment summary
         if: always()
         run: |
+          set -Eeuo pipefail
           echo "::group::📊 Generating Deployment Summary"
 
           DEPLOY_STATUS="${{ steps.deployment.outcome == 'success' && '✅ Success' || '❌ Failed' }}"
@@ -135,11 +177,23 @@ jobs:
           cat <<EOF >> "$GITHUB_STEP_SUMMARY"
           ## 🚀 Deployment Summary
 
+          Execution completed at: $(date -u)
+
           ### 📈 Results
 
-          | Status | URL |
-          | :--- | :--- |
-          | $DEPLOY_STATUS | [View Live Site](${{ steps.deployment.outputs.page_url }}) |
+          | Step               | Result         |
+          | :----------------- | :------------- |
+          | 🚀 Deploy to Pages | $DEPLOY_STATUS |
+
+          ### 🌐 Site Details
+
+          | Key      | Value                                                      |
+          | :------- | :--------------------------------------------------------- |
+          | **URL**  | [View Live Site](${{ steps.deployment.outputs.page_url }}) |
+
+          ### 🧩 Workflow Details
+
+          - **Workflow Run:** [View Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
           EOF
 
           echo "::endgroup::"
