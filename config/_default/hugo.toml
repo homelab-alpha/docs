@@ -4,7 +4,7 @@ disableAliases         = false
 disableKinds           = ["rss"]
 enableEmoji            = true
 enableGitInfo          = true
-languageCode           = "en-NL"
+locale                 = "en-NL"
 timeZone               = "Europe/Amsterdam"
 title                  = "Homelab-Alpha | Your gateway to Homelab-Alpha's open source documentation."
 

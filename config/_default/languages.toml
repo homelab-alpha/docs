@@ -1,5 +1,5 @@
 [en]
   contentDir   = "content/"
-  languageName = "English"
+  languages    = "English"
   title        = "Homelab-Alpha"
   weight       = 10
