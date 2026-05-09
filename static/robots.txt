@@ -1028,6 +1028,9 @@ Disallow: /
 User-agent: NostoCrawlerBot
 Disallow: /
 
+User-agent: OAI-AdsBot
+Disallow: /
+
 User-agent: outboundbuddy-enrichment
 Disallow: /
 
@@ -3208,4 +3211,4 @@ Disallow: /
 # Sitemaps
 Sitemap: https://homelab-alpha.nl/sitemap.xml
 
-# Last modified: 2026-05-06T13:37:38+02:00
+# Last modified: 2026-05-08T10:02:02+02:00
