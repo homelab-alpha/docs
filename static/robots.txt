@@ -3746,9 +3746,12 @@ Disallow: /
 User-agent: WRTNBot
 Disallow: /
 
+User-agent: ZenphonyBot
+Disallow: /
+
 # We trust bots that show respect for our site and privacy! 😊
 
 # Sitemaps
 Sitemap: https://homelab-alpha.nl/sitemap.xml
 
-# Last modified: 2026-05-12T07:09:26+02:00
+# Last modified: 2026-05-15T08:10:38+02:00
