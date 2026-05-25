@@ -90,6 +90,9 @@ Disallow: /
 User-agent: QualifiedBot
 Disallow: /
 
+User-agent: Shap-User
+Disallow: /
+
 # AI Coding Agents
 User-agent: Claude-Code
 Disallow: /
@@ -3754,4 +3757,4 @@ Disallow: /
 # Sitemaps
 Sitemap: https://homelab-alpha.nl/sitemap.xml
 
-# Last modified: 2026-05-15T08:10:38+02:00
+# Last modified: 2026-05-25T08:53:10+02:00
