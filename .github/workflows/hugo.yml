@@ -79,7 +79,7 @@ jobs:
           echo "::endgroup::"
 
       - name: 📑 Checkout source code
-        uses: actions/checkout@v6.0.3
+        uses: actions/checkout@v7.0.0
         with:
           submodules: recursive
           fetch-depth: 0
