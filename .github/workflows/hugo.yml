@@ -31,7 +31,7 @@ jobs:
 
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      HUGO_VERSION: 0.163.2
+      HUGO_VERSION: 0.163.3
 
     steps:
       - name: 🏁 Notify start of build
