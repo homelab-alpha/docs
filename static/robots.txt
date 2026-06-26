@@ -112,6 +112,9 @@ Disallow: /
 User-agent: Code
 Disallow: /
 
+User-agent: Cursor
+Disallow: /
+
 User-agent: Devin
 Disallow: /
 
@@ -174,6 +177,9 @@ User-agent: YouBot
 Disallow: /
 
 # AI Data Scrapers
+User-agent: AI2Bot
+Disallow: /
+
 User-agent: Ai2Bot-Dolma
 Disallow: /
 
@@ -1214,6 +1220,9 @@ Disallow: /
 User-agent: magpie-crawler
 Disallow: /
 
+User-agent: Mantisbot
+Disallow: /
+
 User-agent: McontextualBot
 Disallow: /
 
@@ -1510,6 +1519,9 @@ User-agent: ServerHunterSpider
 Disallow: /
 
 User-agent: StatsDroneBot
+Disallow: /
+
+User-agent: Thinkbot
 Disallow: /
 
 # Uncategorized Agents
@@ -3445,9 +3457,6 @@ Disallow: /
 User-agent: theoldreader.com
 Disallow: /
 
-User-agent: Thinkbot
-Disallow: /
-
 User-agent: thinkers-bot
 Disallow: /
 
@@ -3904,4 +3913,4 @@ Disallow: /
 # Sitemaps
 Sitemap: https://homelab-alpha.nl/sitemap.xml
 
-# Last modified: 2026-06-17T07:14:25+02:00
+# Last modified: 2026-06-26T09:30:00+02:00
