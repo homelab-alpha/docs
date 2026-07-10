@@ -42,6 +42,9 @@ Disallow: /
 User-agent: AI2Bot-DeepResearchEval
 Disallow: /
 
+User-agent: amazon-QBusiness
+Disallow: /
+
 User-agent: Amzn-User
 Disallow: /
 
@@ -102,7 +105,13 @@ Disallow: /
 User-agent: Shap-User
 Disallow: /
 
+User-agent: TongyiBot
+Disallow: /
+
 User-agent: UseAI
+Disallow: /
+
+User-agent: YiyanBot
 Disallow: /
 
 # AI Coding Agents
@@ -128,6 +137,9 @@ User-agent: Trae
 Disallow: /
 
 # AI Data Providers
+User-agent: AIWebIndex
+Disallow: /
+
 User-agent: ApifyBot
 Disallow: /
 
@@ -143,6 +155,9 @@ Disallow: /
 User-agent: CragCrawler
 Disallow: /
 
+User-agent: Crawlspace
+Disallow: /
+
 User-agent: Diffbot
 Disallow: /
 
@@ -153,6 +168,9 @@ User-agent: FirecrawlAgent
 Disallow: /
 
 User-agent: HenkBot
+Disallow: /
+
+User-agent: Mozilla-Tabstack
 Disallow: /
 
 User-agent: QueritBot
@@ -189,6 +207,9 @@ Disallow: /
 User-agent: Applebot-Extended
 Disallow: /
 
+User-agent: bedrockbot
+Disallow: /
+
 User-agent: Bytespider
 Disallow: /
 
@@ -216,6 +237,15 @@ Disallow: /
 User-agent: Datenbank Crawler
 Disallow: /
 
+User-agent: DeepSeekBot
+Disallow: /
+
+User-agent: Doubaobot
+Disallow: /
+
+User-agent: ERNIEBot
+Disallow: /
+
 User-agent: FacebookBot
 Disallow: /
 
@@ -240,6 +270,9 @@ Disallow: /
 User-agent: KimiBot
 Disallow: /
 
+User-agent: KimiCrawler
+Disallow: /
+
 User-agent: laion-huggingface-processor
 Disallow: /
 
@@ -249,7 +282,16 @@ Disallow: /
 User-agent: meta-externalagent
 Disallow: /
 
+User-agent: micro-crawl
+Disallow: /
+
 User-agent: MistralBot
+Disallow: /
+
+User-agent: MoonshotBot
+Disallow: /
+
+User-agent: MoonSpider
 Disallow: /
 
 User-agent: netEstate Imprint Crawler
@@ -259,6 +301,12 @@ User-agent: omgili
 Disallow: /
 
 User-agent: PanguBot
+Disallow: /
+
+User-agent: QwenBot
+Disallow: /
+
+User-agent: SalamandraVLM
 Disallow: /
 
 User-agent: SBIntuitionsBot
@@ -278,6 +326,9 @@ Disallow: /
 
 # AI Search Crawlers
 User-agent: AddSearchBot
+Disallow: /
+
+User-agent: amazon-kendra
 Disallow: /
 
 User-agent: Amzn-SearchBot
@@ -329,6 +380,12 @@ User-agent: PetalBot
 Disallow: /
 
 User-agent: xAI-SearchBot
+Disallow: /
+
+User-agent: YandexAdditional
+Disallow: /
+
+User-agent: YandexAdditionalBot
 Disallow: /
 
 User-agent: ZanistaBot
@@ -3890,9 +3947,6 @@ Disallow: /
 User-agent: Crawl4AI
 Disallow: /
 
-User-agent: DeepSeekBot
-Disallow: /
-
 User-agent: iAskBot
 Disallow: /
 
@@ -3913,4 +3967,4 @@ Disallow: /
 # Sitemaps
 Sitemap: https://homelab-alpha.nl/sitemap.xml
 
-# Last modified: 2026-06-26T09:30:00+02:00
+# Last modified: 2026-07-10T10:02:12+02:00
