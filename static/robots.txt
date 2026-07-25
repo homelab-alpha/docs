@@ -952,6 +952,9 @@ Disallow: /
 User-agent: SottopopNone
 Disallow: /
 
+User-agent: Sottopop-user-rss
+Disallow: /
+
 User-agent: StartmeBot
 Disallow: /
 
@@ -1473,6 +1476,15 @@ User-agent: um-IC
 Disallow: /
 
 User-agent: um-LN
+Disallow: /
+
+User-agent: UpContent
+Disallow: /
+
+User-agent: UpContent-QA
+Disallow: /
+
+User-agent: UpContent-Test
 Disallow: /
 
 User-agent: Verity
@@ -3967,4 +3979,4 @@ Disallow: /
 # Sitemaps
 Sitemap: https://homelab-alpha.nl/sitemap.xml
 
-# Last modified: 2026-07-10T10:02:12+02:00
+# Last modified: 2026-07-25T09:02:52+02:00
