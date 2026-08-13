@@ -355,6 +355,9 @@ Disallow: /
 User-agent: Cloudflare-AutoRAG
 Disallow: /
 
+User-agent: ExaSearchBot
+Disallow: /
+
 User-agent: Google-CloudVertexBot
 Disallow: /
 
@@ -3979,4 +3982,4 @@ Disallow: /
 # Sitemaps
 Sitemap: https://homelab-alpha.nl/sitemap.xml
 
-# Last modified: 2026-07-25T09:02:52+02:00
+# Last modified: 2026-08-13T07:27:40+02:00
