@@ -1139,6 +1139,9 @@ Disallow: /
 User-agent: Buck
 Disallow: /
 
+User-agent: captify-crawler
+Disallow: /
+
 User-agent: channable
 Disallow: /
 
@@ -1203,6 +1206,9 @@ User-agent: FDL Stats Bot
 Disallow: /
 
 User-agent: Fedicabot
+Disallow: /
+
+User-agent: GnowitNewsbot
 Disallow: /
 
 User-agent: Google AdsBot
@@ -1382,6 +1388,9 @@ Disallow: /
 User-agent: PartnerOptimizer-bot
 Disallow: /
 
+User-agent: peer39_crawler
+Disallow: /
+
 User-agent: productsup.io/crawler
 Disallow: /
 
@@ -1416,6 +1425,9 @@ User-agent: scraping@nytimes.com
 Disallow: /
 
 User-agent: SentiBot
+Disallow: /
+
+User-agent: SirdataBot
 Disallow: /
 
 User-agent: SlickBot
@@ -1892,9 +1904,6 @@ User-agent: CapsuleChecker
 Disallow: /
 
 User-agent: CapterraBot
-Disallow: /
-
-User-agent: captify-crawler
 Disallow: /
 
 User-agent: carbon-umbrella-bot
@@ -2414,9 +2423,6 @@ User-agent: Gluten Free Crawler
 Disallow: /
 
 User-agent: gnam gnam spider
-Disallow: /
-
-User-agent: GnowitNewsbot
 Disallow: /
 
 User-agent: Google-Ads-Creatives-Assistant
@@ -3034,9 +3040,6 @@ Disallow: /
 User-agent: PDFBot
 Disallow: /
 
-User-agent: peer39_crawler
-Disallow: /
-
 User-agent: PerMan
 Disallow: /
 
@@ -3065,6 +3068,9 @@ User-agent: Poduptime
 Disallow: /
 
 User-agent: Pomothy-Bot
+Disallow: /
+
+User-agent: Poseidon Research Crawler
 Disallow: /
 
 User-agent: postrank
@@ -3137,6 +3143,9 @@ User-agent: rawweb-bot
 Disallow: /
 
 User-agent: RecordedFuture Global Inventory Crawler
+Disallow: /
+
+User-agent: rednote-websearch-bot
 Disallow: /
 
 User-agent: Refindbot
@@ -3305,9 +3314,6 @@ User-agent: SimpleScraper
 Disallow: /
 
 User-agent: Sindup
-Disallow: /
-
-User-agent: SirdataBot
 Disallow: /
 
 User-agent: sistrix crawler
@@ -3982,4 +3988,4 @@ Disallow: /
 # Sitemaps
 Sitemap: https://homelab-alpha.nl/sitemap.xml
 
-# Last modified: 2026-08-13T07:27:40+02:00
+# Last modified: 2026-08-19T06:56:00+02:00
