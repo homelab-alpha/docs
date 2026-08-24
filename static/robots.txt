@@ -306,6 +306,9 @@ Disallow: /
 User-agent: QwenBot
 Disallow: /
 
+User-agent: Reflectionbot
+Disallow: /
+
 User-agent: SalamandraVLM
 Disallow: /
 
@@ -380,6 +383,9 @@ User-agent: PerplexityBot
 Disallow: /
 
 User-agent: PetalBot
+Disallow: /
+
+User-agent: TalarionSearchBot
 Disallow: /
 
 User-agent: xAI-SearchBot
@@ -670,6 +676,9 @@ Disallow: /
 User-agent: GoogleImageProxy
 Disallow: /
 
+User-agent: GoogleMessages
+Disallow: /
+
 User-agent: Google-PageRenderer
 Disallow: /
 
@@ -719,6 +728,9 @@ User-agent: Iframely
 Disallow: /
 
 User-agent: IFTTT
+Disallow: /
+
+User-agent: iMessage
 Disallow: /
 
 User-agent: Innguma Fetcher
@@ -3988,4 +4000,4 @@ Disallow: /
 # Sitemaps
 Sitemap: https://homelab-alpha.nl/sitemap.xml
 
-# Last modified: 2026-08-19T06:56:00+02:00
+# Last modified: 2026-08-24T07:58:58+02:00
