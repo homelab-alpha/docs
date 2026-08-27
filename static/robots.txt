@@ -137,9 +137,6 @@ User-agent: Trae
 Disallow: /
 
 # AI Data Providers
-User-agent: AIWebIndex
-Disallow: /
-
 User-agent: ApifyBot
 Disallow: /
 
@@ -329,6 +326,12 @@ Disallow: /
 
 # AI Search Crawlers
 User-agent: AddSearchBot
+Disallow: /
+
+User-agent: AIWebIndex
+Disallow: /
+
+User-agent: AIWebIndex-Agent
 Disallow: /
 
 User-agent: amazon-kendra
@@ -4000,4 +4003,4 @@ Disallow: /
 # Sitemaps
 Sitemap: https://homelab-alpha.nl/sitemap.xml
 
-# Last modified: 2026-08-24T07:58:58+02:00
+# Last modified: 2026-08-27T06:51:29+02:00
