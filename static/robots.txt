@@ -400,6 +400,9 @@ Disallow: /
 User-agent: YandexAdditionalBot
 Disallow: /
 
+User-agent: YepBot
+Disallow: /
+
 User-agent: ZanistaBot
 Disallow: /
 
@@ -1184,6 +1187,12 @@ Disallow: /
 User-agent: cXensebot
 Disallow: /
 
+User-agent: Dataprovider
+Disallow: /
+
+User-agent: Dataprovider.com
+Disallow: /
+
 User-agent: Dragonfly
 Disallow: /
 
@@ -1564,9 +1573,6 @@ User-agent: 008
 Disallow: /
 
 User-agent: AdsTxtCrawler
-Disallow: /
-
-User-agent: Dataprovider.com
 Disallow: /
 
 User-agent: dcrawl
@@ -4003,4 +4009,4 @@ Disallow: /
 # Sitemaps
 Sitemap: https://homelab-alpha.nl/sitemap.xml
 
-# Last modified: 2026-08-27T06:51:29+02:00
+# Last modified: 2026-09-11T09:58:37+02:00
