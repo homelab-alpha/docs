@@ -2953,7 +2953,7 @@ Disallow: /
 User-agent: JamesBOT
 Disallow: /
 
-User-agent: Jamie's Spider
+User-agent: Jamie&#39;s Spider
 Disallow: /
 
 User-agent: JenkersBot
@@ -3223,7 +3223,7 @@ Disallow: /
 User-agent: minicrawler
 Disallow: /
 
-User-agent: Minoru's Fediverse Crawler
+User-agent: Minoru&#39;s Fediverse Crawler
 Disallow: /
 
 User-agent: MirrorWebCrawler
@@ -3586,7 +3586,7 @@ Disallow: /
 User-agent: RepoMonkey
 Disallow: /
 
-User-agent: RepoMonkey Bait & Tackle
+User-agent: RepoMonkey Bait &amp; Tackle
 Disallow: /
 
 User-agent: research-bot
@@ -4360,13 +4360,13 @@ Disallow: /
 User-agent: xenU
 Disallow: /
 
+User-agent: Xenu&#39;s
+Disallow: /
+
+User-agent: Xenu&#39;s Link Sleuth 1.1c
+Disallow: /
+
 User-agent: Xenu Link Sleuth
-Disallow: /
-
-User-agent: Xenu's
-Disallow: /
-
-User-agent: Xenu's Link Sleuth 1.1c
 Disallow: /
 
 User-agent: Xing Bot
@@ -4492,4 +4492,4 @@ Disallow: /
 # Sitemaps
 Sitemap: https://homelab-alpha.nl/sitemap.xml
 
-# Last modified: 2026-09-29T07:30:16+02:00
+# Last modified: 2026-10-16T15:44:53+02:00
