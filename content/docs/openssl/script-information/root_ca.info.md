@@ -55,7 +55,7 @@ integrity and correctness of the generated keys, CSRs, and certificates.
 - **Filename**: `root_ca.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: February 20, 2025
-- **Version**: 2.6.2
+- **Version**: 2.6.3
 - **Description**: This script sets up and manages a Root Certificate Authority,
   handling key generation, CSR creation, certificate issuance, and verification
   processes.

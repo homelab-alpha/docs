@@ -58,7 +58,7 @@ certificates.
 - **Filename**: `cert_rsa_server.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: February 20, 2025
-- **Version**: 2.5.2
+- **Version**: 2.5.3
 - **Description**: This script automates the process of creating and managing
   RSA certificates for server authentication, including key generation, CSR
   creation, certificate issuance, verification, and preparation of certificate

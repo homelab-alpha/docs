@@ -58,7 +58,7 @@ permissions in the specified directories.
 
 - **Filename**: `ssl_directory_setup.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: February 20, 2025
+- **Date**: February 18, 2025
 - **Version**: 2.5.0
 - **Description**: Sets up SSL certificate management directories, generates
   random serial numbers, and creates OpenSSL configuration files.
@@ -69,15 +69,6 @@ permissions in the specified directories.
 <br />
 
 ## Detailed Explanation
-
-Before diving into the script, it’s important to know that the script will stop
-execution on any error using the following line:
-
-```bash
-set -e
-```
-
-<br />
 
 ## Functions
 

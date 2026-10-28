@@ -64,7 +64,7 @@ provide detailed output during the verification process.
 
 - **Filename**: `verify_ssl_certificates.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: February 20, 2025
+- **Date**: February 18, 2025
 - **Version**: 2.5.0
 - **Description**: This script verifies SSL/TLS certificates by checking them
   against their corresponding chain of trust. It includes options for verbose
@@ -74,15 +74,6 @@ provide detailed output during the verification process.
 <br />
 
 ## Detailed Explanation
-
-Before diving into the script, it’s important to know that the script will stop
-execution on any error using the following line:
-
-```bash
-set -e
-```
-
-<br />
 
 ## Functions
 
@@ -95,9 +86,9 @@ root certificates:
 base_dir="$HOME/ssl"
 certs_dir="$base_dir/certs"
 
-certs_root_dir="$certs_dir/root"
-certs_intermediate_dir="$certs_dir/intermediate"
-certs_certificates_dir="$certs_dir/certificates"
+certs_certs_root_dir="$certs_dir/root"
+certs_certs_intermediate_dir="$certs_dir/intermediate"
+certs_certs_certificates_dir="$certs_dir/certificates"
 ```
 
 In the updated version, the directory names were simplified to make them more
@@ -228,61 +219,61 @@ parse_arguments "$@"
 case "$file_name" in
 "trusted_id.pem")
   print_section_header "Verify Trusted Identity against Trusted Identity"
-  verify_certificate "$certs_root_dir/trusted_id.pem" "$certs_root_dir/trusted_id.pem"
+  verify_certificate "$certs_certs_root_dir/trusted_id.pem" "$certs_certs_root_dir/trusted_id.pem"
   ;;
 "root_ca.pem")
   print_section_header "Verify Trusted Identity against Trusted Identity"
-  verify_certificate "$certs_root_dir/trusted_id.pem" "$certs_root_dir/trusted_id.pem"
+  verify_certificate "$certs_certs_root_dir/trusted_id.pem" "$certs_certs_root_dir/trusted_id.pem"
 
   print_section_header "Verify Root Certificate Authority against Trusted Identity"
-  verify_certificate "$certs_root_dir/root_ca.pem" "$certs_root_dir/trusted_id.pem"
+  verify_certificate "$certs_certs_root_dir/root_ca.pem" "$certs_certs_root_dir/trusted_id.pem"
 
   print_section_header "Verify Root Certificate Authority Chain against Trusted Identity"
-  verify_certificate "$certs_root_dir/root_ca_chain_bundle.pem" "$certs_root_dir/trusted_id.pem"
+  verify_certificate "$certs_certs_root_dir/root_ca_chain_bundle.pem" "$certs_certs_root_dir/trusted_id.pem"
   ;;
 "ca.pem")
   print_section_header "Verify Trusted Identity against Trusted Identity"
-  verify_certificate "$certs_root_dir/trusted_id.pem" "$certs_root_dir/trusted_id.pem"
+  verify_certificate "$certs_certs_root_dir/trusted_id.pem" "$certs_certs_root_dir/trusted_id.pem"
 
   print_section_header "Verify Root Certificate Authority against Trusted Identity"
-  verify_certificate "$certs_root_dir/root_ca.pem" "$certs_root_dir/trusted_id.pem"
+  verify_certificate "$certs_certs_root_dir/root_ca.pem" "$certs_certs_root_dir/trusted_id.pem"
 
   print_section_header "Verify Root Certificate Authority Chain against Trusted Identity"
-  verify_certificate "$certs_root_dir/root_ca_chain_bundle.pem" "$certs_root_dir/trusted_id.pem"
+  verify_certificate "$certs_certs_root_dir/root_ca_chain_bundle.pem" "$certs_certs_root_dir/trusted_id.pem"
 
   print_section_header "Verify Intermediate Certificate Authority against the Root Certificate Authority"
-  verify_certificate "$certs_intermediate_dir/ca.pem" "$certs_root_dir/root_ca_chain_bundle.pem"
+  verify_certificate "$certs_certs_intermediate_dir/ca.pem" "$certs_certs_root_dir/root_ca_chain_bundle.pem"
 
   print_section_header "Verify Intermediate Certificate Authority Chain against the Root Certificate Authority Chain"
-  verify_certificate "$certs_intermediate_dir/ca_chain_bundle.pem" "$certs_root_dir/root_ca_chain_bundle.pem"
+  verify_certificate "$certs_certs_intermediate_dir/ca_chain_bundle.pem" "$certs_certs_root_dir/root_ca_chain_bundle.pem"
   ;;
 *)
   print_section_header "Verify Trusted Identity against Trusted Identity"
-  verify_certificate "$certs_root_dir/trusted_id.pem" "$certs_root_dir/trusted_id.pem"
+  verify_certificate "$certs_certs_root_dir/trusted_id.pem" "$certs_certs_root_dir/trusted_id.pem"
 
   print_section_header "Verify Root Certificate Authority against Trusted Identity"
-  verify_certificate "$certs_root_dir/root_ca.pem" "$certs_root_dir/trusted_id.pem"
+  verify_certificate "$certs_certs_root_dir/root_ca.pem" "$certs_certs_root_dir/trusted_id.pem"
 
   print_section_header "Verify Root Certificate Authority Chain against Trusted Identity"
-  verify_certificate "$certs_root_dir/root_ca_chain_bundle.pem" "$certs_root_dir/trusted_id.pem"
+  verify_certificate "$certs_certs_root_dir/root_ca_chain_bundle.pem" "$certs_certs_root_dir/trusted_id.pem"
 
   print_section_header "Verify Intermediate Certificate Authority against the Root Certificate Authority"
-  verify_certificate "$certs_intermediate_dir/ca.pem" "$certs_root_dir/root_ca_chain_bundle.pem"
+  verify_certificate "$certs_certs_intermediate_dir/ca.pem" "$certs_certs_root_dir/root_ca_chain_bundle.pem"
 
   print_section_header "Verify Intermediate Certificate Authority Chain against the Root Certificate Authority Chain"
-  verify_certificate "$certs_intermediate_dir/ca_chain_bundle.pem" "$certs_root_dir/root_ca_chain_bundle.pem"
+  verify_certificate "$certs_certs_intermediate_dir/ca_chain_bundle.pem" "$certs_certs_root_dir/root_ca_chain_bundle.pem"
 
   print_section_header "Verify Certificate against the Certificate Chain"
-  verify_certificate "$certs_certificates_dir/${file_name}.pem" "$certs_certificates_dir/${file_name}_chain_bundle.pem"
+  verify_certificate "$certs_certs_certificates_dir/${file_name}.pem" "$certs_certs_certificates_dir/${file_name}_chain_bundle.pem"
 
   print_section_header "Verify Certificate against the Intermediate Certificate Chain"
-  verify_certificate "$certs_certificates_dir/${file_name}.pem" "$certs_intermediate_dir/ca_chain_bundle.pem"
+  verify_certificate "$certs_certs_certificates_dir/${file_name}.pem" "$certs_certs_intermediate_dir/ca_chain_bundle.pem"
 
   print_section_header "Verify Certificate Chain against the Intermediate Certificate Chain"
-  verify_certificate "$certs_certificates_dir/${file_name}_chain_bundle.pem" "$certs_intermediate_dir/ca_chain_bundle.pem"
+  verify_certificate "$certs_certs_certificates_dir/${file_name}_chain_bundle.pem" "$certs_certs_intermediate_dir/ca_chain_bundle.pem"
 
   print_section_header "Verify Haproxy Certificate Chain against the Intermediate Certificate Chain"
-  verify_certificate "$certs_certificates_dir/${file_name}_haproxy.pem" "$certs_intermediate_dir/ca_chain_bundle.pem"
+  verify_certificate "$certs_certs_certificates_dir/${file_name}_haproxy.pem" "$certs_certs_intermediate_dir/ca_chain_bundle.pem"
   ;;
 esac
 ```

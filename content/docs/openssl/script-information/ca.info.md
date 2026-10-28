@@ -61,7 +61,7 @@ of the generated keys, CSRs, and certificates.
 - **Filename**: `ca.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: February 20, 2025
-- **Version**: 2.6.3
+- **Version**: 2.6.4
 - **Description**: This script manages an Intermediate Certificate Authority,
   handling key generation, CSR creation, certificate issuance, and verification
   processes.

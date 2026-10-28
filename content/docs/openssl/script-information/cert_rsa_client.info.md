@@ -56,7 +56,7 @@ bundles.
 - **Filename**: `cert_rsa_client.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: February 20, 2025
-- **Version**: 2.5.2
+- **Version**: 2.5.3
 - **Description**: Automates the process of creating and managing RSA client
   certificates, including key generation, CSR creation, certificate issuance,
   verification, and preparation of certificate chain bundles.
@@ -123,12 +123,10 @@ set -e
    }
    ```
 
-5. **Certificate Information**: Define FQDN (Fully Qualified Domain Name) and IP
-   address.
+5. **Certificate Information**: Define the FQDN (Fully Qualified Domain Name).
 
    ```bash
    read -r -p "$(print_cyan "Enter the FQDN name of the new certificate: ")" fqdn
-   read -r -p "$(print_cyan "Enter the IPv4 address of the new certificate (syntax: , IP:192.168.x.x): ")" ipv4
    ```
 
 <br />
