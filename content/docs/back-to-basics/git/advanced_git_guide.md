@@ -70,7 +70,7 @@ Let's get started!
 ### Create a new branch
 
 ```bash
-git checkout -b new-feature
+git switch -c new-feature
 ```
 
 <br />
@@ -78,8 +78,8 @@ git checkout -b new-feature
 ### Switch between branches
 
 ```bash
-git checkout master  # Switch to master branch
-git checkout new-feature  # Switch to new-feature branch
+git switch main  # Switch to main branch
+git switch new-feature  # Switch to new-feature branch
 ```
 
 <br />
@@ -87,8 +87,8 @@ git checkout new-feature  # Switch to new-feature branch
 ### Merge branches
 
 ```bash
-git checkout master  # Switch to the branch you want to merge into
-git merge new-feature  # Merge new-feature branch into master
+git switch main  # Switch to the branch you want to merge into
+git merge new-feature  # Merge new-feature branch into main
 ```
 
 <br />
@@ -115,8 +115,8 @@ git branch -D new-feature  # Forcefully deletes the branch
 ### Rebase your branch onto another branch
 
 ```bash
-git checkout feature-branch
-git rebase master
+git switch feature-branch
+git rebase main
 ```
 
 <br />

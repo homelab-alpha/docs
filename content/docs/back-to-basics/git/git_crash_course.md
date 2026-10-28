@@ -68,6 +68,10 @@ Let's dive in and explore the world of version control with Git!
   git config --global user.name "Your Name"
   git config --global user.email "your.email@example.com"
   ```
+- Use `main` as the default branch name for new repositories:
+  ```bash
+  git config --global init.defaultBranch main
+  ```
 
 <br />
 
@@ -110,7 +114,7 @@ Let's dive in and explore the world of version control with Git!
   ```
 - Switch to a different branch:
   ```bash
-  git checkout new_feature
+  git switch new_feature
   ```
 - Merge branches:
   ```bash
@@ -151,9 +155,9 @@ Let's dive in and explore the world of version control with Git!
 
 - Discard changes in the working directory:
   ```bash
-  git checkout -- <file>
+  git restore <file>
   ```
-- Undo the last commit:
+- Undo the last commit (keeps the changes in your working directory):
   ```bash
   git reset HEAD~1
   ```
@@ -217,7 +221,7 @@ git branch new_feature
 ### Switch to the new branch
 
 ```bash
-git checkout new_feature
+git switch new_feature
 ```
 
 <br />
@@ -234,7 +238,7 @@ git commit -m "Implemented new feature"
 ### Switch back to the main branch and merge the new feature
 
 ```bash
-git checkout main
+git switch main
 git merge new_feature
 ```
 
