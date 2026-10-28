@@ -76,9 +76,9 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 172.20.14.0/24
-          ip_range: 172.20.14.0/24
-          gateway: 172.20.14.1
+        - subnet: 172.20.26.0/24
+          ip_range: 172.20.26.0/24
+          gateway: 172.20.26.1
     driver_opts:
       com.docker.network.bridge.default_bridge: "false"
       com.docker.network.bridge.enable_icc: "true"
@@ -99,9 +99,9 @@ networks:
 - **name: mini-qr**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
-  - **subnet**: `172.20.14.0/24`.
-  - **ip_range**: `172.20.14.0/24`.
-  - **gateway**: `172.20.14.1`.
+  - **subnet**: `172.20.26.0/24`.
+  - **ip_range**: `172.20.26.0/24`.
+  - **gateway**: `172.20.26.1`.
 - **driver_opts**: Additional options for the network driver.
   - **com.docker.network.bridge.default_bridge: "false"**: Indicates this is not
     the default Docker bridge.
@@ -144,7 +144,7 @@ services:
     hostname: mini-qr
     networks:
       mini-qr_net:
-        ipv4_address: 172.20.14.2
+        ipv4_address: 172.20.26.2
     security_opt:
       - no-new-privileges:true
     labels:
@@ -187,7 +187,7 @@ services:
     hostname: mini-qr-nginx
     networks:
       mini-qr_net:
-        ipv4_address: 172.20.14.3
+        ipv4_address: 172.20.26.3
     ports:
       - "3017:80/tcp" # HTTP
       - "3017:80/udp" # HTTP
@@ -230,7 +230,7 @@ services:
       https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
   - **hostname: mini-qr**: Sets the hostname for the container.
   - **networks**: Connects the service to `mini-qr_net` with static IP address
-    `172.20.14.2`.
+    `172.20.26.2`.
   - **security_opt: no-new-privileges:true**: Prevents the container from
     gaining new privileges.
   - **labels**: Project label and a description label.

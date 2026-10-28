@@ -278,7 +278,7 @@ services:
         ipv4_address: 172.21.23.3
     ports:
       - "80:8080/tcp"
-      - "80:8080/upd"
+      - "80:8080/udp"
       - "443:8443/tcp"
       - "443:8443/udp"
     security_opt:
@@ -356,7 +356,7 @@ services:
     address `172.21.23.3`.
   - **ports**: Maps host ports to container ports.
     - **"80:8080/tcp"**
-    - **"80:8080/upd"**
+    - **"80:8080/udp"**
     - **"443:8443/tcp"**
     - **"443:8443/udp"**
   - **security_opt: no-new-privileges:true**: Prevents the container from
@@ -409,7 +409,7 @@ USER_DB=speedtest-tracker
 #
 # This will output a base64 encoded key.
 # Example output: base64:BehUUH9rR5A+DDVqJDJLrj31X13asZ8YNNt9J+dauGg=
-APP_KEY=base64:BehUUH9rR5A+DDVqJDJLrj31X13asZ8YNNt9J+dauGg=
+APP_KEY=Insert_the_App_key_here
 
 # Admin Credentials for Dashboard Access
 # Choose strong and unique credentials for admin access to the application dashboard.

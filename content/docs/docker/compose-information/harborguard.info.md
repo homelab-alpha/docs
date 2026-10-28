@@ -78,9 +78,9 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 172.20.14.0/24
-          ip_range: 172.20.14.0/24
-          gateway: 172.20.14.1
+        - subnet: 172.20.27.0/24
+          ip_range: 172.20.27.0/24
+          gateway: 172.20.27.1
     driver_opts:
       com.docker.network.bridge.default_bridge: "false"
       com.docker.network.bridge.enable_icc: "true"
@@ -101,9 +101,9 @@ networks:
 - **name: harborguard**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
-  - **subnet**: `172.20.14.0/24`.
-  - **ip_range**: `172.20.14.0/24`.
-  - **gateway**: `172.20.14.1`.
+  - **subnet**: `172.20.27.0/24`.
+  - **ip_range**: `172.20.27.0/24`.
+  - **gateway**: `172.20.27.1`.
 - **driver_opts**: Additional options for the network driver.
   - **com.docker.network.bridge.default_bridge: "false"**: Indicates this is not
     the default Docker bridge.
@@ -182,7 +182,7 @@ services:
       harborguard: "0.0.0.0"
     networks:
       harborguard_net:
-        ipv4_address: 172.20.14.3
+        ipv4_address: 172.20.27.3
     ports:
       - "3016:3000/tcp" # HTTP
       - "3016:3000/udp" # HTTP
@@ -260,7 +260,7 @@ services:
   - **hostname: harborguard**: Sets the hostname for the container.
   - **extra_hosts**: Resolves `harborguard` to `0.0.0.0` inside the container.
   - **networks**: Connects the service to `harborguard_net` with static IP
-    address `172.20.14.3`.
+    address `172.20.27.3`.
   - **ports**: Maps host ports to container ports.
     - **"3016:3000/tcp"**: HTTP.
     - **"3016:3000/udp"**: HTTP.

@@ -139,7 +139,7 @@ services:
     pull_policy: if_not_present
     volumes:
       - /docker/postgresql/config/postgresql.conf:/etc/postgresql/postgresql.conf
-      - /docker/postgresql/17/production/db:/var/lib/postgresql/data
+      - /docker/postgresql/18/production/db:/var/lib/postgresql
     env_file:
       # Choose the correct environment file:
       # - Use '.env' for Docker Compose.
@@ -193,7 +193,9 @@ services:
     locally.
   - **volumes**: Mounts host directories or files into the container.
     - **/docker/postgresql/config/postgresql.conf:/etc/postgresql/postgresql.conf**
-    - **/docker/postgresql/17/production/db:/var/lib/postgresql/data**
+    - **/docker/postgresql/18/production/db:/var/lib/postgresql** PostgreSQL 18
+      images store the data in `/var/lib/postgresql/18/docker`, so the mount
+      point is `/var/lib/postgresql` instead of `/var/lib/postgresql/data`.
   - **env_file**: Loads the variables from `.env` (Docker Compose) or
     `stack.env` (Portainer). Comment out the file you are not using.
   - **environment**: Sets environment variables.
