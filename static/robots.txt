@@ -17,10 +17,22 @@ Crawl-delay: 10
 # But we know you're just doing your job! 😉
 
 # AI Agents
+User-agent: AGI Agent
+Disallow: /
+
 User-agent: AmazonBuyForMe
 Disallow: /
 
+User-agent: CartAI Agentic Commerce
+Disallow: /
+
 User-agent: ChatGPT Agent
+Disallow: /
+
+User-agent: CledaraBot
+Disallow: /
+
+User-agent: Dot
 Disallow: /
 
 User-agent: Google-Agent
@@ -29,13 +41,28 @@ Disallow: /
 User-agent: GoogleAgent-Mariner
 Disallow: /
 
+User-agent: Grok Bot
+Disallow: /
+
+User-agent: HarkBot
+Disallow: /
+
+User-agent: Instinct
+Disallow: /
+
 User-agent: Kimi-Agent
 Disallow: /
 
 User-agent: Manus-User
 Disallow: /
 
+User-agent: Muse
+Disallow: /
+
 User-agent: NovaAct
+Disallow: /
+
+User-agent: Payhawk Invoice Fetching Agent
 Disallow: /
 
 User-agent: TwinAgent
@@ -61,6 +88,12 @@ User-agent: Claude-User
 Disallow: /
 
 User-agent: DuckAssistBot
+Disallow: /
+
+User-agent: ElevenlabsBot
+Disallow: /
+
+User-agent: ExaUser
 Disallow: /
 
 User-agent: GeistHaus-PageFetcher
@@ -124,6 +157,9 @@ Disallow: /
 User-agent: Code
 Disallow: /
 
+User-agent: Codex
+Disallow: /
+
 User-agent: Cursor
 Disallow: /
 
@@ -150,6 +186,9 @@ User-agent: ApifyBot
 Disallow: /
 
 User-agent: ApifyWebsiteContentCrawler
+Disallow: /
+
+User-agent: artsdata-crawler
 Disallow: /
 
 User-agent: BixelBot
@@ -192,6 +231,9 @@ User-agent: Keenable-User
 Disallow: /
 
 User-agent: Mozilla-Tabstack
+Disallow: /
+
+User-agent: Quartr Crawler
 Disallow: /
 
 User-agent: QueritBot
@@ -274,6 +316,9 @@ User-agent: DeepSeekBot
 Disallow: /
 
 User-agent: Doubaobot
+Disallow: /
+
+User-agent: ElevenlabsCrawler
 Disallow: /
 
 User-agent: ERNIEBot
@@ -409,7 +454,10 @@ Disallow: /
 User-agent: Claude-SearchBot
 Disallow: /
 
-User-agent: Cloudflare-AutoRAG
+User-agent: Cloudflare-AI-Search
+Disallow: /
+
+User-agent: Cloudflare-AI-Search-External
 Disallow: /
 
 User-agent: Dola-SearchBot
@@ -419,9 +467,6 @@ User-agent: ExaSearchBot
 Disallow: /
 
 User-agent: Google-CloudVertexBot
-Disallow: /
-
-User-agent: IsonSearchBot
 Disallow: /
 
 User-agent: Kimi-SearchBot
@@ -512,6 +557,9 @@ Disallow: /
 User-agent: Nicecrawler
 Disallow: /
 
+User-agent: OddlyBot
+Disallow: /
+
 User-agent: SmarshBot
 Disallow: /
 
@@ -541,6 +589,9 @@ User-agent: Cloudflare Browser Rendering
 Disallow: /
 
 User-agent: HeadlessChrome
+Disallow: /
+
+User-agent: Kernel
 Disallow: /
 
 User-agent: Known Agents Browser
@@ -739,6 +790,9 @@ Disallow: /
 User-agent: Friendica
 Disallow: /
 
+User-agent: GhostExplore
+Disallow: /
+
 User-agent: Goodreads
 Disallow: /
 
@@ -782,6 +836,9 @@ User-agent: Grammarly
 Disallow: /
 
 User-agent: GuestpostsBot
+Disallow: /
+
+User-agent: hankbot
 Disallow: /
 
 User-agent: Hatena
@@ -1172,6 +1229,9 @@ Disallow: /
 User-agent: AdmixerBot
 Disallow: /
 
+User-agent: AdpResearchBot
+Disallow: /
+
 User-agent: AdsBot-Google
 Disallow: /
 
@@ -1251,6 +1311,9 @@ User-agent: BrightEdge Bot
 Disallow: /
 
 User-agent: Buck
+Disallow: /
+
+User-agent: BuiltWith
 Disallow: /
 
 User-agent: CandidOrgWebCheck
@@ -1775,6 +1838,9 @@ Disallow: /
 User-agent: virustotal
 Disallow: /
 
+User-agent: WappalyzerBot
+Disallow: /
+
 User-agent: weborama-fetcher
 Disallow: /
 
@@ -1815,6 +1881,9 @@ User-agent: Yext Inc
 Disallow: /
 
 User-agent: ZoominfoBot
+Disallow: /
+
+User-agent: Zvelo
 Disallow: /
 
 # Scrapers
@@ -4492,4 +4561,4 @@ Disallow: /
 # Sitemaps
 Sitemap: https://homelab-alpha.nl/sitemap.xml
 
-# Last modified: 2026-10-16T15:44:53+02:00
+# Last modified: 2026-10-28T10:45:47+01:00
