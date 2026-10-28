@@ -5,6 +5,12 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run: build only, skip artifact upload and deployment"
+        type: boolean
+        default: true
 
 permissions:
   contents: read
@@ -32,6 +38,7 @@ jobs:
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       HUGO_VERSION: 0.168.0
+      DRY_RUN: ${{ inputs.dry_run && 'true' || 'false' }}
 
     steps:
       - name: 🏁 Notify start of build
@@ -43,6 +50,7 @@ jobs:
           echo "Workflow ref: ${{ github.ref }}"
           echo "Runner OS: ${{ runner.os }}"
           echo "Hugo version: ${{ env.HUGO_VERSION }}"
+          echo "Dry run: ${DRY_RUN}"
           echo "::endgroup::"
 
       - name: 📥 Install Hugo CLI
@@ -98,8 +106,14 @@ jobs:
           set -Eeuo pipefail
           echo "::group::🔨 Hugo Compilation"
 
-          if ! hugo --gc --minify \
-            --baseURL "${{ steps.pages.outputs.base_url }}/"; then
+          HUGO_ARGS=(--gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/")
+
+          # Newly deprecated features are only logged at info level.
+          if [[ "${DRY_RUN}" == "true" ]]; then
+            HUGO_ARGS+=(--logLevel info)
+          fi
+
+          if ! hugo "${HUGO_ARGS[@]}"; then
             echo "::error title=Hugo Build Failed::❌ Hugo compilation encountered errors"
             echo "::endgroup::"
             exit 1
@@ -110,6 +124,7 @@ jobs:
 
       - name: 📤 Upload artifact
         id: upload
+        if: env.DRY_RUN != 'true'
         uses: actions/upload-pages-artifact@v5.0.0
         with:
           path: ./public
@@ -140,6 +155,7 @@ jobs:
           ### ⚙️ Runtime Configuration
 
           - **Hugo Version:** ${{ env.HUGO_VERSION }}
+          - **Dry Run:** ${DRY_RUN}
           - **Environment:** production
           - **Base URL:** ${{ steps.pages.outputs.base_url }}
           - **Timezone:** Europe/Amsterdam
@@ -156,6 +172,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: build
+
+    if: github.ref == 'refs/heads/main' && inputs.dry_run != true
 
     environment:
       name: github-pages
