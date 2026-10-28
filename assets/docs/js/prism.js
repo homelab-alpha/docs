@@ -1,4 +1,4 @@
-/* PrismJS 1.29.0
+/* PrismJS 1.30.0
 https://prismjs.com/download.html#themes=prism-tomorrow&languages=markup+css+clike+javascript+diff&plugins=line-highlight+line-numbers+file-highlight+autoloader+normalize-whitespace+toolbar+copy-to-clipboard+treeview */
 import params from "@params";
 /// <reference lib="WebWorker"/>
@@ -231,7 +231,8 @@ var Prism = (function (_self) {
           return null;
         }
         if (
-          "currentScript" in document &&
+          document.currentScript &&
+          document.currentScript.tagName === "SCRIPT" &&
           1 < 2 /* hack to trip TS' flow analysis */
         ) {
           return /** @type {any} */ (document.currentScript);
