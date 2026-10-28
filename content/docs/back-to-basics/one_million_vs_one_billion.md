@@ -113,8 +113,8 @@ relatable examples:
 - **A generation**: A generation—the time it takes for a child to grow up and
   have children of their own—typically spans about 30 years, which is roughly
   equal to 1 billion seconds.
-- **Historical events**: The Apollo 11 moon landing in 1969 occurred about 55
-  years ago (as of 2024), which is less than 2 billion seconds! This shows how
+- **Historical events**: The Apollo 11 moon landing in 1969 occurred about 57
+  years ago (as of 2026), which is less than 2 billion seconds! This shows how
   the time span of one billion seconds aligns with significant historical
   events.
 

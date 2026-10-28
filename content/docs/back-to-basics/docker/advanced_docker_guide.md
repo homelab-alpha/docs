@@ -73,8 +73,6 @@ backend service, and a database service. You can define these services along
 with their configurations in a `docker-compose.yml` file like this:
 
 ```yaml
-version: "3.8"
-
 services:
   frontend:
     image: frontend:latest
@@ -130,8 +128,6 @@ bridge network and attach containers to it in a `docker-compose.yml` file like
 this:
 
 ```yaml
-version: "3.8"
-
 services:
   web:
     image: nginx:alpine
@@ -171,8 +167,6 @@ its database. You can create a named volume and mount it to the container in a
 `docker-compose.yml` file like this:
 
 ```yaml
-version: "3.8"
-
 services:
   database:
     image: mysql:latest
@@ -204,8 +198,6 @@ deploy them using a Docker Compose file (`docker-compose.yml`), which Swarm can
 interpret. Here's a simplified example:
 
 ```yaml
-version: "3.8"
-
 services:
   web:
     image: nginx:alpine
@@ -297,7 +289,7 @@ example Dockerfile that incorporates best practices:
 
 ```Dockerfile
 # Stage 1: Build the application
-FROM node:14 as build
+FROM node:24 as build
 
 WORKDIR /app
 
@@ -391,7 +383,7 @@ service discovery and load balancing:
 1. **Setup Consul Cluster:** Deploy a Consul cluster within your infrastructure.
 
    ```bash
-   docker-compose up -d consul-server-1 consul-server-2 consul-server-3
+   docker compose up -d consul-server-1 consul-server-2 consul-server-3
    ```
 
 2. **Register Services:** Register your microservices with Consul.
@@ -605,7 +597,6 @@ using Prometheus and the ELK stack:
    - Deploy Prometheus alongside your application using Docker Compose
 
    ```yaml
-   version: "3"
    services:
      prometheus:
        image: prom/prometheus
@@ -624,20 +615,22 @@ using Prometheus and the ELK stack:
    (ELK Stack) using Docker Compose.
 
    ```yml
-   version: "3"
    services:
      elasticsearch:
-       image: docker.elastic.co/elasticsearch/elasticsearch:7.10.0
+       image: docker.elastic.co/elasticsearch/elasticsearch:9.0.0
+       environment:
+         - discovery.type=single-node
+         - xpack.security.enabled=false # for local testing only
        ports:
          - "9200:9200"
 
      logstash:
-       image: docker.elastic.co/logstash/logstash:7.10.0
+       image: docker.elastic.co/logstash/logstash:9.0.0
        volumes:
          - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
 
      kibana:
-       image: docker.elastic.co/kibana/kibana:7.10.0
+       image: docker.elastic.co/kibana/kibana:9.0.0
        ports:
          - "5601:5601"
    ```

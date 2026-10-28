@@ -78,7 +78,7 @@ application, including its code, runtime, system tools, libraries, and settings.
 ### Installation
 
 Install Docker Desktop from the [official website]. After installation, Docker
-CLI (`docker`) and Docker Compose (`docker-compose`) commands will be available
+CLI (`docker`) and Docker Compose (`docker compose`) commands will be available
 in your terminal.
 
 <br />
@@ -104,7 +104,7 @@ Start by creating a new directory for your project. Create a file named
 files, and specify commands to run the application. Example Dockerfile:
 
 ```Dockerfile
-FROM python:3.9
+FROM python:3.14
 WORKDIR /app
 COPY . /app
 RUN pip install -r requirements.txt

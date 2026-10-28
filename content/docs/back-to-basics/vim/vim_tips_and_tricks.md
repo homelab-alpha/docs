@@ -94,7 +94,7 @@ followed by the same letter.
 ## Explore Plugins
 
 Expand Vim's capabilities with plugins from its extensive ecosystem. Popular
-choices include NERDTree for file navigation, CtrlP for fuzzy file searching,
+choices include NERDTree for file navigation, fzf.vim for fuzzy file searching,
 and YouCompleteMe for code completion.
 
 <br />

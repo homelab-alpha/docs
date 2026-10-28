@@ -62,15 +62,13 @@ applications in a single YAML file, enabling one-command setup of development
 environments for example:
 
 ```yaml
-version: "3.8"
-
 services:
   web:
     image: nginx:alpine
     ports:
       - "8080:80"
   api:
-    image: node:14-alpine
+    image: node:24-alpine
     ports:
       - "3000:3000"
     volumes:
@@ -82,7 +80,7 @@ services:
 In this example, we define a multi-container application with two services:
 `web` and `api`. The `web` service uses the `nginx:alpine` image and exposes
 port `8080` on the host, mapping it to port `80` in the container. Similarly,
-the `api` service uses the `node:14-alpine` image, exposes port `3000`, mounts
+the `api` service uses the `node:24-alpine` image, exposes port `3000`, mounts
 the local `./api` directory into the `/app` directory in the container, and sets
 the `NODE_ENV` environment variable to `development`.
 
@@ -96,7 +94,7 @@ time for example:
 
 ```Dockerfile
 # Use a stable base image
-FROM node:14-alpine AS base
+FROM node:24-alpine AS base
 
 # Set the working directory
 WORKDIR /app
@@ -206,7 +204,7 @@ utilizing Docker's multi-stage builds. Here's an example Dockerfile:
 
 ```Dockerfile
 # Stage 1: Build the application
-FROM node:14 AS build
+FROM node:24 AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
@@ -262,14 +260,14 @@ and proactive issue resolution.
 ## Secure Docker Hosts and Containers
 
 Implement security best practices such as running containers with non-root users
-, limiting capabilities, enabling Docker Content Trust (DCT), and regularly
-updating for patched vulnerabilities for example:
+, limiting capabilities, verifying image signatures and provenance, and
+regularly updating for patched vulnerabilities for example:
 
 You can enhance security by running containers with non-root users. Here's a
 Dockerfile example demonstrating this:
 
 ```Dockerfile
-FROM node:14
+FROM node:24
 
 # Create a non-root user
 RUN useradd -m myuser
@@ -294,12 +292,26 @@ copying application files and running the application. This helps mitigate
 security risks associated with running containers as the root user.
 
 Additionally, you can further secure your Docker environment by limiting
-capabilities, enabling Docker Content Trust (DCT), and regularly updating Docker
-and its dependencies to patch vulnerabilities.
+capabilities, scanning images for vulnerabilities (for example with Docker Scout
+or Trivy), verifying image signatures (for example with Sigstore Cosign), and
+regularly updating Docker and its dependencies to patch vulnerabilities.
+
+{{% alert context="primary" %}}
+Docker Content Trust (DCT) has been retired by Docker and is no longer
+recommended. Use image signing and attestations based on Sigstore instead.
+{{% /alert %}}
 
 <br />
 
 ## Automate Updates with Watchtower
+
+{{% alert context="primary" %}}
+The original Watchtower project (`containrrr/watchtower`) is no longer
+maintained. It still works for many setups, but it no longer receives security
+fixes or compatibility updates for new Docker versions. Consider a maintained
+alternative, for example a community fork, Diun (update notifications only), or
+Renovate (pull requests that bump image tags in your Compose files).
+{{% /alert %}}
 
 Simplify container maintenance and minimize downtime by using Watchtower to
 automatically pull and restart containers with newer versions, keeping
@@ -366,7 +378,7 @@ processes using Markdown:
 ### Dockerfile
 
 ```Dockerfile
-FROM node:14
+FROM node:24
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
@@ -379,8 +391,6 @@ CMD ["npm", "start"]
 ### Docker Compose Configuration (docker-compose.yml)
 
 ```yml
-version: "3.8"
-
 services:
   web:
     build: .

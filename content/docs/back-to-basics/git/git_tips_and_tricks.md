@@ -118,7 +118,7 @@ git diff <commit1> <commit2>
 Create shortcuts for Git commands:
 
 ```bash
-git config --global alias.co checkout
+git config --global alias.sw switch
 ```
 
 <br />
@@ -182,7 +182,7 @@ Recover lost commits using reflog:
 
 ```bash
 git reflog
-git checkout HEAD@{1}  # Restore commit from reflog
+git switch --detach HEAD@{1}  # Inspect a commit from the reflog
 ```
 
 <br />

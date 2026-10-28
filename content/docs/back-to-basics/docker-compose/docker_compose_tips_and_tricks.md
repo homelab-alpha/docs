@@ -60,7 +60,6 @@ DB_PASSWORD=secretpassword
 And your `docker-compose.yml` file references these variables:
 
 ```yaml
-version: "3"
 services:
   db:
     image: postgres
@@ -89,7 +88,6 @@ development-specific configurations without modifying the main\
 Suppose you have a base `docker-compose.yml` file defining a service:
 
 ```yaml
-version: "3"
 services:
   web:
     image: nginx
@@ -101,7 +99,6 @@ And then, for the development environment, you can have a\
 `docker-compose.override.yml` file:
 
 ```yaml
-version: "3"
 services:
   web:
     ports:
@@ -145,7 +142,6 @@ And your `docker-compose.yml` file references the `app` directory as the build
 context:
 
 ```yaml
-version: "3"
 services:
   web:
     build: ./app
@@ -173,7 +169,7 @@ Consider a Dockerfile for a Python application:
 
 ```Dockerfile
 # Stage 1: Build the application
-FROM python:3.9 as builder
+FROM python:3.14 as builder
 
 WORKDIR /app
 
@@ -184,7 +180,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Stage 2: Create the final lightweight image
-FROM python:3.9-slim
+FROM python:3.14-slim
 
 WORKDIR /app
 
@@ -215,7 +211,6 @@ Suppose you have a `docker-compose.yml` file defining a service with a health
 check:
 
 ```yaml
-version: "3"
 services:
   web:
     image: nginx
@@ -251,7 +246,6 @@ isolation for example:
 Suppose you have a `docker-compose.yml` file defining multiple services:
 
 ```yaml
-version: "3"
 services:
   web:
     image: nginx
@@ -291,7 +285,6 @@ Suppose you have a `docker-compose.yml` file defining a service with a restart
 policy:
 
 ```yaml
-version: "3"
 services:
   web:
     image: nginx
@@ -322,7 +315,6 @@ Suppose you have a `docker-compose.yml` file defining a service with a volume
 mount:
 
 ```yaml
-version: "3"
 services:
   db:
     image: postgres
@@ -356,7 +348,6 @@ Suppose you have a `docker-compose.yml` file defining a service with resource
 constraints:
 
 ```yaml
-version: "3"
 services:
   web:
     image: nginx
@@ -392,7 +383,6 @@ Suppose you have a `docker-compose.yml` file defining multiple services with
 dependencies:
 
 ```yaml
-version: "3"
 services:
   db:
     image: postgres
@@ -408,7 +398,7 @@ services:
 
 In this example, the `web` service depends on the `db` service, as indicated by
 the `depends_on` directive. This ensures that the `db` service is started before
-the `web` service when using `docker-compose up`, allowing the `web` service to
+the `web` service when using `docker compose up`, allowing the `web` service to
 establish connections to the database service. Defining container dependencies
 helps ensure that services are started in the correct order, avoiding race
 conditions and ensuring proper functioning of your application.
@@ -463,7 +453,6 @@ Suppose you have a `docker-compose.yml` file defining multiple services with
 short, descriptive names:
 
 ```yaml
-version: "3"
 services:
   web:
     image: nginx
@@ -548,7 +537,6 @@ Suppose you have a `docker-compose.yml` file that references an external
 configuration file:
 
 ```yaml
-version: "3"
 services:
   web:
     image: nginx
@@ -592,7 +580,6 @@ Suppose you have a `docker-compose.yml` file defining a service with logging
 configuration:
 
 ```yaml
-version: "3"
 services:
   web:
     image: nginx
