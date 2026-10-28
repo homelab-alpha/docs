@@ -306,11 +306,10 @@ recommended. Use image signing and attestations based on Sigstore instead.
 ## Automate Updates with Watchtower
 
 {{% alert context="primary" %}}
-The original Watchtower project (`containrrr/watchtower`) is no longer
-maintained. It still works for many setups, but it no longer receives security
-fixes or compatibility updates for new Docker versions. Consider a maintained
-alternative, for example a community fork, Diun (update notifications only), or
-Renovate (pull requests that bump image tags in your Compose files).
+The original Watchtower project (`containrrr/watchtower`) is archived and no
+longer maintained. The example below uses the actively maintained community fork
+`nicholas-fedor/watchtower`. Other options are Diun (update notifications only)
+or Renovate (pull requests that bump image tags in your Compose files).
 {{% /alert %}}
 
 Simplify container maintenance and minimize downtime by using Watchtower to
@@ -324,7 +323,7 @@ whenever changes are detected. Below is an example of how to run Watchtower:
 docker run -d \
   --name watchtower \
   -v /var/run/docker.sock:/var/run/docker.sock \
-  containrrr/watchtower
+  ghcr.io/nicholas-fedor/watchtower
 ```
 
 This command launches Watchtower as a container. It mounts the Docker socket
