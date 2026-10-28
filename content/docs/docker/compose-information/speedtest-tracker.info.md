@@ -143,7 +143,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: speedtest-tracker_db
-    image: docker.io/mariadb:latest
+    image: docker.io/mariadb:13.0.2
     pull_policy: if_not_present
     volumes:
       - /docker/speedtest-tracker/production/db:/var/lib/mysql
@@ -186,7 +186,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: speedtest-tracker
-    image: ghcr.io/linuxserver/speedtest-tracker:1.13.4
+    image: ghcr.io/linuxserver/speedtest-tracker:1.15.1
     pull_policy: if_not_present
     depends_on:
       speedtest-tracker_db:
@@ -241,8 +241,8 @@ services:
     ports:
       - "3013:80/tcp"
       - "3013:80/upd"
-      - "3013:443/tcp"
-      - "3013:443/udp"
+      # - "3013:443/tcp" # HTTPS
+      # - "3013:443/udp" # HTTPS
     security_opt:
       - no-new-privileges:true
     labels:
@@ -275,7 +275,8 @@ services:
     stopping the container.
   - **container_name: speedtest-tracker_db**: Names the container
     "speedtest-tracker_db".
-  - **image: docker.io/mariadb:latest**: Uses the latest MariaDB image.
+  - **image: docker.io/mariadb:13.0.2**: Uses the MariaDB image, pinned to
+    version `13.0.2`.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts directories or files into the container.
@@ -331,8 +332,8 @@ services:
     stopping the container.
   - **container_name: speedtest-tracker**: Names the container
     "speedtest-tracker".
-  - **image: ghcr.io/linuxserver/speedtest-tracker:1.13.4**: Uses Speedtest
-    Tracker image version 1.13.4 from the GitHub Container Registry.
+  - **image: ghcr.io/linuxserver/speedtest-tracker:1.15.1**: Uses Speedtest
+    Tracker image version 1.15.1 from the GitHub Container Registry.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **depends_on**: Specifies dependencies for this service.
@@ -389,8 +390,8 @@ services:
   - **ports**: Maps container ports to host ports.
     - **3013:80/tcp**: Maps HTTP port (TCP).
     - **3013:80/upd**: Maps HTTP port (UDP).
-    - **3013:443/tcp**: Maps HTTPS port (TCP).
-    - **3013:443/udp**: Maps HTTPS port (UDP).
+    - **3013:443/tcp**: Maps HTTPS port (TCP, commented out).
+    - **3013:443/udp**: Maps HTTPS port (UDP, commented out).
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.

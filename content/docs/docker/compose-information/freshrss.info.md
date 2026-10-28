@@ -131,12 +131,6 @@ networks:
 ```yaml
 services:
   freshrss_db:
-    deploy:
-      resources:
-        limits:
-          memory: 1G
-        reservations:
-          memory: 1G
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -145,7 +139,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: freshrss_db
-    image: docker.io/mariadb:latest
+    image: docker.io/mariadb:13.0.2
     pull_policy: if_not_present
     volumes:
       - /docker/freshrss/production/db:/var/lib/mysql
@@ -188,7 +182,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: freshrss
-    image: docker.io/freshrss/freshrss:latest
+    image: docker.io/freshrss/freshrss:1.30.4
     pull_policy: if_not_present
     depends_on:
       freshrss_db:
@@ -226,7 +220,7 @@ services:
       com.freshrss.description: "is a free, self-hostable feeds aggregator."
     healthcheck:
       disable: false
-      test: php -r "readfile('http://localhost/i/');" | grep -q 'jsonVars' || exit 1
+      test: ["CMD", "cli/health.php"]
       interval: 10s
       timeout: 5s
       retries: 3
@@ -238,9 +232,6 @@ services:
 
 - **services**: Defines services to be deployed.
 - **freshrss_db**: The service name for the MariaDB container.
-  - **deploy: "resources"**: Configuration for managing compute resource usage.
-    - **Limits: "memory"**: Caps memory usage at 1 GB.
-    - **Reservations: "memory"**: Reserves 1 GB of memory for the container.
   - **restart: unless-stopped**: Ensures the container restarts unless it is
     explicitly stopped.
   - **logging**: Configures logging for the container.
@@ -250,7 +241,8 @@ services:
     - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
       stopping the container.
   - **container_name: freshrss_db**: Names the container "freshrss_db".
-  - **image: docker.io/mariadb:latest**: Uses the latest MariaDB image.
+  - **image: docker.io/mariadb:13.0.2**: Uses the MariaDB image, pinned to
+    version `13.0.2`.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts directories or files into the container.
@@ -304,7 +296,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: freshrss**: Names the container "freshrss".
-  - **image: docker.io/freshrss/freshrss:latest**: Uses the latest FreshRSS image.
+  - **image: docker.io/freshrss/freshrss:1.30.4**: Uses the FreshRSS image,
+    pinned to version `1.30.4`.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **depends_on**: Specifies dependencies for this service.
@@ -346,7 +339,7 @@ services:
   - **healthcheck**: Healthcheck configuration.
     - **disable: false**: Enables health checks for the container.
     - **test**: Specifies the command to be run for the health check. In this
-      case, it is `php -r "readfile('http://localhost/i/');" | grep -q 'jsonVars' || exit 1`.
+      case, it is `["CMD", "cli/health.php"]`.
     - **interval**: The time between running health checks (10 seconds).
     - **timeout**: The time a health check is allowed to run before it is
       considered to have failed (5 seconds).

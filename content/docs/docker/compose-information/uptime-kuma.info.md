@@ -141,7 +141,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: uptime-kuma
-    image: ghcr.io/louislam/uptime-kuma:latest
+    image: ghcr.io/louislam/uptime-kuma:2.5.8-slim
     pull_policy: if_not_present
     volumes:
       - /docker/uptime-kuma/production/app:/app/data
@@ -186,8 +186,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: uptime-kuma**: Names the container "uptime-kuma".
-  - **image: ghcr.io/louislam/uptime-kuma:latest**: Uses the latest Uptime Kuma image
-    from.
+  - **image: ghcr.io/louislam/uptime-kuma:2.5.8-slim**: Uses the Uptime Kuma
+    image, pinned to version `2.5.8-slim` from.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.

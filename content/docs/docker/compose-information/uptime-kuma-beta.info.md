@@ -89,10 +89,10 @@ networks:
       com.docker.network.bridge.enable_icc: "true"
       com.docker.network.bridge.enable_ip_masquerade: "true"
       com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"
-      com.docker.network.bridge.name: "uptimekuma-beta"
+      com.docker.network.bridge.name: "uptimekuma"
       com.docker.network.driver.mtu: "1500"
     labels:
-      com.uptime-kuma-beta.network.description: "is an isolated bridge network."
+      com.uptime-kuma.network.description: "is an isolated bridge network."
 ```
 
 <br />
@@ -118,7 +118,7 @@ networks:
     traffic to appear as if it came from the host.
   - **com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"**: Binds the bridge
     to all available IP addresses on the host.
-  - **com.docker.network.bridge.name: "uptimekuma-beta"**: Names the bridge
+  - **com.docker.network.bridge.name: "uptimekuma"**: Names the bridge
     network.
   - **com.docker.network.driver.mtu: "1500"**: Sets the Maximum Transmission
     Unit for the network.
@@ -132,12 +132,6 @@ networks:
 ```yaml
 services:
   uptime-kuma-beta_db:
-    deploy:
-      resources:
-        limits:
-          memory: 1G
-        reservations:
-          memory: 1G
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -146,11 +140,11 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: uptime-kuma-beta_db
-    image: docker.io/mariadb:latest
+    image: docker.io/mariadb:13.0.2
     pull_policy: if_not_present
     volumes:
-      - /docker/uptime-kuma-beta/production/db:/var/lib/mysql
-      - /docker/uptime-kuma-beta/production/my.cnf:/etc/my.cnf
+      - /docker/uptime-kuma-beta/testing/db:/var/lib/mysql
+      - /docker/uptime-kuma-beta/testing/my.cnf:/etc/my.cnf
       - /sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure
     env_file:
       # Choose the correct environment file:
@@ -185,12 +179,6 @@ services:
       start_interval: 5s
 
   uptime-kuma-beta_app:
-    deploy:
-      resources:
-        limits:
-          memory: 1G
-        reservations:
-          memory: 1G
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -199,7 +187,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: uptime-kuma-beta
-    image: ghcr.io/louislam/uptime-kuma:beta
+    image: ghcr.io/louislam/uptime-kuma:2.1.0-beta-slim.2
     pull_policy: if_not_present
     depends_on:
       uptime-kuma-beta_db:
@@ -207,7 +195,7 @@ services:
     links:
       - uptime-kuma-beta_db
     volumes:
-      - /docker/uptime-kuma-beta/production/app:/app/data
+      - /docker/uptime-kuma-beta/testing/app:/app/data
       - /usr/local/share/ca-certificates:/app/data/docker-tls
       - /var/run/docker.sock:/var/run/docker.sock:ro
     env_file:
@@ -234,7 +222,9 @@ services:
       - no-new-privileges:true
     labels:
       com.docker.compose.project: "uptime-kuma-beta"
-      com.uptime-kuma-beta.description: "is a self-hosted monitoring tool for uptime and status notifications."
+      com.uptime-kuma-beta.description:
+        "is an self-hosted monitoring tool that allows you to monitor uptime,
+        status, and notifications for various services and domains."
     healthcheck:
       disable: false
       test: ["CMD", "extra/healthcheck"]
@@ -249,9 +239,6 @@ services:
 
 - **services**: Defines services to be deployed.
 - **uptime-kuma-beta_db**: The service for the MariaDB database.
-  - **deploy: "resources"**: Configuration for managing compute resource usage.
-    - **Limits: "memory"**: Caps memory usage at 1 GB.
-    - **Reservations: "memory"**: Reserves 1 GB of memory for the container.
   - **restart: unless-stopped**: Ensures the container restarts unless it is
     explicitly stopped.
   - **logging**: Configures logging for the container.
@@ -262,13 +249,14 @@ services:
     stopping the container.
   - **container_name: uptime-kuma-beta_db**: Names the container
     `uptime-kuma-beta_db`.
-  - **image: docker.io/mariadb:latest**: Uses the latest MariaDB image.
+  - **image: docker.io/mariadb:13.0.2**: Uses the MariaDB image, pinned to
+    version `13.0.2`.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts directories or files into the container.
-    - **/docker/uptime-kuma-beta/production/db:/var/lib/mysql**: Mounts the database
+    - **/docker/uptime-kuma-beta/testing/db:/var/lib/mysql**: Mounts the database
       storage directory.
-    - **/docker/uptime-kuma-beta/production/my.cnf:/etc/my.cnf**: Mounts the custom
+    - **/docker/uptime-kuma-beta/testing/my.cnf:/etc/my.cnf**: Mounts the custom
       MariaDB configuration file.
     - **/sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure**: Mounts
       system memory pressure info for monitoring.
@@ -293,9 +281,6 @@ services:
 <br />
 
 - **uptime-kuma-beta_app**: The service for the Uptime Kuma Beta app.
-  - **deploy: "resources"**: Configuration for managing compute resource usage.
-    - **Limits: "memory"**: Caps memory usage at 1 GB.
-    - **Reservations: "memory"**: Reserves 1 GB of memory for the container.
   - **restart: unless-stopped**: Ensures the container restarts unless it is
     explicitly stopped.
   - **logging**: Configures logging for the container.
@@ -306,8 +291,8 @@ services:
     stopping the container.
   - **container_name: uptime-kuma-beta**: Names the container
     `uptime-kuma-beta`.
-  - **image: ghcr.io/louislam/uptime-kuma:beta**: Uses the specified Uptime Kuma
-    Beta image.
+  - **image: ghcr.io/louislam/uptime-kuma:2.1.0-beta-slim.2**: Uses the
+    specified Uptime Kuma Beta image.
   - **depends_on**: Ensures that the database service is healthy before starting
     the app service.
   - **volumes**: Mounts host directories or files into the container.

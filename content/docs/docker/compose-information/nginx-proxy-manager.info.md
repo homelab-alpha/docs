@@ -94,6 +94,7 @@ networks:
       com.docker.network.bridge.name: "npm"
       com.docker.network.driver.mtu: "1500"
     labels:
+      com.nginx-proxy-manager.network.description: "is an isolated bridge network."
 ```
 
 <br />
@@ -142,11 +143,11 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: nginx-proxy-manager_db
-    image: docker.io/mariadb:latest
+    image: docker.io/mariadb:13.0.2
     pull_policy: if_not_present
     volumes:
       - /docker/nginx-proxy-manager/production/db:/var/lib/mysql
-      - /docker/nginx-proxy-manager/production/my.cnf:/etc/my.cnf
+      # - /docker/nginx-proxy-manager/production/my.cnf:/etc/my.cnf
       - /sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure
     env_file:
       - .env
@@ -185,7 +186,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: nginx-proxy-manager
-    image: docker.io/jc21/nginx-proxy-manager:latest
+    image: docker.io/jc21/nginx-proxy-manager:2.16.0
     pull_policy: if_not_present
     depends_on:
       nginx-proxy-manager_db:
@@ -251,14 +252,15 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: nginx-proxy-manager_db**: Names the container "nginx-proxy-manager_db".
-  - **image: docker.io/mariadb:latest**: Uses the latest MariaDB image.
+  - **image: docker.io/mariadb:13.0.2**: Uses the MariaDB image, pinned to
+    version `13.0.2`.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts directories or files into the container.
     - **/docker/nginx-proxy-manager/production/db:/var/lib/mysql**: Mounts the database
       storage directory.
-    - **/docker/nginx-proxy-manager/production/my.cnf:/etc/my.cnf**: Mounts the custom
-      MariaDB configuration file.
+    - **/docker/nginx-proxy-manager/production/my.cnf:/etc/my.cnf** (commented
+      out): Mounts the custom MariaDB configuration file when enabled.
     - **/sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure**: Mounts
       system memory pressure info for monitoring.
   - **env_file**: Specifies environment files.
@@ -305,7 +307,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: nginx-proxy-manager**: Names the container "nginx-proxy-manager".
-  - **image: docker.io/jc21/nginx-proxy-manager:latest**: Uses the latest Nginx Proxy Manager image.
+  - **image: docker.io/jc21/nginx-proxy-manager:2.16.0**: Uses the Nginx Proxy
+    Manager image, pinned to version `2.16.0`.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **depends_on**: Specifies dependencies for this service.

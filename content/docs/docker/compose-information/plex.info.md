@@ -138,7 +138,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: plex
-    image: docker.io/plexinc/pms-docker:latest
+    image: docker.io/plexinc/pms-docker:1.41.8.9834-071366d65
     pull_policy: if_not_present
     volumes:
       - /docker/plex/production/app/config:/config
@@ -202,8 +202,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: plex**: Names the container "plex".
-  - **image: docker.io/plexinc/pms-docker:latest**: Uses the latest Plex Media Server
-    image.
+  - **image: docker.io/plexinc/pms-docker:1.41.8.9834-071366d65**: Uses the Plex
+    Media Server image, pinned to version `1.41.8.9834-071366d65`.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.

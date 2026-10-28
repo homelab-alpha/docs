@@ -140,7 +140,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: adguard-home
-    image: docker.io/adguard/adguardhome:latest
+    image: docker.io/adguard/adguardhome:v0.107.79
     pull_policy: if_not_present
     volumes:
       - /docker/adguard-home/production/app:/opt/adguard-home/work
@@ -192,7 +192,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: adguard-home**: Names the container "adguard-home".
-  - **image: docker.io/adguard/adguardhome:latest**: Uses the latest AdGuard Home image.
+  - **image: docker.io/adguard/adguardhome:v0.107.79**: Uses the AdGuard Home
+    image, pinned to version `v0.107.79`.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.

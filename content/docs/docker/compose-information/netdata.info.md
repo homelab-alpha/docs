@@ -140,7 +140,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: netdata
-    image: ghcr.io/netdata/netdata:latest
+    image: ghcr.io/netdata/netdata:v2.12.2
     pull_policy: if_not_present
     volumes:
       - /docker/netdata/production/app/cache:/var/cache/netdata
@@ -198,7 +198,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: netdata**: Names the container "netdata".
-  - **image: ghcr.io/netdata/netdata:latest**: Uses the latest Netdata image.
+  - **image: ghcr.io/netdata/netdata:v2.12.2**: Uses the Netdata image, pinned
+    to version `v2.12.2`.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.

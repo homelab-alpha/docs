@@ -140,7 +140,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: netboot
-    image: ghcr.io/netbootxyz/netbootxyz:latest
+    image: ghcr.io/netbootxyz/netbootxyz:0.7.6-nbxyz4
     pull_policy: if_not_present
     volumes:
       - /docker/netboot/production/app:/config
@@ -194,7 +194,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: netboot**: Names the container "netboot".
-  - **image: ghcr.io/netbootxyz/netbootxyz:latest**: Uses the latest NetBootXYZ image.
+  - **image: ghcr.io/netbootxyz/netbootxyz:0.7.6-nbxyz4**: Uses the NetBootXYZ
+    image, pinned to version `0.7.6-nbxyz4`.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.

@@ -140,11 +140,11 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: pi-hole
-    image: ghcr.io/pihole/pihole:latest
+    image: ghcr.io/pi-hole/pihole:2026.10.0
     pull_policy: if_not_present
     volumes:
       - /docker/pi-hole/production/app:/etc/pihole
-      - ./etc-dnsmasq.d:/etc/dnsmasq.d
+      - /docker/pi-hole/production/etc-dnsmasq.d:/etc/dnsmasq.d
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -201,13 +201,14 @@ services:
   - **stop_grace_period: 1m**: The grace period before forcibly stopping the
     container.
   - **container_name: pi-hole**: Names the container `pi-hole`.
-  - **image: ghcr.io/pihole/pihole:latest**: Uses the latest Pi-hole image.
+  - **image: ghcr.io/pi-hole/pihole:2026.10.0**: Uses the Pi-hole image, pinned
+    to version `2026.10.0`.
   - **pull_policy: if_not_present**: Only pulls the image if it's not already
     present locally.
   - **volumes**: Mounts host directories into the container for persistent data
     storage.
     - **./docker/pi-hole/production/app:/etc/pihole**: Mounts the Pi-hole configuration directory.
-    - **./etc-dnsmasq.d:/etc/dnsmasq.d**: Mounts the DNS configuration
+    - **/docker/pi-hole/production/etc-dnsmasq.d:/etc/dnsmasq.d**: Mounts the DNS configuration
       directory.
   - **environment**: Sets environment variables for configuration.
     - **PUID: "1000"**: Sets the user ID.

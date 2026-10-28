@@ -139,7 +139,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: jellyfin
-    image: ghcr.io/jellyfin/jellyfin:latest
+    image: ghcr.io/jellyfin/jellyfin:10.11.11
     pull_policy: if_not_present
     volumes:
       - /docker/jellyfin/production/app:/config
@@ -204,7 +204,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: jellyfin**: Names the container "jellyfin".
-  - **image: ghcr.io/jellyfin/jellyfin:latest**: Uses the latest Jellyfin image.
+  - **image: ghcr.io/jellyfin/jellyfin:10.11.11**: Uses the Jellyfin image,
+    pinned to version `10.11.11`.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.

@@ -70,8 +70,8 @@ maintain the system's stability.
 ```yaml
 networks:
   mariadb_net:
-    attachable: false
-    internal: false
+    attachable: true
+    internal: true
     external: false
     name: mariadb
     driver: bridge
@@ -95,9 +95,9 @@ networks:
 <br />
 
 - **networks**: Defines a custom network named `mariadb_net`.
-- **attachable**: Set to `false`, preventing other containers from attaching to
-  this network.
-- **internal**: Set to `false`, allowing external access.
+- **attachable**: Set to `true`, allowing other containers to attach to this
+  network.
+- **internal**: Set to `true`, restricting the network to internal access only.
 - **external**: Set to `false`, meaning the network is not externally defined.
 - **name**: Specifies the network name as `mariadb`.
 - **driver**: Uses the `bridge` driver to create an isolated network.
@@ -131,13 +131,7 @@ networks:
 ```yaml
 services:
   mariadb_db:
-    deploy:
-      resources:
-        limits:
-          memory: 1G
-        reservations:
-          memory: 1G
-    restart: unless-stopped
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -145,11 +139,11 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: mariadb_db
-    image: docker.io/mariadb:latest
+    image: docker.io/mariadb:13.0.2
     pull_policy: if_not_present
     volumes:
       - /docker/mariadb/production/db:/var/lib/mysql
-      - /docker/mariadb/production/my.cnf:/etc/my.cnf
+      - /docker/mariadb/config/my.cnf:/etc/my.cnf
       - /sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure
     env_file:
       - .env
@@ -159,13 +153,16 @@ services:
       PGID: "1000"
       TZ: Europe/Amsterdam
       MARIADB_ROOT_PASSWORD: ${ROOT_PASSWORD_DB}
-      MARIADB_DATABASE: ${NAME_DB}
-      MARIADB_USER: ${USER_DB}
-      MARIADB_PASSWORD: ${PASSWORD_DB}
     hostname: mariadb_db
     networks:
       mariadb_net:
         ipv4_address: 172.20.16.2
+    ports:
+      - target: 3306 # container port
+        host_ip: 127.0.0.1 # The Host IP mapping, unspecified means all network interfaces (0.0.0.0)
+        published: 3306 # publicly exposed port
+        protocol: tcp # tcp or udp
+        mode: ingress # host: For publishing a host port on each node
     security_opt:
       - no-new-privileges:true
     labels:
@@ -184,11 +181,7 @@ services:
 
 - **services**: Defines services to be deployed.
 - **mariadb_db**: The service name for the MariaDB container.
-  - **deploy: "resources"**: Configuration for managing compute resource usage.
-    - **Limits: "memory"**: Caps memory usage at 1 GB.
-    - **Reservations: "memory"**: Reserves 1 GB of memory for the container.
-  - **restart: unless-stopped**: The container will restart unless explicitly
-    stopped.
+  - **restart: always**: The container always restarts when it stops.
   - **logging**: Configures logging for the container.
     - **driver: "json-file"**: Uses the JSON file logging driver.
     - **max-size: "1M"**: Limits log files to a maximum size of 1MB.
@@ -196,13 +189,14 @@ services:
   - **stop_grace_period: 1m**: Allows a grace period of 1 minute for the
     container to stop.
   - **container_name: mariadb_db**: Names the container `mariadb_db`.
-  - **image: docker.io/mariadb:latest**: Uses the latest MariaDB image.
+  - **image: docker.io/mariadb:13.0.2**: Uses the MariaDB image, pinned to
+    version `13.0.2`.
   - **pull_policy: if_not_present**: Pulls the image only if it is not already
     present locally.
   - **volumes**: Mounts directories or files into the container.
     - **/docker/mariadb/production/db:/var/lib/mysql**: Mounts the database
       storage directory.
-    - **/docker/mariadb/production/my.cnf:/etc/my.cnf**: Mounts the custom
+    - **/docker/mariadb/config/my.cnf:/etc/my.cnf**: Mounts the custom
       MariaDB configuration file.
     - **/sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure**: Mounts
       system memory pressure info for monitoring.
@@ -216,15 +210,17 @@ services:
       local timezone.
     - **MARIADB_ROOT_PASSWORD**: Defines the MariaDB root password (using a
       variable from the `.env` file).
-    - **MARIADB_DATABASE**: Defines the default database name (from the `.env`
-      file).
-    - **MARIADB_USER**: Defines the database user (from the `.env` file).
-    - **MARIADB_PASSWORD**: Defines the database user's password (from the `.env`
-      file).
   - **hostname: mariadb_db**: Configures the container's hostname as
     `mariadb_db`.
   - **networks**: Connects the service to the `mariadb_net` network with a
     static IP address of `172.20.16.2`.
+  - **ports**: Publishes the MariaDB port to the host.
+    - **target: 3306**: The container port.
+    - **host_ip: 127.0.0.1**: Binds the published port to the loopback interface
+      of the host only.
+    - **published: 3306**: The port that is exposed on the host.
+    - **protocol: tcp**: Uses TCP.
+    - **mode: ingress**: Publishes the port on the swarm ingress network.
   - **security_opt**: Adds security options to the container.
     - **no-new-privileges:true**: Ensures that the container cannot gain new
       privileges.
@@ -493,4 +489,4 @@ restart policies.
 [docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/mariadb/docker-compose.yml
 [.env]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/mariadb/.env
 [stack.env]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/mariadb/stack.env
-[my.cnf]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/mariadb/my.cnf
+[my.cnf]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/mariadb/config/my.cnf

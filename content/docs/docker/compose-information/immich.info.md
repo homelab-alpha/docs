@@ -148,7 +148,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: immich_db
-    image: ghcr.io/immich-app/postgres:14-vectorchord0.4.1-pgvectors0.2.0
+    image: ghcr.io/immich-app/postgres:16-vectorchord0.4.1-pgvectors0.2.0
     pull_policy: if_not_present
     volumes:
       - /docker/immich/production/db:/var/lib/postgresql/data
@@ -191,7 +191,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: immich_redis
-    image: docker.io/valkey/valkey:latest
+    image: docker.io/valkey/valkey:9.1.3
     pull_policy: if_not_present
     volumes:
       - /docker/immich/production/redis:/data
@@ -228,7 +228,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: immich_ml
-    image: ghcr.io/immich-app/immich-machine-learning:release
+    image: ghcr.io/immich-app/immich-machine-learning:v3.3.5
     pull_policy: if_not_present
     volumes:
       - /docker/immich/production/ml:/cache
@@ -260,7 +260,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: immich
-    image: ghcr.io/immich-app/immich-server:release
+    image: ghcr.io/immich-app/immich-server:v3.3.5
     pull_policy: if_not_present
     depends_on:
       immich_db:
@@ -273,6 +273,7 @@ services:
       - immich_redis
       - immich_ml
     volumes:
+      - /docker/immich/production/app:/data
       - /docker/immich/production/app:/usr/src/app/upload
       - /etc/localtime:/etc/localtime:ro
     environment:
@@ -309,8 +310,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: immich_db**: Names the container "immich_db".
-  - **image**: Specifies the PostgreSQL database image with a specific digest.
-    - **ghcr.io/immich-app/postgres:14-vectorchord0.4.1-pgvectors0.2.0**
+  - **image**: Specifies the PostgreSQL database image with a specific tag.
+    - **ghcr.io/immich-app/postgres:16-vectorchord0.4.1-pgvectors0.2.0**
   - **pull_policy: if_not_present**: Pulls the image only if it is not already
     present locally.
   - **volumes**: Mounts host directories into the container.
@@ -363,7 +364,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: immich_redis**: Names the container "immich_redis".
-  - **image: docker.io/valkey/valkey:latest**: Uses the latest Redis image.
+  - **image: docker.io/valkey/valkey:9.1.3**: Uses the Valkey image (a Redis-compatible
+    key-value store), pinned to version `9.1.3`.
   - **pull_policy: if_not_present**: Pulls the image only if it is not already
     present locally.
   - **volumes**: Mounts host directories into the container.
@@ -409,8 +411,9 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: immich_ml**: Names the container "immich_ml".
-  - **image: ghcr.io/immich-app/immich-machine-learning:release**: Uses the
-    latest machine learning image from the specified repository.
+  - **image: ghcr.io/immich-app/immich-machine-learning:v3.3.5**: Uses the
+    machine learning image from the specified repository, pinned to version
+    `v3.3.5`.
   - **pull_policy: if_not_present**: Pulls the image only if it is not already
     present locally.
   - **volumes**: Mounts host directories into the container.
@@ -448,7 +451,7 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: immich**: Names the container "immich".
-  - **image: ghcr.io/immich-app/immich-server:release**: Uses the Immich server
+  - **image: ghcr.io/immich-app/immich-server:v3.3.5**: Uses the Immich server
     image from GitHub Container Registry.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
@@ -460,6 +463,8 @@ services:
     - **immich_redis**: Links to the Redis container.
     - **immich_ml**: Links to the machine learning container.
   - **volumes**: Mounts host directories or files into the container.
+    - **/docker/immich/production/app:/data**: Mounts the application data
+      directory.
     - **/docker/immich/production/app:/usr/src/app/upload**: Mounts the upload
       directory.
     - **/etc/localtime:/etc/localtime:ro**: Mounts the localtime file (read-only)
