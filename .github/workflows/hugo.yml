@@ -43,7 +43,7 @@ jobs:
 
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      HUGO_VERSION: 0.168.0
+      HUGO_VERSION: 0.169.0
       DRY_RUN: ${{ (github.event_name == 'pull_request' || inputs.dry_run) && 'true' || 'false' }}
 
     steps:
