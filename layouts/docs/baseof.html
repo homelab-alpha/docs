@@ -88,17 +88,9 @@
 
         {{- partialCached (printf "%s/%s" ($.Scratch.Get "pathName") "footer/footer-scripts.html") . -}}
 
-        <!-- DocSearch Config -->
-        {{ if and (.Site.Params.docsearch.appID) (.Site.Params.docsearch.apiKey) -}}
-            {{- partialCached (printf "%s/%s" ($.Scratch.Get "pathName") "footer/docsearch.html") . -}}
-        {{ end }}
-
         <!-- FlexSearch Config -->
         {{ if or (not (isset .Site.Params.flexsearch "enabled")) (eq .Site.Params.flexsearch.enabled true) -}}
-            {{ if and (.Site.Params.docsearch.appID) (.Site.Params.docsearch.apiKey) -}}
-            {{ else }}
                 {{- partialCached (printf "%s/%s" ($.Scratch.Get "pathName") "footer/flexsearch.html") . -}}
-            {{ end }}
         {{ end }}
     </body>
 </html>

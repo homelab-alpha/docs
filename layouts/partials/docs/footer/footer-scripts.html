@@ -4,11 +4,6 @@
 
 {{ $slice := slice $dayjs $relativeTime $app -}}
 
-{{ if and (.Site.Params.docsearch.appID) (.Site.Params.docsearch.apiKey) -}}
-    {{ $docsearch := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/docsearch.min.js") }}
-    {{ $slice = $slice | append $docsearch -}}
-{{ end }}
-
 {{ if site.Params.docs.toc | default true }}
     {{ if eq .Site.Params.docs.scrollSpy true -}}
         {{ $simplescrollspy := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/simple-scrollspy.min.js") }}
