@@ -54,6 +54,14 @@ Updater, Modified (YUM) package manager for RPM-based distributions. It was
 designed to improve upon YUM in terms of performance, dependency resolution, and
 handling large numbers of packages.
 
+{{% alert context="primary" %}}
+Fedora 41 and newer use **DNF5**, a complete rewrite of DNF in C++ that is
+faster and uses less memory. RHEL, CentOS Stream, AlmaLinux, and Rocky Linux
+still use DNF4. Most commands in this guide work on both versions. Where the
+syntax differs, both forms are shown. The older `yum` command is only an alias
+for `dnf`.
+{{% /alert %}}
+
 <br />
 
 ## Installing and Updating Packages
@@ -81,10 +89,11 @@ sudo dnf remove nano
 
 ### Updating a Package
 
-To update a specific package, you can use the `update` command:
+To update a specific package, you can use the `upgrade` command (`update` is an
+alias that still works):
 
 ```bash
-sudo dnf update nano
+sudo dnf upgrade nano
 ```
 
 <br />
@@ -94,7 +103,7 @@ sudo dnf update nano
 To update all installed packages to their latest versions:
 
 ```bash
-sudo dnf update
+sudo dnf upgrade
 ```
 
 <br />
@@ -133,16 +142,26 @@ To add a new repository, you typically create a `.repo` file in the
 sudo nano /etc/yum.repos.d/newrepo.repo
 ```
 
-Then add the repository information to the file:
+Then add the repository information to the file (use `https://` URLs when your
+repository supports it):
 
 ```shell
 [newrepo]
 name=New Repository
-baseurl=http://repository.url/path/
+baseurl=https://repository.url/path/
 enabled=1
 gpgcheck=1
-gpgkey=http://repository.url/path/RPM-GPG-KEY
+gpgkey=https://repository.url/path/RPM-GPG-KEY
 ```
+
+Alternatively, add a repository from a `.repo` file URL with DNF5:
+
+```bash
+sudo dnf config-manager addrepo --from-repofile=https://repository.url/path/newrepo.repo
+```
+
+On DNF4, install `dnf-plugins-core` and use
+`sudo dnf config-manager --add-repo https://repository.url/path/newrepo.repo`.
 
 <br />
 
@@ -151,8 +170,10 @@ gpgkey=http://repository.url/path/RPM-GPG-KEY
 To disable a repository:
 
 ```bash
-sudo dnf config-manager --set-disabled newrepo
+sudo dnf config-manager setopt newrepo.enabled=0
 ```
+
+On DNF4: `sudo dnf config-manager --set-disabled newrepo`.
 
 <br />
 
@@ -161,8 +182,10 @@ sudo dnf config-manager --set-disabled newrepo
 To enable a repository:
 
 ```bash
-sudo dnf config-manager --set-enabled newrepo
+sudo dnf config-manager setopt newrepo.enabled=1
 ```
+
+On DNF4: `sudo dnf config-manager --set-enabled newrepo`.
 
 <br />
 
@@ -197,7 +220,7 @@ sudo dnf clean all
 To list all installed packages:
 
 ```bash
-dnf list installed
+dnf list --installed
 ```
 
 <br />
@@ -235,8 +258,11 @@ dnf group list
 To install a group:
 
 ```bash
-sudo dnf group install "Development Tools"
+sudo dnf group install development-tools
 ```
+
+DNF5 shows the group ID in the `dnf group list` output. Using the ID avoids
+problems with spaces and capitals in group names.
 
 <br />
 
@@ -246,8 +272,10 @@ DNF keeps track of all transactions, making it possible to undo changes. To view
 the transaction history:
 
 ```bash
-dnf history
+dnf history list
 ```
+
+On DNF4, `dnf history` without a subcommand also works.
 
 To undo a specific transaction, use the transaction ID from the history:
 

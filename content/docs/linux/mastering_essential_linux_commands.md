@@ -493,6 +493,7 @@ Display or set the system's hostname:
 
 ```bash
 hostname
+hostnamectl  # show or set the hostname on systemd-based distributions
 ```
 
 <br />
@@ -606,6 +607,19 @@ for system administration:
 sudo iptables -L
 ```
 
+{{% alert context="primary" %}}
+Most current distributions use **nftables** as the firewall backend, and
+`iptables` is often a compatibility wrapper around it. To list the active rules
+with nftables, use `sudo nft list ruleset`. For everyday use, a front end is
+easier: `ufw` on Ubuntu and Debian, or `firewalld` (`firewall-cmd`) on Fedora
+and RHEL-based systems.
+{{% /alert %}}
+
+```bash
+sudo ufw status               # Ubuntu / Debian
+sudo firewall-cmd --list-all  # Fedora / RHEL
+```
+
 <br />
 
 ### systemctl
@@ -657,12 +671,12 @@ ssh username@hostname
 
 ### Package Management
 
-Examples of package managers such as `apt` for Debian/Ubuntu and `yum` or `dnf`
-for Red Hat/Fedora:
+Examples of package managers such as `apt` for Debian/Ubuntu and `dnf` for
+Fedora and RHEL-based distributions (the older `yum` command is now an alias for
+`dnf`):
 
 ```bash
 sudo apt install package_name
-sudo yum install package_name
 sudo dnf install package_name
 ```
 
@@ -670,23 +684,30 @@ sudo dnf install package_name
 
 ### Network Commands
 
-Commands like `netstat`, `ifconfig`, and `ip` for network management:
+Use the `ip` and `ss` commands for network management. They replace the
+deprecated `ifconfig` and `netstat` commands from the `net-tools` package, which
+is no longer installed by default on most distributions:
 
 ```bash
-ifconfig
-ip a
-netstat -tuln
+ip a         # show IP addresses (replaces ifconfig)
+ip route     # show the routing table (replaces route)
+ss -tuln     # show listening TCP and UDP ports (replaces netstat -tuln)
 ```
 
 <br />
 
 ### Log Files
 
-How to view system logs, such as using `dmesg` and files in `/var/log`:
+How to view system logs. Most modern distributions use the systemd journal,
+which you can read with `journalctl`. Some distributions also keep plain text
+log files in `/var/log` (for example `/var/log/syslog` on Debian and Ubuntu,
+which may not exist on Fedora):
 
 ```bash
-dmesg
-tail -f /var/log/syslog
+dmesg                     # kernel messages
+journalctl -f             # follow the system journal
+journalctl -u service_name  # logs of a single service
+tail -f /var/log/syslog   # plain text log (Debian / Ubuntu)
 ```
 
 <br />

@@ -46,6 +46,11 @@ katex: true
 {{% alert context="primary" %}}
 Please note that the Linux shell is case-sensitive. {{% /alert %}}
 
+{{% alert context="primary" %}}
+Fedora 41 and newer use **DNF5**. RHEL, CentOS Stream, AlmaLinux, and Rocky
+Linux still use DNF4. Where the syntax differs, both forms are shown.
+{{% /alert %}}
+
 <br />
 
 ## Basic Package Management
@@ -73,7 +78,7 @@ Removes the specified package.
 ### Update a Specific Package
 
 ```bash
-sudo dnf update <package_name>
+sudo dnf upgrade <package_name>
 ```
 
 Updates the specified package to the latest version.
@@ -83,7 +88,7 @@ Updates the specified package to the latest version.
 ### Update All Packages
 
 ```bash
-sudo dnf update
+sudo dnf upgrade
 ```
 
 Updates all installed packages to their latest versions.
@@ -93,7 +98,7 @@ Updates all installed packages to their latest versions.
 ### List All Installed Packages
 
 ```bash
-dnf list installed
+dnf list --installed
 ```
 
 Displays a list of all installed packages.
@@ -144,6 +149,16 @@ Downloads the specified package without installing it.
 
 ### Add a Repository
 
+Add a repository from a `.repo` file URL (DNF5):
+
+```bash
+sudo dnf config-manager addrepo --from-repofile=<repo_file_url>
+```
+
+On DNF4, use `sudo dnf config-manager --add-repo <repo_file_url>`.
+
+Or create a `.repo` file manually:
+
 1. Create a `.repo` file in `/etc/yum.repos.d/`:
    ```bash
    sudo nano /etc/yum.repos.d/<repo_name>.repo
@@ -155,20 +170,22 @@ Downloads the specified package without installing it.
 ### Disable a Repository
 
 ```bash
-sudo dnf config-manager --set-disabled <repo_name>
+sudo dnf config-manager setopt <repo_name>.enabled=0
 ```
 
-Disables the specified repository.
+Disables the specified repository. On DNF4, use
+`sudo dnf config-manager --set-disabled <repo_name>`.
 
 <br />
 
 ### Enable a Repository
 
 ```bash
-sudo dnf config-manager --set-enabled <repo_name>
+sudo dnf config-manager setopt <repo_name>.enabled=1
 ```
 
-Enables the specified repository.
+Enables the specified repository. On DNF4, use
+`sudo dnf config-manager --set-enabled <repo_name>`.
 
 <br />
 
@@ -271,10 +288,10 @@ Removes all packages in the specified group.
 ### View Transaction History
 
 ```bash
-dnf history
+dnf history list
 ```
 
-Displays the transaction history.
+Displays the transaction history. On DNF4, `dnf history` also works.
 
 <br />
 
@@ -313,17 +330,17 @@ Redoes the specified transaction.
 ### Check for Available Updates
 
 ```bash
-dnf check-update
+dnf check-upgrade
 ```
 
-Checks for available updates.
+Checks for available updates (`check-update` is an alias).
 
 <br />
 
 ### List Enabled Repositories
 
 ```bash
-dnf repolist enabled
+dnf repolist --enabled
 ```
 
 Lists all enabled repositories.
@@ -333,7 +350,7 @@ Lists all enabled repositories.
 ### List Disabled Repositories
 
 ```bash
-dnf repolist disabled
+dnf repolist --disabled
 ```
 
 Lists all disabled repositories.
@@ -344,10 +361,12 @@ Lists all disabled repositories.
 
 ```bash
 sudo dnf system-upgrade download --releasever=<version>
-sudo dnf system-upgrade reboot
+sudo dnf offline reboot
 ```
 
-Upgrades the system to a new release.
+Upgrades the system to a new release. On DNF4, the second command is
+`sudo dnf system-upgrade reboot`. Make a backup and fully update the current
+release before you start.
 
 <br />
 
@@ -386,7 +405,7 @@ Displays help information for DNF commands.
 ### List Installed Kernels
 
 ```bash
-dnf list installed kernel
+dnf list --installed 'kernel*'
 ```
 
 Lists all installed kernels.
@@ -405,7 +424,8 @@ Displays the current running kernel version.
 
 ### Automatically Remove Old Kernels
 
-1. Configure DNF to keep only the latest two kernels:
+1. Configure DNF to keep only the latest two kernels (Fedora keeps three by
+   default):
    ```bash
    sudo nano /etc/dnf/dnf.conf
    ```
@@ -413,10 +433,18 @@ Displays the current running kernel version.
    ```ini
    installonly_limit=2
    ```
-2. Apply cleanup to remove old kernels:
+   Old kernels are then removed automatically when a new kernel is installed.
+2. Remove the old kernels immediately (DNF5). The running kernel is skipped:
    ```bash
-   sudo dnf remove $(dnf repoquery --installonly --latest-limit=-2 -q)
+   sudo dnf remove --oldinstallonly
    ```
+   To override the configured limit once, add `--limit=2`.
+
+On DNF4, use:
+
+```bash
+sudo dnf remove $(dnf repoquery --installonly --latest-limit=-2 -q)
+```
 
 <br />
 
@@ -424,18 +452,21 @@ Displays the current running kernel version.
 
 1. List all installed kernels:
    ```bash
-   dnf list installed kernel
+   dnf list --installed 'kernel*'
    ```
 2. Identify the old kernel versions you want to remove. Do not remove the
    currently running kernel (you can check it with `uname -r`).
 3. Remove a specific old kernel:
    ```bash
-   sudo dnf remove kernel-<version>
+   sudo dnf remove kernel-core-<version>
    ```
 
 <br />
 
-### Using `package-cleanup` for Managing Kernels
+### Using `package-cleanup` on DNF4
+
+The `package-cleanup` tool is part of `dnf-utils` and is only available on DNF4
+(for example on RHEL and its clones). It is not available on DNF5.
 
 1. Install `dnf-utils`:
    ```bash
