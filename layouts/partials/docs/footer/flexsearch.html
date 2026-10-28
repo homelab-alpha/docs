@@ -86,11 +86,12 @@
     (function(){
 
     var index = new FlexSearch.Document({
-        // charset: "latin:default",
+        // FlexSearch 0.8 removes repeated letters by default (so "ssh" also
+        // finds "sh"). Keep the default Latin normalisation without that.
+        encoder: new FlexSearch.Encoder(FlexSearch.Charset.LatinDefault, {dedupe: false}),
         tokenize: {{ .Site.Params.flexsearch.tokenize | default "forward" }},
         minlength: {{ .Site.Params.flexsearch.minQueryChar | default 0}},
         cache: {{ .Site.Params.flexsearch.cache | default 100 }},
-        optimize: {{ .Site.Params.flexsearch.optimize | default true }},
         document: {
         id: 'id',
         store: [
@@ -151,20 +152,41 @@
         );
     {{ end -}}
 
+    // Flatten the per-field results of index.search() into one Map keyed by
+    // href, which also removes duplicates. The Map keeps the ranking order.
+    function flatten_results(results) {
+        const flat = new Map();
+        for (const result of results.flatMap(r => r.result)) {
+            if (!flat.has(result.doc.href)) flat.set(result.doc.href, result.doc);
+        }
+        return flat;
+    }
+
+    // FlexSearch 0.8 ranks documents that match only some of the words in a
+    // query. Keep the ranking, but only return documents that match all words.
+    const searchLimit = 100000;
+
+    function search_documents(query) {
+        const ranked = flatten_results(index.search(query, {limit: searchLimit, enrich: true}));
+        const terms = query.split(/\s+/).filter(Boolean);
+        if (terms.length > 1) {
+            for (const term of terms) {
+                const matches = flatten_results(index.search(term, {limit: searchLimit, enrich: true}));
+                for (const href of [...ranked.keys()]) {
+                    if (!matches.has(href)) ranked.delete(href);
+                }
+            }
+        }
+        return ranked;
+    }
+
     search.addEventListener('input', show_results, true);
 
     function show_results(){
         const maxResult = {{ .Site.Params.flexsearch.maxResult | default 5}};
         const minlength = {{ .Site.Params.flexsearch.minQueryChar | default 0}};
         var searchQuery = sanitizeHTML(this.value);
-        var results = index.search(searchQuery, {limit: maxResult, enrich: true});
-
-        // flatten results since index.search() returns results for each indexed field
-        const flatResults = new Map(); // keyed by href to dedupe results
-        for (const result of results.flatMap(r => r.result)) {
-        if (flatResults.has(result.doc.href)) continue;
-        flatResults.set(result.doc.href, result.doc);
-        }
+        const flatResults = search_documents(searchQuery);
 
         suggestions.innerHTML = "";
         suggestions.classList.remove('d-none');
