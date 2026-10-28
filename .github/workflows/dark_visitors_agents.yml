@@ -1,0 +1,537 @@
+---
+# Retrieves the list of known crawlers and bots from Known Agents (formerly Dark Visitors), groups them by category,
+# and rebuilds `static/robots.txt` with a `Disallow: /` rule for every agent in the selected categories.
+#
+# When the generated content differs from the current file (ignoring the 'Last modified' line), the timestamp is
+# updated and the change is proposed through a pull request (the default branch is protected by a ruleset, so a direct
+# push is not possible). The commit is created through the GitHub API, which makes it signed and 'Verified'.
+#
+# Requirement: Settings > Actions > General > "Allow GitHub Actions to create and approve pull requests".
+
+name: 🤖 Update Dark Visitors Agents
+
+on:
+  # Every 3 hours between 05:23 and 20:23 UTC (roughly 07:00 to 22:00 in the Netherlands).
+  schedule:
+    - cron: "23 5-20/3 * * *"
+
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Run in dry-run mode (do not publish changes)"
+        required: true
+        default: false
+        type: boolean
+      verbose:
+        description: "Enable verbose logging"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: dark-visitors-agents-${{ github.repository || github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  update:
+    name: 🤖 Update robots.txt
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    if: |
+      github.event.sender.type != 'Bot' &&
+      !contains(github.actor, '[bot]')
+
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REPO: ${{ github.repository }}
+
+      SOURCE_URL: "https://knownagents.com/agents"
+      OUTPUT_FILE: static/robots.txt
+      SITEMAP_URL: "https://homelab-alpha.nl/sitemap.xml"
+      MAX_PAGES: "50"
+      UPDATE_BRANCH: chore/update-dark-visitors-agents
+      PR_TITLE: "chore(robots): update known agents in robots.txt"
+
+      # The existing robots.txt is sorted with this locale; using another one would reorder the agents.
+      SORT_LOCALE: en_US.UTF-8
+      TZ: Europe/Amsterdam
+
+      DRY_RUN: >-
+        ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.dry_run || 'false' }}
+      VERBOSE: >-
+        ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.verbose || 'false' }}
+
+    steps:
+      - name: 🏁 Notify start of process
+        run: |
+          echo "::notice title=Workflow started::🤖 Update of the robots.txt agent list initiated"
+          echo "::group::ℹ️ Execution context"
+          echo "Repository: $REPO"
+          echo "Source: $SOURCE_URL"
+          echo "Output file: $OUTPUT_FILE"
+          echo "Dry run: $DRY_RUN"
+          echo "Verbose: $VERBOSE"
+          echo "::endgroup::"
+
+      - name: 📦 Checkout repository source
+        uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: 🛠️ Check dependencies
+        run: |
+          set -Eeuo pipefail
+
+          echo "::group::🛠️ Checking dependencies"
+
+          for cmd in curl grep tr sed awk sort jq gh base64; do
+            if ! command -v "$cmd" >/dev/null 2>&1; then
+              echo "::error title=Missing dependency::❌ Required command not found: $cmd"
+              exit 1
+            fi
+          done
+
+          if ! echo "test" | grep -qP 'te(?=st)'; then
+            echo "::error title=Missing dependency::❌ grep without PCRE support (grep -P) is not usable"
+            exit 1
+          fi
+
+          AVAILABLE_LOCALES="$(locale -a)"
+
+          if ! grep -qiE '^en_US\.utf-?8$' <<<"$AVAILABLE_LOCALES"; then
+            echo "Locale $SORT_LOCALE not found, generating it"
+            sudo apt-get install -y -qq locales
+            sudo locale-gen "$SORT_LOCALE"
+          fi
+
+          echo "✅ All dependencies are available"
+          echo "::endgroup::"
+
+      - name: 🌐 Fetch agent pages
+        id: fetch
+        run: |
+          set -Eeuo pipefail
+
+          case "$SOURCE_URL" in
+            https://*) ;;
+            *)
+              echo "::error title=Invalid URL::❌ The URL does not use https: $SOURCE_URL"
+              exit 1
+              ;;
+          esac
+
+          ALL_PAGES="$RUNNER_TEMP/all_pages.html"
+          PAGE_FILE="$RUNNER_TEMP/page.html"
+          : >"$ALL_PAGES"
+
+          # Download a URL to a file and print the HTTP status code.
+          fetch() {
+            curl --silent --show-error --location \
+              --proto '=https' --proto-redir '=https' \
+              --retry 3 --retry-delay 5 --retry-all-errors \
+              --connect-timeout 20 --max-time 60 \
+              --output "$2" --write-out '%{http_code}' "$1"
+          }
+
+          # Build the URL for a page number (?page=N, replacing an existing page parameter).
+          build_page_url() {
+            local base_url="$1" page_num="$2" clean_url
+
+            if [ "$page_num" -eq 1 ]; then
+              echo "$base_url"
+              return
+            fi
+
+            # shellcheck disable=SC2001
+            clean_url="$(sed 's/[?&]page=[0-9]*//' <<<"$base_url")"
+
+            if [[ "$clean_url" == *"?"* ]]; then
+              echo "${clean_url}&page=${page_num}"
+            else
+              echo "${clean_url}?page=${page_num}"
+            fi
+          }
+
+          # Print the rel="next" URL found in a page, or nothing when there is none.
+          detect_next_page() {
+            local current_url="$1" page_file="$2" next_href base
+
+            next_href="$(grep -oP '(?<=rel="next" href=")[^"]+' "$page_file" | tail -1 || true)"
+
+            if [ -n "$next_href" ] && [[ "$next_href" != http* ]]; then
+              base="$(grep -oP '^https?://[^/]+' <<<"$current_url")"
+              next_href="${base}${next_href}"
+            fi
+
+            echo "$next_href"
+          }
+
+          echo "::group::🌐 Fetching pages from $SOURCE_URL"
+
+          page=1
+          current_url="$(build_page_url "$SOURCE_URL" "$page")"
+          echo "Fetching page $page: $current_url"
+
+          if ! HTTP_STATUS="$(fetch "$current_url" "$PAGE_FILE")"; then
+            echo "::endgroup::"
+            echo "::error title=Download failed::❌ Failed to retrieve the agents from $SOURCE_URL"
+            exit 1
+          fi
+
+          if [ "$HTTP_STATUS" -ne 200 ]; then
+            echo "::endgroup::"
+            echo "::error title=Unexpected HTTP status::❌ Received HTTP status $HTTP_STATUS from $current_url"
+            exit 1
+          fi
+
+          cat "$PAGE_FILE" >>"$ALL_PAGES"
+
+          while [ "$page" -lt "$MAX_PAGES" ]; do
+            next_url="$(detect_next_page "$current_url" "$PAGE_FILE")"
+            page=$((page + 1))
+
+            if [ -z "$next_url" ]; then
+              # Fall back to sequential ?page=N and stop when no agents appear anymore.
+              next_url="$(build_page_url "$SOURCE_URL" "$page")"
+
+              if ! HTTP_STATUS="$(fetch "$next_url" "$PAGE_FILE")"; then
+                echo "::endgroup::"
+                echo "::error title=Download failed::❌ Failed to retrieve $next_url"
+                exit 1
+              fi
+
+              if [ "$HTTP_STATUS" -ne 200 ]; then
+                page=$((page - 1))
+                echo "No more pages found after page $page (HTTP $HTTP_STATUS)."
+                break
+              fi
+
+              if ! grep -qP '<div class="name agent-name">\K[^<]+' "$PAGE_FILE"; then
+                page=$((page - 1))
+                echo "Page $((page + 1)) returned no agents, pagination complete."
+                break
+              fi
+            else
+              if ! HTTP_STATUS="$(fetch "$next_url" "$PAGE_FILE")"; then
+                echo "::endgroup::"
+                echo "::error title=Download failed::❌ Failed to retrieve $next_url"
+                exit 1
+              fi
+
+              if [ "$HTTP_STATUS" -ne 200 ]; then
+                page=$((page - 1))
+                echo "::warning title=Pagination stopped::⚠️ HTTP $HTTP_STATUS for $next_url, stopping pagination."
+                break
+              fi
+            fi
+
+            echo "Fetching page $page: $next_url"
+            cat "$PAGE_FILE" >>"$ALL_PAGES"
+            current_url="$next_url"
+          done
+
+          if [ "$page" -ge "$MAX_PAGES" ]; then
+            echo "::warning title=Page limit reached::⚠️ Reached MAX_PAGES limit ($MAX_PAGES)," \
+              "some pages may be skipped."
+          fi
+
+          echo "pages=$page" >>"$GITHUB_OUTPUT"
+          echo "✅ Fetched $page page(s) in total"
+          echo "::endgroup::"
+
+      - name: 🔄 Generate robots.txt
+        id: generate
+        run: |
+          set -Eeuo pipefail
+
+          echo "::group::🔄 Generating robots.txt"
+
+          ALL_PAGES="$RUNNER_TEMP/all_pages.html"
+          NEW_FILE="$RUNNER_TEMP/robots.txt"
+          ALL_AGENTS="$RUNNER_TEMP/all_agents.txt"
+
+          # Agent categories to block (commented categories are intentionally allowed).
+          AGENT_CATEGORIES=(
+            "AI Agents"
+            "AI Assistants"
+            "AI Coding Agents"
+            "AI Data Providers"
+            "AI Data Scrapers"
+            "AI Search Crawlers"
+            "Archivers"
+            "Automated Agents"
+            # "Developer Helpers"
+            "Fetchers"
+            "Intelligence Gatherers"
+            "Scrapers"
+            # "Search Engine Crawlers"
+            # "Security Scanners"
+            # "SEO Crawlers"
+            "Uncategorized Agents"
+            "Undocumented AI Agents"
+          )
+
+          # Print the agent names found in the section of a category (the section ends at the next <h2>).
+          extract_agents() {
+            awk -v section="$1" '
+              $0 ~ "<h2>" section "</h2>" { in_section=1; next }
+              $0 ~ "<h2>" && in_section { exit }
+              in_section
+            ' "$ALL_PAGES" | grep -oP '<div class="name agent-name">\K[^<]+' || true
+          }
+
+          : >"$ALL_AGENTS"
+
+          {
+            cat <<'EOF'
+          # Greetings, Web Crawlers! 🌍
+          # We love friendly bots who respect the rules. 🤝
+          # Crawl with kindness, and we'll all get along just fine! ❤️
+
+          # To the good bots we send our love,
+          # Crawl with care and respect from above.
+          # Your gentle touch will earn you grace,
+          # While bad bots should stay out of this space.
+
+          # General Crawl Instructions
+          User-agent: *
+          Allow: /
+          Crawl-delay: 10
+
+          # For bots that aren't playing by the rules:
+          # If you're not behaving, you'll be disallowed from crawling our site.
+          # But we know you're just doing your job! 😉
+
+          EOF
+
+            for category in "${AGENT_CATEGORIES[@]}"; do
+              AGENTS="$(extract_agents "$category")"
+
+              if [ -z "$AGENTS" ]; then
+                echo "No agents found for category: $category" >&2
+                continue
+              fi
+
+              echo "# $category"
+
+              LC_ALL="$SORT_LOCALE" sort -u <<<"$AGENTS" | while IFS= read -r agent; do
+                if [ -n "$agent" ]; then
+                  echo "User-agent: $agent"
+                  echo "Disallow: /"
+                  echo
+                  echo "$agent" >>"$ALL_AGENTS"
+                fi
+              done
+
+              echo "Category '$category': $(LC_ALL="$SORT_LOCALE" sort -u <<<"$AGENTS" | grep -c .) agents" >&2
+            done
+
+            cat <<'EOF'
+          # We trust bots that show respect for our site and privacy! 😊
+
+          EOF
+            echo "# Sitemaps"
+            echo "Sitemap: $SITEMAP_URL"
+            echo
+            echo "# Last modified: "
+          } >"$NEW_FILE"
+
+          if [ ! -s "$ALL_AGENTS" ]; then
+            echo "::endgroup::"
+            echo "::error title=No agents found::❌ No user agents found at $SOURCE_URL"
+            exit 1
+          fi
+
+          AGENTS_COUNT="$(LC_ALL="$SORT_LOCALE" sort -u "$ALL_AGENTS" | grep -c .)"
+          echo "count=$AGENTS_COUNT" >>"$GITHUB_OUTPUT"
+          echo "✅ $AGENTS_COUNT unique agents found"
+
+          # Compare the content excluding the timestamp line.
+          if [ -f "$OUTPUT_FILE" ] &&
+            diff <(grep -v '^# Last modified:' "$NEW_FILE") \
+              <(grep -v '^# Last modified:' "$OUTPUT_FILE") >/dev/null; then
+            {
+              echo "changed=false"
+              echo "added=0"
+              echo "removed=0"
+            } >>"$GITHUB_OUTPUT"
+            echo "ℹ️ No changes detected in the file. Timestamp not updated."
+          else
+            TIMESTAMP="$(date '+# Last modified: %Y-%m-%dT%H:%M:%S%:z')"
+            sed -i "s/^# Last modified: .*/$TIMESTAMP/" "$NEW_FILE"
+
+            OLD_AGENTS="$RUNNER_TEMP/old_agents.txt"
+            NEW_AGENTS="$RUNNER_TEMP/new_agents.txt"
+
+            { grep '^User-agent:' "$OUTPUT_FILE" || true; } | sort -u >"$OLD_AGENTS"
+            { grep '^User-agent:' "$NEW_FILE" || true; } | sort -u >"$NEW_AGENTS"
+
+            ADDED_COUNT="$({ grep -Fxvf "$OLD_AGENTS" "$NEW_AGENTS" || true; } | wc -l)"
+            REMOVED_COUNT="$({ grep -Fxvf "$NEW_AGENTS" "$OLD_AGENTS" || true; } | wc -l)"
+
+            {
+              echo "changed=true"
+              echo "added=$ADDED_COUNT"
+              echo "removed=$REMOVED_COUNT"
+            } >>"$GITHUB_OUTPUT"
+
+            cp "$NEW_FILE" "$OUTPUT_FILE"
+
+            echo "ℹ️ File content has changed. Timestamp updated."
+            echo "Added agents: $ADDED_COUNT"
+            echo "Removed agents: $REMOVED_COUNT"
+
+            if [ "$VERBOSE" = "true" ]; then
+              echo "Changes:"
+              git --no-pager diff --no-color --stat -- "$OUTPUT_FILE" || true
+              git --no-pager diff --no-color -U0 -- "$OUTPUT_FILE" | head -n 500 || true
+            fi
+          fi
+
+          echo "::endgroup::"
+
+      - name: 🚀 Publish changes through a pull request
+        id: publish
+        if: steps.generate.outputs.changed == 'true'
+        env:
+          ADDED_COUNT: ${{ steps.generate.outputs.added }}
+          REMOVED_COUNT: ${{ steps.generate.outputs.removed }}
+          AGENTS_COUNT: ${{ steps.generate.outputs.count }}
+        run: |
+          set -Eeuo pipefail
+
+          if [ "$DRY_RUN" = "true" ]; then
+            echo "::notice title=Dry run::ℹ️ Dry run enabled, the changes are not published"
+            echo "result=dry-run" >>"$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          BASE_BRANCH="$(gh api "repos/$REPO" --jq '.default_branch')"
+
+          if [ "$GITHUB_REF_NAME" != "$BASE_BRANCH" ]; then
+            echo "::warning title=Not on default branch::⚠️ Changes are only published from '$BASE_BRANCH'" \
+              "(current: '$GITHUB_REF_NAME')"
+            echo "result=skipped" >>"$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "::group::🚀 Preparing branch $UPDATE_BRANCH"
+
+          # The blob SHA of the current file makes the update fail instead of overwriting a concurrent change.
+          FILE_SHA="$(git rev-parse "HEAD:$OUTPUT_FILE")"
+
+          if gh api "repos/$REPO/git/ref/heads/$UPDATE_BRANCH" >/dev/null 2>&1; then
+            echo "Resetting existing branch to $GITHUB_SHA"
+            gh api --method PATCH "repos/$REPO/git/refs/heads/$UPDATE_BRANCH" \
+              -f sha="$GITHUB_SHA" -F force=true >/dev/null
+          else
+            echo "Creating branch from $GITHUB_SHA"
+            gh api --method POST "repos/$REPO/git/refs" \
+              -f ref="refs/heads/$UPDATE_BRANCH" -f sha="$GITHUB_SHA" >/dev/null
+          fi
+
+          echo "::endgroup::"
+          echo "::group::✍️ Creating verified commit"
+
+          base64 --wrap=0 "$OUTPUT_FILE" >"$RUNNER_TEMP/content.b64"
+
+          jq -n \
+            --arg message "$PR_TITLE" \
+            --arg branch "$UPDATE_BRANCH" \
+            --arg sha "$FILE_SHA" \
+            --rawfile content "$RUNNER_TEMP/content.b64" \
+            '{message: $message, branch: $branch, sha: $sha, content: $content}' >"$RUNNER_TEMP/payload.json"
+
+          COMMIT_SHA="$(gh api --method PUT "repos/$REPO/contents/$OUTPUT_FILE" \
+            --input "$RUNNER_TEMP/payload.json" --jq '.commit.sha')"
+
+          echo "Commit: $COMMIT_SHA"
+          echo "commit_sha=$COMMIT_SHA" >>"$GITHUB_OUTPUT"
+          echo "::endgroup::"
+
+          echo "::group::🔀 Creating or updating pull request"
+
+          cat <<EOF >"$RUNNER_TEMP/pr_body.md"
+          ## 🤖 Automated robots.txt update
+
+          This pull request was generated by the **Update Dark Visitors Agents** workflow.
+
+          - **Source:** $SOURCE_URL
+          - **Added agents:** $ADDED_COUNT
+          - **Removed agents:** $REMOVED_COUNT
+          - **Unique agents in the source:** $AGENTS_COUNT
+          - **Workflow run:** [View Details]($GITHUB_SERVER_URL/$REPO/actions/runs/$GITHUB_RUN_ID)
+          EOF
+
+          OWNER="${REPO%%/*}"
+          PR_NUMBER="$(gh api "repos/$REPO/pulls?state=open&base=$BASE_BRANCH&head=$OWNER:$UPDATE_BRANCH" \
+            --jq '.[0].number // empty')"
+
+          if [ -z "$PR_NUMBER" ]; then
+            if ! PR_URL="$(gh api --method POST "repos/$REPO/pulls" \
+              -f title="$PR_TITLE" -f head="$UPDATE_BRANCH" -f base="$BASE_BRANCH" \
+              -F body=@"$RUNNER_TEMP/pr_body.md" --jq '.html_url')"; then
+              echo "::endgroup::"
+              echo "::error title=Pull request failed::❌ Could not create the pull request." \
+                "Enable 'Allow GitHub Actions to create and approve pull requests'" \
+                "in the repository Actions settings, or open a pull request from '$UPDATE_BRANCH' manually."
+              exit 1
+            fi
+            echo "Created pull request: $PR_URL"
+          else
+            gh api --method PATCH "repos/$REPO/pulls/$PR_NUMBER" \
+              -F body=@"$RUNNER_TEMP/pr_body.md" >/dev/null
+            PR_URL="$GITHUB_SERVER_URL/$REPO/pull/$PR_NUMBER"
+            echo "Updated pull request: $PR_URL"
+          fi
+
+          echo "pr_url=$PR_URL" >>"$GITHUB_OUTPUT"
+          echo "result=published" >>"$GITHUB_OUTPUT"
+          echo "::endgroup::"
+
+      - name: 📊 Generate job summary
+        if: always()
+        run: |
+          echo "::group::📊 Generating Summary Report"
+
+          OVERALL_STATUS="${{ job.status == 'success' && '✅ Success' || '❌ Failed' }}"
+          GENERATE_STATUS="${{ steps.generate.outcome == 'success' && '✅ Success' || '❌ Failed' }}"
+          PUBLISH_RESULT="${{ steps.publish.outputs.result || 'not required' }}"
+
+          cat <<EOF >>"$GITHUB_STEP_SUMMARY"
+          ## 🤖 Dark Visitors Agents Summary
+
+          Execution completed at: $(date -u)
+          Overall Status: $OVERALL_STATUS
+
+          ### 📈 Execution Results
+
+          | Task | Result |
+          | :--- | :--- |
+          | 🌐 Pages fetched | ${{ steps.fetch.outputs.pages || 0 }} |
+          | 🔄 Generation | $GENERATE_STATUS |
+          | 🤖 Unique agents | ${{ steps.generate.outputs.count || 0 }} |
+          | ➕ Added agents | ${{ steps.generate.outputs.added || 0 }} |
+          | ➖ Removed agents | ${{ steps.generate.outputs.removed || 0 }} |
+          | 🚀 Publication | $PUBLISH_RESULT |
+
+          ### ⚙️ Runtime Configuration
+
+          - **Dry Run Mode:** \`${DRY_RUN}\`
+          - **Verbose Mode:** \`${VERBOSE}\`
+          - **Source:** $SOURCE_URL
+          - **Output File:** \`$OUTPUT_FILE\`
+
+          ### 🧩 Context
+
+          - **Repository:** $REPO
+          - **Pull Request:** ${{ steps.publish.outputs.pr_url || 'none' }}
+          - **Workflow Run:** [View Details]($GITHUB_SERVER_URL/$REPO/actions/runs/$GITHUB_RUN_ID)
+          EOF
+
+          echo "::endgroup::"
