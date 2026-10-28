@@ -6,6 +6,9 @@ $font-family-monospace:  {{ .Site.Params.mono_font | default "SFMono-Regular, Me
 // Code Padding Variables
 $code-block-padding-top: {{ if eq .Site.Params.docs.prism true -}}0{{ else }}1.25rem 0 0 0{{ end }};
 
+// Fonts
+@import "custom/fonts/fonts";
+
 // Icon Fonts
 @import "custom/plugins/icons/google-material";
 

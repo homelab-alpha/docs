@@ -13,8 +13,8 @@
     <meta name="website" content="https://homelab-alpha.nl" />
     <!-- favicon -->
     {{ block "head/favicon" . }}{{ partialCached "head/favicon.html" . }}{{ end }}
-    <!-- Google Fonts -->
-    {{- partial "google-fonts" . }}
+    <!-- Fonts -->
+    <link rel="preload" as="font" href="{{ "/docs/fonts/inter-latin-wght-normal.woff2" | absURL }}" type="font/woff2" crossorigin>
     <!-- Custom CSS -->
     {{- $options := dict "transpiler" "dartsass" "silenceDeprecations" (slice "import" "global-builtin" "if-function" "color-functions") "enableSourceMap" true }}
     {{- if hugo.IsProduction}}

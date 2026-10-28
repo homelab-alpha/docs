@@ -64,8 +64,8 @@
             {{ end }}
         {{ end }}
     {{ end }}
-    <!-- Google Fonts -->
-    {{- partialCached "google-fonts" . }}
+    <!-- Fonts -->
+    <link rel="preload" as="font" href="{{ "/docs/fonts/inter-latin-wght-normal.woff2" | absURL }}" type="font/woff2" crossorigin>
 
     <!-- Simple Icons -->
     {{ if eq .Site.Params.docs.simpleIcons true -}}

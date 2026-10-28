@@ -1,9 +1,3 @@
-google_fonts = [
-  ["Inter", "100, 200, 300, 400, 500, 600, 700, 800"],
-  ["Fira Code", "100, 200, 300, 400, 500, 600, 700, 800"],
-  ["JetBrains Mono", "100, 200, 300, 400, 500, 600, 700, 800"]
-]
-
 sans_serif_font = "Inter"
 secondary_font  = "Inter"
 mono_font       = "JetBrains Mono"
