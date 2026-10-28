@@ -145,7 +145,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: xen-orchestra
-    image: docker.io/ronivay/xen-orchestra:latest
+    image: docker.io/ronivay/xen-orchestra:5.212.0
     pull_policy: if_not_present
     volumes:
       # - /docker/xen-orchestra/production/.cert/client-cert.pem:/client-cert.pem
@@ -172,10 +172,11 @@ services:
       - "3006:80/udp"
       # - "3007:443/tcp"
       # - "3007:443/udp"
-    devices:
-      - "/dev/fuse:/dev/fuse"
-      - "/dev/loop-control:/dev/loop-control"
-      - "/dev/loop0:/dev/loop0"
+    # add loop devices (loop1, loop2 etc) if multiple simultaneous mounts needed.
+    # devices:
+    #   - "/dev/fuse:/dev/fuse"
+    #   - "/dev/loop-control:/dev/loop-control"
+    #   - "/dev/loop0:/dev/loop0"
     security_opt:
       - no-new-privileges:true
       - apparmor:unconfined
@@ -210,7 +211,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: xen-orchestra**: Names the container "xen-orchestra".
-  - **image: docker.io/ronivay/xen-orchestra:latest**: Uses the latest Xen Orchestra image.
+  - **image: docker.io/ronivay/xen-orchestra:5.212.0**: Uses the Xen Orchestra
+    image, pinned to version `5.212.0`.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.
@@ -236,7 +238,8 @@ services:
     - **3007:443/tcp**: Maps HTTPS port 443 to host port 3007 (commented out).
     - **3007:443/udp**: Maps HTTPS port 443 to host port 3007 (UDP, commented
       out).
-  - **devices**: Passes host devices to the container.
+  - **devices** (commented out): Passes host devices to the container. Add loop
+    devices (loop1, loop2, etc.) if multiple simultaneous mounts are needed.
     - **/dev/fuse:/dev/fuse**: Mounts the fuse device.
     - **/dev/loop-control:/dev/loop-control**: Mounts the loop control device.
     - **/dev/loop0:/dev/loop0**: Mounts the loop0 device.

@@ -62,7 +62,7 @@ specific settings for bitrate, sampling rate, and channel configuration.
 - **Filename**: `audio_converter.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: May 18, 2024
-- **Version**: 1.0.1
+- **Version**: 1.0
 - **Description**: This script converts audio files in formats such as m4a, mp3,
   and wma to MP3 format with a bitrate of 128k, a sampling rate of 44.1kHz, and
   2-channel audio.

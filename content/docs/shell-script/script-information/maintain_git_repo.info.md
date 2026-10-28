@@ -55,7 +55,7 @@ for better project management and collaboration.
 - **Filename**: `maintain_git_repo.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: May 18, 2024
-- **Version**: 1.0.1
+- **Version**: 1.0
 - **Description**: The script automates the process of cleaning up a Git
   repository by removing unnecessary files and resetting the commit history.
   This helps in organizing the repository and reducing its size.

@@ -57,7 +57,7 @@ for verbose output and specifying the GPG directory.
 - **Filename**: `gpg_keygen_script.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: May 18, 2024
-- **Version**: 1.0.1
+- **Version**: 1.0
 - **Description**: This script generates a GPG key pair for secure
   communication. It checks for required software, generates the key pair, and
   logs the actions. The script also provides options for verbose output and

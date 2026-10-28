@@ -52,7 +52,7 @@ system health checks.
 
 - **Filename**: `cronjob_template.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: May 18, 2024
+- **Date**: December 7, 2024
 - **Version**: 1.0.1
 - **Description**: This script serves as a cron job template that sends a ping
   to a monitoring server to check system health.
@@ -157,17 +157,36 @@ It sets up the monitoring server URL and the certificate name:
 ```sh
 monitoring_server_url="<insert_url>"
 cert_name="<insert_cert.crt>"
+cert_file=""
+```
+
+The `cert_file` variable is filled in by the script later on. The script marks it
+as "DO NOT EDIT", because changing it breaks the script.
+
+<br />
+
+## Start Logging
+
+The script starts a new log section with an empty line and a marker, and logs
+that the execution has started:
+
+```sh
+echo "" >>"$log_file"
+log_message "=== beginning of the log ==="
+log_message "INFO: Script execution started."
 ```
 
 <br />
 
 ## Root Privileges Check
 
-The script checks if it is being run with root privileges:
+The script checks if it is being run with root privileges. If not, it logs an
+error, closes the log section, and exits:
 
 ```sh
 if [ "$EUID" -ne 0 ]; then
   log_message "ERROR: This script must be run as root or with sudo."
+  log_message "=== end of the log ==="
   exit 1
 fi
 ```
@@ -185,6 +204,7 @@ elif [ -f /etc/pki/ca-trust/source/anchors/$cert_name ]; then
   cert_file="/etc/pki/ca-trust/source/anchors/$cert_name"
 else
   log_message "ERROR: Certificate file not found for this operating system."
+  log_message "=== end of the log ==="
   exit 1
 fi
 ```
@@ -193,15 +213,27 @@ fi
 
 ## Log Directory and File Creation
 
-It ensures the log directory and file exist, creating them if necessary:
+It ensures the log directory and file exist, creating them if necessary. If the
+directory or the file cannot be created, the script logs an error, closes the
+log section, and exits:
 
 ```sh
 if [ ! -d "$log_dir" ]; then
-  mkdir -p "$log_dir"
+  mkdir -p "$log_dir" || {
+    log_message "ERROR: Unable to create log directory: $log_dir"
+    log_message "=== end of the log ==="
+    exit 1
+  }
+  log_message "INFO: Log directory created: $log_dir"
 fi
 
 if [ ! -f "$log_file" ]; then
-  touch "$log_file"
+  touch "$log_file" || {
+    log_message "ERROR: Unable to create log file: $log_file"
+    log_message "=== end of the log ==="
+    exit 1
+  }
+  log_message "INFO: Log file created: $log_file"
 fi
 ```
 
@@ -214,6 +246,7 @@ Finally, the script sends a ping to the monitoring server and logs the result:
 ```sh
 send_ping_to_monitor_server
 log_message "INFO: Script execution completed successfully."
+log_message "=== end of the log ==="
 ```
 
 <br />

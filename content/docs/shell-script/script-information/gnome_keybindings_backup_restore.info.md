@@ -59,7 +59,7 @@ their current keybindings and restore them when needed.
 - **Filename**: `gnome_keybindings_backup_restore.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: May 18, 2024
-- **Version**: 1.1.1
+- **Version**: 1.0
 - **Description**: This script facilitates the backup and restoration of GNOME
   keybindings, providing a simple way to save and restore keybinding
   configurations for various GNOME components.

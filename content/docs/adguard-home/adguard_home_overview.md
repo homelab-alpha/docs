@@ -55,8 +55,13 @@ being blocked, allowed, and/or redirected before using any of them.
   fraudulent.
 - [**Blocklist:**] Filter composed of several other filters and specifically
   simplified to be more compatible with ad blocking at the DNS level.
+- [**Blocklist IP Addresses:**] Filter composed of several other filters and
+  specifically simplified to be more compatible with ad blocking at the DNS
+  level.
 - [**Cookies:**] Filter consisting of a list that blocks ads and ad tracking
   using cookie filters.
+- [**Cosmetic:**] Filter consisting of a list that hide ads, sponsored content,
+  and other unwanted page elements.
 - [**DNS type:**] Filter consisting of a list that analyzes what type of DNS
   requests they are and then determines whether they should be blocked using a
   rule in a DNS block list.
@@ -71,6 +76,8 @@ being blocked, allowed, and/or redirected before using any of them.
   IP addresses. (safeguard your network from potential threats.)
 - [**Microsoft Whitelist:**] Filter consisting of specific DNS whitelist for
   Microsoft that allows authorized domain names.
+- [**NLconnect Reference List:**] Filter consisting of a list of compliance
+  advice for internet access providers on EU sanctions.
 - [**Regex:**] Filter consisting of a list that blocks ads and ad tracking using
   regex syntax.
 - [**SLDs:**] Filter consisting of a list that blocks Second-level domains.
@@ -99,13 +106,16 @@ the [license] agreement.
 [license]: docs/../../help/license.md
 [**Bekende Malafide Handelspartijen:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/bekende_malafide_handelspartijen.txt
 [**Blocklist:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/blocklist.txt
+[**Blocklist IP Addresses:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/blocklist_ip_addresses.txt
 [**Cookies:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/cookies.txt
+[**Cosmetic:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/cosmetic.txt
 [**DNS type:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/dns_type.txt
 [**Fraudulent Trading Parties**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/fraudulent_trading_parties.txt
 [**IDNs:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/idns.txt
 [**LabHost phishing domains:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/refs/heads/main/filters/labhost_phishing_domains.txt
 [**Malicious IP Addresses:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/malicious_ip_addresses.txt
 [**Microsoft Whitelist:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/microsoft_whitelist.txt
+[**NLconnect Reference List:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/nlconnect_reference_list.txt
 [**Regex:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/regex.txt
 [**SLDs:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/slds.txt
 [**Sociale Media:**]: https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/sociale_media.txt

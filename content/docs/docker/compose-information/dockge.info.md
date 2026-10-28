@@ -139,7 +139,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: dockge
-    image: ghcr.io/louislam/dockge:latest
+    image: docker.io/louislam/dockge:1.5.0
     pull_policy: if_not_present
     volumes:
       - /docker/dockge/production/app/data:/app/data
@@ -186,7 +186,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: dockge**: Names the container "dockge".
-  - **image: ghcr.io/louislam/dockge:latest**: Uses the latest Dockge image.
+  - **image: docker.io/louislam/dockge:1.5.0**: Uses the Dockge image, pinned to
+    version `1.5.0`.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.

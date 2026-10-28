@@ -144,7 +144,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: edge-agent
-    image: docker.io/portainer/agent:latest
+    image: docker.io/portainer/agent:2.45.3
     volumes:
       - /docker/portainer/edge-agent/production/app:/data
       - /var/run/docker.sock:/var/run/docker.sock
@@ -183,8 +183,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: edge-agent**: Names the container "edge-agent".
-  - **image: docker.io/portainer/agent:latest**: Uses the latest Portainer Edge Agent
-    image.
+  - **image: docker.io/portainer/agent:2.45.3**: Uses the Portainer Edge Agent
+    image, pinned to version `2.45.3`.
   - **volumes**: Mounts host directories or files into the container.
     - **/docker/portainer/edge-agent/production/app:/data**: Mounts the
       application data directory.

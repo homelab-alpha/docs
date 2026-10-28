@@ -142,7 +142,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: cloudbeaver
-    image: docker.io/dbeaver/cloudbeaver:latest
+    image: docker.io/dbeaver/cloudbeaver:26.2.3
     pull_policy: if_not_present
     volumes:
       - /docker/cloudbeaver/production/app:/opt/cloudbeaver/workspace
@@ -186,7 +186,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: cloudbeaver**: Names the container "cloudbeaver".
-  - **image: docker.io/dbeaver/cloudbeaver:latest**: Uses the latest CloudBeaver image.
+  - **image: docker.io/dbeaver/cloudbeaver:26.2.3**: Uses the CloudBeaver image,
+    pinned to version `26.2.3`.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.

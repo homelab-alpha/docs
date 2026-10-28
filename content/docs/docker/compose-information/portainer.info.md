@@ -134,7 +134,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: portainer
-    image: docker.io/portainer/portainer-ee:latest
+    image: docker.io/portainer/portainer-ee:2.45.3
     pull_policy: if_not_present
     volumes:
       - /docker/portainer/production/app:/data
@@ -175,7 +175,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: portainer**: Names the container "portainer".
-  - **image: docker.io/portainer/portainer-ee:latest**: Uses the latest Portainer image.
+  - **image: docker.io/portainer/portainer-ee:2.45.3**: Uses the Portainer
+    image, pinned to version `2.45.3`.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.

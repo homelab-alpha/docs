@@ -142,7 +142,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: openspeedtest
-    image: docker.io/openspeedtest/latest
+    image: docker.io/openspeedtest/latest:v2.0.8
     pull_policy: if_not_present
     volumes:
       - /docker/openspeedtest/production/config/nginx.conf:/etc/nginx.conf
@@ -187,7 +187,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: openspeedtest**: Names the container "openspeedtest".
-  - **image: docker.io/openspeedtest/latest**: Uses the latest OpenSpeedTest image.
+  - **image: docker.io/openspeedtest/latest:v2.0.8**: Uses the OpenSpeedTest
+    image, pinned to version `v2.0.8`.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.

@@ -143,7 +143,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: it-tools
-    image: ghcr.io/corentinth/it-tools:latest
+    image: ghcr.io/corentinth/it-tools:2024.10.22-7ca5933
     pull_policy: if_not_present
     environment:
       PUID: "1000"
@@ -179,7 +179,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: it-tools**: Names the container "it-tools".
-  - **image: ghcr.io/corentinth/it-tools\:latest**: Uses the latest it-tools image.
+  - **image: ghcr.io/corentinth/it-tools:2024.10.22-7ca5933**: Uses the it-tools
+    image, pinned to version `2024.10.22-7ca5933`.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **environment**: Sets environment variables.

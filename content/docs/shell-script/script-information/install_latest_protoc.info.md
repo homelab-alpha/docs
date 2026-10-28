@@ -62,6 +62,32 @@ Buffers) from the official GitHub repository.
 
 <br />
 
+## Logging
+
+The script prints every message to the terminal and appends it to the log file
+`$HOME/.bash-script/install_latest_protoc.log`. The `log` function records informational
+messages and the `log_error` function records errors, both with a timestamp. The
+script does not create the log directory itself.
+
+```bash
+LOG_DIR="$HOME/.bash-script"
+LOG_FILE="$LOG_DIR/install_latest_protoc.log"
+
+log() {
+  local TIMESTAMP
+  TIMESTAMP=$(date +"%b %d, %Y %H:%M:%S")
+  echo "$TIMESTAMP [INFO] - $1" | tee -a "$LOG_FILE"
+}
+
+log_error() {
+  local TIMESTAMP
+  TIMESTAMP=$(date +"%b %d, %Y %H:%M:%S")
+  echo "$TIMESTAMP [ERROR] - $1" | tee -a "$LOG_FILE"
+}
+```
+
+<br />
+
 ## Fetching the Latest Version
 
 The script starts by fetching the latest version of Protoc using the GitHub API.

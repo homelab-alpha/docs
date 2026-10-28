@@ -144,10 +144,10 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: haproxy
-    image: docker.io/haproxytech/haproxy-ubuntu
+    image: docker.io/haproxytech/haproxy-ubuntu:3.4.7
     pull_policy: if_not_present
     volumes:
-      - /docker/haproxy/production/app/hapoxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+      - /docker/haproxy/production/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
       - /docker/haproxy/production/certs:/certs
       - /etc/letsencrypt:/etc/letsencrypt
     environment:
@@ -190,12 +190,12 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: haproxy**: Names the container "haproxy".
-  - **image: docker.io/haproxytech/haproxy-ubuntu**: Uses the official HAProxy
+  - **image: docker.io/haproxytech/haproxy-ubuntu:3.4.7**: Uses the official HAProxy
     Ubuntu image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.
-    - **/docker/haproxy/production/app/hapoxy.cfg:/usr/local/etc/haproxy/haproxy.cfg**:
+    - **/docker/haproxy/production/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg**:
       Mounts the HAProxy configuration file into the container.
     - **/docker/haproxy/production/certs\:/certs**: Mounts SSL certificates.
     - **/etc/letsencrypt:/etc/letsencrypt**: Mounts Let's Encrypt certificates.

@@ -62,8 +62,8 @@ Here's a detailed explanation:
 
 - **Filename**: `dotfiles_installer.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: June 5, 2024
-- **Version**: 1.0.1
+- **Date**: October 28, 2024
+- **Version**: 1.1.0
 - **Description**: The script provides a function to install and uninstall
   dotfiles, including creating backups and restoring them if necessary.
 - **RAW Script**: [dotfiles_installer.sh]
@@ -92,10 +92,10 @@ user to install Git and exits the script.
 
 ```bash
 create_backup() {
-    local backup_dir="$HOME/dotfiles_backup/before_installation"
+    local backup_dir="$HOME/dotfiles-backup/before-installation"
     mkdir -p "$backup_dir"
 
-    for file in ~/.bash_* ~/.bashrc ~/.gitconfig ~/.nano ~/.nanorc ~/.profile ~/.selected_editor ~/.tmux.conf ~/.vimrc ~/.zshrc; do
+    for file in ~/.bash_* ~/.bash-* ~/.bashrc ~/.gitconfig ~/.nano ~/.nanorc ~/.profile ~/.selected_editor ~/.tmux.conf ~/.vimrc ~/.zshrc; do
         if [ -e "$file" ]; then
             cp -r "$file" "$backup_dir" || {
                 echo "Error: Unable to create backup for $file" >&2
@@ -129,7 +129,7 @@ install_dotfiles() {
             cp "$HOME/dotfiles/dotfiles/.tmux.conf" "$HOME" &&
             cp "$HOME/dotfiles/dotfiles/.vimrc" "$HOME" &&
             cp "$HOME/dotfiles/dotfiles/.zshrc" "$HOME" &&
-            cp -r "$HOME/dotfiles/.bash_script" "$HOME" &&
+            cp -r "$HOME/dotfiles/.bash-script" "$HOME" &&
             cp -r "$HOME/dotfiles/.nano" "$HOME" &&
             if [ ! -d "$HOME/.versioning" ]; then
                 mkdir "$HOME/.versioning"
@@ -153,10 +153,10 @@ removes Git-related directories and files after copying.
 
 ```bash
 backup_files() {
-    local backup_dir="$HOME/dotfiles_backup/before_uninstallation"
+    local backup_dir="$HOME/dotfiles-backup/before-uninstallation"
     mkdir -p "$backup_dir"
 
-    for file in ~/.bash_* ~/.bashrc ~/.gitconfig ~/.nano ~/.nanorc ~/.profile ~/.selected_editor ~/.tmux.conf ~/.vimrc ~/.zshrc; do
+    for file in ~/.bash_* ~/.bash-* ~/.bashrc ~/.gitconfig ~/.nano ~/.nanorc ~/.profile ~/.selected_editor ~/.tmux.conf ~/.vimrc ~/.zshrc; do
         if [ -e "$file" ]; then
             cp -r "$file" "$backup_dir" || {
                 echo "Error: Unable to create backup for $file" >&2
@@ -181,7 +181,7 @@ process.
 
 ```bash
 remove_dotfiles() {
-    rm -rf ~/.bash_* ~/.bashrc ~/.gitconfig ~/.nano ~/.nanorc ~/.profile ~/.selected_editor ~/.tmux.conf ~/.vimrc ~/.zshrc ||
+    rm -rf ~/.bash_* ~/.bash-* ~/.bashrc ~/.gitconfig ~/.nano ~/.nanorc ~/.profile ~/.selected_editor ~/.tmux.conf ~/.vimrc ~/.zshrc ||
         {
             echo "Error: Unable to remove dotfiles" >&2
             return 1
@@ -199,7 +199,7 @@ error while removing the files, it outputs an error message.
 
 ```bash
 restore_backup() {
-    local backup_dir="$HOME/dotfiles_backup/before_installation"
+    local backup_dir="$HOME/dotfiles-backup/before-installation"
     cp -a "$backup_dir"/. "$HOME" || {
         echo "Error: Unable to restore backup" >&2
         exit 1

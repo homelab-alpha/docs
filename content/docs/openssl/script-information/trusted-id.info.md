@@ -54,7 +54,7 @@ certificate format.
 - **Filename**: `trusted_id.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: February 20, 2025
-- **Version**: 2.5.2
+- **Version**: 2.5.3
 - **Description**: This script generates and manages a trusted root certificate,
   including key generation, certificate creation, verification, and format
   conversion.

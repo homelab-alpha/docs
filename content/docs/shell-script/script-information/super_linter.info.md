@@ -60,7 +60,7 @@ either a local Git repository or a specific folder.
 - **Filename**: `super_linter.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: May 20, 2024
-- **Version**: 1.1.2
+- **Version**: 1.0
 - **Description**: This script facilitates local linting of code repositories
   using the GitHub Super Linter tool. It wraps the Super Linter Docker
   container, providing options for linting either a local Git repository or a

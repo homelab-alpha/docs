@@ -60,7 +60,7 @@ compression, and verification of the compressed file.
 - **Filename**: `targzip.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: May 26, 2024
-- **Version**: 1.0.1
+- **Version**: 1.0
 - **Description**: This script creates a tar archive of a directory or file and
   compresses it using gzip.
 - **Usage**: `targzip <directory or file>`

@@ -61,7 +61,7 @@ for compatibility with various applications.
 - **Filename**: `cert_ecdsa_localhost.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: February 20, 2025
-- **Version**: 2.5.2
+- **Version**: 2.5.3
 - **Description**: This script automates the generation of an ECDSA certificate
   for localhost, handling key generation, CSR creation, certificate issuance,
   and verification.
@@ -132,8 +132,8 @@ set -e
    Name) and IP address for localhost.
 
    ```bash
-   fqdn="localhost"
-   ipv4="127.0.0.1"
+   fqdn=localhost
+   ipv4=", IP:127.0.0.1"
    ```
 
 <br />

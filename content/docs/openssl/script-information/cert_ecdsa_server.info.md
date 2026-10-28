@@ -61,7 +61,7 @@ applications.
 - **Filename**: `cert_ecdsa_server.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: February 20, 2025
-- **Version**: 2.5.2
+- **Version**: 2.5.3
 - **Description**: This script automates the generation of an ECDSA server
   certificate, handling key generation, CSR creation, certificate issuance, and
   verification.
