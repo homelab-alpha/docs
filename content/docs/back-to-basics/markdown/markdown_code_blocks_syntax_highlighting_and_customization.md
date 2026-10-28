@@ -37,7 +37,7 @@ katex: true
 ## Syntax Highlighting
 
 Syntax highlighting is supported by [Prism] (the default). It can be disabled in
-favour of Hugo's buil-tin syntax highlighter, [Chroma].
+favour of Hugo's built-in syntax highlighter, [Chroma].
 
 <br />
 

@@ -84,11 +84,14 @@ unfold with `zo`.
 
 ## Plugins
 
-Vim's plugin ecosystem extends functionality:
+Vim's plugin ecosystem extends functionality. Vim 8 and newer can load plugins
+natively from `~/.vim/pack/*/start/` (see `:help packages`), so a plugin manager
+is optional. Popular choices include:
 
-- **Pathogen**: Plugin manager for easy installation and management.
-- **NERDTree**: File system explorer.
-- **CtrlP**: Fuzzy file finder for quick navigation.
+- **vim-plug**: Minimal plugin manager for easy installation and updates.
+- **NERDTree**: File system explorer (Vim also ships with the built-in `netrw`,
+  opened with `:Explore`).
+- **fzf.vim**: Fuzzy finder for files, buffers, and text.
 - **YouCompleteMe**: Code completion engine with context-aware suggestions.
 
 <br />

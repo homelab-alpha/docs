@@ -1055,7 +1055,7 @@ deserunt quas repellat eius minus quasi, ipsam unde esse sequi deleniti.
 - [Markdown Guide - Extended Syntax](https://www.markdownguide.org/extended-syntax)
 - [Daring Fireball: Markdown Syntax Documentation](https://daringfireball.net/projects/markdown/syntax)
 - [Markdown Guide at Gitlab.com](https://about.gitlab.com/handbook/markdown-guide/)
-- [CommonMark Spec](https://spec.commonmark.org/0.29/)
+- [CommonMark Spec](https://spec.commonmark.org/0.31.2/)
 
 <br />
 
