@@ -32,6 +32,7 @@ jobs:
   pr-automation:
     name: ℹ️ Pull Request Automation
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     if: |
       github.event.sender.type != 'Bot' &&

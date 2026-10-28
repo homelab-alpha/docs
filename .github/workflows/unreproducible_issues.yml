@@ -45,6 +45,7 @@ jobs:
   scan_and_cleanup:
     name: 🔍 Detect and Handle Unreproducible Issues
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     if: |
       github.event.sender.type != 'Bot' &&
@@ -218,6 +219,7 @@ jobs:
   reset_on_activity:
     name: 🔄 Remove Needs Input on Activity
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     if: |
       github.event.sender.type != 'Bot' &&

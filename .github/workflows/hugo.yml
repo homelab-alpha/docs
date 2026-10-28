@@ -100,21 +100,42 @@ jobs:
 
       - name: 🎨 Install Dart Sass
         id: dart_sass
+        env:
+          # Update the version and the SHA-256 of the linux-x64 archive together.
+          DART_SASS_VERSION: 1.106.1
+          DART_SASS_SHA256: ad99cccb90de4ad2926e03e32d819c83baf32c3dbff56da92df0eed10e604d60
         run: |
           set -Eeuo pipefail
-          echo "::group::🎨 Installing Dart Sass"
+          echo "::group::🎨 Installing Dart Sass v${DART_SASS_VERSION}"
 
-          if ! sudo snap install dart-sass; then
-            echo "::error title=Dart Sass Failed::❌ Could not install Dart Sass"
+          DART_SASS_ARCHIVE="dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
+          DART_SASS_URL="https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/${DART_SASS_ARCHIVE}"
+
+          if ! wget -O "${{ runner.temp }}/${DART_SASS_ARCHIVE}" "${DART_SASS_URL}"; then
+            echo "::error title=Dart Sass Download Failed::❌ Could not download Dart Sass"
             exit 1
           fi
 
-          echo "::notice title=Dart Sass Installed::✅ Dart Sass installed successfully"
+          if ! echo "${DART_SASS_SHA256}  ${{ runner.temp }}/${DART_SASS_ARCHIVE}" | sha256sum --check --strict -; then
+            echo "::error title=Dart Sass Checksum Failed::❌ SHA-256 checksum of the Dart Sass archive does not match"
+            exit 1
+          fi
+
+          sudo tar -xzf "${{ runner.temp }}/${DART_SASS_ARCHIVE}" -C /opt
+          echo "/opt/dart-sass" >>"$GITHUB_PATH"
+
+          if ! /opt/dart-sass/sass --version; then
+            echo "::error title=Dart Sass Failed::❌ Could not run Dart Sass"
+            exit 1
+          fi
+
+          echo "::notice title=Dart Sass Installed::✅ Dart Sass v${DART_SASS_VERSION} installed successfully"
           echo "::endgroup::"
 
       - name: 📑 Checkout source code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          persist-credentials: false
           submodules: recursive
           fetch-depth: 0
 
