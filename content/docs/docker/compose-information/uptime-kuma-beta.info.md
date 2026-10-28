@@ -81,15 +81,15 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 172.19.3.0/24
-          ip_range: 172.19.3.0/24
-          gateway: 172.19.3.1
+        - subnet: 172.21.3.0/24
+          ip_range: 172.21.3.0/24
+          gateway: 172.21.3.1
     driver_opts:
       com.docker.network.bridge.default_bridge: "false"
       com.docker.network.bridge.enable_icc: "true"
       com.docker.network.bridge.enable_ip_masquerade: "true"
       com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"
-      com.docker.network.bridge.name: "uptimekuma"
+      com.docker.network.bridge.name: "uptimekumabeta"
       com.docker.network.driver.mtu: "1500"
     labels:
       com.uptime-kuma.network.description: "is an isolated bridge network."
@@ -118,7 +118,7 @@ networks:
     traffic to appear as if it came from the host.
   - **com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"**: Binds the bridge
     to all available IP addresses on the host.
-  - **com.docker.network.bridge.name: "uptimekuma"**: Names the bridge
+  - **com.docker.network.bridge.name: "uptimekumabeta"**: Names the bridge
     network.
   - **com.docker.network.driver.mtu: "1500"**: Sets the Maximum Transmission
     Unit for the network.
@@ -164,7 +164,7 @@ services:
     hostname: uptime-kuma-beta_db
     networks:
       uptime-kuma-beta_net:
-        ipv4_address: 172.19.3.2
+        ipv4_address: 172.21.3.2
     security_opt:
       - no-new-privileges:true
     labels:
@@ -214,10 +214,10 @@ services:
     hostname: status
     networks:
       uptime-kuma-beta_net:
-        ipv4_address: 172.19.3.3
+        ipv4_address: 172.21.3.3
     ports:
-      - "3001:3001/tcp"
-      - "3001:3001/udp"
+      - "3003:3001/tcp"
+      - "3003:3001/udp"
     security_opt:
       - no-new-privileges:true
     labels:

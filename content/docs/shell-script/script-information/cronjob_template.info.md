@@ -52,8 +52,8 @@ system health checks.
 
 - **Filename**: `cronjob_template.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: December 7, 2024
-- **Version**: 1.0.1
+- **Date**: October 28, 2026
+- **Version**: 1.0.2
 - **Description**: This script serves as a cron job template that sends a ping
   to a monitoring server to check system health.
 - **Usage**: The script should be executed with root privileges using `sudo`.

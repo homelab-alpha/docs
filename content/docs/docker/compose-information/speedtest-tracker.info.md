@@ -240,7 +240,7 @@ services:
         ipv4_address: 172.20.23.3
     ports:
       - "3013:80/tcp"
-      - "3013:80/upd"
+      - "3013:80/udp"
       # - "3013:443/tcp" # HTTPS
       # - "3013:443/udp" # HTTPS
     security_opt:
@@ -389,7 +389,7 @@ services:
       container.
   - **ports**: Maps container ports to host ports.
     - **3013:80/tcp**: Maps HTTP port (TCP).
-    - **3013:80/upd**: Maps HTTP port (UDP).
+    - **3013:80/udp**: Maps HTTP port (UDP).
     - **3013:443/tcp**: Maps HTTPS port (TCP, commented out).
     - **3013:443/udp**: Maps HTTPS port (UDP, commented out).
   - **security_opt**: Security options for the container.
