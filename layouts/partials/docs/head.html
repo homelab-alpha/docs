@@ -23,7 +23,7 @@
     {{- with .Description | default (.Site.Params.head.description) }}
     <meta name="description" content="{{ . }}">
     {{- end }}
-    {{- with .Params.keywords | default (.Site.Params.head.keywords)}}
+    {{- with .Keywords | default (.Site.Params.head.keywords)}}
     <meta name="keywords" content="{{.}}" />
     {{- end }}
     {{- with .Params.author | default (.Site.Params.head.author)}}
