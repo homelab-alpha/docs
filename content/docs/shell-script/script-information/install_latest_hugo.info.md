@@ -54,8 +54,8 @@ Here's a breakdown of the script's operations:
 
 - **Filename**: `install_latest_hugo.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: May 9, 2025
-- **Version**: 1.1.2
+- **Date**: October 28, 2026
+- **Version**: 1.1.3
 - **Description**: This script fetches the latest version of Hugo from the
   official GitHub repository, downloads it, installs it to
   `/usr/local/hugo-extended`, and cleans up the downloaded files.
@@ -85,6 +85,21 @@ log_error() {
   TIMESTAMP=$(date +"%b %d, %Y %H:%M:%S")
   echo "$TIMESTAMP [ERROR] - $1" | tee -a "$LOG_FILE"
 }
+```
+
+<br />
+
+## Checking the Current Version
+
+Before it fetches the latest version, the script checks whether Hugo is already
+available and logs the installed version.
+
+```bash
+if command -v hugo &>/dev/null; then
+  log "Hugo version: $(hugo version)"
+else
+  log "Hugo is not currently installed."
+fi
 ```
 
 <br />

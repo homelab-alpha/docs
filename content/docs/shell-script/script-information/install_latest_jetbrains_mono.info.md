@@ -59,8 +59,8 @@ and clean up the downloaded files.
 
 - **Filename**: `install_latest_jetbrains_mono.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: May 9, 2025
-- **Version**: 1.1.2
+- **Date**: October 28, 2026
+- **Version**: 1.1.3
 - **Description**: The script fetches the latest version of JetBrains Mono from
   the official GitHub repository, downloads it, installs it to the system-wide
   fonts directory, and cleans up the downloaded files.
