@@ -9,3 +9,22 @@ minVersion = "v8.30.0"
 # useDefault will extend the base configuration with the default gitleaks config:
 # https://github.com/gitleaks/gitleaks/blob/master/config/gitleaks.toml
 useDefault = true
+
+# Example credentials used in the documentation. These entries match on
+# content or on a single file and rule, so they keep working when line numbers
+# change (the former .gitleaksignore entries were tied to line numbers).
+[[allowlists]]
+description = "Stripe example key in the Markdown code block documentation"
+targetRules = ["generic-api-key"]
+regexTarget = "match"
+regexes = ['''UfXXWzQ2B1yVX57GU3QV8EQyTizMUvUm''']
+
+[[allowlists]]
+description = "Example EC private key in the OpenSSL overview"
+targetRules = ["private-key"]
+paths = ['''content/docs/openssl/openssl_overview\.md$''']
+
+[[allowlists]]
+description = "False positive in the vendored, minified Mermaid bundle"
+targetRules = ["generic-api-key"]
+paths = ['''assets/docs/js/mermaid\.min\.js$''']
