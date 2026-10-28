@@ -46,8 +46,8 @@ Selecting the optimal Wi-Fi channels is crucial for achieving a stable and
 efficient wireless network. In Europe, where regulatory constraints and
 environmental factors can affect network performance, choosing the right
 channels can make a significant difference. This guide provides a detailed
-overview of recommended Wi-Fi channels for both the 2.4 GHz and 5 GHz bands,
-covering various bandwidth options. Whether you’re setting up a home network or
+overview of recommended Wi-Fi channels for the 2.4 GHz, 5 GHz, and 6 GHz bands,
+covering various bandwidth options (Wi-Fi 4 to Wi-Fi 7). Whether you’re setting up a home network or
 managing a larger commercial network, this guide will help you navigate channel
 selection to minimize interference and maximize performance.
 
@@ -63,6 +63,13 @@ selection to minimize interference and maximize performance.
 - **Country-Specific Variations:** Note that rules and available channels can
   vary by country within Europe. Always check local regulations for precise
   details.
+- **Power Limits:** In the EU, the 5 GHz channels 36-48 are limited to indoor
+  use. Channels 149-165 (5725-5875 MHz) fall under the short-range device rules
+  with a much lower power limit (25 mW EIRP) and are not available in every
+  country.
+- **6 GHz:** The lower 6 GHz band (5945-6425 MHz) is available license-exempt
+  across the EU. The upper 6 GHz band (6425-7125 MHz) has not been released for
+  Wi-Fi at EU level yet. Check your national regulator.
 
 <br />
 
@@ -199,13 +206,37 @@ subject to radar interference. {{% /alert %}}
 
 <br />
 
-### 240 MHz Bandwidth
+### Channel for 160 MHz Bandwidth (Lower 5 GHz)
 
-- **Channel 42-50**: 5210-5290 MHz (combines channels 36, 40, 44, 48, 52, 56,
-  60, and 64)
+- **Channel 50**: 5250 MHz (combines channels 36, 40, 44, 48, 52, 56, 60, and
+  64)
 
 {{% alert context="primary" %}}
-**Note:** This bandwidth is rarely used and is only applicable in specialized cases.
+**Note:** This channel includes DFS channels (52-64), so it requires DFS
+support. Wi-Fi 7 also defines a non-contiguous 240 MHz mode (160 MHz + 80 MHz),
+which is rarely used. {{% /alert %}}
+
+<br />
+
+## 6 GHz Band (Wi-Fi 6E and Wi-Fi 7)
+
+The lower 6 GHz band (5945-6425 MHz) offers 480 MHz of spectrum without DFS.
+Only devices that support Wi-Fi 6E or Wi-Fi 7 can use it, and WPA3 is
+mandatory. In the EU, the 6 GHz band is limited to indoor use at low power
+(Low Power Indoor, LPI).
+
+### Channels per Bandwidth
+
+- **20 MHz**: Channels 1, 5, 9, ..., 93 (24 channels, 5955-6415 MHz)
+- **40 MHz**: Channels 3, 11, 19, ..., 91 (12 channels)
+- **80 MHz**: Channels 7, 23, 39, 55, 71, and 87 (6 channels)
+- **160 MHz**: Channels 15, 47, and 79 (3 channels)
+- **320 MHz** (Wi-Fi 7): Channel 31 (6105 MHz, 5945-6265 MHz)
+
+{{% alert context="primary" %}}
+**Tip:** With 80 MHz channels, you have six non-overlapping channels, which makes
+the 6 GHz band well suited for dense environments. Use 160 MHz or 320 MHz only
+if your clients support it and neighboring networks do not overlap.
 {{% /alert %}}
 
 <br />
@@ -246,7 +277,8 @@ subject to radar interference. {{% /alert %}}
 ### Securing Your Network
 
 - **Encryption:** Use the latest security protocols, such as WPA3, to protect
-  your Wi-Fi network from unauthorized access and vulnerabilities.
+  your Wi-Fi network from unauthorized access and vulnerabilities. WPA3 (or
+  Enhanced Open) is required on the 6 GHz band.
 - **Security Practices:** Regularly update your router’s firmware and use
   strong, unique passwords for network security.
 
@@ -295,6 +327,8 @@ subject to radar interference. {{% /alert %}}
 - **DFS Channels:** DFS channels offer additional spectrum but may be less
   stable due to radar interference. Use them only if your equipment supports
   DFS.
+- **6 GHz:** Use it for Wi-Fi 6E and Wi-Fi 7 clients. It has no DFS, plenty of
+  80 MHz channels, and requires WPA3.
 
 This guide will help you select the optimal Wi-Fi channels for a stable and
 efficient network in your European environment.

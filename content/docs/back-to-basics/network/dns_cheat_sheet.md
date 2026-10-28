@@ -141,8 +141,8 @@ figure out which one best suits your needs, Homelab-Alpha recommends
   (DNS) resolution via the HTTPS protocol.
 - **DNS over TLS (DoT)**: A security protocol for encrypting and wrapping DNS
   queries and answers via the TLS protocol.
-- **DNS over QUIC (DoQ)**: A new protocol for DNS encryption based on the QUIC
-  transport protocol.
+- **DNS over QUIC (DoQ)**: A protocol for DNS encryption based on the QUIC
+  transport protocol (RFC 9250).
 - **DNSCrypt**: A protocol that authenticates communications between a DNS
   client and a DNS resolver to prevent DNS spoofing.
 - **DNSSEC**: DNS Security Extensions, a suite of specifications to ensure DNS
@@ -166,8 +166,8 @@ figure out which one best suits your needs, Homelab-Alpha recommends
 | **IPv6 Addresses**          | `2620:fe::fe`, `2620:fe::9`                       |
 | **DNS over UDP/TCP (Do53)** | Yes                                               |
 | **DNS over HTTPS (DoH)**    | `https://dns.quad9.net/dns-query`                 |
-| **DNS over TLS (DoT)**      | `tls://dns.opendns.com`                           |
-| **DNS over QUIC (DoQ)**     | Not supported                                     |
+| **DNS over TLS (DoT)**      | `tls://dns.quad9.net`                             |
+| **DNS over QUIC (DoQ)**     | `quic://dns.quad9.net`                            |
 | **DNSCrypt**                | Yes                                               |
 | **DNSSEC**                  | Yes                                               |
 | **EDNS Padding**            | Yes                                               |
@@ -246,9 +246,9 @@ figure out which one best suits your needs, Homelab-Alpha recommends
 | **IPv6 Addresses**          | `2620:119:35::35`, `2620:119:53::53`                                   |
 | **DNS over UDP/TCP (Do53)** | Yes                                                                    |
 | **DNS over HTTPS (DoH)**    | `https://doh.opendns.com/dns-query`                                    |
-| **DNS over TLS (DoT)**      | `doh.opendns.com`                                                      |
+| **DNS over TLS (DoT)**      | Not supported                                                          |
 | **DNS over QUIC (DoQ)**     | Not supported                                                          |
-| **DNSCrypt**                | No                                                                     |
+| **DNSCrypt**                | Yes                                                                    |
 | **DNSSEC**                  | Yes                                                                    |
 | **EDNS Padding**            | No                                                                     |
 | **Filters**                 | Malware, Phishing, Custom                                              |
@@ -329,7 +329,7 @@ host 192.168.1.1
    On Linux
 
    ```bash
-   sudo systemd-resolve --flush-caches
+   sudo resolvectl flush-caches
    ```
 
    On Windows
@@ -338,16 +338,10 @@ host 192.168.1.1
    ipconfig /flushdns
    ```
 
-   On macOS (Monterey, Big Sur and Catalina)
+   On macOS (Catalina and newer, including Sonoma, Sequoia, and Tahoe)
 
    ```bash
    sudo dscacheutil -flushcache
-   sudo killall -HUP mDNSResponder
-   ```
-
-   On macOS (Mojave, High Sierra and Sierra)
-
-   ```bash
    sudo killall -HUP mDNSResponder
    ```
 

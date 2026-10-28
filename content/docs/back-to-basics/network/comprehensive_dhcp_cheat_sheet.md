@@ -120,6 +120,13 @@ configuration parameters to devices, allowing them to communicate on a network.
 
 ## DHCP Configuration Example (Linux ISC DHCP Server)
 
+{{% alert context="warning" %}}
+ISC DHCP (`isc-dhcp-server`) reached end of life in October 2022 and no longer
+receives updates. For new installations, use its successor [Kea DHCP] or a
+lightweight server such as dnsmasq. The example below remains useful for
+understanding DHCP server configuration and for existing setups.
+{{% /alert %}}
+
 ### Install DHCP Server
 
 ```bash
@@ -176,6 +183,8 @@ sudo systemctl restart isc-dhcp-server
   sudo dhclient -r
   sudo dhclient
   ```
+  On systems that use NetworkManager or systemd-networkd, renew the lease with
+  `nmcli device reapply <interface>` or `networkctl renew <interface>`.
 
 <br />
 
@@ -370,3 +379,5 @@ ensures efficient and reliable network operation.
 This cheat sheet provides a quick reference for DHCP essentials, configuration,
 troubleshooting, and advanced features. Keep it handy for managing DHCP in your
 network environment.
+
+[Kea DHCP]: https://www.isc.org/kea/
