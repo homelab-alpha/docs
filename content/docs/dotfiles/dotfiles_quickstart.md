@@ -43,7 +43,7 @@ git clone https://github.com/homelab-alpha/dotfiles.git && cd dotfiles && echo 1
 
 <br />
 
-## Using the `install.sh` Script
+## Using the `dotfiles_installer.sh` Script
 
 ### Clone the Repository
 
@@ -73,10 +73,11 @@ cd $HOME/dotfiles
 Once you are in the `dotfiles` folder, run the installation script with:
 
 ```bash
-./dotfiles_installer
+./dotfiles_installer.sh
 ```
 
-This script installs the dotfiles according to the specified configuration.
+The script shows a menu. Enter `1` to install the dotfiles or `2` to uninstall
+them.
 
 <br />
 
@@ -90,6 +91,7 @@ The following files will be backed up before installation:
 
 ```plaintext
 ~/.bash_*
+~/.bash-*
 ~/.bashrc
 ~/.gitconfig
 ~/.nano
@@ -101,7 +103,7 @@ The following files will be backed up before installation:
 ~/.zshrc
 ```
 
-You can find the backups in `$HOME/dotfiles_backup/before_installation`
+You can find the backups in `$HOME/dotfiles-backup/before-installation`
 
 <br />
 
@@ -114,7 +116,8 @@ correctly as expected.
 
 ## Removal of Dotfiles
 
-To remove the dotfiles, rerun the install.sh script and follow the instructions.
+To remove the dotfiles, run the `dotfiles_installer.sh` script again and enter
+`2` when prompted.
 
 ### Pre-uninstallation Checklist
 
@@ -122,6 +125,7 @@ Similar to pre-installation, your files will be backed up:
 
 ```plaintext
 ~/.bash_*
+~/.bash-*
 ~/.bashrc
 ~/.gitconfig
 ~/.nano
@@ -133,13 +137,14 @@ Similar to pre-installation, your files will be backed up:
 ~/.zshrc
 ```
 
-These backups are stored in `$HOME/dotfiles_backup/before_uninstallation`
+These backups are stored in `$HOME/dotfiles-backup/before-uninstallation`
 
 <br />
 
 ### Post-deletion Process
 
-Your dotfiles will be restored from the backup after deletion.
+Your dotfiles will be restored from the backup after deletion. The script also
+removes the `$HOME/dotfiles` directory.
 
 <br />
 
@@ -148,7 +153,7 @@ Your dotfiles will be restored from the backup after deletion.
 After uninstalling, verify if everything has been removed correctly.
 
 By following these steps, you can effectively manage your dotfiles using the
-install.sh script from the GitHub repository. If you have any further questions,
+`dotfiles_installer.sh` script from the GitHub repository. If you have any further questions,
 feel free to ask!
 
 <br />
@@ -158,4 +163,7 @@ feel free to ask!
 The location of log files can vary depending on the specific operating system
 and application being used. Dotfiles, log files are often stored in a
 subdirectory within the application's installation directory or in a system
-directory such as `/var/log` on Linux
+directory such as `/var/log` on Linux.
+
+The `dotfiles_installer.sh` script appends its log entries to
+`$HOME/dotfiles.log`.

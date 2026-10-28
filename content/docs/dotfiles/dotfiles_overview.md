@@ -48,21 +48,30 @@ command-line tools, editors, and applications that I use regularly.
 
 ## Contents
 
-- **bash**: Configuration files for the Bash shell.
-- **vim**: Settings and plugins for the Vim text editor.
-- **git**: Git configuration settings.
-- **tmux**: Configuration for the tmux terminal multiplexer.
-- **scripts**: Useful scripts for automating tasks or enhancing productivity.
-- **other**: Additional configuration files for miscellaneous applications.
+- **bash**: Configuration files for the Bash shell (`.bashrc`, `.bash_aliases`,
+  `.bash_exports`, and `.bash_snippets`).
+- **zsh**: Configuration for the Zsh shell (`.zshrc`).
+- **vim**: Settings for the Vim text editor (`.vimrc`).
+- **nano**: Settings for the nano text editor (`.nanorc`) and syntax
+  highlighting files (`.nano/`).
+- **git**: Git configuration settings (`.gitconfig` and `.gitignore_global`).
+- **tmux**: Configuration for the tmux terminal multiplexer (`.tmux.conf`).
+- **editor**: The default editor selection (`.selected_editor`).
+- **scripts**: Useful scripts for automating tasks or enhancing productivity
+  (`.bash-script/`).
+- **installer**: The `dotfiles_installer.sh` script that installs and uninstalls
+  the dotfiles.
 
 <br />
 
 ## Usage
 
 Feel free to explore and use any of the configurations provided in this
-repository. You can clone this repository to your local machine and symlink the
-desired configuration files to your home directory. Remember to back up your
-existing configurations before overwriting them.
+repository. You can clone this repository to `$HOME/dotfiles` and run the
+`dotfiles_installer.sh` script, which backs up your existing configuration and
+copies the dotfiles to your home directory. Alternatively, copy the desired
+configuration files manually. Remember to back up your existing configurations
+before overwriting them.
 
 <br />
 
@@ -71,7 +80,10 @@ existing configurations before overwriting them.
 The location of log files can vary depending on the specific operating system
 and application being used. Dotfiles, log files are often stored in a
 subdirectory within the application's installation directory or in a system
-directory such as `/var/log` on Linux
+directory such as `/var/log` on Linux.
+
+The `dotfiles_installer.sh` script appends its log entries to
+`$HOME/dotfiles.log`.
 
 <br />
 
