@@ -36,6 +36,7 @@ jobs:
   stale:
     name: 🧹 Manage issues and pull requests
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     if: |
       github.event.sender.type != 'Bot' &&

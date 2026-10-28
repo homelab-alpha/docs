@@ -28,6 +28,7 @@ jobs:
   labels:
     name: 🏷️ Manage Labels
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     if: |
       github.event.sender.type != 'Bot' &&
@@ -54,6 +55,7 @@ jobs:
       - name: 📦 Download Labels Configuration
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          persist-credentials: false
           sparse-checkout: .github/labels.yml
 
       - name: ℹ️ Load Desired Labels
