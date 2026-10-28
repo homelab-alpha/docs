@@ -200,6 +200,16 @@ fonts directory, and cleans up the downloaded files.\
 
 <br />
 
+### install_latest_protoc.sh
+
+**Description:** This script fetches the latest version of protoc (Protocol
+Buffers) from the official GitHub repository, downloads it, installs it to
+/usr/local/protoc, and cleans up the downloaded files.\
+**Detailed Explanation:** [install_latest_protoc.info]\
+**RAW Script:** [install_latest_protoc.sh]
+
+<br />
+
 ### maintain_git_repo.sh
 
 **Description:** This script automates the maintenance process of a Git
@@ -221,12 +231,12 @@ files based on user input.\
 
 <br />
 
-### new_docker_container.sh
+### new_docker_project.sh
 
 **Description:** This script creates a new Docker container directory structure
 and configuration files based on user input.\
-**Detailed Explanation:** [new_docker_container.info]\
-**RAW Script:** [new_docker_container.sh]
+**Detailed Explanation:** [new_docker_project.info]\
+**RAW Script:** [new_docker_project.sh]
 
 <br />
 
@@ -250,6 +260,16 @@ providing options for linting either a local Git repository or a specific
 folder.\
 **Detailed Explanation:** [super_linter.info]\
 **RAW Script:** [super_linter.sh]
+
+<br />
+
+### sync_containers.sh
+
+**Description:** This script synchronizes Docker container images from a
+predefined list. It checks the available disk space, verifies the format of the
+Docker container labels, and logs all actions and errors to a log file.\
+**Detailed Explanation:** [sync_containers.info]\
+**RAW Script:** [sync_containers.sh]
 
 <br />
 
@@ -393,32 +413,32 @@ dotfiles, including creating backups and restoring them if necessary.\
 Here's a brief overview of scripts that are available in Homelab-Alpha OpenSSl
 repositorie:
 
-### openssl_installer.sh
+### ssl_dotfiles_installer.sh
 
 **Description:** This script adds specified content to the ~/.bashrc file,
 avoiding duplication. It checks if ~/.bashrc exists and appends the content to
 the end if it doesn't already exist..\
-**Detailed Explanation:** [openssl_installer.info]\
-**RAW Script:** [openssl_installer.sh]
+**Detailed Explanation:** [ssl_dotfiles_installer.info]\
+**RAW Script:** [ssl_dotfiles_installer.sh]
 
 <br />
 
-### openssl_setup.sh
+### ssl_directory_setup.sh
 
 **Description:** Sets up SSL certificate management directories, generates
 random serial numbers, and creates OpenSSL configuration files.\
-**Detailed Explanation:** [openssl_setup.info]\
-**RAW Script:** [openssl_setup.sh]
+**Detailed Explanation:** [ssl_directory_setup.info]\
+**RAW Script:** [ssl_directory_setup.sh]
 
 <br />
 
-### trusted-id.sh
+### trusted_id.sh
 
 **Description:** This script generates and manages a trusted root certificate,
 including key generation, certificate creation, verification, and format
 conversion.\
 **Detailed Explanation:** [trusted-id.info]\
-**RAW Script:** [trusted-id.sh]
+**RAW Script:** [trusted_id.sh]
 
 <br />
 
@@ -472,7 +492,7 @@ verification.\
 
 <br />
 
-### cert_rsa_server.info
+### cert_rsa_server.sh
 
 **Description:** This script automates the process of creating and managing RSA
 certificates for server authentication, including key generation, CSR creation,
@@ -493,13 +513,13 @@ verification, and preparation of certificate chain bundles.\
 
 <br />
 
-### openssl_verify_certificates.sh
+### verify_ssl_certificates.sh
 
 **Description:** This script verifies SSL/TLS certificates by checking them
 against their corresponding chain of trust. It includes options for verbose
 output for detailed verification processes.\
-**Detailed Explanation:** [openssl_verify_certificates.info]\
-**RAW Script:** [openssl_verify_certificates.sh]
+**Detailed Explanation:** [verify_ssl_certificates.info]\
+**RAW Script:** [verify_ssl_certificates.sh]
 
 <br />
 
@@ -558,16 +578,20 @@ the [license] agreement.
 [install_latest_hugo.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/install_latest_hugo.sh
 [install_latest_jetbrains_mono.info]: docs/../../shell-script/script-information/install_latest_jetbrains_mono.info.md
 [install_latest_jetbrains_mono.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/install_latest_jetbrains_mono.sh
+[install_latest_protoc.info]: docs/../../shell-script/script-information/install_latest_protoc.info.md
+[install_latest_protoc.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/install_latest_protoc.sh
 [maintain_git_repo.info]: docs/../../shell-script/script-information/maintain_git_repo.info.md
 [maintain_git_repo.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/maintain_git_repo.sh
 [new_docker_compose_file.info]: docs/../../shell-script/script-information/new_docker_compose_file.info.md
 [new_docker_compose_file.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/new_docker_compose_file.sh
-[new_docker_container.info]: docs/../../shell-script/script-information/new_docker_container.info.md
-[new_docker_container.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/new_docker_container.sh
+[new_docker_project.info]: docs/../../shell-script/script-information/new_docker_project.info.md
+[new_docker_project.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/new_docker_project.sh
 [ssh_keygen_script.info]: docs/../../shell-script/script-information/ssh_keygen_script.info.md
 [ssh_keygen_script.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/ssh_keygen_script.sh
 [super_linter.info]: docs/../../shell-script/script-information/super_linter.info.md
 [super_linter.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/super_linter.sh
+[sync_containers.info]: docs/../../shell-script/script-information/sync_containers.info.md
+[sync_containers.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/sync_containers.sh
 [uptime_kuma_pr_test_v2.info]: docs/../../shell-script/script-information/uptime_kuma_pr_test_v2.info.md
 [uptime_kuma_pr_test_v2.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/uptime_kuma_pr_test_v2.sh
 [user_accounts_info.info]: docs/../../shell-script/script-information/user_accounts_info.info.md
@@ -594,28 +618,28 @@ the [license] agreement.
 [up.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/up.sh
 [dotfiles_installer.info]: docs/../../dotfiles/dotfiles_install.info.md
 [dotfiles_installer.sh]: https://raw.githubusercontent.com/homelab-alpha/dotfiles/main/dotfiles_installer.sh
-[openssl_installer.info]: docs/../../openssl/script-information/openssl_installer.info.md
-[openssl_installer.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/openssl_installer.sh
-[openssl_setup.info]: docs/../../openssl/script-information/openssl_setup.info.md
-[openssl_setup.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/openssl_setup.sh
+[ssl_dotfiles_installer.info]: docs/../../openssl/script-information/ssl_dotfiles_installer.info.md
+[ssl_dotfiles_installer.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/scripts/ssl_dotfiles_installer.sh
+[ssl_directory_setup.info]: docs/../../openssl/script-information/ssl_directory_setup.info.md
+[ssl_directory_setup.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/scripts/ssl_directory_setup.sh
 [trusted-id.info]: docs/../../openssl/script-information/trusted-id.info.md
-[trusted-id.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate-authority/trusted-id.sh
+[trusted_id.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/scripts/certificate-authority/trusted_id.sh
 [root_ca.info]: docs/../../openssl/script-information/root_ca.info.md
-[root_ca.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate-authority/root_ca.sh
+[root_ca.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/scripts/certificate-authority/root_ca.sh
 [ca.info]: docs/../../openssl/script-information/ca.info.md
-[ca.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/intermediate-certificate-authority/ca.sh
+[ca.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/scripts/intermediate-certificate-authority/ca.sh
 [cert_ecdsa_localhost.info]: docs/../../openssl/script-information/cert_ecdsa_localhost.info.md
-[cert_ecdsa_localhost.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate/cert_ecdsa_localhost.sh
+[cert_ecdsa_localhost.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/scripts/certificate/cert_ecdsa_localhost.sh
 [cert_ecdsa_server.info]: docs/../../openssl/script-information/cert_ecdsa_server.info.md
-[cert_ecdsa_server.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate/cert_ecdsa_server.sh
+[cert_ecdsa_server.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/scripts/certificate/cert_ecdsa_server.sh
 [cert_ecdsa_client.info]: docs/../../openssl/script-information/cert_ecdsa_client.info.md
-[cert_ecdsa_client.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate/cert_ecdsa_client.sh
+[cert_ecdsa_client.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/scripts/certificate/cert_ecdsa_client.sh
 [cert_rsa_server.info]: docs/../../openssl/script-information/cert_rsa_server.info.md
-[cert_rsa_server.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate/cert_rsa_server.sh
+[cert_rsa_server.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/scripts/certificate/cert_rsa_server.sh
 [cert_rsa_client.info]: docs/../../openssl/script-information/cert_rsa_client.info.md
-[cert_rsa_client.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/certificate/cert_rsa_client.sh
-[openssl_verify_certificates.info]: docs/../../openssl/script-information/openssl_verify_certificates.info.md
-[openssl_verify_certificates.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/openssl_verify_certificates.sh
+[cert_rsa_client.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/scripts/certificate/cert_rsa_client.sh
+[verify_ssl_certificates.info]: docs/../../openssl/script-information/verify_ssl_certificates.info.md
+[verify_ssl_certificates.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/main/scripts/verify_ssl_certificates.sh
 [contribute]: docs/../../contributing/code_of_conduct.md
 [ShellCheck]: https://www.shellcheck.net/
 [Bash Scripting Guide]: https://www.tldp.org/LDP/abs/html/

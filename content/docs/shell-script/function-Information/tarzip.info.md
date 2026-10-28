@@ -62,7 +62,7 @@ compressed archive (.zip) of a specified folder using tar and zip commands.
 - **Filename**: `tarzip.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: May 26, 2024
-- **Version**: 1.0.1
+- **Version**: 1.0
 - **Description**: The script provides a function `tarzip` to create a tar
   archive of a specified folder and then compress it into a .zip file with a
   timestamp in the filename. It also includes verification of the compressed

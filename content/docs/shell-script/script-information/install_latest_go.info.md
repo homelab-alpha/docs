@@ -52,8 +52,8 @@ official Go download page.
 
 - **Filename**: `install_latest_go.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: December 7, 2024
-- **Version**: 1.1.0
+- **Date**: November 11, 2025
+- **Version**: 1.2.0
 - **Description**: This script fetches the latest version of Go from the
   official Go download page, downloads it, installs it to `/usr/local/go`, and
   cleans up the downloaded files.
@@ -61,26 +61,58 @@ official Go download page.
 
 <br />
 
-## Fetching the Latest Version
+## Logging
 
-The script starts by fetching the latest version of Go from the official Go
-download page. It uses `curl` to send a request to the Go version endpoint and
-captures the output, which contains the latest version.
+The script prints every message to the terminal and appends it to the log file
+`$HOME/.bash-script/install_latest_go.log`. The `log` function records informational
+messages and the `log_error` function records errors, both with a timestamp. The
+script does not create the log directory itself.
 
 ```bash
-LATEST_VERSION_OUTPUT=$(curl -s https://go.dev/VERSION?m=text)
+LOG_DIR="$HOME/.bash-script"
+LOG_FILE="$LOG_DIR/install_latest_go.log"
+
+log() {
+  local TIMESTAMP
+  TIMESTAMP=$(date +"%b %d, %Y %H:%M:%S")
+  echo "$TIMESTAMP [INFO] - $1" | tee -a "$LOG_FILE"
+}
+
+log_error() {
+  local TIMESTAMP
+  TIMESTAMP=$(date +"%b %d, %Y %H:%M:%S")
+  echo "$TIMESTAMP [ERROR] - $1" | tee -a "$LOG_FILE"
+}
 ```
 
 <br />
 
-## Extracting the Version Number
+## Checking the Installed Version
 
-It then extracts the version number from the fetched output. The `awk` command
-isolates the version string, and `sed` removes the `go` prefix, leaving just the
-version number.
+Before installing, the script checks whether Go is already available and logs
+the installed version.
 
 ```bash
-LATEST_VERSION="$(echo $LATEST_VERSION_OUTPUT | awk '{print $1}' | sed 's/go//')"
+log "Checking current installed version of Go (if available)..."
+if command -v go &>/dev/null; then
+  log "Go version: $(go version)"
+else
+  log "Go is not currently installed."
+fi
+```
+
+<br />
+
+## Fetching the Latest Version
+
+The script fetches the latest version of Go from the official Go download page.
+It uses `curl` to request the Go version endpoint, keeps only the first line of
+the output with `head`, and uses `sed` to remove the `go` prefix, leaving just
+the version number.
+
+```bash
+log "Fetching the latest version of Go from the official download page..."
+LATEST_VERSION=$(curl -s https://go.dev/VERSION?m=text | head -n 1 | sed 's/^go//')
 ```
 
 <br />
@@ -139,11 +171,26 @@ log "Successfully downloaded Go version ${LATEST_VERSION} to $DOWNLOAD_DIR."
 
 ## Extracting the Downloaded File
 
-The script extracts the contents of the downloaded tar.gz file to the download
-directory using `tar`.
+The script extracts the downloaded file in two steps. First, `gzip -d`
+decompresses the tarball into a `.tar` file. Then `tar -xf` extracts that `.tar`
+file into the download directory. Both steps are checked for errors.
 
 ```bash
-tar -xzf "$DOWNLOAD_DIR/go${LATEST_VERSION}.linux-amd64.tar.gz" -C "$DOWNLOAD_DIR"
+log "Extracting Go files..."
+
+if gzip -d "$DOWNLOAD_DIR/go${LATEST_VERSION}.linux-amd64.tar.gz"; then
+  log "Decompression of the tarball was successful."
+else
+  log_error "Failed to decompress Go tarball. Exiting."
+  exit 1
+fi
+
+if tar -xf "$DOWNLOAD_DIR/go${LATEST_VERSION}.linux-amd64.tar" -C "$DOWNLOAD_DIR"; then
+  log "Extraction of the tar file was successful."
+else
+  log_error "Failed to extract Go tar file. Exiting."
+  exit 1
+fi
 ```
 
 <br />
@@ -178,11 +225,11 @@ log "Go version ${LATEST_VERSION} installed successfully to /usr/local/go."
 
 ## Cleaning Up
 
-The script removes the downloaded tar.gz file from the download directory to
+The script removes the extracted `.tar` file from the download directory to
 clean up unnecessary files.
 
 ```bash
-rm "$DOWNLOAD_DIR/go${LATEST_VERSION}.linux-amd64.tar.gz"
+rm "$DOWNLOAD_DIR/go${LATEST_VERSION}.linux-amd64.tar"
 log "Cleanup complete."
 ```
 

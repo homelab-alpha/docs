@@ -59,13 +59,39 @@ and clean up the downloaded files.
 
 - **Filename**: `install_latest_jetbrains_mono.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Dec 07, 2024
-- **Version**: 1.1.0
+- **Date**: May 9, 2025
+- **Version**: 1.1.2
 - **Description**: The script fetches the latest version of JetBrains Mono from
   the official GitHub repository, downloads it, installs it to the system-wide
   fonts directory, and cleans up the downloaded files.
 - **Usage**: `sudo ./install_latest_jetbrains_mono.sh`
 - **RAW Script**: [install_latest_jetbrains_mono.sh]
+
+<br />
+
+## Logging
+
+The script prints every message to the terminal and appends it to the log file
+`$HOME/.bash-script/install_latest_jetbrains_mono.log`. The `log` function records informational
+messages and the `log_error` function records errors, both with a timestamp. The
+script does not create the log directory itself.
+
+```bash
+LOG_DIR="$HOME/.bash-script"
+LOG_FILE="$LOG_DIR/install_latest_jetbrains_mono.log"
+
+log() {
+  local TIMESTAMP
+  TIMESTAMP=$(date +"%b %d, %Y %H:%M:%S")
+  echo "$TIMESTAMP [INFO] - $1" | tee -a "$LOG_FILE"
+}
+
+log_error() {
+  local TIMESTAMP
+  TIMESTAMP=$(date +"%b %d, %Y %H:%M:%S")
+  echo "$TIMESTAMP [ERROR] - $1" | tee -a "$LOG_FILE"
+}
+```
 
 <br />
 

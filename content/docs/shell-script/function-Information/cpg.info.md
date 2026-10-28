@@ -62,7 +62,7 @@ recursive copying for directories.
 - **Filename**: `cpg.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: May 26, 2024
-- **Version**: 1.0.1
+- **Version**: 1.0
 - **Description**: The script provides a function `cpg` to copy files or
   directories from a source to a destination, handling both single files and
   directories recursively.

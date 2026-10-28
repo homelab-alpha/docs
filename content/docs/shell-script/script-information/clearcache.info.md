@@ -59,7 +59,7 @@ help in freeing up memory and improving system performance.
 - **Filename**: `clearcache.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: May 18, 2024
-- **Version**: 1.0.1
+- **Version**: 1.0
 - **Description**: This script drops clean caches, as well as reclaimable slab
   objects like dentries and inodes.
 - **RAW Script**: [clearcache.sh]

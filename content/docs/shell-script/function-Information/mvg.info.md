@@ -58,7 +58,7 @@ are valid and provides functionality to add metadata to itself if it's missing.
 - **Filename**: `mvg.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: May 26, 2024
-- **Version**: 1.0.1
+- **Version**: 1.0
 - **Description**: This script moves a file or directory to a specified
   destination and then enters the destination directory.
 - **RAW Script**: [mvg.sh]

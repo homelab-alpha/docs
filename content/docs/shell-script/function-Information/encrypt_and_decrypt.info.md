@@ -56,7 +56,7 @@ encryption algorithm with OpenSSL.
 - **Filename**: `encrypt_and_decrypt.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: May 26, 2024
-- **Version**: 1.0.1
+- **Version**: 1.0
 - **Description**: This script provides functions for encrypting and decrypting
   files or directories using AES-256 encryption with OpenSSL.
 - **RAW Script**: [encrypt_and_decrypt.sh]

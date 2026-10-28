@@ -60,8 +60,8 @@ network-related issues.
 
 - **Filename**: `dns_check.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: 2024-05-26
-- **Version**: 1.0.1
+- **Date**: May 26, 2024
+- **Version**: 1.0
 - **Description**: The script checks network connectivity and DNS server
   availability, aiding in troubleshooting network problems.
 - **RAW Script**: [dns_check.sh]

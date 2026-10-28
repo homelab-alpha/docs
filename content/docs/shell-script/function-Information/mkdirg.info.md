@@ -58,7 +58,7 @@ directories and changes the current working directory to the newly created one.
 - **Filename**: `mkdirg.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: May 26, 2024
-- **Version**: 1.0.1
+- **Version**: 1.0
 - **Description**: This script creates a directory if it doesn't exist and
   navigates into it.
 - **RAW Script**: [mkdirg.sh]

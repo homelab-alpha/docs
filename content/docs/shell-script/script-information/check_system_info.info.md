@@ -64,7 +64,7 @@ usage, disk usage, disk usage inodes, and last reboot/shutdown events.
 - **Filename**: `check_system_info.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: May 18, 2024
-- **Version**: 1.0.1
+- **Version**: 1.0
 - **Description**: This script checks system information. It provides details
   about system uptime, hardware information, system temperature, systemctl
   status, RAM/SWAP usage, disk usage, disk usage inodes, and last

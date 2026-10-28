@@ -146,6 +146,38 @@ Additionally, users can interact with the following shortcuts:
 
 <br />
 
+## Container List and Logging
+
+The script synchronizes the container images in the `CONTAINERS` array and
+writes its output to `$HOME/.bash-script/sync_containers.log`. The script
+creates the log directory and the log file if they do not exist.
+
+```bash
+log_dir="$HOME/.bash-script"
+log_file="$log_dir/sync_containers.log"
+
+mkdir -p "$log_dir"
+touch "$log_file"
+
+CONTAINERS=(
+  "amir20/dozzle:latest"          # Lightweight Docker log viewer
+  "containrrr/watchtower:latest"  # Automated container updates
+  "freshrss/freshrss:latest"      # RSS aggregator
+  "jellyfin/jellyfin:latest"      # Media server
+  "louislam/dockge:latest"        # Docker GUI for managing containers
+  "louislam/uptime-kuma:beta"     # Uptime monitoring service
+  "mariadb:latest"                # MariaDB database server
+  "netbootxyz/netbootxyz:latest"  # Network boot server for PXE
+  "netdata/netdata:latest"        # Real-time monitoring and troubleshooting
+  "openspeedtest/latest"          # Speed test application
+  "plexinc/pms-docker:latest"     # Plex media server
+  "portainer/portainer-ee:latest" # Portainer Enterprise Edition for Docker management
+  "ronivay/xen-orchestra:latest"  # Xen Orchestra for managing XenServer
+)
+```
+
+<br />
+
 ## Synchronization Process
 
 The synchronization process consists of the following key steps:

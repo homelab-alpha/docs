@@ -53,12 +53,38 @@ from the official GitHub repository.
 
 - **Filename**: `install_latest_dart_sass.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: December 7, 2024
-- **Version**: 1.1.0
+- **Date**: May 9, 2025
+- **Version**: 1.1.2
 - **Description**: This script fetches the latest version of Dart Sass from the
   official GitHub repository, downloads it, installs it to
   `/usr/local/dart-sass`, and cleans up the downloaded files.
 - **RAW Script**: [install_latest_dart_sass.sh]
+
+<br />
+
+## Logging
+
+The script prints every message to the terminal and appends it to the log file
+`$HOME/.bash-script/install_latest_dart_sass.log`. The `log` function records informational
+messages and the `log_error` function records errors, both with a timestamp. The
+script does not create the log directory itself.
+
+```bash
+LOG_DIR="$HOME/.bash-script"
+LOG_FILE="$LOG_DIR/install_latest_dart_sass.log"
+
+log() {
+  local TIMESTAMP
+  TIMESTAMP=$(date +"%b %d, %Y %H:%M:%S")
+  echo "$TIMESTAMP [INFO] - $1" | tee -a "$LOG_FILE"
+}
+
+log_error() {
+  local TIMESTAMP
+  TIMESTAMP=$(date +"%b %d, %Y %H:%M:%S")
+  echo "$TIMESTAMP [ERROR] - $1" | tee -a "$LOG_FILE"
+}
+```
 
 <br />
 

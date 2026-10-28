@@ -59,7 +59,7 @@ without having to type `cd ../../..` repeatedly.
 - **Filename**: `up.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: May 26, 2024
-- **Version**: 1.0.1
+- **Version**: 1.0
 - **Description**: The script defines a function `up` to navigate up a specified
   number of directory levels in the file system. To use it, you execute the
   script in a terminal and provide the number of levels to move up.

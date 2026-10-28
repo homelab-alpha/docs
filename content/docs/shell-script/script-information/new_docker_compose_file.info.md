@@ -156,7 +156,7 @@ The script creates `.env`, `stack.env`, `docker-compose.yml`,
 it fails to create these files, it exits with an error message.
 
 ```bash
-if ! touch "$dir_path/.env" "$dir_path/stack.env" "$dir_path/docker-compose.yml" "$dir_path/docker-compose_testing.yml" "$dir_path/my.cnf"; then
+if ! touch "$dir_path/docker-compose.yml" "$dir_path/docker-compose_testing.yml" "$dir_path/.env" "$dir_path/stack.env" "$dir_path/my.cnf"; then
   display_message "Failed to create Docker startup files in $dir_path."
   exit 1
 fi
@@ -725,7 +725,7 @@ cat <<EOL >"$dir_path/my.cnf"
 #
 [client-server]
 # Port or socket location where to connect
-# port = 3306
+port = 3306
 socket = /run/mysqld/mysqld.sock
 
 [mysqld]
@@ -861,7 +861,7 @@ max-binlog-size = 500M
 
 # Define the number of days after which binary logs will be automatically purged.
 # This helps prevent the binary log files from growing indefinitely.
-expire-logs-days = 14
+expire-logs-days = 7
 
 # Enable checksums for binary logs to ensure data integrity.
 binlog-checksum = CRC32

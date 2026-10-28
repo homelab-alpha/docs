@@ -751,7 +751,8 @@ details, to the `.env` and `stack.env` file.
 ## Add Content to `my.cnf`
 
 ```bash
-cat <<EOL >"$dir_path/my.cnf"
+for file in "$dir_path/production/config/my.cnf" "$dir_path/testing/config/my.cnf"; do
+  cat <<EOL >"$file"
 #
 # The MariaDB/MySQL tools read configuration files in the following order:
 # 0. "/etc/mysql/my.cnf" symlinks to this file, reason why all the rest is read.
@@ -774,7 +775,7 @@ cat <<EOL >"$dir_path/my.cnf"
 #
 [client-server]
 # Port or socket location where to connect
-# port = 3306
+port = 3306
 socket = /run/mysqld/mysqld.sock
 
 [mysqld]
@@ -910,7 +911,7 @@ max-binlog-size = 500M
 
 # Define the number of days after which binary logs will be automatically purged.
 # This helps prevent the binary log files from growing indefinitely.
-expire-logs-days = 14
+expire-logs-days = 7
 
 # Enable checksums for binary logs to ensure data integrity.
 binlog-checksum = CRC32
@@ -994,10 +995,11 @@ general-log = 0
 !includedir /etc/mysql/conf.d/
 !includedir /etc/mysql/mariadb.conf.d/
 EOL
+done
 ```
 
-The `my.cnf` file is created with MariaDB/MySQL configurations for the Docker
-containers.
+The `my.cnf` files are created in the `production/config` and `testing/config`
+directories with MariaDB/MySQL configurations for the Docker containers.
 
 <br />
 
