@@ -64,13 +64,23 @@ jobs:
           set -Eeuo pipefail
           echo "::group::📥 Downloading and installing Hugo v${{ env.HUGO_VERSION }}"
 
-          if ! wget -O "${{ runner.temp }}/hugo.deb" \
-            "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb"; then
-            echo "::error title=Hugo Download Failed::❌ Could not download Hugo binary"
+          HUGO_DEB="hugo_extended_${HUGO_VERSION}_linux-amd64.deb"
+          HUGO_URL="https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}"
+
+          if ! wget -O "${{ runner.temp }}/${HUGO_DEB}" "${HUGO_URL}/${HUGO_DEB}" ||
+            ! wget -O "${{ runner.temp }}/hugo_checksums.txt" \
+              "${HUGO_URL}/hugo_${HUGO_VERSION}_checksums.txt"; then
+            echo "::error title=Hugo Download Failed::❌ Could not download Hugo binary or checksums"
             exit 1
           fi
 
-          if ! sudo dpkg -i "${{ runner.temp }}/hugo.deb"; then
+          if ! (cd "${{ runner.temp }}" &&
+            grep -F " ${HUGO_DEB}" hugo_checksums.txt | sha256sum --check --strict -); then
+            echo "::error title=Hugo Checksum Failed::❌ SHA-256 checksum of the Hugo package does not match"
+            exit 1
+          fi
+
+          if ! sudo dpkg -i "${{ runner.temp }}/${HUGO_DEB}"; then
             echo "::error title=Hugo Install Failed::❌ Could not install Hugo package"
             exit 1
           fi
@@ -93,14 +103,14 @@ jobs:
           echo "::endgroup::"
 
       - name: 📑 Checkout source code
-        uses: actions/checkout@v7.0.1
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           submodules: recursive
           fetch-depth: 0
 
       - name: ⚙️ Setup Pages
         id: pages
-        uses: actions/configure-pages@v6.0.0
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
 
       - name: 🔨 Build with Hugo
         id: hugo_build
@@ -131,7 +141,7 @@ jobs:
       - name: 📤 Upload artifact
         id: upload
         if: env.DRY_RUN != 'true'
-        uses: actions/upload-pages-artifact@v5.0.0
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: ./public
 
@@ -191,7 +201,7 @@ jobs:
     steps:
       - name: 🚀 Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v5.0.1
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
 
       - name: 📊 Generate deployment summary
         if: always()
