@@ -8,6 +8,16 @@ on:
   pull_request:
     paths:
       - .github/workflows/hugo.yml
+      - archetypes/**
+      - assets/**
+      - config/**
+      - content/**
+      - data/**
+      - i18n/**
+      - layouts/**
+      - static/**
+      - go.mod
+      - go.sum
   workflow_dispatch:
     inputs:
       dry_run:
