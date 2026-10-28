@@ -17,12 +17,7 @@
             <button id="close-sidebar" class="btn btn-icon btn-soft">
                 <span class="material-icons size-20 menu-icon align-middle">menu</span>
             </button>
-            {{ if and (.Site.Params.docsearch.appID) (.Site.Params.docsearch.apiKey) -}}
-            <span><div id="docsearch"></div></span>
-            {{ end }}
             {{ if or (not (isset .Site.Params.flexsearch "enabled")) (eq .Site.Params.flexsearch.enabled true) -}}
-                {{ if and (.Site.Params.docsearch.appID) (.Site.Params.docsearch.apiKey) -}}
-                {{ else }}
                     <!-- <form class="flexsearch position-relative flex-grow-1 ms-2 me-lg-2 d-none">
                         <input id="flexsearch" class="form-control is-search" type="search" placeholder="{{ i18n "search_title" }}" aria-label="{{ i18n "search_title" }}" autocomplete="off">
                         <div id="suggestions" class="shadow bg-white rounded d-none"></div>
@@ -41,7 +36,6 @@
                             </span>
                         </div>
                     </button>
-                {{ end }}
             {{ end -}}
         </div>
 
@@ -92,8 +86,6 @@
     </div>
     <!-- FlexSearch Input Start -->
     {{ if or (not (isset .Site.Params.flexsearch "enabled")) (eq .Site.Params.flexsearch.enabled true) -}}
-        {{ if and (.Site.Params.docsearch.appID) (.Site.Params.docsearch.apiKey) -}}
-        {{ else }}
             <div class="collapse" id="FlexSearchCollapse">
                 <div class="flexsearch-container">
                     <div class="flexsearch-keymap">
@@ -122,7 +114,6 @@
                     </form>
                 </div>
             </div>
-        {{ end }}
     {{ end }}
     <!-- FlexSearch Input End -->
 </div>

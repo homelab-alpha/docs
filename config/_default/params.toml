@@ -59,14 +59,8 @@ copyright = "&copy; [Homelab-Alpha](https://homelab-alpha.nl) 2024. Developed by
 [flexsearch]
   enabled             = true
   tokenize            = "full"
-  optimize            = true
   cache               = true
   minQueryChar        = 3
   maxResult           = 30
   searchSectionsIndex = []
   tag                 = true
-
-[docsearch]
-  # appID     = ""
-  # apiKey    = ""
-  # indexName = ""

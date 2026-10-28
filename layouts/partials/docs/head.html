@@ -53,8 +53,6 @@
     {{ end -}}
     <!-- FlexSearch -->
     {{ if or (not (isset .Site.Params.flexsearch "enabled")) (eq .Site.Params.flexsearch.enabled true) -}}
-        {{ if and (.Site.Params.docsearch.appID) (.Site.Params.docsearch.apiKey) -}}
-        {{ else }}
             {{ $flexSearch := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/flexsearch.bundle.js") }}
             {{- if not hugo.IsServer }}
                 {{ $flexSearch := $flexSearch | minify | fingerprint "sha384" }}
@@ -62,7 +60,6 @@
                 {{ else }}
                 <script type="text/javascript" src="{{ $flexSearch.Permalink }}"></script>
             {{ end }}
-        {{ end }}
     {{ end }}
     <!-- Fonts -->
     <link rel="preload" as="font" href="{{ "/docs/fonts/inter-latin-wght-normal.woff2" | absURL }}" type="font/woff2" crossorigin>
