@@ -211,7 +211,7 @@ jobs:
                 break
               fi
 
-              if ! grep -qP '<div class="name agent-name">\K[^<]+' "$PAGE_FILE"; then
+              if ! grep -qP '<div class="[^"]*agent-name[^"]*">\K[^<]+' "$PAGE_FILE"; then
                 page=$((page - 1))
                 echo "Page $((page + 1)) returned no agents, pagination complete."
                 break
@@ -282,7 +282,7 @@ jobs:
               $0 ~ "<h2>" section "</h2>" { in_section=1; next }
               $0 ~ "<h2>" && in_section { exit }
               in_section
-            ' "$ALL_PAGES" | grep -oP '<div class="name agent-name">\K[^<]+' || true
+            ' "$ALL_PAGES" | grep -oP '<div class="[^"]*agent-name[^"]*">\K[^<]+' || true
           }
 
           : >"$ALL_AGENTS"
