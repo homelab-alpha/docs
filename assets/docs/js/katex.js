@@ -10869,7 +10869,7 @@ defineEnvironment({
       "Bmatrix": ["\\{", "\\}"],
       "vmatrix": ["|", "|"],
       "Vmatrix": ["\\Vert", "\\Vert"]
-    }[context.envName.replace("*", "")];
+    }[context.envName.replace(/\*/g, "")];
     // \hskip -\arraycolsep in amsmath
     let colAlign = "c";
     const payload = {
@@ -11449,13 +11449,13 @@ const genfrac_mathmlBuilder = (group, options) => {
   if (group.leftDelim != null || group.rightDelim != null) {
     const withDelims = [];
     if (group.leftDelim != null) {
-      const leftOp = new MathNode("mo", [new TextNode(group.leftDelim.replace("\\", ""))]);
+      const leftOp = new MathNode("mo", [new TextNode(group.leftDelim.replace(/\\/g, ""))]);
       leftOp.setAttribute("fence", "true");
       withDelims.push(leftOp);
     }
     withDelims.push(node);
     if (group.rightDelim != null) {
-      const rightOp = new MathNode("mo", [new TextNode(group.rightDelim.replace("\\", ""))]);
+      const rightOp = new MathNode("mo", [new TextNode(group.rightDelim.replace(/\\/g, ""))]);
       rightOp.setAttribute("fence", "true");
       withDelims.push(rightOp);
     }
