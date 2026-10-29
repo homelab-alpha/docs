@@ -42,8 +42,8 @@ community guidelines or rules.
 ### User Feedback
 
 We’d love to hear your feedback. Please file documentation issues only in the
-docs GitHub repository. You can file a new issue to suggest improvements or
-if you see any errors in the existing documentation.
+docs GitHub repository. You can file a new issue to suggest improvements or if
+you see any errors in the existing documentation.
 
 Before submitting a new issue, check whether the issue has already been
 reported. You can join the discussion using an emoji, or by adding a comment to
@@ -53,16 +53,16 @@ by creating a pull request.
 You can ask general questions and get community support through our [community].
 
 If you have an idea for a new feature or behavior change in a specific aspect of
-Homelab-Alpha documentation or have found a bug, file that issue in the project's
-code repository.
+Homelab-Alpha documentation or have found a bug, file that issue in the
+project's code repository.
 
 We've made it easy for you to file new issues.
 
-- **Bug report:** Thanks for taking the time to help us improve our documentation
-  project or documentation. To ensure we can address your issue effectively,
-  please fill out the entire form use the link [bug report]. Don't forget to
-  attach any relevant screenshots and provide a clear description of the bug or
-  typo you encountered.
+- **Bug report:** Thanks for taking the time to help us improve our
+  documentation project or documentation. To ensure we can address your issue
+  effectively, please fill out the entire form use the link [bug report]. Don't
+  forget to attach any relevant screenshots and provide a clear description of
+  the bug or typo you encountered.
 - **Reporting a Vulnerability:** Please report any vulnerabilities you discover
   to Homelab-Alpha by [security report]. We appreciate detailed reports that
   include steps to reproduce the vulnerability and any potential impact.
@@ -174,9 +174,13 @@ See the [LICENSE] file for more details.
 [Homelab-Alpha's website]: https://homelab-alpha.nl
 [Homelab-Alpha's GitHub repositories]: https://github.com/homelab-alpha
 [community]: https://github.com/homelab-alpha/docs/discussions
-[bug report]: https://github.com/homelab-alpha/docs/issues/new?assignees=homelab-alpha&labels=bug&projects=&template=bug_report.yml
-[security report]: https://github.com/homelab-alpha/docs/issues/new?assignees=homelab-alpha&labels=security&projects=&template=security_report.yml
-[give feedback]: https://github.com/homelab-alpha/docs/discussions/categories/feedback
-[feature request]: https://github.com/homelab-alpha/docs/discussions/categories/feature-request
+[bug report]:
+  https://github.com/homelab-alpha/docs/issues/new?assignees=homelab-alpha&labels=bug&projects=&template=bug_report.yml
+[security report]:
+  https://github.com/homelab-alpha/docs/issues/new?assignees=homelab-alpha&labels=security&projects=&template=security_report.yml
+[give feedback]:
+  https://github.com/homelab-alpha/docs/discussions/categories/feedback
+[feature request]:
+  https://github.com/homelab-alpha/docs/discussions/categories/feature-request
 [LICENSE]: https://github.com/homelab-alpha/docs/blob/main/LICENSE
 [contributing]: CONTRIBUTING.md
