@@ -49,7 +49,8 @@ ensuring data integrity.
 {{% alert context="primary" %}}
 The scripts has been upgraded to full Elliptic Curve P-384 (secp384r1) for
 Trusted-ID, Root CA, Sub CA and all Certs scripts. If there are any issues with
-fix: typo any certificate or script [Please let me know], I thank you in advance.
+fix: typo any certificate or script [Please let me know], I thank you in
+advance.
 {{% /alert %}}
 
 This repository provides scripts and configuration files for generating and
@@ -150,15 +151,19 @@ libraries and protocols.
 
 <br />
 
-## Copyright and License
+## License
 
-&copy; 2024 Homelab-Alpha and its repositories are licensed under the terms of
-the [license] agreement.
+This project is licensed under the **Creative Commons
+Attribution-NonCommercial-ShareAlike 4.0 International License** (CC BY-NC-SA
+4.0). See the [license] and [notice] pages for the full license text and
+attribution requirements.
 
-[Please let me know]: https://github.com/homelab-alpha/openssl/discussions/categories/feedback
+[Please let me know]:
+  https://github.com/homelab-alpha/openssl/discussions/categories/feedback
 [contribute]: docs/../../contributing/code_of_conduct.md
 [OpenSSL Official Site]: https://www.openssl.org
 [OpenSSL Wiki]: https://wiki.openssl.org
 [OpenSSL Documentation]: https://www.openssl.org/docs
 [GitHub Repository]: https://github.com/openssl/openssl
-[license]: docs/../../help/license.md
+[license]: /license/
+[notice]: /notice/

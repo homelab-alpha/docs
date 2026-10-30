@@ -93,9 +93,12 @@ No external contributions are currently being accepted for this project.
 
 <br />
 
-## Copyright and License
+## License
 
-&copy; 2024 Homelab-Alpha and its repositories are licensed under the terms of
-the [license] agreement.
+This project is licensed under the **Creative Commons
+Attribution-NonCommercial-ShareAlike 4.0 International License** (CC BY-NC-SA
+4.0). See the [license] and [notice] pages for the full license text and
+attribution requirements.
 
-[license]: docs/../../help/license.md
+[license]: /license/
+[notice]: /notice/

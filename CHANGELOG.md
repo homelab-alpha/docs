@@ -22,6 +22,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Fix the broken license link and the outdated copyright year in the AdGuard
+  Home, Docker, dotfiles, OpenSSL, and shell script overview pages
 - Rename three page files that did not follow the file naming convention
 
 ### Security
