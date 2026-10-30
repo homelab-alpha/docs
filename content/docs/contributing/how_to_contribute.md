@@ -46,15 +46,17 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-Not all projects under **Homelab-Alpha** are open to external contributions.
-However, the following projects welcome or actively seek contributions from the
+The following **Homelab-Alpha** projects welcome contributions from the
 community:
 
 **Homelab-Alpha Repositories Open to External Contributions:**
 
+- **[AdGuard Home]**
 - **[Docker]**
+- **[dotfiles]**
 - **[OpenSSL]**
 - **[Shell Script]**
+- **[Docs]**
   {{% /alert %}}
 
 <br />
@@ -376,6 +378,9 @@ For information about becoming a maintainer, see
 Thank you for taking the time to contribute to docs. Every contribution — no
 matter how small — helps the project grow and improve. 🙏
 
+[AdGuard Home]: https://github.com/homelab-alpha/adguard-home
 [Docker]: https://github.com/homelab-alpha/docker
+[dotfiles]: https://github.com/homelab-alpha/dotfiles
 [OpenSSL]: https://github.com/homelab-alpha/openssl
 [Shell Script]: https://github.com/homelab-alpha/shell-script
+[Docs]: https://github.com/homelab-alpha/docs

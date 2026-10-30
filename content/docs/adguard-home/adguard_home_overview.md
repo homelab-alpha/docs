@@ -95,7 +95,10 @@ being blocked, allowed, and/or redirected before using any of them.
 
 ## Contributions to Homelab-Alpha - AdGuard Home
 
-No external contributions are currently being accepted for this project.
+We value your contribution. We want to make it as easy as possible to submit
+your contributions to the Homelab-Alpha - adguard-home repository. Changes to
+the adguard-home are handled through pull requests against the `main` branch. To
+learn how to contribute, see [contribute].
 
 <br />
 
@@ -103,11 +106,11 @@ No external contributions are currently being accepted for this project.
 
 This project is licensed under the **Creative Commons
 Attribution-NonCommercial-ShareAlike 4.0 International License** (CC BY-NC-SA
-4.0). See the [license] and [notice] pages for the full license text and
-attribution requirements.
+4.0). See the [license] page for the full license text and the [NOTICE] file for
+the attribution requirements.
 
 [license]: /license/
-[notice]: /notice/
+[NOTICE]: https://github.com/homelab-alpha/adguard-home/blob/main/NOTICE
 [**Bekende Malafide Handelspartijen:**]:
   https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/bekende_malafide_handelspartijen.txt
 [**Blocklist:**]:
@@ -146,3 +149,4 @@ attribution requirements.
   https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/whitelist.txt
 [**Wildcard:**]:
   https://raw.githubusercontent.com/homelab-alpha/adguard-home/main/filters/wildcard.txt
+[contribute]: /contributing/contribute/

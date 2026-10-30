@@ -89,7 +89,10 @@ The `dotfiles_installer.sh` script appends its log entries to
 
 ## Contributions to Homelab-Alpha - Dotfiles
 
-No external contributions are currently being accepted for this project.
+We value your contribution. We want to make it as easy as possible to submit
+your contributions to the Homelab-Alpha - dotfiles repository. Changes to the
+dotfiles are handled through pull requests against the `main` branch. To learn
+how to contribute, see [contribute].
 
 <br />
 
@@ -97,8 +100,9 @@ No external contributions are currently being accepted for this project.
 
 This project is licensed under the **Creative Commons
 Attribution-NonCommercial-ShareAlike 4.0 International License** (CC BY-NC-SA
-4.0). See the [license] and [notice] pages for the full license text and
-attribution requirements.
+4.0). See the [license] page for the full license text and the [NOTICE] file for
+the attribution requirements.
 
 [license]: /license/
-[notice]: /notice/
+[NOTICE]: https://github.com/homelab-alpha/dotfiles/blob/main/NOTICE
+[contribute]: /contributing/contribute/
