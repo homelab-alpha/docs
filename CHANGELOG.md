@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Update the Docker image tags in the Dozzle, Portainer, Portainer Edge Agent,
+  and Watchtower pages
+
 ### Deprecated
 
 ### Removed

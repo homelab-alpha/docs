@@ -1,6 +1,7 @@
 ---
 title: "portainer.info"
-description: "Deploy Portainer for managing Docker environments. It covers the
+description:
+  "Deploy Portainer for managing Docker environments. It covers the
   configuration of a custom Docker network and the Portainer service, ensuring
   effective and secure operation."
 url: "docker/compose-info/portainer"
@@ -134,7 +135,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: portainer
-    image: docker.io/portainer/portainer-ee:2.45.3
+    image: docker.io/portainer/portainer-ee:3.0.0
     pull_policy: if_not_present
     volumes:
       - /docker/portainer/production/app:/data
@@ -157,7 +158,8 @@ services:
       - no-new-privileges:true
     labels:
       com.docker.compose.project: "portainer"
-      com.portainer.description: "deploy, configure, troubleshoot and secure containers."
+      com.portainer.description:
+        "deploy, configure, troubleshoot and secure containers."
     healthcheck:
       disable: true
 ```
@@ -175,8 +177,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: portainer**: Names the container "portainer".
-  - **image: docker.io/portainer/portainer-ee:2.45.3**: Uses the Portainer
-    image, pinned to version `2.45.3`.
+  - **image: docker.io/portainer/portainer-ee:3.0.0**: Uses the Portainer image,
+    pinned to version `3.0.0`.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.
@@ -223,4 +225,5 @@ configured with persistent storage, access to the Docker socket, and various
 network and security options. The configuration ensures that Portainer runs
 continuously, restarts on failure, and logs efficiently.
 
-[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/portainer/docker-compose.yml
+[docker-compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/portainer/docker-compose.yml
