@@ -161,15 +161,15 @@ services:
 ## FAQs
 
 **What's the difference between Docker and Docker Compose?**\
-Docker is a platform for running containers, while Docker Compose is a tool for defining
-and running multi-container Docker applications.
+Docker is a platform for running containers, while Docker Compose is a tool for
+defining and running multi-container Docker applications.
 
 **Can I use Docker on Windows and macOS?**\
 Yes, Docker Desktop provides support for both Windows, macOS and Linux.
 
 **How can I create my own Docker image?**\
-You can create your own Docker image by writing a Dockerfile that defines your application's
-configuration and dependencies.
+You can create your own Docker image by writing a Dockerfile that defines your
+application's configuration and dependencies.
 
 <br />
 
@@ -192,14 +192,17 @@ to contribute, see [contribute].
 
 <br />
 
-## Copyright and License
+## License
 
-&copy; 2024 Homelab-Alpha and its repositories are licensed under the terms of
-the [license] agreement.
+This project is licensed under the **Creative Commons
+Attribution-NonCommercial-ShareAlike 4.0 International License** (CC BY-NC-SA
+4.0). See the [license] and [notice] pages for the full license text and
+attribution requirements.
 
 [Docker]: https://www.docker.com
 [Docker Compose]: https://docs.docker.com/compose
 [Docker Documentation]: https://docs.docker.com
 [Docker Compose Documentation]: https://docs.docker.com/compose
 [contribute]: docs/../../contributing/code_of_conduct.md
-[license]: docs/../../help/license.md
+[license]: /license/
+[notice]: /notice/
