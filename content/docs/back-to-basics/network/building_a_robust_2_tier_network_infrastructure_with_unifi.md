@@ -5,7 +5,8 @@ description:
   Ubiquiti's UniFi equipment. This guide covers the essentials of combining Core
   and Distribution layers while maintaining a separate Access layer for small to
   medium-sized networks."
-url: "back-to-basics/network/building-a-robust-2-tier-network-infrastructure
+url:
+  "back-to-basics/network/building-a-robust-2-tier-network-infrastructure
   with-unifi"
 aliases: ""
 icon: "description"
@@ -116,8 +117,8 @@ core_distribution_layer:
 - **Interfaces**: 8x 1G RJ45 ports, 1x 2.5G RJ45 port, 2x 10G SFP+ ports (by
   default, the 2.5G RJ45 port and one 10G SFP+ port are used as WAN)
 - **Features**: Integrated security gateway (up to 5 Gbps IDS/IPS throughput),
-  high-performance router, network video recorder (2x 3.5" HDD bays), and
-  UniFi Network application host
+  high-performance router, network video recorder (2x 3.5" HDD bays), and UniFi
+  Network application host
 - [More details](https://techspecs.ui.com/unifi/cloud-gateways/udm-pro-max)
 
 <br />
@@ -183,8 +184,8 @@ access_layer:
 **UniFi Switch Pro 24 PoE (USW-Pro-24-POE, 400W)**
 
 - **Interfaces**: 24x RJ45 Gigabit Ethernet ports, 2x 10G SFP+ uplink ports
-- **PoE**: 16x PoE+ ports (up to 30W) and 8x PoE++ ports (up to 60W), 400W
-  total PoE budget
+- **PoE**: 16x PoE+ ports (up to 30W) and 8x PoE++ ports (up to 60W), 400W total
+  PoE budget
 - **Performance**: 88 Gbps switching capacity, 44 Gbps non-blocking throughput
 - [More details](https://techspecs.ui.com/unifi/switching/usw-pro-24-poe)
 
