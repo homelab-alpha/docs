@@ -155,15 +155,15 @@ libraries and protocols.
 
 This project is licensed under the **Creative Commons
 Attribution-NonCommercial-ShareAlike 4.0 International License** (CC BY-NC-SA
-4.0). See the [license] and [notice] pages for the full license text and
-attribution requirements.
+4.0). See the [license] page for the full license text and the [NOTICE] file for
+the attribution requirements.
 
 [Please let me know]:
   https://github.com/homelab-alpha/openssl/discussions/categories/feedback
-[contribute]: docs/../../contributing/code_of_conduct.md
+[contribute]: /contributing/contribute/
 [OpenSSL Official Site]: https://www.openssl.org
 [OpenSSL Wiki]: https://wiki.openssl.org
 [OpenSSL Documentation]: https://www.openssl.org/docs
 [GitHub Repository]: https://github.com/openssl/openssl
 [license]: /license/
-[notice]: /notice/
+[NOTICE]: https://github.com/homelab-alpha/openssl/blob/main/NOTICE

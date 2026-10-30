@@ -554,8 +554,8 @@ learn how to contribute, see [contribute].
 
 This project is licensed under the **Creative Commons
 Attribution-NonCommercial-ShareAlike 4.0 International License** (CC BY-NC-SA
-4.0). See the [license] and [notice] pages for the full license text and
-attribution requirements.
+4.0). See the [license] page for the full license text and the [NOTICE] file for
+the attribution requirements.
 
 [audio_converter.info]:
   docs/../../shell-script/script-information/audio_converter.info.md
@@ -716,8 +716,8 @@ attribution requirements.
   docs/../../openssl/script-information/verify_ssl_certificates.info.md
 [verify_ssl_certificates.sh]:
   https://raw.githubusercontent.com/homelab-alpha/openssl/main/scripts/verify_ssl_certificates.sh
-[contribute]: docs/../../contributing/code_of_conduct.md
+[contribute]: /contributing/contribute/
 [ShellCheck]: https://www.shellcheck.net/
 [Bash Scripting Guide]: https://www.tldp.org/LDP/abs/html/
 [license]: /license/
-[notice]: /notice/
+[NOTICE]: https://github.com/homelab-alpha/shell-script/blob/main/NOTICE

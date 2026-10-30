@@ -196,13 +196,13 @@ to contribute, see [contribute].
 
 This project is licensed under the **Creative Commons
 Attribution-NonCommercial-ShareAlike 4.0 International License** (CC BY-NC-SA
-4.0). See the [license] and [notice] pages for the full license text and
-attribution requirements.
+4.0). See the [license] page for the full license text and the [NOTICE] file for
+the attribution requirements.
 
 [Docker]: https://www.docker.com
 [Docker Compose]: https://docs.docker.com/compose
 [Docker Documentation]: https://docs.docker.com
 [Docker Compose Documentation]: https://docs.docker.com/compose
-[contribute]: docs/../../contributing/code_of_conduct.md
+[contribute]: /contributing/contribute/
 [license]: /license/
-[notice]: /notice/
+[NOTICE]: https://github.com/homelab-alpha/docker/blob/main/NOTICE

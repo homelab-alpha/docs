@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Update the About Us page with the current repositories, notes, and documents
+- Update the contribution statements to match the repositories
 - Update the How to Contribute, Code Style and Standards Guides, and Terms pages
   to match the current repository files
 - Update the Docker image tags in the Dozzle, Portainer, Portainer Edge Agent,
@@ -20,8 +22,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+- Remove the Notice page
 ### Fixed
 
+- Fix the contribute links in the overview pages
 - Fix the table of contents link of `CONTRIBUTING.md` to its first heading
 - Clone the dotfiles and OpenSSL repositories to `~/dotfiles` and `~/openssl` in
   the quickstart guides, and remove the reference to a script that does not
