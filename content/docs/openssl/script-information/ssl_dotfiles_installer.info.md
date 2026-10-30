@@ -132,7 +132,7 @@ files_to_remove=(
     "$HOME/openssl/.gitignore"
     "$HOME/openssl/.gitleaksignore"
     "$HOME/openssl/CODE_OF_CONDUCT.md"
-    "$HOME/openssl/CODE_STYLE_AND_STANDARDS_GUIDES.md"
+    "$HOME/openssl/docs"
     "$HOME/openssl/CONTRIBUTING.md"
 )
 
@@ -178,4 +178,5 @@ streamline the process of managing OpenSSL-related shell configurations.
 
 <br />
 
-[ssl_dotfiles_installer.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/ssl_dotfiles_installer.sh
+[ssl_dotfiles_installer.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/ssl_dotfiles_installer.sh

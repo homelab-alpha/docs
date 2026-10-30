@@ -49,10 +49,10 @@ information here with caution and verify it if necessary. {{% /alert %}}
 <br />
 
 Let's break down what this script does in detail. The script is named
-`new_docker_project.sh`, authored by GJS (homelab-alpha), and its purpose is
-to create a new Docker container directory structure and configuration files
-based on user input. The script ensures that the necessary tools are available,
-checks for proper execution permissions, and creates a comprehensive directory
+`new_docker_project.sh`, authored by GJS (homelab-alpha), and its purpose is to
+create a new Docker container directory structure and configuration files based
+on user input. The script ensures that the necessary tools are available, checks
+for proper execution permissions, and creates a comprehensive directory
 structure and configuration files for Docker containers.
 
 ## Script Metadata
@@ -745,8 +745,8 @@ EOL
 done
 ```
 
-This writes configuration settings, including secrets, and database
-details, to the `.env` and `stack.env` file.
+This writes configuration settings, including secrets, and database details, to
+the `.env` and `stack.env` file.
 
 ## Add Content to `my.cnf`
 
@@ -1095,7 +1095,7 @@ GJS (homelab-alpha)
 
 This project is licensed under CC BY-NC-SA 4.0 - see the [LICENSE](LICENSE.md) file for details.
 
-[LICENSE]: https://github.com/homelab-alpha/shell-script/blob/main/LICENSE.md
+[LICENSE]: https://github.com/homelab-alpha/shell-script/blob/main/LICENSE
 EOL
 ```
 
@@ -1124,4 +1124,5 @@ structure with essential configuration files for Docker containers. This can
 significantly streamline the setup process for Docker-based projects, ensuring
 consistency and reducing the risk of errors.
 
-[new_docker_project.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/new_docker_project.sh
+[new_docker_project.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/new_docker_project.sh
