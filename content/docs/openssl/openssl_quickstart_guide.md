@@ -48,7 +48,7 @@ katex: true
 To quickly install, run the following command:
 
 ```bash
-git clone https://github.com/homelab-alpha/openssl.git && cd openssl/scripts && ./ssl_dotfiles_installer.sh && cd && exec bash
+git clone https://github.com/homelab-alpha/openssl.git ~/openssl && cd ~/openssl/scripts && ./ssl_dotfiles_installer.sh && cd && exec bash
 ```
 
 If you've used the quick install method, you can skip to [get started].
@@ -59,16 +59,17 @@ If you've used the quick install method, you can skip to [get started].
 
 If you prefer to manually install, follow these steps:
 
-1. Clone the OpenSSL repository to your local machine:
+1. Clone the OpenSSL repository to `~/openssl`. The aliases expect the
+   repository in this location:
 
    ```bash
-   git clone https://github.com/homelab-alpha/openssl.git
+   git clone https://github.com/homelab-alpha/openssl.git ~/openssl
    ```
 
 2. Navigate to the `scripts` directory:
 
    ```bash
-   cd openssl/scripts
+   cd ~/openssl/scripts
    ```
 
 3. Run the installation script:
@@ -149,17 +150,16 @@ now have successfully created your first certificate.
 
 {{% alert context="primary" %}}
 **Important:** Our default OpenSSL configuration requires a **unique subject**
-for each certificate. This ensures that each certificate has a unique identifier,
-preventing duplication. {{% /alert %}}
+for each certificate. This ensures that each certificate has a unique
+identifier, preventing duplication. {{% /alert %}}
 
 ### Should You Adjust This Configuration?
 
 For most users, it is **strongly recommended** to apply the change outlined
 below.
 
-If you do not use our script `revoke_ssl_certificate.sh` (which is still in
-development) or prefer a simpler setup, you must apply this change to avoid
-potential errors.
+If you do not revoke certificates or prefer a simpler setup, you must apply this
+change to avoid potential errors.
 
 To adjust the configuration, open the terminal and add the following lines:
 
