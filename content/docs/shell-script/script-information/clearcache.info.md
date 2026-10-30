@@ -43,7 +43,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -207,4 +207,5 @@ logging, checks for necessary permissions, and ensures that log directories and
 files are created if they do not exist. The script is designed to be run as a
 cron job, allowing automated clearing of caches at specified intervals.
 
-[clearcache.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/clearcache.sh
+[clearcache.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/clearcache.sh

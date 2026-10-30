@@ -39,7 +39,7 @@ katex: true
 
 <br />
 
-{{% alert context="primary" %}} ChatGPT has contributed to this document.
+{{% alert context="primary" %}} Claude has contributed to this document.
 Therefore, it's advisable to treat the information here with caution and verify
 it if necessary. {{% /alert %}}
 
@@ -411,4 +411,5 @@ ensuring proper disk space, format validation, and error logging. It is a
 helpful tool for automating Docker container management tasks, making it ideal
 for Docker administrators or anyone managing containerized applications.
 
-[sync_containers.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/sync_containers.sh
+[sync_containers.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/sync_containers.sh

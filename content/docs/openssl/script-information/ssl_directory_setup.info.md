@@ -41,7 +41,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -263,4 +263,5 @@ values, the script ensures clarity and security throughout the process. This
 setup is crucial for managing SSL/TLS certificates in a controlled and organized
 manner.
 
-[ssl_directory_setup.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/ssl_directory_setup.sh
+[ssl_directory_setup.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/ssl_directory_setup.sh

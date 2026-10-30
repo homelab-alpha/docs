@@ -39,7 +39,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -65,9 +65,9 @@ from the official GitHub repository.
 ## Logging
 
 The script prints every message to the terminal and appends it to the log file
-`$HOME/.bash-script/install_latest_dart_sass.log`. The `log` function records informational
-messages and the `log_error` function records errors, both with a timestamp. The
-script does not create the log directory itself.
+`$HOME/.bash-script/install_latest_dart_sass.log`. The `log` function records
+informational messages and the `log_error` function records errors, both with a
+timestamp. The script does not create the log directory itself.
 
 ```bash
 LOG_DIR="$HOME/.bash-script"
@@ -234,4 +234,5 @@ version with minimal manual intervention. It includes comprehensive error
 handling and provides clear instructions for users to finalize their setup if
 necessary.
 
-[install_latest_dart_sass.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/install_latest_dart_sass.sh
+[install_latest_dart_sass.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/install_latest_dart_sass.sh

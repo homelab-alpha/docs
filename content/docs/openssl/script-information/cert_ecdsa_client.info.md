@@ -49,7 +49,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -345,4 +345,5 @@ This script ensures that every step in generating and managing an ECDSA client
 certificate is performed correctly and securely, from key generation to
 certificate verification and format conversion.
 
-[cert_ecdsa_client.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/certificate/cert_ecdsa_client.sh
+[cert_ecdsa_client.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/certificate/cert_ecdsa_client.sh

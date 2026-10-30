@@ -47,7 +47,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -969,4 +969,5 @@ commands are available, validates user input, creates necessary files and
 directories, and populates the configuration files with appropriate template
 content.
 
-[new_docker_compose_file.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/new_docker_compose_file.sh
+[new_docker_compose_file.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/new_docker_compose_file.sh

@@ -45,7 +45,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -162,7 +162,8 @@ services:
       - no-new-privileges:true
     labels:
       com.docker.compose.project: "dockge"
-      com.dockge.description: "a fancy, easy-to-use and reactive self-hosted docker compose.yml stack."
+      com.dockge.description:
+        "a fancy, easy-to-use and reactive self-hosted docker compose.yml stack."
     healthcheck:
       disable: false
       test: ["CMD", "extra/healthcheck"]
@@ -241,4 +242,5 @@ ensures Dockge runs efficiently and securely, with appropriate logging and
 restart policies, making it an excellent tool for managing Docker Compose
 stacks.
 
-[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/dockge/docker-compose.yml
+[docker-compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/dockge/docker-compose.yml

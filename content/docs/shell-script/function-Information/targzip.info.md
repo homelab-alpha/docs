@@ -1,6 +1,7 @@
 ---
 title: "targzip.info"
-description: "Automate the process of creating and compressing tar archives with
+description:
+  "Automate the process of creating and compressing tar archives with
   `targzip.sh`. This script generates a tar archive of a specified directory or
   file, compresses it using gzip, and verifies the integrity of the compressed
   file, ensuring reliability and efficiency."
@@ -44,7 +45,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -201,4 +202,5 @@ compressed file. It ensures compatibility across different systems by checking
 for available `stat` command formats and provides detailed output at each step
 for transparency and debugging purposes.
 
-[targzip.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/targzip.sh
+[targzip.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/targzip.sh

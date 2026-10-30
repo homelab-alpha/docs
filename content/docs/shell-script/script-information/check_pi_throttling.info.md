@@ -40,7 +40,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -213,4 +213,5 @@ By running this script, users can quickly see if their Raspberry Pi has
 encountered any power or thermal issues that could affect performance. The use
 of color-coded output makes it easy to identify problems at a glance.
 
-[check_pi_throttling.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/check_pi_throttling.sh
+[check_pi_throttling.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/check_pi_throttling.sh

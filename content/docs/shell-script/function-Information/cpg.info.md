@@ -46,7 +46,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -163,4 +163,5 @@ To summarize, the `cpg` function in the `cpg.sh` script:
 This function is a useful tool for copying files and directories with ease,
 including handling the complexities of recursive directory copying.
 
-[cpg.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/cpg.sh
+[cpg.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/cpg.sh

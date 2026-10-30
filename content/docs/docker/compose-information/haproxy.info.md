@@ -1,10 +1,10 @@
 ---
 title: "haproxy.info"
 description:
-  "Deploy HAProxy, a high-performance TCP/HTTP load balancer, using Docker Compose.
-  This guide covers custom network setup, service configurations, volume mounting
-  for SSL certificates, and security best practices for reliable and efficient
-  load balancing."
+  "Deploy HAProxy, a high-performance TCP/HTTP load balancer, using Docker
+  Compose. This guide covers custom network setup, service configurations,
+  volume mounting for SSL certificates, and security best practices for reliable
+  and efficient load balancing."
 url: "docker/compose-info/haproxy"
 aliases: ""
 icon: "code"
@@ -49,7 +49,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -173,7 +173,8 @@ services:
       - no-new-privileges:true
     labels:
       com.docker.compose.project: "haproxy"
-      com.haproxy.description: "the reliable, high performance tcp/http load balancer."
+      com.haproxy.description:
+        "the reliable, high performance tcp/http load balancer."
     healthcheck:
       disable: false
 ```
@@ -190,8 +191,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: haproxy**: Names the container "haproxy".
-  - **image: docker.io/haproxytech/haproxy-ubuntu:3.4.7**: Uses the official HAProxy
-    Ubuntu image.
+  - **image: docker.io/haproxytech/haproxy-ubuntu:3.4.7**: Uses the official
+    HAProxy Ubuntu image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.
@@ -206,7 +207,8 @@ services:
   - **domainname: haproxy.local**: Sets the domain name for the container.
   - **hostname: haproxy**: Sets the hostname for the container.
   - **networks**: Connects the service to the `haproxy_net` network.
-    - **ipv4_address: 172.20.21.2**: Assigns a static IP address to the container.
+    - **ipv4_address: 172.20.21.2**: Assigns a static IP address to the
+      container.
   - **dns**: Defines custom DNS servers for the container.
     - **9.9.9.9**: Primary DNS server (Quad9).
     - **149.112.112.112**: Secondary DNS server (Quad9).
@@ -235,4 +237,5 @@ reliable, high-performance TCP/HTTP load balancer. The configuration defines a
 custom bridge network with specific IP settings and security configurations. The
 HAProxy
 
-[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/haproxy/docker-compose.yml
+[docker-compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/haproxy/docker-compose.yml

@@ -41,7 +41,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -157,4 +157,5 @@ or down. By using `curl` with appropriate options, it efficiently handles the
 URL checking process. This script is handy for quick health checks of web
 services.
 
-[health_check.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/health_check.sh
+[health_check.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/health_check.sh

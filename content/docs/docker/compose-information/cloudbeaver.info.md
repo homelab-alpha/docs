@@ -46,7 +46,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -162,7 +162,8 @@ services:
       - no-new-privileges:true
     labels:
       com.docker.compose.project: "cloudbeaver"
-      com.cloudbeaver.description: "is an lightweight web application for all-around data management."
+      com.cloudbeaver.description:
+        "is an lightweight web application for all-around data management."
     healthcheck:
       disable: false
       test: ["CMD", "curl", "-f", "http://localhost:8978/status"]
@@ -236,4 +237,5 @@ persistent storage for application data. The setup ensures CloudBeaver runs
 efficiently and securely, with appropriate logging, restart policies, and health
 checks, making it an excellent tool for managing data and infrastructure.
 
-[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/cloudbeaver/docker-compose.yml
+[docker-compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/cloudbeaver/docker-compose.yml

@@ -48,7 +48,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -297,4 +297,5 @@ are correctly chained to trusted root and intermediate certificates. The use of
 the `openssl` command ensures thorough verification, and the optional verbose
 mode provides additional detail for debugging or inspection purposes.
 
-[verify_ssl_certificates.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/verify_ssl_certificates.sh
+[verify_ssl_certificates.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/verify_ssl_certificates.sh

@@ -48,7 +48,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -212,4 +212,5 @@ timestamps, and ensures the integrity of the compressed file through
 verification. The detailed messages and verbose output help in understanding
 each step of the process.
 
-[tarzip.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/tarzip.sh
+[tarzip.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/tarzip.sh

@@ -40,7 +40,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -333,4 +333,5 @@ This script ensures that every step in generating and managing an RSA client
 certificate is performed correctly and securely, from key generation to
 certificate verification and format conversion.
 
-[cert_rsa_client.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/certificate/cert_rsa_client.sh
+[cert_rsa_client.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/certificate/cert_rsa_client.sh

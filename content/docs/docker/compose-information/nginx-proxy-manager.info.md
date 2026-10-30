@@ -44,14 +44,14 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail for
-setting up a custom Docker network for Nginx Proxy Manager, an easy-to-use
-reverse proxy management tool.
+Let's break down what this `docker-compose.yml` file does in detail for setting
+up a custom Docker network for Nginx Proxy Manager, an easy-to-use reverse proxy
+management tool.
 
 Here's a detailed explanation:
 
@@ -60,8 +60,8 @@ Here's a detailed explanation:
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 18, 2025
-- **Description**: Docker Compose configuration for Nginx Proxy Manager with MariaDB,
-  custom network, and security best practices.
+- **Description**: Docker Compose configuration for Nginx Proxy Manager with
+  MariaDB, custom network, and security best practices.
 - **RAW Compose File**: [docker-compose.yml]
 - **RAW .env File**: [.env]
 - **RAW stack.env File**: [stack.env]
@@ -94,7 +94,8 @@ networks:
       com.docker.network.bridge.name: "npm"
       com.docker.network.driver.mtu: "1500"
     labels:
-      com.nginx-proxy-manager.network.description: "is an isolated bridge network."
+      com.nginx-proxy-manager.network.description:
+        "is an isolated bridge network."
 ```
 
 <br />
@@ -122,11 +123,13 @@ networks:
     traffic to appear as if it came from the host.
   - **com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"**: Binds the bridge
     to all available IP addresses on the host.
-  - **com.docker.network.bridge.name: "nginx-proxy-manager"**: Names the bridge network.
+  - **com.docker.network.bridge.name: "nginx-proxy-manager"**: Names the bridge
+    network.
   - **com.docker.network.driver.mtu: "1500"**: Sets the Maximum Transmission
     Unit size for the network.
 - **labels**: Metadata for the network.
-  - **com.nginx-proxy-manager.network.description**: A description label for the network.
+  - **com.nginx-proxy-manager.network.description**: A description label for the
+    network.
 
 <br />
 
@@ -228,7 +231,8 @@ services:
       - no-new-privileges:true
     labels:
       com.docker.compose.project: "nginx-proxy-manager"
-      com.nginx-proxy-manager.description: "nginx proxy manager expose your services easily and securely."
+      com.nginx-proxy-manager.description:
+        "nginx proxy manager expose your services easily and securely."
     healthcheck:
       disable: false
       test: ["CMD", "/usr/bin/check-health"]
@@ -251,14 +255,15 @@ services:
     - **max-file: "2"**: Keeps a maximum of 2 log files.
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
-  - **container_name: nginx-proxy-manager_db**: Names the container "nginx-proxy-manager_db".
+  - **container_name: nginx-proxy-manager_db**: Names the container
+    "nginx-proxy-manager_db".
   - **image: docker.io/mariadb:13.0.2**: Uses the MariaDB image, pinned to
     version `13.0.2`.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts directories or files into the container.
-    - **/docker/nginx-proxy-manager/production/db:/var/lib/mysql**: Mounts the database
-      storage directory.
+    - **/docker/nginx-proxy-manager/production/db:/var/lib/mysql**: Mounts the
+      database storage directory.
     - **/docker/nginx-proxy-manager/production/my.cnf:/etc/my.cnf** (commented
       out): Mounts the custom MariaDB configuration file when enabled.
     - **/sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure**: Mounts
@@ -282,8 +287,8 @@ services:
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
   - **labels**: Metadata for the container.
-    - **com.nginx-proxy-manager.db.description**: Description label for the MariaDB
-      container.
+    - **com.nginx-proxy-manager.db.description**: Description label for the
+      MariaDB container.
   - **healthcheck**: Configures the health check for the service.
     - **disable: false**: Enables the health check.
     - **test**: Specifies the health check command (using `healthcheck.sh`).
@@ -297,7 +302,8 @@ services:
 
 <br />
 
-- **nginx-proxy-manager_app**: The service name for the Nginx Proxy Manager container.
+- **nginx-proxy-manager_app**: The service name for the Nginx Proxy Manager
+  container.
   - **restart: unless-stopped**: Ensures the container restarts unless it is
     explicitly stopped.
   - **logging**: Configures logging for the container.
@@ -306,7 +312,8 @@ services:
     - **max-file: "2"**: Keeps a maximum of 2 log files.
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
-  - **container_name: nginx-proxy-manager**: Names the container "nginx-proxy-manager".
+  - **container_name: nginx-proxy-manager**: Names the container
+    "nginx-proxy-manager".
   - **image: docker.io/jc21/nginx-proxy-manager:2.16.0**: Uses the Nginx Proxy
     Manager image, pinned to version `2.16.0`.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
@@ -314,9 +321,11 @@ services:
   - **depends_on**: Specifies dependencies for this service.
     - **nginx-proxy-manager_db**: Waits for the database service to be healthy.
   - **links**: Links to the database container.
-    - **nginx-proxy-manager_db**: Links to the `nginx-proxy-manager_db` container.
+    - **nginx-proxy-manager_db**: Links to the `nginx-proxy-manager_db`
+      container.
   - **volumes**: Mounts host directories or files into the container.
-    - **/docker/nginx-proxy-manager/production/app:/data**: Mounts the application data directory.
+    - **/docker/nginx-proxy-manager/production/app:/data**: Mounts the
+      application data directory.
     - **/etc/letsencrypt:/etc/letsencrypt**: Mounts LetsEncrypt certificates.
   - **env_file**: Specifies environment files.
     - **.env**: For Docker Compose.
@@ -336,7 +345,8 @@ services:
   - **domainname: npm.local**: Sets the domain name for the container.
   - **hostname: nginx-proxy-manager**: Sets the hostname for the container.
   - **networks**: Connects the service to the `nginx-proxy-manager_net` network.
-    - **ipv4_address: 172.20.20.3**: Assigns a static IP address to the container.
+    - **ipv4_address: 172.20.20.3**: Assigns a static IP address to the
+      container.
   - **ports**: Maps container ports to host ports.
     - **80:80/tcp**: Maps HTTP TCP port.
     - **80:80/udp**: Maps HTTP UDP port.
@@ -349,11 +359,14 @@ services:
       privileges.
   - **labels**: Metadata for the container.
     - **com.docker.compose.project: "nginx-proxy-manager"**: Project label.
-    - **com.nginx-proxy-manager.description**: Description label for Nginx Proxy Manager.
+    - **com.nginx-proxy-manager.description**: Description label for Nginx Proxy
+      Manager.
   - **healthcheck**: Healthcheck configuration.
     - **disable: false**: Enables health checks for the container.
-    - **test**: Specifies the command to be run for the health check: `["CMD", "/usr/bin/check-health"]`.
-    - **interval**: The time between running health checks (1 minute 30 seconds).
+    - **test**: Specifies the command to be run for the health check:
+      `["CMD", "/usr/bin/check-health"]`.
+    - **interval**: The time between running health checks (1 minute 30
+      seconds).
     - **timeout**: The time a health check is allowed to run before it is
       considered to have failed (10 seconds).
     - **retries**: The number of consecutive failures required before the
@@ -367,8 +380,9 @@ services:
 ## Environment Variables
 
 This file contains configuration settings that can be used by various
-applications (such as Docker containers or your MariaDB server). These values are
-stored outside the source code to enhance **security, portability, and flexibility**.
+applications (such as Docker containers or your MariaDB server). These values
+are stored outside the source code to enhance **security, portability, and
+flexibility**.
 
 <br />
 
@@ -406,14 +420,16 @@ ADMIN_PASSWORD=StrongUniqueAdminPassword1234
   This user has full administrative privileges. Use a secure and unique value.
 - **`HOST_DB`**: Hostname or IP address of the database server. In Docker-based
   setups, this usually matches the service name (`nginx-proxy-manager_db`).
-- **`NAME_DB`**: The name of the database to be used by the application (e.g., `nginx_proxy_manager_db`).
+- **`NAME_DB`**: The name of the database to be used by the application (e.g.,
+  `nginx_proxy_manager_db`).
 - **`PASSWORD_DB`**: The password for the non-root database user (`USER_DB`).
   Ensure this is secure.
 - **`PORT_DB`**: The port number MariaDB listens on (default: 3306).
 - **`USER_DB`**: The username used to connect to the database.
-- **`ADMIN_EMAIL`**: The initial administrator email address for Nginx Proxy Manager.
-- **`ADMIN_PASSWORD`**: The initial administrator password for Nginx Proxy Manager.
-  Use a strong, unique password to secure the admin account.
+- **`ADMIN_EMAIL`**: The initial administrator email address for Nginx Proxy
+  Manager.
+- **`ADMIN_PASSWORD`**: The initial administrator password for Nginx Proxy
+  Manager. Use a strong, unique password to secure the admin account.
 
 <br />
 
@@ -439,15 +455,18 @@ transaction-isolation = REPEATABLE-READ
 skip-symbolic-links
 ```
 
-- **`server-id`**: Unique identifier for the MariaDB instance (used in replication).
+- **`server-id`**: Unique identifier for the MariaDB instance (used in
+  replication).
 - **`datadir`**: Directory path where database files are stored.
 - **`pid-file`**: Stores the process ID of the running server.
-- **`skip-name-resolve`**: Disables DNS resolution for hostnames—improves performance.
+- **`skip-name-resolve`**: Disables DNS resolution for hostnames—improves
+  performance.
 - **`default-storage-engine`**: Sets InnoDB as the default engine (reliable and
   ACID-compliant).
 - **`transaction-isolation`**: Defines transaction behavior. `REPEATABLE-READ`
   prevents non-repeatable reads.
-- **`skip-symbolic-links`**: Disallows symbolic links in data files for security reasons.
+- **`skip-symbolic-links`**: Disallows symbolic links in data files for security
+  reasons.
 
 <br />
 
@@ -474,21 +493,27 @@ table-open-cache = 4000
 aria-pagecache-buffer-size = 128M
 ```
 
-- **`innodb-buffer-pool-size`**: Memory allocated for caching InnoDB data and indexes.
+- **`innodb-buffer-pool-size`**: Memory allocated for caching InnoDB data and
+  indexes.
 - **`innodb-buffer-pool-size-auto-min`**: Minimum size for the buffer pool when
   auto-shrinking (0 disables minimum).
 - **`innodb-log-file-size`**: Size of each InnoDB redo log file.
-- **`innodb-log-buffer-size`**: RAM buffer size for InnoDB logs before flushing to disk.
-- **`innodb-flush-log-at-trx-commit`**: Controls transaction durability (1 = safest).
-- **`innodb-io-capacity` / `innodb-io-capacity-max`**: Tuning values for I/O performance.
-- **`query-cache-type`**: Set to 0 to disable query cache (recommended for InnoDB).
+- **`innodb-log-buffer-size`**: RAM buffer size for InnoDB logs before flushing
+  to disk.
+- **`innodb-flush-log-at-trx-commit`**: Controls transaction durability (1 =
+  safest).
+- **`innodb-io-capacity` / `innodb-io-capacity-max`**: Tuning values for I/O
+  performance.
+- **`query-cache-type`**: Set to 0 to disable query cache (recommended for
+  InnoDB).
 - **`tmp-table-size`** / **`max-heap-table-size`**: Max size for temporary
   in-memory tables.
 - **`max-connections`**: Maximum number of simultaneous client connections.
 - **`thread-cache-size`**: Cached threads to reduce thread creation overhead.
 - **`table-definition-cache` / `table-open-cache`**: Improves performance with
   many tables.
-- **`aria-pagecache-buffer-size`**: Buffer size for Aria storage engine (if used).
+- **`aria-pagecache-buffer-size`**: Buffer size for Aria storage engine (if
+  used).
 
 <br />
 
@@ -504,7 +529,8 @@ secure-file-priv = /var/lib/mysql/
 # validate-password-special-char-count = 1
 ```
 
-- **`secure-file-priv`**: Limits the directories used for file import/export operations.
+- **`secure-file-priv`**: Limits the directories used for file import/export
+  operations.
 - **`plugin-load-add`**: Optional—enables the password validation plugin.
 - **`validate-password-*`**: Enforces strong password policies when creating
   users. Uncomment to enable.
@@ -566,7 +592,8 @@ general-log = 0
 ```
 
 - **`performance-schema`**: Enables the collection of performance data.
-- **`*-history` options**: Enables tracking of query, transaction, and wait histories.
+- **`*-history` options**: Enables tracking of query, transaction, and wait
+  histories.
 - **`innodb-status-output` / `innodb-status-output-locks`**: Output InnoDB
   monitoring info to logs (disabled here).
 - **`general-log`**: Logs every query—disabled by default for performance.
@@ -613,15 +640,20 @@ general-log = 0
 ## Conclusion
 
 This `docker-compose` file sets up a Docker environment for Nginx Proxy Manager
-and its MariaDB database. The configuration defines a custom bridge network
-with specific IP settings and security configurations. The MariaDB service is
+and its MariaDB database. The configuration defines a custom bridge network with
+specific IP settings and security configurations. The MariaDB service is
 configured to run continuously, with persistent storage for database data and
 custom configuration. The Nginx Proxy Manager service depends on the MariaDB
 service, running with persistent storage for its application data and SSL
 certificates. Both services include detailed logging, restart policies, health
-checks, and security options to ensure reliable, efficient, and secure operation.
+checks, and security options to ensure reliable, efficient, and secure
+operation.
 
-[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/nginx-proxy-manager/docker-compose.yml
-[.env]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/nginx-proxy-manager/.env
-[stack.env]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/nginx-proxy-manager/stack.env
-[my.cnf]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/nginx-proxy-manager/my.cnf
+[docker-compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/nginx-proxy-manager/docker-compose.yml
+[.env]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/nginx-proxy-manager/.env
+[stack.env]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/nginx-proxy-manager/stack.env
+[my.cnf]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/nginx-proxy-manager/my.cnf

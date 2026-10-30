@@ -44,7 +44,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -216,4 +216,5 @@ This script helps streamline the linting process by using Docker to encapsulate
 the Super Linter tool, making it easy to run consistent linting checks across
 different environments.
 
-[super_linter.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/super_linter.sh
+[super_linter.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/super_linter.sh

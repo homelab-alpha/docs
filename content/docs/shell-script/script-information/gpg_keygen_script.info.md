@@ -41,7 +41,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -331,4 +331,5 @@ gracefully, provides verbose output if needed, logs all actions, and ensures
 existing keys are not overwritten. This makes it a robust solution for secure
 communication setup.
 
-[gpg_keygen_script.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/gpg_keygen_script.sh
+[gpg_keygen_script.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/gpg_keygen_script.sh

@@ -38,7 +38,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -63,8 +63,8 @@ system health checks.
 
 ## Script Header
 
-The header includes metadata such as the filename, author, date, version, and
-a brief description of its functionality.
+The header includes metadata such as the filename, author, date, version, and a
+brief description of its functionality.
 
 <br />
 
@@ -160,8 +160,8 @@ cert_name="<insert_cert.crt>"
 cert_file=""
 ```
 
-The `cert_file` variable is filled in by the script later on. The script marks it
-as "DO NOT EDIT", because changing it breaks the script.
+The `cert_file` variable is filled in by the script later on. The script marks
+it as "DO NOT EDIT", because changing it breaks the script.
 
 <br />
 
@@ -258,4 +258,5 @@ health check ping to a monitoring server. It includes detailed logging, error
 handling, and flexibility for different environments through command-line
 options and certificate management.
 
-[cronjob_template.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/cronjob_template.sh
+[cronjob_template.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/cronjob_template.sh

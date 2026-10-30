@@ -47,7 +47,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -222,4 +222,5 @@ changes directly in the terminal. Its interactive menu, support for custom
 repositories, and file extension toggling ensure a flexible and efficient
 experience for GitHub users.
 
-[github_pr_inspector.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/github_pr_inspector.sh
+[github_pr_inspector.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/github_pr_inspector.sh

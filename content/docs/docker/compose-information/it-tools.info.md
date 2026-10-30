@@ -47,7 +47,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -63,8 +63,8 @@ Here's a detailed explanation:
 - **Filename**: `docker-compose.yml`
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 18, 2025
-- **Description**: Docker Compose setup for IT-Tools, a suite of developer-friendly
-  online tools with network and security configurations.
+- **Description**: Docker Compose setup for IT-Tools, a suite of
+  developer-friendly online tools with network and security configurations.
 - **RAW Compose File**: [docker-compose.yml]
 
 <br />
@@ -161,7 +161,8 @@ services:
       - no-new-privileges:true
     labels:
       com.docker.compose.project: "it-tools"
-      com.it-tools.description: "A collection of handy online tools for developers, with great UX."
+      com.it-tools.description:
+        "A collection of handy online tools for developers, with great UX."
     healthcheck:
       disable: true
 ```
@@ -190,7 +191,8 @@ services:
   - **domainname: tools.local**: Sets the domain name for the container.
   - **hostname: it-tools**: Sets the hostname for the container.
   - **networks**: Connects the service to the `it-tools_net` network.
-    - **ipv4_address: 172.20.22.3**: Assigns a static IP address to the container.
+    - **ipv4_address: 172.20.22.3**: Assigns a static IP address to the
+      container.
   - **ports**: Maps container ports to host ports.
     - **3014:80/tcp**: Maps the HTTP port (TCP).
     - **3014:80/udp**: Maps the HTTP port (UDP).
@@ -207,6 +209,11 @@ services:
 
 ## Conclusion
 
-This `docker-compose` file sets up a Docker environment for IT-Tools, a collection of useful online tools for developers. The configuration defines a custom bridge network with specific IP settings and security configurations. The `it-tools` service is configured to run continuously, with appropriate logging and restart policies, ensuring it runs efficiently and securely.
+This `docker-compose` file sets up a Docker environment for IT-Tools, a
+collection of useful online tools for developers. The configuration defines a
+custom bridge network with specific IP settings and security configurations. The
+`it-tools` service is configured to run continuously, with appropriate logging
+and restart policies, ensuring it runs efficiently and securely.
 
-[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/it-tools/docker-compose.yml
+[docker-compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/it-tools/docker-compose.yml

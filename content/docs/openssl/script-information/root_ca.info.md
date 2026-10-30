@@ -37,7 +37,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -328,4 +328,5 @@ This comprehensive script ensures that every step in setting up and managing a
 Root Certificate Authority is performed correctly and securely, from key
 generation to certificate verification.
 
-[root_ca.sh]: https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/certificate-authority/root_ca.sh
+[root_ca.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/certificate-authority/root_ca.sh
