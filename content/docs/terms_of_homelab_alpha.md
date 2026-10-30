@@ -1,7 +1,8 @@
 ---
 title: "Terms of Homelab-Alpha"
-description: "Read the Terms of Homelab-Alpha services, ensuring transparency,
-  privacy, and security."
+description:
+  "Read the Terms of Homelab-Alpha services, ensuring transparency, privacy, and
+  security."
 url: "terms-of-homelab-alpha"
 aliases: ""
 icon: "gavel"
@@ -35,169 +36,151 @@ katex: true
 
 <br />
 
-## Introduction
+**Last Updated:** 2026-10-29
 
-At Homelab-Alpha, we value your privacy and strive to provide a transparent and
-secure service.
+Welcome to **docs**. By accessing or using our services, documentation, website,
+or code repositories, you agree to be bound by the following Terms of Service.
 
-<br />
+## 1. User Conduct and Responsibilities
 
-## Collection and Use of Your Personal Data
+### 1.1 Lawful and Ethical Use
 
-### Personal Data
+Users must utilize docs services in a responsible and lawful manner. You agree
+to comply with all applicable local, national, and international laws and
+regulations.
 
-We do not collect any personal information unless you voluntarily provide it to
-us through the contact form or other communication channels.
+### 1.2 Respect and Safety
 
-<br />
+We maintain a zero-tolerance policy for harassment. Users must respect the
+rights and privacy of others. Prohibited behavior includes, but is not limited
+to:
 
-### Tracking Technologies and Cookies
+- Harassment, stalking, or intimidation.
+- Distributing defamatory, obscene, or hateful content.
+- Unauthorized disclosure of third-party personal information (doxing).
 
-We do not utilize cookies or similar tracking technologies to monitor activity
-on our service or store specific information.
+For community conduct expectations, see our
+[Code of Conduct](https://github.com/homelab-alpha/docs/blob/main/CODE_OF_CONDUCT.md).
 
-<br />
+### 1.3 System Integrity and Prohibited Activities
 
-## User Responsibilities
+Users are strictly prohibited from attempting to compromise the security or
+integrity of docs. Prohibited actions include:
 
-### Ethical and Legal Use
+- **Unauthorized Access**: Gaining or attempting to gain unauthorized access to
+  accounts, data, or restricted systems.
+- **Malicious Content**: Distributing malware, viruses, or any code intended to
+  damage or hijack hardware or software.
+- **Disruption**: Engaging in Denial of Service (DoS) attacks or any activity
+  that maliciously interferes with service availability.
 
-Users are expected to use the services provided by Homelab-Alpha in an ethical
-and lawful manner.
+## 2. Intellectual Property
 
-<br />
+docs is licensed under the
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://github.com/homelab-alpha/docs/blob/main/LICENSE)
+(CC BY-NC-SA 4.0). You are free to share and adapt the material for
+non-commercial purposes in accordance with the terms of that license.
+Attribution is required, and adapted material must be shared under the same
+license.
 
-### Respect for Others
+Contributions submitted to this project are governed by the same license, as
+described in
+[CONTRIBUTING.md](https://github.com/homelab-alpha/docs/blob/main/CONTRIBUTING.md).
 
-Users must respect the rights and privacy of other users and refrain from
-engaging in any behavior that may harass, intimidate, or harm others.
+## 3. Vulnerability Reporting
 
-<br />
+Security is a shared responsibility. If you discover a security vulnerability or
+technical flaw, please follow the responsible disclosure process described in
+our
+[Security Policy](https://github.com/homelab-alpha/docs/blob/main/SECURITY.md).
+Do not report security issues through public GitHub issues.
 
-### Abuse Prevention
+## 4. Third-Party Dependencies and Licenses
 
-Users are prohibited from abusing or misusing the services of Homelab-Alpha,
-including attempting to gain unauthorized access to accounts or systems,
-distributing malware or other harmful content, or engaging in any form of
-cyberbullying.
+### 4.1 Third-Party Dependencies
 
-<br />
+docs incorporates third-party software, libraries, and components.
 
-### Compliance with Policies
+- These dependencies are beyond our direct control.
+- While we strive to use secure and reliable components and monitor them via
+  automated tooling, we cannot guarantee their safety, uptime, or future
+  availability.
+- Use of third-party components is at your own risk.
 
-Users are required to comply with all applicable policies and guidelines
-provided by Homelab-Alpha, including the Terms of Use, Privacy Policy, and any
-community guidelines or rules.
+### 4.2 Third-Party Licenses
 
-<br />
+Third-party components, and any other material that comes from third parties,
+remain under their own licenses and terms. The license of docs (see
+[Section 2](#2-intellectual-property)) does not apply to them and does not
+change their terms.
 
-### User Feedback
+- You are responsible for complying with the license of each third-party
+  component that you use, including attribution and redistribution requirements.
+- Licenses and attribution notices are listed in the
+  [NOTICE](https://github.com/homelab-alpha/docs/blob/main/NOTICE) file and in
+  the dependency configuration files of the project (for example, `package.json`
+  and `package-lock.json`). Dependency changes are checked for denied licenses
+  by the Dependency Review workflow.
+- We do not control the licenses of third-party components and cannot guarantee
+  that they stay the same. A component can change its license in a later
+  version.
+- If the license of a third-party component conflicts with your intended use, do
+  not use that component.
 
-Consider adding a channel for user feedback so that users can share any concerns
-or suggestions with your team. This can help identify potential issues and
-improve the overall user experience.
+## 5. Disclaimers and Limitation of Liability
 
-<br />
+### 5.1 "As-Is" Warranty Disclaimer
 
-## Reporting Vulnerabilities
+**docs is provided on an "AS IS" and "AS AVAILABLE" basis.** To the maximum
+extent permitted by law, we disclaim all warranties, express or implied,
+including but not limited to implied warranties of merchantability, fitness for
+a particular purpose, and non-infringement.
 
-Users are obligated to promptly report any security vulnerabilities or issues
-found on [Homelab-Alpha's website] or [Homelab-Alpha's GitHub repositories] to
-Homelab-Alpha using the designated reporting channels.
+### 5.2 Limitation of Liability
 
-<br />
+In no event shall docs, its creators, or contributors be liable for any direct,
+indirect, incidental, special, or consequential damages, including but not
+limited to:
 
-## Supported Versions
+- Data loss or corruption.
+- Hardware failure or system downtime.
+- Loss of profits or business interruption.
 
-Users are encouraged to utilize either the latest stable release or the
-preceding stable release for security reasons. Homelab-Alpha provides security
-updates for these supported versions and urges users to promptly apply patches
-and updates.
+### 5.3 Indemnification
 
-<br />
+You agree to indemnify and hold harmless docs and its contributors from any
+claims, damages, or expenses (including legal fees) arising from your use of the
+project, your violation of these terms, or your infringement of any third-party
+intellectual property rights.
 
-## Third-Party Dependencies
+## 6. Security Best Practices
 
-Users acknowledge that [Homelab-Alpha's website] and [Homelab-Alpha's GitHub
-repositories] may incorporate third-party components beyond Homelab-Alpha's
-control. While efforts are made to maintain the integrity and security of these
-dependencies, Homelab-Alpha cannot guarantee their absolute safety.
+For your protection, we strongly recommend following industry-standard security
+practices:
 
-<br />
+- Keep all software, firmware, and dependencies updated.
+- Use strong, unique passwords and enable **Multi-Factor Authentication (MFA)**.
+- Follow the **Principle of Least Privilege** when configuring system
+  permissions.
+- Regularly audit access controls and rotate credentials.
 
-## Limitation of Liability
+## 7. Administrative Provisions
 
-By utilizing [Homelab-Alpha's website] and [Homelab-Alpha's GitHub
-repositories], you expressly acknowledge and agree that Homelab-Alpha and its
-contributors shall not be held liable for any damages, losses, or security
-breaches arising from the use of [Homelab-Alpha's website] and [Homelab-Alpha's
-GitHub repositories] or related components. This includes, but is not limited
-to, any direct, indirect, incidental, special, or consequential damages, as well
-as any loss of profits, data, or business opportunities.
+### 7.1 Amendments
 
-<br />
+We reserve the right to modify these Terms at any time. Significant changes will
+be announced via the project's
+[Announcements discussion category](https://github.com/homelab-alpha/docs/discussions/categories/announcements).
+Continued use of the project after changes are posted constitutes acceptance of
+the updated Terms.
 
-### Indemnification
+### 7.2 Governing Law
 
-You agree to indemnify and hold harmless Homelab-Alpha and its affiliates,
-directors, officers, employees, agents, and contributors from and against any
-claims, liabilities, damages, losses, costs, or expenses (including reasonable
-attorneys' fees) arising from or related to your use of [Homelab-Alpha's
-website] and [Homelab-Alpha's GitHub repositories], including but not limited to
-any breaches of security, violations of applicable laws or regulations, or
-infringement of third-party rights.
+These terms are governed by the laws of the **Netherlands**. Any disputes shall
+be subject to the exclusive jurisdiction of the competent courts located in the
+Netherlands.
 
-<br />
+### 7.3 Contact Information
 
-## Security Best Practices
-
-Users are advised to adhere to security best practices, including but not
-limited to regular software updates, strong password policies, and secure coding
-practices. Homelab-Alpha recommends following these practices to enhance
-deployment security and minimize the risk of breaches or unauthorized access.
-
-<br />
-
-## Disclaimer
-
-### No Warranty
-
-[Homelab-Alpha's website] and [Homelab-Alpha's GitHub repositories] are provided
-"as is" without any warranty, express or implied. Homelab-Alpha makes no
-warranties regarding the accuracy, reliability, or suitability of the services.
-
-<br />
-
-### Changes to Terms
-
-Homelab-Alpha reserves the right to amend these terms of use pages at any time
-without prior notice. Continued use of [Homelab-Alpha's website] and
-[Homelab-Alpha's GitHub repositories] constitutes acceptance of the revised
-terms.
-
-<br />
-
-### Changes to Privacy Policy
-
-We may update our Privacy Policy periodically. We will notify you of any changes
-by posting the new Privacy Policy on this page. It is advisable to periodically
-review this Privacy Policy for any changes. Changes to this Privacy Policy
-become effective when posted on this page.
-
-<br />
-
-### Contact Us
-
-If you have any questions about our Privacy Policy, please contact us by emailing the **[Homelab-Alpha team](mailto:homelab.api@gmail.com)**.
-
-<br />
-
-## Governing Law
-
-These legal pages are governed by the laws of the Netherlands. Any disputes
-arising from the use of [Homelab-Alpha's website] and [Homelab-Alpha's GitHub
-repositories] shall be subject to the exclusive jurisdiction of the courts of
-the Netherlands.
-
-[Homelab-Alpha's website]: https://homelab-alpha.nl
-[Homelab-Alpha's GitHub repositories]: https://github.com/homelab-alpha
+If you have questions regarding these terms, please contact:
+**[Homelab-Alpha](mailto:homelab.api@gmail.com)**
