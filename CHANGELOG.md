@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Fix the table of contents link of `CONTRIBUTING.md` to its first heading
 - Clone the dotfiles and OpenSSL repositories to `~/dotfiles` and `~/openssl` in
   the quickstart guides, and remove the reference to a script that does not
   exist
