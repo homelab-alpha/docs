@@ -139,7 +139,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: dozzle
-    image: ghcr.io/amir20/dozzle:v11.3.5
+    image: ghcr.io/amir20/dozzle:v11.4.0
     pull_policy: if_not_present
     volumes:
       - /docker/dozzle/production/app:/data
@@ -195,8 +195,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: dozzle**: Names the container "dozzle".
-  - **image: ghcr.io/amir20/dozzle:v11.3.5**: Uses the Dozzle image, pinned to
-    version `v11.3.5`.
+  - **image: ghcr.io/amir20/dozzle:v11.4.0**: Uses the Dozzle image, pinned to
+    version `v11.4.0`.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.
@@ -316,4 +316,5 @@ to the Docker socket. The setup ensures Dozzle runs efficiently and securely,
 with appropriate logging and restart policies, making it an excellent tool for
 real-time Docker log monitoring.
 
-[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/dozzle/docker-compose.yml
+[docker-compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/dozzle/docker-compose.yml

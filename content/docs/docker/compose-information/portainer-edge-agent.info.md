@@ -144,7 +144,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: edge-agent
-    image: docker.io/portainer/agent:2.45.3
+    image: docker.io/portainer/agent:3.0.0
     volumes:
       - /docker/portainer/edge-agent/production/app:/data
       - /var/run/docker.sock:/var/run/docker.sock
@@ -166,7 +166,8 @@ services:
       - no-new-privileges:true
     labels:
       com.docker.compose.project: "portainer agent"
-      com.edge-agent.description: "a remote environment is not directly accessible from docker server."
+      com.edge-agent.description:
+        "a remote environment is not directly accessible from docker server."
     healthcheck:
       disable: true
 ```
@@ -183,8 +184,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: edge-agent**: Names the container "edge-agent".
-  - **image: docker.io/portainer/agent:2.45.3**: Uses the Portainer Edge Agent
-    image, pinned to version `2.45.3`.
+  - **image: docker.io/portainer/agent:3.0.0**: Uses the Portainer Edge Agent
+    image, pinned to version `3.0.0`.
   - **volumes**: Mounts host directories or files into the container.
     - **/docker/portainer/edge-agent/production/app:/data**: Mounts the
       application data directory.
@@ -256,6 +257,9 @@ persistent storage for application data and Docker volumes. The setup ensures
 the Portainer Edge Agent runs efficiently and securely, with appropriate logging
 and restart policies.
 
-[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/portainer-edge-agent/docker-compose.yml
-[.env]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/portainer-edge-agent/.env
-[stack.env]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/portainer-edge-agent/stack.env
+[docker-compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/portainer-edge-agent/docker-compose.yml
+[.env]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/portainer-edge-agent/.env
+[stack.env]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/portainer-edge-agent/stack.env

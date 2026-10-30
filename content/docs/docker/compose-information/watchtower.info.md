@@ -139,7 +139,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: watchtower
-    image: ghcr.io/nicholas-fedor/watchtower:1.21.2
+    image: ghcr.io/nicholas-fedor/watchtower:1.23.2
     pull_policy: if_not_present
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -179,9 +179,9 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: watchtower**: Names the container "watchtower".
-  - **image: ghcr.io/nicholas-fedor/watchtower:1.21.2**: Uses the Watchtower image
-    of the maintained `nicholas-fedor` fork, pinned to version `1.21.2`. The
-    original `containrrr/watchtower` project is archived.
+  - **image: ghcr.io/nicholas-fedor/watchtower:1.23.2**: Uses the Watchtower
+    image of the maintained `nicholas-fedor` fork, pinned to version `1.23.2`.
+    The original `containrrr/watchtower` project is archived.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.
@@ -229,4 +229,5 @@ set schedule, with persistent storage and various network and security options.
 The configuration ensures that Watchtower runs continuously, restarts on
 failure, and logs efficiently.
 
-[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/watchtower/docker-compose.yml
+[docker-compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/watchtower/docker-compose.yml
