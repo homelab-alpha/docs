@@ -38,7 +38,7 @@ katex: true
 ## Quick install
 
 ```bash
-git clone https://github.com/homelab-alpha/dotfiles.git && cd dotfiles && echo 1 | ./dotfiles_installer.sh
+git clone https://github.com/homelab-alpha/dotfiles.git ~/dotfiles && cd ~/dotfiles && echo 1 | ./dotfiles_installer.sh
 ```
 
 <br />
@@ -50,11 +50,11 @@ git clone https://github.com/homelab-alpha/dotfiles.git && cd dotfiles && echo 1
 Run the following command in your terminal
 
 ```bash
-git clone https://github.com/homelab-alpha/dotfiles.git
+git clone https://github.com/homelab-alpha/dotfiles.git ~/dotfiles
 ```
 
-This command will clone the dotfiles repository from GitHub to your local
-machine.
+This command will clone the dotfiles repository from GitHub to `~/dotfiles`. The
+installer expects the repository in `$HOME/dotfiles`.
 
 <br />
 
@@ -77,7 +77,8 @@ Once you are in the `dotfiles` folder, run the installation script with:
 ```
 
 The script shows a menu. Enter `1` to install the dotfiles or `2` to uninstall
-them.
+them. After the installation, the script removes the `.git`, `.github`, and
+`.gitignore` entries from `$HOME/dotfiles`.
 
 <br />
 
@@ -153,8 +154,8 @@ removes the `$HOME/dotfiles` directory.
 After uninstalling, verify if everything has been removed correctly.
 
 By following these steps, you can effectively manage your dotfiles using the
-`dotfiles_installer.sh` script from the GitHub repository. If you have any further questions,
-feel free to ask!
+`dotfiles_installer.sh` script from the GitHub repository. If you have any
+further questions, feel free to ask!
 
 <br />
 

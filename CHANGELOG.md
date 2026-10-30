@@ -22,6 +22,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Clone the dotfiles and OpenSSL repositories to `~/dotfiles` and `~/openssl` in
+  the quickstart guides, and remove the reference to a script that does not
+  exist
 - Fix the broken license link and the outdated copyright year in the AdGuard
   Home, Docker, dotfiles, OpenSSL, and shell script overview pages
 - Rename three page files that did not follow the file naming convention
