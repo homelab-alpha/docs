@@ -64,12 +64,12 @@ docker exec -it postgresql bash
 
 ## 3. Export the `testing_db` Database
 
-**Make sure you are inside the PostgreSQL container** before running the following
-command to export the database:
+**Make sure you are inside the PostgreSQL container** before running the
+following command to export the database:
 
 {{% alert context="warning" %}}
-**Warning**: If your PostgreSQL superuser has a different name, be sure to replace
-`postgresql` with your actual superuser name. Use this name consistently
+**Warning**: If your PostgreSQL superuser has a different name, be sure to
+replace `postgresql` with your actual superuser name. Use this name consistently
 throughout this guide.
 {{% /alert %}}
 
@@ -85,7 +85,8 @@ pg_dump -U postgresql -Fc testing_db -f /var/lib/postgresql/data/testing_db_back
 ### Explanation of Flags
 
 - `-U postgresql`: Connect as the `postgresql` user.
-- `-Fc`: Creates a custom-format dump (compressed and suitable for `pg_restore`).
+- `-Fc`: Creates a custom-format dump (compressed and suitable for
+  `pg_restore`).
 - `-f`: Specifies the output file for the dump.
 
 <br />

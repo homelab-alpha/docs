@@ -20,6 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Rename three page files that did not follow the file naming convention
+
 ### Security
 
 [Unreleased]: https://github.com/homelab-alpha/docs/compare/main...HEAD
