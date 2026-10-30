@@ -40,7 +40,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -87,7 +87,8 @@ sudo docker network create \
 
 ## Docker Compose
 
-Use the following YAML configuration to create a Docker network of type `bridge`:
+Use the following YAML configuration to create a Docker network of type
+`bridge`:
 
 ```yml
 ---
@@ -156,9 +157,9 @@ networks:
     inter-container communication (ICC), and configuring IP masquerading.
 - **`labels`**: Adds labels for the network.
   - **Example**:
-    `com.change_me.network.description: "is an isolated bridge network."`
-    adds a description label for the network. This label can be used for
-    identifying the network or for documentation purposes.
+    `com.change_me.network.description: "is an isolated bridge network."` adds a
+    description label for the network. This label can be used for identifying
+    the network or for documentation purposes.
 
 <br />
 

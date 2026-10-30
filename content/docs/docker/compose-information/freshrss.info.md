@@ -41,7 +41,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -354,8 +354,9 @@ services:
 ## Environment Variables
 
 This file contains configuration settings that can be used by various
-applications (such as Docker containers or your MariaDB server). These values are
-stored outside the source code to enhance **security, portability, and flexibility**.
+applications (such as Docker containers or your MariaDB server). These values
+are stored outside the source code to enhance **security, portability, and
+flexibility**.
 
 <br />
 
@@ -388,7 +389,8 @@ USER_DB=freshrss
   This user has full administrative privileges. Use a secure and unique value.
 - **`HOST_DB`**: Hostname or IP address of the database server. In Docker-based
   setups, this usually matches the service name (`freshrss_db`).
-- **`NAME_DB`**: The name of the database to be used by the application (e.g., freshrss_db).
+- **`NAME_DB`**: The name of the database to be used by the application (e.g.,
+  freshrss_db).
 - **`PASSWORD_DB`**: The password for the non-root database user (`USER_DB`).
   Ensure this is secure.
 - **`PORT_DB`**: The port number MariaDB listens on (default: 3306).
@@ -418,15 +420,18 @@ transaction-isolation = REPEATABLE-READ
 skip-symbolic-links
 ```
 
-- **`server-id`**: Unique identifier for the MariaDB instance (used in replication).
+- **`server-id`**: Unique identifier for the MariaDB instance (used in
+  replication).
 - **`datadir`**: Directory path where database files are stored.
 - **`pid-file`**: Stores the process ID of the running server.
-- **`skip-name-resolve`**: Disables DNS resolution for hostnames—improves performance.
+- **`skip-name-resolve`**: Disables DNS resolution for hostnames—improves
+  performance.
 - **`default-storage-engine`**: Sets InnoDB as the default engine (reliable and
   ACID-compliant).
 - **`transaction-isolation`**: Defines transaction behavior. `REPEATABLE-READ`
   prevents non-repeatable reads.
-- **`skip-symbolic-links`**: Disallows symbolic links in data files for security reasons.
+- **`skip-symbolic-links`**: Disallows symbolic links in data files for security
+  reasons.
 
 <br />
 
@@ -453,21 +458,27 @@ table-open-cache = 4000
 aria-pagecache-buffer-size = 128M
 ```
 
-- **`innodb-buffer-pool-size`**: Memory allocated for caching InnoDB data and indexes.
+- **`innodb-buffer-pool-size`**: Memory allocated for caching InnoDB data and
+  indexes.
 - **`innodb-buffer-pool-size-auto-min`**: Minimum size for the buffer pool when
   auto-shrinking (0 disables minimum).
 - **`innodb-log-file-size`**: Size of each InnoDB redo log file.
-- **`innodb-log-buffer-size`**: RAM buffer size for InnoDB logs before flushing to disk.
-- **`innodb-flush-log-at-trx-commit`**: Controls transaction durability (1 = safest).
-- **`innodb-io-capacity` / `innodb-io-capacity-max`**: Tuning values for I/O performance.
-- **`query-cache-type`**: Set to 0 to disable query cache (recommended for InnoDB).
+- **`innodb-log-buffer-size`**: RAM buffer size for InnoDB logs before flushing
+  to disk.
+- **`innodb-flush-log-at-trx-commit`**: Controls transaction durability (1 =
+  safest).
+- **`innodb-io-capacity` / `innodb-io-capacity-max`**: Tuning values for I/O
+  performance.
+- **`query-cache-type`**: Set to 0 to disable query cache (recommended for
+  InnoDB).
 - **`tmp-table-size`** / **`max-heap-table-size`**: Max size for temporary
   in-memory tables.
 - **`max-connections`**: Maximum number of simultaneous client connections.
 - **`thread-cache-size`**: Cached threads to reduce thread creation overhead.
 - **`table-definition-cache` / `table-open-cache`**: Improves performance with
   many tables.
-- **`aria-pagecache-buffer-size`**: Buffer size for Aria storage engine (if used).
+- **`aria-pagecache-buffer-size`**: Buffer size for Aria storage engine (if
+  used).
 
 <br />
 
@@ -483,7 +494,8 @@ secure-file-priv = /var/lib/mysql/
 # validate-password-special-char-count = 1
 ```
 
-- **`secure-file-priv`**: Limits the directories used for file import/export operations.
+- **`secure-file-priv`**: Limits the directories used for file import/export
+  operations.
 - **`plugin-load-add`**: Optional—enables the password validation plugin.
 - **`validate-password-*`**: Enforces strong password policies when creating
   users. Uncomment to enable.
@@ -545,7 +557,8 @@ general-log = 0
 ```
 
 - **`performance-schema`**: Enables the collection of performance data.
-- **`*-history` options**: Enables tracking of query, transaction, and wait histories.
+- **`*-history` options**: Enables tracking of query, transaction, and wait
+  histories.
 - **`innodb-status-output` / `innodb-status-output-locks`**: Output InnoDB
   monitoring info to logs (disabled here).
 - **`general-log`**: Logs every query—disabled by default for performance.
@@ -600,7 +613,11 @@ persistent storage for its data and extensions. Both services are configured
 with appropriate logging and restart policies, ensuring they run efficiently and
 securely.
 
-[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/freshrss/docker-compose.yml
-[.env]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/freshrss/.env
-[stack.env]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/freshrss/stack.env
-[my.cnf]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/freshrss/my.cnf
+[docker-compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/freshrss/docker-compose.yml
+[.env]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/freshrss/.env
+[stack.env]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/freshrss/stack.env
+[my.cnf]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/freshrss/my.cnf

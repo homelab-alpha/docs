@@ -42,7 +42,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -175,4 +175,5 @@ Overall, the `mkdirg.sh` script is a useful tool for creating directories and
 navigating into them while also ensuring that necessary metadata is present in
 the script itself.
 
-[mkdirg.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/mkdirg.sh
+[mkdirg.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/mkdirg.sh

@@ -43,7 +43,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -272,4 +272,5 @@ service is configured with persistent storage, access to media directories, and
 various network and security options. The configuration ensures that Jellyfin
 runs continuously, restarts on failure, and logs efficiently.
 
-[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/jellyfin/docker-compose.yml
+[docker-compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/jellyfin/docker-compose.yml

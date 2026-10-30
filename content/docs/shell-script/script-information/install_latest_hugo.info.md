@@ -39,7 +39,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -66,9 +66,9 @@ Here's a breakdown of the script's operations:
 ## Logging
 
 The script prints every message to the terminal and appends it to the log file
-`$HOME/.bash-script/install_latest_hugo.log`. The `log` function records informational
-messages and the `log_error` function records errors, both with a timestamp. The
-script does not create the log directory itself.
+`$HOME/.bash-script/install_latest_hugo.log`. The `log` function records
+informational messages and the `log_error` function records errors, both with a
+timestamp. The script does not create the log directory itself.
 
 ```bash
 LOG_DIR="$HOME/.bash-script"
@@ -263,4 +263,5 @@ version of Hugo, ensuring that users always have the most up-to-date version. It
 includes comprehensive error handling and provides clear instructions to
 complete the installation if needed.
 
-[install_latest_hugo.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/install_latest_hugo.sh
+[install_latest_hugo.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/install_latest_hugo.sh

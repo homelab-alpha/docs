@@ -47,7 +47,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -190,4 +190,5 @@ and avoids overwriting existing files.
 This script effectively converts various audio formats to MP3 while maintaining
 the original directory structure and handling errors gracefully.
 
-[audio_converter.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/audio_converter.sh
+[audio_converter.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/audio_converter.sh

@@ -45,7 +45,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -251,4 +251,5 @@ with persistent storage for configuration and assets, and includes options for
 setting the TFTP port and web configuration interface. The setup ensures NetBoot
 runs efficiently and securely, with appropriate logging and restart policies.
 
-[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/netboot/docker-compose.yml
+[docker-compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/netboot/docker-compose.yml

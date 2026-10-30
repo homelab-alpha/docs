@@ -45,7 +45,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -207,9 +207,10 @@ services:
     present locally.
   - **volumes**: Mounts host directories into the container for persistent data
     storage.
-    - **./docker/pi-hole/production/app:/etc/pihole**: Mounts the Pi-hole configuration directory.
-    - **/docker/pi-hole/production/etc-dnsmasq.d:/etc/dnsmasq.d**: Mounts the DNS configuration
-      directory.
+    - **./docker/pi-hole/production/app:/etc/pihole**: Mounts the Pi-hole
+      configuration directory.
+    - **/docker/pi-hole/production/etc-dnsmasq.d:/etc/dnsmasq.d**: Mounts the
+      DNS configuration directory.
   - **environment**: Sets environment variables for configuration.
     - **PUID: "1000"**: Sets the user ID.
     - **PGID: "1000"**: Sets the group ID.
@@ -258,4 +259,5 @@ options. This configuration ensures that Pi-hole operates efficiently and
 securely as part of your Docker setup, helping block unwanted ads and trackers
 on your network.
 
-[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/pi-hole/docker-compose.yml
+[docker-compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/pi-hole/docker-compose.yml

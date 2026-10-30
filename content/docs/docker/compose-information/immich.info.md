@@ -49,15 +49,15 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
 Let's break down what this `docker-compose.yml` file does in detail for
-deploying Immich, a self-hosted photo and video management solution, along
-with its supporting services including MariaDB for database management, Redis
-for caching, and a machine learning component for enhanced media automation.
+deploying Immich, a self-hosted photo and video management solution, along with
+its supporting services including MariaDB for database management, Redis for
+caching, and a machine learning component for enhanced media automation.
 
 Here's a detailed explanation:
 
@@ -247,7 +247,9 @@ services:
       - no-new-privileges:true
     labels:
       com.docker.compose.project: "immich"
-      com.immich.ml.description: "a machine learning-powered component of immich, designed to enhance media management and automation."
+      com.immich.ml.description:
+        "a machine learning-powered component of immich, designed to enhance
+        media management and automation."
     healthcheck:
       disable: false
 
@@ -292,7 +294,9 @@ services:
       - no-new-privileges:true
     labels:
       com.docker.compose.project: "immich"
-      com.immich.description: "a self-hosted solution for seamless photo and video management, offering privacy and full control."
+      com.immich.description:
+        "a self-hosted solution for seamless photo and video management,
+        offering privacy and full control."
     healthcheck:
       disable: false
 ```
@@ -329,8 +333,8 @@ services:
     - **POSTGRES_DB: ${NAME_DB}**: Sets the database name.
     - **POSTGRES_INITDB_ARGS: '--data-checksums'**: Enables data checksums
       during initialization.
-  - **hostname: database**: Sets the hostname for the container. This is required
-    and **must not be modified** (default: database).
+  - **hostname: database**: Sets the hostname for the container. This is
+    required and **must not be modified** (default: database).
   - **networks**: Connects the service to the `immich_net` network.
     - **ipv4_address: 172.20.24.2**: Assigns a static IP address to the
       container.
@@ -364,30 +368,33 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: immich_redis**: Names the container "immich_redis".
-  - **image: docker.io/valkey/valkey:9.1.3**: Uses the Valkey image (a Redis-compatible
-    key-value store), pinned to version `9.1.3`.
+  - **image: docker.io/valkey/valkey:9.1.3**: Uses the Valkey image (a
+    Redis-compatible key-value store), pinned to version `9.1.3`.
   - **pull_policy: if_not_present**: Pulls the image only if it is not already
     present locally.
   - **volumes**: Mounts host directories into the container.
-    - **/docker/immich/production/redis:/data**: Persists Redis data on the host.
-    - **/docker/immich/production/redis:/usr/local/etc/redis/redis.conf**: Mounts
-      Redis configuration file.
-    - **/docker/immich/production/redis:/var/lib/redis**: Mounts Redis library data.
+    - **/docker/immich/production/redis:/data**: Persists Redis data on the
+      host.
+    - **/docker/immich/production/redis:/usr/local/etc/redis/redis.conf**:
+      Mounts Redis configuration file.
+    - **/docker/immich/production/redis:/var/lib/redis**: Mounts Redis library
+      data.
   - **environment**: Sets environment variables.
     - **PUID: "1000"**: Sets the user ID.
     - **PGID: "1000"**: Sets the group ID.
     - **TZ: Europe/Amsterdam**: Sets the timezone to Amsterdam.
-  - **hostname: redis**: Sets the hostname for the container. This is required and
-    **must not be modified** (default: redis).
+  - **hostname: redis**: Sets the hostname for the container. This is required
+    and **must not be modified** (default: redis).
   - **networks**: Connects the service to the `immich_net` network.
-    - **ipv4_address: 172.20.24.3**: Assigns a static IP address to the container.
+    - **ipv4_address: 172.20.24.3**: Assigns a static IP address to the
+      container.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
   - **labels**: Metadata for the container.
     - **com.docker.compose.project: "immich"**: Project label.
-    - **com.immich.redis.description: "is a redis database."**: Description label
-      for the Redis container.
+    - **com.immich.redis.description: "is a redis database."**: Description
+      label for the Redis container.
   - **healthcheck**: Healthcheck configuration.
     - **disable: false**: Enables health checks for the container.
     - **test**: Command to check Redis availability.
@@ -426,9 +433,11 @@ services:
     - **PGID: "1000"**: Sets the group ID.
     - **TZ: Europe/Amsterdam**: Sets the timezone to Amsterdam.
   - **hostname: immich-machine-learning**: Sets the hostname for the container.
-    This is required and **must not be modified** (default: immich-machine-learning).
+    This is required and **must not be modified** (default:
+    immich-machine-learning).
   - **networks**: Connects the service to the `immich_net` network.
-    - **ipv4_address: 172.20.24.4**: Assigns a static IP address to the container.
+    - **ipv4_address: 172.20.24.4**: Assigns a static IP address to the
+      container.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
@@ -467,8 +476,8 @@ services:
       directory.
     - **/docker/immich/production/app:/usr/src/app/upload**: Mounts the upload
       directory.
-    - **/etc/localtime:/etc/localtime:ro**: Mounts the localtime file (read-only)
-      to synchronize time.
+    - **/etc/localtime:/etc/localtime:ro**: Mounts the localtime file
+      (read-only) to synchronize time.
   - **environment**: Sets environment variables.
     - **PUID: "1000"**: Sets the user ID.
     - **PGID: "1000"**: Sets the group ID.
@@ -476,7 +485,8 @@ services:
   - **domainname: photos.local**: Sets the domain name for the container.
   - **hostname: photos**: Sets the hostname for the container.
   - **networks**: Connects the service to the `immich_net` network.
-    - **ipv4_address: 172.20.24.5**: Assigns a static IP address to the container.
+    - **ipv4_address: 172.20.24.5**: Assigns a static IP address to the
+      container.
   - **ports**: Maps container ports to host ports.
     - **3015:2283/tcp**: Maps TCP port 2283 in the container to host port 3015.
     - **3015:2283/udp**: Maps UDP port 2283 in the container to host port 3015.
@@ -485,8 +495,8 @@ services:
       privileges.
   - **labels**: Metadata for the container.
     - **com.docker.compose.project: "immich"**: Project label.
-    - **com.immich.description**: "a self-hosted solution for seamless photo
-      and video management, offering privacy and full control."
+    - **com.immich.description**: "a self-hosted solution for seamless photo and
+      video management, offering privacy and full control."
   - **healthcheck**: Healthcheck configuration.
     - **disable: false**: Enables health checks for the container.
 
@@ -495,8 +505,9 @@ services:
 ## Environment Variables
 
 This file contains configuration settings that can be used by various
-applications (such as Docker containers or your MariaDB server). These values are
-stored outside the source code to enhance **security, portability, and flexibility**.
+applications (such as Docker containers or your MariaDB server). These values
+are stored outside the source code to enhance **security, portability, and
+flexibility**.
 
 <br />
 
@@ -515,11 +526,12 @@ USER_DB=postgres
 ```
 
 - **`NAME_DB`**: The name of the PostgreSQL database used by the Immich stack.
-  This value **must not be modified** for proper functionality (default: `immich`).
+  This value **must not be modified** for proper functionality (default:
+  `immich`).
 - **`PASSWORD_DB`**: The password for the PostgreSQL user. This is essential for
   Immich stack functionality and **must not be changed** (default: `postgres`).
-- **`USER_DB`**: The PostgreSQL username used by the Immich stack. This is required
-  and **must not be modified** (default: `postgres`).
+- **`USER_DB`**: The PostgreSQL username used by the Immich stack. This is
+  required and **must not be modified** (default: `postgres`).
 
 <br />
 
@@ -529,12 +541,14 @@ This `docker-compose` file sets up a Docker environment for the Immich
 application and its dependent services. The configuration defines resource
 limits and reservations, custom networking with static IP assignments, and
 security options to enhance container safety. The Immich app container depends
-on healthy database, Redis, and machine learning services, with proper
-restart policies to maintain uptime. Persistent storage is configured for
-uploads, and timezone synchronization is ensured. Logging and healthchecks are
-configured to monitor container status, ensuring the services run efficiently
-and securely.
+on healthy database, Redis, and machine learning services, with proper restart
+policies to maintain uptime. Persistent storage is configured for uploads, and
+timezone synchronization is ensured. Logging and healthchecks are configured to
+monitor container status, ensuring the services run efficiently and securely.
 
-[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/immich/docker-compose.yml
-[.env]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/immich/.env
-[stack.env]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/immich/stack.env
+[docker-compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/immich/docker-compose.yml
+[.env]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/immich/.env
+[stack.env]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/immich/stack.env

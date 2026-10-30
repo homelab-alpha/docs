@@ -44,7 +44,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -381,4 +381,5 @@ This script provides a comprehensive solution for generating and converting SSH
 key pairs with built-in logging, verbose output options, and robust error
 handling to ensure a smooth and traceable execution process.
 
-[ssh_keygen_script.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/ssh_keygen_script.sh
+[ssh_keygen_script.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/ssh_keygen_script.sh

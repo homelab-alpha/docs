@@ -45,7 +45,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -169,7 +169,8 @@ services:
       - no-new-privileges:true
     labels:
       com.docker.compose.project: "openspeedtest"
-      com.openspeedtest.description: "is a Free and Open-Source HTML5 Network Speed Test Software."
+      com.openspeedtest.description:
+        "is a Free and Open-Source HTML5 Network Speed Test Software."
     healthcheck:
       disable: true
 ```
@@ -235,4 +236,5 @@ with persistent storage for configuration and logs, and includes options for
 enabling HTTPS with Let's Encrypt. The configuration ensures that OpenSpeedTest
 runs efficiently and securely, with appropriate logging and restart policies.
 
-[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/openspeedtest/docker-compose.yml
+[docker-compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/openspeedtest/docker-compose.yml

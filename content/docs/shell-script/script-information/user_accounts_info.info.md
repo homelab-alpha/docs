@@ -44,7 +44,7 @@ katex: true
 
 <br />
 
-{{% alert context="primary" %}} ChatGPT has contributed to this document.
+{{% alert context="primary" %}} Claude has contributed to this document.
 Therefore, it's advisable to treat the information here with caution and verify
 it if necessary. {{% /alert %}}
 
@@ -204,4 +204,5 @@ awk -F':' -v "min_uid=$min_uid" -v "max_uid=$max_uid" -v "min_gid=$min_gid" -v "
 This script effectively categorizes and displays user account information on a
 Unix-like system, providing a clear separation between system and normal users.
 
-[user_accounts_info.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/user_accounts_info.sh
+[user_accounts_info.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/user_accounts_info.sh

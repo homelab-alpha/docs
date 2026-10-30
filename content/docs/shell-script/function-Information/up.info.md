@@ -43,7 +43,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -151,4 +151,5 @@ This script is simple but powerful, allowing users to navigate their filesystem
 more efficiently by specifying the number of levels to move up directly within
 the command.
 
-[up.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/up.sh
+[up.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/up.sh

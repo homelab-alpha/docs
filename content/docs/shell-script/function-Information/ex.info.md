@@ -47,7 +47,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -246,4 +246,5 @@ This script effectively handles the extraction of various archive formats,
 making it a handy tool for simplifying the process of dealing with compressed
 files.
 
-[ex.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/ex.sh
+[ex.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/ex.sh

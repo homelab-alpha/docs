@@ -45,7 +45,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -168,4 +168,5 @@ In essence, `dns_check.sh` provides a comprehensive network diagnostic tool,
 assessing DNS server availability and network connectivity, and logging relevant
 information for troubleshooting purposes.
 
-[dns_check.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/dns_check.sh
+[dns_check.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/functions/dns_check.sh

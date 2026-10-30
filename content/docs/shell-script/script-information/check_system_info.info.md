@@ -48,7 +48,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -282,4 +282,5 @@ The script is well-organized, providing clear output of the system status and
 any missing software that may be needed to perform certain checks. It's handy
 for quickly diagnosing the state of a Linux system.
 
-[check_system_info.sh]: https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/check_system_info.sh
+[check_system_info.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/shell-script/main/scripts/check_system_info.sh

@@ -43,7 +43,7 @@ katex: true
 <br />
 
 {{% alert context="primary" %}}
-ChatGPT has contributed to this document. Therefore, it's advisable to treat the
+Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
@@ -174,7 +174,8 @@ services:
       - no-new-privileges:true
     labels:
       com.docker.compose.project: "adguard-home"
-      com.adguard-home.description: "is a network-wide software for blocking ads and tracking."
+      com.adguard-home.description:
+        "is a network-wide software for blocking ads and tracking."
     healthcheck:
       disable: true
 ```
@@ -242,4 +243,5 @@ for application data. The setup ensures AdGuard Home runs efficiently and
 securely, with appropriate logging and restart policies, making it an excellent
 tool for network-wide ad blocking.
 
-[docker-compose.yml]: https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/adguard-home/docker-compose.yml
+[docker-compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/adguard-home/docker-compose.yml
