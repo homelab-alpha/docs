@@ -27,8 +27,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update the badges only after Lint Repository and CodeQL ran and passed for the
   same commit: remove the `push` trigger from `badges.yml` and add the
   `check-workflows` job
-- Update the `ssl_dotfiles_installer.info` page to version 2.6.0 of the script,
-  which also removes the `assets` folder and the badge script
+- Update the `ssl_dotfiles_installer.info` page to version 2.7.0 of the script,
+  which no longer lists the `docs` and `assets` folders and the badge script,
+  because they now live in `.github`
 - Replace the `img.shields.io` badges in `README.md` with the self-hosted
   badges
 - Explain in `.github/super_linter.env` when to enable PowerShell validation

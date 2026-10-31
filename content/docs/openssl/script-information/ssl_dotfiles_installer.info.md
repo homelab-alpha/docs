@@ -53,7 +53,7 @@ from a separate file.
 - **Filename**: `ssl_dotfiles_installer.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: October 31, 2026
-- **Version**: 2.6.0
+- **Version**: 2.7.0
 - **Description**: This script ensures the `.bashrc` file is updated with the
   necessary OpenSSL alias configurations without adding duplicates.
 - **RAW Script**: [ssl_dotfiles_installer.sh]
@@ -122,9 +122,9 @@ fi
 ### Removing Unnecessary Files
 
 The script identifies and removes unnecessary files from the OpenSSL directory,
-such as version control and documentation files, and the files that are only
-needed to develop the repository (the `assets` folder and the badge script),
-that are not essential for its operation.
+such as version control, the `.github` folder (the repository tooling, the
+branding, and the style guide), and the community files that are only needed to
+develop the repository, that are not essential for its operation.
 
 ```bash
 files_to_remove=(
@@ -133,10 +133,7 @@ files_to_remove=(
     "$HOME/openssl/.gitignore"
     "$HOME/openssl/.gitleaksignore"
     "$HOME/openssl/CODE_OF_CONDUCT.md"
-    "$HOME/openssl/docs"
     "$HOME/openssl/CONTRIBUTING.md"
-    "$HOME/openssl/assets"
-    "$HOME/openssl/scripts/generate_badges.py"
 )
 
 for file in "${files_to_remove[@]}"; do
