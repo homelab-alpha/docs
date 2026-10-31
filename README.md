@@ -1,14 +1,21 @@
 <!-- markdownlint-disable MD041 -->
 
-[![Super Linter](https://github.com/homelab-alpha/docs/actions/workflows/super_linter.yml/badge.svg)](https://github.com/homelab-alpha/docs/actions/workflows/super_linter.yml)
-[![CodeQL](https://github.com/homelab-alpha/docs/actions/workflows/codeql.yml/badge.svg)](https://github.com/homelab-alpha/docs/actions/workflows/codeql.yml)
-[![Last commit](https://img.shields.io/github/last-commit/homelab-alpha/docs?style=flat&logo=github&logoColor=96a1a9&labelColor=313A41&color=3955CD&label=Last%20commit&cacheSeconds=3600)](https://github.com/homelab-alpha/docs/commits/main/)
-[![Repo Size](https://img.shields.io/github/repo-size/homelab-alpha/docs?style=flat&logo=github&logoColor=96a1a9&labelColor=313A41&color=3955CD&label=Repo%20size&cacheSeconds=3600)](https://github.com/homelab-alpha/docs/tree/main)
-[![Changelog](https://img.shields.io/badge/Changelog-Keep%20a%20Changelog%20v1.1.0-313A41?style=flat&logo=keepachangelog&logoColor=96a1a9&&labelColor=313A41&color=3955CD)](https://github.com/homelab-alpha/docs/blob/main/CHANGELOG.md)
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-3.0-313A41?style=flat&logo=contributorcovenant&logoColor=96a1a9&&labelColor=313A41&color=3955CD)](https://github.com/homelab-alpha/docs/blob/main/CODE_OF_CONDUCT.md)
-[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-313A41?style=flat&logo=conventionalcommits&logoColor=96a1a9&&labelColor=313A41&color=3955CD)](https://conventionalcommits.org)
-[![Semantic Versioning](https://img.shields.io/badge/SemVer-2.0.0-313A41?style=flat&logo=semver&logoColor=96a1a9&&labelColor=313A41&color=3955CD)](https://semver.org/spec/v2.0.0.html)
-[![License](https://img.shields.io/github/license/homelab-alpha/docs?style=flat&logo=creativecommons&logoColor=96a1a9&labelColor=313A41&color=3955CD&label=License)](https://github.com/homelab-alpha/docs/blob/main/LICENSE)
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/branding/logo_dark.svg" />
+    <img src="assets/branding/logo_light.svg" alt="docs" width="320" />
+  </picture>
+</p>
+
+[![Super Linter](https://github.com/homelab-alpha/docs/raw/badges/super_linter.svg)](https://github.com/homelab-alpha/docs/actions/workflows/super_linter.yml)
+[![CodeQL](https://github.com/homelab-alpha/docs/raw/badges/codeql.svg)](https://github.com/homelab-alpha/docs/actions/workflows/codeql.yml)
+[![Last commit](https://github.com/homelab-alpha/docs/raw/badges/last_commit.svg)](https://github.com/homelab-alpha/docs/commits/main/)
+[![Repo size](https://github.com/homelab-alpha/docs/raw/badges/repo_size.svg)](https://github.com/homelab-alpha/docs/tree/main)
+[![Changelog](https://github.com/homelab-alpha/docs/raw/badges/changelog.svg)](https://github.com/homelab-alpha/docs/blob/main/CHANGELOG.md)
+[![Contributor Covenant](https://github.com/homelab-alpha/docs/raw/badges/contributor_covenant.svg)](https://github.com/homelab-alpha/docs/blob/main/CODE_OF_CONDUCT.md)
+[![Conventional Commits](https://github.com/homelab-alpha/docs/raw/badges/conventional_commits.svg)](https://conventionalcommits.org)
+[![Semantic Versioning](https://github.com/homelab-alpha/docs/raw/badges/semver.svg)](https://semver.org/spec/v2.0.0.html)
+[![License](https://github.com/homelab-alpha/docs/raw/badges/license.svg)](https://github.com/homelab-alpha/docs/blob/main/LICENSE)
 
 # Docs
 
@@ -153,6 +160,7 @@ docs/
 │   │   ├── security.md                         # Security policy
 │   │   └── tests.md                            # Testing policy
 │   ├── workflows/                              # GitHub Actions workflows
+│   │   ├── badges.yml                          # Self-hosted README badges
 │   │   ├── codeql.yml                          # CodeQL security analysis
 │   │   ├── contributors.yml                    # Contributors list generator
 │   │   ├── dark_visitors_agents.yml            # Rebuilds static/robots.txt from the list of known crawlers and bots
@@ -176,7 +184,7 @@ docs/
 │   ├── renovate.json                           # Renovate dependency automation
 │   └── super_linter.env                        # Super Linter environment configuration
 ├── archetypes/                                 # Templates for new content (1 files)
-├── assets/                                     # Images, styles, and scripts (104 files)
+├── assets/                                     # Images, styles, scripts, and branding (116 files)
 ├── config/                                     # Hugo configuration (6 files)
 ├── content/                                    # Documentation pages (163 files)
 ├── data/                                       # Data files (1 files)
@@ -185,6 +193,7 @@ docs/
 ├── i18n/                                       # Translations (1 files)
 ├── layouts/                                    # Hugo layouts, partials, and shortcodes (50 files)
 ├── scripts/                                    # Utility and automation shell scripts
+│   ├── generate_badges.py                      # Renders the README badges as SVG files
 │   ├── lint.sh                                 # Local lint (Prettier, textlint, conflict markers)
 │   ├── setup_gpg.sh                            # Configures API or GPG signing for Git operations
 │   └── verify_signatures.sh                    # Verifies commit and tag signatures
@@ -227,6 +236,7 @@ on push, pull request, and scheduled triggers.
 
 | Workflow                             | Trigger                    | Purpose                                                               |
 | :----------------------------------- | :------------------------- | :-------------------------------------------------------------------- |
+| `badges.yml`                         | Push, workflow run, daily  | Renders the README badges to the `badges` branch                      |
 | `codeql.yml`                         | Push, PR, schedule         | CodeQL static analysis for security vulnerabilities                   |
 | `contributors.yml`                   | Push to `main`             | Auto-generates `CONTRIBUTORS.md`                                      |
 | `dark_visitors_agents.yml`           | Schedule, manual           | Rebuilds `static/robots.txt` from the list of known crawlers and bots |
@@ -249,6 +259,17 @@ All workflows follow the standards documented in
 [`.github/policies/github_actions.md`](./.github/policies/github_actions.md),
 including actions pinned to a commit SHA, concurrency controls, timeout limits,
 bot filtering, and structured job summaries.
+
+The README badges are not fetched from a third-party service. `badges.yml`
+renders them with `scripts/generate_badges.py` (Python standard library only)
+and publishes the SVG files to the `badges` branch, which the README links to
+through `github.com/<owner>/<repo>/raw/badges/`. The Super Linter and CodeQL
+badges show the latest run on the default branch and refresh when those
+workflows finish (the `workflow_run` trigger lists their names, so update it
+when you rename them). The workflow creates the branch on its first run. The
+badges follow the colors in
+[`assets/branding/brand_guide.md`](./assets/branding/brand_guide.md) and switch
+to a dark variant with the system theme.
 
 ### Linting
 
