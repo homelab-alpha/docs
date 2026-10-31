@@ -269,7 +269,7 @@ Follow these general principles:
 - **Error Handling**: Handle errors gracefully and log them appropriately.
 
 For the full style reference, see
-[code_style_and_standards_guides.md](https://github.com/homelab-alpha/docs/blob/main/docs/code_style_and_standards_guides.md).
+[code_style_and_standards_guides.md](https://github.com/homelab-alpha/docs/blob/main/.github/docs/code_style_and_standards_guides.md).
 
 ### Linting
 
@@ -301,7 +301,7 @@ Write entries from the user's perspective in imperative mood:
 `Add export command`, not `Added export command`.
 
 See
-[code_style_and_standards_guides.md](https://github.com/homelab-alpha/docs/blob/main/docs/code_style_and_standards_guides.md#changelog-practices)
+[code_style_and_standards_guides.md](https://github.com/homelab-alpha/docs/blob/main/.github/docs/code_style_and_standards_guides.md#changelog-practices)
 for the full changelog conventions.
 
 ## Pull Requests

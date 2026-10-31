@@ -347,9 +347,9 @@ requirements, see
 This repository lints in two stages.
 
 - **Pull requests** run `npm run lint` (`lint_pull_request.yml`,
-  `scripts/lint.sh`) on the changed files: Prettier, textlint terminology, and
-  merge conflict markers. Run `npm run lint:fix` to repair formatting and
-  terminology locally.
+  `.github/scripts/lint.sh`) on the changed files: Prettier, textlint
+  terminology, and merge conflict markers. Run `npm run lint:fix` to repair
+  formatting and terminology locally.
 - **Pushes to `main`** run
   [Super Linter](https://github.com/super-linter/super-linter) across all file
   types. It adds actionlint, Gitleaks, Checkov, and the other linters.

@@ -11,7 +11,7 @@ Hugo.
 More detail: [`README.md`](./README.md) (what the repository does and how it is
 organized), [`CONTRIBUTING.md`](./CONTRIBUTING.md) (branches, commits, and pull
 requests),
-[`docs/code_style_and_standards_guides.md`](./docs/code_style_and_standards_guides.md)
+[`.github/docs/code_style_and_standards_guides.md`](./.github/docs/code_style_and_standards_guides.md)
 (code style), and [`.github/policies/`](./.github/policies/) (workflows,
 reviews, security, tests, and logs).
 
@@ -27,7 +27,7 @@ npm run lint:fix                # repair formatting and terminology, then lint a
 The dev tooling needs the Node.js version in `engines` in `package.json`.
 
 Linting has two parts. Pull requests run `npm run lint` (workflow
-`lint_pull_request.yml`, script `scripts/lint.sh`): Prettier, textlint
+`lint_pull_request.yml`, script `.github/scripts/lint.sh`): Prettier, textlint
 terminology, and merge conflict markers, with the same configuration as Super
 Linter. Pushes to `main` run the full Super Linter (`.github/super_linter.env`,
 workflow `super_linter.yml`), which adds actionlint, Gitleaks, Checkov, and the
@@ -61,7 +61,8 @@ other linters. For one file, `npx prettier --write <file>` uses the same
   EC private key, and the vendored Mermaid bundle) are in
   `.github/linters/.gitleaks.toml`. Add new example credentials there by rule
   and file or by content, not by line number.
-- The root folder `docs/` holds the code style guide, not site content.
+- The code style guide is in `.github/docs/`, not in the site content under
+  `content/docs/`.
 
 ## Repository conventions
 
