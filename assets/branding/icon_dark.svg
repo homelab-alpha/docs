@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="t">
+  <title id="t">docs app icon</title>
+  <rect width="1024" height="1024" rx="224" fill="#1C1C1E"/>
+  <g transform="translate(12 180) scale(10)"><path d="M50 18 C42 11 30 10 19 14 V50 C30 46 42 47 50 54 C58 47 70 46 81 50 V14 C70 10 58 11 50 18 M50 18 V54" fill="none" stroke="#F5F5F7" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="66" cy="31" r="6.5" fill="#0A84FF"/></g>
+</svg>
