@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Update Dart Sass to 1.107.1 in the Hugo workflow
+- Track the Dart Sass version with Renovate
 - Run the Dark Visitors agents workflow every 8 hours instead of every 3 hours
 - Update the FAQ with the current contribution, license, support, and security
   answers
