@@ -2,8 +2,8 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/branding/logo_dark.svg" />
-    <img src="assets/branding/logo_light.svg" alt="docs" width="320" />
+    <source media="(prefers-color-scheme: dark)" srcset=".github/branding/logo_dark.svg" />
+    <img src=".github/branding/logo_light.svg" alt="docs" height="100" />
   </picture>
 </p>
 
@@ -144,6 +144,22 @@ docs/
 │   │   ├── config.yml                          # Issue template configuration
 │   │   ├── i18n_issue.yml                      # Template for translation & localization
 │   │   └── security_report.yml                 # Template for security issues
+│   ├── branding/                               # Brand guide, logo, icons, and social preview
+│   │   ├── brand_guide.md                      # Brand guide
+│   │   ├── favicon.svg                         # Favicon
+│   │   ├── icon_dark.svg                       # App icon (dark tile)
+│   │   ├── icon_light.svg                      # App icon (light tile)
+│   │   ├── logo_dark.svg                       # Logo (dark backgrounds)
+│   │   ├── logo_light.svg                      # Logo (light backgrounds)
+│   │   ├── logo_tagline_dark.svg               # Logo with slogan (dark)
+│   │   ├── logo_tagline_light.svg              # Logo with slogan (light)
+│   │   ├── mark_dark.svg                       # Mark (dark backgrounds)
+│   │   ├── mark_light.svg                      # Mark (light backgrounds)
+│   │   ├── social_preview.png                  # GitHub social preview (1280x640)
+│   │   └── social_preview.svg                  # Source of the social preview
+│   ├── docs/                                   # Repository style guide (not site content)
+│   │   ├── code_style_and_standards_guides.md  # Coding standards and style guidelines
+│   │   └── .placeholder                        # Placeholder for empty folder
 │   ├── linters/                                # Configuration files for Super Linter
 │   │   ├── .checkov.yaml                       # Infrastructure-as-code security rules
 │   │   ├── .gitleaks.toml                      # Gitleaks secret scanning configuration
@@ -159,6 +175,11 @@ docs/
 │   │   ├── review_process.md                   # Code review process
 │   │   ├── security.md                         # Security policy
 │   │   └── tests.md                            # Testing policy
+│   ├── scripts/                                # Repository tooling (not site code)
+│   │   ├── generate_badges.py                  # Renders the README badges as SVG files
+│   │   ├── lint.sh                             # Local lint (Prettier, textlint, conflict markers)
+│   │   ├── setup_gpg.sh                        # Configures API or GPG signing for Git operations
+│   │   └── verify_signatures.sh                # Verifies commit and tag signatures
 │   ├── workflows/                              # GitHub Actions workflows
 │   │   ├── badges.yml                          # Self-hosted README badges
 │   │   ├── codeql.yml                          # CodeQL security analysis
@@ -184,19 +205,12 @@ docs/
 │   ├── renovate.json                           # Renovate dependency automation
 │   └── super_linter.env                        # Super Linter environment configuration
 ├── archetypes/                                 # Templates for new content (1 files)
-├── assets/                                     # Images, styles, scripts, and branding (116 files)
+├── assets/                                     # Images, styles, and scripts (104 files)
 ├── config/                                     # Hugo configuration (6 files)
 ├── content/                                    # Documentation pages (163 files)
 ├── data/                                       # Data files (1 files)
-├── docs/                                       # Project documentation (API, usage, guides)
-│   └── code_style_and_standards_guides.md      # Coding standards and style guidelines
 ├── i18n/                                       # Translations (1 files)
 ├── layouts/                                    # Hugo layouts, partials, and shortcodes (50 files)
-├── scripts/                                    # Utility and automation shell scripts
-│   ├── generate_badges.py                      # Renders the README badges as SVG files
-│   ├── lint.sh                                 # Local lint (Prettier, textlint, conflict markers)
-│   ├── setup_gpg.sh                            # Configures API or GPG signing for Git operations
-│   └── verify_signatures.sh                    # Verifies commit and tag signatures
 ├── static/                                     # Static files such as fonts, images, and robots.txt (372 files)
 ├── .editorconfig                               # Editor settings (indent, line endings)
 ├── .gitignore                                  # Git ignore rules
@@ -261,21 +275,25 @@ including actions pinned to a commit SHA, concurrency controls, timeout limits,
 bot filtering, and structured job summaries.
 
 The README badges are not fetched from a third-party service. `badges.yml`
-renders them with `scripts/generate_badges.py` (Python standard library only)
-and publishes the SVG files to the `badges` branch, which the README links to
-through `github.com/<owner>/<repo>/raw/badges/`. The Super Linter and CodeQL
-badges show the latest run on the default branch and refresh when those
-workflows finish (the `workflow_run` trigger lists their names, so update it
-when you rename them). The workflow creates the branch on its first run. The
+renders them with `.github/scripts/generate_badges.py` (Python standard library
+only) and publishes the SVG files to the `badges` branch, which the README links
+to through `github.com/<owner>/<repo>/raw/badges/`. The Super Linter and CodeQL
+badges show the latest run on the default branch. The workflow does not start on
+a push: it starts when Lint Repository or CodeQL finishes (the `workflow_run`
+trigger lists their names, so update it when you rename them), and the
+`check-workflows` job lets it continue only when both workflows ran and passed
+for that commit. A failed, cancelled, or skipped run (the workflows skip bot
+commits) leaves the badges as they are, and so does a repository where either
+workflow is disabled. The workflow creates the branch on its first run. The
 badges follow the colors in
-[`assets/branding/brand_guide.md`](./assets/branding/brand_guide.md) and switch
-to a dark variant with the system theme.
+[`.github/branding/brand_guide.md`](./.github/branding/brand_guide.md) and
+switch to a dark variant with the system theme.
 
 ### Linting
 
-Pull requests are linted with `npm run lint` (`scripts/lint.sh`), which uses
-Prettier, textlint, and a merge conflict marker check with the configuration
-files below. Pushes to `main` run
+Pull requests are linted with `npm run lint` (`.github/scripts/lint.sh`), which
+uses Prettier, textlint, and a merge conflict marker check with the
+configuration files below. Pushes to `main` run
 [Super Linter](https://github.com/super-linter/super-linter), configured through
 `.github/super_linter.env`. The following linters are enabled: Bash, Bash Exec,
 Checkov, ENV, GitHub Actions (actionlint), Gitleaks, Git merge conflict markers,
@@ -300,26 +318,26 @@ automatically. Renovate also keeps a dependency dashboard issue.
 The repository includes internal policies that define how the project operates.
 These are documented in `.github/policies/` and in root-level files:
 
-| Document                                                                               | Purpose                                              |
-| :------------------------------------------------------------------------------------- | :--------------------------------------------------- |
-| [`.github/policies/github_actions.md`](./.github/policies/github_actions.md)           | Workflow structure, security, and logging standards  |
-| [`.github/policies/labels.md`](./.github/policies/labels.md)                           | Label naming, color strategy, and usage rules        |
-| [`.github/policies/logs.md`](./.github/policies/logs.md)                               | Logging conventions for workflows and scripts        |
-| [`.github/policies/review_process.md`](./.github/policies/review_process.md)           | Code review stages, criteria, and merge strategy     |
-| [`.github/policies/security.md`](./.github/policies/security.md)                       | Security scanning and vulnerability management       |
-| [`.github/policies/tests.md`](./.github/policies/tests.md)                             | Testing standards, structure, and conventions        |
-| [`docs/code_style_and_standards_guides.md`](./docs/code_style_and_standards_guides.md) | Coding style guidelines and Prettier configuration   |
-| [`AI_CONTRIBUTION_POLICY.md`](./AI_CONTRIBUTION_POLICY.md)                             | Rules for contributions made with AI assistance      |
-| [`GOVERNANCE.md`](./GOVERNANCE.md)                                                     | Project governance model and decision-making process |
-| [`MAINTAINERS.md`](./MAINTAINERS.md)                                                   | Maintainer roles, responsibilities, and current list |
-| [`TERMS_OF_SERVICE.md`](./TERMS_OF_SERVICE.md)                                         | Terms of use for the repository                      |
+| Document                                                                                               | Purpose                                              |
+| :----------------------------------------------------------------------------------------------------- | :--------------------------------------------------- |
+| [`.github/policies/github_actions.md`](./.github/policies/github_actions.md)                           | Workflow structure, security, and logging standards  |
+| [`.github/policies/labels.md`](./.github/policies/labels.md)                                           | Label naming, color strategy, and usage rules        |
+| [`.github/policies/logs.md`](./.github/policies/logs.md)                                               | Logging conventions for workflows and scripts        |
+| [`.github/policies/review_process.md`](./.github/policies/review_process.md)                           | Code review stages, criteria, and merge strategy     |
+| [`.github/policies/security.md`](./.github/policies/security.md)                                       | Security scanning and vulnerability management       |
+| [`.github/policies/tests.md`](./.github/policies/tests.md)                                             | Testing standards, structure, and conventions        |
+| [`.github/docs/code_style_and_standards_guides.md`](./.github/docs/code_style_and_standards_guides.md) | Coding style guidelines and Prettier configuration   |
+| [`AI_CONTRIBUTION_POLICY.md`](./AI_CONTRIBUTION_POLICY.md)                                             | Rules for contributions made with AI assistance      |
+| [`GOVERNANCE.md`](./GOVERNANCE.md)                                                                     | Project governance model and decision-making process |
+| [`MAINTAINERS.md`](./MAINTAINERS.md)                                                                   | Maintainer roles, responsibilities, and current list |
+| [`TERMS_OF_SERVICE.md`](./TERMS_OF_SERVICE.md)                                                         | Terms of use for the repository                      |
 
 ## Working with Claude
 
 Project rules and conventions for Claude Code live in
 [`CLAUDE.md`](./CLAUDE.md). The shared settings are in
 [`.claude/settings.json`](./.claude/settings.json). The code style guide is in
-[`docs/code_style_and_standards_guides.md`](./docs/code_style_and_standards_guides.md),
+[`.github/docs/code_style_and_standards_guides.md`](./.github/docs/code_style_and_standards_guides.md),
 so a session on any computer follows the same rules.
 
 ## Known Issues
