@@ -11,9 +11,9 @@
 name: 🤖 Update Dark Visitors Agents
 
 on:
-  # Every 3 hours between 05:23 and 20:23 UTC (roughly 07:00 to 22:00 in the Netherlands).
+  # Every 8 hours, at 00:00, 08:00, and 16:00 UTC.
   schedule:
-    - cron: "23 5-20/3 * * *"
+    - cron: "0 */8 * * *"
 
   workflow_dispatch:
     inputs:
