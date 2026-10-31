@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Run the Dark Visitors agents workflow every 8 hours instead of every 3 hours
 - Update the FAQ with the current contribution, license, support, and security
   answers
 - Replace ChatGPT with Claude in the AI notice of all pages and in the FAQ
