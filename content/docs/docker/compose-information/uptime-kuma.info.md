@@ -257,7 +257,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: uptime-kuma
-    image: ghcr.io/louislam/uptime-kuma:2.5.8-slim
+    image: ghcr.io/louislam/uptime-kuma:2.5.9-slim
     pull_policy: if_not_present
     depends_on:
       uptime-kuma_db:
@@ -317,8 +317,8 @@ services:
   - **restart**, **logging**, **stop_grace_period**, **pull_policy**: Same
     behavior as the database service.
   - **container_name: uptime-kuma**: Names the container "uptime-kuma".
-  - **image: ghcr.io/louislam/uptime-kuma:2.5.8-slim**: Uses the Uptime Kuma
-    image, pinned to version `2.5.8-slim`.
+  - **image: ghcr.io/louislam/uptime-kuma:2.5.9-slim**: Uses the Uptime Kuma
+    image, pinned to version `2.5.9-slim`.
   - **depends_on**: Starts this service only when `uptime-kuma_db` reports
     `service_healthy`.
   - **links**: Makes the database reachable under the name `uptime-kuma_db`.
