@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   branch
 - feat(workflows): add dark visitors agents update workflow [253800d](https://github.com/homelab-alpha/docs/commit/253800d6a89cd4e13fe74bcb125fe7d46b9edcb2) by [@homelab-alpha](https://github.com/homelab-alpha)
 - feat(fonts): self-host Inter and JetBrains Mono [e0d6d51](https://github.com/homelab-alpha/docs/commit/e0d6d51d692d593efa4f7060661821ee5342028f) by [@homelab-alpha](https://github.com/homelab-alpha)
+- feat(badges): add the Hugo deploy badge [e7cb258](https://github.com/homelab-alpha/docs/commit/e7cb2589f4d93f7661435c92beb4e286d2a76bd5) by [@homelab-alpha](https://github.com/homelab-alpha)
 
 ### Changed
 
@@ -88,6 +89,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ci(workflows): request a reviewer on bot PRs [811d200](https://github.com/homelab-alpha/docs/commit/811d200cff1eb5e5eed2057d730a7dc35f27b16f) by [@homelab-alpha](https://github.com/homelab-alpha)
 - docs(policy): describe the Hugo and Dart Sass checks [55f13a4](https://github.com/homelab-alpha/docs/commit/55f13a405e8afd81cd87c8cfdce4286a92b44cc4) by [@homelab-alpha](https://github.com/homelab-alpha)
 - chore(github): sync runners, Renovate, and linters [02c92ec](https://github.com/homelab-alpha/docs/commit/02c92ecde0e67fd775204f23bbf4e551cc1e6bab) by [@homelab-alpha](https://github.com/homelab-alpha)
+- docs: sync pages with the repositories [9e5ae7d](https://github.com/homelab-alpha/docs/commit/9e5ae7d6143543281b27c67a82ce60b9cf03d337) by [@homelab-alpha](https://github.com/homelab-alpha)
+- docs(kairos): add draft Kairos pages [1c71f4f](https://github.com/homelab-alpha/docs/commit/1c71f4f9bbc2b21a4929a9df85797297e45feeaa) by [@homelab-alpha](https://github.com/homelab-alpha)
 
 ### Deprecated
 
@@ -118,6 +121,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix(changelog): remove the date from Unreleased [0ee84fc](https://github.com/homelab-alpha/docs/commit/0ee84fc1c30264553ec73aa3ca557b307fdcb23d) by [@homelab-alpha](https://github.com/homelab-alpha)
 - fix(changelog): remove the Unreleased link [75fc4a1](https://github.com/homelab-alpha/docs/commit/75fc4a18aaea0b19845eab3910446aba124a48f0) by [@homelab-alpha](https://github.com/homelab-alpha)
 - fix(changelog): natural language from `stylesheet` to style sheet [d9297f8](https://github.com/homelab-alpha/docs/commit/d9297f88f5f8721f786a101ee51ca99b4ab3dc25) by [@homelab-alpha](https://github.com/homelab-alpha)
+- fix(changelog): use the correct term in an entry [abf6928](https://github.com/homelab-alpha/docs/commit/abf6928b1c323456b7b76662a6335c5a2e586d94) by [@homelab-alpha](https://github.com/homelab-alpha)
 
 ### Security
 
