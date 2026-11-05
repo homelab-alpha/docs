@@ -2,11 +2,11 @@
 name: 🏷️ Update Badges
 
 # Renders the README badges as SVG files and publishes them to the "badges" branch, which the README
-# links to. It starts when Lint Repository or CodeQL has finished (whatever the result), once a day, and
-# by hand. It creates the branch on its first run. See "CI/CD and Automation" in README.md.
+# links to. It starts when Lint Repository, CodeQL, or Build & Deploy Hugo Site has finished (whatever
+# the result), once a day, and by hand. It creates the branch on its first run. See "CI/CD and Automation" in README.md.
 
 on:
-  # Run after Lint Repository and CodeQL have finished, whatever the result: a
+  # Run after Lint Repository, CodeQL, and Build & Deploy Hugo Site have finished, whatever the result: a
   # push to the default branch does not start this workflow itself. The names
   # must match the `name` of the workflows exactly. The badges show a passing,
   # failing, or disabled workflow, and an empty badge for a workflow that does not
@@ -16,6 +16,7 @@ on:
     workflows:
       - 🔍 Lint Repository
       - 🛡️ CodeQL Security Analysis
+      - 🚀 Build & Deploy Hugo Site
     types:
       - completed
     branches:
@@ -40,7 +41,7 @@ jobs:
     runs-on: ubuntu-26.04
     timeout-minutes: 10
 
-    # Also skips the run that follows a skipped Lint Repository or CodeQL run, such as the one for the push that
+    # Also skips the run that follows a skipped Lint Repository, CodeQL, or Build & Deploy run, such as the one for the push that
     # creates the repository from the template.
     if: |
       github.event.sender.type != 'Bot' &&
@@ -141,10 +142,12 @@ jobs:
 
           SUPER_LINTER=$(workflow_result lint_repository.yml)
           CODEQL=$(workflow_result codeql.yml)
+          HUGO=$(workflow_result hugo.yml)
 
           {
             echo "super_linter=$SUPER_LINTER"
             echo "codeql=$CODEQL"
+            echo "hugo=$HUGO"
           } >> "$GITHUB_OUTPUT"
 
           jq -n \
@@ -153,12 +156,13 @@ jobs:
             --arg license "$LICENSE_TEXT" \
             --arg super_linter "$SUPER_LINTER" \
             --arg codeql "$CODEQL" \
+            --arg hugo "$HUGO" \
             '{last_commit: $last_commit, size_kb: $size_kb, license: $license,
-              super_linter: $super_linter, codeql: $codeql}' \
+              super_linter: $super_linter, codeql: $codeql, hugo: $hugo}' \
             > "$DATA_FILE"
 
           cat "$DATA_FILE"
-          echo "::notice title=Collected::ℹ️ Last commit $LAST_COMMIT, size $SIZE_KB KB, license $LICENSE_TEXT, Super Linter $SUPER_LINTER, CodeQL $CODEQL."
+          echo "::notice title=Collected::ℹ️ Last commit $LAST_COMMIT, size $SIZE_KB KB, license $LICENSE_TEXT, Super Linter $SUPER_LINTER, CodeQL $CODEQL, Build & Deploy $HUGO."
           echo "::endgroup::"
 
       - name: 🎨 Generate badges
@@ -288,6 +292,7 @@ jobs:
           | :----------------- | :----------------------------------------------- |
           | 🔍 Lint Repository | ${{ steps.collect.outputs.super_linter || 'n/a' }} |
           | 🛡️ CodeQL          | ${{ steps.collect.outputs.codeql || 'n/a' }}      |
+          | 🚀 Build & Deploy  | ${{ steps.collect.outputs.hugo || 'n/a' }}      |
 
           \`success\` is passing and \`failure\` is failing. \`disabled\` means the
           workflow is turned off. \`absent\` means there is no workflow file, so the

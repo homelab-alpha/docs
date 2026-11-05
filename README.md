@@ -9,6 +9,7 @@
 
 [![Super Linter](https://github.com/homelab-alpha/docs/raw/badges/super_linter.svg)](https://github.com/homelab-alpha/docs/actions/workflows/lint_repository.yml)
 [![CodeQL](https://github.com/homelab-alpha/docs/raw/badges/codeql.svg)](https://github.com/homelab-alpha/docs/actions/workflows/codeql.yml)
+[![Build & Deploy](https://github.com/homelab-alpha/docs/raw/badges/hugo.svg)](https://github.com/homelab-alpha/docs/actions/workflows/hugo.yml)
 [![Last commit](https://github.com/homelab-alpha/docs/raw/badges/last_commit.svg)](https://github.com/homelab-alpha/docs/commits/main/)
 [![Repo size](https://github.com/homelab-alpha/docs/raw/badges/repo_size.svg)](https://github.com/homelab-alpha/docs/tree/main)
 [![Changelog](https://github.com/homelab-alpha/docs/raw/badges/changelog.svg)](https://github.com/homelab-alpha/docs/blob/main/CHANGELOG.md)
@@ -279,17 +280,17 @@ The README badges are not fetched from a third-party service. `badges.yml`
 renders them with `.github/scripts/generate_badges.py` (Python standard library
 only) and publishes the SVG files to the `badges` branch, which the README links
 to through `github.com/<owner>/<repo>/raw/badges/`, which also works in a
-private repository for signed-in viewers with access. The Super Linter and
-CodeQL badges show the latest finished run on the default branch: passing or
-failing. A workflow that exists but is turned off shows disabled. A workflow
-that does not exist gets an empty badge, a transparent image, so the README
-shows nothing and no broken image. Remove its badge line from this README when
-you no longer need it. A cancelled or skipped run (the workflows skip bot
+private repository for signed-in viewers with access. The Super Linter, CodeQL,
+and Build & Deploy badges show the latest finished run on the default branch:
+passing or failing. A workflow that exists but is turned off shows disabled. A
+workflow that does not exist gets an empty badge, a transparent image, so the
+README shows nothing and no broken image. Remove its badge line from this README
+when you no longer need it. A cancelled or skipped run (the workflows skip bot
 commits) is ignored, and a workflow without a finished run shows unknown. The
-workflow does not start on a push: it starts when Lint Repository or CodeQL
-finishes, whatever the result (the `workflow_run` trigger lists their names, so
-update it when you rename them), and once a day. It creates the branch on its
-first run. The badges follow the colors in
+workflow does not start on a push: it starts when Lint Repository, CodeQL, or
+Build & Deploy Hugo Site finishes, whatever the result (the `workflow_run`
+trigger lists their names, so update it when you rename them), and once a day.
+It creates the branch on its first run. The badges follow the colors in
 [`.github/branding/brand_guide.md`](./.github/branding/brand_guide.md) and
 switch to a dark variant with the system theme.
 
