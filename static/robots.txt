@@ -29,6 +29,9 @@ Disallow: /
 User-agent: ChatGPT Agent
 Disallow: /
 
+User-agent: Claude-Agent
+Disallow: /
+
 User-agent: CledaraBot
 Disallow: /
 
@@ -4561,4 +4564,4 @@ Disallow: /
 # Sitemaps
 Sitemap: https://homelab-alpha.nl/sitemap.xml
 
-# Last modified: 2026-10-28T10:45:47+01:00
+# Last modified: 2026-11-05T05:55:18+01:00
