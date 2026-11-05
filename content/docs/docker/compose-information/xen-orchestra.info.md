@@ -145,7 +145,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: xen-orchestra
-    image: docker.io/ronivay/xen-orchestra:5.212.0
+    image: docker.io/ronivay/xen-orchestra:5.213.0
     pull_policy: if_not_present
     volumes:
       # - /docker/xen-orchestra/production/.cert/client-cert.pem:/client-cert.pem
@@ -211,8 +211,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: xen-orchestra**: Names the container "xen-orchestra".
-  - **image: docker.io/ronivay/xen-orchestra:5.212.0**: Uses the Xen Orchestra
-    image, pinned to version `5.212.0`.
+  - **image: docker.io/ronivay/xen-orchestra:5.213.0**: Uses the Xen Orchestra
+    image, pinned to version `5.213.0`.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.

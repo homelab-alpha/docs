@@ -140,7 +140,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: pi-hole
-    image: ghcr.io/pi-hole/pihole:2026.10.0
+    image: ghcr.io/pi-hole/pihole:2026.10.1
     pull_policy: if_not_present
     volumes:
       - /docker/pi-hole/production/app:/etc/pihole
@@ -201,8 +201,8 @@ services:
   - **stop_grace_period: 1m**: The grace period before forcibly stopping the
     container.
   - **container_name: pi-hole**: Names the container `pi-hole`.
-  - **image: ghcr.io/pi-hole/pihole:2026.10.0**: Uses the Pi-hole image, pinned
-    to version `2026.10.0`.
+  - **image: ghcr.io/pi-hole/pihole:2026.10.1**: Uses the Pi-hole image, pinned
+    to version `2026.10.1`.
   - **pull_policy: if_not_present**: Only pulls the image if it's not already
     present locally.
   - **volumes**: Mounts host directories into the container for persistent data

@@ -228,7 +228,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: immich_ml
-    image: ghcr.io/immich-app/immich-machine-learning:v3.3.5
+    image: ghcr.io/immich-app/immich-machine-learning:v3.3.6
     pull_policy: if_not_present
     volumes:
       - /docker/immich/production/ml:/cache
@@ -262,7 +262,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: immich
-    image: ghcr.io/immich-app/immich-server:v3.3.5
+    image: ghcr.io/immich-app/immich-server:v3.3.6
     pull_policy: if_not_present
     depends_on:
       immich_db:
@@ -418,9 +418,9 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: immich_ml**: Names the container "immich_ml".
-  - **image: ghcr.io/immich-app/immich-machine-learning:v3.3.5**: Uses the
+  - **image: ghcr.io/immich-app/immich-machine-learning:v3.3.6**: Uses the
     machine learning image from the specified repository, pinned to version
-    `v3.3.5`.
+    `v3.3.6`.
   - **pull_policy: if_not_present**: Pulls the image only if it is not already
     present locally.
   - **volumes**: Mounts host directories into the container.
@@ -460,7 +460,7 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: immich**: Names the container "immich".
-  - **image: ghcr.io/immich-app/immich-server:v3.3.5**: Uses the Immich server
+  - **image: ghcr.io/immich-app/immich-server:v3.3.6**: Uses the Immich server
     image from GitHub Container Registry.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.

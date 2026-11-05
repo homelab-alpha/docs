@@ -89,6 +89,9 @@ To report a possible Code of Conduct violation, **send an email to the
 Before contributing, make sure you have the following set up:
 
 - **Git**: For version control.
+- **Node.js** (the version in `engines` in `package.json`) and **Bash 4 or
+  higher**: To run `npm run lint`. On macOS, install a newer Bash with
+  `brew install bash`.
 - A **GitHub account**: Required to submit issues and pull requests.
 - Familiarity with the project's purpose — read the
   [README](https://github.com/homelab-alpha/docs/blob/main/README.md) to
@@ -213,6 +216,27 @@ Feature/AddExport   (wrong casing)
 update              (too vague)
 ```
 
+#### Development branches (maintainer only)
+
+The maintainer works on a planned version in a development branch. Contributors
+do not use these branches; they use the `type/short-description` format above.
+
+```none
+dev/v<major>.<minor>.<patch>/short-description
+```
+
+- Create the branch from `main`, with one branch per planned version and topic.
+- Use **lowercase** letters and **hyphens** in the description.
+- Use a concrete version. Wildcards such as `v1.2.*` are not allowed.
+- The pull request still goes into `main`.
+
+**Valid examples:**
+
+```none
+dev/v1.2.0/add-dry-run-option
+dev/v1.2.1/fix-deprecated-params
+```
+
 ### Commit Messages
 
 All commit messages must be written in **English** and follow the
@@ -225,7 +249,8 @@ type(scope): brief subject
 ```
 
 - The **type** must be one of: `feat`, `fix`, `docs`, `style`, `refactor`,
-  `perf`, `test`, `chore`, `revert`.
+  `perf`, `test`, `chore`, `revert`, `build`, `ci`. `hotfix` is only a branch
+  prefix, not a type: an urgent fix on a `hotfix/` branch has the type `fix`.
 - The **scope** is optional and indicates the part of the codebase affected
   (e.g., `core`, `data`, `cli`).
 - The **subject** must be written in imperative mood and kept under **50
@@ -277,28 +302,37 @@ This repository uses
 [Super Linter](https://github.com/super-linter/super-linter) to enforce code
 quality. The following linters are active:
 
+- **Bash** and **Bash Exec** — shell script validation and executable bits
 - **Checkov** — infrastructure-as-code security scanning
 - **ENV** — environment file validation
 - **GitHub Actions** — workflow file validation
 - **Gitleaks** — secret detection
 - **Git merge conflict markers** — conflict detection
-- **Markdown** — Markdown linting
+- **JSON** — JSON formatting (Prettier)
+- **Markdown** — Markdown formatting (Prettier)
 - **Natural Language** — terminology and grammar checking
 - **Pre-commit** — pre-commit hook validation
 - **Renovate** — dependency configuration validation
-- **YAML** — YAML linting
+- **YAML** — YAML formatting (Prettier)
 
-Run linting locally before submitting a pull request to catch issues early.
-Linting runs automatically on all pushes and pull requests targeting `main`.
+Run `npm ci` and `npm run lint` locally before submitting a pull request to
+catch issues early. Pull requests targeting `main` run `npm run lint` (Prettier,
+textlint terminology, and merge conflict markers) automatically. The full Super
+Linter runs on every push to `main`.
 
 ### Changelog
 
-Update `CHANGELOG.md` under the `[Unreleased]` section as part of every pull
-request that changes behavior. Use the appropriate category: `Added`, `Changed`,
-`Deprecated`, `Removed`, `Fixed`, or `Security`.
+The Update Changelog workflow adds an entry to `CHANGELOG.md` under the
+`[Unreleased]` section for every merged pull request. It runs every 8 hours, so
+the entry can appear a few hours after the merge. You do not edit the file for
+it. The entry is made from the title of the pull request:
+`- feat(app): add export command [1a2b3c4](commit link) by [@anna](profile link)`.
+The type of the title decides the category: `feat` is `Added`, `fix` is `Fixed`,
+`fix(security)` is `Security`, and every other type is `Changed`.
 
-Write entries from the user's perspective in imperative mood:
-`Add export command`, not `Added export command`.
+Write the title as a conventional commit, from the user's perspective in
+imperative mood: `feat(app): add export command`, not
+`feat(app): added export command`.
 
 See
 [code_style_and_standards_guides.md](https://github.com/homelab-alpha/docs/blob/main/.github/docs/code_style_and_standards_guides.md#changelog-practices)
@@ -314,7 +348,8 @@ for the full changelog conventions.
 - [ ] You have tested your changes locally.
 - [ ] Linting passes locally.
 - [ ] You have updated any relevant documentation.
-- [ ] You have updated `CHANGELOG.md` under `[Unreleased]`.
+- [ ] The title of your pull request is a conventional commit, because it
+      becomes the changelog entry.
 - [ ] Your pull request targets the `main` branch.
 
 ### Submitting a Pull Request
@@ -350,9 +385,9 @@ and consistency. Here is what to expect:
 - Straightforward contributions are typically reviewed within **two weeks**.
   Complex changes may take longer, and we will communicate any delays.
 
-Dependency updates (patch, pin, digest) are handled automatically by
-[Renovate](https://docs.renovatebot.com/) and are automerged when all checks
-pass. Major and minor dependency updates require manual review.
+Dependency updates are opened automatically by
+[Renovate](https://docs.renovatebot.com/). They are not automerged: a maintainer
+reviews and merges every update.
 
 For a detailed overview of the review workflow, see
 [`.github/policies/review_process.md`](https://github.com/homelab-alpha/docs/blob/main/.github/policies/review_process.md).
