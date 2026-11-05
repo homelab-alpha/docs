@@ -84,6 +84,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - docs(openssl): update the installer page to 2.7.0 [eec7562](https://github.com/homelab-alpha/docs/commit/eec7562959d631bd72751d9edbf45d7d81852098) by [@homelab-alpha](https://github.com/homelab-alpha)
 - chore(workflows): replace deny-licenses with allow-licenses [ec2ced3](https://github.com/homelab-alpha/docs/commit/ec2ced328ca41b2a365fd08e951e4820db74a964) by [@homelab-alpha](https://github.com/homelab-alpha)
 - chore(blueprint): sync with the blueprint [13e8215](https://github.com/homelab-alpha/docs/commit/13e82153c39432669feaf45f38ccccc61f51ac9d) by [@homelab-alpha](https://github.com/homelab-alpha)
+- ci(workflows): use pull_request_body.py [05061a8](https://github.com/homelab-alpha/docs/commit/05061a85263aa5651ba2d96461c3e44f68cc5516) by [@homelab-alpha](https://github.com/homelab-alpha)
+- ci(workflows): request a reviewer on bot PRs [811d200](https://github.com/homelab-alpha/docs/commit/811d200cff1eb5e5eed2057d730a7dc35f27b16f) by [@homelab-alpha](https://github.com/homelab-alpha)
+- docs(policy): describe the Hugo and Dart Sass checks [55f13a4](https://github.com/homelab-alpha/docs/commit/55f13a405e8afd81cd87c8cfdce4286a92b44cc4) by [@homelab-alpha](https://github.com/homelab-alpha)
+- chore(github): sync runners, Renovate, and linters [02c92ec](https://github.com/homelab-alpha/docs/commit/02c92ecde0e67fd775204f23bbf4e551cc1e6bab) by [@homelab-alpha](https://github.com/homelab-alpha)
 
 ### Deprecated
 
@@ -113,6 +117,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix(docs): fix the TOC link to the first heading [8e346f8](https://github.com/homelab-alpha/docs/commit/8e346f89b3916e5d6d7ac75703bbba970e8a6b04) by [@homelab-alpha](https://github.com/homelab-alpha)
 - fix(changelog): remove the date from Unreleased [0ee84fc](https://github.com/homelab-alpha/docs/commit/0ee84fc1c30264553ec73aa3ca557b307fdcb23d) by [@homelab-alpha](https://github.com/homelab-alpha)
 - fix(changelog): remove the Unreleased link [75fc4a1](https://github.com/homelab-alpha/docs/commit/75fc4a18aaea0b19845eab3910446aba124a48f0) by [@homelab-alpha](https://github.com/homelab-alpha)
+- fix(changelog): natural language from stylesheet to style sheet [d9297f8](https://github.com/homelab-alpha/docs/commit/d9297f88f5f8721f786a101ee51ca99b4ab3dc25) by [@homelab-alpha](https://github.com/homelab-alpha)
 
 ### Security
 
