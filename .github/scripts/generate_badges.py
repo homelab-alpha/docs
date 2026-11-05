@@ -2,16 +2,16 @@
 
 # Filename:    generate_badges.py
 # Author:      Homelab-Alpha
-# Date:        2026-10-29
-# Version:     1.1.0
+# Date:        2026-11-05
+# Version:     1.2.0
 
 # Description: Generates the README badges as self-contained SVG files, in the
 #              Apple Human Interface Guidelines style described in
 #              .github/branding/brand_guide.md. It replaces
 #              img.shields.io: nothing is fetched from a third-party service.
 #
-#              Dynamic badges (Super Linter, CodeQL, last commit, repo size,
-#              license) are rendered from a JSON file that the badges workflow
+#              Dynamic badges (Super Linter, CodeQL, Build & Deploy, last commit,
+#              repo size, license) are rendered from a JSON file that the badges workflow
 #              fills with GitHub API data. Static badges (changelog, code of
 #              conduct, commit convention, versioning) need no input.
 #
@@ -27,7 +27,8 @@
 #     "size_kb": 812,                           repository size in KB
 #     "license": "Apache-2.0",                  SPDX id or license name
 #     "super_linter": "success",                workflow result (optional)
-#     "codeql": "failure"                       workflow result (optional)
+#     "codeql": "failure",                      workflow result (optional)
+#     "hugo": "success"                         workflow result (optional)
 #   }
 #
 #   A workflow result is one of:
@@ -126,6 +127,11 @@ ICONS = {
         'C4.8 13 2.5 11 2.5 8 V3.8 Z M5.7 8 L7.3 9.6 L10.3 6.4"/>'
     ),
     "tag": '<path d="M2 2.5 H8 L14 8.5 L8.5 14 L2 7.5 Z M5 5.5 H5.01"/>',
+    "globe": (
+        '<circle cx="8" cy="8" r="6"/><path d="M2 8 H14 '
+        "M8 2 C5.5 4.5 5.5 11.5 8 14 M8 2 C10.5 4.5 10.5 11.5 8 14"
+        '"/>'
+    ),
 }
 
 
@@ -314,6 +320,7 @@ def build_badges(data: dict) -> list[Badge]:
     for key, icon, label in (
         ("super_linter", "search", "Super Linter"),
         ("codeql", "shield", "CodeQL"),
+        ("hugo", "globe", "Build & Deploy"),
     ):
         result = data.get(key)
         if result == "absent":
