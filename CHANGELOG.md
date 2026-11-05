@@ -117,7 +117,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix(docs): fix the TOC link to the first heading [8e346f8](https://github.com/homelab-alpha/docs/commit/8e346f89b3916e5d6d7ac75703bbba970e8a6b04) by [@homelab-alpha](https://github.com/homelab-alpha)
 - fix(changelog): remove the date from Unreleased [0ee84fc](https://github.com/homelab-alpha/docs/commit/0ee84fc1c30264553ec73aa3ca557b307fdcb23d) by [@homelab-alpha](https://github.com/homelab-alpha)
 - fix(changelog): remove the Unreleased link [75fc4a1](https://github.com/homelab-alpha/docs/commit/75fc4a18aaea0b19845eab3910446aba124a48f0) by [@homelab-alpha](https://github.com/homelab-alpha)
-- fix(changelog): natural language from stylesheet to style sheet [d9297f8](https://github.com/homelab-alpha/docs/commit/d9297f88f5f8721f786a101ee51ca99b4ab3dc25) by [@homelab-alpha](https://github.com/homelab-alpha)
+- fix(changelog): natural language from `stylesheet` to style sheet [d9297f8](https://github.com/homelab-alpha/docs/commit/d9297f88f5f8721f786a101ee51ca99b4ab3dc25) by [@homelab-alpha](https://github.com/homelab-alpha)
 
 ### Security
 
