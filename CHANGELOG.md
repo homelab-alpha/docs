@@ -63,7 +63,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - chore(deps): update Prism fix, Day.js, and Bootstrap module [38c24ce](https://github.com/homelab-alpha/docs/commit/38c24cecf77ea1b94bee964f4fe7712f87893723) by [@homelab-alpha](https://github.com/homelab-alpha)
 - chore(ci): run the Hugo build check on pull requests that change site files [82aca9c](https://github.com/homelab-alpha/docs/commit/82aca9cf8641b7deb6a68575f6daed62e19c6fb1) by [@homelab-alpha](https://github.com/homelab-alpha)
 - chore(deps): update FlexSearch to 0.8.212 [3fd2834](https://github.com/homelab-alpha/docs/commit/3fd2834eca5491f1deeea491be2e8c4095fce136) by [@homelab-alpha](https://github.com/homelab-alpha)
-- chore(scss): use @use for the KaTeX stylesheet [f6fba5d](https://github.com/homelab-alpha/docs/commit/f6fba5d840ea0697dafed6726cfb450fddaaa6f2) by [@homelab-alpha](https://github.com/homelab-alpha)
+- chore(scss): use @use for the KaTeX styles heet [f6fba5d](https://github.com/homelab-alpha/docs/commit/f6fba5d840ea0697dafed6726cfb450fddaaa6f2) by [@homelab-alpha](https://github.com/homelab-alpha)
 - chore(layouts): silence unfixable Dart Sass deprecation warnings [89b77f0](https://github.com/homelab-alpha/docs/commit/89b77f068f99ebf13d6cd1b71071fc33568d176d) by [@homelab-alpha](https://github.com/homelab-alpha)
 - chore(ci): pin Dart Sass, add timeouts, and stop persisting checkout credentials [1310d54](https://github.com/homelab-alpha/docs/commit/1310d549d941630ff1a4eb54c793f3915d779fa9) by [@homelab-alpha](https://github.com/homelab-alpha)
 - chore: remove the unused DocSearch integration [3b22d46](https://github.com/homelab-alpha/docs/commit/3b22d464ba7e02d44654a3e0f34b73fdf334fb8d) by [@homelab-alpha](https://github.com/homelab-alpha)
