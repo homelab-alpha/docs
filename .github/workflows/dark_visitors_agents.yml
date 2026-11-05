@@ -49,6 +49,7 @@ jobs:
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       REPO: ${{ github.repository }}
+      REVIEWER: "homelab-alpha"
 
       SOURCE_URL: "https://knownagents.com/agents"
       OUTPUT_FILE: static/robots.txt
@@ -483,6 +484,16 @@ jobs:
               exit 1
             fi
             echo "Created pull request: $PR_URL"
+
+            # The pull request author cannot review its own pull request, so a refusal is only a warning.
+            PR_NUMBER="${PR_URL##*/}"
+            if REVIEW_RESPONSE="$(gh api --method POST "repos/$REPO/pulls/$PR_NUMBER/requested_reviewers" \
+              -f "reviewers[]=$REVIEWER" 2>&1)"; then
+              echo "::notice title=Reviewer requested::👀 Review requested from $REVIEWER"
+            else
+              echo "$REVIEW_RESPONSE"
+              echo "::warning title=Reviewer not requested::⚠️ Review could not be requested from $REVIEWER on #$PR_NUMBER."
+            fi
           else
             gh api --method PATCH "repos/$REPO/pulls/$PR_NUMBER" \
               -F body=@"$RUNNER_TEMP/pr_body.md" >/dev/null
