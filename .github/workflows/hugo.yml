@@ -44,13 +44,6 @@ jobs:
     runs-on: ubuntu-26.04
     timeout-minutes: 15
 
-    # Pull requests always run as a dry run, so bot PRs (for example a
-    # Hugo version bump) are allowed to build as well.
-    if: |
-      github.event_name == 'pull_request' ||
-      (github.event.sender.type != 'Bot' &&
-      !contains(github.actor, '[bot]'))
-
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       HUGO_VERSION: 0.169.0
