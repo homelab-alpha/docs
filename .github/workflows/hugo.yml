@@ -96,7 +96,7 @@ jobs:
         env:
           # Renovate updates the version. The SHA-256 of the linux-x64 archive is read from the digest that GitHub
           # records for the release asset, so there is no checksum to update by hand.
-          DART_SASS_VERSION: 1.107.1
+          DART_SASS_VERSION: 1.108.0
         run: |
           set -Eeuo pipefail
           echo "::group::🎨 Installing Dart Sass v${DART_SASS_VERSION}"
