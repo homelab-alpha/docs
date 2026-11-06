@@ -1,0 +1,25 @@
+{{- /*
+  Site bar and breadcrumbs of an e-reader page.
+  Context: the page being rendered.
+*/ -}}
+<div class="site-bar">
+  {{- with site.Home.OutputFormats.Get "ereader" }}
+  <a class="site-name" href="{{ .RelPermalink }}">{{ site.Params.docs.title | default site.Title }}</a>
+  {{- end }}
+  {{- with .OutputFormats.Get "html" }}
+  <a class="button" href="{{ .RelPermalink }}?full=1">Full version</a>
+  {{- end }}
+</div>
+{{- if and (not .IsHome) (gt (len .Ancestors) 1) }}
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  {{- range .Ancestors.Reverse }}
+    {{- if not .IsHome }}
+      {{- $title := .Title }}
+      {{- with .OutputFormats.Get "ereader" }}
+  <a href="{{ .RelPermalink }}">{{ $title }}</a> &rsaquo;
+      {{- end }}
+    {{- end }}
+  {{- end }}
+  {{ .Title }}
+</nav>
+{{- end }}

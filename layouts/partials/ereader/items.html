@@ -1,0 +1,17 @@
+{{- /*
+  List of pages with a short description.
+  Context: a collection of pages.
+*/ -}}
+<ul class="items">
+  {{- range . }}
+    {{- $page := . }}
+    {{- with .OutputFormats.Get "ereader" }}
+  <li>
+    <a href="{{ .RelPermalink }}">{{ $page.Title }}</a>
+    {{- with $page.Description }}
+    <span class="item-note">{{ . | markdownify | plainify | truncate 140 }}</span>
+    {{- end }}
+  </li>
+    {{- end }}
+  {{- end }}
+</ul>

@@ -1,0 +1,30 @@
+{{- /*
+  Link render hook for the e-reader version. Internal pages point to their
+  e-reader version; everything else keeps its destination. There are no
+  tooltips, no target="_blank", and no icons.
+*/ -}}
+{{- $page := .Page -}}
+{{- $u := urls.Parse .Destination -}}
+{{- $href := $u.String -}}
+{{- if not $u.IsAbs -}}
+  {{- with $u.Path -}}
+    {{- $path := . -}}
+    {{- with or ($page.GetPage $path) ($page.GetPage (strings.TrimRight "/" $path)) -}}
+      {{- with .OutputFormats.Get "ereader" -}}
+        {{- $href = .RelPermalink -}}
+        {{- with $u.Fragment }}{{ $href = printf "%s#%s" $href . }}{{ end -}}
+      {{- end -}}
+    {{- else -}}
+      {{- with $page.Resources.Get $path -}}
+        {{- $href = .RelPermalink -}}
+      {{- else -}}
+        {{- with resources.Get $path -}}
+          {{- $href = .RelPermalink -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- else -}}
+    {{- with $u.Fragment }}{{ $href = printf "%s#%s" $page.RelPermalink . }}{{ end -}}
+  {{- end -}}
+{{- end -}}
+<a href="{{ $href }}"{{ with .Title }} title="{{ . }}"{{ end }}>{{ .Text | safeHTML }}</a>

@@ -1,0 +1,45 @@
+{{- /*
+  Image render hook for the e-reader version.
+  - WebP (and other formats old browsers cannot show) becomes PNG.
+  - Wide images are scaled down to save bandwidth on a slow connection.
+  - If an image cannot be fetched or found, the plain destination is used, so
+    the alt text still shows.
+*/ -}}
+{{- $dest := .Destination -}}
+{{- $alt := .PlainText -}}
+{{- $u := urls.Parse $dest -}}
+{{- $res := false -}}
+{{- if $u.Scheme -}}
+  {{- with try (resources.GetRemote $dest) -}}
+    {{- with .Value }}{{ $res = . }}{{ end -}}
+  {{- end -}}
+{{- else -}}
+  {{- with or (.Page.Resources.Get $dest) (resources.Get $dest) }}{{ $res = . }}{{ end -}}
+{{- end -}}
+{{- $img := "" -}}
+{{- if $res -}}
+  {{- $type := $res.MediaType.SubType -}}
+  {{- if in (slice "webp" "tiff" "bmp") $type -}}
+    {{- $img = $res.Fit "800x1200 png" -}}
+  {{- else if and (in (slice "png" "jpeg") $type) (gt $res.Width 800) -}}
+    {{- $img = $res.Fit "800x1200" -}}
+  {{- else -}}
+    {{- $img = $res -}}
+  {{- end -}}
+{{- end -}}
+{{- define "partials/inline/ereader-img.html" -}}
+  {{- if .img -}}
+<img src="{{ .img.RelPermalink }}" alt="{{ .alt }}"{{ if .img.Width }} width="{{ .img.Width }}" height="{{ .img.Height }}"{{ end }}>
+  {{- else -}}
+<img src="{{ .dest }}" alt="{{ .alt }}">
+  {{- end -}}
+{{- end -}}
+{{- $ctx := dict "img" $img "alt" $alt "dest" $dest -}}
+{{- if .Title -}}
+<figure>
+  {{ partial "inline/ereader-img.html" $ctx }}
+  <figcaption>{{ .Title | markdownify }}</figcaption>
+</figure>
+{{- else -}}
+{{ partial "inline/ereader-img.html" $ctx }}
+{{- end -}}

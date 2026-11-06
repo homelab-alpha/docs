@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="{{ site.Language.Lang }}">
+{{ partial "ereader/head.html" . }}
+<body>
+<div id="page">
+{{ partial "ereader/header.html" . }}
+<main>
+  <h1>{{ .Title }}</h1>
+  {{- with .Description }}
+  <p class="lead">{{ . | markdownify | plainify }}</p>
+  {{- end }}
+  {{ .Content }}
+  {{- with .Pages.ByWeight }}
+  {{ partial "ereader/items.html" . }}
+  {{- end }}
+</main>
+{{ partial "ereader/footer.html" . }}
+</div>
+</body>
+</html>

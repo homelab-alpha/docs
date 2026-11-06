@@ -1,0 +1,17 @@
+{{- /*
+  Footer of an e-reader page.
+  Context: the page being rendered.
+*/ -}}
+<div class="site-footer">
+  {{- if and (not .IsHome) .Lastmod }}
+  <p>Last updated: {{ .Lastmod.Format "January 2, 2006" }}.</p>
+  {{- end }}
+  {{- with .OutputFormats.Get "html" }}
+  <p><a href="{{ .RelPermalink }}?full=1">Open the full version of this page</a></p>
+  {{- end }}
+  <p>
+    &copy; <a href="{{ site.Params.head.website }}">Homelab-Alpha</a>.
+    Licensed under
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>.
+  </p>
+</div>

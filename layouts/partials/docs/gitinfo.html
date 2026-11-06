@@ -33,6 +33,11 @@
         </a>
     </div>
     {{ end }}
+    {{ with .OutputFormats.Get "ereader" -}}
+    <div id="ereader-version" class="mt-1">
+        <a href="{{ .RelPermalink }}">E-reader version</a>
+    </div>
+    {{ end }}
     {{ if .Site.Params.docs.lastMod | default false -}}
     <div id="last-modified" class="mt-1">
         <p class="mb-0 fw-semibold">Last updated <span
