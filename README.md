@@ -63,7 +63,7 @@ basics, and how to contribute.
 ## Features
 
 - **Documentation** — Pages in `content/docs/` about AdGuard Home, back to
-  basics, contributing, Docker, dotfiles, help, Linux, OpenSSL, and
+  basics, contributing, Docker, dotfiles, help, Kairos, Linux, OpenSSL, and
   shell-script.
 - **Hugo site** — Layouts, shortcodes, styles, and configuration for the site.
 - **E-reader version** — Every page is also built as a light HTML page under
@@ -214,7 +214,7 @@ docs/
 ├── archetypes/                                 # Templates for new content (1 files)
 ├── assets/                                     # Images, styles, and scripts (105 files)
 ├── config/                                     # Hugo configuration (6 files)
-├── content/                                    # Documentation pages (163 files)
+├── content/                                    # Documentation pages (166 files)
 ├── data/                                       # Data files (1 files)
 ├── i18n/                                       # Translations (1 files)
 ├── layouts/                                    # Hugo layouts, partials, and shortcodes (63 files)
@@ -261,7 +261,9 @@ on push, pull request, and scheduled triggers.
 | `cleanup_actions.yml`                | Weekly schedule, manual      | Cleans up old workflow runs and Actions caches                |
 | `codeql.yml`                         | Push, PR, weekly, manual     | CodeQL static analysis for security vulnerabilities           |
 | `contributors.yml`                   | Push to `main`, manual       | Auto-generates `CONTRIBUTORS.md`                              |
+| `dark_visitors_agents.yml`           | Every 8 hours, manual        | Rebuilds `static/robots.txt` from the list of known crawlers  |
 | `dependency_review.yml`              | PR, manual                   | Reviews dependency changes for known vulnerabilities          |
+| `hugo.yml`                           | Push to `main`, PR, manual   | Builds the Hugo site and deploys it to GitHub Pages           |
 | `issues.yml`                         | Issue events, manual         | Automates issue labeling and triage                           |
 | `lint_pull_request.yml`              | PR, manual                   | Runs `npm run lint` on the changed files                      |
 | `lint_repository.yml`                | Push to `main`, manual       | Runs Super Linter across the codebase                         |
