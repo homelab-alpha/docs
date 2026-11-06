@@ -170,28 +170,7 @@ th {
   font-weight: bold;
 }
 
-/* Header, navigation, and footer. */
-
-.site-bar {
-  padding: 0.3em 0;
-  border-bottom: 1px solid #000;
-}
-
-.site-name {
-  display: inline-block;
-  margin: 0.2em 0.6em 0.2em 0;
-  font-size: 1.1em;
-  font-weight: bold;
-}
-
-.button,
-.button:visited {
-  display: inline-block;
-  margin: 0.2em 0.4em 0.2em 0;
-  padding: 0.45em 0.8em;
-  border: 1px solid #000;
-  text-decoration: none;
-}
+/* Breadcrumbs, navigation, and footer. */
 
 .breadcrumbs {
   margin: 0.6em 0 0 0;
