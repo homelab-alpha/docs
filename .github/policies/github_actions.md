@@ -228,7 +228,8 @@ that cannot be replicated with the permitted tools above:
   and of Dart Sass from their releases on GitHub, because the build of the site
   needs both. The workflow **must** verify each download with SHA-256 before it
   installs it: Hugo against the checksums file of the release, and Dart Sass
-  against a SHA-256 that is set in the workflow next to its version.
+  against the SHA-256 digest that GitHub records for the release asset (read
+  with `gh api`), so Renovate can update the version on its own.
 - Requests for new tooling exceptions **must** include a justification
   explaining why the task cannot be accomplished with the permitted tools.
 
