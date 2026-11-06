@@ -220,6 +220,11 @@ th {
   border-bottom: 1px solid #000;
 }
 
+/* The footer has its own top border; avoid a double rule. */
+.items li:last-child {
+  border-bottom: 0;
+}
+
 .items a {
   font-weight: bold;
 }
