@@ -66,6 +66,10 @@ basics, and how to contribute.
   basics, contributing, Docker, dotfiles, help, Linux, OpenSSL, and
   shell-script.
 - **Hugo site** — Layouts, shortcodes, styles, and configuration for the site.
+- **E-reader version** — Every page is also built as a light HTML page under
+  `/ereader/` for the browsers of Kindle and Kobo e-readers. It has no scripts,
+  web fonts, or CSS variables. Kindle and Kobo browsers are sent there
+  automatically; add `?full=1` to a URL to open the full site instead.
 - **Automatic build and deploy** — The `hugo.yml` workflow builds the site on
   every change and publishes it to GitHub Pages from `main`.
 - **Crawler rules** — The `dark_visitors_agents.yml` workflow rebuilds
@@ -208,12 +212,12 @@ docs/
 │   ├── renovate.json                           # Renovate dependency automation
 │   └── super_linter.env                        # Super Linter environment configuration
 ├── archetypes/                                 # Templates for new content (1 files)
-├── assets/                                     # Images, styles, and scripts (104 files)
+├── assets/                                     # Images, styles, and scripts (105 files)
 ├── config/                                     # Hugo configuration (6 files)
 ├── content/                                    # Documentation pages (163 files)
 ├── data/                                       # Data files (1 files)
 ├── i18n/                                       # Translations (1 files)
-├── layouts/                                    # Hugo layouts, partials, and shortcodes (50 files)
+├── layouts/                                    # Hugo layouts, partials, and shortcodes (63 files)
 ├── static/                                     # Static files such as fonts, images, and robots.txt (372 files)
 ├── .editorconfig                               # Editor settings (indent, line endings)
 ├── .gitignore                                  # Git ignore rules

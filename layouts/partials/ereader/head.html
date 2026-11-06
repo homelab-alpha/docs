@@ -1,0 +1,20 @@
+{{- /*
+  Head of an e-reader page. The stylesheet is inlined: it saves a request on a
+  slow e-reader connection, and it needs no web fonts, scripts, or SRI.
+  Context: the page being rendered.
+*/ -}}
+{{- $title := site.Params.docs.title | default site.Title -}}
+{{- if not .IsHome -}}
+  {{- $title = printf "%s | %s" .Title $title -}}
+{{- end -}}
+{{- $css := resources.Get "ereader/css/ereader.css" | minify -}}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, follow">
+  <title>{{ $title }}</title>
+  {{- with .OutputFormats.Get "html" }}
+  <link rel="canonical" href="{{ .Permalink }}">
+  {{- end }}
+  <style>{{ $css.Content | safeCSS }}</style>
+</head>

@@ -1,0 +1,2 @@
+{{- /* Plain code block: no Prism, no copy button, no line numbers. */ -}}
+<pre><code{{ with .Type }} class="language-{{ . }}"{{ end }}>{{ strings.TrimRight "\r\n" .Inner }}</code></pre>

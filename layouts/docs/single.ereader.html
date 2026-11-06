@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="{{ site.Language.Lang }}">
+{{ partial "ereader/head.html" . }}
+<body>
+<div id="page">
+{{ partial "ereader/header.html" . }}
+<main>
+  <h1>{{ .Title }}</h1>
+  {{- with .Description }}
+  <p class="lead">{{ . | markdownify | plainify }}</p>
+  {{- end }}
+  {{- if in .TableOfContents "<li>" }}
+  <nav class="toc" aria-label="Table of contents">
+    <p class="toc-title">On this page</p>
+    {{ .TableOfContents }}
+  </nav>
+  {{- end }}
+  {{ .Content }}
+</main>
+{{- /*
+  Same order as the full site: Hugo's Next is the page before this one in the
+  section, and Prev is the page after it.
+*/}}
+{{- $pages := where .Site.RegularPages "Section" .Section }}
+{{- $before := $pages.Next . }}
+{{- $after := $pages.Prev . }}
+{{- if or $before $after }}
+<nav class="pager" aria-label="Page navigation">
+  {{- with $before }}{{ with .OutputFormats.Get "ereader" }}
+  <a href="{{ .RelPermalink }}"><span class="pager-label">&laquo; Previous</span><span class="pager-title">{{ $before.Title }}</span></a>
+  {{- end }}{{ end }}
+  {{- with $after }}{{ with .OutputFormats.Get "ereader" }}
+  <a href="{{ .RelPermalink }}"><span class="pager-label">Next &raquo;</span><span class="pager-title">{{ $after.Title }}</span></a>
+  {{- end }}{{ end }}
+</nav>
+{{- end }}
+{{ partial "ereader/footer.html" . }}
+</div>
+</body>
+</html>

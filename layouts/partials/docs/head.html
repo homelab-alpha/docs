@@ -20,6 +20,7 @@
     <meta name="robots" content="noindex">
     {{- end }}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "head/ereader.html") . }}
     {{- with .Description | default (.Site.Params.head.description) }}
     <meta name="description" content="{{ . }}">
     {{- end }}

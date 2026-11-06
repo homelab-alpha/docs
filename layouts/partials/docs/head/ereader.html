@@ -1,0 +1,40 @@
+{{- /*
+  Link to the e-reader version of this page, and a redirect for Kindle and Kobo
+  browsers. The script is plain ES3 on purpose: it must run on old WebKit
+  builds, before any of the heavier scripts of this site would fail there.
+  Every catch block uses its variable, because the minifier would otherwise
+  rewrite it to "catch {}", which old WebKit cannot parse.
+
+  Opt out: open any page with "?full=1". The choice is kept for the rest of
+  the browser session, when the browser allows session storage.
+*/ -}}
+{{- with .OutputFormats.Get "ereader" }}
+<link rel="alternate" type="text/html" title="E-reader version" href="{{ .Permalink }}">
+<script>
+(function () {
+  function remember(set) {
+    try {
+      if (set) {
+        window.sessionStorage.setItem("full-site", "1");
+        return true;
+      }
+      return window.sessionStorage.getItem("full-site") === "1";
+    } catch (e) {
+      return e && false;
+    }
+  }
+  try {
+    if (!/Kindle|Kobo/i.test(navigator.userAgent || "")) { return; }
+    var loc = window.location;
+    if (/[?&]full=1(&|$)/.test(loc.search)) {
+      remember(true);
+      return;
+    }
+    if (remember(false)) { return; }
+    loc.replace({{ .RelPermalink }} + loc.hash);
+  } catch (e) {
+    return e;
+  }
+})();
+</script>
+{{- end }}

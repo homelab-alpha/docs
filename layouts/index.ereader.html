@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="{{ site.Language.Lang }}">
+{{ partial "ereader/head.html" . }}
+<body>
+<div id="page">
+{{ partial "ereader/header.html" . }}
+<main>
+  <h1>{{ site.Params.docs.title | default site.Title }}</h1>
+  {{- with site.Params.head.description }}
+  <p class="lead">{{ . }}</p>
+  {{- end }}
+  {{ partial "ereader/items.html" site.Sections.ByWeight }}
+</main>
+{{ partial "ereader/footer.html" . }}
+</div>
+</body>
+</html>

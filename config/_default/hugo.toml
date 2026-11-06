@@ -25,3 +25,16 @@ title                  = "Homelab-Alpha | Your gateway to Homelab-Alpha's open s
   series   = "series"
   tag      = "tags"
   keyword  = "keywords"
+
+# Lightweight HTML version for e-reader browsers (Kindle, Kobo). It has no
+# JavaScript, no web fonts, and no CSS variables. See layouts/**/*.ereader.html.
+[outputFormats.ereader]
+  mediaType = "text/html"
+  baseName  = "index"
+  path      = "ereader"
+  isHTML    = true
+
+[outputs]
+  home    = ["html", "ereader"]
+  section = ["html", "ereader"]
+  page    = ["html", "ereader"]
