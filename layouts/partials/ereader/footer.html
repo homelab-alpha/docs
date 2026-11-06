@@ -3,7 +3,8 @@
   Context: the page being rendered.
 */ -}}
 <div class="site-footer">
-  {{- if and (not .IsHome) .Lastmod }}
+  {{- /* Only documents have a date; section lists and the home page do not. */}}
+  {{- if and .IsPage .Lastmod }}
   <p>Last updated: {{ .Lastmod.Format "January 2, 2006" }}.</p>
   {{- end }}
   <p>
