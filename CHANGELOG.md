@@ -97,6 +97,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ci(hugo): read Dart Sass digest from release [24a5f03](https://github.com/homelab-alpha/docs/commit/24a5f0326148375bfc89fd03348536a0e25aec1f) by [@homelab-alpha](https://github.com/homelab-alpha)
 - refactor(site): trim e-reader header, footer [5199062](https://github.com/homelab-alpha/docs/commit/519906285c914aabc7374ca403792d8fd49417eb) by [@homelab-alpha](https://github.com/homelab-alpha)
 - docs(readme): sync counts and workflow table [4741484](https://github.com/homelab-alpha/docs/commit/4741484e458d0353ceb05036d8931a4ef62cea7a) by [@homelab-alpha](https://github.com/homelab-alpha)
+- chore(labels): add dependency update labels [0b02d11](https://github.com/homelab-alpha/docs/commit/0b02d11267a8caaf03b43c781b03cb5b424b4dc5) by [@homelab-alpha](https://github.com/homelab-alpha)
 
 ### Deprecated
 
