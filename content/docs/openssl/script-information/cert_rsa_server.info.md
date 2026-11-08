@@ -58,7 +58,7 @@ certificates.
 - **Filename**: `cert_rsa_server.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: February 20, 2025
-- **Version**: 2.5.3
+- **Version**: 2.5.4
 - **Description**: This script automates the process of creating and managing
   RSA certificates for server authentication, including key generation, CSR
   creation, certificate issuance, verification, and preparation of certificate
@@ -207,12 +207,12 @@ fi
 
 ### Generate RSA Key
 
-The script generates an RSA key for the Certificate and saves it to the private
-directory.
+The script generates a 4096-bit RSA key for the Certificate and saves it to the
+private directory.
 
 ```bash
 print_section_header "Generate RSA key"
-openssl genrsa -out "$private_certificates_dir/${fqdn}.pem"
+openssl genrsa -out "$private_certificates_dir/${fqdn}.pem" 4096
 check_success "Failed to generate RSA key"
 ```
 
@@ -242,7 +242,6 @@ print_section_header "Create an extfile with all the alternative names"
   echo "basicConstraints = critical, CA:FALSE"
   echo "keyUsage = critical, digitalSignature"
   echo "extendedKeyUsage = serverAuth"
-  echo "nsCertType = server"
   echo "nsComment = OpenSSL Generated Server Certificate"
 } >"$extfile_dir/${fqdn}.cnf"
 ```
