@@ -56,7 +56,7 @@ bundles.
 - **Filename**: `cert_rsa_client.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: February 20, 2025
-- **Version**: 2.5.3
+- **Version**: 2.5.4
 - **Description**: Automates the process of creating and managing RSA client
   certificates, including key generation, CSR creation, certificate issuance,
   verification, and preparation of certificate chain bundles.
@@ -202,12 +202,12 @@ fi
 
 ### Generate RSA Key
 
-The script generates an RSA key for the Certificate and saves it to the private
-directory.
+The script generates a 4096-bit RSA key for the Certificate and saves it to the
+private directory.
 
 ```bash
 print_section_header "Generate RSA key"
-openssl genrsa -out "$private_certificates_dir/${fqdn}.pem"
+openssl genrsa -out "$private_certificates_dir/${fqdn}.pem" 4096
 check_success "Failed to generate RSA key"
 ```
 
@@ -237,7 +237,6 @@ print_section_header "Create an extfile with all the alternative names"
   echo "basicConstraints = critical, CA:FALSE"
   echo "keyUsage = critical, digitalSignature"
   echo "extendedKeyUsage = clientAuth, emailProtection"
-  echo "nsCertType = client, email"
   echo "nsComment = OpenSSL Generated Client Certificate"
 } >"$extfile_dir/${fqdn}.cnf"
 ```

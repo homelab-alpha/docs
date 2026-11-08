@@ -67,7 +67,7 @@ applications.
 - **Filename**: `cert_ecdsa_client.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: February 20, 2025
-- **Version**: 2.5.3
+- **Version**: 2.5.4
 - **Description**: This script automates the generation of an ECDSA client
   certificate, including key creation, CSR generation, certificate issuance, and
   verification.
@@ -249,7 +249,6 @@ print_section_header "Create an extfile with all the alternative names"
   echo "basicConstraints = critical, CA:FALSE"
   echo "keyUsage = critical, digitalSignature"
   echo "extendedKeyUsage = clientAuth, emailProtection"
-  echo "nsCertType = client, email"
   echo "nsComment = OpenSSL Generated Client Certificate"
 } >"$extfile_dir/${fqdn}.cnf"
 ```
