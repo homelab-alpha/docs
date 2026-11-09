@@ -274,9 +274,16 @@ These commands ask for the fully qualified domain name (FQDN) and, for servers,
 an IPv4 address. To run without questions, pass them as options:
 
 ```bash
-new-cert-server --fqdn www.example.test --ip 192.0.2.10
+new-cert-server --fqdn example.test --ip 192.0.2.10
 new-cert-client --fqdn client.example.test
 ```
+
+Enter the FQDN without `www.`. A server certificate (ECDSA or RSA) and an RSA
+client certificate cover both the FQDN and `www.<fqdn>`, so
+`--fqdn example.test` gives a certificate for `example.test` and
+`www.example.test`. The commands that use the name of an existing certificate,
+such as `openssl-verify`, `openssl-renew`, and `openssl-revoke`, also take the
+FQDN you entered here.
 
 <br />
 
@@ -288,7 +295,7 @@ for your own certificates:
 ```bash
 openssl-verify root_ca.pem
 openssl-verify -v ca.pem
-openssl-verify www.example.test
+openssl-verify example.test
 ```
 
 See [verify_tls_certificates] for the options.
@@ -318,8 +325,8 @@ Renew server and client certificates before they expire. The script archives the
 old files in `~/tls/archive/<fqdn>/<date>/` and never deletes anything:
 
 ```bash
-openssl-renew --dry-run www.example.test
-openssl-renew www.example.test
+openssl-renew --dry-run example.test
+openssl-renew example.test
 openssl-renew --all --within 30 --yes
 ```
 
@@ -335,8 +342,8 @@ The script marks it as revoked in the database and generates a Certificate
 Revocation List (CRL) in `~/tls/crl/ca_crl.pem`:
 
 ```bash
-openssl-revoke --dry-run www.example.test
-openssl-revoke --reason keyCompromise www.example.test
+openssl-revoke --dry-run example.test
+openssl-revoke --reason keyCompromise example.test
 openssl-revoke --crl-only
 ```
 
