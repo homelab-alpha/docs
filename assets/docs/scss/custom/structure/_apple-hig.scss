@@ -25,7 +25,13 @@
   --primary: var(--hig-accent);
 }
 
+// Native controls and scrollbars follow the theme.
+:root {
+  color-scheme: light;
+}
+
 [data-dark-mode] {
+  color-scheme: dark;
   --hig-accent: #2997ff;
   --primary: var(--hig-accent);
   --primary-300: var(--hig-accent);
