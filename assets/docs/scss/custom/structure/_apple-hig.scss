@@ -157,7 +157,9 @@ body {
 
 // Materials: the header floats over the content, so the content blurs behind it
 // when the page scrolls. The sidebar stays solid, because nothing is behind it.
-.page-content .top-header .header-bar {
+// The selector has the same weight as the one in the sidebar styles, so that
+// these rules win over the theme.
+.page-wrapper .page-content .top-header .header-bar {
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
 }
@@ -167,13 +169,13 @@ body {
 @supports not (
   (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
 ) {
-  .page-content .top-header .header-bar {
+  .page-wrapper .page-content .top-header .header-bar {
     background: var(--body-bg);
   }
 }
 
 @media (prefers-reduced-transparency: reduce) {
-  .page-content .top-header .header-bar {
+  .page-wrapper .page-content .top-header .header-bar {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
     background: var(--body-bg);

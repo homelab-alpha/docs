@@ -1,0 +1,16 @@
+// Content width on large screens.
+//
+// On a large monitor with a maximized browser, the text column used to grow with
+// the window, up to lines of more than 200 characters. From 1800 px wide, the
+// content has a maximum width and stays in the middle of the free space next to
+// the sidebar. The table of contents stays next to the text, so a line of text
+// is about 120 characters or less.
+//
+// Below 1800 px nothing changes.
+
+@media (min-width: 1800px) {
+  .page-wrapper .page-content > .container-fluid {
+    max-width: 1280px;
+    margin-inline: auto;
+  }
+}
