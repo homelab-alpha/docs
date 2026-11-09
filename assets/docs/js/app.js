@@ -120,6 +120,21 @@ if (document.getElementById("close-sidebar")) {
   });
 }
 
+// Follow the window size. The class "toggled" means open on a large window and
+// closed on a small one, so it must change when the window crosses the breakpoint.
+// Otherwise a sidebar that was collapsed on desktop opens by itself on mobile.
+window.matchMedia("(min-width: 1025px)").addEventListener("change", function (event) {
+  const pageWrapper = document.getElementsByClassName("page-wrapper")[0];
+  if (!pageWrapper) return;
+  let collapsed = false;
+  try {
+    collapsed = localStorage.getItem("sidebar-state") === "collapsed";
+  } catch (e) {
+    // Storage is not available. The sidebar opens on a large window.
+  }
+  pageWrapper.classList.toggle("toggled", event.matches ? !collapsed : true);
+});
+
 // Close Sidebar (mobile)
 if (!window.matchMedia("(min-width: 1024px)").matches) {
   if (document.getElementById("close-sidebar")) {
