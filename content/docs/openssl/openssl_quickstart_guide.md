@@ -282,7 +282,7 @@ new-cert-client --fqdn client.example.test
 
 ## Verify Certificates
 
-Check a certificate against its chain of trust. Use the file name without `.pem`
+Check a certificate against its chain of trust. Use the filename without `.pem`
 for your own certificates:
 
 ```bash
