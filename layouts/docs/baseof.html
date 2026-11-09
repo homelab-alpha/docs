@@ -13,6 +13,14 @@
     <body>
         <div class="content">
             <div class="page-wrapper toggled">
+                <!-- Keep the sidebar collapsed on desktop when the visitor collapsed it (see js/app.js) -->
+                <script>
+                    try {
+                        if (localStorage.getItem("sidebar-state") === "collapsed" && window.matchMedia("(min-width: 1025px)").matches) {
+                            document.querySelector(".page-wrapper").classList.remove("toggled");
+                        }
+                    } catch (e) {}
+                </script>
                 {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "sidebar.html") . -}}
                     <!-- Start Page Content -->
                     <main class="page-content bg-transparent">

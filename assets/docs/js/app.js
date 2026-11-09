@@ -76,10 +76,7 @@ function activateMenu() {
           parentOfParent.classList.add("active");
         }
       } else {
-        var parentOfParent = getClosest(
-          matchingMenuItem,
-          ".parent-parent-menu-item",
-        );
+        var parentOfParent = getClosest(matchingMenuItem, ".parent-parent-menu-item");
         if (parentOfParent) {
           parentOfParent.classList.add("active");
         }
@@ -90,9 +87,7 @@ function activateMenu() {
 
 // Sidebar Menu
 function activateSidebarMenu() {
-  var current = location.pathname.substring(
-    location.pathname.lastIndexOf("/") + 1,
-  );
+  var current = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
   if (current !== "" && document.getElementById("sidebar")) {
     var menuItems = document.querySelectorAll("#sidebar button");
     for (var i = 0, len = menuItems.length; i < len; i++) {
@@ -110,13 +105,19 @@ function activateSidebarMenu() {
 }
 
 if (document.getElementById("close-sidebar")) {
-  document
-    .getElementById("close-sidebar")
-    .addEventListener("click", function () {
-      document
-        .getElementsByClassName("page-wrapper")[0]
-        .classList.toggle("toggled");
-    });
+  document.getElementById("close-sidebar").addEventListener("click", function () {
+    const pageWrapper = document.getElementsByClassName("page-wrapper")[0];
+    pageWrapper.classList.toggle("toggled");
+    // Remember the choice on desktop, so the sidebar keeps its state on the next page.
+    // The inline script in layouts/docs/baseof.html reads this key before the first paint.
+    if (window.matchMedia("(min-width: 1025px)").matches) {
+      try {
+        localStorage.setItem("sidebar-state", pageWrapper.classList.contains("toggled") ? "expanded" : "collapsed");
+      } catch (e) {
+        // Storage is not available (for example in private mode). The state is not saved.
+      }
+    }
+  });
 }
 
 // Close Sidebar (mobile)
@@ -124,22 +125,16 @@ if (!window.matchMedia("(min-width: 1024px)").matches) {
   if (document.getElementById("close-sidebar")) {
     const closeSidebar = document.getElementById("close-sidebar");
     const sidebar = document.getElementById("sidebar");
-    const sidebarMenuLinks = Array.from(
-      document.querySelectorAll(".sidebar-root-link,.sidebar-nested-link"),
-    );
+    const sidebarMenuLinks = Array.from(document.querySelectorAll(".sidebar-root-link,.sidebar-nested-link"));
     // Close sidebar by clicking outside
     document.addEventListener("click", function (elem) {
       if (!closeSidebar.contains(elem.target) && !sidebar.contains(elem.target))
-        document
-          .getElementsByClassName("page-wrapper")[0]
-          .classList.add("toggled");
+        document.getElementsByClassName("page-wrapper")[0].classList.add("toggled");
     });
     // Close sidebar immediately when clicking sidebar menu item
     sidebarMenuLinks.forEach((menuLink) => {
       menuLink.addEventListener("click", function () {
-        document
-          .getElementsByClassName("page-wrapper")[0]
-          .classList.add("toggled");
+        document.getElementsByClassName("page-wrapper")[0].classList.add("toggled");
       });
     });
   }
@@ -147,9 +142,7 @@ if (!window.matchMedia("(min-width: 1024px)").matches) {
 
 // Clickable Menu
 if (document.getElementById("navigation")) {
-  var elements = document
-    .getElementById("navigation")
-    .getElementsByTagName("a");
+  var elements = document.getElementById("navigation").getElementsByTagName("a");
   for (var i = 0, len = elements.length; i < len; i++) {
     elements[i].onclick = function (elem) {
       if (elem.target.getAttribute("href") === "javascript:void(0)") {
@@ -161,9 +154,7 @@ if (document.getElementById("navigation")) {
 }
 
 if (document.getElementById("sidebar")) {
-  var elements = document
-    .getElementById("sidebar")
-    .getElementsByTagName("button");
+  var elements = document.getElementById("sidebar").getElementsByTagName("button");
   for (var i = 0, len = elements.length; i < len; i++) {
     elements[i].onclick = function (elem) {
       // if(elem.target !== document.querySelectorAll("li.sidebar-dropdown.active > a")[0]){
@@ -182,10 +173,7 @@ if (document.getElementById("sidebar")) {
 function windowScroll() {
   var navbar = document.getElementById("topnav");
   if (navbar === null) {
-  } else if (
-    document.body.scrollTop >= 50 ||
-    document.documentElement.scrollTop >= 50
-  ) {
+  } else if (document.body.scrollTop >= 50 || document.documentElement.scrollTop >= 50) {
     navbar.classList.add("nav-sticky");
   } else {
     navbar.classList.remove("nav-sticky");
@@ -205,10 +193,7 @@ window.onscroll = function () {
 
 function scrollFunction() {
   if (mybutton != null) {
-    if (
-      document.body.scrollTop > 500 ||
-      document.documentElement.scrollTop > 500
-    ) {
+    if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
       mybutton.style.display = "block";
     } else {
       mybutton.style.display = "none";
@@ -233,9 +218,7 @@ if (document.getElementsByClassName("dd-menu")) {
 
 // Active Sidebar
 (function () {
-  var current = location.pathname.substring(
-    location.pathname.lastIndexOf("/") + 1,
-  );
+  var current = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
   if (current === "") return;
   var menuItems = document.querySelectorAll(".sidebar-nav a");
   for (var i = 0, len = menuItems.length; i < len; i++) {
@@ -254,12 +237,8 @@ if (document.getElementById("relativetime")) {
 }
 
 // Initialize Bootstrap Tooltips
-const tooltipTriggerList = document.querySelectorAll(
-  '[data-bs-toggle="tooltip"]',
-);
-const tooltipList = [...tooltipTriggerList].map(
-  (tooltipTriggerEl) => new Tooltip(tooltipTriggerEl),
-);
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+const tooltipList = [...tooltipTriggerList].map((tooltipTriggerEl) => new Tooltip(tooltipTriggerEl));
 
 /**
  * Sanitize and encode all HTML in a user-submitted string
