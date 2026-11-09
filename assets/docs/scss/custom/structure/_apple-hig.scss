@@ -1,0 +1,204 @@
+// Apple Human Interface Guidelines (HIG) layer, step 1.
+//
+// This file adapts the design principles of the Apple HIG to the site: legible
+// typography, one accent color, large enough touch targets, a visible keyboard
+// focus, and less motion when the visitor asks for it. It uses no Apple assets:
+// the system font stack renders SF on Apple devices, and Inter on other devices.
+//
+// It is imported after the structure and the components, so it wins on equal
+// specificity. Keep the rules short and remove a rule here to go back to the
+// theme default.
+
+:root {
+  // The 8 pt grid, in rem
+  --hig-space-1: 0.5rem;
+  --hig-space-2: 1rem;
+  --hig-space-3: 1.5rem;
+  --hig-space-4: 2rem;
+
+  // The smallest size of a touch target in the HIG
+  --hig-hit-target: 44px;
+
+  // System blue. Light mode uses the darker link blue for a contrast of at
+  // least 4.5:1 on white, and dark mode uses the lighter blue on black.
+  // The accent has two roles. Text, links, and icons use --hig-accent. A solid
+  // fill that carries white text uses --hig-accent-fill. In light mode they are
+  // the same blue; in dark mode the text blue is lighter than the fill blue,
+  // because white text on the light blue has a contrast of only 2.9:1.
+  --hig-accent: #0066cc;
+  --hig-accent-fill: #0066cc;
+  --primary: var(--hig-accent-fill);
+}
+
+// Native controls and scrollbars follow the theme.
+:root {
+  color-scheme: light;
+
+  // Materials (step 2): a translucent bar and a hairline separator. The bar is
+  // the "regular" material of the HIG: a tinted layer with a blur behind it.
+  --hig-material-bg: rgba(255, 255, 255, 0.72);
+  --hig-separator: rgba(60, 60, 67, 0.18);
+  --top-header-bg: var(--hig-material-bg);
+  --sidebar-border-color: var(--hig-separator);
+  --inline-code-border: 1px solid var(--hig-separator);
+}
+
+[data-dark-mode] {
+  color-scheme: dark;
+  --hig-material-bg: rgba(24, 25, 33, 0.72);
+  --hig-separator: rgba(255, 255, 255, 0.1);
+  --hig-accent: #2997ff;
+  --hig-accent-fill: #0071e3;
+  --primary: var(--hig-accent-fill);
+  --primary-300: var(--hig-accent);
+}
+
+// Typography
+//
+// Body text is 17 px (the HIG "Body" size) with a line height of about 1.47.
+// The root size is not changed, so the text still follows the font size that the
+// visitor set in the browser (the web version of Dynamic Type).
+body {
+  font-size: 1.0625rem;
+  line-height: 1.47;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+@media (max-width: 1199px) {
+  body {
+    font-size: 1rem;
+  }
+}
+
+.docs-content p,
+.docs-content li {
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+// Title hierarchy: Large Title 34, Title 1 28, Title 2 22, Title 3 20, and
+// Headline 17 (semibold).
+.docs-content .content-title {
+  font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.125rem);
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+.docs-content .main-content {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    text-wrap: balance;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+    line-height: 1.14;
+  }
+
+  h3 {
+    font-size: 1.375rem;
+    line-height: 1.2;
+  }
+
+  h4 {
+    font-size: 1.25rem;
+    line-height: 1.25;
+  }
+
+  h5 {
+    font-size: 1.0625rem;
+    line-height: 1.3;
+    font-weight: 600;
+  }
+}
+
+// Keyboard focus: a clear ring in the accent color on every control.
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--hig-accent);
+  outline-offset: 2px;
+}
+
+// Touch targets: at least 44 x 44 points on a touch screen. A mouse or trackpad
+// keeps the compact sizes of the theme.
+@media (pointer: coarse) {
+  .btn.btn-icon {
+    width: var(--hig-hit-target);
+    height: var(--hig-hit-target);
+  }
+
+  #sidebar .sidebar-root-link,
+  #sidebar .sidebar-nested-link,
+  #sidebar .sidebar-dropdown > button {
+    min-height: var(--hig-hit-target);
+  }
+
+  #TableOfContents a,
+  #toc a {
+    padding-block: 0.5rem;
+  }
+}
+
+// Motion: no animation when the visitor asks for less motion.
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// Materials: the header floats over the content, so the content blurs behind it
+// when the page scrolls. The sidebar stays solid, because nothing is behind it.
+.page-content .top-header .header-bar {
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+
+// Without blur support, or when the visitor asks for less transparency, the
+// header becomes an opaque bar in the page color.
+@supports not (
+  (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
+) {
+  .page-content .top-header .header-bar {
+    background: var(--body-bg);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .page-content .top-header .header-bar {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: var(--body-bg);
+  }
+}
+
+// Table of contents: rounded rows, like a selected row in a sidebar list.
+#TableOfContents a,
+#toc a {
+  border-radius: 8px;
+  padding-block: 2px;
+}
+
+// Code: larger corner radius and a hairline around the block. The colors of the
+// code blocks are not changed, because the syntax highlighting depends on them.
+.docs-content .main-content div.highlight {
+  border-radius: 10px;
+  border: 1px solid var(--hig-separator);
+}
+
+.docs-content .main-content pre {
+  border-radius: 10px;
+}
+
+.docs-content .main-content :not(pre) > code {
+  font-size: 0.875em;
+  border-radius: 6px;
+}
