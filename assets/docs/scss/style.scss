@@ -45,6 +45,9 @@ $code-block-padding-top: {{ if eq .Site.Params.docs.prism true -}}0{{ else }}1.2
 @import "custom/pages/features";
 @import "custom/pages/helper";
 
+// Apple Human Interface Guidelines layer (last, so that it wins over the theme)
+@import "custom/structure/apple-hig";
+
 // Plugins
 
 // Prism / Chroma

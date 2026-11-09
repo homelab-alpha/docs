@@ -1,5 +1,5 @@
-sans_serif_font = "Inter"
-secondary_font  = "Inter"
+sans_serif_font = "-apple-system, BlinkMacSystemFont, system-ui, Inter, 'Segoe UI', Roboto, sans-serif"
+secondary_font  = "-apple-system, BlinkMacSystemFont, system-ui, Inter, 'Segoe UI', Roboto, sans-serif"
 mono_font       = "JetBrains Mono"
 
 [landingpage]
