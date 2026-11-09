@@ -1,11 +1,12 @@
 ---
-title: "ssl_directory_setup.info"
+title: "tls_directory_setup.info"
 description:
-  "Automates the setup of SSL certificate management directories, generates
+  "Automates the setup of TLS certificate management directories, generates
   random serial numbers, and creates necessary OpenSSL configuration files for a
   root certificate authority (CA) and a time-stamping authority (TSA)."
-url: "openssl/script-info/ssl-directory-setup"
-aliases: ""
+url: "openssl/script-info/tls-directory-setup"
+aliases:
+  - "openssl/script-info/ssl-directory-setup"
 icon: "code"
 
 params:
@@ -19,12 +20,12 @@ series:
   - Script Information
 tags:
   - OpenSSL
-  - SSL Certificates
+  - TLS Certificates
   - Script
   - Security
   - Automation
 keywords:
-  - SSL setup
+  - TLS setup
   - OpenSSL script
   - Certificate management
   - Root CA
@@ -47,8 +48,8 @@ information here with caution and verify it if necessary. {{% /alert %}}
 <br />
 
 Let's break down what this script does in detail. The script is named
-`ssl_directory_setup.sh`, authored by GJS (homelab-alpha), and its purpose is to
-set up a directory structure for SSL certificate management, generate random
+`tls_directory_setup.sh`, authored by GJS (homelab-alpha), and its purpose is to
+set up a directory structure for TLS certificate management, generate random
 serial numbers for certificate databases, and create OpenSSL configuration files
 for a trusted identity (root certificate authority) and a time-stamping
 authority (TSA). The script requires OpenSSL to be installed and write
@@ -56,15 +57,16 @@ permissions in the specified directories.
 
 ## Script Metadata
 
-- **Filename**: `ssl_directory_setup.sh`
+- **Filename**: `tls_directory_setup.sh`
+- **Old name**: `ssl_directory_setup.sh` (a wrapper that starts this script)
 - **Author**: GJS (homelab-alpha)
-- **Date**: February 18, 2025
-- **Version**: 2.5.0
-- **Description**: Sets up SSL certificate management directories, generates
+- **Date**: November 9, 2026
+- **Version**: 2.6.0
+- **Description**: Sets up TLS certificate management directories, generates
   random serial numbers, and creates OpenSSL configuration files.
 - **Requirements**: OpenSSL installed, write permissions in specified
   directories.
-- **RAW Script**: [ssl_directory_setup.sh]
+- **RAW Script**: [tls_directory_setup.sh]
 
 <br />
 
@@ -133,13 +135,17 @@ print_section_header() {
 
 ### Directory Structure
 
-Defines the main directory and subdirectories used for SSL certificates and
+Defines the main directory and subdirectories used for TLS certificates and
 related files. The structure is designed for managing root and intermediate CAs,
 certificates, and other essential components.
 
 ```bash
-# Set base directory
-base_dir="$HOME/ssl"
+base_dir="$HOME/tls"
+# Do not create a second, empty directory while the old one exists.
+if [ ! -e "$base_dir" ] && [ -d "$HOME/ssl" ]; then
+  echo "Error: the old directory $HOME/ssl exists. Run tls_directory_migrate.sh to move it to $HOME/tls." >&2
+  exit 1
+fi
 certs_dir="$base_dir/certs"
 crl_dir="$base_dir/crl"
 crl_backup_dir="$base_dir/crl-backup"
@@ -167,7 +173,7 @@ tsa_dir="$base_dir/tsa"
 
 ### Create Directory Structure
 
-Creates the necessary directory structure for SSL certificate management,
+Creates the necessary directory structure for TLS certificate management,
 including directories for root and intermediate certificate authorities (CAs),
 certificates, Certificate Revocation Lists (CRLs), and other key components.
 
@@ -227,7 +233,7 @@ done
 ### OpenSSL Configuration Files
 
 Copies the OpenSSL configuration files from the user's local directory to the
-target directory for the SSL setup. If the source directory doesn't exist, it
+target directory for the TLS setup. If the source directory doesn't exist, it
 will print a warning and skip the copy operation.
 
 ```bash
@@ -248,20 +254,20 @@ Finally, the script exits with a success message:
 
 ```bash
 echo
-print_cyan "SSL directory setup completed successfully."
+print_cyan "TLS directory setup completed successfully."
 ```
 
 <br />
 
 ## Conclusion
 
-The `ssl_directory_setup.sh` script automates the setup of an SSL certificate
+The `tls_directory_setup.sh` script automates the setup of a TLS certificate
 management environment. It creates a structured directory layout, initializes
 database files, generates unique serial numbers, and sets up configuration files
 for a root CA and TSA. By using functions for printing and generating random
 values, the script ensures clarity and security throughout the process. This
-setup is crucial for managing SSL/TLS certificates in a controlled and organized
+setup is crucial for managing TLS certificates in a controlled and organized
 manner.
 
-[ssl_directory_setup.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/ssl_directory_setup.sh
+[tls_directory_setup.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/tls_directory_setup.sh

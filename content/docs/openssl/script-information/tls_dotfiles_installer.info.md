@@ -1,10 +1,11 @@
 ---
-title: "ssl_dotfiles_installer.info"
+title: "tls_dotfiles_installer.info"
 description:
   "A script for installing and configuring OpenSSL aliases in the .bashrc file
   without creating duplicate entries."
-url: "openssl/script-info/ssl-dotfiles-installer"
-aliases: ""
+url: "openssl/script-info/tls-dotfiles-installer"
+aliases:
+  - "openssl/script-info/ssl-dotfiles-installer"
 icon: "code"
 
 params:
@@ -43,20 +44,21 @@ information here with caution and verify it if necessary. {{% /alert %}}
 <br />
 
 Let's break down what this script does in detail. The script is named
-`ssl_dotfiles_installer`, authored by GJS (homelab-alpha), and its purpose is to
+`tls_dotfiles_installer`, authored by GJS (homelab-alpha), and its purpose is to
 add specific configuration content to the `~/.bashrc` file without duplicating
 existing entries. This ensures that certain aliases or configurations are loaded
 from a separate file.
 
 ## Script Metadata
 
-- **Filename**: `ssl_dotfiles_installer.sh`
+- **Filename**: `tls_dotfiles_installer.sh`
+- **Old name**: `ssl_dotfiles_installer.sh` (a wrapper that starts this script)
 - **Author**: GJS (homelab-alpha)
-- **Date**: October 31, 2026
-- **Version**: 2.7.0
+- **Date**: November 9, 2026
+- **Version**: 2.8.0
 - **Description**: This script ensures the `.bashrc` file is updated with the
   necessary OpenSSL alias configurations without adding duplicates.
-- **RAW Script**: [ssl_dotfiles_installer.sh]
+- **RAW Script**: [tls_dotfiles_installer.sh]
 
 <br />
 
@@ -171,12 +173,12 @@ exit 0
 
 ## Conclusion
 
-In conclusion, `ssl_dotfiles_installer.sh` efficiently manages the configuration
+In conclusion, `tls_dotfiles_installer.sh` efficiently manages the configuration
 of OpenSSL aliases in a modular way, ensuring that `.bashrc` is updated without
 redundancy and that extraneous files are cleaned up. This script helps
 streamline the process of managing OpenSSL-related shell configurations.
 
 <br />
 
-[ssl_dotfiles_installer.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/ssl_dotfiles_installer.sh
+[tls_dotfiles_installer.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/tls_dotfiles_installer.sh

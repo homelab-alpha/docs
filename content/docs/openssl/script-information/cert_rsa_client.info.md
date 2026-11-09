@@ -55,8 +55,8 @@ bundles.
 
 - **Filename**: `cert_rsa_client.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: November 8, 2026
-- **Version**: 2.6.0
+- **Date**: November 9, 2026
+- **Version**: 2.7.0
 - **Description**: Automates the process of creating and managing RSA client
   certificates, including key generation, CSR creation, certificate issuance,
   verification, and preparation of certificate chain bundles.
@@ -189,7 +189,12 @@ The script defines necessary directory paths for the Certificate components.
 
 ```bash
 print_section_header "Define directory paths"
-base_dir="$HOME/ssl"
+# Set the base directory. The old name ~/ssl is used while ~/tls does not exist.
+base_dir="$HOME/tls"
+if [ ! -e "$base_dir" ] && [ -d "$HOME/ssl" ]; then
+  base_dir="$HOME/ssl"
+  echo "Warning: using the old directory $HOME/ssl. Run tls_directory_migrate.sh to move it to $HOME/tls." >&2
+fi
 certs_dir="$base_dir/certs"
 csr_dir="$base_dir/csr"
 extfile_dir="$base_dir/extfiles"

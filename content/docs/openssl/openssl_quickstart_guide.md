@@ -17,14 +17,13 @@ series:
 tags:
   - openssl
   - quickstart
-  - ssl
   - tls
   - certificate-authority
   - security
 keywords:
   - openssl tutorial
   - openssl setup guide
-  - ssl certificate management
+  - tls certificate management
   - tls certificates
   - self-signed certificates
   - openssl configuration
@@ -48,7 +47,7 @@ katex: true
 To quickly install, run the following command:
 
 ```bash
-git clone https://github.com/homelab-alpha/openssl.git ~/openssl && cd ~/openssl/scripts && ./ssl_dotfiles_installer.sh && cd && exec bash
+git clone https://github.com/homelab-alpha/openssl.git ~/openssl && cd ~/openssl/scripts && ./tls_dotfiles_installer.sh && cd && exec bash
 ```
 
 If you've used the quick install method, you can skip to [get started].
@@ -75,7 +74,7 @@ If you prefer to manually install, follow these steps:
 3. Run the installation script:
 
    ```bash
-   ./ssl_dotfiles_installer.sh
+   ./tls_dotfiles_installer.sh
    ```
 
 4. To apply the changes, reset your shell environment:
@@ -94,8 +93,34 @@ Run the following command to create the necessary directories and configuration
 files:
 
 ```bash
-new-ssl-directorie-setup
+new-tls-directory-setup
 ```
+
+<br />
+
+### Upgrading from the `ssl` Directory
+
+Earlier versions of the scripts used the directory `~/ssl`. The scripts still
+work with that directory while `~/tls` does not exist, and they print a warning.
+The old script names and the old alias `new-ssl-directorie-setup` also still
+work, until the next major version.
+
+To move to `~/tls`, update the repository, open a new shell, and run the
+migration. Use `--dry-run` first to see what happens:
+
+```bash
+git -C ~/openssl pull
+exec bash
+openssl-migrate-tls --dry-run
+openssl-migrate-tls
+```
+
+The migration moves `~/ssl` to `~/tls`, leaves the link `~/ssl -> tls` behind,
+and changes the path in the OpenSSL configuration files after it saves a copy.
+Do not run `new-tls-directory-setup` while `~/ssl` exists; the script stops with
+an error to prevent a second, empty directory. See the
+[migration section of the README](https://github.com/homelab-alpha/openssl#migrating-from-ssl-to-tls)
+for details.
 
 <br />
 
@@ -164,20 +189,20 @@ change to avoid potential errors.
 To adjust the configuration, open the terminal and add the following lines:
 
 ```bash
-echo "unique_subject = no" > $HOME/ssl/db/index.txt.attr
+echo "unique_subject = no" > $HOME/tls/db/index.txt.attr
 ```
 
 Afterward, verify the changes by running the following commands:
 
 ```bash
-cat $HOME/ssl/db/index.txt.attr
+cat $HOME/tls/db/index.txt.attr
 ```
 
 <br />
 
 ### Why Is This Change Important?
 
-If this setting is not adjusted and you attempt to create a new SSL certificate
+If this setting is not adjusted and you attempt to create a new TLS certificate
 with the same **Common Name** (for example, `localhost`), OpenSSL may reject the
 request because the name already exists in the index file.
 

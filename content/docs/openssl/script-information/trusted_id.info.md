@@ -53,8 +53,8 @@ certificate format.
 
 - **Filename**: `trusted_id.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: February 20, 2025
-- **Version**: 2.5.3
+- **Date**: November 9, 2026
+- **Version**: 2.6.0
 - **Description**: This script generates and manages a trusted root certificate,
   including key generation, certificate creation, verification, and format
   conversion.
@@ -134,7 +134,12 @@ components.
 
 ```bash
 print_section_header "Define directory paths"
-base_dir="$HOME/ssl"
+# Set the base directory. The old name ~/ssl is used while ~/tls does not exist.
+base_dir="$HOME/tls"
+if [ ! -e "$base_dir" ] && [ -d "$HOME/ssl" ]; then
+  base_dir="$HOME/ssl"
+  echo "Warning: using the old directory $HOME/ssl. Run tls_directory_migrate.sh to move it to $HOME/tls." >&2
+fi
 certs_dir="$base_dir/certs"
 private_dir="$base_dir/private"
 db_dir="$base_dir/db"
