@@ -28,10 +28,19 @@
 // Native controls and scrollbars follow the theme.
 :root {
   color-scheme: light;
+
+  // Materials (step 2): a translucent bar and a hairline separator. The bar is
+  // the "regular" material of the HIG: a tinted layer with a blur behind it.
+  --hig-material-bg: rgba(255, 255, 255, 0.72);
+  --hig-separator: rgba(60, 60, 67, 0.18);
+  --top-header-bg: var(--hig-material-bg);
+  --sidebar-border-color: var(--hig-separator);
 }
 
 [data-dark-mode] {
   color-scheme: dark;
+  --hig-material-bg: rgba(24, 25, 33, 0.72);
+  --hig-separator: rgba(255, 255, 255, 0.1);
   --hig-accent: #2997ff;
   --primary: var(--hig-accent);
   --primary-300: var(--hig-accent);
@@ -136,5 +145,30 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+// Materials: the header floats over the content, so the content blurs behind it
+// when the page scrolls. The sidebar stays solid, because nothing is behind it.
+.page-content .top-header .header-bar {
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+
+// Without blur support, or when the visitor asks for less transparency, the
+// header becomes an opaque bar in the page color.
+@supports not (
+  (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
+) {
+  .page-content .top-header .header-bar {
+    background: var(--body-bg);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .page-content .top-header .header-bar {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: var(--body-bg);
   }
 }
