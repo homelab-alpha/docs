@@ -1,0 +1,84 @@
+// Table of contents next to the text, with the text in the middle.
+//
+// From 1900 px wide, the text block stays in the middle of the window, also when
+// the sidebar opens or closes: there is enough free space on both sides, so the
+// block does not have to move. The "On this page" list is placed right of the
+// text block and follows it. When you scroll, the list stays in view. On a
+// narrower window, and in a browser without `:has()`, the list stays in its own
+// column next to the text, and the text moves with the sidebar as before.
+
+$toc-gap: 24px; // the space between the text block and the list, and the window edge
+$text-width: 1040px;
+$header-offset: 94px; // the space for the header, as in the layout of the page
+
+// The list never shows a scrollbar, at any window width. A long list still
+// scrolls with the mouse or the trackpad, and long names wrap.
+.page-wrapper .page-content .docs-toc {
+  overflow-x: hidden;
+  overflow-wrap: anywhere;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (min-width: 1900px) {
+  // The sidebar covers the free space on the left, so the page does not need
+  // room for it.
+  .page-wrapper.toggled .page-content {
+    padding-left: 0;
+  }
+
+  @supports selector(:has(a)) {
+    .page-wrapper
+      .page-content:has(.docs-toc:not(.visually-hidden))
+      > .container-fluid {
+      position: relative;
+      max-width: $text-width;
+      margin-inline: auto;
+    }
+
+    // The text uses the whole width of its block.
+    .docs-content.col-xl-9 {
+      flex: 0 0 100%;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    // The column of the list is as high as the page and is placed right of the
+    // text block. The list inside it sticks to the top of the window.
+    .page-wrapper .page-content .docs-toc {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 100%;
+      // The box grows with the longest name, up to the free space next to the
+      // text block (and never wider than 420px). A name wraps only when it
+      // does not fit there.
+      width: max-content;
+      min-width: 200px;
+      max-width: min(420px, calc(50vw - #{$text-width * 0.5} - #{$toc-gap}));
+      height: auto;
+      padding-top: $header-offset;
+      overflow: visible;
+
+      > toc {
+        position: sticky;
+        top: 6rem;
+        display: block;
+        max-height: calc(100vh - 8rem);
+        overflow-x: hidden;
+        overflow-y: auto;
+        overflow-wrap: anywhere;
+
+        // A long list still scrolls, but without a visible scrollbar.
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+    }
+  }
+}

@@ -51,6 +51,9 @@ $code-block-padding-top: {{ if eq .Site.Params.docs.prism true -}}0{{ else }}1.2
 // Content width on large screens (from 1800 px wide)
 @import "custom/structure/content-width";
 
+// Table of contents next to the text, with the text in the middle (from 1900 px wide)
+@import "custom/structure/toc-beside-text";
+
 // Plugins
 
 // Prism / Chroma
