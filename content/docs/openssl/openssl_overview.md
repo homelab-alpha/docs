@@ -44,19 +44,52 @@ ensuring data integrity.
 
 <br />
 
-## Self-signed certificates
+## Self-signed Certificates
 
-{{% alert context="primary" %}}
-The scripts has been upgraded to full Elliptic Curve P-384 (secp384r1) for
-Trusted-ID, Root CA, Sub CA and all Certs scripts. If there are any issues with
-fix: typo any certificate or script [Please let me know], I thank you in
-advance.
-{{% /alert %}}
+This repository provides scripts and configuration files for generating,
+verifying, renewing, and revoking self-signed certificates with OpenSSL. They
+create a trusted identity, a root certificate authority (CA), an intermediate
+CA, and ECDSA and RSA certificates for servers, clients, and localhost.
 
-This repository provides scripts and configuration files for generating and
-verifying Self-signed certificates using OpenSSL. These certificates are useful
-for testing or internal use but may not be suitable for production environments
-requiring third-party validation.
+{{% alert context="warning" %}}
+The certificates are meant for a homelab and for testing. Do not use them in
+production, where you need third-party validation. {{% /alert %}}
+
+The repository is being updated for OpenSSL 4.x, so parts of it may not work as
+expected. Check the output before you rely on it.
+
+<br />
+
+## What You Get
+
+Every task has an alias. The alias starts the script, and the script page
+explains it in detail.
+
+- **Create the directories and configs**: `new-tls-directory-setup`. Script
+  page: [tls_directory_setup](/openssl/script-info/tls-directory-setup/).
+- **Create the authorities**: `new-trusted-id`, `new-root-ca`, `new-ca`. Script
+  page: [trusted_id](/openssl/script-info/trusted-id/),
+  [root_ca](/openssl/script-info/root-ca/), [ca](/openssl/script-info/ca/).
+- **Issue a certificate**: `new-cert-localhost`, `new-cert-server`,
+  `new-cert-client`, `new-cert-rsa-server`, `new-cert-rsa-client`. Script page:
+  [cert_ecdsa_localhost](/openssl/script-info/cert-ecdsa-localhost/),
+  [cert_ecdsa_server](/openssl/script-info/cert-ecdsa-server/),
+  [cert_ecdsa_client](/openssl/script-info/cert-ecdsa-client/),
+  [cert_rsa_server](/openssl/script-info/cert-rsa-server/),
+  [cert_rsa_client](/openssl/script-info/cert-rsa-client/).
+- **Verify the chain of trust**: `openssl-verify`. Script page:
+  [verify_tls_certificates](/openssl/script-info/verify-tls-certificates/).
+- **Check the expiry**: `openssl-status`. Script page:
+  [tls_certificate_status](/openssl/script-info/tls-certificate-status/).
+- **Renew before the certificate expires**: `openssl-renew`. Script page:
+  [renew_tls_certificates](/openssl/script-info/renew-tls-certificates/).
+- **Revoke and generate a CRL**: `openssl-revoke`. Script page:
+  [revoke_tls_certificates](/openssl/script-info/revoke-tls-certificates/).
+- **Move an old `~/ssl` directory to `~/tls`**: `openssl-migrate-tls`. Script
+  page: [tls_directory_migrate](/openssl/script-info/tls-directory-migrate/).
+
+Everything is stored in `~/tls`. To install the scripts and create your first
+certificate, follow the [Quickstart Guide].
 
 <br />
 
@@ -158,8 +191,7 @@ Attribution-NonCommercial-ShareAlike 4.0 International License** (CC BY-NC-SA
 4.0). See the [license] page for the full license text and the [NOTICE] file for
 the attribution requirements.
 
-[Please let me know]:
-  https://github.com/homelab-alpha/openssl/discussions/categories/feedback
+[Quickstart Guide]: /openssl/quickstart-guide/
 [contribute]: /contributing/contribute/
 [OpenSSL Official Site]: https://www.openssl.org
 [OpenSSL Wiki]: https://wiki.openssl.org
