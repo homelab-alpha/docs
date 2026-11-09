@@ -61,7 +61,7 @@ applications.
 - **Filename**: `cert_ecdsa_server.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: November 9, 2026
-- **Version**: 2.7.0
+- **Version**: 2.7.1
 - **Description**: This script automates the generation of an ECDSA server
   certificate, handling key generation, CSR creation, certificate issuance, and
   verification.
@@ -128,12 +128,45 @@ set -e
    }
    ```
 
-5. **Certificate Information**: Define FQDN (Fully Qualified Domain Name) and IP
-   address.
+5. **build_ip_san**: This function turns a comma-separated list of IPv4
+   addresses into subject alternative name entries. Spaces are ignored and
+   duplicates are removed. It returns an error for an invalid address: an
+   address needs four decimal numbers between 0 and 255, without leading zeros.
+
+   ```bash
+   # Function to turn a comma-separated list of IPv4 addresses into subject
+   # alternative name entries (for example ", IP:192.168.0.1, IP:192.168.0.2").
+   # Spaces are ignored and duplicates are removed. Returns 1 for invalid input.
+   build_ip_san() {
+     local list="${1// /}" ip octet san="" ips octets
+     local -A seen=()
+     if [[ -z "$list" || "$list" == ,* || "$list" == *, || "$list" == *,,* ]]; then
+       return 1
+     fi
+     IFS=',' read -r -a ips <<<"$list"
+     for ip in "${ips[@]}"; do
+       # Four decimal octets without leading zeros, each between 0 and 255
+       [[ "$ip" =~ ^(0|[1-9][0-9]{0,2})(\.(0|[1-9][0-9]{0,2})){3}$ ]] || return 1
+       IFS='.' read -r -a octets <<<"$ip"
+       for octet in "${octets[@]}"; do
+         ((octet <= 255)) || return 1
+       done
+       if [[ -z "${seen[$ip]:-}" ]]; then
+         seen[$ip]=1
+         san+=", IP:$ip"
+       fi
+     done
+     printf '%s' "$san"
+   }
+   ```
+
+6. **Certificate Information**: Define the FQDN (Fully Qualified Domain Name)
+   and the list of IPv4 addresses.
 
    ```bash
    fqdn=""
    ipv4=""
+   ip_list=""
    non_interactive=false
    reuse_key=false
 
@@ -151,11 +184,11 @@ set -e
          shift 2
          ;;
        --ip)
-         [[ -n "$2" && "$2" =~ ^[0-9]{1,3}(\.[0-9]{1,3}){3}$ ]] || {
-           echo "[ERROR] --ip needs an IPv4 address." >&2
+         [[ -n "${2:-}" ]] || {
+           echo "[ERROR] --ip needs one or more IPv4 addresses, separated by commas." >&2
            exit 1
          }
-         ipv4=", IP:$2"
+         ip_list+="${ip_list:+,}$2"
          shift 2
          ;;
        --reuse-key)
@@ -177,7 +210,7 @@ set -e
    parse_arguments "$@"
 
    # --ip is only accepted together with --fqdn
-   if [[ -n "$ipv4" && "$non_interactive" == "false" ]]; then
+   if [[ -n "$ip_list" && "$non_interactive" == "false" ]]; then
      echo "[ERROR] --ip can only be used together with --fqdn." >&2
      exit 1
    fi
@@ -185,7 +218,16 @@ set -e
    # Ask for the details only when --fqdn is not given
    if [ "$non_interactive" = false ]; then
      read -r -p "$(print_cyan "Enter the FQDN name of the new certificate: ")" fqdn
-     read -r -p "$(print_cyan "Enter the IPv4 address of the new certificate (syntax: , IP:192.168.x.x): ")" ipv4
+     read -r -p "$(print_cyan "Enter the IPv4 addresses of the new certificate, separated by commas (empty for none): ")" ip_list
+   fi
+
+   # Validate the IPv4 addresses and build the subject alternative name entries
+   if [[ -n "${ip_list// /}" ]]; then
+     ipv4=$(build_ip_san "$ip_list") || {
+       echo "[ERROR] Invalid IPv4 address list: ${ip_list}" >&2
+       echo "Use IPv4 addresses without leading zeros, separated by commas (for example 192.168.0.1,192.168.0.2)." >&2
+       exit 1
+     }
    fi
 
    # In non-interactive mode the Common Name comes from the FQDN, so openssl req
@@ -196,11 +238,16 @@ set -e
    fi
    ```
 
-Without options, the script asks for the FQDN and the IPv4 address. With
-`--fqdn <fqdn>` (and `--ip <ipv4>` for an IPv4 address), it runs without
-questions: the Common Name is set to the FQDN, so `openssl req` does not ask for
-it a second time. `--reuse-key` reuses the existing private key, and `-h` shows
-the usage.
+Without options, the script asks for the FQDN and the IPv4 addresses, as a plain
+comma-separated list (or nothing). With `--fqdn <fqdn>` (and `--ip <list>` for
+one or more IPv4 addresses, for example `--ip 192.168.0.1,192.168.0.2`), it runs
+without questions: the Common Name is set to the FQDN, so `openssl req` does not
+ask for it a second time. `--reuse-key` reuses the existing private key, and
+`-h` shows the usage.
+
+`--ip` can be repeated. Every address is validated before anything is created,
+so an invalid address (such as `192.168.01` or `256.1.1.1`) stops the script
+with an error.
 
 <br />
 
