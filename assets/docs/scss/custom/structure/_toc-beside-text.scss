@@ -54,7 +54,13 @@ $header-offset: 94px; // the space for the header, as in the layout of the page
         overflow-x: hidden;
         overflow-y: auto;
         overflow-wrap: anywhere;
-        scrollbar-width: thin;
+
+        // A long list still scrolls, but without a visible scrollbar.
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
       }
     }
   }
