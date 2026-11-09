@@ -108,6 +108,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - docs(openssl): update the overview and quickstart [16b0a26](https://github.com/homelab-alpha/docs/commit/16b0a266eb958f70b3fa8ca548887645f01c3a3e) by [@homelab-alpha](https://github.com/homelab-alpha)
 - docs(openssl): use example.test in the examples [d8008bc](https://github.com/homelab-alpha/docs/commit/d8008bc12473e5597dc7a52c837eed1075e6703a) by [@homelab-alpha](https://github.com/homelab-alpha)
 - docs(openssl): remove the OpenSSL 4.x note [ec44be7](https://github.com/homelab-alpha/docs/commit/ec44be7125a195023bce429cb8a58fe79c691dd6) by [@homelab-alpha](https://github.com/homelab-alpha)
+- docs(openssl): document multiple server IPs [604eeaf](https://github.com/homelab-alpha/docs/commit/604eeaff972f420f4520a2ed990d49c5d878c15b) by [@homelab-alpha](https://github.com/homelab-alpha)
 
 ### Deprecated
 
