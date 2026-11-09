@@ -21,7 +21,7 @@ keywords:
   - encryption
   - decryption
   - secure communication
-  - SSL/TLS
+  - TLS
   - certificates
   - cryptographic algorithms
   - security protocols
@@ -63,7 +63,7 @@ requiring third-party validation.
 ## Examples
 
 In the OpenSSL repository, you will find a folder named `examples`, which
-contains various sample configurations demonstrating how the SSL folder
+contains various sample configurations demonstrating how the TLS folder
 structure is organized. This includes associated certificates and files. While
 the certificates and private keys are provided, their contents have been
 modified for security reasons. The actual certificate and key data have been

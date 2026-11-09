@@ -414,22 +414,32 @@ dotfiles, including creating backups and restoring them if necessary.\
 Here's a brief overview of scripts that are available in Homelab-Alpha OpenSSl
 repositorie:
 
-### ssl_dotfiles_installer.sh
+### tls_dotfiles_installer.sh
 
 **Description:** This script adds specified content to the ~/.bashrc file,
 avoiding duplication. It checks if ~/.bashrc exists and appends the content to
 the end if it doesn't already exist..\
-**Detailed Explanation:** [ssl_dotfiles_installer.info]\
-**RAW Script:** [ssl_dotfiles_installer.sh]
+**Detailed Explanation:** [tls_dotfiles_installer.info]\
+**RAW Script:** [tls_dotfiles_installer.sh]
 
 <br />
 
-### ssl_directory_setup.sh
+### tls_directory_setup.sh
 
-**Description:** Sets up SSL certificate management directories, generates
+**Description:** Sets up TLS certificate management directories, generates
 random serial numbers, and creates OpenSSL configuration files.\
-**Detailed Explanation:** [ssl_directory_setup.info]\
-**RAW Script:** [ssl_directory_setup.sh]
+**Detailed Explanation:** [tls_directory_setup.info]\
+**RAW Script:** [tls_directory_setup.sh]
+
+<br />
+
+### tls_directory_migrate.sh
+
+**Description:** This script moves the old directory ~/ssl to ~/tls, leaves a
+symbolic link behind, and changes the old path in the OpenSSL configuration
+files.\
+**Detailed Explanation:** [tls_directory_migrate.info]\
+**RAW Script:** [tls_directory_migrate.sh]
 
 <br />
 
@@ -514,13 +524,13 @@ verification, and preparation of certificate chain bundles.\
 
 <br />
 
-### verify_ssl_certificates.sh
+### verify_tls_certificates.sh
 
-**Description:** This script verifies SSL/TLS certificates by checking them
-against their corresponding chain of trust. It includes options for verbose
-output for detailed verification processes.\
-**Detailed Explanation:** [verify_ssl_certificates.info]\
-**RAW Script:** [verify_ssl_certificates.sh]
+**Description:** This script verifies TLS certificates by checking them against
+their corresponding chain of trust. It includes options for verbose output for
+detailed verification processes.\
+**Detailed Explanation:** [verify_tls_certificates.info]\
+**RAW Script:** [verify_tls_certificates.sh]
 
 <br />
 
@@ -675,14 +685,18 @@ the attribution requirements.
 [dotfiles_installer.info]: docs/../../dotfiles/dotfiles_install.info.md
 [dotfiles_installer.sh]:
   https://raw.githubusercontent.com/homelab-alpha/dotfiles/main/dotfiles_installer.sh
-[ssl_dotfiles_installer.info]:
-  docs/../../openssl/script-information/ssl_dotfiles_installer.info.md
-[ssl_dotfiles_installer.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/main/scripts/ssl_dotfiles_installer.sh
-[ssl_directory_setup.info]:
-  docs/../../openssl/script-information/ssl_directory_setup.info.md
-[ssl_directory_setup.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/main/scripts/ssl_directory_setup.sh
+[tls_dotfiles_installer.info]:
+  docs/../../openssl/script-information/tls_dotfiles_installer.info.md
+[tls_dotfiles_installer.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/main/scripts/tls_dotfiles_installer.sh
+[tls_directory_setup.info]:
+  docs/../../openssl/script-information/tls_directory_setup.info.md
+[tls_directory_setup.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/main/scripts/tls_directory_setup.sh
+[tls_directory_migrate.info]:
+  docs/../../openssl/script-information/tls_directory_migrate.info.md
+[tls_directory_migrate.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/main/scripts/tls_directory_migrate.sh
 [trusted-id.info]: docs/../../openssl/script-information/trusted-id.info.md
 [trusted_id.sh]:
   https://raw.githubusercontent.com/homelab-alpha/openssl/main/scripts/certificate-authority/trusted_id.sh
@@ -712,10 +726,10 @@ the attribution requirements.
   docs/../../openssl/script-information/cert_rsa_client.info.md
 [cert_rsa_client.sh]:
   https://raw.githubusercontent.com/homelab-alpha/openssl/main/scripts/certificate/cert_rsa_client.sh
-[verify_ssl_certificates.info]:
-  docs/../../openssl/script-information/verify_ssl_certificates.info.md
-[verify_ssl_certificates.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/main/scripts/verify_ssl_certificates.sh
+[verify_tls_certificates.info]:
+  docs/../../openssl/script-information/verify_tls_certificates.info.md
+[verify_tls_certificates.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/main/scripts/verify_tls_certificates.sh
 [contribute]: /contributing/contribute/
 [ShellCheck]: https://www.shellcheck.net/
 [Bash Scripting Guide]: https://www.tldp.org/LDP/abs/html/
