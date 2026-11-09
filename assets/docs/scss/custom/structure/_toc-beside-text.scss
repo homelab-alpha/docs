@@ -11,6 +11,18 @@ $toc-width: 300px;
 $text-width: 1040px;
 $header-offset: 94px; // the space for the header, as in the layout of the page
 
+// The list never shows a scrollbar, at any window width. A long list still
+// scrolls with the mouse or the trackpad, and long names wrap.
+.page-wrapper .page-content .docs-toc {
+  overflow-x: hidden;
+  overflow-wrap: anywhere;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @media (min-width: 1900px) {
   // The sidebar covers the free space on the left, so the page does not need
   // room for it.
