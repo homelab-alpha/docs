@@ -99,6 +99,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - docs(readme): sync counts and workflow table [4741484](https://github.com/homelab-alpha/docs/commit/4741484e458d0353ceb05036d8931a4ef62cea7a) by [@homelab-alpha](https://github.com/homelab-alpha)
 - chore(labels): add dependency update labels [0b02d11](https://github.com/homelab-alpha/docs/commit/0b02d11267a8caaf03b43c781b03cb5b424b4dc5) by [@homelab-alpha](https://github.com/homelab-alpha)
 - docs(openssl): sync script pages with 2.5.4 [2c9875b](https://github.com/homelab-alpha/docs/commit/2c9875be1d30f2db9ed937a8c253a332d34d8f33) by [@homelab-alpha](https://github.com/homelab-alpha)
+- docs(openssl): sync and add script pages [197140e](https://github.com/homelab-alpha/docs/commit/197140eb697efda65a6e62a95a68e1b3ec397693) by [@homelab-alpha](https://github.com/homelab-alpha)
+- docs(openssl): add revoke script page [3bfa2b6](https://github.com/homelab-alpha/docs/commit/3bfa2b621709a2f75a9ff83a6a2333db2cc5e9f9) by [@homelab-alpha](https://github.com/homelab-alpha)
+- docs(openssl): rename ssl script pages to tls [70010e4](https://github.com/homelab-alpha/docs/commit/70010e4421ed68c2308945268da656d5e74cd6c3) by [@homelab-alpha](https://github.com/homelab-alpha)
+- docs(openssl): update the overview and quickstart [16b0a26](https://github.com/homelab-alpha/docs/commit/16b0a266eb958f70b3fa8ca548887645f01c3a3e) by [@homelab-alpha](https://github.com/homelab-alpha)
+- docs(openssl): use example.test in the examples [d8008bc](https://github.com/homelab-alpha/docs/commit/d8008bc12473e5597dc7a52c837eed1075e6703a) by [@homelab-alpha](https://github.com/homelab-alpha)
 
 ### Deprecated
 
