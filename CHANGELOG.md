@@ -18,6 +18,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat(fonts): self-host Inter and JetBrains Mono [e0d6d51](https://github.com/homelab-alpha/docs/commit/e0d6d51d692d593efa4f7060661821ee5342028f) by [@homelab-alpha](https://github.com/homelab-alpha)
 - feat(badges): add the Hugo deploy badge [e7cb258](https://github.com/homelab-alpha/docs/commit/e7cb2589f4d93f7661435c92beb4e286d2a76bd5) by [@homelab-alpha](https://github.com/homelab-alpha)
 - feat(site): add lightweight e-reader version [bc91ed4](https://github.com/homelab-alpha/docs/commit/bc91ed44c3a615af56f8157a0a949963efc88eb0) by [@homelab-alpha](https://github.com/homelab-alpha)
+- feat(ui): refresh the typography, theme, and materials [ae55799](https://github.com/homelab-alpha/docs/commit/ae55799897ab32fbda692d056e406be45ec551ea) by [@homelab-alpha](https://github.com/homelab-alpha)
+- feat(ui): improve the layout on large screens [192b0a0](https://github.com/homelab-alpha/docs/commit/192b0a001b1ce9d40c3a8649cc51c16466d3175c) by [@homelab-alpha](https://github.com/homelab-alpha)
+- feat(ui): place the TOC next to the centered text [c03a3db](https://github.com/homelab-alpha/docs/commit/c03a3db3731ea1d37a52886ccd92cf9ef20b9758) by [@homelab-alpha](https://github.com/homelab-alpha)
 
 ### Changed
 
@@ -104,6 +107,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - docs(openssl): rename ssl script pages to tls [70010e4](https://github.com/homelab-alpha/docs/commit/70010e4421ed68c2308945268da656d5e74cd6c3) by [@homelab-alpha](https://github.com/homelab-alpha)
 - docs(openssl): update the overview and quickstart [16b0a26](https://github.com/homelab-alpha/docs/commit/16b0a266eb958f70b3fa8ca548887645f01c3a3e) by [@homelab-alpha](https://github.com/homelab-alpha)
 - docs(openssl): use example.test in the examples [d8008bc](https://github.com/homelab-alpha/docs/commit/d8008bc12473e5597dc7a52c837eed1075e6703a) by [@homelab-alpha](https://github.com/homelab-alpha)
+- docs(openssl): remove the OpenSSL 4.x note [ec44be7](https://github.com/homelab-alpha/docs/commit/ec44be7125a195023bce429cb8a58fe79c691dd6) by [@homelab-alpha](https://github.com/homelab-alpha)
 
 ### Deprecated
 
@@ -137,6 +141,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix(changelog): use the correct term in an entry [abf6928](https://github.com/homelab-alpha/docs/commit/abf6928b1c323456b7b76662a6335c5a2e586d94) by [@homelab-alpha](https://github.com/homelab-alpha)
 - fix(site): show last updated on documents only [57f16d0](https://github.com/homelab-alpha/docs/commit/57f16d01708b9aa6188d737796819259bc184f67) by [@homelab-alpha](https://github.com/homelab-alpha)
 - fix(site): remove double rule above e-reader footer [7cdd9f8](https://github.com/homelab-alpha/docs/commit/7cdd9f8fed3f49eaa5a41fd707e5d613e81fe3cf) by [@homelab-alpha](https://github.com/homelab-alpha)
+- fix(layout): keep the sidebar state between pages [e175032](https://github.com/homelab-alpha/docs/commit/e1750327d139843423e5b7f77f4f58b32816749a) by [@homelab-alpha](https://github.com/homelab-alpha)
+- fix(layout): close the sidebar on small windows [7c64024](https://github.com/homelab-alpha/docs/commit/7c6402484b73e236e6763a94a54b52dfe33d4aff) by [@homelab-alpha](https://github.com/homelab-alpha)
 
 ### Security
 
