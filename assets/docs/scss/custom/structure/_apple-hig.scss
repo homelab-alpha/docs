@@ -21,8 +21,13 @@
 
   // System blue. Light mode uses the darker link blue for a contrast of at
   // least 4.5:1 on white, and dark mode uses the lighter blue on black.
+  // The accent has two roles. Text, links, and icons use --hig-accent. A solid
+  // fill that carries white text uses --hig-accent-fill. In light mode they are
+  // the same blue; in dark mode the text blue is lighter than the fill blue,
+  // because white text on the light blue has a contrast of only 2.9:1.
   --hig-accent: #0066cc;
-  --primary: var(--hig-accent);
+  --hig-accent-fill: #0066cc;
+  --primary: var(--hig-accent-fill);
 }
 
 // Native controls and scrollbars follow the theme.
@@ -35,6 +40,7 @@
   --hig-separator: rgba(60, 60, 67, 0.18);
   --top-header-bg: var(--hig-material-bg);
   --sidebar-border-color: var(--hig-separator);
+  --inline-code-border: 1px solid var(--hig-separator);
 }
 
 [data-dark-mode] {
@@ -42,7 +48,8 @@
   --hig-material-bg: rgba(24, 25, 33, 0.72);
   --hig-separator: rgba(255, 255, 255, 0.1);
   --hig-accent: #2997ff;
-  --primary: var(--hig-accent);
+  --hig-accent-fill: #0071e3;
+  --primary: var(--hig-accent-fill);
   --primary-300: var(--hig-accent);
 }
 
@@ -171,4 +178,27 @@ body {
     backdrop-filter: none;
     background: var(--body-bg);
   }
+}
+
+// Table of contents: rounded rows, like a selected row in a sidebar list.
+#TableOfContents a,
+#toc a {
+  border-radius: 8px;
+  padding-block: 2px;
+}
+
+// Code: larger corner radius and a hairline around the block. The colors of the
+// code blocks are not changed, because the syntax highlighting depends on them.
+.docs-content .main-content div.highlight {
+  border-radius: 10px;
+  border: 1px solid var(--hig-separator);
+}
+
+.docs-content .main-content pre {
+  border-radius: 10px;
+}
+
+.docs-content .main-content :not(pre) > code {
+  font-size: 0.875em;
+  border-radius: 6px;
 }
