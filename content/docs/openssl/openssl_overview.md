@@ -55,9 +55,6 @@ CA, and ECDSA and RSA certificates for servers, clients, and localhost.
 The certificates are meant for a homelab and for testing. Do not use them in
 production, where you need third-party validation. {{% /alert %}}
 
-The repository is being updated for OpenSSL 4.x, so parts of it may not work as
-expected. Check the output before you rely on it.
-
 <br />
 
 ## What You Get
