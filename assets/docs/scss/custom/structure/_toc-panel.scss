@@ -1,0 +1,43 @@
+// Table of contents as a panel on the right side.
+//
+// From 1400 px wide, the "On this page" list is a panel that is fixed to the
+// right side of the window, like the sidebar on the left side: the same
+// background, a hairline border, and the full height under the header. The text
+// stays in the middle between the two panels. On a narrower window, and in a
+// browser without `:has()`, the list stays next to the text as before.
+
+$toc-panel-width: 280px;
+$toc-panel-top: 72px; // the height of the header
+
+@media (min-width: 1400px) {
+  @supports selector(:has(a)) {
+    // Keep room for the panel, but only on a page that has a table of contents.
+    .page-wrapper .page-content:has(.docs-toc:not(.visually-hidden)) {
+      padding-right: $toc-panel-width;
+
+      > .container-fluid {
+        max-width: 1040px;
+        margin-inline: auto;
+      }
+    }
+
+    .page-wrapper .page-content .docs-toc {
+      position: fixed;
+      top: $toc-panel-top;
+      right: 0;
+      z-index: 900;
+      width: $toc-panel-width;
+      height: calc(100vh - #{$toc-panel-top});
+      padding: 24px 20px;
+      background: var(--sidebar-bg);
+      border-left: 1px solid var(--sidebar-border-color);
+    }
+
+    // The text uses the whole width between the two panels.
+    .docs-content.col-xl-9 {
+      flex: 0 0 100%;
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+}
