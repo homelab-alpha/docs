@@ -48,6 +48,9 @@ $code-block-padding-top: {{ if eq .Site.Params.docs.prism true -}}0{{ else }}1.2
 // Apple Human Interface Guidelines layer (last, so that it wins over the theme)
 @import "custom/structure/apple-hig";
 
+// Fluid layout for large screens (scales the interface from 1800 px wide)
+@import "custom/structure/fluid-layout";
+
 // Plugins
 
 // Prism / Chroma
