@@ -1,0 +1,52 @@
+// Table of contents next to the text, with the text in the middle.
+//
+// From 1900 px wide, the text block stays in the middle of the free space next
+// to the sidebar, and the "On this page" list is placed right of it. The list
+// follows the text block, so it also moves when the sidebar is collapsed. When
+// you scroll, the list stays in view. On a narrower window, and in a browser
+// without `:has()`, the list stays in its own column next to the text.
+
+$toc-width: 260px;
+$text-width: 1040px;
+$header-offset: 94px; // the space for the header, as in the layout of the page
+
+@media (min-width: 1900px) {
+  @supports selector(:has(a)) {
+    .page-wrapper
+      .page-content:has(.docs-toc:not(.visually-hidden))
+      > .container-fluid {
+      position: relative;
+      max-width: $text-width;
+      margin-inline: auto;
+    }
+
+    // The text uses the whole width of its block.
+    .docs-content.col-xl-9 {
+      flex: 0 0 100%;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    // The column of the list is as high as the page and is placed right of the
+    // text block. The list inside it sticks to the top of the window.
+    .page-wrapper .page-content .docs-toc {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 100%;
+      width: $toc-width;
+      height: auto;
+      padding-top: $header-offset;
+      overflow: visible;
+
+      > toc {
+        position: sticky;
+        top: 6rem;
+        display: block;
+        max-height: calc(100vh - 8rem);
+        overflow-y: auto;
+        scrollbar-width: thin;
+      }
+    }
+  }
+}
