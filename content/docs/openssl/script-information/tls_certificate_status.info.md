@@ -1,10 +1,11 @@
 ---
-title: "ssl_certificate_status.info"
+title: "tls_certificate_status.info"
 description:
-  "Report the expiry date and the days left of all certificates under the SSL
+  "Report the expiry date and the days left of all certificates under the TLS
   directory, with exit codes for use in cron or a systemd timer."
-url: "openssl/script-info/ssl-certificate-status"
-aliases: ""
+url: "openssl/script-info/tls-certificate-status"
+aliases:
+  - "openssl/script-info/ssl-certificate-status"
 icon: "code"
 
 params:
@@ -43,7 +44,7 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down the script `ssl_certificate_status.sh`. It reports the expiry
+Let's break down the script `tls_certificate_status.sh`. It reports the expiry
 of the trusted identity, the root CA, the intermediate CA, and all server and
 client certificates. It is read only, so it never changes a file. The result is
 also reported in the exit code, so you can use the script in cron or in a
@@ -51,21 +52,22 @@ systemd timer. The certificates are for a homelab and for testing.
 
 ## Script Metadata
 
-- **Filename**: `ssl_certificate_status.sh`
+- **Filename**: `tls_certificate_status.sh`
+- **Old name**: `ssl_certificate_status.sh` (a wrapper that starts this script)
 - **Author**: GJS (homelab-alpha)
-- **Date**: November 8, 2026
-- **Version**: 1.1.0
+- **Date**: November 9, 2026
+- **Version**: 1.2.0
 - **Description**: This script reports the expiry date and the days left of
-  every certificate in the SSL directory, and it reports the result in its exit
+  every certificate in the TLS directory, and it reports the result in its exit
   code.
-- **RAW Script**: [ssl_certificate_status.sh]
+- **RAW Script**: [tls_certificate_status.sh]
 
 <br />
 
 ## Usage
 
 ```bash
-./ssl_certificate_status.sh [--warn-days N] [--ca-warn-days N] [--quiet] [-h|--help]
+./tls_certificate_status.sh [--warn-days N] [--ca-warn-days N] [--quiet] [-h|--help]
 ```
 
 | Option             | Meaning                                                                       |
@@ -105,9 +107,17 @@ quiet=false
 
 ### Define directory paths
 
+Define directory paths Set the base directory. The old name ~/ssl is used while
+~/tls does not exist.
+
 ```bash
 # Define directory paths
-base_dir="$HOME/ssl"
+# Set the base directory. The old name ~/ssl is used while ~/tls does not exist.
+base_dir="$HOME/tls"
+if [ ! -e "$base_dir" ] && [ -d "$HOME/ssl" ]; then
+  base_dir="$HOME/ssl"
+  echo "Warning: using the old directory $HOME/ssl. Run tls_directory_migrate.sh to move it to $HOME/tls." >&2
+fi
 certs_dir="$base_dir/certs"
 certs_root_dir="$certs_dir/root"
 certs_intermediate_dir="$certs_dir/intermediate"
@@ -502,7 +512,7 @@ exit 0
 ## Conclusion
 
 This script reports the expiry date and the days left of every certificate in
-the SSL directory, and it reports the result in its exit code.
+the TLS directory, and it reports the result in its exit code.
 
-[ssl_certificate_status.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/ssl_certificate_status.sh
+[tls_certificate_status.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/tls_certificate_status.sh

@@ -1,11 +1,12 @@
 ---
-title: "verify_ssl_certificates.info"
+title: "verify_tls_certificates.info"
 description:
-  "A comprehensive guide and script for verifying SSL/TLS certificates using
+  "A comprehensive guide and script for verifying TLS certificates using
   OpenSSL, ensuring proper chain of trust validation from root to individual
   certificates."
-url: "openssl/script-info/verify-ssl-certificates"
-aliases: ""
+url: "openssl/script-info/verify-tls-certificates"
+aliases:
+  - "openssl/script-info/verify-ssl-certificates"
 icon: "code"
 
 params:
@@ -18,7 +19,6 @@ categories:
 series:
   - Script Information
 tags:
-  - SSL
   - TLS
   - Certificates
   - OpenSSL
@@ -28,13 +28,13 @@ tags:
   - Homelab
   - DevOps
 keywords:
-  - SSL verification
+  - TLS verification
   - TLS verification
   - OpenSSL script
   - certificate chain of trust
   - verify certificates
   - OpenSSL tutorial
-  - SSL/TLS security
+  - TLS security
   - scripting with OpenSSL
   - homelab security
   - DevOps tools
@@ -54,22 +54,23 @@ information here with caution and verify it if necessary. {{% /alert %}}
 <br />
 
 Let's break down what this script does in detail. The script is named
-`verify_ssl_certificates.sh`, authored by GJS (homelab-alpha), and its purpose
-is to verify SSL/TLS certificates by checking them against their corresponding
-chain of trust. It performs various checks, including verification of root,
+`verify_tls_certificates.sh`, authored by GJS (homelab-alpha), and its purpose
+is to verify TLS certificates by checking them against their corresponding chain
+of trust. It performs various checks, including verification of root,
 intermediate, and individual certificates, with support for a verbose mode to
 provide detailed output during the verification process.
 
 ## Script Metadata
 
-- **Filename**: `verify_ssl_certificates.sh`
+- **Filename**: `verify_tls_certificates.sh`
+- **Old name**: `verify_ssl_certificates.sh` (a wrapper that starts this script)
 - **Author**: GJS (homelab-alpha)
-- **Date**: February 18, 2025
-- **Version**: 2.5.0
-- **Description**: This script verifies SSL/TLS certificates by checking them
+- **Date**: November 9, 2026
+- **Version**: 2.6.0
+- **Description**: This script verifies TLS certificates by checking them
   against their corresponding chain of trust. It includes options for verbose
   output for detailed verification processes.
-- **RAW Script**: [verify_ssl_certificates.sh]
+- **RAW Script**: [verify_tls_certificates.sh]
 
 <br />
 
@@ -83,7 +84,12 @@ The script sets the paths for the certificates, intermediate certificates, and
 root certificates:
 
 ```bash
-base_dir="$HOME/ssl"
+# Set the base directory. The old name ~/ssl is used while ~/tls does not exist.
+base_dir="$HOME/tls"
+if [ ! -e "$base_dir" ] && [ -d "$HOME/ssl" ]; then
+  base_dir="$HOME/ssl"
+  echo "Warning: using the old directory $HOME/ssl. Run tls_directory_migrate.sh to move it to $HOME/tls." >&2
+fi
 certs_dir="$base_dir/certs"
 
 certs_certs_root_dir="$certs_dir/root"
@@ -292,10 +298,10 @@ exit 0
 
 ## Conclusion
 
-This script is a robust tool for verifying SSL/TLS certificates, ensuring they
-are correctly chained to trusted root and intermediate certificates. The use of
-the `openssl` command ensures thorough verification, and the optional verbose
-mode provides additional detail for debugging or inspection purposes.
+This script is a robust tool for verifying TLS certificates, ensuring they are
+correctly chained to trusted root and intermediate certificates. The use of the
+`openssl` command ensures thorough verification, and the optional verbose mode
+provides additional detail for debugging or inspection purposes.
 
-[verify_ssl_certificates.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/verify_ssl_certificates.sh
+[verify_tls_certificates.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/verify_tls_certificates.sh

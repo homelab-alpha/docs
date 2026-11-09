@@ -1,10 +1,11 @@
 ---
-title: "revoke_ssl_certificates.info"
+title: "revoke_tls_certificates.info"
 description:
   "Revoke a server or client certificate and generate a Certificate Revocation
   List (CRL), with a copy of the database and a check of the CRL."
-url: "openssl/script-info/revoke-ssl-certificates"
-aliases: ""
+url: "openssl/script-info/revoke-tls-certificates"
+aliases:
+  - "openssl/script-info/revoke-ssl-certificates"
 icon: "code"
 
 params:
@@ -43,7 +44,7 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down the script `revoke_ssl_certificates.sh`. It revokes a server or
+Let's break down the script `revoke_tls_certificates.sh`. It revokes a server or
 client certificate and generates a Certificate Revocation List (CRL). It marks
 the valid entry of the FQDN as revoked in the CA database, and then creates a
 new CRL that is signed by the intermediate CA and checked against the CA chain.
@@ -52,22 +53,23 @@ testing.
 
 ## Script Metadata
 
-- **Filename**: `revoke_ssl_certificates.sh`
+- **Filename**: `revoke_tls_certificates.sh`
+- **Old name**: `revoke_ssl_certificates.sh` (a wrapper that starts this script)
 - **Author**: GJS (homelab-alpha)
-- **Date**: November 8, 2026
-- **Version**: 1.0.0
+- **Date**: November 9, 2026
+- **Version**: 1.1.0
 - **Description**: This script revokes a server or client certificate and
   generates a Certificate Revocation List (CRL) that is checked against the CA
   chain.
-- **RAW Script**: [revoke_ssl_certificates.sh]
+- **RAW Script**: [revoke_tls_certificates.sh]
 
 <br />
 
 ## Usage
 
 ```bash
-./revoke_ssl_certificates.sh [options] <fqdn>
-./revoke_ssl_certificates.sh [options] --crl-only
+./revoke_tls_certificates.sh [options] <fqdn>
+./revoke_tls_certificates.sh [options] --crl-only
 ```
 
 | Option            | Meaning                                                                                                  |
@@ -92,12 +94,12 @@ The alias is `openssl-revoke`.
 
 ## What a Revocation Does
 
-1. Takes the lock `~/ssl/.renew.lock`, so a revocation and a renewal never run
+1. Takes the lock `~/tls/.renew.lock`, so a revocation and a renewal never run
    at the same time.
-2. Saves a copy of `~/ssl/db/index.txt` in `~/ssl/archive/_database/`.
+2. Saves a copy of `~/tls/db/index.txt` in `~/tls/archive/_database/`.
 3. Marks the valid entry of the FQDN as revoked (status `R`) with the reason.
 4. Generates the CRL in a temporary file, checks it with the CA chain, and then
-   moves it to `~/ssl/crl/ca_crl.pem`. When the check fails, the previous CRL
+   moves it to `~/tls/crl/ca_crl.pem`. When the check fails, the previous CRL
    stays.
 
 The key, the certificate, and the bundles of the revoked certificate stay where
@@ -118,9 +120,17 @@ The sections below follow the script from top to bottom.
 
 ### Define directory paths
 
+Define directory paths Set the base directory. The old name ~/ssl is used while
+~/tls does not exist.
+
 ```bash
 # Define directory paths
-base_dir="$HOME/ssl"
+# Set the base directory. The old name ~/ssl is used while ~/tls does not exist.
+base_dir="$HOME/tls"
+if [ ! -e "$base_dir" ] && [ -d "$HOME/ssl" ]; then
+  base_dir="$HOME/ssl"
+  echo "Warning: using the old directory $HOME/ssl. Run tls_directory_migrate.sh to move it to $HOME/tls." >&2
+fi
 certs_dir="$base_dir/certs"
 private_dir="$base_dir/private"
 db_dir="$base_dir/db"
@@ -649,5 +659,5 @@ exit 0
 This script revokes a server or client certificate and generates a Certificate
 Revocation List (CRL) that is checked against the CA chain.
 
-[revoke_ssl_certificates.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/revoke_ssl_certificates.sh
+[revoke_tls_certificates.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/revoke_tls_certificates.sh

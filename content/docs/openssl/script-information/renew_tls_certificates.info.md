@@ -1,10 +1,11 @@
 ---
-title: "renew_ssl_certificates.info"
+title: "renew_tls_certificates.info"
 description:
   "Renew server and client certificates before they expire, with an archive of
   the old files, verification, hooks, and a restore when a step fails."
-url: "openssl/script-info/renew-ssl-certificates"
-aliases: ""
+url: "openssl/script-info/renew-tls-certificates"
+aliases:
+  - "openssl/script-info/renew-ssl-certificates"
 icon: "code"
 
 params:
@@ -43,7 +44,7 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down the script `renew_ssl_certificates.sh`. It renews server and
+Let's break down the script `renew_tls_certificates.sh`. It renews server and
 client certificates before they expire. It detects the kind of each certificate
 from the existing files and calls the matching certificate script without
 questions, so it contains no issuance logic of its own. The certificates are for
@@ -51,21 +52,22 @@ a homelab and for testing.
 
 ## Script Metadata
 
-- **Filename**: `renew_ssl_certificates.sh`
+- **Filename**: `renew_tls_certificates.sh`
+- **Old name**: `renew_ssl_certificates.sh` (a wrapper that starts this script)
 - **Author**: GJS (homelab-alpha)
-- **Date**: November 8, 2026
-- **Version**: 1.1.0
+- **Date**: November 9, 2026
+- **Version**: 1.2.0
 - **Description**: This script renews server and client certificates before they
   expire, and it keeps the old files in a dated archive.
-- **RAW Script**: [renew_ssl_certificates.sh]
+- **RAW Script**: [renew_tls_certificates.sh]
 
 <br />
 
 ## Usage
 
 ```bash
-./renew_ssl_certificates.sh [options] <fqdn>
-./renew_ssl_certificates.sh [options] --all --within <days>
+./renew_tls_certificates.sh [options] <fqdn>
+./renew_tls_certificates.sh [options] --all --within <days>
 ```
 
 | Option          | Meaning                                                                      |
@@ -91,7 +93,7 @@ The alias is `openssl-renew`.
 ## What a Renewal Does
 
 1. Archives the old key, certificate, and bundles in
-   `~/ssl/archive/<fqdn>/<date>/`. Nothing is ever deleted.
+   `~/tls/archive/<fqdn>/<date>/`. Nothing is ever deleted.
 2. Sets `unique_subject` to `no` for the duration of the run, because
    `openssl ca` refuses a second valid certificate with the same name.
 3. Calls the matching certificate script with `--fqdn`, `--ip`, and
@@ -99,9 +101,9 @@ The alias is `openssl-renew`.
 4. Verifies the chain, the private key, the names, and the HAProxy bundle (mode
    600). When a check fails, the old files are restored.
 5. Marks the old entry in `index.txt` as revoked with the reason `superseded`.
-   This is a database marking only. Run `revoke_ssl_certificates.sh --crl-only`
+   This is a database marking only. Run `revoke_tls_certificates.sh --crl-only`
    afterwards to put it in the CRL.
-6. Restores `unique_subject`, and runs the executable files in `~/ssl/hooks.d/`
+6. Restores `unique_subject`, and runs the executable files in `~/tls/hooks.d/`
    with the arguments
    `<fqdn> <certificate> <chain_bundle> <key> <haproxy_bundle>`.
 
@@ -119,9 +121,17 @@ The sections below follow the script from top to bottom.
 
 ### Define directory paths
 
+Define directory paths Set the base directory. The old name ~/ssl is used while
+~/tls does not exist.
+
 ```bash
 # Define directory paths
-base_dir="$HOME/ssl"
+# Set the base directory. The old name ~/ssl is used while ~/tls does not exist.
+base_dir="$HOME/tls"
+if [ ! -e "$base_dir" ] && [ -d "$HOME/ssl" ]; then
+  base_dir="$HOME/ssl"
+  echo "Warning: using the old directory $HOME/ssl. Run tls_directory_migrate.sh to move it to $HOME/tls." >&2
+fi
 certs_dir="$base_dir/certs"
 private_dir="$base_dir/private"
 db_dir="$base_dir/db"
@@ -971,5 +981,5 @@ exit 0
 This script renews server and client certificates before they expire, and it
 keeps the old files in a dated archive.
 
-[renew_ssl_certificates.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/renew_ssl_certificates.sh
+[renew_tls_certificates.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/renew_tls_certificates.sh
