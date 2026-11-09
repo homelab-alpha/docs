@@ -66,8 +66,8 @@ applications.
 
 - **Filename**: `cert_ecdsa_client.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: February 20, 2025
-- **Version**: 2.5.4
+- **Date**: November 8, 2026
+- **Version**: 2.6.0
 - **Description**: This script automates the generation of an ECDSA client
   certificate, including key creation, CSR generation, certificate issuance, and
   verification.
@@ -138,8 +138,58 @@ set -e
    address.
 
    ```bash
-   read -r -p "$(print_cyan "Enter the FQDN name of the new certificate: ")" fqdn
+   fqdn=""
+   non_interactive=false
+   reuse_key=false
+
+   # Function to parse arguments
+   parse_arguments() {
+     while [[ $# -gt 0 ]]; do
+       case "$1" in
+       --fqdn)
+         [[ -n "$2" && "$2" =~ ^[A-Za-z0-9*][A-Za-z0-9._*-]*$ && "$2" != *..* ]] || {
+           echo "[ERROR] --fqdn needs a valid FQDN." >&2
+           exit 1
+         }
+         fqdn="$2"
+         non_interactive=true
+         shift 2
+         ;;
+       --reuse-key)
+         reuse_key=true
+         shift
+         ;;
+       -h | --help)
+         sed -n '/^# Usage:/,/^$/p' "$0" | sed '$d' | sed 's/^# \{0,1\}//'
+         exit 0
+         ;;
+       *)
+         echo "[ERROR] Unknown option: $1" >&2
+         exit 1
+         ;;
+       esac
+     done
+   }
+
+   parse_arguments "$@"
+
+   # Ask for the details only when --fqdn is not given
+   if [ "$non_interactive" = false ]; then
+     read -r -p "$(print_cyan "Enter the FQDN name of the new certificate: ")" fqdn
+   fi
+
+   # In non-interactive mode the Common Name comes from the FQDN, so openssl req
+   # does not ask for it again.
+   req_subject=()
+   if [ "$non_interactive" = true ]; then
+     req_subject=(-subj "/CN=${fqdn}")
+   fi
    ```
+
+Without options, the script asks for the FQDN. With `--fqdn <fqdn>`, it runs
+without questions: the Common Name is set to the FQDN, so `openssl req` does not
+ask for it a second time. `--reuse-key` reuses the existing private key, and
+`-h` shows the usage.
 
 <br />
 
@@ -200,15 +250,23 @@ if grep -q "^unique_subject\s*=\s*yes" "$db_dir/index.txt.attr" 2>/dev/null; the
 fi
 
 cn_exists=false
-if grep -q "CN=${fqdn}" "$db_dir/index.txt" 2>/dev/null; then
+if awk -F'\t' -v cn="/CN=${fqdn}" '
+  $1 == "V" && (substr($NF, length($NF) - length(cn) + 1) == cn || index($NF, cn "/")) { found = 1 }
+  END { exit !found }' "$db_dir/index.txt" 2>/dev/null; then
   cn_exists=true
 fi
 
 if [[ "$unique_subject" == "yes" && "$cn_exists" == "true" ]]; then
-  echo "[ERROR] unique_subject is enabled and CSR with Common Name ${fqdn} already exists in index.txt" >&2
+  echo "[ERROR] unique_subject is enabled and a valid certificate with Common Name ${fqdn} already exists in index.txt." >&2
+  echo "Revoke it, or run 'openssl ca -updatedb' if it has expired, and try again." >&2
   exit 1
 fi
 ```
+
+Only valid entries (status `V`, the first field of `index.txt`) count. A revoked
+or expired entry does not block a new certificate with the same name. An entry
+that is past its expiry date keeps status `V` until `openssl ca -updatedb` is
+run, like `openssl ca` itself.
 
 <br />
 
@@ -218,10 +276,22 @@ The script generates an ECDSA key for the Certificate using the secp384r1 curve
 and saves it to the private directory.
 
 ```bash
-print_section_header "Generate ECDSA key"
-openssl ecparam -name secp384r1 -genkey -out "$private_certificates_dir/${fqdn}.pem"
-check_success "Failed to generate ECDSA key"
+# Generate ECDSA key, or reuse the existing key with --reuse-key
+if [ "$reuse_key" = true ]; then
+  print_section_header "Reuse existing ECDSA key"
+  if [ ! -f "$private_certificates_dir/${fqdn}.pem" ]; then
+    echo "[ERROR] No existing key found for ${fqdn} to reuse." >&2
+    exit 1
+  fi
+else
+  print_section_header "Generate ECDSA key"
+  openssl ecparam -name secp384r1 -genkey -out "$private_certificates_dir/${fqdn}.pem"
+  check_success "Failed to generate ECDSA key"
+fi
 ```
+
+With `--reuse-key`, the script keeps the existing private key of the FQDN and
+stops when that key does not exist.
 
 <br />
 
@@ -231,7 +301,7 @@ A CSR for the Certificate is generated using the generated ECDSA key.
 
 ```bash
 print_section_header "Generate Certificate Signing Request"
-openssl req -new -sha384 -config "$openssl_conf_dir/cert.cnf" -key "$private_certificates_dir/${fqdn}.pem" -out "$csr_dir/${fqdn}.pem"
+openssl req -new -sha384 -config "$openssl_conf_dir/cert.cnf" "${req_subject[@]}" -key "$private_certificates_dir/${fqdn}.pem" -out "$csr_dir/${fqdn}.pem"
 check_success "Failed to generate Certificate Signing Request"
 ```
 
