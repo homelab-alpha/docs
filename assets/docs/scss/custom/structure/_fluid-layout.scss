@@ -2,8 +2,9 @@
 //
 // On a large monitor with a maximized browser, the layout used to stay at the
 // same size: small text, and lines of more than 200 characters. From 1800 px
-// wide, the whole interface is scaled up with the CSS property `zoom`, up to a
-// scale of 1.25. The layout was designed for a width of about 1200 to 1600 px.
+// wide, the whole interface is scaled up with the CSS property `zoom`, up to the
+// scale that is set below. The layout was designed for a width of about 1200 to
+// 1600 px.
 //
 // This works like the zoom of the browser, but it follows the width of the
 // window by itself. The media queries use the real width of the window, so the
@@ -17,15 +18,16 @@
 
 @media (min-width: 1800px) {
   :root {
-    --ui-zoom: 1.1;
+    --ui-zoom: 1;
   }
 }
 
-// The largest scale is 1.25 (125%). On a 3440 x 1440 monitor, 1.5 and higher
-// were too big.
+// Test: the largest scale is 1 (100%), so the scaling is off for now. On a
+// 3440 x 1440 monitor, 1.25 and higher were too big. Raise these values to turn
+// the scaling on.
 @media (min-width: 2400px) {
   :root {
-    --ui-zoom: 1.25;
+    --ui-zoom: 1;
   }
 }
 
