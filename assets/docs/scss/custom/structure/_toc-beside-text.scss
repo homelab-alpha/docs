@@ -7,7 +7,7 @@
 // narrower window, and in a browser without `:has()`, the list stays in its own
 // column next to the text, and the text moves with the sidebar as before.
 
-$toc-width: 300px;
+$toc-gap: 24px; // the space between the text block and the list, and the window edge
 $text-width: 1040px;
 $header-offset: 94px; // the space for the header, as in the layout of the page
 
@@ -53,7 +53,12 @@ $header-offset: 94px; // the space for the header, as in the layout of the page
       top: 0;
       bottom: 0;
       left: 100%;
-      width: $toc-width;
+      // The box grows with the longest name, up to the free space next to the
+      // text block (and never wider than 420px). A name wraps only when it
+      // does not fit there.
+      width: max-content;
+      min-width: 200px;
+      max-width: min(420px, calc(50vw - #{$text-width * 0.5} - #{$toc-gap}));
       height: auto;
       padding-top: $header-offset;
       overflow: visible;
