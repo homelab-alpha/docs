@@ -271,11 +271,17 @@ new-cert-rsa-client
 ```
 
 These commands ask for the fully qualified domain name (FQDN) and, for servers,
-an IPv4 address. To run without questions, pass them as options:
+one or more IPv4 addresses. To run without questions, pass them as options:
 
 ```bash
 new-cert-server --fqdn example.test --ip 192.0.2.10
 new-cert-client --fqdn client.example.test
+```
+
+For more than one IPv4 address, separate the addresses with commas:
+
+```bash
+new-cert-server --fqdn example.test --ip 192.0.2.10,192.0.2.11
 ```
 
 Enter the FQDN without `www.`. A server certificate (ECDSA or RSA) and an RSA
