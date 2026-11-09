@@ -54,7 +54,7 @@ a homelab and for testing.
 - **Filename**: `renew_ssl_certificates.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: November 8, 2026
-- **Version**: 1.0.0
+- **Version**: 1.1.0
 - **Description**: This script renews server and client certificates before they
   expire, and it keeps the old files in a dated archive.
 - **RAW Script**: [renew_ssl_certificates.sh]
@@ -99,7 +99,8 @@ The alias is `openssl-renew`.
 4. Verifies the chain, the private key, the names, and the HAProxy bundle (mode
    600). When a check fails, the old files are restored.
 5. Marks the old entry in `index.txt` as revoked with the reason `superseded`.
-   This is a database marking only, because there is no CRL.
+   This is a database marking only. Run `revoke_ssl_certificates.sh --crl-only`
+   afterwards to put it in the CRL.
 6. Restores `unique_subject`, and runs the executable files in `~/ssl/hooks.d/`
    with the arguments
    `<fqdn> <certificate> <chain_bundle> <key> <haproxy_bundle>`.
@@ -413,6 +414,25 @@ get_san() {
 
 <br />
 
+### Function: check if a certificate is revoked in the database (status R)
+
+Function to check if a certificate is revoked in the database (status R).
+
+```bash
+# Function to check if a certificate is revoked in the database (status R)
+is_revoked() {
+  local serial
+  serial=$(openssl x509 -in "$1" -noout -serial 2>/dev/null)
+  serial="${serial#serial=}"
+  awk -F'\t' -v s="$serial" '
+    function norm(x) { x = toupper(x); sub(/^0+/, "", x); return x }
+    $1 == "R" && norm($4) == norm(s) { found = 1 }
+    END { exit !found }' "$db_dir/index.txt"
+}
+```
+
+<br />
+
 ### Function: detect the kind of a certificate and add it to the plan
 
 Function to detect the kind of a certificate and add it to the plan.
@@ -430,6 +450,10 @@ plan_certificate() {
     print_error "Cannot read the certificate of $fqdn."
     return 1
   }
+  if is_revoked "$cert"; then
+    print_error "$fqdn is revoked. Issue a new certificate with the certificate scripts."
+    return 1
+  fi
 
   # RSA or ECDSA, from the public key algorithm
   case "$text" in
@@ -522,6 +546,10 @@ select_targets() {
     *_chain_bundle | *_haproxy | *_bundle) continue ;;
     esac
     if openssl x509 -in "$file" -noout -checkend "$((within_days * 86400))" >/dev/null 2>&1; then
+      continue
+    fi
+    # A revoked certificate is not renewed
+    if is_revoked "$file"; then
       continue
     fi
     plan_certificate "$name" || plan_failed=$((plan_failed + 1))

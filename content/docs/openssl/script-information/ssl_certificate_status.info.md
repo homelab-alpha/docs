@@ -54,7 +54,7 @@ systemd timer. The certificates are for a homelab and for testing.
 - **Filename**: `ssl_certificate_status.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: November 8, 2026
-- **Version**: 1.0.0
+- **Version**: 1.1.0
 - **Description**: This script reports the expiry date and the days left of
   every certificate in the SSL directory, and it reports the result in its exit
   code.
@@ -112,6 +112,7 @@ certs_dir="$base_dir/certs"
 certs_root_dir="$certs_dir/root"
 certs_intermediate_dir="$certs_dir/intermediate"
 certs_certificates_dir="$certs_dir/certificates"
+index_file="$base_dir/db/index.txt"
 ```
 
 <br />
@@ -305,6 +306,26 @@ get_cn() {
 
 <br />
 
+### Function: check if a certificate is revoked in the database (status R)
+
+Function to check if a certificate is revoked in the database (status R).
+
+```bash
+# Function to check if a certificate is revoked in the database (status R)
+is_revoked() {
+  local serial
+  [ -f "$index_file" ] || return 1
+  serial=$(openssl x509 -in "$1" -noout -serial 2>/dev/null)
+  serial="${serial#serial=}"
+  awk -F'\t' -v s="$serial" '
+    function norm(x) { x = toupper(x); sub(/^0+/, "", x); return x }
+    $1 == "R" && norm($4) == norm(s) { found = 1 }
+    END { exit !found }' "$index_file"
+}
+```
+
+<br />
+
 ### Function: check one certificate and store the result
 
 Function to check one certificate and store the result.
@@ -341,7 +362,9 @@ check_certificate() {
   fi
 
   # Use -checkend for the decision: it is the authoritative OpenSSL check.
-  if ! openssl x509 -in "$file" -noout -checkend 0 >/dev/null 2>&1; then
+  if is_revoked "$file"; then
+    state="REVOKED"
+  elif ! openssl x509 -in "$file" -noout -checkend 0 >/dev/null 2>&1; then
     state="EXPIRED"
     had_expired=true
   elif ! openssl x509 -in "$file" -noout -checkend "$((threshold * 86400))" >/dev/null 2>&1; then
@@ -412,6 +435,7 @@ print_results() {
     fi
     case "$state" in
     OK) color="$green" ;;
+    REVOKED) color="" ;;
     WARN) color="$yellow" ;;
     *) color="$red" ;;
     esac
