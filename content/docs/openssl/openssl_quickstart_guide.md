@@ -37,8 +37,14 @@ katex: true
 <br />
 
 {{% alert context="warning" %}}
-**Caution** – This documentation is a work in progress.
-{{% /alert %}}
+The certificates are meant for a homelab and for testing. Do not use them in
+production. {{% /alert %}}
+
+<br />
+
+## Requirements
+
+A Linux system with Bash, Git, and OpenSSL.
 
 <br />
 
@@ -164,8 +170,14 @@ certificate authority:
 new-cert-localhost
 ```
 
-When prompted for the `Common Name`, enter `localhost` and press enter. You will
-now have successfully created your first certificate.
+The script asks no questions: the `Common Name` is `localhost`. You have now
+created your first certificate. It also creates a bundle for HAProxy.
+
+Check the chain of trust of the whole chain, including the new certificate:
+
+```bash
+openssl-verify localhost
+```
 
 <br />
 
@@ -174,47 +186,51 @@ now have successfully created your first certificate.
 <br />
 
 {{% alert context="primary" %}}
-**Important:** Our default OpenSSL configuration requires a **unique subject**
-for each certificate. This ensures that each certificate has a unique
-identifier, preventing duplication. {{% /alert %}}
+**Important:** `new-tls-directory-setup` sets `unique_subject = yes`. OpenSSL
+then refuses a second valid certificate with the same **Common Name**.
+{{% /alert %}}
 
-### Should You Adjust This Configuration?
+### What Should You Do?
 
-For most users, it is **strongly recommended** to apply the change outlined
-below.
+For most users, keep the default. To replace a certificate that expires, use
+`openssl-renew`. It archives the old files, handles the setting for you, and
+restores it afterwards. See [Renew Certificates].
 
-If you do not revoke certificates or prefer a simpler setup, you must apply this
-change to avoid potential errors.
-
-To adjust the configuration, open the terminal and add the following lines:
+Only change the setting when you want several valid certificates with the same
+**Common Name**, for example while you test. Open the terminal and run:
 
 ```bash
 echo "unique_subject = no" > $HOME/tls/db/index.txt.attr
 ```
 
-Afterward, verify the changes by running the following commands:
+Afterward, verify the change:
 
 ```bash
 cat $HOME/tls/db/index.txt.attr
 ```
 
+To go back to the default, run:
+
+```bash
+echo "unique_subject = yes" > $HOME/tls/db/index.txt.attr
+```
+
 <br />
 
-### Why Is This Change Important?
+### What Happens With Each Setting?
 
-If this setting is not adjusted and you attempt to create a new TLS certificate
-with the same **Common Name** (for example, `localhost`), OpenSSL may reject the
-request because the name already exists in the index file.
+With `unique_subject = yes` (the default):
 
-By setting `unique_subject = no`, you will be able to:
+- A certificate script stops with an error when a valid certificate with the
+  same **Common Name** already exists in `index.txt`.
+- Every name has at most one valid entry, which keeps revocation and renewal
+  simple.
 
-- Create multiple certificates with the same **Common Name** without issues.
-- Avoid errors when generating new certificates.
-- Simplify certificate management, especially if you do not revoke certificates
-  using the script.
+With `unique_subject = no`:
 
-For a smoother experience, we recommend applying this change unless you have a
-specific reason to keep the default setting.
+- You can create multiple certificates with the same **Common Name**.
+- A name can have several valid entries. `openssl-revoke` revokes all valid
+  certificates with that name.
 
 Proceed to the next chapter: **[Create Your Own Certificate]**.
 
@@ -254,8 +270,86 @@ For RSA:
 new-cert-rsa-client
 ```
 
-These commands will help you create certificates tailored for your server or
-client applications.
+These commands ask for the fully qualified domain name (FQDN) and, for servers,
+an IPv4 address. To run without questions, pass them as options:
+
+```bash
+new-cert-server --fqdn www.example.test --ip 192.0.2.10
+new-cert-client --fqdn client.example.test
+```
+
+<br />
+
+## Verify Certificates
+
+Check a certificate against its chain of trust. Use the filename without `.pem`
+for your own certificates:
+
+```bash
+openssl-verify root_ca.pem
+openssl-verify -v ca.pem
+openssl-verify www.example.test
+```
+
+See [verify_tls_certificates] for the options.
+
+<br />
+
+## Check the Expiry
+
+List every certificate under `~/tls/certs`, sorted by the days left. The script
+never changes a file:
+
+```bash
+openssl-status
+openssl-status --quiet
+```
+
+Server and client certificates warn 30 days ahead, and the authorities warn 180
+days ahead. The exit code is `0` when everything is valid longer than its
+threshold, so you can use the script in cron or in a systemd timer. See
+[tls_certificate_status] for all exit codes.
+
+<br />
+
+## Renew Certificates
+
+Renew server and client certificates before they expire. The script archives the
+old files in `~/tls/archive/<fqdn>/<date>/` and never deletes anything:
+
+```bash
+openssl-renew --dry-run www.example.test
+openssl-renew www.example.test
+openssl-renew --all --within 30 --yes
+```
+
+The authorities (trusted identity, root, and intermediate) are not renewed. See
+[renew_tls_certificates] for the options, the hooks, and a schedule.
+
+<br />
+
+## Revoke Certificates
+
+Revoke a server or client certificate, for example after a private key leaked.
+The script marks it as revoked in the database and generates a Certificate
+Revocation List (CRL) in `~/tls/crl/ca_crl.pem`:
+
+```bash
+openssl-revoke --dry-run www.example.test
+openssl-revoke --reason keyCompromise www.example.test
+openssl-revoke --crl-only
+```
+
+The certificates have no CRL distribution point, so clients do not find the CRL
+by themselves. Install `ca_crl.pem` where you use it, for example in the
+configuration of HAProxy or nginx. A CRL is valid for 30 days, so generate a new
+one with `openssl-revoke --crl-only` before it expires. See
+[revoke_tls_certificates] for the details.
 
 [get started]: #get-started
 [Create Your Own Certificate]: #create-your-own-certificate
+[Renew Certificates]: #renew-certificates
+[verify_tls_certificates]: /openssl/script-info/verify-tls-certificates/
+[tls_certificate_status]: /openssl/script-info/tls-certificate-status/
+[renew_tls_certificates]: /openssl/script-info/renew-tls-certificates/
+[revoke_tls_certificates]: /openssl/script-info/revoke-tls-certificates/
