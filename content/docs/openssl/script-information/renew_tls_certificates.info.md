@@ -56,7 +56,7 @@ a homelab and for testing.
 - **Old name**: `renew_ssl_certificates.sh` (a wrapper that starts this script)
 - **Author**: GJS (homelab-alpha)
 - **Date**: November 9, 2026
-- **Version**: 1.2.1
+- **Version**: 1.2.2
 - **Description**: This script renews server and client certificates before they
   expire, and it keeps the old files in a dated archive.
 - **RAW Script**: [renew_tls_certificates.sh]
@@ -450,7 +450,7 @@ Function to detect the kind of a certificate and add it to the plan.
 ```bash
 # Function to detect the kind of a certificate and add it to the plan
 plan_certificate() {
-  local fqdn="$1" cert="$certs_certificates_dir/$1.pem" text algo kind enddate token ips=() ip=""
+  local fqdn="$1" cert="$certs_certificates_dir/$1.pem" text algo kind enddate token ips=() ip="" wildcard_domain=""
 
   if [ ! -f "$cert" ]; then
     print_error "No certificate found for $fqdn in $certs_certificates_dir."
@@ -497,9 +497,14 @@ plan_certificate() {
       return 1
     fi
   else
+    # A wildcard certificate also holds the domain itself (*.example.test and example.test)
+    if [[ "$fqdn" == \*.* ]]; then
+      wildcard_domain="${fqdn#\*.}"
+    fi
     while IFS= read -r token; do
       case "$token" in
       "DNS:$fqdn" | "DNS:www.$fqdn") ;;
+      "DNS:${wildcard_domain:-$fqdn}") ;;
       IPAddress:*) ips+=("${token#IPAddress:}") ;;
       *)
         print_error "$fqdn has other names than the certificate scripts create ($token). Renew it by hand."

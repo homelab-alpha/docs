@@ -58,7 +58,7 @@ certificates.
 - **Filename**: `cert_rsa_server.sh`
 - **Author**: GJS (homelab-alpha)
 - **Date**: November 9, 2026
-- **Version**: 2.7.1
+- **Version**: 2.7.3
 - **Description**: This script automates the process of creating and managing
   RSA certificates for server authentication, including key generation, CSR
   creation, certificate issuance, verification, and preparation of certificate
@@ -188,6 +188,13 @@ set -e
          }
          ip_list+="${ip_list:+,}$2"
          shift 2
+         # Without quotes, the shell splits "a, b" into separate arguments. Take the
+         # next argument as well when the list so far ends with a comma, or when the
+         # next argument starts with a comma.
+         while [[ $# -gt 0 && "$1" != -* ]] && [[ "$ip_list" == *, || "$1" == ,* ]]; do
+           ip_list+="$1"
+           shift
+         done
          ;;
        --reuse-key)
          reuse_key=true
@@ -243,9 +250,12 @@ without questions: the Common Name is set to the FQDN, so `openssl req` does not
 ask for it a second time. `--reuse-key` reuses the existing private key, and
 `-h` shows the usage.
 
-`--ip` can be repeated. Every address is validated before anything is created,
-so an invalid address (such as `192.168.01` or `256.1.1.1`) stops the script
-with an error.
+A space after a comma is allowed (`--ip 192.168.0.1, 192.168.1.1`). The shell
+splits such a list into separate arguments, so the script takes the next
+argument as well while the list so far ends with a comma, or when the next
+argument starts with a comma. `--ip` can be repeated. Every address is validated
+before anything is created, so an invalid address (such as `192.168.01` or
+`256.1.1.1`) stops the script with an error.
 
 <br />
 
@@ -371,12 +381,23 @@ check_success "Failed to generate Certificate Signing Request"
 ### Create an Extfile with All the Alternative Names
 
 The script creates an extfile with alternative names for the certificate,
-including DNS and IP addresses.
+including DNS and IP addresses. A certificate holds the FQDN and `www.<fqdn>`.
+For a wildcard FQDN, such as `*.example.test`, it holds the wildcard and the
+domain itself (`example.test`) instead. The wildcard already covers
+`www.example.test`, `www.*.example.test` is not a valid name, and a wildcard
+does not cover the domain itself.
 
 ```bash
 print_section_header "Create an extfile with all the alternative names"
+if [[ "$fqdn" == \*.* ]]; then
+  # A wildcard already covers www.<domain>, and www.*.<domain> is not valid.
+  # Add the domain itself instead, because a wildcard does not cover it.
+  san_names="DNS:${fqdn}, DNS:${fqdn#\*.}"
+else
+  san_names="DNS:${fqdn}, DNS:www.${fqdn}"
+fi
 {
-  echo "subjectAltName = DNS:${fqdn}, DNS:www.${fqdn}${ipv4}"
+  echo "subjectAltName = ${san_names}${ipv4}"
   echo "basicConstraints = critical, CA:FALSE"
   echo "keyUsage = critical, digitalSignature"
   echo "extendedKeyUsage = serverAuth"
