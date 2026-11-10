@@ -284,12 +284,29 @@ For more than one IPv4 address, separate the addresses with commas:
 new-cert-server --fqdn example.test --ip 192.0.2.10,192.0.2.11
 ```
 
+A space after a comma is allowed, which keeps a long list readable:
+
+```bash
+new-cert-server --fqdn example.test --ip 192.0.2.10, 192.0.2.11, 192.0.2.12
+```
+
 Enter the FQDN without `www.`. A server certificate (ECDSA or RSA) and an RSA
 client certificate cover both the FQDN and `www.<fqdn>`, so
 `--fqdn example.test` gives a certificate for `example.test` and
 `www.example.test`. The commands that use the name of an existing certificate,
 such as `openssl-verify`, `openssl-renew`, and `openssl-revoke`, also take the
 FQDN you entered here.
+
+For a wildcard certificate, put the FQDN in single quotes so that the shell does
+not expand the `*`:
+
+```bash
+new-cert-server --fqdn '*.example.test'
+```
+
+A wildcard certificate holds `*.example.test` and `example.test` itself. It does
+not hold `www.<fqdn>`, because the wildcard already covers `www.example.test`. A
+wildcard covers one label only, so `a.b.example.test` is not covered.
 
 <br />
 
