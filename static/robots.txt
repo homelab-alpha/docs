@@ -396,7 +396,7 @@ Disallow: /
 User-agent: recraft-image-dataset
 Disallow: /
 
-User-agent: ReflectionBot
+User-agent: Reflectionbot
 Disallow: /
 
 User-agent: SalamandraVLM
@@ -850,7 +850,7 @@ Disallow: /
 User-agent: HatenaBlog-bot
 Disallow: /
 
-User-agent: Hatena::RUssia::Crawler
+User-agent: Hatena::Russia::Crawler
 Disallow: /
 
 User-agent: HIFIBot
@@ -1406,7 +1406,7 @@ Disallow: /
 User-agent: EzoicBot-Nicheiq
 Disallow: /
 
-User-agent: factset_spyderbot
+User-agent: Factset_spyderbot
 Disallow: /
 
 User-agent: FDL Stats Bot
@@ -1709,7 +1709,7 @@ Disallow: /
 User-agent: ScalinthBot
 Disallow: /
 
-User-agent: scoop.it
+User-agent: Scoop.it
 Disallow: /
 
 User-agent: Scope3
@@ -2017,7 +2017,7 @@ Disallow: /
 User-agent: adequat-systems
 Disallow: /
 
-User-agent: adscanner
+User-agent: AdScanner
 Disallow: /
 
 User-agent: AdsNexusBot
@@ -2056,7 +2056,7 @@ Disallow: /
 User-agent: Alexabot
 Disallow: /
 
-User-agent: Alexibot
+User-agent: AlexiBot
 Disallow: /
 
 User-agent: Almanac
@@ -2170,7 +2170,7 @@ Disallow: /
 User-agent: BehloolBot
 Disallow: /
 
-User-agent: betaBot
+User-agent: BetaBot
 Disallow: /
 
 User-agent: Bibliotheque Nacional de France Crawler
@@ -2194,7 +2194,7 @@ Disallow: /
 User-agent: Black Hole
 Disallow: /
 
-User-agent: Blekkobot
+User-agent: blekkobot
 Disallow: /
 
 User-agent: Bling ERP
@@ -2230,7 +2230,7 @@ Disallow: /
 User-agent: BoxcarBot
 Disallow: /
 
-User-agent: brainobot
+User-agent: BrainOBot
 Disallow: /
 
 User-agent: BrandONbot
@@ -2251,7 +2251,7 @@ Disallow: /
 User-agent: BUbiNG
 Disallow: /
 
-User-agent: Buddybot
+User-agent: BuddyBot
 Disallow: /
 
 User-agent: BuiltBotTough
@@ -2548,7 +2548,7 @@ Disallow: /
 User-agent: DNSCrawler
 Disallow: /
 
-User-agent: DNSScanner
+User-agent: DnsScanner
 Disallow: /
 
 User-agent: DnyzBot
@@ -2878,7 +2878,7 @@ Disallow: /
 User-agent: Gowikibot
 Disallow: /
 
-User-agent: grapeshot
+User-agent: Grapeshot
 Disallow: /
 
 User-agent: GraphEmbedScraper
@@ -3016,7 +3016,7 @@ Disallow: /
 User-agent: IsraBot
 Disallow: /
 
-User-agent: istellabot
+User-agent: IstellaBot
 Disallow: /
 
 User-agent: it2media-domain-crawler
@@ -3313,7 +3313,7 @@ Disallow: /
 User-agent: mlbot
 Disallow: /
 
-User-agent: moatbot
+User-agent: MoatBot
 Disallow: /
 
 User-agent: ModatScanner
@@ -3610,7 +3610,7 @@ Disallow: /
 User-agent: PulsePoint-Crawler
 Disallow: /
 
-User-agent: purebot
+User-agent: PUREBot
 Disallow: /
 
 User-agent: QueryN Metasearch
@@ -3805,7 +3805,7 @@ Disallow: /
 User-agent: SEOkicks-Robot
 Disallow: /
 
-User-agent: SeoLyt
+User-agent: seoLyt
 Disallow: /
 
 User-agent: seoscanners
@@ -3835,7 +3835,7 @@ Disallow: /
 User-agent: Sindup
 Disallow: /
 
-User-agent: sistrix crawler
+User-agent: SISTRIX Crawler
 Disallow: /
 
 User-agent: SiteBot
@@ -3931,7 +3931,7 @@ Disallow: /
 User-agent: SpankBot
 Disallow: /
 
-User-agent: spanner
+User-agent: Spanner
 Disallow: /
 
 User-agent: spbot
@@ -4192,7 +4192,7 @@ Disallow: /
 User-agent: URL_Spider_Pro
 Disallow: /
 
-User-agent: urlsuma.de crawler
+User-agent: UrlSuMa.de crawler
 Disallow: /
 
 User-agent: URLy Warning
@@ -4282,7 +4282,7 @@ Disallow: /
 User-agent: WASALive-Bot
 Disallow: /
 
-User-agent: wbsearchbot
+User-agent: WBSearchBot
 Disallow: /
 
 User-agent: web-archive-net.com.bot
@@ -4390,7 +4390,7 @@ Disallow: /
 User-agent: woriobot
 Disallow: /
 
-User-agent: wotbox
+User-agent: Wotbox
 Disallow: /
 
 User-agent: WOVN Crawler
@@ -4447,7 +4447,7 @@ Disallow: /
 User-agent: XML Sitemaps Generator
 Disallow: /
 
-User-agent: xovibot
+User-agent: XoviBot
 Disallow: /
 
 User-agent: Xpanse-bot
@@ -4462,7 +4462,7 @@ Disallow: /
 User-agent: YandoriRSSBot
 Disallow: /
 
-User-agent: yanga
+User-agent: Yanga
 Disallow: /
 
 User-agent: Yellowbrandprotectionbot
@@ -4507,7 +4507,7 @@ Disallow: /
 User-agent: zgrab
 Disallow: /
 
-User-agent: Zite
+User-agent: zite
 Disallow: /
 
 User-agent: ZuperlistBot
@@ -4564,4 +4564,4 @@ Disallow: /
 # Sitemaps
 Sitemap: https://homelab-alpha.nl/sitemap.xml
 
-# Last modified: 2026-11-05T05:55:18+01:00
+# Last modified: 2026-11-11T16:49:38+01:00
