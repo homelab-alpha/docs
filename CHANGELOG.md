@@ -148,6 +148,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix(layout): keep the sidebar state between pages [e175032](https://github.com/homelab-alpha/docs/commit/e1750327d139843423e5b7f77f4f58b32816749a) by [@homelab-alpha](https://github.com/homelab-alpha)
 - fix(layout): close the sidebar on small windows [7c64024](https://github.com/homelab-alpha/docs/commit/7c6402484b73e236e6763a94a54b52dfe33d4aff) by [@homelab-alpha](https://github.com/homelab-alpha)
 - fix(workflow): do not draft Renovate PRs [6f07d0a](https://github.com/homelab-alpha/docs/commit/6f07d0aa1f9e53b363b3c924cb67a732fd6afbe9) by [@homelab-alpha](https://github.com/homelab-alpha)
+- fix(deps): track bootstrap in go.mod for renovate [aac9d16](https://github.com/homelab-alpha/docs/commit/aac9d1672430822d53f9804cbdda42e1d8bdee2c) by [@homelab-alpha](https://github.com/homelab-alpha)
 
 ### Security
 
