@@ -59,6 +59,9 @@ Disallow: /
 User-agent: Manus-User
 Disallow: /
 
+User-agent: MiniMaxAgent
+Disallow: /
+
 User-agent: Muse
 Disallow: /
 
@@ -90,6 +93,9 @@ Disallow: /
 User-agent: Claude-User
 Disallow: /
 
+User-agent: Diffbot-User
+Disallow: /
+
 User-agent: DuckAssistBot
 Disallow: /
 
@@ -108,7 +114,13 @@ Disallow: /
 User-agent: GoogleAgent-URLContext
 Disallow: /
 
+User-agent: Google-GeminiNotebook
+Disallow: /
+
 User-agent: Google-NotebookLM
+Disallow: /
+
+User-agent: Haiku-SearchBot
 Disallow: /
 
 User-agent: kagi-fetcher
@@ -121,6 +133,9 @@ User-agent: KlaviyoAIBot
 Disallow: /
 
 User-agent: LinerBot
+Disallow: /
+
+User-agent: Liner-User
 Disallow: /
 
 User-agent: meta-externalfetcher
@@ -154,6 +169,9 @@ User-agent: YiyanBot
 Disallow: /
 
 # AI Coding Agents
+User-agent: Augment-WebFetch
+Disallow: /
+
 User-agent: Claude-Code
 Disallow: /
 
@@ -166,10 +184,22 @@ Disallow: /
 User-agent: Cursor
 Disallow: /
 
+User-agent: deepseek-harness
+Disallow: /
+
 User-agent: Devin
 Disallow: /
 
+User-agent: GitHubCopilotRuntime-WebFetch
+Disallow: /
+
 User-agent: Google-Gemini-CLI
+Disallow: /
+
+User-agent: Google-Jetski-Antigravity
+Disallow: /
+
+User-agent: KiroServer
 Disallow: /
 
 User-agent: opencode
@@ -178,11 +208,20 @@ Disallow: /
 User-agent: qodercli
 Disallow: /
 
+User-agent: QwenCode
+Disallow: /
+
 User-agent: Trae
 Disallow: /
 
 # AI Data Providers
 User-agent: AgentDataBot
+Disallow: /
+
+User-agent: amazon-bedrock-knowledgebase
+Disallow: /
+
+User-agent: amazon-Quick
 Disallow: /
 
 User-agent: ApifyBot
@@ -336,6 +375,12 @@ Disallow: /
 User-agent: GoogleOther
 Disallow: /
 
+User-agent: GoogleOther-Image
+Disallow: /
+
+User-agent: GoogleOther-Video
+Disallow: /
+
 User-agent: GPTBot
 Disallow: /
 
@@ -370,6 +415,9 @@ User-agent: meta-externalagent
 Disallow: /
 
 User-agent: micro-crawl
+Disallow: /
+
+User-agent: MistralAI-Training
 Disallow: /
 
 User-agent: MistralBot
@@ -439,6 +487,9 @@ Disallow: /
 User-agent: AndiAgent
 Disallow: /
 
+User-agent: AndiBot
+Disallow: /
+
 User-agent: Anomura
 Disallow: /
 
@@ -463,13 +514,31 @@ Disallow: /
 User-agent: Cloudflare-AI-Search-External
 Disallow: /
 
+User-agent: Context7-Crawler
+Disallow: /
+
+User-agent: DigitalOceanGradientAICrawler
+Disallow: /
+
 User-agent: Dola-SearchBot
+Disallow: /
+
+User-agent: Element451Bot
 Disallow: /
 
 User-agent: ExaSearchBot
 Disallow: /
 
 User-agent: Google-CloudVertexBot
+Disallow: /
+
+User-agent: HaikuBot
+Disallow: /
+
+User-agent: KarlaCrawler
+Disallow: /
+
+User-agent: KernelSearchBot
 Disallow: /
 
 User-agent: Kimi-SearchBot
@@ -484,13 +553,22 @@ Disallow: /
 User-agent: MistralAI-Index
 Disallow: /
 
+User-agent: NavuBot
+Disallow: /
+
 User-agent: OAI-SearchBot
+Disallow: /
+
+User-agent: OnirocoCrawler
 Disallow: /
 
 User-agent: PerplexityBot
 Disallow: /
 
 User-agent: PetalBot
+Disallow: /
+
+User-agent: ProRataInc
 Disallow: /
 
 User-agent: TalarionSearchBot
@@ -4564,4 +4642,4 @@ Disallow: /
 # Sitemaps
 Sitemap: https://homelab-alpha.nl/sitemap.xml
 
-# Last modified: 2026-11-11T16:49:38+01:00
+# Last modified: 2026-11-12T10:22:52+01:00
