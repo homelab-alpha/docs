@@ -61,6 +61,10 @@ jobs:
           allow-licenses:
             MIT, Apache-2.0, BSD-2-Clause, BSD-3-Clause, ISC, 0BSD, BlueOak-1.0.0, Unlicense, CC0-1.0, CC-BY-NC-SA-4.0,
             MPL-2.0, Python-2.0
+          # Bootstrap is reported as "CC-BY-3.0 AND MIT". Both licenses are compatible with the CC-BY-NC-SA-4.0
+          # license of this repository, so exclude it from the license check. It is listed in go.mod only so that
+          # Renovate can update it.
+          allow-dependencies-licenses: pkg:golang/github.com/twbs/bootstrap
 
       - name: 🚨 Log dependency review failure
         if: failure()
