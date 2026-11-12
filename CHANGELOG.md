@@ -111,6 +111,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - docs(openssl): document multiple server IPs [604eeaf](https://github.com/homelab-alpha/docs/commit/604eeaff972f420f4520a2ed990d49c5d878c15b) by [@homelab-alpha](https://github.com/homelab-alpha)
 - docs(openssl): update server and renew pages [a8ae776](https://github.com/homelab-alpha/docs/commit/a8ae776ae6b3d43b7af4ce5df412dc56ef55bf0d) by [@homelab-alpha](https://github.com/homelab-alpha)
 - chore(renovate): remove default assignees [4a43805](https://github.com/homelab-alpha/docs/commit/4a438052e037219970713db00f52f8ad184d79de) by [@homelab-alpha](https://github.com/homelab-alpha)
+- chore(renovate): group and automerge updates [eec8b5d](https://github.com/homelab-alpha/docs/commit/eec8b5dd9832e250807f2725eaf024eb396dae8f) by [@homelab-alpha](https://github.com/homelab-alpha)
 
 ### Deprecated
 
@@ -146,6 +147,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix(site): remove double rule above e-reader footer [7cdd9f8](https://github.com/homelab-alpha/docs/commit/7cdd9f8fed3f49eaa5a41fd707e5d613e81fe3cf) by [@homelab-alpha](https://github.com/homelab-alpha)
 - fix(layout): keep the sidebar state between pages [e175032](https://github.com/homelab-alpha/docs/commit/e1750327d139843423e5b7f77f4f58b32816749a) by [@homelab-alpha](https://github.com/homelab-alpha)
 - fix(layout): close the sidebar on small windows [7c64024](https://github.com/homelab-alpha/docs/commit/7c6402484b73e236e6763a94a54b52dfe33d4aff) by [@homelab-alpha](https://github.com/homelab-alpha)
+- fix(workflow): do not draft Renovate PRs [6f07d0a](https://github.com/homelab-alpha/docs/commit/6f07d0aa1f9e53b363b3c924cb67a732fd6afbe9) by [@homelab-alpha](https://github.com/homelab-alpha)
 
 ### Security
 
