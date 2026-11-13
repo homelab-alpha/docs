@@ -130,6 +130,26 @@ for details.
 
 <br />
 
+### Upgrading from an Older Version
+
+After you update the repository, an existing `~/tls` keeps working with its old
+configuration files. To get the new configuration files, run:
+
+```bash
+git -C ~/openssl pull
+new-tls-directory-setup --update-config
+```
+
+Each replaced file is saved first with the extension `.bak-<date>`. The script
+also moves the database entries of the root and intermediate certificate
+authority to their own database (`~/tls/db/trusted_id/` and
+`~/tls/db/root_ca/`), after a copy of `index.txt` in `~/tls/archive/_database/`.
+See the
+[upgrade section of the README](https://github.com/homelab-alpha/openssl#upgrading-from-an-older-version)
+for all changes in behavior.
+
+<br />
+
 ### 2. Trusted Authority
 
 Generate a self-signed certificate to serve as a trusted authority:
@@ -137,6 +157,9 @@ Generate a self-signed certificate to serve as a trusted authority:
 ```bash
 new-trusted-id
 ```
+
+The script asks for a passphrase and encrypts the private key with it. Keep the
+passphrase: without it the key cannot sign a new root certificate authority.
 
 <br />
 
@@ -148,6 +171,9 @@ Generate a root certificate authority, signed by your trusted authority:
 new-root-ca
 ```
 
+This script also asks for a new passphrase for its own key, and for the
+passphrase of the trusted authority, because that key signs the certificate.
+
 <br />
 
 ### 4. Intermediate Certificate Authority
@@ -158,6 +184,11 @@ authority:
 ```bash
 new-ca
 ```
+
+The script asks for the passphrase of the root certificate authority. The key of
+the intermediate certificate authority itself is not encrypted, because the
+certificate scripts and the renewal use it at every run. See [Passphrases of the
+Authority Keys] for the options.
 
 <br />
 
@@ -178,6 +209,64 @@ Check the chain of trust of the whole chain, including the new certificate:
 ```bash
 openssl-verify localhost
 ```
+
+<br />
+
+## Passphrases of the Authority Keys
+
+`new-trusted-id` and `new-root-ca` encrypt the private key with a passphrase
+(AES-256). The scripts ask for it, or read it from the environment variables
+`TLS_TRUSTED_ID_PASSPHRASE` and `TLS_ROOT_CA_PASSPHRASE`. Use `--no-passphrase`
+to create a key that is not encrypted.
+
+Use `new-ca --passphrase` to encrypt the key of the intermediate certificate
+authority too. The scripts then ask for the passphrase, or read it from
+`TLS_CA_PASSPHRASE`. A renewal that runs unattended needs that variable.
+
+<br />
+
+## Name Constraints (Optional)
+
+By default an authority can sign a certificate for every name. The option
+`--name-constraints` limits the names that an authority, and every authority
+below it, can sign for. It is not set by default:
+
+```bash
+new-root-ca --name-constraints "DNS:example.test, DNS:localhost, IP:192.168.0.0/16, IP:127.0.0.0/8"
+new-ca      --name-constraints "DNS:example.test, DNS:localhost, IP:192.168.0.0/16, IP:127.0.0.0/8"
+```
+
+- `DNS:<domain>` permits the domain and its subdomains. `IP:<network>/<prefix>`
+  permits an IPv4 network. A space after a comma is allowed.
+- A type that is not in the list is not limited. Name both the DNS names and the
+  IP networks.
+- Add `DNS:localhost` and `IP:127.0.0.0/8` when you use `new-cert-localhost`.
+- The certificate scripts refuse a name outside the list before they create
+  anything.
+- The list is part of the certificate of the authority. To change it, create the
+  authority again.
+
+<br />
+
+## Replace an Authority
+
+An existing authority is never changed by accident. To create one again, for
+example before the intermediate certificate authority expires, use `--replace`:
+
+```bash
+new-ca --replace
+new-ca --replace --yes
+```
+
+The first command shows a warning and asks first. `new-root-ca` and
+`new-trusted-id` have the same options. The script copies the old key and
+certificate to `~/tls/archive/_ca/`, issues the new certificate, and marks the
+old database entry as superseded.
+
+The authorities and certificates below a replaced authority must be created
+again: after a new root certificate authority run `new-ca --replace`, and after
+a new intermediate certificate authority run
+`openssl-renew --all --within 400 --yes`.
 
 <br />
 
@@ -222,7 +311,7 @@ echo "unique_subject = yes" > $HOME/tls/db/index.txt.attr
 With `unique_subject = yes` (the default):
 
 - A certificate script stops with an error when a valid certificate with the
-  same **Common Name** already exists in `index.txt`.
+  same **Common Name** already exists in `index.txt`. Nothing is created.
 - Every name has at most one valid entry, which keeps revocation and renewal
   simple.
 
@@ -290,12 +379,12 @@ A space after a comma is allowed, which keeps a long list readable:
 new-cert-server --fqdn example.test --ip 192.0.2.10, 192.0.2.11, 192.0.2.12
 ```
 
-Enter the FQDN without `www.`. A server certificate (ECDSA or RSA) and an RSA
-client certificate cover both the FQDN and `www.<fqdn>`, so
-`--fqdn example.test` gives a certificate for `example.test` and
-`www.example.test`. The commands that use the name of an existing certificate,
-such as `openssl-verify`, `openssl-renew`, and `openssl-revoke`, also take the
-FQDN you entered here.
+Enter the FQDN without `www.`. A server certificate (ECDSA or RSA) covers both
+the FQDN and `www.<fqdn>`, so `--fqdn example.test` gives a certificate for
+`example.test` and `www.example.test`. A client certificate holds only its FQDN;
+use `--www` to add `www.<fqdn>`. The **Common Name** is always the FQDN. The
+commands that use the name of an existing certificate, such as `openssl-verify`,
+`openssl-renew`, and `openssl-revoke`, also take the FQDN you entered here.
 
 For a wildcard certificate, put the FQDN in single quotes so that the shell does
 not expand the `*`:
@@ -372,13 +461,24 @@ openssl-revoke --crl-only
 
 The certificates have no CRL distribution point, so clients do not find the CRL
 by themselves. Install `ca_crl.pem` where you use it, for example in the
-configuration of HAProxy or nginx. A CRL is valid for 30 days, so generate a new
-one with `openssl-revoke --crl-only` before it expires. See
-[revoke_tls_certificates] for the details.
+configuration of HAProxy or nginx. A CRL of the intermediate certificate
+authority is valid for 30 days, so generate a new one with
+`openssl-revoke --crl-only` before it expires.
+
+To revoke an authority, name it with `--authority`. The script then uses the
+database of the authority that signed it, and generates the CRL of that signer:
+
+```bash
+openssl-revoke --authority ca --reason caCompromise
+openssl-revoke --authority root_ca --reason caCompromise
+```
+
+See [revoke_tls_certificates] for the details.
 
 [get started]: #get-started
 [Create Your Own Certificate]: #create-your-own-certificate
 [Renew Certificates]: #renew-certificates
+[Passphrases of the Authority Keys]: #passphrases-of-the-authority-keys
 [verify_tls_certificates]: /openssl/script-info/verify-tls-certificates/
 [tls_certificate_status]: /openssl/script-info/tls-certificate-status/
 [renew_tls_certificates]: /openssl/script-info/renew-tls-certificates/
