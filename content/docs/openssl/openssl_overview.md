@@ -145,9 +145,9 @@ This private key is for demonstration purposes only.
 ```
 
 The keys of the trusted identity and the root CA are encrypted with a
-passphrase, so their example files have the header
-`-----BEGIN ENCRYPTED PRIVATE KEY-----`. The example key of the intermediate CA
-has the header `-----BEGIN PRIVATE KEY-----`.
+passphrase, so their example files have the header line
+`BEGIN ENCRYPTED PRIVATE KEY`. The example key of the intermediate CA has the
+header line `BEGIN PRIVATE KEY`.
 
 This ensures that no actual certificates or private keys are shared, while still
 demonstrating the correct structure.
