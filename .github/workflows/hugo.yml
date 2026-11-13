@@ -25,10 +25,8 @@ on:
         type: boolean
         default: true
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+# No permission for the workflow as a whole. Each job asks for what it needs.
+permissions: {}
 
 concurrency:
   group: pages-${{ github.ref }}
@@ -44,9 +42,19 @@ jobs:
     runs-on: ubuntu-26.04
     timeout-minutes: 15
 
+    # A push is skipped when it creates the repository from the template: the Initialize Repository workflow
+    # replaces that history, so nothing should run for it.
+    if: |
+      github.event.created != true
+
+    # The build runs the content of a pull request, so it only reads. Only the deploy job may write to Pages.
+    permissions:
+      contents: read
+      pages: read # Setup Pages reads the site settings. The build job only reads.
+
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      HUGO_VERSION: 0.169.0
+      HUGO_VERSION: 0.170.0
       DRY_RUN: ${{ (github.event_name == 'pull_request' || inputs.dry_run) && 'true' || 'false' }}
 
     steps:
@@ -55,40 +63,40 @@ jobs:
           set -Eeuo pipefail
           echo "::notice title=Build Started::🏗️ Hugo build process initialized"
           echo "::group::ℹ️ Execution context"
-          echo "Repository: ${{ github.repository }}"
-          echo "Workflow ref: ${{ github.ref }}"
-          echo "Runner OS: ${{ runner.os }}"
-          echo "Hugo version: ${{ env.HUGO_VERSION }}"
+          echo "Repository: ${GITHUB_REPOSITORY}"
+          echo "Workflow ref: ${GITHUB_REF}"
+          echo "Runner OS: ${RUNNER_OS}"
+          echo "Hugo version: ${HUGO_VERSION}"
           echo "Dry run: ${DRY_RUN}"
           echo "::endgroup::"
 
       - name: 📥 Install Hugo CLI
         run: |
           set -Eeuo pipefail
-          echo "::group::📥 Downloading and installing Hugo v${{ env.HUGO_VERSION }}"
+          echo "::group::📥 Downloading and installing Hugo v${HUGO_VERSION}"
 
           HUGO_DEB="hugo_extended_${HUGO_VERSION}_linux-amd64.deb"
           HUGO_URL="https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}"
 
-          if ! wget -O "${{ runner.temp }}/${HUGO_DEB}" "${HUGO_URL}/${HUGO_DEB}" ||
-            ! wget -O "${{ runner.temp }}/hugo_checksums.txt" \
+          if ! wget -O "${RUNNER_TEMP}/${HUGO_DEB}" "${HUGO_URL}/${HUGO_DEB}" ||
+            ! wget -O "${RUNNER_TEMP}/hugo_checksums.txt" \
               "${HUGO_URL}/hugo_${HUGO_VERSION}_checksums.txt"; then
             echo "::error title=Hugo Download Failed::❌ Could not download Hugo binary or checksums"
             exit 1
           fi
 
-          if ! (cd "${{ runner.temp }}" &&
+          if ! (cd "${RUNNER_TEMP}" &&
             grep -F " ${HUGO_DEB}" hugo_checksums.txt | sha256sum --check --strict -); then
             echo "::error title=Hugo Checksum Failed::❌ SHA-256 checksum of the Hugo package does not match"
             exit 1
           fi
 
-          if ! sudo dpkg -i "${{ runner.temp }}/${HUGO_DEB}"; then
+          if ! sudo dpkg -i "${RUNNER_TEMP}/${HUGO_DEB}"; then
             echo "::error title=Hugo Install Failed::❌ Could not install Hugo package"
             exit 1
           fi
 
-          echo "::notice title=Hugo Installed::✅ Hugo v${{ env.HUGO_VERSION }} installed successfully"
+          echo "::notice title=Hugo Installed::✅ Hugo v${HUGO_VERSION} installed successfully"
           echo "::endgroup::"
 
       - name: 🎨 Install Dart Sass
@@ -104,7 +112,7 @@ jobs:
           DART_SASS_ARCHIVE="dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
           DART_SASS_URL="https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/${DART_SASS_ARCHIVE}"
 
-          if ! wget -O "${{ runner.temp }}/${DART_SASS_ARCHIVE}" "${DART_SASS_URL}"; then
+          if ! wget -O "${RUNNER_TEMP}/${DART_SASS_ARCHIVE}" "${DART_SASS_URL}"; then
             echo "::error title=Dart Sass Download Failed::❌ Could not download Dart Sass"
             exit 1
           fi
@@ -116,12 +124,12 @@ jobs:
             exit 1
           fi
 
-          if ! echo "${DART_SASS_SHA256}  ${{ runner.temp }}/${DART_SASS_ARCHIVE}" | sha256sum --check --strict -; then
+          if ! echo "${DART_SASS_SHA256}  ${RUNNER_TEMP}/${DART_SASS_ARCHIVE}" | sha256sum --check --strict -; then
             echo "::error title=Dart Sass Checksum Failed::❌ SHA-256 checksum of the Dart Sass archive does not match"
             exit 1
           fi
 
-          sudo tar -xzf "${{ runner.temp }}/${DART_SASS_ARCHIVE}" -C /opt
+          sudo tar -xzf "${RUNNER_TEMP}/${DART_SASS_ARCHIVE}" -C /opt
           echo "/opt/dart-sass" >>"$GITHUB_PATH"
 
           if ! /opt/dart-sass/sass --version; then
@@ -149,11 +157,12 @@ jobs:
           HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
           HUGO_ENVIRONMENT: production
           TZ: Europe/Amsterdam
+          STEP_PAGES_BASE_URL: ${{ steps.pages.outputs.base_url }}
         run: |
           set -Eeuo pipefail
           echo "::group::🔨 Hugo Compilation"
 
-          HUGO_ARGS=(--gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/")
+          HUGO_ARGS=(--gc --minify --baseURL "${STEP_PAGES_BASE_URL}/")
 
           # Newly deprecated features are only logged at info level.
           if [[ "${DRY_RUN}" == "true" ]]; then
@@ -178,13 +187,14 @@ jobs:
 
       - name: 📊 Generate job summary
         if: always()
+        env:
+          BUILD_STATUS: ${{ steps.hugo_build.outcome == 'success' && '✅ Success' || '❌ Failed' }}
+          SASS_STATUS: ${{ steps.dart_sass.outcome == 'success' && '✅ Success' || '❌ Failed' }}
+          UPLOAD_STATUS: ${{ steps.upload.outcome == 'success' && '✅ Uploaded' || '⏭️ Skipped' }}
+          STEP_PAGES_BASE_URL: ${{ steps.pages.outputs.base_url }}
         run: |
           set -Eeuo pipefail
           echo "::group::📊 Generating Summary Report"
-
-          BUILD_STATUS="${{ steps.hugo_build.outcome == 'success' && '✅ Success' || '❌ Failed' }}"
-          SASS_STATUS="${{ steps.dart_sass.outcome == 'success' && '✅ Success' || '❌ Failed' }}"
-          UPLOAD_STATUS="${{ steps.upload.outcome == 'success' && '✅ Uploaded' || '⏭️ Skipped' }}"
 
           cat <<EOF >> "$GITHUB_STEP_SUMMARY"
           ## 🏗️ Build Summary
@@ -201,15 +211,15 @@ jobs:
 
           ### ⚙️ Runtime Configuration
 
-          - **Hugo Version:** ${{ env.HUGO_VERSION }}
+          - **Hugo Version:** ${HUGO_VERSION}
           - **Dry Run:** ${DRY_RUN}
           - **Environment:** production
-          - **Base URL:** ${{ steps.pages.outputs.base_url }}
+          - **Base URL:** ${STEP_PAGES_BASE_URL}
           - **Timezone:** Europe/Amsterdam
 
           ### 🧩 Workflow Details
 
-          - **Workflow Run:** [View Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          - **Workflow Run:** [View Details](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID})
           EOF
 
           echo "::endgroup::"
@@ -225,6 +235,10 @@ jobs:
       github.ref == 'refs/heads/main' &&
       inputs.dry_run != true
 
+    permissions:
+      pages: write # Deploy the built site to GitHub Pages.
+      id-token: write # Prove with an OIDC token that the deployment comes from this workflow.
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -236,11 +250,12 @@ jobs:
 
       - name: 📊 Generate deployment summary
         if: always()
+        env:
+          DEPLOY_STATUS: ${{ steps.deployment.outcome == 'success' && '✅ Success' || '❌ Failed' }}
+          STEP_DEPLOYMENT_PAGE_URL: ${{ steps.deployment.outputs.page_url }}
         run: |
           set -Eeuo pipefail
           echo "::group::📊 Generating Deployment Summary"
-
-          DEPLOY_STATUS="${{ steps.deployment.outcome == 'success' && '✅ Success' || '❌ Failed' }}"
 
           cat <<EOF >> "$GITHUB_STEP_SUMMARY"
           ## 🚀 Deployment Summary
@@ -255,13 +270,13 @@ jobs:
 
           ### 🌐 Site Details
 
-          | Key      | Value                                                      |
-          | :------- | :--------------------------------------------------------- |
-          | **URL**  | [View Live Site](${{ steps.deployment.outputs.page_url }}) |
+          | Key     | Value                                         |
+          | :------ | :-------------------------------------------- |
+          | **URL** | [View Live Site](${STEP_DEPLOYMENT_PAGE_URL}) |
 
           ### 🧩 Workflow Details
 
-          - **Workflow Run:** [View Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          - **Workflow Run:** [View Details](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID})
           EOF
 
           echo "::endgroup::"
