@@ -359,10 +359,10 @@ fi
 
 <br />
 
-### The FQDN becomes a part of file names and of the extension file
+### The FQDN becomes a part of filenames and of the extension file
 
-The FQDN becomes a part of file names and of the extension file, so it is
-checked in both modes.
+The FQDN becomes a part of filenames and of the extension file, so it is checked
+in both modes.
 
 ```bash
 # The FQDN becomes a part of file names and of the extension file, so it is
@@ -398,7 +398,7 @@ fi
 ### The Common Name is always the FQDN
 
 The Common Name is always the FQDN, so openssl req does not ask for it and the
-database entry, the file names, and the names in the certificate agree.
+database entry, the filenames, and the names in the certificate agree.
 
 ```bash
 # The Common Name is always the FQDN, so openssl req does not ask for it and

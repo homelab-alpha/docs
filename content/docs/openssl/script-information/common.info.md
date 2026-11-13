@@ -218,7 +218,7 @@ is_valid_fqdn() {
 ### Function: print the path of the database
 
 Function to print the path of the database (`index.txt`) that a configuration
-file names in its "database" line. Every authority has its own database, and a
+file gives in its "database" line. Every authority has its own database, and a
 configuration file from an older version can still name the shared one, so the
 scripts read the path from the file. `$ENV::HOME` and `$HOME` become the home
 directory.

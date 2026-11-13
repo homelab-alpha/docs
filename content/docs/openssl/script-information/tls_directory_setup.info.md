@@ -208,7 +208,7 @@ create_if_missing() {
 
 Function to move the database entry of an authority certificate from the shared
 database (`$db_dir/index.txt`) to the database that its configuration file
-names. The certificate copy in newcerts moves with it.
+gives. The certificate copy in newcerts moves with it.
 
 Usage: `move_authority_entry <configuration file> <certificate>`
 
