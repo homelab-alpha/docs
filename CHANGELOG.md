@@ -112,6 +112,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - docs(openssl): update server and renew pages [a8ae776](https://github.com/homelab-alpha/docs/commit/a8ae776ae6b3d43b7af4ce5df412dc56ef55bf0d) by [@homelab-alpha](https://github.com/homelab-alpha)
 - chore(renovate): remove default assignees [4a43805](https://github.com/homelab-alpha/docs/commit/4a438052e037219970713db00f52f8ad184d79de) by [@homelab-alpha](https://github.com/homelab-alpha)
 - chore(renovate): group and automerge updates [eec8b5d](https://github.com/homelab-alpha/docs/commit/eec8b5dd9832e250807f2725eaf024eb396dae8f) by [@homelab-alpha](https://github.com/homelab-alpha)
+- docs(openssl): update the script pages to v0.2.0 [c8b9295](https://github.com/homelab-alpha/docs/commit/c8b9295671652b0672a8f15bf91aa7b09425c339) by [@homelab-alpha](https://github.com/homelab-alpha)
 
 ### Deprecated
 
