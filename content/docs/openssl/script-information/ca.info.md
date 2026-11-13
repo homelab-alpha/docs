@@ -48,175 +48,288 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this script does in detail. The script is named `ca.sh`,
-authored by GJS (homelab-alpha), and its purpose is to facilitate the setup and
-management of an Intermediate Certificate Authority (CA). The script defines
-directory paths, renews database serial numbers, generates ECDSA keys, creates
-Certificate Signing Requests (CSRs), issues the intermediate certificate, and
-verifies the intermediate CA chain bundle. It ensures the validity and integrity
-of the generated keys, CSRs, and certificates.
+Let's break down the script `ca.sh`. This script creates the Intermediate
+Certificate Authority (CA), signed by the root CA. It generates an ECDSA key,
+creates the Certificate Signing Request (CSR), issues the certificate, creates
+the chain bundle, and verifies the result. The files are put in place after all
+checks passed. An existing key and certificate are copied to the archive first.
 
 ## Script Metadata
 
 - **Filename**: `ca.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: November 9, 2026
-- **Version**: 2.7.0
-- **Description**: This script manages an Intermediate Certificate Authority,
-  handling key generation, CSR creation, certificate issuance, and verification
-  processes.
+- **Date**: November 13, 2026
+- **Version**: 3.0.0
+- **Description**: This script creates the Intermediate Certificate Authority
+  (CA), signed by the root CA.
 - **RAW Script**: [ca.sh]
+
+<br />
+
+## Usage
+
+```bash
+./ca.sh [--passphrase] [--name-constraints <list>] [--replace [--yes]] [-h|--help]
+```
+
+| Option                      | Meaning                                                                                                                                                                                                                                                                                                                                                                                     |
+| :-------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--passphrase`              | Encrypt the private key with a passphrase. The certificate scripts and the renewal then ask for it at every run, so an unattended renewal is not possible.                                                                                                                                                                                                                                  |
+| `--name-constraints <list>` | Limit the names that this authority, and every authority below it, can sign for. The list is separated by commas: `DNS:<domain>` (the domain and its subdomains) and `IP:<IPv4 network>/<prefix>`. For example "DNS:example.test, DNS:localhost, `IP:192.168.0.0/16`" A space after a comma is allowed, with or without the quotes. Can be repeated. Without this option there is no limit. |
+| `--replace`                 | Create the authority again when it exists. The old key and certificate are copied to the archive, and the old database entry is marked as superseded. Without this option an existing authority is never changed.                                                                                                                                                                           |
+| `--yes`                     | Used with `--replace`. Do not ask for confirmation.                                                                                                                                                                                                                                                                                                                                         |
+| `-h`, `--help`              | Show this help.                                                                                                                                                                                                                                                                                                                                                                             |
+
+The alias is `new-ca`.
+
+The key of the intermediate CA is not encrypted by default, because the
+certificate scripts and the renewal use it at every run. When the key of the
+root CA is encrypted, the script asks for that passphrase, or reads it from the
+environment variable `TLS_ROOT_CA_PASSPHRASE`. With `--passphrase` the new
+passphrase is asked for, or read from `TLS_CA_PASSPHRASE`.
+
+## Notes
+
+- The certificates are for a homelab and for testing.
+- With `--name-constraints`, clients refuse a certificate for a name outside the
+  list. Name the DNS names and the IP networks: a type that is not in the list
+  is not limited. Add DNS:localhost and `IP:127.0.0.0/8` when you use the
+  localhost certificate. To change the list, create the authority again.
+- With `--replace` the old database entry is marked as superseded. Run
+  `revoke_tls_certificates.sh --crl-only --authority` ca afterwards to put it in
+  the CRL.
+- Overwriting the intermediate CA requires new certificates.
+- Protect `$HOME/tls/private`: the key of the intermediate CA is not encrypted.
+- The serial number is random (openssl ca `-rand_serial`). The script does not
+  change the serial or crlnumber file.
+- The certificate is recorded in the database of the root CA
+  (`$HOME/tls/db/root_ca/`), not in the database of the certificates.
+- The old files are copied to `$HOME/tls/archive/_ca/ca/` first.
 
 <br />
 
 ## Detailed Explanation
 
-Before diving into the script, it’s important to know that the script will stop
-execution on any error using the following line:
+The sections below follow the script from top to bottom. Functions that are not
+defined here, such as `print_error`, come from `scripts/lib/common.sh`.
+
+<br />
+
+### Stop script on error
 
 ```bash
-set -e
+# Stop script on error
+set -Eeuo pipefail
 ```
 
 <br />
 
-### Functions
+### Load the shared functions
 
-1. **print_cyan**: This function is used to print text in cyan color for better
-   readability in the terminal.
-
-   ```bash
-   print_cyan() {
-     echo -e "\e[36m$1\e[0m"
-   }
-   ```
-
-    <br />
-
-2. **generate_random_hex**: This function generates a random hexadecimal value,
-   which is used for serial numbers and CRL numbers.
-
-   ```bash
-   generate_random_hex() {
-     openssl rand -hex 16 || return 1
-   }
-   ```
-
-    <br />
-
-3. **print_section_header**: This function prints section headers in cyan to
-   clearly delineate different parts of the script.
-
-   ```bash
-   print_section_header() {
-     echo ""
-     print_cyan "=== $1 ==="
-   }
-   ```
-
-    <br />
-
-4. **check_success**: This function checks the success of the last command and
-   exits the script if the command failed.
-
-   ```bash
-   check_success() {
-     if [ $? -ne 0 ]; then
-       echo "[ERROR] $1" >&2
-       exit 1
-     fi
-   }
-   ```
-
-<br />
-
-## Main Script Execution
-
-### Define Directory Paths
-
-The script defines necessary directory paths for the Intermediate Certificate
-Authority components.
+The shared functions, such as the messages and the checks, are in
+`scripts/lib/common.sh`.
 
 ```bash
-print_section_header "Define directory paths"
-# Set the base directory. The old name ~/ssl is used while ~/tls does not exist.
-base_dir="$HOME/tls"
-if [ ! -e "$base_dir" ] && [ -d "$HOME/ssl" ]; then
-  base_dir="$HOME/ssl"
-  echo "Warning: using the old directory $HOME/ssl. Run tls_directory_migrate.sh to move it to $HOME/tls." >&2
-fi
-certs_dir="$base_dir/certs"
-csr_dir="$base_dir/csr"
-private_dir="$base_dir/private"
-db_dir="$base_dir/db"
-openssl_conf_dir="$base_dir/openssl.cnf"
-```
-
-The following directories are specifically defined for the Intermediate
-Certificate Authority components:
-
-```bash
-certs_root_dir="$certs_dir/root"
-certs_intermediate_dir="$certs_dir/intermediate"
-private_intermediate_dir="$private_dir/intermediate"
+# shellcheck source=scripts/lib/common.sh
+source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/../lib/common.sh"
 ```
 
 <br />
 
-### Renew Database Serial Numbers and CRL
+### Function: remove the temporary folder
 
-The script renews database serial numbers and CRL by generating random
-hexadecimal values and writing them to the respective files.
+Function to remove the temporary folder. It runs from the EXIT trap.
 
 ```bash
-print_section_header "Renew db numbers (serial and CRL)"
-for type in "serial" "crlnumber"; do
-  for dir in $db_dir; do
-    generate_random_hex >"$dir/$type" || check_success "Failed to generate $type for $dir"
-  done
+# Function to remove the temporary folder. It runs from the EXIT trap.
+# shellcheck disable=SC2329
+cleanup() {
+  # A certificate that was issued but not put in place must not stay valid in
+  # the database
+  if [[ "$issued" == "true" && "$installed" == "false" && -s "$new_cert" ]]; then
+    if revoke_entry "$new_cert" cessationOfOperation; then
+      print_warning "The script failed after the certificate was issued. Its database entry is marked as revoked."
+    else
+      print_warning "The script failed after the certificate was issued, and its database entry could not be revoked. Revoke $new_cert by hand."
+    fi
+  fi
+  restore_second_entry
+  if [[ -n "$work_dir" && -d "$work_dir" ]]; then
+    rm -rf "$work_dir"
+  fi
+}
+```
+
+<br />
+
+### Function: mark the database entry of a certificate as revoked
+
+Function to mark the database entry of a certificate as revoked, with the key of
+the authority that signed it.
+
+Usage: `revoke_entry <certificate> <reason>`
+
+```bash
+# Function to mark the database entry of a certificate as revoked, with the
+# key of the authority that signed it
+# Usage: revoke_entry <certificate> <reason>
+revoke_entry() {
+  TLS_SIGNER_PASSPHRASE="$signer_passphrase" openssl ca -config "$config_file" \
+    ${signer_options[@]+"${signer_options[@]}"} -revoke "$1" -crl_reason "$2" >/dev/null 2>&1
+}
+
+use_passphrase=false
+work_dir=""
+new_cert=""
+replace=false
+assume_yes=false
+replacing=false
+issued=false
+installed=false
+install_status=0
+old_cert=""
+name_constraints_list=""
+key_passphrase=""
+signer_passphrase=""
+```
+
+<br />
+
+### Parse the options
+
+```bash
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+  --passphrase)
+    use_passphrase=true
+    shift
+    ;;
+  --replace)
+    replace=true
+    shift
+    ;;
+  --yes)
+    assume_yes=true
+    shift
+    ;;
+  --name-constraints)
+    [[ -n "${2:-}" ]] || {
+      print_error "--name-constraints needs a list, for example \"DNS:example.test, IP:192.168.0.0/16\"."
+      exit 2
+    }
+    name_constraints_list+="${name_constraints_list:+,}$2"
+    shift 2
+    # Without quotes, the shell splits "a, b" into separate arguments. Take the
+    # next argument as well when the list so far ends with a comma, or when the
+    # next argument starts with a comma.
+    while [[ $# -gt 0 && "$1" != -* ]] && [[ "$name_constraints_list" == *, || "$1" == ,* ]]; do
+      name_constraints_list+="$1"
+      shift
+    done
+    ;;
+  -h | --help)
+    show_usage '^# Notes:'
+    exit 0
+    ;;
+  *)
+    print_error "Unknown option: $1"
+    exit 2
+    ;;
+  esac
 done
 ```
 
 <br />
 
-### Check if Unique Subject and Intermediate Certificate Authority Exists
-
-The script checks whether the `unique_subject` flag is set to `yes` in the
-`index.txt.attr` file, and whether the Intermediate Certificate Authority
-(`ca.pem`) already exists.
+### Validate the permitted names and build the value of the extension
 
 ```bash
-unique_subject="no"
-if grep -q "^unique_subject\s*=\s*yes" "$db_dir/index.txt.attr" 2>/dev/null; then
-  unique_subject="yes"
+# Validate the permitted names and build the value of the extension
+name_constraints=""
+if [[ -n "$name_constraints_list" ]]; then
+  name_constraints=$(build_name_constraints "$name_constraints_list") || {
+    print_error "Invalid --name-constraints list: $name_constraints_list"
+    echo "Use DNS:<domain> and IP:<IPv4 network>/<prefix>, separated by commas (for example \"DNS:example.test, IP:192.168.0.0/16\")." >&2
+    exit 2
+  }
 fi
 
-ca_path="$certs_intermediate_dir/ca.pem"
-ca_exists=false
-if [[ -f "$ca_path" ]]; then
-  ca_exists=true
-fi
+require_openssl 2
 ```
 
-If `unique_subject` is enabled and the Intermediate Certificate Authority
-exists, the script stops and reports an error. If not, it prompts the user for
-confirmation before overwriting the Intermediate Certificate Authority.
+<br />
+
+### Define directory paths
 
 ```bash
-if [[ "$unique_subject" == "yes" && "$ca_exists" == "true" ]]; then
-  echo "[ERROR] unique_subject is enabled and Intermediate Certificate Authority already exists." >&2
-  exit 1
-fi
+# Define directory paths
+print_section_header "Define directory paths"
+set_base_dir
+certs_dir="$base_dir/certs"
+csr_dir="$base_dir/csr"
+config_file="$base_dir/openssl.cnf/ca.cnf"
+certs_root_dir="$certs_dir/root"
+key_file="$base_dir/private/intermediate/ca.pem"
+cert_file="$certs_dir/intermediate/ca.pem"
+signer_key="$base_dir/private/root/root_ca.pem"
+signer_cert="$certs_root_dir/root_ca.pem"
+parent_chain="$certs_root_dir/root_ca_chain_bundle.pem"
 
-if [[ "$unique_subject" == "no" && -f "$ca_path" ]]; then
-  print_section_header "⚠️  WARNING: Overwriting Intermediate Certificate Authority"
+enter_home 2
+```
 
-  echo "[WARNING] Intermediate Certificate Authority already exists and will be OVERWRITTEN!" >&2
-  echo "[WARNING] This action will require REGENERATING ALL ISSUED CERTIFICATES!" >&2
-  echo "[WARNING] If you continue, all issued certificates will become INVALID!" >&2
+<br />
 
-  read -r -p "Do you want to continue? (yes/no): " confirm
-  if [[ "$confirm" != "yes" ]]; then
+### The database of the authority that signs, as named in the configuration file
+
+```bash
+# The database of the authority that signs, as named in the configuration file
+database=$(config_database "$config_file") || {
+  print_error "Cannot read the database path from $config_file. Run tls_directory_setup.sh first."
+  exit 2
+}
+```
+
+<br />
+
+### Check that everything needed is present, before anything changes
+
+```bash
+# Check that everything needed is present, before anything changes
+missing=false
+for file in "$config_file" "$signer_key" "$signer_cert" "$parent_chain" "$database"; do
+  if [[ ! -f "$file" ]]; then
+    print_error "Required file not found: $file"
+    missing=true
+  fi
+done
+for dir in "$(dirname "$cert_file")" "$(dirname "$key_file")" "$csr_dir"; do
+  if [[ ! -d "$dir" ]]; then
+    print_error "Directory not found: $dir"
+    missing=true
+  fi
+done
+[[ "$missing" == "false" ]] || exit 2
+```
+
+<br />
+
+### An existing authority is only replaced with `--replace`
+
+```bash
+# An existing authority is only replaced with --replace
+if [[ -f "$cert_file" ]]; then
+  if [[ "$replace" == "false" ]]; then
+    print_error "Intermediate Certificate Authority already exists. Use --replace to create it again."
+    exit 2
+  fi
+  replacing=true
+
+  print_section_header "WARNING: Overwriting Intermediate Certificate Authority"
+  print_warning "Intermediate Certificate Authority already exists and will be OVERWRITTEN!"
+  print_warning "This action will require REGENERATING ALL ISSUED CERTIFICATES!"
+  print_warning "If you continue, all issued certificates will become INVALID!"
+  if [[ "$assume_yes" == "false" ]] && ! confirm; then
     echo "[INFO] Operation aborted by user." >&2
     exit 1
   fi
@@ -225,111 +338,210 @@ fi
 
 <br />
 
-### Generate ECDSA Key
-
-The script generates an ECDSA key for the Intermediate Certificate Authority
-using the secp384r1 curve and saves it to the private directory.
+### Ask for the passphrases: the key that signs, and the new key
 
 ```bash
+# Ask for the passphrases: the key that signs, and the new key
+signer_options=()
+if key_is_encrypted "$signer_key"; then
+  get_passphrase signer_passphrase TLS_ROOT_CA_PASSPHRASE "root CA key" || exit 2
+  signer_options=(-passin env:TLS_SIGNER_PASSPHRASE)
+fi
+key_options=()
+pass_options=()
+if [[ "$use_passphrase" == "true" ]]; then
+  get_passphrase key_passphrase TLS_CA_PASSPHRASE "new intermediate CA key" new || exit 2
+  key_options=(-aes-256-cbc -pass env:TLS_KEY_PASSPHRASE)
+  pass_options=(-passin env:TLS_KEY_PASSPHRASE)
+fi
+```
+
+<br />
+
+### Two scripts must not change the database at the same time
+
+```bash
+# Two scripts must not change the database at the same time
+acquire_lock 2 120 "Another certificate script is still running. Try again later."
+```
+
+<br />
+
+### Work in a temporary folder that only the owner can read
+
+Work in a temporary folder that only the owner can read. The traps are set
+first, so an interrupt right after the folder is created still removes it.
+
+```bash
+# Work in a temporary folder that only the owner can read. The traps are set
+# first, so an interrupt right after the folder is created still removes it.
+trap cleanup EXIT
+trap 'exit 1' INT TERM
+work_dir=$(umask 077 && mktemp -d "$base_dir/.ca.XXXXXX")
+new_key="$work_dir/key.pem"
+new_csr="$work_dir/csr.pem"
+new_cert="$work_dir/cert.pem"
+new_chain="$work_dir/chain_bundle.pem"
+```
+
+<br />
+
+### The old certificate is still valid in the database
+
+The old certificate is still valid in the database. Keep a copy to mark it as
+superseded later, and allow a second entry with the same name for this run.
+
+```bash
+# The old certificate is still valid in the database. Keep a copy to mark it as
+# superseded later, and allow a second entry with the same name for this run.
+if [[ "$replacing" == "true" ]]; then
+  old_cert="$work_dir/old_cert.pem"
+  cp -p "$cert_file" "$old_cert"
+  allow_second_entry "$database.attr"
+fi
+```
+
+<br />
+
+### Generate ECDSA key
+
+```bash
+# Generate ECDSA key
 print_section_header "Generate ECDSA key"
-openssl ecparam -name secp384r1 -genkey -out "$private_intermediate_dir/ca.pem"
-check_success "Failed to generate ECDSA key"
+(umask 077 && TLS_KEY_PASSPHRASE="$key_passphrase" openssl genpkey -algorithm EC \
+  -pkeyopt ec_paramgen_curve:P-384 -pkeyopt ec_param_enc:named_curve \
+  ${key_options[@]+"${key_options[@]}"} -out "$new_key")
 ```
 
 <br />
 
 ### Generate Certificate Signing Request (CSR)
 
-A CSR for the Intermediate Certificate Authority is generated using the
-generated ECDSA key.
-
 ```bash
+# Generate Certificate Signing Request (CSR)
 print_section_header "Generate Certificate Signing Request"
-openssl req -new -sha384 -config "$openssl_conf_dir/ca.cnf" -key "$private_intermediate_dir/ca.pem" -out "$csr_dir/ca.pem"
-check_success "Failed to generate Certificate Signing Request"
+TLS_KEY_PASSPHRASE="$key_passphrase" openssl req -new -sha384 -config "$config_file" \
+  -key "$new_key" ${pass_options[@]+"${pass_options[@]}"} -out "$new_csr"
 ```
 
 <br />
 
 ### Generate Intermediate Certificate Authority
 
-The Intermediate Certificate Authority is generated and signed for a validity of
-1826 days (5 years).
+```bash
+# Generate Intermediate Certificate Authority
+print_section_header "Generate Intermediate Certificate Authority"
+# With --name-constraints the extension is added to a copy of the configuration
+# file. The file in $HOME/tls/openssl.cnf is not changed.
+sign_config="$config_file"
+if [[ -n "$name_constraints" ]]; then
+  if grep -Eq '^[[:space:]]*nameConstraints[[:space:]]*=' "$config_file"; then
+    print_error "$config_file already sets nameConstraints. Remove that line, or run without --name-constraints."
+    exit 2
+  fi
+  sign_config="$work_dir/sign.cnf"
+  config_with_extension "$config_file" "v3_intermediate_ca" "nameConstraints = $name_constraints" "$sign_config" || {
+    print_error "The section [ v3_intermediate_ca ] was not found in $config_file."
+    exit 2
+  }
+  echo "Name constraints: $name_constraints"
+fi
+```
+
+<br />
+
+### From here the database can hold the new entry, also when the command is interrupted
 
 ```bash
-print_section_header "Generate Intermediate Certificate Authority"
-openssl ca -config "$openssl_conf_dir/ca.cnf" -extensions v3_intermediate_ca -notext -batch -in "$csr_dir/ca.pem" -days 1826 -out "$certs_intermediate_dir/ca.pem"
-check_success "Failed to generate Intermediate Certificate Authority"
-
+# From here the database can hold the new entry, also when the command is
+# interrupted
+issued=true
+TLS_SIGNER_PASSPHRASE="$signer_passphrase" openssl ca -config "$sign_config" -extensions v3_intermediate_ca -rand_serial -notext -batch \
+  ${signer_options[@]+"${signer_options[@]}"} -in "$new_csr" -days 1826 -out "$new_cert"
 ```
 
 <br />
 
 ### Create Intermediate Certificate Authority Chain Bundle
 
-The Intermediate Certificate Authority and Root Certificate Authority are
-concatenated into a chain bundle.
-
 ```bash
+# Create Intermediate Certificate Authority Chain Bundle
 print_section_header "Create Intermediate Certificate Authority Chain Bundle"
-cat "$certs_intermediate_dir/ca.pem" "$certs_root_dir/root_ca_chain_bundle.pem" >"$certs_intermediate_dir/ca_chain_bundle.pem"
-check_success "Failed to create Intermediate Certificate Authority Chain Bundle"
+cat "$new_cert" "$parent_chain" >"$new_chain"
 ```
 
 <br />
 
-### Verify Certificates
-
-The script verifies the integrity of the certificates using `openssl verify`.
+### Verify the certificate against the chain above it and the private key
 
 ```bash
-print_section_header "Verify Certificates"
-verify_certificate() {
-  openssl verify -CAfile "$1" "$2"
-  check_success "Verification failed for $2"
-}
-
-verify_certificate "$certs_intermediate_dir/ca_chain_bundle.pem" "$certs_intermediate_dir/ca.pem"
-verify_certificate "$certs_root_dir/root_ca_chain_bundle.pem" "$certs_intermediate_dir/ca.pem"
-verify_certificate "$certs_root_dir/root_ca_chain_bundle.pem" "$certs_intermediate_dir/ca_chain_bundle.pem"
+# Verify the certificate against the chain above it and the private key
+print_section_header "Verify Certificate"
+openssl verify -CAfile "$parent_chain" "$new_cert"
+if [[ "$(openssl x509 -in "$new_cert" -noout -pubkey)" != \
+"$(TLS_KEY_PASSPHRASE="$key_passphrase" openssl pkey -in "$new_key" ${pass_options[@]+"${pass_options[@]}"} -pubout)" ]]; then
+  print_error "The certificate does not match the private key."
+  exit 1
+fi
+echo "The certificate matches the private key."
 ```
 
 <br />
 
-### Convert Certificate from PEM to CRT Format
+### Put the files in place, after a copy of the existing files
 
-The Intermediate Certificate Authority and chain bundle are converted from PEM
-to CRT format.
+Put the files in place, after a copy of the existing files. All files are copied
+next to their target first and then renamed, so a failure does not leave a mix
+of old and new files.
 
 ```bash
-print_section_header "Convert Intermediate Certificate Authority from .pem to .crt"
-cp "$certs_intermediate_dir/ca.pem" "$certs_intermediate_dir/ca.crt"
-cp "$certs_intermediate_dir/ca_chain_bundle.pem" "$certs_intermediate_dir/ca_chain_bundle.crt"
-check_success "Failed to convert Intermediate Certificate Authority from .pem to .crt"
+# Put the files in place, after a copy of the existing files. All files are
+# copied next to their target first and then renamed, so a failure does not
+# leave a mix of old and new files.
+print_section_header "Install the files"
+archive_files "_ca/ca" "$key_file" "$cert_file" "${cert_file%.pem}.crt" \
+  "${cert_file%.pem}_chain_bundle.pem" "${cert_file%.pem}_chain_bundle.crt" "$csr_dir/ca.pem"
+install_files \
+  "$new_key" "$key_file" \
+  "$new_csr" "$csr_dir/ca.pem" \
+  "$new_cert" "$cert_file" \
+  "$new_cert" "${cert_file%.pem}.crt" \
+  "$new_chain" "${cert_file%.pem}_chain_bundle.pem" \
+  "$new_chain" "${cert_file%.pem}_chain_bundle.crt" || install_status=$?
+# After a failed rename the new files are partly in use, so the new database
+# entry stays valid
+[[ "$install_status" -eq 1 ]] || installed=true
+[[ "$install_status" -eq 0 ]] || exit 1
+```
+
+<br />
+
+### The new certificate is in use, so the old entry is superseded
+
+```bash
+# The new certificate is in use, so the old entry is superseded
+if [[ "$replacing" == "true" ]] && entry_is_valid "$database" "$old_cert"; then
+  if revoke_entry "$old_cert" superseded; then
+    echo "The database entry of the old certificate is marked as superseded."
+  else
+    print_warning "Cannot mark the database entry of the old certificate as superseded."
+  fi
+fi
+restore_second_entry
 echo
-print_cyan "--> ca.crt"
-print_cyan "--> ca_chain_bundle.crt"
+print_cyan "--> ca.pem and ca.crt"
+print_cyan "--> ca_chain_bundle.pem and ca_chain_bundle.crt"
 ```
 
 <br />
 
-### Script Completion Message
-
-The script prints a completion message when the process is successfully
-completed.
+### Script completion message
 
 ```bash
+# Script completion message
 echo
 print_cyan "Intermediate Certificate Authority process successfully completed."
-```
 
-<br />
-
-### Exit
-
-The script exits with a success code (`0`).
-
-```bash
 exit 0
 ```
 
@@ -337,9 +549,8 @@ exit 0
 
 ## Conclusion
 
-This comprehensive script ensures that every step in setting up and managing an
-Intermediate Certificate Authority is performed correctly and securely, from key
-generation to certificate verification.
+This script creates the Intermediate Certificate Authority (CA), signed by the
+root CA.
 
 [ca.sh]:
   https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/intermediate-certificate-authority/ca.sh

@@ -73,7 +73,8 @@ explains it in detail.
   [cert_ecdsa_server](/openssl/script-info/cert-ecdsa-server/),
   [cert_ecdsa_client](/openssl/script-info/cert-ecdsa-client/),
   [cert_rsa_server](/openssl/script-info/cert-rsa-server/),
-  [cert_rsa_client](/openssl/script-info/cert-rsa-client/).
+  [cert_rsa_client](/openssl/script-info/cert-rsa-client/). These five scripts
+  start [cert](/openssl/script-info/cert/), which does the work.
 - **Verify the chain of trust**: `openssl-verify`. Script page:
   [verify_tls_certificates](/openssl/script-info/verify-tls-certificates/).
 - **Check the expiry**: `openssl-status`. Script page:
@@ -84,6 +85,9 @@ explains it in detail.
   [revoke_tls_certificates](/openssl/script-info/revoke-tls-certificates/).
 - **Move an old `~/ssl` directory to `~/tls`**: `openssl-migrate-tls`. Script
   page: [tls_directory_migrate](/openssl/script-info/tls-directory-migrate/).
+
+The scripts share their functions in one file. Script page:
+[common](/openssl/script-info/common/).
 
 Everything is stored in `~/tls`. To install the scripts and create your first
 certificate, follow the [Quickstart Guide].
@@ -139,6 +143,11 @@ This private key is for demonstration purposes only.
 **DO NOT use in testing or production environments.**
 -----END EC PRIVATE KEY-----
 ```
+
+The keys of the trusted identity and the root CA are encrypted with a
+passphrase, so their example files have the header line
+`BEGIN ENCRYPTED PRIVATE KEY`. The example key of the intermediate CA has the
+header line `BEGIN PRIVATE KEY`.
 
 This ensures that no actual certificates or private keys are shared, while still
 demonstrating the correct structure.

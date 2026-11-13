@@ -426,8 +426,9 @@ the end if it doesn't already exist..\
 
 ### tls_directory_setup.sh
 
-**Description:** Sets up TLS certificate management directories, generates
-random serial numbers, and creates OpenSSL configuration files.\
+**Description:** Sets up the TLS certificate management directories, creates a
+database for each authority, and copies the OpenSSL configuration files. The
+script is safe to run again.\
 **Detailed Explanation:** [tls_directory_setup.info]\
 **RAW Script:** [tls_directory_setup.sh]
 
@@ -521,6 +522,26 @@ certificates, including key generation, CSR creation, certificate issuance,
 verification, and preparation of certificate chain bundles.\
 **Detailed Explanation:** [cert_rsa_client.info]\
 **RAW Script:** [cert_rsa_client.sh]
+
+<br />
+
+### cert.sh
+
+**Description:** This script issues every server and client certificate, with an
+ECDSA or RSA key, signed by the intermediate certificate authority. The five
+`cert_*.sh` scripts start it with fixed options.\
+**Detailed Explanation:** [cert.info]\
+**RAW Script:** [cert.sh]
+
+<br />
+
+### common.sh
+
+**Description:** The shared functions of the OpenSSL scripts: messages, the base
+directory, input checks, passphrases, the lock, and the archive. The other
+scripts load this file with `source`.\
+**Detailed Explanation:** [common.info]\
+**RAW Script:** [common.sh]
 
 <br />
 
@@ -726,6 +747,12 @@ the attribution requirements.
   docs/../../openssl/script-information/cert_rsa_client.info.md
 [cert_rsa_client.sh]:
   https://raw.githubusercontent.com/homelab-alpha/openssl/main/scripts/certificate/cert_rsa_client.sh
+[cert.info]: docs/../../openssl/script-information/cert.info.md
+[cert.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/main/scripts/certificate/cert.sh
+[common.info]: docs/../../openssl/script-information/common.info.md
+[common.sh]:
+  https://raw.githubusercontent.com/homelab-alpha/openssl/main/scripts/lib/common.sh
 [verify_tls_certificates.info]:
   docs/../../openssl/script-information/verify_tls_certificates.info.md
 [verify_tls_certificates.sh]:

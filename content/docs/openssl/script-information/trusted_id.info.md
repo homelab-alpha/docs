@@ -42,174 +42,218 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this script does in detail. The script is named
-`trusted_id.sh`, authored by GJS (homelab-alpha), and its purpose is to generate
-and manage a trusted root certificate. The script sets up directory paths,
-renews database serial numbers, generates an ECDSA key, creates a self-signed
-certificate, verifies the certificate, checks the private key, and converts the
-certificate format.
+Let's break down the script `trusted_id.sh`. This script generates the trusted
+identity: the self-signed certificate at the top of the chain. It generates an
+ECDSA key that is encrypted with a passphrase, creates the self-signed
+certificate, verifies it, and checks the private key. The files are put in place
+after all checks passed. An existing key and certificate are copied to the
+archive first.
 
 ## Script Metadata
 
 - **Filename**: `trusted_id.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: November 9, 2026
-- **Version**: 2.6.0
-- **Description**: This script generates and manages a trusted root certificate,
-  including key generation, certificate creation, verification, and format
-  conversion.
+- **Date**: November 13, 2026
+- **Version**: 3.0.0
+- **Description**: This script generates the trusted identity: the self-signed
+  certificate at the top of the chain.
 - **RAW Script**: [trusted_id.sh]
 
-Here is the detailed explanation:
+<br />
+
+## Usage
+
+```bash
+./trusted_id.sh [--no-passphrase] [--name-constraints <list>] [--replace [--yes]] [-h|--help]
+```
+
+| Option                      | Meaning                                                                                                                                                                                                                                                                                                                                                                                     |
+| :-------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--no-passphrase`           | Do not encrypt the private key. Anyone who can read the file can then sign certificates.                                                                                                                                                                                                                                                                                                    |
+| `--name-constraints <list>` | Limit the names that this authority, and every authority below it, can sign for. The list is separated by commas: `DNS:<domain>` (the domain and its subdomains) and `IP:<IPv4 network>/<prefix>`. For example "DNS:example.test, DNS:localhost, `IP:192.168.0.0/16`" A space after a comma is allowed, with or without the quotes. Can be repeated. Without this option there is no limit. |
+| `--replace`                 | Create the trusted identity again when it exists. The old key and certificate are copied to the archive. Without this option an existing trusted identity is never changed.                                                                                                                                                                                                                 |
+| `--yes`                     | Used with `--replace`. Do not ask for confirmation.                                                                                                                                                                                                                                                                                                                                         |
+| `-h`, `--help`              | Show this help.                                                                                                                                                                                                                                                                                                                                                                             |
+
+The alias is `new-trusted-id`.
+
+Without `--no-passphrase` the script asks for a new passphrase, or reads it from
+the environment variable `TLS_TRUSTED_ID_PASSPHRASE`.
+
+## Notes
+
+- The certificates are for a homelab and for testing.
+- With `--name-constraints`, clients refuse a certificate for a name outside the
+  list. Not every client applies the limit of a certificate that is in its trust
+  store, so also set the option for the root CA. Name the DNS names and the IP
+  networks: a type that is not in the list is not limited.
+- Keep the passphrase. Without it the key cannot sign a new root CA.
+- Overwriting the trusted identity requires a new root CA, a new intermediate
+  CA, and new certificates.
+- The old files are copied to `$HOME/tls/archive/_ca/trusted_id/` first.
 
 <br />
 
 ## Detailed Explanation
 
-Before diving into the script, it’s important to know that the script will stop
-execution on any error using the following line:
+The sections below follow the script from top to bottom. Functions that are not
+defined here, such as `print_error`, come from `scripts/lib/common.sh`.
+
+<br />
+
+### Stop script on error
 
 ```bash
-set -e
+# Stop script on error
+set -Eeuo pipefail
 ```
 
 <br />
 
-### Functions
+### Load the shared functions
 
-1. **print_cyan**: This function is used to print text in cyan color for better
-   readability in the terminal.
-
-   ```bash
-   print_cyan() {
-     echo -e "\e[36m$1\e[0m"
-   }
-   ```
-
-    <br />
-
-2. **generate_random_hex**: This function generates a random hexadecimal value,
-   which is used for serial numbers and CRL numbers.
-
-   ```bash
-   generate_random_hex() {
-     openssl rand -hex 16 || return 1
-   }
-   ```
-
-    <br />
-
-3. **print_section_header**: This function prints section headers in cyan to
-   clearly delineate different parts of the script.
-
-   ```bash
-   print_section_header() {
-     echo ""
-     print_cyan "=== $1 ==="
-   }
-   ```
-
-    <br />
-
-4. **check_success**: This function checks the success of the last command and
-   exits the script if the command failed.
-
-   ```bash
-   check_success() {
-     if [ $? -ne 0 ]; then
-       echo "[ERROR] $1" >&2
-       exit 1
-     fi
-   }
-   ```
-
-<br />
-
-## Main Script Execution
-
-### Define Directory Paths
-
-The script defines necessary directory paths for the Certificate Authority
-components.
+The shared functions, such as the messages and the checks, are in
+`scripts/lib/common.sh`.
 
 ```bash
-print_section_header "Define directory paths"
-# Set the base directory. The old name ~/ssl is used while ~/tls does not exist.
-base_dir="$HOME/tls"
-if [ ! -e "$base_dir" ] && [ -d "$HOME/ssl" ]; then
-  base_dir="$HOME/ssl"
-  echo "Warning: using the old directory $HOME/ssl. Run tls_directory_migrate.sh to move it to $HOME/tls." >&2
-fi
-certs_dir="$base_dir/certs"
-private_dir="$base_dir/private"
-db_dir="$base_dir/db"
-openssl_conf_dir="$base_dir/openssl.cnf"
-```
-
-The following directories are specifically defined for the Certificate Authority
-components:
-
-```bash
-certs_root_dir="$certs_dir/root"
-private_root_dir="$private_dir/root"
+# shellcheck source=scripts/lib/common.sh
+source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/../lib/common.sh"
 ```
 
 <br />
 
-### Renew Database Serial Numbers and CRL
+### Function: remove the temporary folder
 
-The script renews database serial numbers and CRL by generating random
-hexadecimal values and writing them to the respective files.
+Function to remove the temporary folder. It runs from the EXIT trap.
 
 ```bash
-print_section_header "Renew db numbers (serial and CRL)"
-for type in "serial" "crlnumber"; do
-  for dir in $db_dir; do
-    generate_random_hex >"$dir/$type" || check_success "Failed to generate $type for $dir"
-  done
+# Function to remove the temporary folder. It runs from the EXIT trap.
+# shellcheck disable=SC2329
+cleanup() {
+  if [[ -n "$work_dir" && -d "$work_dir" ]]; then
+    rm -rf "$work_dir"
+  fi
+}
+
+use_passphrase=true
+work_dir=""
+new_cert=""
+replace=false
+assume_yes=false
+name_constraints_list=""
+key_passphrase=""
+```
+
+<br />
+
+### Parse the options
+
+```bash
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+  --no-passphrase)
+    use_passphrase=false
+    shift
+    ;;
+  --replace)
+    replace=true
+    shift
+    ;;
+  --yes)
+    assume_yes=true
+    shift
+    ;;
+  --name-constraints)
+    [[ -n "${2:-}" ]] || {
+      print_error "--name-constraints needs a list, for example \"DNS:example.test, IP:192.168.0.0/16\"."
+      exit 2
+    }
+    name_constraints_list+="${name_constraints_list:+,}$2"
+    shift 2
+    # Without quotes, the shell splits "a, b" into separate arguments. Take the
+    # next argument as well when the list so far ends with a comma, or when the
+    # next argument starts with a comma.
+    while [[ $# -gt 0 && "$1" != -* ]] && [[ "$name_constraints_list" == *, || "$1" == ,* ]]; do
+      name_constraints_list+="$1"
+      shift
+    done
+    ;;
+  -h | --help)
+    show_usage '^# Notes:'
+    exit 0
+    ;;
+  *)
+    print_error "Unknown option: $1"
+    exit 2
+    ;;
+  esac
 done
 ```
 
 <br />
 
-### Check if Unique Subject and Trusted ID Exists
-
-The script checks whether the `unique_subject` flag is set to `yes` in the
-`index.txt.attr` file, and whether the Trusted ID (`trusted_id.sh`) already
-exists.
+### Validate the permitted names and build the value of the extension
 
 ```bash
-unique_subject="no"
-if grep -q "^unique_subject\s*=\s*yes" "$db_dir/index.txt.attr" 2>/dev/null; then
-  unique_subject="yes"
+# Validate the permitted names and build the value of the extension
+name_constraints=""
+if [[ -n "$name_constraints_list" ]]; then
+  name_constraints=$(build_name_constraints "$name_constraints_list") || {
+    print_error "Invalid --name-constraints list: $name_constraints_list"
+    echo "Use DNS:<domain> and IP:<IPv4 network>/<prefix>, separated by commas (for example \"DNS:example.test, IP:192.168.0.0/16\")." >&2
+    exit 2
+  }
 fi
 
-trusted_id_path="$certs_root_dir/trusted_id.pem"
-trusted_id_exists=false
-if [[ -f "$trusted_id_path" ]]; then
-  trusted_id_exists=true
+require_openssl 2
+```
+
+<br />
+
+### Define directory paths
+
+```bash
+# Define directory paths
+print_section_header "Define directory paths"
+set_base_dir
+certs_root_dir="$base_dir/certs/root"
+private_root_dir="$base_dir/private/root"
+config_file="$base_dir/openssl.cnf/trusted_id.cnf"
+key_file="$private_root_dir/trusted_id.pem"
+cert_file="$certs_root_dir/trusted_id.pem"
+
+enter_home 2
+```
+
+<br />
+
+### Check that everything needed is present, before anything changes
+
+```bash
+# Check that everything needed is present, before anything changes
+if [[ ! -f "$config_file" || ! -d "$certs_root_dir" || ! -d "$private_root_dir" ]]; then
+  print_error "The directory structure in $base_dir is not complete. Run tls_directory_setup.sh first."
+  exit 2
 fi
 ```
 
-If `unique_subject` is enabled and the Trusted ID exists, the script stops and
-reports an error. If not, it prompts the user for confirmation before
-overwriting the Trusted ID.
+<br />
+
+### An existing trusted identity is only replaced with `--replace`
 
 ```bash
-if [[ "$unique_subject" == "yes" && "$trusted_id_exists" == "true" ]]; then
-  echo "[ERROR] unique_subject is enabled and Trusted ID already exists." >&2
-  exit 1
-fi
+# An existing trusted identity is only replaced with --replace
+if [[ -f "$cert_file" ]]; then
+  if [[ "$replace" == "false" ]]; then
+    print_error "Trusted ID already exists. Use --replace to create it again."
+    exit 2
+  fi
 
-if [[ "$unique_subject" == "no" && -f "$trusted_id_path" ]]; then
-  print_section_header "⚠️  WARNING: Overwriting Trusted ID"
-
-  echo "[WARNING] Trusted ID already exists and will be OVERWRITTEN!" >&2
-  echo "[WARNING] This action will require REGENERATING THE ROOT CA, ALL SUB-CA CERTIFICATES, AND ALL ISSUED CERTIFICATES!" >&2
-  echo "[WARNING] If you continue, all issued certificates will become INVALID!" >&2
-
-  read -r -p "Do you want to continue? (yes/no): " confirm
-  if [[ "$confirm" != "yes" ]]; then
+  print_section_header "WARNING: Overwriting Trusted ID"
+  print_warning "Trusted ID already exists and will be OVERWRITTEN!"
+  print_warning "This action will require REGENERATING THE ROOT CA, ALL SUB-CA CERTIFICATES, AND ALL ISSUED CERTIFICATES!"
+  print_warning "If you continue, all issued certificates will become INVALID!"
+  if [[ "$assume_yes" == "false" ]] && ! confirm; then
     echo "[INFO] Operation aborted by user." >&2
     exit 1
   fi
@@ -218,101 +262,144 @@ fi
 
 <br />
 
-### Generate ECDSA Key
-
-The script generates an ECDSA key for the Trusted ID using the secp384r1 curve
-and saves it to the private directory.
+### Ask for the passphrase of the new key
 
 ```bash
+# Ask for the passphrase of the new key
+key_options=()
+pass_options=()
+if [[ "$use_passphrase" == "true" ]]; then
+  get_passphrase key_passphrase TLS_TRUSTED_ID_PASSPHRASE "new trusted identity key" new || exit 2
+  key_options=(-aes-256-cbc -pass env:TLS_KEY_PASSPHRASE)
+  pass_options=(-passin env:TLS_KEY_PASSPHRASE)
+else
+  print_warning "The private key of the trusted identity is not encrypted."
+fi
+```
+
+<br />
+
+### Work in a temporary folder that only the owner can read
+
+Work in a temporary folder that only the owner can read. The traps are set
+first, so an interrupt right after the folder is created still removes it.
+
+```bash
+# Work in a temporary folder that only the owner can read. The traps are set
+# first, so an interrupt right after the folder is created still removes it.
+trap cleanup EXIT
+trap 'exit 1' INT TERM
+work_dir=$(umask 077 && mktemp -d "$base_dir/.trusted_id.XXXXXX")
+new_key="$work_dir/key.pem"
+new_cert="$work_dir/cert.pem"
+```
+
+<br />
+
+### Generate ECDSA key
+
+```bash
+# Generate ECDSA key
 print_section_header "Generate ECDSA key"
-openssl ecparam -name secp384r1 -genkey -out "$private_root_dir/trusted_id.pem"
-check_success "Failed to generate ECDSA key"
+(umask 077 && TLS_KEY_PASSPHRASE="$key_passphrase" openssl genpkey -algorithm EC \
+  -pkeyopt ec_paramgen_curve:P-384 -pkeyopt ec_param_enc:named_curve \
+  ${key_options[@]+"${key_options[@]}"} -out "$new_key")
 ```
 
 <br />
 
-### Generate Certificate
-
-It generates a self-signed certificate for the Trusted ID using the generated
-ECDSA key, valid for 10956 days (30 years).
+### Generate the self-signed certificate
 
 ```bash
-print_section_header "Generate Certificate Signing Request"
-openssl req -new -x509 -sha384 -config "$openssl_conf_dir/trusted_id.cnf" -extensions v3_ca -key "$private_root_dir/trusted_id.pem" -days 10956 -out "$certs_root_dir/trusted_id.pem"
-check_success "Failed to generate Certificate Signing Request"
+# Generate the self-signed certificate
+print_section_header "Generate Trusted ID Certificate"
+# With --name-constraints the extension is added to a copy of the configuration
+# file. The file in $HOME/tls/openssl.cnf is not changed.
+sign_config="$config_file"
+if [[ -n "$name_constraints" ]]; then
+  if grep -Eq '^[[:space:]]*nameConstraints[[:space:]]*=' "$config_file"; then
+    print_error "$config_file already sets nameConstraints. Remove that line, or run without --name-constraints."
+    exit 2
+  fi
+  sign_config="$work_dir/sign.cnf"
+  config_with_extension "$config_file" "v3_ca" "nameConstraints = $name_constraints" "$sign_config" || {
+    print_error "The section [ v3_ca ] was not found in $config_file."
+    exit 2
+  }
+  echo "Name constraints: $name_constraints"
+fi
+
+TLS_KEY_PASSPHRASE="$key_passphrase" openssl req -new -x509 -sha384 -config "$sign_config" -extensions v3_ca \
+  -key "$new_key" ${pass_options[@]+"${pass_options[@]}"} -days 10956 -out "$new_cert"
 ```
 
 <br />
 
-### Verify Certificate Against Itself
-
-The script verifies the generated certificate against itself to ensure its
-correctness.
+### Perform certificate verifications
 
 ```bash
-print_section_header "Verify Certificates"
-openssl verify -CAfile "$certs_root_dir/trusted_id.pem" "$certs_root_dir/trusted_id.pem"
-check_success "Verification failed for certificate"
+# Perform certificate verifications
+print_section_header "Verify Certificate"
+openssl verify -CAfile "$new_cert" "$new_cert"
 ```
 
 <br />
 
-### Check Generated Files
+### Check Private Key
 
-The script checks the private key and the self-signed certificate.
-
-1. **Check Private Key**
-
-   ```bash
-   print_section_header "Check Private Key"
-   openssl ecparam -in "$private_root_dir/trusted_id.pem" -text -noout
-   check_success "Failed to check private key"
-   ```
-
-    <br />
-
-2. **Check Certificate**
-
-   ```bash
-   print_section_header "Check Certificate"
-   openssl x509 -in "$certs_root_dir/trusted_id.pem" -text -noout
-   check_success "Failed to check certificate"
-   ```
+```bash
+# Check Private Key.
+print_section_header "Check Private Key"
+TLS_KEY_PASSPHRASE="$key_passphrase" openssl pkey -in "$new_key" ${pass_options[@]+"${pass_options[@]}"} -noout -check
+if [[ "$(openssl x509 -in "$new_cert" -noout -pubkey)" != \
+"$(TLS_KEY_PASSPHRASE="$key_passphrase" openssl pkey -in "$new_key" ${pass_options[@]+"${pass_options[@]}"} -pubout)" ]]; then
+  print_error "The certificate does not match the private key."
+  exit 1
+fi
+echo "The certificate matches the private key."
+```
 
 <br />
 
-### Convert Certificate Format
-
-Finally, the script converts the self-signed certificate from PEM format to CRT
-format.
+### Check Certificate
 
 ```bash
-print_section_header "Convert Trusted ID Certificate Authority from .pem to .crt"
-cp "$certs_root_dir/trusted_id.pem" "$certs_root_dir/trusted_id.crt"
-check_success "Failed to convert Trusted ID Certificate Authority from .pem to .crt"
+# Check Certificate.
+print_section_header "Check Certificate"
+openssl x509 -in "$new_cert" -text -noout
+```
+
+<br />
+
+### Put the files in place, after a copy of the existing files
+
+Put the files in place, after a copy of the existing files. All files are copied
+next to their target first and then renamed, so a failure does not leave a mix
+of old and new files.
+
+```bash
+# Put the files in place, after a copy of the existing files. All files are
+# copied next to their target first and then renamed, so a failure does not
+# leave a mix of old and new files.
+print_section_header "Install the files"
+archive_files "_ca/trusted_id" "$key_file" "$cert_file" "$certs_root_dir/trusted_id.crt"
+install_files \
+  "$new_key" "$key_file" \
+  "$new_cert" "$cert_file" \
+  "$new_cert" "$certs_root_dir/trusted_id.crt" || exit 1
 echo
-print_cyan "--> trusted_id.crt"
+print_cyan "--> trusted_id.pem and trusted_id.crt"
 ```
 
 <br />
 
-### Script Completion Message
-
-The script prints a completion message when the process is successfully
-completed.
+### Script completion message
 
 ```bash
+# Script completion message
 echo
 print_cyan "Trusted ID Certificate Authority process successfully completed."
-```
 
-<br />
-
-### Exit
-
-The script exits with a success code (`0`).
-
-```bash
 exit 0
 ```
 
@@ -320,9 +407,8 @@ exit 0
 
 ## Conclusion
 
-This comprehensive script ensures that every step in generating and managing a
-trusted root certificate is performed correctly and securely, from key
-generation to certificate conversion.
+This script generates the trusted identity: the self-signed certificate at the
+top of the chain.
 
 [trusted_id.sh]:
   https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/certificate-authority/trusted_id.sh
