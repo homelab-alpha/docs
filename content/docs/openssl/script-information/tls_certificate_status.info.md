@@ -44,22 +44,26 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down the script `tls_certificate_status.sh`. It reports the expiry
-of the trusted identity, the root CA, the intermediate CA, and all server and
-client certificates. It is read only, so it never changes a file. The result is
-also reported in the exit code, so you can use the script in cron or in a
-systemd timer. The certificates are for a homelab and for testing.
+Let's break down the script `tls_certificate_status.sh`. This script reports the
+expiry status of all certificates under `$HOME/tls/certs`: the trusted identity,
+the root CA, the intermediate CA, and all server and client certificates. For
+each certificate it shows the Common Name (CN), the type (root, intermediate,
+server, or client), the expiry date, and the number of days left. The list is
+sorted by days left.
+
+The script is read only. It never changes a file. It is suitable for use in cron
+or in a systemd timer because it reports the result in its exit code.
 
 ## Script Metadata
 
 - **Filename**: `tls_certificate_status.sh`
 - **Old name**: `ssl_certificate_status.sh` (a wrapper that starts this script)
 - **Author**: GJS (homelab-alpha)
-- **Date**: November 9, 2026
-- **Version**: 1.2.0
-- **Description**: This script reports the expiry date and the days left of
-  every certificate in the TLS directory, and it reports the result in its exit
-  code.
+- **Date**: November 13, 2026
+- **Version**: 1.3.0
+- **Description**: This script reports the expiry status of all certificates
+  under `$HOME/tls/certs`: the trusted identity, the root CA, the intermediate
+  CA, and all server and client certificates.
 - **RAW Script**: [tls_certificate_status.sh]
 
 <br />
@@ -70,27 +74,41 @@ systemd timer. The certificates are for a homelab and for testing.
 ./tls_certificate_status.sh [--warn-days N] [--ca-warn-days N] [--quiet] [-h|--help]
 ```
 
-| Option             | Meaning                                                                       |
-| :----------------- | :---------------------------------------------------------------------------- |
-| `--warn-days N`    | Warn when a server or client certificate expires within N days (default: 30). |
-| `--ca-warn-days N` | Warn when a CA certificate expires within N days (default: 180).              |
-| `--quiet`          | Print only the certificates that need attention.                              |
-| `-h`, `--help`     | Show the help.                                                                |
+| Option           | Meaning                                                                                  |
+| :--------------- | :--------------------------------------------------------------------------------------- |
+| `--warn-days`    | N Warn when a server or client certificate expires within N days (default: 30).          |
+| `--ca-warn-days` | N Warn when a CA certificate expires within N days (default: 180).                       |
+| `--quiet`        | Print only the certificates that need attention. Print nothing when everything is valid. |
+| `-h`, `--help`   | Show this help.                                                                          |
 
 The alias is `openssl-status`.
 
 ## Exit Codes
 
-| Exit code | Meaning                                                                      |
-| :-------- | :--------------------------------------------------------------------------- |
-| `0`       | Every certificate is valid for longer than its threshold.                    |
-| `1`       | At least one certificate expires within its threshold.                       |
-| `2`       | At least one certificate has expired.                                        |
-| `3`       | An error occurred, for example an unreadable certificate. It takes priority. |
+| Exit code | Meaning                                                                                                                              |
+| :-------- | :----------------------------------------------------------------------------------------------------------------------------------- |
+| `0`       | Every certificate is valid for longer than its threshold.                                                                            |
+| `1`       | At least one certificate expires within its threshold.                                                                               |
+| `2`       | At least one certificate has expired.                                                                                                |
+| `3`       | An error occurred (for example an unreadable certificate or a missing directory). An error takes precedence over exit codes 2 and 1. |
+
+## Notes
+
+- The certificates are for a homelab and for testing.
+- A certificate that is revoked in the database of its authority (status R) is
+  shown with the status REVOKED. It is not counted for the exit code. This also
+  holds for the root CA and the intermediate CA.
+- The `.crt` copies and the chain and HAProxy bundles are skipped, because they
+  contain the same certificates as the `.pem` files.
+- Dates are calculated in Bash from the OpenSSL notAfter value, so the script
+  does not depend on the date command of a specific system.
+
+<br />
 
 ## Detailed Explanation
 
-The sections below follow the script from top to bottom.
+The sections below follow the script from top to bottom. Functions that are not
+defined here, such as `print_error`, come from `scripts/lib/common.sh`.
 
 <br />
 
@@ -105,19 +123,29 @@ quiet=false
 
 <br />
 
-### Define directory paths
+### Define directory paths Stop script on error
 
-Define directory paths Set the base directory. The old name ~/ssl is used while
-~/tls does not exist.
+Define directory paths Stop script on error. The functions below return a status
+on purpose, and the callers decide what a failure means.
 
 ```bash
 # Define directory paths
-# Set the base directory. The old name ~/ssl is used while ~/tls does not exist.
-base_dir="$HOME/tls"
-if [ ! -e "$base_dir" ] && [ -d "$HOME/ssl" ]; then
-  base_dir="$HOME/ssl"
-  echo "Warning: using the old directory $HOME/ssl. Run tls_directory_migrate.sh to move it to $HOME/tls." >&2
-fi
+# Stop script on error. The functions below return a status on purpose, and
+# the callers decide what a failure means.
+set -Eeuo pipefail
+```
+
+<br />
+
+### Load the shared functions
+
+The shared functions, such as the messages and the checks, are in
+`scripts/lib/common.sh`.
+
+```bash
+# shellcheck source=scripts/lib/common.sh
+source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/lib/common.sh" || exit 3
+set_base_dir
 certs_dir="$base_dir/certs"
 certs_root_dir="$certs_dir/root"
 certs_intermediate_dir="$certs_dir/intermediate"
@@ -127,35 +155,7 @@ index_file="$base_dir/db/index.txt"
 
 <br />
 
-### Function: print text in cyan color
-
-Function to print text in cyan color.
-
-```bash
-# Function to print text in cyan color
-print_cyan() {
-  echo -e "\e[36m$1\e[0m"
-}
-```
-
-<br />
-
-### Function: print an error message
-
-Function to print an error message.
-
-```bash
-# Function to print an error message
-print_error() {
-  echo "[ERROR] $1" >&2
-}
-```
-
-<br />
-
 ### Function: show the help text
-
-Function to show the help text.
 
 ```bash
 # Function to show the help text
@@ -168,8 +168,6 @@ show_help() {
 
 ### Function: check that a value is a positive integer
 
-Function to check that a value is a positive integer.
-
 ```bash
 # Function to check that a value is a positive integer
 is_number() {
@@ -181,15 +179,13 @@ is_number() {
 
 ### Function: parse arguments
 
-Function to parse arguments.
-
 ```bash
 # Function to parse arguments
 parse_arguments() {
   while [[ $# -gt 0 ]]; do
     case "$1" in
     --warn-days)
-      is_number "$2" || {
+      is_number "${2:-}" || {
         print_error "--warn-days needs a number of days."
         exit 3
       }
@@ -197,7 +193,7 @@ parse_arguments() {
       shift 2
       ;;
     --ca-warn-days)
-      is_number "$2" || {
+      is_number "${2:-}" || {
         print_error "--ca-warn-days needs a number of days."
         exit 3
       }
@@ -225,8 +221,6 @@ parse_arguments() {
 
 ### Function: convert a calendar date to days since 1970-01-01
 
-Function to convert a calendar date to days since 1970-01-01.
-
 ```bash
 # Function to convert a calendar date to days since 1970-01-01
 days_from_civil() {
@@ -243,8 +237,6 @@ days_from_civil() {
 <br />
 
 ### Function: convert the OpenSSL notAfter value to epoch seconds
-
-Function to convert the OpenSSL notAfter value to epoch seconds.
 
 ```bash
 # Function to convert the OpenSSL notAfter value to epoch seconds
@@ -275,8 +267,6 @@ notafter_to_epoch() {
 
 ### Function: determine the type of a certificate
 
-Function to determine the type of a certificate.
-
 ```bash
 # Function to determine the type of a certificate
 get_type() {
@@ -302,8 +292,6 @@ get_type() {
 
 ### Function: get the Common Name of a certificate
 
-Function to get the Common Name of a certificate.
-
 ```bash
 # Function to get the Common Name of a certificate
 get_cn() {
@@ -316,29 +304,36 @@ get_cn() {
 
 <br />
 
-### Function: check if a certificate is revoked in the database (status R)
+### Function: check if a certificate is revoked
 
-Function to check if a certificate is revoked in the database (status R).
+Function to check if a certificate is revoked (status R) in the database of the
+authority that signed it. The trusted identity signs itself and has no database
+entry.
 
 ```bash
-# Function to check if a certificate is revoked in the database (status R)
+# Function to check if a certificate is revoked (status R) in the database of
+# the authority that signed it. The trusted identity signs itself and has no
+# database entry.
 is_revoked() {
-  local serial
-  [ -f "$index_file" ] || return 1
-  serial=$(openssl x509 -in "$1" -noout -serial 2>/dev/null)
-  serial="${serial#serial=}"
-  awk -F'\t' -v s="$serial" '
-    function norm(x) { x = toupper(x); sub(/^0+/, "", x); return x }
-    $1 == "R" && norm($4) == norm(s) { found = 1 }
-    END { exit !found }' "$index_file"
+  local file="$1" location="$2" config database
+  case "$location" in
+  leaf) config="$base_dir/openssl.cnf/cert.cnf" ;;
+  intermediate) config="$base_dir/openssl.cnf/ca.cnf" ;;
+  root)
+    [[ "$(basename "$file")" = "root_ca.pem" ]] || return 1
+    config="$base_dir/openssl.cnf/root_ca.cnf"
+    ;;
+  *) return 1 ;;
+  esac
+  # Without a readable configuration file, use the database of the certificates
+  database=$(config_database "$config") || database="$index_file"
+  entry_is_revoked "$database" "$file"
 }
 ```
 
 <br />
 
 ### Function: check one certificate and store the result
-
-Function to check one certificate and store the result.
 
 ```bash
 # Function to check one certificate and store the result
@@ -351,7 +346,7 @@ check_certificate() {
     had_error=true
     return
   }
-  [ -n "$cn" ] || cn=$(basename "$file" .pem)
+  [[ -n "$cn" ]] || cn=$(basename "$file" .pem)
   type=$(get_type "$file" "$location")
   enddate=$(openssl x509 -in "$file" -noout -enddate 2>/dev/null)
   enddate="${enddate#notAfter=}"
@@ -372,7 +367,7 @@ check_certificate() {
   fi
 
   # Use -checkend for the decision: it is the authoritative OpenSSL check.
-  if is_revoked "$file"; then
+  if is_revoked "$file" "$location"; then
     state="REVOKED"
   elif ! openssl x509 -in "$file" -noout -checkend 0 >/dev/null 2>&1; then
     state="EXPIRED"
@@ -392,19 +387,17 @@ check_certificate() {
 
 ### Function: scan a directory for certificates
 
-Function to scan a directory for certificates.
-
 ```bash
 # Function to scan a directory for certificates
 scan_directory() {
   local dir="$1" location="$2" file name
-  [ -d "$dir" ] || {
+  [[ -d "$dir" ]] || {
     print_error "Directory not found: $dir"
     had_error=true
     return
   }
   for file in "$dir"/*.pem; do
-    [ -f "$file" ] || continue
+    [[ -f "$file" ]] || continue
     name=$(basename "$file")
     # Skip bundles and combined files, they hold copies of other certificates
     case "$name" in
@@ -419,28 +412,26 @@ scan_directory() {
 
 ### Function: print the results
 
-Function to print the results.
-
 ```bash
 # Function to print the results
 print_results() {
   local days cn type enddate state color
   local reset="" green="" yellow="" red=""
-  if [ -t 1 ]; then
+  if [[ -t 1 ]]; then
     reset="\e[0m"
     green="\e[32m"
     yellow="\e[33m"
     red="\e[31m"
   fi
 
-  [ "${#results[@]}" -gt 0 ] || return
+  [[ "${#results[@]}" -gt 0 ]] || return
 
-  if [ "$quiet" = false ]; then
+  if [[ "$quiet" = false ]]; then
     printf '%-40s %-13s %-26s %6s  %s\n' "NAME (CN)" "TYPE" "EXPIRES" "DAYS" "STATUS"
   fi
 
   while IFS="|" read -r _ days cn type enddate state; do
-    if [ "$quiet" = true ] && [ "$state" = "OK" ]; then
+    if [[ "$quiet" = true ]] && [[ "$state" = "OK" ]]; then
       continue
     fi
     case "$state" in
@@ -472,7 +463,7 @@ if ! command -v openssl >/dev/null 2>&1; then
   exit 3
 fi
 
-if [ ! -d "$certs_dir" ]; then
+if [[ ! -d "$certs_dir" ]]; then
   print_error "Certificate directory not found: $certs_dir"
   exit 3
 fi
@@ -485,7 +476,7 @@ scan_directory "$certs_certificates_dir" "leaf"
 
 print_results
 
-if [ "$quiet" = false ]; then
+if [[ "$quiet" = false ]]; then
   echo
   print_cyan "Thresholds: ${warn_days} days (server and client), ${ca_warn_days} days (CA)."
 fi
@@ -497,11 +488,11 @@ fi
 
 ```bash
 # Exit with the most severe result
-if [ "$had_error" = true ]; then
+if [[ "$had_error" = true ]]; then
   exit 3
-elif [ "$had_expired" = true ]; then
+elif [[ "$had_expired" = true ]]; then
   exit 2
-elif [ "$had_warning" = true ]; then
+elif [[ "$had_warning" = true ]]; then
   exit 1
 fi
 exit 0
@@ -511,8 +502,9 @@ exit 0
 
 ## Conclusion
 
-This script reports the expiry date and the days left of every certificate in
-the TLS directory, and it reports the result in its exit code.
+This script reports the expiry status of all certificates under
+`$HOME/tls/certs`: the trusted identity, the root CA, the intermediate CA, and
+all server and client certificates.
 
 [tls_certificate_status.sh]:
   https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/tls_certificate_status.sh

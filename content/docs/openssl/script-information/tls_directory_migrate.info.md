@@ -43,23 +43,26 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down the script `tls_directory_migrate.sh`. It moves the old
-directory `~/ssl` to `~/tls` and leaves the symbolic link `~/ssl -> tls` behind,
-so old paths in cron jobs, systemd units, hooks, and HAProxy or nginx
-configuration keep working. It also changes the path `$HOME/ssl` in the OpenSSL
-configuration files in `~/tls/openssl.cnf`, after it saves each file with the
-extension `.pre-tls`. The script does not delete any file and does not change a
-certificate, a key, or the database. The certificates are for a homelab and for
-testing.
+Let's break down the script `tls_directory_migrate.sh`. This script moves the
+old directory `$HOME/ssl` to `$HOME/tls` and leaves a symbolic link
+`$HOME/ssl ->` tls behind, so old paths (cron jobs, systemd units, hooks, and
+HAProxy or nginx configuration) keep working. It also changes the path
+`$HOME/ssl` in the OpenSSL configuration files in `$HOME/tls/openssl.cnf` to
+`$HOME/tls`. Each changed file is saved first with the extension .pre-tls.
+
+The script does not delete any file and does not change a certificate, a key, or
+the database. Run it once. A second run does nothing.
 
 ## Script Metadata
 
 - **Filename**: `tls_directory_migrate.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: November 9, 2026
-- **Version**: 1.0.0
-- **Description**: This script moves the old directory ~/ssl to ~/tls and keeps
-  the old path working with a symbolic link.
+- **Date**: November 13, 2026
+- **Version**: 1.1.0
+- **Description**: This script moves the old directory `$HOME/ssl` to
+  `$HOME/tls` and leaves a symbolic link `$HOME/ssl ->` tls behind, so old paths
+  (cron jobs, systemd units, hooks, and HAProxy or nginx configuration) keep
+  working.
 - **RAW Script**: [tls_directory_migrate.sh]
 
 <br />
@@ -73,82 +76,58 @@ testing.
 | Option         | Meaning                                     |
 | :------------- | :------------------------------------------ |
 | `--dry-run`    | Show what would happen. Nothing is changed. |
-| `-h`, `--help` | Show the help.                              |
+| `-h`, `--help` | Show this help.                             |
 
-The alias is `openssl-migrate-tls`. Run the script once; a second run does
-nothing.
+The alias is `openssl-migrate-tls`.
 
 ## Exit Codes
 
-| Exit code | Meaning                                                        |
-| :-------- | :------------------------------------------------------------- |
-| `0`       | The directory was moved, or there is nothing to move.          |
-| `1`       | The move failed.                                               |
-| `2`       | Wrong usage, or both `~/ssl` and `~/tls` exist as directories. |
+| Exit code | Meaning                                                                |
+| :-------- | :--------------------------------------------------------------------- |
+| `0`       | The directory was moved, or there is nothing to move.                  |
+| `1`       | The move failed.                                                       |
+| `2`       | Wrong usage, or both `$HOME/ssl` and `$HOME/tls` exist as directories. |
 
-## What the Script Does
+## Notes
 
-1. Stops when `~/ssl` is already a symbolic link, or when it does not exist.
-2. Stops with exit code `2` when both `~/ssl` and `~/tls` exist, because it
-   cannot know which one to keep.
-3. Takes the lock `.renew.lock`, so it never moves the directory during a
-   renewal or a revocation.
-4. Moves `~/ssl` to `~/tls` and creates the link `~/ssl -> tls`.
-5. Changes `HOME/ssl` to `HOME/tls` in `~/tls/openssl.cnf/*.cnf`, after it saves
-   a copy as `*.cnf.pre-tls`.
-
-Remove the link `~/ssl` yourself when nothing uses the old path anymore.
+- The certificates are for a homelab and for testing.
+- Remove the symbolic link `$HOME/ssl` yourself when nothing uses the old path.
 
 <br />
 
 ## Detailed Explanation
 
-The sections below follow the script from top to bottom.
+The sections below follow the script from top to bottom. Functions that are not
+defined here, such as `print_error`, come from `scripts/lib/common.sh`.
 
 <br />
 
-### Function: print text in cyan color
+### Stop script on error
 
-Function to print text in cyan color.
+Stop script on error. The functions below return a status on purpose, and the
+callers decide what a failure means.
 
 ```bash
-# Function to print text in cyan color
-print_cyan() {
-  echo -e "\e[36m$1\e[0m"
-}
+# Stop script on error. The functions below return a status on purpose, and
+# the callers decide what a failure means.
+set -Eeuo pipefail
 ```
 
 <br />
 
-### Function: print an error message
+### Load the shared functions
 
-Function to print an error message.
-
-```bash
-# Function to print an error message
-print_error() {
-  echo "[ERROR] $1" >&2
-}
-```
-
-<br />
-
-### Function: print a warning message
-
-Function to print a warning message.
+The shared functions, such as the messages and the checks, are in
+`scripts/lib/common.sh`.
 
 ```bash
-# Function to print a warning message
-print_warning() {
-  echo -e "\e[33m[WARNING] $1\e[0m" >&2
-}
+# shellcheck source=scripts/lib/common.sh
+source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/lib/common.sh" || exit 2
 ```
 
 <br />
 
 ### Function: show the usage (from the header of this script)
-
-Function to show the usage (from the header of this script).
 
 ```bash
 # Function to show the usage (from the header of this script)
@@ -174,7 +153,7 @@ new_dir="$HOME/tls"
 ```bash
 # Parse the arguments
 dry_run=false
-while [ $# -gt 0 ]; do
+while [[ $# -gt 0 ]]; do
   case "$1" in
   --dry-run)
     dry_run=true
@@ -198,17 +177,17 @@ done
 
 ```bash
 # Decide what to do
-if [ -L "$old_dir" ]; then
+if [[ -L "$old_dir" ]]; then
   echo "Nothing to do: $old_dir is already a symbolic link."
   exit 0
 fi
 
-if [ ! -d "$old_dir" ]; then
+if [[ ! -d "$old_dir" ]]; then
   echo "Nothing to do: $old_dir does not exist."
   exit 0
 fi
 
-if [ -e "$new_dir" ]; then
+if [[ -e "$new_dir" ]]; then
   print_error "Both $old_dir and $new_dir exist. Check them and move or remove one yourself."
   exit 2
 fi
@@ -222,7 +201,7 @@ fi
 # List the configuration files that contain the old path
 config_files=()
 for file in "$old_dir"/openssl.cnf/*.cnf; do
-  [ -f "$file" ] || continue
+  [[ -f "$file" ]] || continue
   if grep -q 'HOME/ssl' "$file"; then
     config_files+=("$file")
   fi
@@ -233,7 +212,7 @@ echo "Move:   $old_dir -> $new_dir"
 echo "Link:   $old_dir -> tls"
 echo "Config: ${#config_files[@]} file(s) with the path \$HOME/ssl are changed (a copy is saved as .pre-tls)."
 
-if [ "$dry_run" = true ]; then
+if [[ "$dry_run" = true ]]; then
   echo "Dry run: nothing was changed."
   exit 0
 fi
@@ -292,8 +271,9 @@ echo "The old path $old_dir is now a link to $new_dir. Remove it when nothing us
 
 ## Conclusion
 
-This script moves the old directory ~/ssl to ~/tls and keeps the old path
-working with a symbolic link.
+This script moves the old directory `$HOME/ssl` to `$HOME/tls` and leaves a
+symbolic link `$HOME/ssl ->` tls behind, so old paths (cron jobs, systemd units,
+hooks, and HAProxy or nginx configuration) keep working.
 
 [tls_directory_migrate.sh]:
   https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/tls_directory_migrate.sh

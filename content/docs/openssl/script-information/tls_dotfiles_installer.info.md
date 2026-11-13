@@ -43,128 +43,133 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this script does in detail. The script is named
-`tls_dotfiles_installer`, authored by GJS (homelab-alpha), and its purpose is to
-add specific configuration content to the `~/.bashrc` file without duplicating
-existing entries. This ensures that certain aliases or configurations are loaded
-from a separate file.
+Let's break down the script `tls_dotfiles_installer.sh`. This script adds the
+aliases of this repository to `~/.bashrc`. It avoids duplication by checking for
+existing entries and only appends the content if it's missing. The script does
+not remove or change any other file.
 
 ## Script Metadata
 
 - **Filename**: `tls_dotfiles_installer.sh`
 - **Old name**: `ssl_dotfiles_installer.sh` (a wrapper that starts this script)
 - **Author**: GJS (homelab-alpha)
-- **Date**: November 9, 2026
-- **Version**: 2.8.0
-- **Description**: This script ensures the `.bashrc` file is updated with the
-  necessary OpenSSL alias configurations without adding duplicates.
+- **Date**: November 13, 2026
+- **Version**: 3.0.0
+- **Description**: This script adds the aliases of this repository to
+  `~/.bashrc`.
 - **RAW Script**: [tls_dotfiles_installer.sh]
+
+<br />
+
+## Usage
+
+```bash
+./tls_dotfiles_installer.sh [-h|--help]
+```
+
+| Option         | Meaning         |
+| :------------- | :-------------- |
+| `-h`, `--help` | Show this help. |
+
+Without options the script appends the aliases to `~/.bashrc`.
+
+## Notes
+
+- Ensure the content to be added is properly formatted to avoid conflicts with
+  existing aliases.
+- The script assumes the user has a specific directory structure with the file
+  `~/openssl/dotfiles/.bash_aliases` for aliases.
 
 <br />
 
 ## Detailed Explanation
 
-## Functions
-
-### BASHRC_PATH and ALIASES_PATH Variables
-
-```bash
-BASHRC_PATH="$HOME/.bashrc"
-ALIASES_PATH="$HOME/openssl/dotfiles/.bash_aliases"
-```
-
-- **BASHRC_PATH** points to the `.bashrc` file in the user's home directory.
-- **ALIASES_PATH** is the location of the file containing the OpenSSL alias
-  definitions (`.bash_aliases`).
+The sections below follow the script from top to bottom.
 
 <br />
 
-### Checking for Write Permission and Existence of .bashrc
-
-This check ensures that the `.bashrc` file is writable before proceeding. If
-not, the script exits with an error message.
+### Stop script on error
 
 ```bash
-if [ ! -w "$BASHRC_PATH" ]; then
-    echo "Error: $BASHRC_PATH is not writable. Please check your permissions."
-    exit 1
-fi
+# Stop script on error
+set -Eeuo pipefail
 ```
 
 <br />
 
-### Appending the Configuration to .bashrc
+### Parse the options
 
 ```bash
-if ! grep -qF "if [ -f $ALIASES_PATH ]; then" "$BASHRC_PATH"; then
-    {
-        echo "# Alias definitions for openssl."
-        echo "# You may want to put all your additions into a separate file like"
-        echo "# ~/openssl/dotfiles/.bash_aliases, instead of adding them here directly."
-        echo ""
-        echo "if [ -f $ALIASES_PATH ]; then"
-        echo "    . $ALIASES_PATH"
-        echo "fi"
-        echo ""
-    } >>"$BASHRC_PATH"
-    echo "Configuration added to $BASHRC_PATH"
-else
-    echo "Configuration already exists in $BASHRC_PATH"
-fi
-```
-
-- If the `.bashrc` file doesn’t already contain the necessary configuration
-  (checking for the presence of `if [ -f $ALIASES_PATH ]; then`), the script
-  appends the configuration to load the OpenSSL aliases.
-- If the configuration is already present, it will simply notify the user
-  without making any changes.
-
-<br />
-
-### Removing Unnecessary Files
-
-The script identifies and removes unnecessary files from the OpenSSL directory,
-such as version control, the `.github` folder (the repository tooling, the
-branding, and the style guide), and the community files that are only needed to
-develop the repository, that are not essential for its operation.
-
-```bash
-files_to_remove=(
-    "$HOME/openssl/.git"
-    "$HOME/openssl/.github"
-    "$HOME/openssl/.gitignore"
-    "$HOME/openssl/.gitleaksignore"
-    "$HOME/openssl/CODE_OF_CONDUCT.md"
-    "$HOME/openssl/CONTRIBUTING.md"
-)
-
-for file in "${files_to_remove[@]}"; do
-    if [ -e "$file" ]; then
-        rm -rf "$file"
-        echo "Removed: $file"
-    else
-        echo "File not found: $file"
-    fi
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+  -h | --help)
+    sed -n '/^# Usage:/,/^$/p' "$0" | sed '$d' | sed 's/^# \{0,1\}//'
+    exit 0
+    ;;
+  *)
+    echo "Error: Unknown option: $1" >&2
+    exit 2
+    ;;
+  esac
 done
 ```
 
 <br />
 
-### Completion and Exit
-
-After updating the `.bashrc` file and removing unnecessary files, the script
-prints a completion message.
+### Define the paths to the files
 
 ```bash
-echo "Installation completed. .bashrc has been updated, and the specified files have been removed."
+# Define the paths to the files
+bashrc_path="$HOME/.bashrc"
+aliases_path="$HOME/openssl/dotfiles/.bash_aliases"
 ```
 
-Finally, the script exits. An optional line is included to restart the shell, if
-desired.
+<br />
+
+### Check if .bashrc exists and is writable
 
 ```bash
-# Optionally, restart the shell (optional line to consider uncommenting if needed)
-# exec bash
+# Check if .bashrc exists and is writable
+if [[ ! -w "$bashrc_path" ]]; then
+  echo "Error: $bashrc_path is not writable. Please check your permissions." >&2
+  exit 1
+fi
+```
+
+<br />
+
+### Add the necessary configuration to .bashrc if it's not already present
+
+Add the necessary configuration to .bashrc if it's not already present. The
+first pattern is the line that older versions of this script wrote.
+
+```bash
+# Add the necessary configuration to .bashrc if it's not already present. The
+# first pattern is the line that older versions of this script wrote.
+if grep -qF -e "if [ -f $aliases_path ]; then" -e "if [ -f \"$aliases_path\" ]; then" "$bashrc_path"; then
+  echo "Configuration already exists in $bashrc_path"
+else
+  {
+    echo "# Alias definitions for openssl."
+    echo "# You may want to put all your additions into a separate file like"
+    echo "# ~/openssl/dotfiles/.bash_aliases, instead of adding them here directly."
+    echo ""
+    echo "if [ -f \"$aliases_path\" ]; then"
+    echo "  . \"$aliases_path\""
+    echo "fi"
+    echo ""
+  } >>"$bashrc_path"
+  echo "Configuration added to $bashrc_path"
+fi
+```
+
+<br />
+
+### Inform the user about the completion of the script
+
+```bash
+# Inform the user about the completion of the script
+echo "Installation completed. Open a new shell to use the aliases."
 
 exit 0
 ```
@@ -173,12 +178,7 @@ exit 0
 
 ## Conclusion
 
-In conclusion, `tls_dotfiles_installer.sh` efficiently manages the configuration
-of OpenSSL aliases in a modular way, ensuring that `.bashrc` is updated without
-redundancy and that extraneous files are cleaned up. This script helps
-streamline the process of managing OpenSSL-related shell configurations.
-
-<br />
+This script adds the aliases of this repository to `~/.bashrc`.
 
 [tls_dotfiles_installer.sh]:
   https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/tls_dotfiles_installer.sh

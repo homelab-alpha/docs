@@ -53,145 +53,168 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this script does in detail. The script is named
-`verify_tls_certificates.sh`, authored by GJS (homelab-alpha), and its purpose
-is to verify TLS certificates by checking them against their corresponding chain
-of trust. It performs various checks, including verification of root,
-intermediate, and individual certificates, with support for a verbose mode to
-provide detailed output during the verification process.
+Let's break down the script `verify_tls_certificates.sh`. This script verifies
+TLS certificates against their chain of trust:
+
+- The trusted identity against itself.
+- The root certificate authority against the trusted identity.
+- The intermediate certificate authority against the root chain.
+- A server or client certificate against the intermediate chain, and its chain
+  bundle and HAProxy bundle when they exist.
+
+The result of each check comes from the exit status of openssl verify. The
+script never changes a file.
 
 ## Script Metadata
 
 - **Filename**: `verify_tls_certificates.sh`
 - **Old name**: `verify_ssl_certificates.sh` (a wrapper that starts this script)
 - **Author**: GJS (homelab-alpha)
-- **Date**: November 9, 2026
-- **Version**: 2.6.0
-- **Description**: This script verifies TLS certificates by checking them
-  against their corresponding chain of trust. It includes options for verbose
-  output for detailed verification processes.
+- **Date**: November 13, 2026
+- **Version**: 3.0.0
+- **Description**: This script verifies TLS certificates against their chain of
+  trust.
 - **RAW Script**: [verify_tls_certificates.sh]
+
+<br />
+
+## Usage
+
+```bash
+./verify_tls_certificates.sh [-v|--verbose] [-h|--help] <certificate_name>
+```
+
+| Option               | Meaning                                                                                                                                                                  |
+| :------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `-v`, `--verbose`    | Show the output of openssl verify for each check.                                                                                                                        |
+| `-h`, `--help`       | Show this help.                                                                                                                                                          |
+| `<certificate_name>` | The certificate to verify: `trusted_id.pem`, `root_ca.pem`, `ca.pem`, or the name of a server or client certificate without extension (for example server.example.test). |
+
+The alias is `openssl-verify`.
+
+## Exit Codes
+
+| Exit code | Meaning                                             |
+| :-------- | :-------------------------------------------------- |
+| `0`       | All checks passed.                                  |
+| `1`       | One or more checks failed, or a file was not found. |
+| `2`       | Wrong usage.                                        |
+
+## Example Usage
+
+- `./verify_tls_certificates.sh root_ca.pem` (verifies root certificate
+  authority)
+- `./verify_tls_certificates.sh -v ca.pem` (verifies intermediate certificate
+  with verbose output)
 
 <br />
 
 ## Detailed Explanation
 
-## Functions
+The sections below follow the script from top to bottom. Functions that are not
+defined here, such as `print_error`, come from `scripts/lib/common.sh`.
 
-### Define Directories
+<br />
 
-The script sets the paths for the certificates, intermediate certificates, and
-root certificates:
+### Stop script on error
+
+Stop script on error. The functions below return a status on purpose, and the
+callers decide what a failure means.
+
+```bash
+# Stop script on error. The functions below return a status on purpose, and
+# the callers decide what a failure means.
+set -Eeuo pipefail
+```
+
+<br />
+
+### Load the shared functions
+
+The shared functions, such as the messages and the checks, are in
+`scripts/lib/common.sh`.
+
+```bash
+# shellcheck source=scripts/lib/common.sh
+source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/lib/common.sh" || exit 2
+```
+
+<br />
+
+### Set the base directory
+
+Set the base directory. The old name `~/ssl` is used while `~/tls` does not
+exist.
 
 ```bash
 # Set the base directory. The old name ~/ssl is used while ~/tls does not exist.
-base_dir="$HOME/tls"
-if [ ! -e "$base_dir" ] && [ -d "$HOME/ssl" ]; then
-  base_dir="$HOME/ssl"
-  echo "Warning: using the old directory $HOME/ssl. Run tls_directory_migrate.sh to move it to $HOME/tls." >&2
-fi
+set_base_dir
 certs_dir="$base_dir/certs"
-
-certs_certs_root_dir="$certs_dir/root"
-certs_certs_intermediate_dir="$certs_dir/intermediate"
-certs_certs_certificates_dir="$certs_dir/certificates"
 ```
-
-In the updated version, the directory names were simplified to make them more
-consistent with the naming conventions across the project.
 
 <br />
 
-### Default Settings and Helper Functions
-
-The script initializes the verbose mode to false and defines helper functions to
-print section headers and usage information:
+### Set directories for various components
 
 ```bash
+# Set directories for various components
+certs_root_dir="$certs_dir/root"
+certs_intermediate_dir="$certs_dir/intermediate"
+certs_certificates_dir="$certs_dir/certificates"
+```
+
+<br />
+
+### Default to non-verbose mode
+
+```bash
+# Default to non-verbose mode
 verbose=false
 file_name=""
-
-print_cyan() {
-  echo -e "\e[36m$1\e[0m"
-}
-
-print_section_header() {
-  echo ""
-  print_cyan "=== $1 ==="
-}
+failures=0
 ```
 
 <br />
 
-### Function to check if a file exists
-
-The `check_file_exists` function checks whether a file exists at a specified
-path. If the file is not found, it displays an error message and returns a
-failure status (1). If the file exists, it returns 0 (success).
+### Function: verify a certificate against a chain file
 
 ```bash
-check_file_exists() {
-  local file_path=$1
-  if [ ! -f "$file_path" ]; then
-    echo -e "$file_path: \033[31m[FAIL] - File not found\033[0m"
-    return 1
-  fi
-  return 0
-}
-```
-
-<br />
-
-### Certificate Verification Function
-
-The main function for verifying certificates uses `openssl` to check the
-certificate against the chain of trust:
-
-```bash
+# Function to verify a certificate against a chain file
 verify_certificate() {
-  local cert_path="$1"
-  local chain_path="$2"
+  local title="$1" cert_path="$2" chain_path="$3" result status=0 file options=()
 
-  check_file_exists "$cert_path" || return
-  check_file_exists "$chain_path" || return
+  print_section_header "$title"
+  for file in "$cert_path" "$chain_path"; do
+    if [[ ! -f "$file" ]]; then
+      echo -e "$file: \033[31m[FAIL] - File not found\033[0m"
+      failures=$((failures + 1))
+      return
+    fi
+  done
 
-  if [ "$verbose" = true ]; then
-    result=$(openssl verify -show_chain -CAfile "$chain_path" "$cert_path" 2>&1)
-  else
-    result=$(openssl verify -CAfile "$chain_path" "$cert_path" 2>&1)
-  fi
+  [[ "$verbose" == "false" ]] || options=(-show_chain)
+  result=$(openssl verify ${options[@]+"${options[@]}"} -CAfile "$chain_path" "$cert_path" 2>&1) || status=$?
 
-  if [[ "$result" == *"OK"* ]]; then
+  if [[ "$status" -eq 0 ]]; then
     echo -e "$cert_path: \033[32m[PASS]\033[0m"
   else
     echo -e "$cert_path: \033[31m[FAIL]\033[0m"
+    failures=$((failures + 1))
   fi
 
-  if [ "$verbose" = true ]; then
-    echo -e "Verbose output: $result"
+  # Show verbose output if enabled, and always for a failed check
+  if [[ "$verbose" == "true" || "$status" -ne 0 ]]; then
+    echo "$result"
   fi
 }
 ```
 
 <br />
 
-### Prompt for Certificate Name
-
-The script prompts the user for the name of the certificate to verify:
+### Function: parse arguments
 
 ```bash
-prompt_for_file_name() {
-  read -r -p "Enter the name of the certificate to verify: " file_name
-}
-```
-
-<br />
-
-### Command-Line Options Parsing
-
-The script parses command-line options to enable verbose mode if specified:
-
-```bash
+# Function to parse arguments
 parse_arguments() {
   while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -199,98 +222,205 @@ parse_arguments() {
       verbose=true
       shift
       ;;
+    -h | --help)
+      show_usage '^# Example usage:'
+      exit 0
+      ;;
+    -*)
+      print_error "Unknown option: $1"
+      exit 2
+      ;;
     *)
+      [[ -z "$file_name" ]] || {
+        print_error "Give only one certificate name."
+        exit 2
+      }
       file_name="$1"
       shift
       ;;
     esac
   done
 
-  if [ -z "$file_name" ]; then
-    prompt_for_file_name
+  # If no file name is provided, prompt the user for it
+  if [[ -z "$file_name" ]]; then
+    read -r -p "Enter the name of the certificate to verify: " file_name || true
+  fi
+  if [[ -z "$file_name" || "$file_name" == */* ]]; then
+    print_error "'$file_name' is not a certificate name."
+    exit 2
   fi
 }
 ```
 
 <br />
 
-### Certificate Verification Process
+### Function: check that a bundle holds a complete chain
 
-The script verifies various types of certificates, printing section headers for
-each step:
+Function to check that a bundle holds a complete chain: the certificate is
+verified with only the trusted identity as trust anchor and the certificates of
+the bundle as the chain in between. openssl verify on the bundle itself would
+only look at its first certificate.
 
 ```bash
-parse_arguments "$@"
+# Function to check that a bundle holds a complete chain: the certificate is
+# verified with only the trusted identity as trust anchor and the certificates
+# of the bundle as the chain in between. openssl verify on the bundle itself
+# would only look at its first certificate.
+verify_bundle() {
+  local title="$1" cert_path="$2" bundle_path="$3" anchor="$certs_root_dir/trusted_id.pem" result status=0 file
 
-case "$file_name" in
-"trusted_id.pem")
-  print_section_header "Verify Trusted Identity against Trusted Identity"
-  verify_certificate "$certs_certs_root_dir/trusted_id.pem" "$certs_certs_root_dir/trusted_id.pem"
-  ;;
-"root_ca.pem")
-  print_section_header "Verify Trusted Identity against Trusted Identity"
-  verify_certificate "$certs_certs_root_dir/trusted_id.pem" "$certs_certs_root_dir/trusted_id.pem"
+  print_section_header "$title"
+  for file in "$cert_path" "$bundle_path" "$anchor"; do
+    if [[ ! -f "$file" ]]; then
+      echo -e "$file: \033[31m[FAIL] - File not found\033[0m"
+      failures=$((failures + 1))
+      return
+    fi
+  done
 
-  print_section_header "Verify Root Certificate Authority against Trusted Identity"
-  verify_certificate "$certs_certs_root_dir/root_ca.pem" "$certs_certs_root_dir/trusted_id.pem"
+  result=$(openssl verify -CAfile "$anchor" -untrusted "$bundle_path" "$cert_path" 2>&1) || status=$?
+  # The bundle must start with the certificate itself
+  if [[ "$status" -eq 0 ]] && [[ "$(openssl x509 -in "$bundle_path" -noout -fingerprint -sha256 2>/dev/null)" != \
+  "$(openssl x509 -in "$cert_path" -noout -fingerprint -sha256 2>/dev/null)" ]]; then
+    status=1
+    result="The bundle does not start with the certificate."
+  fi
 
-  print_section_header "Verify Root Certificate Authority Chain against Trusted Identity"
-  verify_certificate "$certs_certs_root_dir/root_ca_chain_bundle.pem" "$certs_certs_root_dir/trusted_id.pem"
-  ;;
-"ca.pem")
-  print_section_header "Verify Trusted Identity against Trusted Identity"
-  verify_certificate "$certs_certs_root_dir/trusted_id.pem" "$certs_certs_root_dir/trusted_id.pem"
-
-  print_section_header "Verify Root Certificate Authority against Trusted Identity"
-  verify_certificate "$certs_certs_root_dir/root_ca.pem" "$certs_certs_root_dir/trusted_id.pem"
-
-  print_section_header "Verify Root Certificate Authority Chain against Trusted Identity"
-  verify_certificate "$certs_certs_root_dir/root_ca_chain_bundle.pem" "$certs_certs_root_dir/trusted_id.pem"
-
-  print_section_header "Verify Intermediate Certificate Authority against the Root Certificate Authority"
-  verify_certificate "$certs_certs_intermediate_dir/ca.pem" "$certs_certs_root_dir/root_ca_chain_bundle.pem"
-
-  print_section_header "Verify Intermediate Certificate Authority Chain against the Root Certificate Authority Chain"
-  verify_certificate "$certs_certs_intermediate_dir/ca_chain_bundle.pem" "$certs_certs_root_dir/root_ca_chain_bundle.pem"
-  ;;
-*)
-  print_section_header "Verify Trusted Identity against Trusted Identity"
-  verify_certificate "$certs_certs_root_dir/trusted_id.pem" "$certs_certs_root_dir/trusted_id.pem"
-
-  print_section_header "Verify Root Certificate Authority against Trusted Identity"
-  verify_certificate "$certs_certs_root_dir/root_ca.pem" "$certs_certs_root_dir/trusted_id.pem"
-
-  print_section_header "Verify Root Certificate Authority Chain against Trusted Identity"
-  verify_certificate "$certs_certs_root_dir/root_ca_chain_bundle.pem" "$certs_certs_root_dir/trusted_id.pem"
-
-  print_section_header "Verify Intermediate Certificate Authority against the Root Certificate Authority"
-  verify_certificate "$certs_certs_intermediate_dir/ca.pem" "$certs_certs_root_dir/root_ca_chain_bundle.pem"
-
-  print_section_header "Verify Intermediate Certificate Authority Chain against the Root Certificate Authority Chain"
-  verify_certificate "$certs_certs_intermediate_dir/ca_chain_bundle.pem" "$certs_certs_root_dir/root_ca_chain_bundle.pem"
-
-  print_section_header "Verify Certificate against the Certificate Chain"
-  verify_certificate "$certs_certs_certificates_dir/${file_name}.pem" "$certs_certs_certificates_dir/${file_name}_chain_bundle.pem"
-
-  print_section_header "Verify Certificate against the Intermediate Certificate Chain"
-  verify_certificate "$certs_certs_certificates_dir/${file_name}.pem" "$certs_certs_intermediate_dir/ca_chain_bundle.pem"
-
-  print_section_header "Verify Certificate Chain against the Intermediate Certificate Chain"
-  verify_certificate "$certs_certs_certificates_dir/${file_name}_chain_bundle.pem" "$certs_certs_intermediate_dir/ca_chain_bundle.pem"
-
-  print_section_header "Verify Haproxy Certificate Chain against the Intermediate Certificate Chain"
-  verify_certificate "$certs_certs_certificates_dir/${file_name}_haproxy.pem" "$certs_certs_intermediate_dir/ca_chain_bundle.pem"
-  ;;
-esac
+  if [[ "$status" -eq 0 ]]; then
+    echo -e "$bundle_path: \033[32m[PASS]\033[0m"
+  else
+    echo -e "$bundle_path: \033[31m[FAIL]\033[0m"
+    failures=$((failures + 1))
+  fi
+  if [[ "$verbose" == "true" || "$status" -ne 0 ]]; then
+    echo "$result"
+  fi
+}
 ```
 
 <br />
 
-### Exit the Script
-
-Finally, the script exits successfully:
+### Function: check that the private key in a HAProxy bundle belongs to the certificate
 
 ```bash
+# Function to check that the private key in a HAProxy bundle belongs to the
+# certificate
+verify_bundle_key() {
+  local title="$1" cert_path="$2" bundle_path="$3"
+
+  print_section_header "$title"
+  if [[ "$(openssl pkey -in "$bundle_path" -pubout 2>/dev/null)" == "$(openssl x509 -in "$cert_path" -noout -pubkey 2>/dev/null)" ]]; then
+    echo -e "$bundle_path: \033[32m[PASS]\033[0m"
+  else
+    echo -e "$bundle_path: \033[31m[FAIL]\033[0m"
+    echo "The private key in the bundle does not match the certificate, or the bundle cannot be read."
+    failures=$((failures + 1))
+  fi
+}
+```
+
+<br />
+
+### Functions to verify each level of the chain
+
+```bash
+# Functions to verify each level of the chain
+verify_trusted_id() {
+  verify_certificate "Verify Trusted Identity against Trusted Identity" \
+    "$certs_root_dir/trusted_id.pem" "$certs_root_dir/trusted_id.pem"
+}
+```
+
+<br />
+
+### Function: `verify_root_ca`
+
+```bash
+verify_root_ca() {
+  verify_certificate "Verify Root Certificate Authority against Trusted Identity" \
+    "$certs_root_dir/root_ca.pem" "$certs_root_dir/trusted_id.pem"
+  verify_bundle "Verify the chain in the Root Certificate Authority Chain Bundle" \
+    "$certs_root_dir/root_ca.pem" "$certs_root_dir/root_ca_chain_bundle.pem"
+}
+```
+
+<br />
+
+### Function: `verify_intermediate_ca`
+
+```bash
+verify_intermediate_ca() {
+  verify_certificate "Verify Intermediate Certificate Authority against the Root Certificate Authority" \
+    "$certs_intermediate_dir/ca.pem" "$certs_root_dir/root_ca_chain_bundle.pem"
+  verify_bundle "Verify the chain in the Intermediate Certificate Authority Chain Bundle" \
+    "$certs_intermediate_dir/ca.pem" "$certs_intermediate_dir/ca_chain_bundle.pem"
+}
+```
+
+<br />
+
+### Function: `verify_leaf`
+
+```bash
+verify_leaf() {
+  local name="$1"
+  verify_certificate "Verify Certificate against the Intermediate Certificate Chain" \
+    "$certs_certificates_dir/${name}.pem" "$certs_intermediate_dir/ca_chain_bundle.pem"
+  verify_bundle "Verify the chain in the Certificate Chain Bundle" \
+    "$certs_certificates_dir/${name}.pem" "$certs_certificates_dir/${name}_chain_bundle.pem"
+  # Only server certificates have a HAProxy bundle
+  if [[ -f "$certs_certificates_dir/${name}_haproxy.pem" ]]; then
+    verify_bundle "Verify the chain in the HAProxy Bundle" \
+      "$certs_certificates_dir/${name}.pem" "$certs_certificates_dir/${name}_haproxy.pem"
+    verify_bundle_key "Verify the private key in the HAProxy Bundle" \
+      "$certs_certificates_dir/${name}.pem" "$certs_certificates_dir/${name}_haproxy.pem"
+  fi
+}
+```
+
+<br />
+
+### Main process
+
+```bash
+# Main process
+parse_arguments "$@"
+require_openssl 2
+```
+
+<br />
+
+### Determine which sections to verify based on the certificate
+
+```bash
+# Determine which sections to verify based on the certificate
+case "$file_name" in
+"trusted_id.pem")
+  verify_trusted_id
+  ;;
+"root_ca.pem")
+  verify_trusted_id
+  verify_root_ca
+  ;;
+"ca.pem")
+  verify_trusted_id
+  verify_root_ca
+  verify_intermediate_ca
+  ;;
+*)
+  verify_trusted_id
+  verify_root_ca
+  verify_intermediate_ca
+  verify_leaf "${file_name%.pem}"
+  ;;
+esac
+
+echo
+if [[ "$failures" -gt 0 ]]; then
+  print_error "$failures check(s) failed."
+  exit 1
+fi
+print_cyan "All checks passed."
 exit 0
 ```
 
@@ -298,10 +428,7 @@ exit 0
 
 ## Conclusion
 
-This script is a robust tool for verifying TLS certificates, ensuring they are
-correctly chained to trusted root and intermediate certificates. The use of the
-`openssl` command ensures thorough verification, and the optional verbose mode
-provides additional detail for debugging or inspection purposes.
+This script verifies TLS certificates against their chain of trust.
 
 [verify_tls_certificates.sh]:
   https://raw.githubusercontent.com/homelab-alpha/openssl/refs/heads/main/scripts/verify_tls_certificates.sh
