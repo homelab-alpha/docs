@@ -503,12 +503,23 @@ jobs:
 
       - name: 📊 Generate job summary
         if: always()
+        env:
+          JOB_STATUS: ${{ job.status }}
+          GENERATE_OUTCOME: ${{ steps.generate.outcome }}
+          PUBLISH_OUTPUT: ${{ steps.publish.outputs.result }}
+          PUBLISH_PR_URL: ${{ steps.publish.outputs.pr_url }}
+          FETCH_PAGES: ${{ steps.fetch.outputs.pages }}
+          GENERATE_COUNT: ${{ steps.generate.outputs.count }}
+          GENERATE_ADDED: ${{ steps.generate.outputs.added }}
+          GENERATE_REMOVED: ${{ steps.generate.outputs.removed }}
         run: |
           echo "::group::📊 Generating Summary Report"
 
-          OVERALL_STATUS="${{ job.status == 'success' && '✅ Success' || '❌ Failed' }}"
-          GENERATE_STATUS="${{ steps.generate.outcome == 'success' && '✅ Success' || '❌ Failed' }}"
-          PUBLISH_RESULT="${{ steps.publish.outputs.result || 'not required' }}"
+          OVERALL_STATUS="❌ Failed"
+          [ "$JOB_STATUS" = "success" ] && OVERALL_STATUS="✅ Success"
+          GENERATE_STATUS="❌ Failed"
+          [ "$GENERATE_OUTCOME" = "success" ] && GENERATE_STATUS="✅ Success"
+          PUBLISH_RESULT="${PUBLISH_OUTPUT:-not required}"
 
           cat <<EOF >>"$GITHUB_STEP_SUMMARY"
           ## 🤖 Dark Visitors Agents Summary
@@ -520,11 +531,11 @@ jobs:
 
           | Task | Result |
           | :--- | :--- |
-          | 🌐 Pages fetched | ${{ steps.fetch.outputs.pages || 0 }} |
+          | 🌐 Pages fetched | ${FETCH_PAGES:-0} |
           | 🔄 Generation | $GENERATE_STATUS |
-          | 🤖 Unique agents | ${{ steps.generate.outputs.count || 0 }} |
-          | ➕ Added agents | ${{ steps.generate.outputs.added || 0 }} |
-          | ➖ Removed agents | ${{ steps.generate.outputs.removed || 0 }} |
+          | 🤖 Unique agents | ${GENERATE_COUNT:-0} |
+          | ➕ Added agents | ${GENERATE_ADDED:-0} |
+          | ➖ Removed agents | ${GENERATE_REMOVED:-0} |
           | 🚀 Publication | $PUBLISH_RESULT |
 
           ### ⚙️ Runtime Configuration
@@ -537,7 +548,7 @@ jobs:
           ### 🧩 Context
 
           - **Repository:** $REPO
-          - **Pull Request:** ${{ steps.publish.outputs.pr_url || 'none' }}
+          - **Pull Request:** ${PUBLISH_PR_URL:-none}
           - **Workflow Run:** [View Details]($GITHUB_SERVER_URL/$REPO/actions/runs/$GITHUB_RUN_ID)
           EOF
 

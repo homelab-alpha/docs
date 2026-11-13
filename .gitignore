@@ -112,5 +112,4 @@ resources/
 # A line that starts with ! only works after the pattern it undoes, so this
 # block stays at the end. These files are tracked even if a pattern above
 # matches them.
-!core
 !super_linter.env
