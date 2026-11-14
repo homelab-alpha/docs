@@ -114,6 +114,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - chore(renovate): group and automerge updates [eec8b5d](https://github.com/homelab-alpha/docs/commit/eec8b5dd9832e250807f2725eaf024eb396dae8f) by [@homelab-alpha](https://github.com/homelab-alpha)
 - docs(openssl): update the script pages to v0.2.0 [c8b9295](https://github.com/homelab-alpha/docs/commit/c8b9295671652b0672a8f15bf91aa7b09425c339) by [@homelab-alpha](https://github.com/homelab-alpha)
 - chore: sync repository files with blueprint [48e29be](https://github.com/homelab-alpha/docs/commit/48e29be4088b0d20d0b3e332a6e8834743aea7f5) by [@homelab-alpha](https://github.com/homelab-alpha)
+- docs: move and update AI contribution policy [d5684a1](https://github.com/homelab-alpha/docs/commit/d5684a14822e4099d12bd6e08b05b86223b2019d) by [@homelab-alpha](https://github.com/homelab-alpha)
+- chore: sync files with the blueprint [fc5342f](https://github.com/homelab-alpha/docs/commit/fc5342f1c4bb71a2eafaa3241dd655673f2c9811) by [@homelab-alpha](https://github.com/homelab-alpha)
 
 ### Deprecated
 
