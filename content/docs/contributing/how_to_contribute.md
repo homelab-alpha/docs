@@ -176,6 +176,10 @@ Code contributions are welcome! Please make sure your changes align with the
 project's goals and follow the guidelines in this document before opening a pull
 request.
 
+If you use AI tools, read the
+[AI Contribution Policy](https://github.com/homelab-alpha/docs/blob/main/.github/policies/ai_contribution_policy.md)
+first. You remain fully responsible for everything you submit.
+
 ## Development Guidelines
 
 ### Branch Naming
@@ -203,7 +207,7 @@ type/short-description
 
 ```none
 feat/add-json-export
-fix/retrieval-null-reference
+fix/null-reference-on-empty-list
 docs/update-readme-installation
 chore/update-dependencies
 ```
@@ -266,14 +270,14 @@ type(scope): brief subject
 **Examples:**
 
 ```git
-feat(core): add JSON export for archived memories
+feat(cli): add JSON export command
 ```
 
 ```git
-fix(retrieval): handle null reference on empty archive
+fix(parser): handle null reference on empty input
 
-- Added a null check before iterating over memory entries.
-- Updated unit tests to cover the empty-archive edge case.
+- Added a null check before iterating over the entries.
+- Updated unit tests to cover the empty-input edge case.
 ```
 
 ```git
@@ -305,7 +309,8 @@ quality. The following linters are active:
 - **Bash** and **Bash Exec** — shell script validation and executable bits
 - **Checkov** — infrastructure-as-code security scanning
 - **ENV** — environment file validation
-- **GitHub Actions** — workflow file validation
+- **GitHub Actions** — workflow file validation (actionlint)
+- **zizmor** — security audit of workflow files
 - **Gitleaks** — secret detection
 - **Git merge conflict markers** — conflict detection
 - **JSON** — JSON formatting (Prettier)
@@ -346,6 +351,9 @@ for the full changelog conventions.
 - [ ] Your commits follow the [commit message convention](#commit-messages).
 - [ ] Your code follows the [code style guidelines](#code-style).
 - [ ] You have tested your changes locally.
+- [ ] You understand and have reviewed every line, and you have said in the pull
+      request which AI tools you used, as described in the
+      [AI Contribution Policy](https://github.com/homelab-alpha/docs/blob/main/.github/policies/ai_contribution_policy.md).
 - [ ] Linting passes locally.
 - [ ] You have updated any relevant documentation.
 - [ ] The title of your pull request is a conventional commit, because it
