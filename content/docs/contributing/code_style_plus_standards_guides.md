@@ -131,7 +131,7 @@ feat/add-user-authentication
 fix/login-page-display-error
 docs/update-installation-guide
 chore/update-dependencies
-refactor/simplify-retrieval-logic
+refactor/simplify-parser-logic
 ```
 
 **Invalid examples:**
@@ -178,14 +178,14 @@ Always write commit messages in **English** and follow the
 **Examples:**
 
 ```git
-feat(core): add JSON export for archived memories
+feat(cli): add JSON export command
 ```
 
 ```git
-fix(retrieval): handle null reference on empty archive
+fix(parser): handle null reference on empty input
 
-- Added a null check before iterating over memory entries.
-- Updated unit tests to cover the empty-archive edge case.
+- Added a null check before iterating over the entries.
+- Updated unit tests to cover the empty-input edge case.
 ```
 
 ```git
@@ -302,21 +302,17 @@ tooling (for example, `init.sh`). The same conventions apply in both contexts.
 ### GitHub Actions Workflows
 
 - Workflow files live in `.github/workflows/` and use the `.yml` extension.
-- Every workflow must define explicit **permissions** at the job or workflow
-  level, using the principle of least privilege.
+- Every workflow must set `permissions: {}` at the workflow level, and every job
+  must define its own **permissions**, using the principle of least privilege.
+  Never grant a write permission at the workflow level.
 - Pin every action to a full **commit SHA**, followed by a comment with the
   version (e.g.,
   `actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1`). Tags
   such as `@v7` are not allowed.
 - Every workflow must include a **concurrency** block to prevent duplicate runs.
 - Workflows should include a **job summary** step using `$GITHUB_STEP_SUMMARY`.
-- Exclude bot-triggered runs using:
-
-  ```yaml
-  if: |
-    github.event.sender.type != 'Bot' &&
-    !contains(github.actor, '[bot]')
-  ```
+- Do not skip bot-triggered runs: workflows run for bots in the same way as for
+  people.
 
 - Set a `timeout-minutes` on all jobs to prevent runaway executions.
 - Infrastructure-as-code security checks (Checkov) skip `CKV_TF_1` and
@@ -336,7 +332,7 @@ This repository lints in two stages.
   formatting and terminology locally.
 - **Pushes to `main`** run
   [Super Linter](https://github.com/super-linter/super-linter) across all file
-  types. It adds actionlint, Gitleaks, Checkov, and the other linters.
+  types. It adds actionlint, zizmor, Gitleaks, Checkov, and the other linters.
 
 The following linters are currently active (configured in
 `.github/super_linter.env`):
@@ -348,6 +344,7 @@ The following linters are currently active (configured in
 | Checkov                    | Infrastructure-as-code security scanning |
 | ENV                        | Environment file validation              |
 | GitHub Actions             | Workflow file validation                 |
+| GitHub Actions (zizmor)    | Security audit of workflow files         |
 | Gitleaks                   | Secret and credential detection          |
 | Git merge conflict markers | Unresolved merge conflict detection      |
 | JSON (Prettier)            | JSON formatting                          |
@@ -367,6 +364,7 @@ Linting configuration files are stored in `.github/linters/`:
 | `.textlintrc`        | Natural language terminology rules                         |
 | `.yaml-lint.yml`     | YAML linting rules (pre-commit hook)                       |
 | `actionlint.yml`     | Ignored shellcheck messages in workflow files (actionlint) |
+| `zizmor.yml`         | Reviewed exceptions of zizmor in workflow files            |
 
 {{% alert context="success" %}}
 Run Super Linter locally before submitting a pull request to catch issues early
@@ -483,8 +481,7 @@ bot. All entries of one run go in one commit.
 - Use imperative mood: "Add export command", not "Added export command".
 - Keep entries concise; one line per change where possible.
 - In an entry that you write by hand, reference the relevant issue or pull
-  request number where applicable (e.g.,
-  `Fix null reference in retrieval (#42)`).
+  request number where applicable (e.g., `Fix null reference in parser (#42)`).
 - Empty category headers in `[Unreleased]` are fine: Release Manager leaves the
   categories without entries out of the released section.
 
