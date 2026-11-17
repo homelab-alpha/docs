@@ -447,10 +447,16 @@ Disallow: /
 User-agent: Reflectionbot
 Disallow: /
 
+User-agent: RiverBot
+Disallow: /
+
 User-agent: SalamandraVLM
 Disallow: /
 
 User-agent: SBIntuitionsBot
+Disallow: /
+
+User-agent: SperidLabsResearchCrawler
 Disallow: /
 
 User-agent: Spider
@@ -557,6 +563,9 @@ User-agent: NavuBot
 Disallow: /
 
 User-agent: OAI-SearchBot
+Disallow: /
+
+User-agent: OctenSearchBot
 Disallow: /
 
 User-agent: OnirocoCrawler
@@ -4642,4 +4651,4 @@ Disallow: /
 # Sitemaps
 Sitemap: https://homelab-alpha.nl/sitemap.xml
 
-# Last modified: 2026-11-12T10:22:52+01:00
+# Last modified: 2026-11-17T07:19:38+01:00
