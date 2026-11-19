@@ -158,6 +158,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix(layout): close the sidebar on small windows [7c64024](https://github.com/homelab-alpha/docs/commit/7c6402484b73e236e6763a94a54b52dfe33d4aff) by [@homelab-alpha](https://github.com/homelab-alpha)
 - fix(workflow): do not draft Renovate PRs [6f07d0a](https://github.com/homelab-alpha/docs/commit/6f07d0aa1f9e53b363b3c924cb67a732fd6afbe9) by [@homelab-alpha](https://github.com/homelab-alpha)
 - fix(deps): track bootstrap in go.mod for renovate [aac9d16](https://github.com/homelab-alpha/docs/commit/aac9d1672430822d53f9804cbdda42e1d8bdee2c) by [@homelab-alpha](https://github.com/homelab-alpha)
+- fix(renovate): remove invalid security rule that disabled grouping [16b683d](https://github.com/homelab-alpha/docs/commit/16b683d1f0ae66eee78b13bae73aea91824346e6) by [@homelab-alpha](https://github.com/homelab-alpha)
+- fix(renovate): label all updates in a group [a0bd537](https://github.com/homelab-alpha/docs/commit/a0bd53781202d721a1961d846ed9384b47e50948) by [@homelab-alpha](https://github.com/homelab-alpha)
 
 ### Security
 
