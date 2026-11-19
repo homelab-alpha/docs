@@ -74,67 +74,32 @@ Here's a detailed explanation:
 name: speedtest-tracker-beta
 
 networks:
+  # Joins the network of the speedtest-tracker stack, which must be running first.
   speedtest-tracker_net:
-    attachable: false
-    internal: false
-    external: false
+    external: true
     name: speedtest-tracker
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.21.23.0/24
-          ip_range: 172.21.23.0/24
-          gateway: 172.21.23.1
-    driver_opts:
-      com.docker.network.bridge.default_bridge: "false"
-      com.docker.network.bridge.enable_icc: "true"
-      com.docker.network.bridge.enable_ip_masquerade: "true"
-      com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"
-      com.docker.network.bridge.name: "speedtest"
-      com.docker.network.driver.mtu: "1500"
-    labels:
-      com.speedtest-tracker.network.description:
-        "is an isolated bridge network."
 ```
 
 <br />
 
-- **networks**: Defines a custom network named `speedtest-tracker_net`.
-- **attachable: false**: Other containers can't attach to this network.
-- **internal: false**: The network is accessible externally.
-- **external: false**: The network is created within this Compose file.
-- **name: speedtest-tracker**: Specifies the name of the network.
-- **driver: bridge**: Uses the bridge driver to create an isolated network.
-- **ipam**: Configures IP address management for the network.
-  - **subnet**: `172.21.23.0/24`.
-  - **ip_range**: `172.21.23.0/24`.
-  - **gateway**: `172.21.23.1`.
-- **driver_opts**: Additional options for the network driver.
-  - **com.docker.network.bridge.default_bridge: "false"**: Indicates this is not
-    the default Docker bridge.
-  - **com.docker.network.bridge.enable_icc: "true"**: Enables inter-container
-    communication.
-  - **com.docker.network.bridge.enable_ip_masquerade: "true"**: Allows outbound
-    traffic to appear as if it came from the host.
-  - **com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"**: Binds the bridge
-    to all available IP addresses on the host.
-  - **com.docker.network.bridge.name: "speedtest"**: Names the bridge interface
-    on the host.
-  - **com.docker.network.driver.mtu: "1500"**: Sets the Maximum Transmission
-    Unit size for the network.
-- **labels**: Metadata for the network.
-  - **description label**: Describes the network as an isolated bridge network.
+- **networks**: This stack has no network of its own. It joins the network of
+  the `speedtest-tracker` stack.
+  - **speedtest-tracker_net**: The name of the network inside this Compose file.
+  - **external: true**: The network already exists; Docker Compose does not
+    create or remove it. Start the `speedtest-tracker` stack first.
+  - **name: speedtest-tracker**: The name of the network in Docker
+    (`172.20.23.0/24`). The database uses `172.20.23.4` and the app
+    `172.20.23.5`; `speedtest-tracker` uses `.2` and `.3`.
 
 <br />
 
 ## Services Configuration
 
-### `speedtest-tracker_db`
+### `speedtest-tracker-beta_db`
 
 ```yaml
 services:
-  speedtest-tracker_db:
+  speedtest-tracker-beta_db:
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -142,12 +107,12 @@ services:
         max-size: "1M"
         max-file: "2"
     stop_grace_period: 1m
-    container_name: speedtest-tracker_db
+    container_name: speedtest-tracker-beta_db
     image: docker.io/mariadb:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     volumes:
-      - /docker/speedtest-tracker/production/db:/var/lib/mysql
-      - /docker/speedtest-tracker/production/my.cnf:/etc/my.cnf
+      - /docker/speedtest-tracker-beta/testing/db:/var/lib/mysql
+      - /docker/speedtest-tracker-beta/testing/my.cnf:/etc/my.cnf
       - /sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure
     env_file:
       # Compose loads each file that exists and skips a missing one:
@@ -164,10 +129,10 @@ services:
       MARIADB_DATABASE: ${NAME_DB}
       MARIADB_USER: ${USER_DB}
       MARIADB_PASSWORD: ${PASSWORD_DB}
-    hostname: speedtest-tracker_db
+    hostname: speedtest-tracker-beta_db
     networks:
       speedtest-tracker_net:
-        ipv4_address: 172.21.23.2
+        ipv4_address: 172.20.23.4
     security_opt:
       - no-new-privileges:true
     labels:
@@ -184,20 +149,20 @@ services:
 
 <br />
 
-- **speedtest-tracker_db**: The service definition.
+- **speedtest-tracker-beta_db**: The service definition.
   - **restart: unless-stopped**: Restarts the container unless it is explicitly
     stopped.
   - **logging**: Uses the `json-file` driver, limited to 1MB per file and a
     maximum of 2 files.
   - **stop_grace_period: 1m**: Waits 1 minute before forcibly stopping the
     container.
-  - **container_name: speedtest-tracker_db**: Names the container.
+  - **container_name: speedtest-tracker-beta_db**: Names the container.
   - **image: docker.io/mariadb**: Uses this image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not present
     locally.
   - **volumes**: Mounts host directories or files into the container.
-    - **/docker/speedtest-tracker/production/db:/var/lib/mysql**
-    - **/docker/speedtest-tracker/production/my.cnf:/etc/my.cnf**
+    - **/docker/speedtest-tracker-beta/testing/db:/var/lib/mysql**
+    - **/docker/speedtest-tracker-beta/testing/my.cnf:/etc/my.cnf**
     - **/sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure**
   - **env_file**: Loads `.env` (Docker Compose CLI) and `stack.env` (Portainer).
     Both are listed with `required: false`, so Compose skips the file that is
@@ -210,9 +175,10 @@ services:
     - **MARIADB_DATABASE: ${NAME_DB}**
     - **MARIADB_USER: ${USER_DB}**
     - **MARIADB_PASSWORD: ${PASSWORD_DB}**
-  - **hostname: speedtest-tracker_db**: Sets the hostname for the container.
+  - **hostname: speedtest-tracker-beta_db**: Sets the hostname for the
+    container.
   - **networks**: Connects the service to `speedtest-tracker_net` with static IP
-    address `172.21.23.2`.
+    address `172.20.23.4`.
   - **security_opt: no-new-privileges:true**: Prevents the container from
     gaining new privileges.
   - **labels**: A description label.
@@ -222,11 +188,11 @@ services:
 
 <br />
 
-### `speedtest-tracker_app`
+### `speedtest-tracker-beta_app`
 
 ```yaml
 services:
-  speedtest-tracker_app:
+  speedtest-tracker-beta_app:
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -234,16 +200,16 @@ services:
         max-size: "1M"
         max-file: "2"
     stop_grace_period: 1m
-    container_name: speedtest-tracker
+    container_name: speedtest-tracker-beta
     image: ghcr.io/alexjustesen/docker-speedtest-tracker:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     depends_on:
-      speedtest-tracker_db:
+      speedtest-tracker-beta_db:
         condition: service_healthy
         restart: true
     volumes:
-      - /docker/speedtest-tracker/production/.cert:/config/keys
-      - /docker/speedtest-tracker/production/app:/config
+      - /docker/speedtest-tracker-beta/testing/.cert:/config/keys
+      - /docker/speedtest-tracker-beta/testing/app:/config
     env_file:
       # Compose loads each file that exists and skips a missing one:
       # '.env' for the Docker Compose CLI, 'stack.env' for Portainer.
@@ -285,7 +251,7 @@ services:
     hostname: speedtest-tracker-beta
     networks:
       speedtest-tracker_net:
-        ipv4_address: 172.21.23.3
+        ipv4_address: 172.20.23.5
     ports:
       - "80:8080/tcp"
       - "80:8080/udp"
@@ -309,22 +275,22 @@ services:
 
 <br />
 
-- **speedtest-tracker_app**: The service definition.
+- **speedtest-tracker-beta_app**: The service definition.
   - **restart: unless-stopped**: Restarts the container unless it is explicitly
     stopped.
   - **logging**: Uses the `json-file` driver, limited to 1MB per file and a
     maximum of 2 files.
   - **stop_grace_period: 1m**: Waits 1 minute before forcibly stopping the
     container.
-  - **container_name: speedtest-tracker**: Names the container.
+  - **container_name: speedtest-tracker-beta**: Names the container.
   - **image: ghcr.io/alexjustesen/docker-speedtest-tracker**: Uses this image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not present
     locally.
-  - **depends_on**: Starts this service only when `speedtest-tracker_db` has the
-    condition `service_healthy`.
+  - **depends_on**: Starts this service only when `speedtest-tracker-beta_db`
+    has the condition `service_healthy`.
   - **volumes**: Mounts host directories or files into the container.
-    - **/docker/speedtest-tracker/production/.cert:/config/keys**
-    - **/docker/speedtest-tracker/production/app:/config**
+    - **/docker/speedtest-tracker-beta/testing/.cert:/config/keys**
+    - **/docker/speedtest-tracker-beta/testing/app:/config**
   - **env_file**: Loads `.env` (Docker Compose CLI) and `stack.env` (Portainer).
     Both are listed with `required: false`, so Compose skips the file that is
     missing.
@@ -361,7 +327,7 @@ services:
     container. Replace it with your own domain.
   - **hostname: speedtest-tracker-beta**: Sets the hostname for the container.
   - **networks**: Connects the service to `speedtest-tracker_net` with static IP
-    address `172.21.23.3`.
+    address `172.20.23.5`.
   - **ports**: Maps host ports to container ports.
     - **"80:8080/tcp"**
     - **"80:8080/udp"**
@@ -395,7 +361,7 @@ ROOT_PASSWORD_DB=StrongUniqueRootPassword1234
 
 # Database Configuration: USER
 # Database host and connection settings
-HOST_DB=speedtest-tracker_db
+HOST_DB=speedtest-tracker-beta_db
 
 # Database name: Change this to your desired database name
 NAME_DB=speedtest_tracker_db
@@ -464,14 +430,18 @@ with comments.
 Requires Docker Compose 2.24.0 or later.
 {{% /alert %}}
 
-1. Copy `my.cnf` to `/docker/speedtest-tracker/production/my.cnf`. Docker
-   creates the other directories under `/docker/speedtest-tracker/` on the first
-   start.
+1. Start the `speedtest-tracker` stack first. This stack joins its
+   `speedtest-tracker` network, with the database on `172.20.23.4` and the app
+   on `172.20.23.5`.
 
-2. Change the values in `.env` (Docker Compose CLI) or `stack.env` (Portainer),
+2. Copy `my.cnf` to `/docker/speedtest-tracker-beta/testing/my.cnf`. Docker
+   creates the other directories under `/docker/speedtest-tracker-beta/` on the
+   first start.
+
+3. Change the values in `.env` (Docker Compose CLI) or `stack.env` (Portainer),
    at least the passwords.
 
-3. Start the stack:
+4. Start the stack:
 
    ```bash
    docker compose up -d
@@ -526,9 +496,10 @@ credentials after your first login.**
 ## Conclusion
 
 This Compose file deploys the Speedtest Tracker Beta with a dedicated MariaDB
-database on its own bridge network. It differs from the regular Speedtest
-Tracker in the image, the network (`172.21.23.0/24`), the published ports (80
-and 443), and the enabled debug mode.
+database. It joins the network of the regular Speedtest Tracker
+(`172.20.23.0/24`) and differs from it in the image, the names, the host paths
+(`/docker/speedtest-tracker-beta/testing/`), the published ports (80 and 443),
+and the enabled debug mode.
 
 [compose.yml]:
   https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/speedtest-tracker-beta/compose.yml
