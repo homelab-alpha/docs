@@ -173,9 +173,7 @@ services:
         ipv4_address: 172.20.8.2
     ports:
       - "3006:80/tcp" # HTTP
-      - "3006:80/udp" # HTTP
       # - "3007:443/tcp" # HTTPS
-      # - "3007:443/udp" # HTTPS
     # these are needed for file restore.
     # allows one backup to be mounted at once which will be umounted after some
     # minutes if not used (prevents other backups to be mounted during that)
@@ -184,6 +182,7 @@ services:
     #   - "/dev/fuse:/dev/fuse"
     #   - "/dev/loop-control:/dev/loop-control"
     #   - "/dev/loop0:/dev/loop0"
+    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
       - apparmor:unconfined
@@ -239,15 +238,14 @@ services:
       container.
   - **ports**: Maps container ports to host ports.
     - **3006:80/tcp**: Maps HTTP port 80 to host port 3006.
-    - **3006:80/udp**: Maps HTTP port 80 to host port 3006 (UDP).
     - **3007:443/tcp**: Maps HTTPS port 443 to host port 3007 (commented out).
-    - **3007:443/udp**: Maps HTTPS port 443 to host port 3007 (UDP, commented
-      out).
   - **devices** (commented out): Passes host devices to the container. Add loop
     devices (loop1, loop2, etc.) if multiple simultaneous mounts are needed.
     - **/dev/fuse:/dev/fuse**: Mounts the fuse device.
     - **/dev/loop-control:/dev/loop-control**: Mounts the loop control device.
     - **/dev/loop0:/dev/loop0**: Mounts the loop0 device.
+  - **pids_limit: 512**: Limits the number of processes and threads in the
+    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.

@@ -173,6 +173,7 @@ services:
     networks:
       unifi-network-application_net:
         ipv4_address: 172.20.19.2
+    pids_limit: 2048 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -230,6 +231,8 @@ services:
   container.
 - **networks**: Connects the service to the network with static IP address
   `172.20.19.2`.
+- **pids_limit: 2048**: Limits the number of processes and threads in the
+  container, which protects the host against fork bombs.
 - **security_opt**: `no-new-privileges:true` prevents the container from gaining
   new privileges.
 - **labels**: `com.unifi-network-application.db.description` describes the
@@ -301,6 +304,7 @@ services:
       - "8843:8843/tcp" # Unifi guest portal HTTPS redirect port
       - "8880:8880/tcp" # Unifi guest portal HTTP redirect port
       - "10001:10001/udp" # Required for AP discovery
+    pids_limit: 2048 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -350,6 +354,8 @@ services:
   - **8843/tcp**: Guest portal HTTPS redirect.
   - **8880/tcp**: Guest portal HTTP redirect.
   - **10001/udp**: Access point discovery.
+- **pids_limit: 2048**: Limits the number of processes and threads in the
+  container, which protects the host against fork bombs.
 - **security_opt**: `no-new-privileges:true` prevents the container from gaining
   new privileges.
 - **labels**: A description label for the application.

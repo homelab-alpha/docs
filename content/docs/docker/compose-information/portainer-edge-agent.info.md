@@ -153,7 +153,7 @@ services:
       - /docker/portainer/edge-agent/production/app:/data
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/lib/docker/volumes:/var/lib/docker/volumes
-      - /:/host
+      - /:/host:ro # Read-only view of the host file system for the host management features.
     env_file:
       # Compose loads each file that exists and skips a missing one:
       # '.env' for the Docker Compose CLI, 'stack.env' for Portainer.
@@ -166,10 +166,11 @@ services:
       EDGE: 1
       EDGE_ID: ${PORTAINER_AGENT_ID} # Fill in the value in both the .env and stack.env files
       EDGE_KEY: ${PORTAINER_AGENT_KEY} # Fill in the value in both the .env and stack.env files
-      EDGE_INSECURE_POLL: 1
+      EDGE_INSECURE_POLL: ${EDGE_INSECURE_POLL:-0} # Set to 1 in .env or stack.env only if the Portainer server uses a self-signed certificate.
     networks:
       edge-agent_net:
         ipv4_address: 172.20.18.2
+    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -198,7 +199,8 @@ services:
     - **/var/run/docker.sock:/var/run/docker.sock**: Mounts the Docker socket.
     - **/var/lib/docker/volumes:/var/lib/docker/volumes**: Mounts Docker
       volumes.
-    - **/:/host**: Mounts the host's root directory to the container.
+    - **/:/host:ro**: Mounts the host's root directory read-only into the
+      container.
   - **env_file**: Loads `.env` (Docker Compose CLI) and `stack.env` (Portainer).
     Both are listed with `required: false`, so Compose skips the file that is
     missing.
@@ -209,10 +211,14 @@ services:
     - **EDGE: 1**: Enables Edge functionality.
     - **EDGE_ID**: Specifies the Portainer Edge Agent ID.
     - **EDGE_KEY**: Specifies the Portainer Edge Agent Key.
-    - **EDGE_INSECURE_POLL: 1**: Allows insecure polling for the Edge Agent.
+    - **EDGE_INSECURE_POLL: ${EDGE_INSECURE_POLL:-0}**: Checks the TLS
+      certificate of the Portainer server by default. Set `EDGE_INSECURE_POLL=1`
+      in `.env` or `stack.env` only for a self-signed certificate.
   - **networks**: Connects the service to the `edge-agent_net` network.
     - **ipv4_address: 172.20.18.2**: Assigns a static IP address to the
       container.
+  - **pids_limit: 512**: Limits the number of processes and threads in the
+    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
@@ -243,6 +249,10 @@ PORTAINER_AGENT_ID=UniqueAgentID12345
 # Portainer Agent Key: Change this to a secure, strong key
 # Avoid using predictable patterns or common phrases.
 PORTAINER_AGENT_KEY=SecureAgentKey67890
+
+# TLS verification of the Portainer server: 0 verifies the certificate.
+# Set to 1 only if the server uses a self-signed certificate.
+EDGE_INSECURE_POLL=0
 ```
 
 - **`PORTAINER_AGENT_ID`**: A unique identifier for the Portainer agent. This ID
@@ -251,6 +261,8 @@ PORTAINER_AGENT_KEY=SecureAgentKey67890
 - **`PORTAINER_AGENT_KEY`**: The key used to secure communication between the
   Portainer agent and Portainer server. This should also be a strong and unique
   string, avoiding easily guessable patterns to maintain security.
+- **`EDGE_INSECURE_POLL`**: `0` checks the TLS certificate of the Portainer
+  server. Set it to `1` only if the server uses a self-signed certificate.
 
 <br />
 
@@ -266,7 +278,12 @@ Requires Docker Compose 2.24.0 or later.
 2. In Portainer, add an Edge Agent environment and copy its Edge ID and Edge key
    to `PORTAINER_AGENT_ID` and `PORTAINER_AGENT_KEY`.
 
-3. Start the stack:
+3. The agent checks the TLS certificate of the Portainer server
+   (`EDGE_INSECURE_POLL=0`). If your server still uses the self-signed
+   certificate of Portainer, give it a trusted certificate, or set
+   `EDGE_INSECURE_POLL=1` in `.env` or `stack.env` at your own risk.
+
+4. Start the stack:
 
    ```bash
    docker compose up -d

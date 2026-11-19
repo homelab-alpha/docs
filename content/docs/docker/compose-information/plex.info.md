@@ -170,7 +170,6 @@ services:
         ipv4_address: 172.20.12.2
     ports:
       - 32400:32400/tcp # HTTP
-      - 32400:32400/udp # HTTP
       - 5353:5353/udp # older Bonjour/Avahi network discovery (not is use anymore)
       - 8324:8324/tcp # controlling Plex for Roku via Plex Companion
       - 1900:1900/udp # Plex DLNA Server
@@ -181,6 +180,7 @@ services:
       - 32414:32414/udp # GDM network discovery
     devices:
       - /dev/dri:/dev/dri
+    pids_limit: 2048 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -238,7 +238,6 @@ services:
       container.
   - **ports**: Maps container ports to host ports.
     - **32400:32400/tcp**: Maps the HTTP port.
-    - **32400:32400/udp**: Maps the HTTP port (UDP).
     - **5353:5353/udp**: Maps the Bonjour/Avahi network discovery port (older
       version, not in use anymore).
     - **8324:8324/tcp**: Maps the port for controlling Plex for Roku via Plex
@@ -252,6 +251,8 @@ services:
   - **devices**: Passes host devices to the container.
     - **/dev/dri:/dev/dri**: Mounts the device for hardware-accelerated
       transcoding.
+  - **pids_limit: 2048**: Limits the number of processes and threads in the
+    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.

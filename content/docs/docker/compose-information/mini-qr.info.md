@@ -140,6 +140,11 @@ services:
     container_name: mini-qr
     image: ghcr.io/lyqht/mini-qr:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
+    read_only: true # Read-only root file system; nginx writes only to the tmpfs paths below.
+    tmpfs:
+      - /var/cache/nginx
+      - /var/run
+      - /tmp
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -148,6 +153,7 @@ services:
     networks:
       mini-qr_net:
         ipv4_address: 172.20.26.2
+    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -174,6 +180,11 @@ services:
     container_name: mini-qr_nginx
     image: docker.io/nginx:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
+    read_only: true # Read-only root file system; nginx writes only to the tmpfs paths below.
+    tmpfs:
+      - /var/cache/nginx
+      - /var/run
+      - /tmp
     depends_on:
       mini-qr_app:
         condition: service_started
@@ -190,9 +201,17 @@ services:
         ipv4_address: 172.20.26.3
     ports:
       - "3017:80/tcp" # HTTP
-      - "3017:80/udp" # HTTP
+    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add: # The minimum for nginx: bind port 80 and switch to the nginx user.
+      - CHOWN
+      - DAC_OVERRIDE
+      - NET_BIND_SERVICE
+      - SETGID
+      - SETUID
     labels:
       com.mini-qr.description:
         "a flexible and high-performance server that can handle HTTP, mail, TCP,
@@ -220,6 +239,9 @@ services:
   - **image: ghcr.io/lyqht/mini-qr**: Uses this image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not present
     locally.
+  - **read_only: true**: Mounts the root file system of the container read-only.
+  - **tmpfs**: Mounts `/var/cache/nginx`, `/var/run`, and `/tmp` as in-memory
+    file systems, so the app can still write its runtime files there.
   - **environment**: Sets environment variables.
     - **PUID: 1000**: The user ID the container runs as.
     - **PGID: 1000**: The group ID the container runs as.
@@ -229,8 +251,44 @@ services:
   - **hostname: mini-qr**: Sets the hostname for the container.
   - **networks**: Connects the service to `mini-qr_net` with static IP address
     `172.20.26.2`.
+  - **pids_limit: 512**: Limits the number of processes and threads in the
+    container, which protects the host against fork bombs.
   - **security_opt: no-new-privileges:true**: Prevents the container from
     gaining new privileges.
+  - **labels**: A description label.
+  - **healthcheck: disable: true**: The health check is disabled for this
+    container.
+
+- **mini-qr_nginx**: The nginx reverse proxy in front of the Mini QR app.
+  - **restart: unless-stopped**: Restarts the container unless it is explicitly
+    stopped.
+  - **logging**: Uses the `json-file` driver, limited to 1MB per file and a
+    maximum of 2 files.
+  - **stop_grace_period: 1m**: Waits 1 minute before forcibly stopping the
+    container.
+  - **container_name: mini-qr_nginx**: Names the container.
+  - **image: docker.io/nginx**: Uses the nginx image.
+  - **pull_policy: if_not_present**: Pulls the image only if it's not present
+    locally.
+  - **read_only: true**: Mounts the root file system of the container read-only.
+  - **tmpfs**: Mounts `/var/cache/nginx`, `/var/run`, and `/tmp` as in-memory
+    file systems, so the app can still write its runtime files there.
+  - **depends_on**: Starts this service only after `mini-qr_app` has started.
+  - **volumes**: Mounts `nginx-proxy.conf` as `/etc/nginx/nginx.conf`.
+  - **environment**: Sets the user and group IDs and the timezone.
+  - **domainname: mini-qr.local**: Sets the domain name for the container.
+  - **hostname: mini-qr-nginx**: Sets the hostname for the container.
+  - **networks**: Connects the service to `mini-qr_net` with static IP address
+    `172.20.26.3`.
+  - **ports: 3017:80/tcp**: Publishes the web interface on host port 3017.
+  - **pids_limit: 512**: Limits the number of processes and threads in the
+    container, which protects the host against fork bombs.
+  - **security_opt: no-new-privileges:true**: Prevents the container from
+    gaining additional privileges.
+  - **cap_drop: ALL**: Drops all Linux capabilities.
+  - **cap_add**: Adds back only what nginx needs: `CHOWN`, `DAC_OVERRIDE`,
+    `NET_BIND_SERVICE`, `SETGID`, and `SETUID`. These let it bind port 80 and
+    switch to the `nginx` user.
   - **labels**: A description label.
   - **healthcheck: disable: true**: The health check is disabled for this
     container.

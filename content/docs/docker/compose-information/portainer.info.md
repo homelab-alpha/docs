@@ -153,11 +153,8 @@ services:
         ipv4_address: 172.20.1.2
     ports:
       - "8000:8000/tcp" # Edge agents
-      - "8000:8000/udp" # Edge agents
-      - "9000:9000/tcp" # HTTP
-      - "9000:9000/udp" # HTTP
       - "9443:9443/tcp" # HTTPS
-      - "9443:9443/udp" # HTTPS
+    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -197,16 +194,10 @@ services:
   - **ports**: Maps host ports to container ports.
     - **"8000:8000/tcp"**: Maps TCP port 8000 on the host to port 8000 in the
       container.
-    - **"8000:8000/udp"**: Maps UDP port 8000 on the host to port 8000 in the
-      container.
-    - **"9000:9000/tcp"**: Maps TCP port 9000 on the host to port 9000 in the
-      container.
-    - **"9000:9000/udp"**: Maps UDP port 9000 on the host to port 9000 in the
-      container.
     - **"9443:9443/tcp"**: Maps TCP port 9443 on the host to port 9443 in the
       container.
-    - **"9443:9443/udp"**: Maps UDP port 9443 on the host to port 9443 in the
-      container.
+  - **pids_limit: 512**: Limits the number of processes and threads in the
+    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges: true**: Prevents the container from gaining
       additional privileges.
@@ -235,17 +226,12 @@ Requires Docker Compose 2.24.0 or later.
 
 Access the Portainer web interface using the following URL:
 
-**HTTPS**:
-
 ```bash
 https://your-ip-address:9443
 ```
 
-**HTTP**:
-
-```bash
-http://your-ip-address:9000
-```
+Portainer is only published over HTTPS. It uses a self-signed certificate by
+default, so your browser shows a warning on the first visit.
 
 Port 8000 is the tunnel server for Edge Agents.
 

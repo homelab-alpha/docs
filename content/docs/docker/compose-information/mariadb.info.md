@@ -172,6 +172,7 @@ services:
         published: 3306 # publicly exposed port
         protocol: tcp # tcp or udp
         mode: ingress # host: For publishing a host port on each node
+    pids_limit: 2048 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -231,6 +232,8 @@ services:
     - **published: 3306**: The port that is exposed on the host.
     - **protocol: tcp**: Uses TCP.
     - **mode: ingress**: Publishes the port on the swarm ingress network.
+  - **pids_limit: 2048**: Limits the number of processes and threads in the
+    container, which protects the host against fork bombs.
   - **security_opt**: Adds security options to the container.
     - **no-new-privileges:true**: Ensures that the container cannot gain new
       privileges.

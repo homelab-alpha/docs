@@ -168,9 +168,11 @@ services:
         ipv4_address: 172.20.9.2
     ports:
       - "3008:8080/tcp" # HTTP
-      - "3008:8080/udp" # HTTP
+    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
+    cap_drop:
+      - ALL
     labels:
       com.dozzle.description:
         "is a small lightweight application with a web based interface to
@@ -229,10 +231,13 @@ services:
       container.
   - **ports**: Maps container ports to host ports.
     - **3008:8080/tcp**: Maps the HTTP port.
-    - **3008:8080/udp**: Maps the HTTP port (UDP).
+  - **pids_limit: 512**: Limits the number of processes and threads in the
+    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
+  - **cap_drop: ALL**: Drops all Linux capabilities. Dozzle only reads the
+    Docker socket and needs none.
   - **labels**: Metadata for the container.
     - **com.dozzle.description**: Description label for Dozzle.
   - **healthcheck**: Healthcheck configuration.

@@ -160,7 +160,7 @@ services:
         ipv4_address: 172.20.14.3
     ports:
       - "3978:8978/tcp" # HTTP(s)
-      - "3978:8978/udp" # HTTP(s)
+    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -206,7 +206,8 @@ services:
       container.
   - **ports**: Maps container ports to host ports.
     - **3978:8978/tcp**: Maps the HTTP(s) port.
-    - **3978:8978/udp**: Maps the HTTP(s) port (UDP).
+  - **pids_limit: 512**: Limits the number of processes and threads in the
+    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.

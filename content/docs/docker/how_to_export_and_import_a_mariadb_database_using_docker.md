@@ -136,6 +136,6 @@ mariadb -u root -p -e "SHOW TABLES IN testing_db;"
 
 ## Conclusion
 
-Following these steps, you can export a MariaDB database from a Docker container,
-transfer it securely, and import it into a new server. Always verify the import
-to ensure data integrity and completeness.
+Following these steps, you can export a MariaDB database from a Docker
+container, transfer it securely, and import it into a new server. Always verify
+the import to ensure data integrity and completeness.

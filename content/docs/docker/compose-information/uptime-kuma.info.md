@@ -177,6 +177,7 @@ services:
     networks:
       uptime-kuma_net:
         ipv4_address: 172.19.3.2
+    pids_limit: 2048 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -227,6 +228,8 @@ services:
   - **networks**: Connects the service to the `uptime-kuma_net` network.
     - **ipv4_address: 172.19.3.2**: Assigns a static IP address to the
       container.
+  - **pids_limit: 2048**: Limits the number of processes and threads in the
+    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
@@ -269,7 +272,6 @@ services:
     volumes:
       - /docker/uptime-kuma/production/app:/app/data
       - /usr/local/share/ca-certificates:/app/data/docker-tls
-      - /var/run/docker.sock:/var/run/docker.sock:ro
     env_file:
       # Compose loads each file that exists and skips a missing one:
       # '.env' for the Docker Compose CLI, 'stack.env' for Portainer.
@@ -295,7 +297,7 @@ services:
         ipv4_address: 172.19.3.3
     ports:
       - "3001:3001/tcp" # HTTP
-      - "3001:3001/udp" # HTTP
+    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -326,8 +328,6 @@ services:
       data.
     - **/usr/local/share/ca-certificates:/app/data/docker-tls**: Mounts the
       directory containing custom CA certificates.
-    - **/var/run/docker.sock:/var/run/docker.sock:ro**: Mounts the Docker socket
-      read-only.
   - **env_file**: Loads `.env` (Docker Compose CLI) and `stack.env` (Portainer).
     Both are listed with `required: false`, so Compose skips the file that is
     missing.
@@ -349,8 +349,8 @@ services:
   - **ports**: Maps host ports to container ports.
     - **"3001:3001/tcp"**: Maps TCP port 3001 on the host to port 3001 in the
       container.
-    - **"3001:3001/udp"**: Maps UDP port 3001 on the host to port 3001 in the
-      container.
+  - **pids_limit: 512**: Limits the number of processes and threads in the
+    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
@@ -361,6 +361,80 @@ services:
     - **test**: Runs `["CMD", "extra/healthcheck"]`.
     - **interval**, **timeout**, **retries**, **start_period**,
       **start_interval**: Same values as the database service.
+
+<br />
+
+### `uptime-kuma_socket-proxy`
+
+```yaml
+services:
+  uptime-kuma_socket-proxy:
+    # Read-only proxy for the Docker API. The app reaches Docker through this proxy instead of the socket.
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1M"
+        max-file: "2"
+    stop_grace_period: 1m
+    container_name: uptime-kuma_socket-proxy
+    image: lscr.io/linuxserver/socket-proxy:<tag> # The current tag is in the RAW compose.yml.
+    pull_policy: if_not_present
+    read_only: true
+    tmpfs:
+      - /run
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+      CONTAINERS: 1 # Allow GET /containers (list and inspect).
+      INFO: 1 # Allow GET /info, used to test the Docker host.
+      POST: 0 # Read-only: only GET and HEAD requests reach Docker.
+    hostname: uptime-kuma_socket-proxy
+    networks:
+      uptime-kuma_net:
+        ipv4_address: 172.19.3.6
+    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
+    security_opt:
+      - no-new-privileges:true
+    labels:
+      com.uptime-kuma.socket-proxy.description:
+        "is a read-only Docker API proxy for Uptime Kuma."
+```
+
+<br />
+
+- **uptime-kuma_socket-proxy**: The read-only Docker socket proxy.
+  `uptime-kuma_app` reaches the Docker API through this proxy on port 2375
+  instead of mounting the Docker socket.
+  - **restart: unless-stopped**: Restarts the container unless it is explicitly
+    stopped.
+  - **logging**: Uses the `json-file` driver, limited to 1MB per file and a
+    maximum of 2 files.
+  - **stop_grace_period: 1m**: Waits 1 minute before forcibly stopping the
+    container.
+  - **container_name: uptime-kuma_socket-proxy**: Names the container.
+  - **image: lscr.io/linuxserver/socket-proxy**: Uses the LinuxServer.io socket
+    proxy image.
+  - **pull_policy: if_not_present**: Pulls the image only if it's not present
+    locally.
+  - **read_only: true**: Mounts the root file system of the container read-only.
+  - **tmpfs: /run**: Mounts `/run` as an in-memory file system for the runtime
+    files of the proxy.
+  - **volumes**: Mounts the Docker socket read-only. The `:ro` flag does not
+    limit the Docker API; the proxy does.
+  - **environment**: Sets what the proxy lets through. `CONTAINERS: 1` allows
+    listing and inspecting containers, `INFO: 1` allows `GET /info`, which the
+    app uses to test the Docker host, and `POST: 0` blocks every request that
+    changes something. Only `GET` and `HEAD` requests reach Docker.
+  - **hostname: uptime-kuma_socket-proxy**: Sets the hostname for the container.
+  - **networks**: Connects the service to the stack network with static IP
+    address `172.19.3.6`.
+  - **pids_limit: 512**: Limits the number of processes and threads in the
+    container, which protects the host against fork bombs.
+  - **security_opt: no-new-privileges:true**: Prevents the container from
+    gaining additional privileges.
+  - **labels**: A description label.
 
 <br />
 
@@ -446,6 +520,11 @@ Requires Docker Compose 2.24.0 or later.
    ```bash
    docker compose up -d
    ```
+
+4. To monitor containers, open **Settings → Docker Hosts** in Uptime Kuma and
+   add a Docker host with the connection type **TCP / HTTP** and the Docker
+   daemon `http://uptime-kuma_socket-proxy:2375`. The stack has no direct access
+   to the Docker socket; this read-only proxy is the only way in.
 
 <br />
 
