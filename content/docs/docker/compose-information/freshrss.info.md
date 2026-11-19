@@ -46,20 +46,20 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail for
-deploying FreshRSS, a self-hostable RSS feed aggregator, along with its MariaDB
-database for data management.
+Let's break down what this `compose.yml` file does in detail for deploying
+FreshRSS, a self-hostable RSS feed aggregator, along with its MariaDB database
+for data management.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 18, 2025
 - **Description**: Configures a Docker network and services for FreshRSS and its
   MariaDB database.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 - **RAW .env File**: [.env]
 - **RAW stack.env File**: [stack.env]
 - **RAW my.cnf File**: [my.cnf]
@@ -99,8 +99,8 @@ networks:
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
 - **internal: false**: The network is accessible externally.
-- **external: false**: The network is created within this `docker-compose` file,
-  not externally defined.
+- **external: false**: The network is created within this Compose file, not
+  externally defined.
 - **name: freshrss**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -604,20 +604,19 @@ general-log = 0
 
 ## Conclusion
 
-This `docker-compose` file sets up a Docker environment for FreshRSS and its
-MariaDB database. The configuration defines a custom bridge network with
-specific IP settings and security configurations. The MariaDB service is
-configured to run continuously, with persistent storage for database data. The
-FreshRSS service depends on the MariaDB service and is configured to run with
-persistent storage for its data and extensions. Both services are configured
-with appropriate logging and restart policies, ensuring they run efficiently and
-securely.
+This Compose file sets up a Docker environment for FreshRSS and its MariaDB
+database. The configuration defines a custom bridge network with specific IP
+settings and security configurations. The MariaDB service is configured to run
+continuously, with persistent storage for database data. The FreshRSS service
+depends on the MariaDB service and is configured to run with persistent storage
+for its data and extensions. Both services are configured with appropriate
+logging and restart policies, ensuring they run efficiently and securely.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/freshrss/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/freshrss/compose.yml
 [.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/freshrss/.env
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/freshrss/.env
 [stack.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/freshrss/stack.env
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/freshrss/stack.env
 [my.cnf]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/freshrss/my.cnf
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/freshrss/my.cnf

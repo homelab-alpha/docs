@@ -46,19 +46,18 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail. This file
-deploys Mini QR, a customizable QR code generator, behind an Nginx reverse
-proxy.
+Let's break down what this `compose.yml` file does in detail. This file deploys
+Mini QR, a customizable QR code generator, behind an Nginx reverse proxy.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
 - **Author**: GJS (homelab-alpha)
 - **Date**: October 28, 2026
 - **Description**: Configures a Docker network and the Mini QR service.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 - **RAW Nginx Configuration File**: [nginx-proxy.conf]
 
 <br />
@@ -95,7 +94,7 @@ networks:
 - **networks**: Defines a custom network named `mini-qr_net`.
 - **attachable: false**: Other containers can't attach to this network.
 - **internal: false**: The network is accessible externally.
-- **external: false**: The network is created within this `docker-compose` file.
+- **external: false**: The network is created within this Compose file.
 - **name: mini-qr**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -359,11 +358,11 @@ The file is divided into the following sections:
 
 ## Conclusion
 
-This `docker-compose` file deploys Mini QR on a custom bridge network. The
-application container is not published directly. The Nginx container proxies
-requests to it and publishes port 3017.
+This Compose file deploys Mini QR on a custom bridge network. The application
+container is not published directly. The Nginx container proxies requests to it
+and publishes port 3017.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/mini-qr/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/mini-qr/compose.yml
 [nginx-proxy.conf]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/mini-qr/nginx-proxy.conf
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/mini-qr/nginx-proxy.conf

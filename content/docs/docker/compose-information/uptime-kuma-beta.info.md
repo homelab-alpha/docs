@@ -49,19 +49,19 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail for
-deploying Uptime Kuma Beta, a self-hosted monitoring tool.
+Let's break down what this `compose.yml` file does in detail for deploying
+Uptime Kuma Beta, a self-hosted monitoring tool.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 18, 2025
 - **Description**: Configures a Docker network and the Uptime Kuma Beta service
   for monitoring uptime and status of various services.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 - **RAW .env File**: [.env]
 - **RAW stack.env File**: [stack.env]
 - **RAW my.cnf File**: [my.cnf]
@@ -103,7 +103,7 @@ networks:
   network.
 - **internal**: Set to `false`, meaning the network is accessible externally.
 - **external**: Set to `false`, indicating the network is created within the
-  `docker-compose` file.
+  Compose file.
 - **name**: The name of the network is `uptime-kuma-beta`.
 - **driver**: The network uses the `bridge` driver for isolation.
 - **ipam**: Configures IP address management for the network.
@@ -567,17 +567,17 @@ general-log = 0
 
 ## Conclusion
 
-This `docker-compose.yml` file sets up a Docker environment for Uptime Kuma
-Beta, a self-hosted monitoring tool. The configuration defines a custom bridge
-network with specific IP settings, a MariaDB database service, and the Uptime
-Kuma Beta application. This setup ensures that both services run efficiently and
-securely, with proper health checks, logging, and restart policies.
+This `compose.yml` file sets up a Docker environment for Uptime Kuma Beta, a
+self-hosted monitoring tool. The configuration defines a custom bridge network
+with specific IP settings, a MariaDB database service, and the Uptime Kuma Beta
+application. This setup ensures that both services run efficiently and securely,
+with proper health checks, logging, and restart policies.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/uptime-kuma-beta/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/uptime-kuma-beta/compose.yml
 [.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/uptime-kuma-beta/.env
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/uptime-kuma-beta/.env
 [stack.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/uptime-kuma-beta/stack.env
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/uptime-kuma-beta/stack.env
 [my.cnf]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/uptime-kuma-beta/my.cnf
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/uptime-kuma-beta/my.cnf

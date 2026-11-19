@@ -48,21 +48,21 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail. This file
-is used to deploy the UniFi Network Application (formerly the UniFi Controller),
-a network management tool, together with a MongoDB database. The application
+Let's break down what this `compose.yml` file does in detail. This file is used
+to deploy the UniFi Network Application (formerly the UniFi Controller), a
+network management tool, together with a MongoDB database. The application
 starts only after the database is healthy.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
 - **Author**: GJS (homelab-alpha)
 - **Date**: October 28, 2026
 - **Description**: Configures a Docker network, a MongoDB database service, and
   a UniFi Network Application service.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 - **RAW Environment File**: [stack.env]
 - **RAW MongoDB Init Script**: [init-mongo.sh]
 
@@ -101,7 +101,7 @@ networks:
 - **networks**: Defines a custom network named `unifi-network-application_net`.
 - **attachable: false**: Other containers can't attach to this network.
 - **internal: false**: The network is accessible externally.
-- **external: false**: The network is created within this `docker-compose` file.
+- **external: false**: The network is created within this Compose file.
 - **name: unifi-network-application**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -455,16 +455,16 @@ EOF
 
 ## Conclusion
 
-This `docker-compose` file deploys the UniFi Network Application with a
-dedicated MongoDB database. It creates a custom bridge network with static IP
-addresses, creates the database user with an init script, and starts the
-application only after the database is healthy. The credentials are kept in an
-environment file, and both services restart automatically, log efficiently, and
-run with `no-new-privileges`.
+This Compose file deploys the UniFi Network Application with a dedicated MongoDB
+database. It creates a custom bridge network with static IP addresses, creates
+the database user with an init script, and starts the application only after the
+database is healthy. The credentials are kept in an environment file, and both
+services restart automatically, log efficiently, and run with
+`no-new-privileges`.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/unifi-network-application/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/unifi-network-application/compose.yml
 [stack.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/unifi-network-application/stack.env
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/unifi-network-application/stack.env
 [init-mongo.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/unifi-network-application/init-mongo.sh
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/unifi-network-application/init-mongo.sh

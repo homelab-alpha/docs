@@ -46,20 +46,20 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail. This file
-deploys the Speedtest Tracker Beta with a MariaDB database. It uses the
-`alexjustesen` image, its own network, and ports 80 and 443.
+Let's break down what this `compose.yml` file does in detail. This file deploys
+the Speedtest Tracker Beta with a MariaDB database. It uses the `alexjustesen`
+image, its own network, and ports 80 and 443.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
 - **Author**: GJS (homelab-alpha)
 - **Date**: October 28, 2026
 - **Description**: Configures a Docker network and the Speedtest Tracker Beta
   services.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 - **RAW Environment File**: [stack.env]
 - **RAW MariaDB Configuration File**: [my.cnf]
 
@@ -98,7 +98,7 @@ networks:
 - **networks**: Defines a custom network named `speedtest-tracker_net`.
 - **attachable: false**: Other containers can't attach to this network.
 - **internal: false**: The network is accessible externally.
-- **external: false**: The network is created within this `docker-compose` file.
+- **external: false**: The network is created within this Compose file.
 - **name: speedtest-tracker**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -452,14 +452,14 @@ with comments.
 
 ## Conclusion
 
-This `docker-compose` file deploys the Speedtest Tracker Beta with a dedicated
-MariaDB database on its own bridge network. It differs from the regular
-Speedtest Tracker in the image, the network (`172.21.23.0/24`), the published
-ports (80 and 443), and the enabled debug mode.
+This Compose file deploys the Speedtest Tracker Beta with a dedicated MariaDB
+database on its own bridge network. It differs from the regular Speedtest
+Tracker in the image, the network (`172.21.23.0/24`), the published ports (80
+and 443), and the enabled debug mode.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/speedtest-tracker-beta/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/speedtest-tracker-beta/compose.yml
 [stack.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/speedtest-tracker-beta/stack.env
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/speedtest-tracker-beta/stack.env
 [my.cnf]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/speedtest-tracker-beta/my.cnf
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/speedtest-tracker-beta/my.cnf

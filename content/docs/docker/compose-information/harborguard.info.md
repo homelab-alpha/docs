@@ -47,20 +47,20 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail. This file
-deploys HarborGuard, a container security scanning platform with a web interface
-for managing and visualizing security assessments of Docker images. It uses an
+Let's break down what this `compose.yml` file does in detail. This file deploys
+HarborGuard, a container security scanning platform with a web interface for
+managing and visualizing security assessments of Docker images. It uses an
 internal PostgreSQL database and does not persist data.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
 - **Author**: GJS (homelab-alpha)
 - **Date**: October 28, 2026
 - **Description**: Configures a Docker network and the HarborGuard service.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 - **RAW Environment File**: [stack.env]
 
 <br />
@@ -97,7 +97,7 @@ networks:
 - **networks**: Defines a custom network named `harborguard_net`.
 - **attachable: false**: Other containers can't attach to this network.
 - **internal: false**: The network is accessible externally.
-- **external: false**: The network is created within this `docker-compose` file.
+- **external: false**: The network is created within this Compose file.
 - **name: harborguard**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -287,7 +287,7 @@ the same values.
 # NOTE:
 # This setup uses an **internal PostgreSQL database** and **does not persist data**.
 #
-# To use the Harbor Guard `docker-compose` file, you must provide either a `.env`
+# To use the Harbor Guard Compose file, you must provide either a `.env`
 # or `stack.env` file with the required environment variables.
 
 # Database Configuration: USER
@@ -309,12 +309,12 @@ USER_DB=harborguard
 
 ## Conclusion
 
-This `docker-compose` file deploys HarborGuard on a custom bridge network with a
-static IP address. The scanners (Trivy, Grype, Syft, Dockle, OSV, and Dive) are
-enabled through environment variables, and the Docker socket is mounted
-read-only so images can be scanned. The bundled database does not persist data.
+This Compose file deploys HarborGuard on a custom bridge network with a static
+IP address. The scanners (Trivy, Grype, Syft, Dockle, OSV, and Dive) are enabled
+through environment variables, and the Docker socket is mounted read-only so
+images can be scanned. The bundled database does not persist data.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/harborguard/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/harborguard/compose.yml
 [stack.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/harborguard/stack.env
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/harborguard/stack.env

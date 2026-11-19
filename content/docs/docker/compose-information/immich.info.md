@@ -54,21 +54,21 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail for
-deploying Immich, a self-hosted photo and video management solution, along with
-its supporting services including MariaDB for database management, Redis for
+Let's break down what this `compose.yml` file does in detail for deploying
+Immich, a self-hosted photo and video management solution, along with its
+supporting services including MariaDB for database management, Redis for
 caching, and a machine learning component for enhanced media automation.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 19, 2025
 - **Description**: Docker Compose configuration for Immich with PostgreSQL,
   Redis, and machine learning services for self-hosted media management.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 - **RAW .env File**: [.env]
 - **RAW stack.env File**: [stack.env]
 
@@ -108,8 +108,8 @@ networks:
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
 - **internal: false**: The network is accessible externally.
-- **external: false**: The network is created within this `docker-compose` file,
-  not externally defined.
+- **external: false**: The network is created within this Compose file, not
+  externally defined.
 - **name: immich**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -537,18 +537,18 @@ USER_DB=postgres
 
 ## Conclusion
 
-This `docker-compose` file sets up a Docker environment for the Immich
-application and its dependent services. The configuration defines resource
-limits and reservations, custom networking with static IP assignments, and
-security options to enhance container safety. The Immich app container depends
-on healthy database, Redis, and machine learning services, with proper restart
-policies to maintain uptime. Persistent storage is configured for uploads, and
-timezone synchronization is ensured. Logging and healthchecks are configured to
-monitor container status, ensuring the services run efficiently and securely.
+This Compose file sets up a Docker environment for the Immich application and
+its dependent services. The configuration defines resource limits and
+reservations, custom networking with static IP assignments, and security options
+to enhance container safety. The Immich app container depends on healthy
+database, Redis, and machine learning services, with proper restart policies to
+maintain uptime. Persistent storage is configured for uploads, and timezone
+synchronization is ensured. Logging and healthchecks are configured to monitor
+container status, ensuring the services run efficiently and securely.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/immich/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/immich/compose.yml
 [.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/immich/.env
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/immich/.env
 [stack.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/immich/stack.env
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/immich/stack.env

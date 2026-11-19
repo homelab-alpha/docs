@@ -50,22 +50,22 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail. This file
-is used to configure and deploy an Uptime Kuma instance for monitoring website
-uptime and alerting. Uptime Kuma stores its data in a separate MariaDB
-container, which is started first and must be healthy before Uptime Kuma starts.
+Let's break down what this `compose.yml` file does in detail. This file is used
+to configure and deploy an Uptime Kuma instance for monitoring website uptime
+and alerting. Uptime Kuma stores its data in a separate MariaDB container, which
+is started first and must be healthy before Uptime Kuma starts.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
 - **Author**: GJS (homelab-alpha)
 - **Date**: October 28, 2026
 - **Description**: This file configures a custom Docker network, a MariaDB
   database service, and an Uptime Kuma service for monitoring website uptime and
   alerting.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 - **RAW Environment File**: [stack.env]
 - **RAW MariaDB Configuration File**: [my.cnf]
 
@@ -105,7 +105,7 @@ networks:
   network.
 - **internal: false**: The network is accessible externally.
 - **external: false**: The network is not an externally defined one but created
-  within this `docker-compose` file.
+  within this Compose file.
 - **name: uptime-kuma**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -432,16 +432,16 @@ comments. The same file layout is explained in detail on the
 
 ## Conclusion
 
-This `docker-compose` file sets up a Docker environment for running Uptime Kuma,
-a self-hosted monitoring tool similar to Uptime Robot, with a dedicated MariaDB
+This Compose file sets up a Docker environment for running Uptime Kuma, a
+self-hosted monitoring tool similar to Uptime Robot, with a dedicated MariaDB
 database. It creates a custom bridge network with static IP addresses, starts
 Uptime Kuma only after the database is healthy, and keeps all credentials in an
 environment file. Both services restart automatically, log efficiently, and run
 with `no-new-privileges`.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/uptime-kuma/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/uptime-kuma/compose.yml
 [stack.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/uptime-kuma/stack.env
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/uptime-kuma/stack.env
 [my.cnf]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/uptime-kuma/my.cnf
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/uptime-kuma/my.cnf

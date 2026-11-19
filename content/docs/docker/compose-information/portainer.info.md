@@ -48,21 +48,21 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail. This file
-is used to configure and deploy services using Docker Compose, specifically
-setting up a Portainer instance for managing Docker environments.
+Let's break down what this `compose.yml` file does in detail. This file is used
+to configure and deploy services using Docker Compose, specifically setting up a
+Portainer instance for managing Docker environments.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 16, 2025
 - **Description**: This file configures a custom Docker network and a Portainer
   service to manage Docker containers. It includes detailed network settings and
   service configurations to ensure Portainer runs smoothly and securely.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 
 <br />
 
@@ -100,7 +100,7 @@ networks:
   network.
 - **internal: false**: The network is accessible externally.
 - **external: false**: The network is not an externally defined one but created
-  within this `docker-compose` file.
+  within this Compose file.
 - **name: portainer**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -218,12 +218,12 @@ services:
 
 ## Conclusion
 
-This `docker-compose` file sets up a robust Docker environment for running
-Portainer, a management UI for Docker. It creates a custom bridge network with
-specific IP settings and security configurations. The Portainer service is
-configured with persistent storage, access to the Docker socket, and various
-network and security options. The configuration ensures that Portainer runs
-continuously, restarts on failure, and logs efficiently.
+This Compose file sets up a robust Docker environment for running Portainer, a
+management UI for Docker. It creates a custom bridge network with specific IP
+settings and security configurations. The Portainer service is configured with
+persistent storage, access to the Docker socket, and various network and
+security options. The configuration ensures that Portainer runs continuously,
+restarts on failure, and logs efficiently.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/portainer/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/portainer/compose.yml

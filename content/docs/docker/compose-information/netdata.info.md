@@ -48,22 +48,22 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail. This file
-is used to configure and deploy a Netdata instance for monitoring and
-troubleshooting infrastructure using Docker Compose.
+Let's break down what this `compose.yml` file does in detail. This file is used
+to configure and deploy a Netdata instance for monitoring and troubleshooting
+infrastructure using Docker Compose.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 16, 2025
 - **Description**: This file configures a custom Docker network and a Netdata
   service to monitor and troubleshoot infrastructure. It includes detailed
   network settings and service configurations to ensure Netdata runs smoothly
   and securely.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 
 <br />
 
@@ -101,7 +101,7 @@ networks:
   network.
 - **internal: false**: The network is accessible externally.
 - **external: false**: The network is not an externally defined one but created
-  within this `docker-compose` file.
+  within this Compose file.
 - **name: netdata**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -264,12 +264,12 @@ services:
 
 ## Conclusion
 
-This `docker-compose` file sets up a robust Docker environment for running
-Netdata, an infrastructure monitoring and troubleshooting system. It creates a
-custom bridge network with specific IP settings and security configurations. The
-Netdata service is configured with persistent storage, access to essential host
+This Compose file sets up a robust Docker environment for running Netdata, an
+infrastructure monitoring and troubleshooting system. It creates a custom bridge
+network with specific IP settings and security configurations. The Netdata
+service is configured with persistent storage, access to essential host
 directories, and various network and security options. The configuration ensures
 that Netdata runs continuously, restarts on failure, and logs efficiently.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/netdata/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/netdata/compose.yml

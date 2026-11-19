@@ -48,20 +48,20 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail for
-deploying Speedtest Tracker, a self-hostable internet performance monitoring
-application, along with its MariaDB database.
+Let's break down what this `compose.yml` file does in detail for deploying
+Speedtest Tracker, a self-hostable internet performance monitoring application,
+along with its MariaDB database.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
 - **Author**: GJS (homelab-alpha)
 - **Date**: Dec 30, 2025
 - **Description**: Docker Compose setup for Speedtest Tracker with MariaDB for
   self-hosted internet speed and uptime monitoring.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 - **RAW .env File**: [.env]
 - **RAW stack.env File**: [stack.env]
 - **RAW my.cnf File**: [my.cnf]
@@ -103,8 +103,8 @@ networks:
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
 - **internal: false**: The network is accessible externally.
-- **external: false**: The network is created within this `docker-compose` file,
-  not externally defined.
+- **external: false**: The network is created within this Compose file, not
+  externally defined.
 - **name: speedtest-tracker**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -698,8 +698,8 @@ general-log = 0
 
 ## Conclusion
 
-This `docker-compose` file sets up a Docker environment for Speedtest Tracker
-and its MariaDB database. The configuration defines a custom bridge network with
+This Compose file sets up a Docker environment for Speedtest Tracker and its
+MariaDB database. The configuration defines a custom bridge network with
 specific IP settings and security configurations. The MariaDB service is
 expected to be healthy before the Speedtest Tracker service starts. The
 Speedtest Tracker service is configured to run with persistent storage for its
@@ -709,11 +709,11 @@ and enabling a public dashboard. Both services are configured with appropriate
 logging, health checks, and restart policies, ensuring they operate efficiently,
 reliably, and securely.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/speedtest-tracker/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/speedtest-tracker/compose.yml
 [.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/speedtest-tracker/.env
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/speedtest-tracker/.env
 [stack.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/speedtest-tracker/stack.env
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/speedtest-tracker/stack.env
 [my.cnf]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/speedtest-tracker/my.cnf
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/speedtest-tracker/my.cnf

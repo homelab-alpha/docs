@@ -48,21 +48,21 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail. This file
-is used to configure and deploy a service using Docker Compose, specifically
-setting up Watchtower for automated Docker container updates.
+Let's break down what this `compose.yml` file does in detail. This file is used
+to configure and deploy a service using Docker Compose, specifically setting up
+Watchtower for automated Docker container updates.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 16, 2025
 - **Description**: This file configures a custom Docker network and a Watchtower
   service for automated container updates. It includes detailed network settings
   and service configurations to ensure Watchtower runs smoothly and securely.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 
 <br />
 
@@ -100,7 +100,7 @@ networks:
   network.
 - **internal: false**: The network is accessible externally.
 - **external: false**: The network is not an externally defined one but created
-  within this `docker-compose` file.
+  within this Compose file.
 - **name: watchtower**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -221,13 +221,13 @@ services:
 
 ## Conclusion
 
-This `docker-compose` file sets up a robust Docker environment for running
-Watchtower, a tool for automated Docker container updates. It creates a custom
-bridge network with specific IP settings and security configurations. The
-Watchtower service is configured to monitor and update Docker containers on a
-set schedule, with persistent storage and various network and security options.
-The configuration ensures that Watchtower runs continuously, restarts on
-failure, and logs efficiently.
+This Compose file sets up a robust Docker environment for running Watchtower, a
+tool for automated Docker container updates. It creates a custom bridge network
+with specific IP settings and security configurations. The Watchtower service is
+configured to monitor and update Docker containers on a set schedule, with
+persistent storage and various network and security options. The configuration
+ensures that Watchtower runs continuously, restarts on failure, and logs
+efficiently.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/watchtower/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/watchtower/compose.yml

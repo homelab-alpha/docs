@@ -50,19 +50,19 @@ it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail for
-deploying Dozzle, a web-based interface for real-time Docker log monitoring.
+Let's break down what this `compose.yml` file does in detail for deploying
+Dozzle, a web-based interface for real-time Docker log monitoring.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 16, 2025
 - **Description**: Configures a Docker network and the Dozzle service for
   real-time Docker log monitoring.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 
 <br />
 
@@ -99,8 +99,8 @@ networks:
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
 - **internal: false**: The network is accessible externally.
-- **external: false**: The network is created within this `docker-compose` file,
-  not externally defined.
+- **external: false**: The network is created within this Compose file, not
+  externally defined.
 - **name: dozzle**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -307,14 +307,14 @@ users:
 
 ## Conclusion
 
-This `docker-compose` file sets up a Docker environment for Dozzle, a
-lightweight application that provides a web-based interface for monitoring
-Docker logs. The configuration defines a custom bridge network with specific IP
-settings and security configurations. The Dozzle service is configured to run
-continuously, with persistent storage for application data and read-only access
-to the Docker socket. The setup ensures Dozzle runs efficiently and securely,
-with appropriate logging and restart policies, making it an excellent tool for
-real-time Docker log monitoring.
+This Compose file sets up a Docker environment for Dozzle, a lightweight
+application that provides a web-based interface for monitoring Docker logs. The
+configuration defines a custom bridge network with specific IP settings and
+security configurations. The Dozzle service is configured to run continuously,
+with persistent storage for application data and read-only access to the Docker
+socket. The setup ensures Dozzle runs efficiently and securely, with appropriate
+logging and restart policies, making it an excellent tool for real-time Docker
+log monitoring.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/dozzle/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/dozzle/compose.yml

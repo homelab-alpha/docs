@@ -52,17 +52,17 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 This guide explains the setup for **Pi-hole**, a network-level advertisement and
 tracker blocker that acts as a DNS sinkhole and optionally a DHCP server. Below
-is a breakdown of the `docker-compose.yml` file configuration for deploying
-Pi-hole on Docker.
+is a breakdown of the `compose.yml` file configuration for deploying Pi-hole on
+Docker.
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
 - **Author**: Homelab-Alpha
 - **Date**: Jun 16, 2025
 - **Description**: Configures a Docker network and the Pi-hole service for
   ad-blocking and DHCP functionalities.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 
 <br />
 
@@ -98,8 +98,7 @@ networks:
 - **networks**: This section defines a custom network named `pi-hole_net`.
 - **attachable: false**: Other containers cannot attach to this network.
 - **internal: false**: The network is accessible externally.
-- **external: false**: The network is only created within the `docker-compose`
-  file.
+- **external: false**: The network is only created within the Compose file.
 - **name: pi-hole**: Names the network `pi-hole`.
 - **driver: bridge**: Uses Docker's bridge driver for network isolation.
 - **ipam**: IP address management configuration.
@@ -252,12 +251,12 @@ services:
 
 ## Conclusion
 
-This `docker-compose.yml` file configures a Docker environment for Pi-hole, a
-DNS sinkhole and optional DHCP server. It defines a custom bridge network, sets
-up Pi-hole with persistent storage, and specifies various security and logging
+This `compose.yml` file configures a Docker environment for Pi-hole, a DNS
+sinkhole and optional DHCP server. It defines a custom bridge network, sets up
+Pi-hole with persistent storage, and specifies various security and logging
 options. This configuration ensures that Pi-hole operates efficiently and
 securely as part of your Docker setup, helping block unwanted ads and trackers
 on your network.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/pi-hole/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/pi-hole/compose.yml

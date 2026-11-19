@@ -52,20 +52,20 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail for
-deploying IT-Tools, a collection of handy online tools for developers, along
-with its network and security configuration.
+Let's break down what this `compose.yml` file does in detail for deploying
+IT-Tools, a collection of handy online tools for developers, along with its
+network and security configuration.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 18, 2025
 - **Description**: Docker Compose setup for IT-Tools, a suite of
   developer-friendly online tools with network and security configurations.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 
 <br />
 
@@ -103,8 +103,8 @@ networks:
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
 - **internal: false**: The network is accessible externally.
-- **external: false**: The network is created within this `docker-compose` file,
-  not externally defined.
+- **external: false**: The network is created within this Compose file, not
+  externally defined.
 - **name: it-tools**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -209,11 +209,11 @@ services:
 
 ## Conclusion
 
-This `docker-compose` file sets up a Docker environment for IT-Tools, a
-collection of useful online tools for developers. The configuration defines a
-custom bridge network with specific IP settings and security configurations. The
-`it-tools` service is configured to run continuously, with appropriate logging
-and restart policies, ensuring it runs efficiently and securely.
+This Compose file sets up a Docker environment for IT-Tools, a collection of
+useful online tools for developers. The configuration defines a custom bridge
+network with specific IP settings and security configurations. The `it-tools`
+service is configured to run continuously, with appropriate logging and restart
+policies, ensuring it runs efficiently and securely.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/it-tools/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/it-tools/compose.yml

@@ -51,20 +51,19 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail for
-deploying Portainer Edge Agent, a user-friendly Docker Compose stack management
-interface.
+Let's break down what this `compose.yml` file does in detail for deploying
+Portainer Edge Agent, a user-friendly Docker Compose stack management interface.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 16, 2025
 - **Description**: Configures a Docker network and the Portainer Edge Agent
   service for managing Docker Compose stacks.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 - **RAW .env File**: [.env]
 - **RAW stack.env File**: [stack.env]
 
@@ -105,7 +104,7 @@ networks:
   network.
 - **internal**: Set to `false`, making the network accessible externally.
 - **external**: Set to `false`, indicating the network is created within the
-  `docker-compose` file.
+  Compose file.
 - **name: edge-agent**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -249,17 +248,17 @@ PORTAINER_AGENT_KEY=SecureAgentKey67890
 
 ## Conclusion
 
-This `docker-compose` file sets up a Docker environment for the Portainer Edge
-Agent, a remote environment for managing Docker hosts. The configuration defines
-a custom bridge network with specific IP settings and security configurations.
-The Portainer Edge Agent service is configured to run continuously, with
-persistent storage for application data and Docker volumes. The setup ensures
-the Portainer Edge Agent runs efficiently and securely, with appropriate logging
-and restart policies.
+This Compose file sets up a Docker environment for the Portainer Edge Agent, a
+remote environment for managing Docker hosts. The configuration defines a custom
+bridge network with specific IP settings and security configurations. The
+Portainer Edge Agent service is configured to run continuously, with persistent
+storage for application data and Docker volumes. The setup ensures the Portainer
+Edge Agent runs efficiently and securely, with appropriate logging and restart
+policies.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/portainer-edge-agent/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/portainer-edge-agent/compose.yml
 [.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/portainer-edge-agent/.env
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/portainer-edge-agent/.env
 [stack.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/portainer-edge-agent/stack.env
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/portainer-edge-agent/stack.env

@@ -48,20 +48,20 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail for
-deploying AdGuard Home, a network-wide software for blocking ads and tracking,
-with Docker Compose.
+Let's break down what this `compose.yml` file does in detail for deploying
+AdGuard Home, a network-wide software for blocking ads and tracking, with Docker
+Compose.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
 - **Author**: Homelab-Alpha
 - **Date**: Jun 16, 2025
 - **Description**: Configures a Docker network and the AdGuard Home service for
   blocking ads and tracking across a network.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 
 <br />
 
@@ -98,8 +98,8 @@ networks:
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
 - **internal: false**: The network is accessible externally.
-- **external: false**: The network is created within this `docker-compose` file,
-  not externally defined.
+- **external: false**: The network is created within this Compose file, not
+  externally defined.
 - **name: adguard-home**: Specifies the name of the network.
 - **driver: host**: Uses the host driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -235,7 +235,7 @@ services:
 
 ## Conclusion
 
-This `docker-compose.yml` file sets up a Docker environment for AdGuard Home, a
+This `compose.yml` file sets up a Docker environment for AdGuard Home, a
 network-wide software for blocking ads and tracking. The configuration defines a
 custom bridge network with specific IP settings and security configurations. The
 AdGuard Home service is configured to run continuously, with persistent storage
@@ -243,5 +243,5 @@ for application data. The setup ensures AdGuard Home runs efficiently and
 securely, with appropriate logging and restart policies, making it an excellent
 tool for network-wide ad blocking.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/adguard-home/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/adguard-home/compose.yml

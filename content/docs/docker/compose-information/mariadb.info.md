@@ -46,20 +46,20 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let’s break down what this `docker-compose.yml` file does in detail. This file
-is used to configure and deploy a MariaDB instance using Docker Compose,
-ensuring efficient database management and secure operations. It includes
-network settings, environment variables for configuration, and health checks to
-maintain the system's stability.
+Let’s break down what this `compose.yml` file does in detail. This file is used
+to configure and deploy a MariaDB instance using Docker Compose, ensuring
+efficient database management and secure operations. It includes network
+settings, environment variables for configuration, and health checks to maintain
+the system's stability.
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 18, 2025
 - **Description**: Configures a custom network and a MariaDB service using
   Docker Compose.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 - **RAW .env File**: [.env]
 - **RAW stack.env File**: [stack.env]
 - **RAW my.cnf File**: [my.cnf]
@@ -494,18 +494,17 @@ general-log = 0
 
 ## Conclusion
 
-This `docker-compose.yml` file sets up a MariaDB instance, defining a custom
-network for isolation and secure communication. The MariaDB container is
-configured with persistent storage, environment variables for database
-credentials, and health check configurations to ensure its availability. The
-setup ensures secure and efficient database management with proper logging and
-restart policies.
+This `compose.yml` file sets up a MariaDB instance, defining a custom network
+for isolation and secure communication. The MariaDB container is configured with
+persistent storage, environment variables for database credentials, and health
+check configurations to ensure its availability. The setup ensures secure and
+efficient database management with proper logging and restart policies.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/mariadb/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/mariadb/compose.yml
 [.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/mariadb/.env
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/mariadb/.env
 [stack.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/mariadb/stack.env
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/mariadb/stack.env
 [my.cnf]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/mariadb/config/my.cnf
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/mariadb/config/my.cnf

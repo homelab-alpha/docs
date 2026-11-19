@@ -51,20 +51,19 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail for
-deploying CloudBeaver, a lightweight web application for all-around data
-management.
+Let's break down what this `compose.yml` file does in detail for deploying
+CloudBeaver, a lightweight web application for all-around data management.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 16, 2025
 - **Description**: Configures a Docker network and the CloudBeaver service for
   data management using Docker Compose.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 
 <br />
 
@@ -101,8 +100,8 @@ networks:
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
 - **internal: false**: The network is accessible externally.
-- **external: false**: The network is created within this `docker-compose` file,
-  not externally defined.
+- **external: false**: The network is created within this Compose file, not
+  externally defined.
 - **name: cloudbeaver**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -229,13 +228,13 @@ services:
 
 ## Conclusion
 
-This `docker-compose` file sets up a Docker environment for CloudBeaver, a
-user-friendly web application for managing data and databases. The configuration
-defines a custom bridge network with specific IP settings and security
-configurations. The CloudBeaver service is configured to run continuously, with
-persistent storage for application data. The setup ensures CloudBeaver runs
-efficiently and securely, with appropriate logging, restart policies, and health
-checks, making it an excellent tool for managing data and infrastructure.
+This Compose file sets up a Docker environment for CloudBeaver, a user-friendly
+web application for managing data and databases. The configuration defines a
+custom bridge network with specific IP settings and security configurations. The
+CloudBeaver service is configured to run continuously, with persistent storage
+for application data. The setup ensures CloudBeaver runs efficiently and
+securely, with appropriate logging, restart policies, and health checks, making
+it an excellent tool for managing data and infrastructure.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/cloudbeaver/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/cloudbeaver/compose.yml

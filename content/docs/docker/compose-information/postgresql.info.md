@@ -45,19 +45,19 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail. This file
-deploys a PostgreSQL database with a custom configuration file, a persistent
-data directory, and a health check.
+Let's break down what this `compose.yml` file does in detail. This file deploys
+a PostgreSQL database with a custom configuration file, a persistent data
+directory, and a health check.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
 - **Author**: GJS (homelab-alpha)
 - **Date**: October 28, 2026
 - **Description**: Configures a Docker network and the PostgreSQL service.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 - **RAW Environment File**: [stack.env]
 - **RAW PostgreSQL Configuration File**: [config/postgresql.conf]
 
@@ -95,7 +95,7 @@ networks:
 - **networks**: Defines a custom network named `postgresql_net`.
 - **attachable: false**: Other containers can't attach to this network.
 - **internal: false**: The network is accessible externally.
-- **external: false**: The network is created within this `docker-compose` file.
+- **external: false**: The network is created within this Compose file.
 - **name: postgresql**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -268,14 +268,13 @@ full file with comments. It contains the following sections:
 
 ## Conclusion
 
-This `docker-compose` file deploys PostgreSQL on a custom bridge network with a
-static IP address. The port is published on `127.0.0.1` only, the superuser
-credentials are kept in an environment file, and the health check uses
-`pg_isready`.
+This Compose file deploys PostgreSQL on a custom bridge network with a static IP
+address. The port is published on `127.0.0.1` only, the superuser credentials
+are kept in an environment file, and the health check uses `pg_isready`.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/postgresql/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/postgresql/compose.yml
 [stack.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/postgresql/stack.env
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/postgresql/stack.env
 [config/postgresql.conf]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/postgresql/config/postgresql.conf
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/postgresql/config/postgresql.conf

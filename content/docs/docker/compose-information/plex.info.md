@@ -46,20 +46,20 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail. This
-configuration is specifically designed to deploy Plex Media Server using Docker
-Compose, ensuring efficient management and streaming of media.
+Let's break down what this `compose.yml` file does in detail. This configuration
+is specifically designed to deploy Plex Media Server using Docker Compose,
+ensuring efficient management and streaming of media.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 16, 2025
 - **Description**: Configures a Docker network and service for Plex Media
   Server.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 - **RAW .env File**: [.env]
 - **RAW stack.env File**: [stack.env]
 
@@ -98,8 +98,8 @@ networks:
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
 - **internal: false**: The network is accessible externally.
-- **external: false**: The network is created within this `docker-compose` file,
-  not externally defined.
+- **external: false**: The network is created within this Compose file, not
+  externally defined.
 - **name: plex**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -300,8 +300,8 @@ IP_ADDRESS=http://YourServerIPHere:32400/
 
 ## Conclusion
 
-This `docker-compose.yml` file sets up a Plex Media Server with its own custom
-bridge network. The configuration includes a persistent storage setup for Plex's
+This `compose.yml` file sets up a Plex Media Server with its own custom bridge
+network. The configuration includes a persistent storage setup for Plex's
 configuration, transcode, and media directories. Environment variables customize
 the setup, including timezone and Plex claim token. The service is configured to
 restart unless stopped manually, with logging options to manage log size and
@@ -309,9 +309,9 @@ retention. The network settings ensure the Plex container has a static IP within
 the specified subnet, and various ports are mapped for Plex services. Security
 options enhance container security by preventing privilege escalation.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/plex/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/plex/compose.yml
 [.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/plex/.env
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/plex/.env
 [stack.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/plex/stack.env
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/plex/stack.env
