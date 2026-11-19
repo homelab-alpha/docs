@@ -59,7 +59,7 @@ Here's a detailed explanation:
 - **Filename**: `compose.yml`
 - **Project name**: `watchtower`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 16, 2025
+- **Date**: November 19, 2026
 - **Description**: This file configures a custom Docker network and a Watchtower
   service for automated container updates. It includes detailed network settings
   and service configurations to ensure Watchtower runs smoothly and securely.
@@ -70,6 +70,9 @@ Here's a detailed explanation:
 ## Networks Configuration
 
 ```yaml
+---
+name: watchtower
+
 networks:
   watchtower_net:
     attachable: false
@@ -140,12 +143,12 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: watchtower
-    image: ghcr.io/nicholas-fedor/watchtower:1.24.0
+    image: ghcr.io/nicholas-fedor/watchtower:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
-      TZ: Europe/Amsterdam
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
     command: ["--schedule", "0 0 * * * *", "--cleanup", "--debug"]
     hostname: watchtower
     networks:
@@ -179,9 +182,9 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: watchtower**: Names the container "watchtower".
-  - **image: ghcr.io/nicholas-fedor/watchtower:1.24.0**: Uses the Watchtower
-    image of the maintained `nicholas-fedor` fork, pinned to version `1.24.0`.
-    The original `containrrr/watchtower` project is archived.
+  - **image: ghcr.io/nicholas-fedor/watchtower**: Uses the Watchtower image of
+    the maintained `nicholas-fedor` fork. The original `containrrr/watchtower`
+    project is archived.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.
@@ -215,6 +218,36 @@ services:
     - **start_period**: The initial period during which a health check failure
       will not be counted towards the retries (10 seconds).
     - **start_interval**: The time between starting health checks (5 seconds).
+
+<br />
+
+## Quick Start
+
+{{% alert context="info" %}}
+Requires Docker Compose 2.24.0 or later.
+{{% /alert %}}
+
+1. Start the stack:
+
+   ```bash
+   docker compose up -d
+   ```
+
+<br />
+
+## Default Access
+
+Watchtower has no web interface. Follow what it does in the logs:
+
+```bash
+docker logs watchtower
+```
+
+<br />
+
+## Default Login Credentials
+
+Watchtower has no login.
 
 <br />
 

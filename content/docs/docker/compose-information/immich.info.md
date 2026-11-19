@@ -66,7 +66,7 @@ Here's a detailed explanation:
 - **Filename**: `compose.yml`
 - **Project name**: `immich`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 19, 2025
+- **Date**: November 19, 2026
 - **Description**: Docker Compose configuration for Immich with PostgreSQL,
   Redis, and machine learning services for self-hosted media management.
 - **RAW Compose File**: [compose.yml]
@@ -79,6 +79,8 @@ Here's a detailed explanation:
 
 ```yaml
 ---
+name: immich
+
 networks:
   immich_net:
     attachable: false
@@ -149,11 +151,13 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: immich_db
-    image: ghcr.io/immich-app/postgres:16-vectorchord0.4.1-pgvectors0.2.0
+    image: ghcr.io/immich-app/postgres:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     volumes:
       - /docker/immich/production/db:/var/lib/postgresql/data
     env_file:
+      # Compose loads each file that exists and skips a missing one:
+      # '.env' for the Docker Compose CLI, 'stack.env' for Portainer.
       - path: .env
         required: false
       - path: stack.env
@@ -161,13 +165,13 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam
-      POSTGRES_PASSWORD: ${PASSWORD_DB}
-      POSTGRES_USER: ${USER_DB}
-      POSTGRES_DB: ${NAME_DB}
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+      POSTGRES_PASSWORD: ${PASSWORD_DB} # Fill in the value in both the .env and stack.env files
+      POSTGRES_USER: ${USER_DB} # Fill in the value in both the .env and stack.env files
+      POSTGRES_DB: ${NAME_DB} # Fill in the value in both the .env and stack.env files
       POSTGRES_INITDB_ARGS: "--data-checksums"
-      # DB_STORAGE_TYPE: "HDD"
-    hostname: database
+      # DB_STORAGE_TYPE: "HDD" # Uncomment if using HDD storage
+    hostname: database # DO NOT MODIFY – Essential for Immich stack functionality.
     networks:
       immich_net:
         ipv4_address: 172.20.24.2
@@ -193,7 +197,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: immich_redis
-    image: docker.io/valkey/valkey:9.1.3
+    image: docker.io/valkey/valkey:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     volumes:
       - /docker/immich/production/redis:/data
@@ -202,8 +206,8 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam
-    hostname: redis
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+    hostname: redis # DO NOT MODIFY – Essential for Immich stack functionality.
     networks:
       immich_net:
         ipv4_address: 172.20.24.3
@@ -229,11 +233,13 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: immich_ml
-    image: ghcr.io/immich-app/immich-machine-learning:v3.3.6
+    image: ghcr.io/immich-app/immich-machine-learning:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     volumes:
       - /docker/immich/production/ml:/cache
     env_file:
+      # Compose loads each file that exists and skips a missing one:
+      # '.env' for the Docker Compose CLI, 'stack.env' for Portainer.
       - path: .env
         required: false
       - path: stack.env
@@ -241,8 +247,8 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam
-    hostname: immich-machine-learning
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+    hostname: immich-machine-learning # DO NOT MODIFY – Essential for Immich stack functionality.
     networks:
       immich_net:
         ipv4_address: 172.20.24.4
@@ -264,7 +270,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: immich
-    image: ghcr.io/immich-app/immich-server:v3.3.6
+    image: ghcr.io/immich-app/immich-server:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     depends_on:
       immich_db:
@@ -282,15 +288,15 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam
-    domainname: photos.local
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+    domainname: photos.local # Customize this with your own domain, e.g., `photos.local` to `photos.your-fqdn-here.com`
     hostname: photos
     networks:
       immich_net:
         ipv4_address: 172.20.24.5
     ports:
-      - "3015:2283/tcp"
-      - "3015:2283/udp"
+      - "3015:2283/tcp" # HTTP
+      - "3015:2283/udp" # HTTP
     security_opt:
       - no-new-privileges:true
     labels:
@@ -315,7 +321,7 @@ services:
     stopping the container.
   - **container_name: immich_db**: Names the container "immich_db".
   - **image**: Specifies the PostgreSQL database image with a specific tag.
-    - **ghcr.io/immich-app/postgres:16-vectorchord0.4.1-pgvectors0.2.0**
+    - **ghcr.io/immich-app/postgres**
   - **pull_policy: if_not_present**: Pulls the image only if it is not already
     present locally.
   - **volumes**: Mounts host directories into the container.
@@ -369,8 +375,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: immich_redis**: Names the container "immich_redis".
-  - **image: docker.io/valkey/valkey:9.1.3**: Uses the Valkey image (a
-    Redis-compatible key-value store), pinned to version `9.1.3`.
+  - **image: docker.io/valkey/valkey**: Uses the Valkey image (a
+    Redis-compatible key-value store).
   - **pull_policy: if_not_present**: Pulls the image only if it is not already
     present locally.
   - **volumes**: Mounts host directories into the container.
@@ -418,9 +424,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: immich_ml**: Names the container "immich_ml".
-  - **image: ghcr.io/immich-app/immich-machine-learning:v3.3.6**: Uses the
-    machine learning image from the specified repository, pinned to version
-    `v3.3.6`.
+  - **image: ghcr.io/immich-app/immich-machine-learning**: Uses the machine
+    learning image from the specified repository.
   - **pull_policy: if_not_present**: Pulls the image only if it is not already
     present locally.
   - **volumes**: Mounts host directories into the container.
@@ -461,8 +466,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: immich**: Names the container "immich".
-  - **image: ghcr.io/immich-app/immich-server:v3.3.6**: Uses the Immich server
-    image from GitHub Container Registry.
+  - **image: ghcr.io/immich-app/immich-server**: Uses the Immich server image
+    from GitHub Container Registry.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **depends_on**: Specifies dependencies for this service.
@@ -530,6 +535,51 @@ USER_DB=postgres
   Immich stack functionality and **must not be changed** (default: `postgres`).
 - **`USER_DB`**: The PostgreSQL username used by the Immich stack. This is
   required and **must not be modified** (default: `postgres`).
+
+<br />
+
+## Quick Start
+
+{{% alert context="info" %}}
+Requires Docker Compose 2.24.0 or later.
+{{% /alert %}}
+
+1. Change the values in `.env` (Docker Compose CLI) or `stack.env` (Portainer),
+   at least the passwords.
+
+2. Start the stack:
+
+   ```bash
+   docker compose up -d
+   ```
+
+<br />
+
+## Default Web Access
+
+Access the Immich web interface using the following URL:
+
+```bash
+http://your-ip-address:3015
+```
+
+<br />
+
+## Default Login Credentials
+
+{{% alert context="info" %}}
+On the first visit, click **Getting Started**. The first user to register
+becomes the admin user.
+{{% /alert %}}
+
+**Username**: Created during setup
+
+**Password**: Created during setup
+
+{{% alert context="warning" %}}
+**For security reasons, it is strongly recommended to create a strong username
+and password during the setup.**
+{{% /alert %}}
 
 <br />
 

@@ -63,7 +63,7 @@ Here's a detailed explanation:
 - **Filename**: `compose.yml`
 - **Project name**: `it-tools`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 18, 2025
+- **Date**: November 19, 2026
 - **Description**: Docker Compose setup for IT-Tools, a suite of
   developer-friendly online tools with network and security configurations.
 - **RAW Compose File**: [compose.yml]
@@ -74,6 +74,8 @@ Here's a detailed explanation:
 
 ```yaml
 ---
+name: it-tools
+
 networks:
   it-tools_net:
     attachable: false
@@ -144,20 +146,20 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: it-tools
-    image: ghcr.io/corentinth/it-tools:2024.10.22-7ca5933
+    image: ghcr.io/corentinth/it-tools:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam
-    domainname: tools.local
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+    domainname: tools.local # Customize this with your own domain, e.g., `it-tools.local` to `it-tools.your-fqdn-here.com`.
     hostname: it-tools
     networks:
       it-tools_net:
         ipv4_address: 172.20.22.3
     ports:
-      - "3014:80/tcp"
-      - "3014:80/udp"
+      - "3014:80/tcp" # HTTP
+      - "3014:80/udp" # HTTP
     security_opt:
       - no-new-privileges:true
     labels:
@@ -180,8 +182,7 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: it-tools**: Names the container "it-tools".
-  - **image: ghcr.io/corentinth/it-tools:2024.10.22-7ca5933**: Uses the it-tools
-    image, pinned to version `2024.10.22-7ca5933`.
+  - **image: ghcr.io/corentinth/it-tools**: Uses the it-tools image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **environment**: Sets environment variables.
@@ -203,6 +204,38 @@ services:
     - **com.it-tools.description**: Description label for it-tools.
   - **healthcheck**: Healthcheck configuration.
     - **disable: true**: Disables health checks for the container.
+
+<br />
+
+## Quick Start
+
+{{% alert context="info" %}}
+Requires Docker Compose 2.24.0 or later.
+{{% /alert %}}
+
+1. Start the stack:
+
+   ```bash
+   docker compose up -d
+   ```
+
+<br />
+
+## Default Web Access
+
+Access the IT Tools web interface using the following URL:
+
+```bash
+http://your-ip-address:3014
+```
+
+<br />
+
+## Default Login Credentials
+
+**Username**: No username is required.
+
+**Password**: No password is required.
 
 <br />
 

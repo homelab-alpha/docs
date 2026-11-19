@@ -58,7 +58,7 @@ Here's a detailed explanation:
 - **Project name**: `speedtest-tracker-beta`, set with the top-level `name:` of
   the file.
 - **Author**: GJS (homelab-alpha)
-- **Date**: October 28, 2026
+- **Date**: November 19, 2026
 - **Description**: Configures a Docker network and the Speedtest Tracker Beta
   services.
 - **RAW Compose File**: [compose.yml]
@@ -70,6 +70,9 @@ Here's a detailed explanation:
 ## Networks Configuration
 
 ```yaml
+---
+name: speedtest-tracker-beta
+
 networks:
   speedtest-tracker_net:
     attachable: false
@@ -140,13 +143,15 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: speedtest-tracker_db
-    image: docker.io/mariadb:13.0.2
+    image: docker.io/mariadb:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     volumes:
       - /docker/speedtest-tracker/production/db:/var/lib/mysql
       - /docker/speedtest-tracker/production/my.cnf:/etc/my.cnf
       - /sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure
     env_file:
+      # Compose loads each file that exists and skips a missing one:
+      # '.env' for the Docker Compose CLI, 'stack.env' for Portainer.
       - path: .env
         required: false
       - path: stack.env
@@ -187,8 +192,7 @@ services:
   - **stop_grace_period: 1m**: Waits 1 minute before forcibly stopping the
     container.
   - **container_name: speedtest-tracker_db**: Names the container.
-  - **image: docker.io/mariadb:13.0.2**: Uses this image, pinned to version
-    `13.0.2`.
+  - **image: docker.io/mariadb**: Uses this image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not present
     locally.
   - **volumes**: Mounts host directories or files into the container.
@@ -231,8 +235,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: speedtest-tracker
-    image: ghcr.io/alexjustesen/docker-speedtest-tracker:1.15.1
-    # image: ghcr.io/alexjustesen/docker-speedtest-tracker:dev-amd64
+    image: ghcr.io/alexjustesen/docker-speedtest-tracker:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     depends_on:
       speedtest-tracker_db:
@@ -242,6 +245,8 @@ services:
       - /docker/speedtest-tracker/production/.cert:/config/keys
       - /docker/speedtest-tracker/production/app:/config
     env_file:
+      # Compose loads each file that exists and skips a missing one:
+      # '.env' for the Docker Compose CLI, 'stack.env' for Portainer.
       - path: .env
         required: false
       - path: stack.env
@@ -312,8 +317,7 @@ services:
   - **stop_grace_period: 1m**: Waits 1 minute before forcibly stopping the
     container.
   - **container_name: speedtest-tracker**: Names the container.
-  - **image: ghcr.io/alexjustesen/docker-speedtest-tracker:1.15.1**: Uses this
-    image, pinned to version `1.15.1`.
+  - **image: ghcr.io/alexjustesen/docker-speedtest-tracker**: Uses this image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not present
     locally.
   - **depends_on**: Starts this service only when `speedtest-tracker_db` has the
@@ -451,6 +455,71 @@ identical to the file of the
 [Speedtest Tracker](/docker/compose-info/speedtest-tracker/) and the
 [MariaDB](/docker/compose-info/mariadb/) pages. See [my.cnf] for the full file
 with comments.
+
+<br />
+
+## Quick Start
+
+{{% alert context="info" %}}
+Requires Docker Compose 2.24.0 or later.
+{{% /alert %}}
+
+1. Copy `my.cnf` to `/docker/speedtest-tracker/production/my.cnf`. Docker
+   creates the other directories under `/docker/speedtest-tracker/` on the first
+   start.
+
+2. Change the values in `.env` (Docker Compose CLI) or `stack.env` (Portainer),
+   at least the passwords.
+
+3. Start the stack:
+
+   ```bash
+   docker compose up -d
+   ```
+
+<br />
+
+## Default Web Access
+
+Access the Speedtest Tracker Beta web interface using the following URL:
+
+**HTTP**:
+
+```bash
+http://your-ip-address:80
+```
+
+**HTTPS**:
+
+```bash
+https://your-ip-address:443
+```
+
+<br />
+
+## Default Login Credentials
+
+{{% alert context="info" %}}
+If you have changed these values in the `.env` and or `stack.env` file, use
+those credentials instead of the default ones.
+{{% /alert %}}
+
+**Username**:
+
+```bash
+admin@example.com
+```
+
+**Password**:
+
+```bash
+StrongUniqueUserPassword9012
+```
+
+{{% alert context="warning" %}}
+**For security reasons, it is strongly recommended that you change the default
+credentials after your first login.**
+{{% /alert %}}
 
 <br />
 

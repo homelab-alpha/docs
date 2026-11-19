@@ -60,7 +60,7 @@ Here's a detailed explanation:
 - **Filename**: `compose.yml`
 - **Project name**: `dozzle`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 16, 2025
+- **Date**: November 19, 2026
 - **Description**: Configures a Docker network and the Dozzle service for
   real-time Docker log monitoring.
 - **RAW Compose File**: [compose.yml]
@@ -70,6 +70,9 @@ Here's a detailed explanation:
 ## Networks Configuration
 
 ```yaml
+---
+name: dozzle
+
 networks:
   dozzle_net:
     attachable: false
@@ -140,7 +143,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: dozzle
-    image: ghcr.io/amir20/dozzle:v11.4.1
+    image: ghcr.io/amir20/dozzle:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     volumes:
       - /docker/dozzle/production/app:/data
@@ -149,8 +152,8 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam
-      DOZZLE_AUTH_PROVIDER: "none"
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+      DOZZLE_AUTH_PROVIDER: "none" # Options: none, simple, forward-proxy. Use "simple" to enable authentication via users.yml.
       DOZZLE_AUTH_TTL: 48h
       DOZZLE_ENABLE_ACTIONS: "false"
       DOZZLE_HOSTNAME: docker-server
@@ -158,14 +161,14 @@ services:
       DOZZLE_NO_ANALYTICS: "true"
       DOZZLE_ENABLE_SHELL: "false"
       # DOZZLE_REMOTE_HOST: tcp://192.168.*.*:2376|dozzle-remote.local
-    domainname: dozzle.local
+    domainname: dozzle.local # Customize this with your own domain, e.g., `dozzle.local` to `dozzle.your-fqdn-here.com`.
     hostname: dozzle
     networks:
       dozzle_net:
         ipv4_address: 172.20.9.2
     ports:
-      - "3008:8080/tcp"
-      - "3008:8080/udp"
+      - "3008:8080/tcp" # HTTP
+      - "3008:8080/udp" # HTTP
     security_opt:
       - no-new-privileges:true
     labels:
@@ -195,8 +198,7 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: dozzle**: Names the container "dozzle".
-  - **image: ghcr.io/amir20/dozzle:v11.4.1**: Uses the Dozzle image, pinned to
-    version `v11.4.1`.
+  - **image: ghcr.io/amir20/dozzle**: Uses the Dozzle image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.
@@ -301,6 +303,50 @@ users:
     password: # Insert the Bcrypt-hashed password here
     filter: "label=com.example.app" # Optional: Example filter to restrict guest access
 ```
+
+<br />
+
+## Quick Start
+
+{{% alert context="info" %}}
+Requires Docker Compose 2.24.0 or later.
+{{% /alert %}}
+
+1. Copy `users.yml` to `/docker/dozzle/users.yml`. Docker creates the other
+   directories under `/docker/dozzle/` on the first start.
+
+2. Start the stack:
+
+   ```bash
+   docker compose up -d
+   ```
+
+<br />
+
+## Default Web Access
+
+Access the Dozzle web interface using the following URL:
+
+```bash
+http://your-ip-address:3008
+```
+
+<br />
+
+## Default Login Credentials
+
+{{% alert context="info" %}}
+If you have added users in the `users.yml` file, use those credentials instead.
+{{% /alert %}}
+
+**Username**: No username is required.
+
+**Password**: No password is required.
+
+{{% alert context="warning" %}}
+**For security reasons, it is strongly recommended to configure authentication
+using the `users.yml` file to restrict access.**
+{{% /alert %}}
 
 <br />
 

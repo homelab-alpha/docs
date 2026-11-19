@@ -59,7 +59,7 @@ Here's a detailed explanation:
 - **Filename**: `compose.yml`
 - **Project name**: `netdata`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 16, 2025
+- **Date**: November 19, 2026
 - **Description**: This file configures a custom Docker network and a Netdata
   service to monitor and troubleshoot infrastructure. It includes detailed
   network settings and service configurations to ensure Netdata runs smoothly
@@ -71,6 +71,9 @@ Here's a detailed explanation:
 ## Networks Configuration
 
 ```yaml
+---
+name: netdata
+
 networks:
   netdata_net:
     attachable: false
@@ -141,7 +144,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: netdata
-    image: ghcr.io/netdata/netdata:v2.12.3
+    image: ghcr.io/netdata/netdata:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     volumes:
       - /docker/netdata/production/app/cache:/var/cache/netdata
@@ -157,17 +160,17 @@ services:
       - /sys:/host/sys:ro
       - /var/log:/host/var/log:ro
     environment:
-      TZ: Europe/Amsterdam
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
       DOCKER_USR: root
       NETDATA_EXTRA_APK_PACKAGES: lm-sensors
-    domainname: netdata.local
+    domainname: netdata.local # Customize this with your own domain, e.g., `netdata.local` to `netdata.your-fqdn-here.com`.
     hostname: netdata
     networks:
       netdata_net:
         ipv4_address: 172.20.4.2
     ports:
-      - "19999:19999/tcp"
-      - "19999:19999/udp"
+      - "19999:19999/tcp" # HTTP
+      - "19999:19999/udp" # HTTP
     security_opt:
       - apparmor:unconfined
     cap_add:
@@ -199,8 +202,7 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: netdata**: Names the container "netdata".
-  - **image: ghcr.io/netdata/netdata:v2.12.3**: Uses the Netdata image, pinned
-    to version `v2.12.3`.
+  - **image: ghcr.io/netdata/netdata**: Uses the Netdata image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.
@@ -258,6 +260,42 @@ services:
     - **start_period**: The initial period during which a health check failure
       will not be counted towards the retries (10 seconds).
     - **start_interval**: The time between starting health checks (5 seconds).
+
+<br />
+
+## Quick Start
+
+{{% alert context="info" %}}
+Requires Docker Compose 2.24.0 or later.
+{{% /alert %}}
+
+1. Start the stack:
+
+   ```bash
+   docker compose up -d
+   ```
+
+<br />
+
+## Default Web Access
+
+Access the Netdata web interface using the following URL:
+
+```bash
+http://your-ip-address:19999
+```
+
+<br />
+
+## Default Login Credentials
+
+**Username**: No username is required.
+
+**Password**: No password is required.
+
+{{% alert context="warning" %}}
+**The local dashboard has no login. Do not expose it outside your network.**
+{{% /alert %}}
 
 <br />
 

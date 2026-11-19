@@ -57,7 +57,7 @@ Here's a detailed explanation:
 - **Filename**: `compose.yml`
 - **Project name**: `freshrss`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 18, 2025
+- **Date**: November 19, 2026
 - **Description**: Configures a Docker network and services for FreshRSS and its
   MariaDB database.
 - **RAW Compose File**: [compose.yml]
@@ -70,6 +70,9 @@ Here's a detailed explanation:
 ## Networks Configuration
 
 ```yaml
+---
+name: freshrss
+
 networks:
   freshrss_net:
     attachable: false
@@ -140,13 +143,15 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: freshrss_db
-    image: docker.io/mariadb:13.0.2
+    image: docker.io/mariadb:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     volumes:
       - /docker/freshrss/production/db:/var/lib/mysql
       - /docker/freshrss/production/my.cnf:/etc/my.cnf
       - /sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure
     env_file:
+      # Compose loads each file that exists and skips a missing one:
+      # '.env' for the Docker Compose CLI, 'stack.env' for Portainer.
       - path: .env
         required: false
       - path: stack.env
@@ -154,11 +159,11 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam
-      MARIADB_ROOT_PASSWORD: ${ROOT_PASSWORD_DB}
-      MARIADB_DATABASE: ${NAME_DB}
-      MARIADB_USER: ${USER_DB}
-      MARIADB_PASSWORD: ${PASSWORD_DB}
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+      MARIADB_ROOT_PASSWORD: ${ROOT_PASSWORD_DB} # Fill in the value in both the .env and stack.env files
+      MARIADB_DATABASE: ${NAME_DB} # Fill in the value in both the .env and stack.env files
+      MARIADB_USER: ${USER_DB} # Fill in the value in both the .env and stack.env files
+      MARIADB_PASSWORD: ${PASSWORD_DB} # Fill in the value in both the .env and stack.env files
     hostname: freshrss_db
     networks:
       freshrss_net:
@@ -185,7 +190,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: freshrss
-    image: docker.io/freshrss/freshrss:1.30.4
+    image: docker.io/freshrss/freshrss:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     depends_on:
       freshrss_db:
@@ -194,6 +199,8 @@ services:
       - /docker/freshrss/production/app/data:/var/www/FreshRSS/data
       - /docker/freshrss/extensions:/var/www/FreshRSS/extensions
     env_file:
+      # Compose loads each file that exists and skips a missing one:
+      # '.env' for the Docker Compose CLI, 'stack.env' for Portainer.
       - path: .env
         required: false
       - path: stack.env
@@ -201,21 +208,21 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
       CRON_MIN: "*/10"
-      MARIADB_HOST: ${HOST_DB}
-      MARIADB_PORT: ${PORT_DB}
-      MARIADB_NAME: ${NAME_DB}
-      MARIADB_USER: ${USER_DB}
-      MARIADB_PASSWORD: ${PASSWORD_DB}
-    domainname: freshrss.local
+      MARIADB_HOST: ${HOST_DB} # Fill in the value in both the .env and stack.env files
+      MARIADB_PORT: ${PORT_DB} # Fill in the value in both the .env and stack.env files
+      MARIADB_NAME: ${NAME_DB} # Fill in the value in both the .env and stack.env files
+      MARIADB_USER: ${USER_DB} # Fill in the value in both the .env and stack.env files
+      MARIADB_PASSWORD: ${PASSWORD_DB} # Fill in the value in both the .env and stack.env files
+    domainname: freshrss.local # Customize this with your own domain, e.g., `freshrss.local` to `freshrss.your-fqdn-here.com`.
     hostname: freshrss
     networks:
       freshrss_net:
         ipv4_address: 172.20.6.3
     ports:
-      - "3002:80/tcp"
-      - "3002:80/udp"
+      - "3002:80/tcp" # HTTP
+      - "3002:80/udp" # HTTP
     security_opt:
       - no-new-privileges:true
     labels:
@@ -243,8 +250,7 @@ services:
     - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
       stopping the container.
   - **container_name: freshrss_db**: Names the container "freshrss_db".
-  - **image: docker.io/mariadb:13.0.2**: Uses the MariaDB image, pinned to
-    version `13.0.2`.
+  - **image: docker.io/mariadb**: Uses the MariaDB image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts directories or files into the container.
@@ -300,8 +306,7 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: freshrss**: Names the container "freshrss".
-  - **image: docker.io/freshrss/freshrss:1.30.4**: Uses the FreshRSS image,
-    pinned to version `1.30.4`.
+  - **image: docker.io/freshrss/freshrss**: Uses the FreshRSS image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **depends_on**: Specifies dependencies for this service.
@@ -602,6 +607,55 @@ general-log = 0
 
 - **`!includedir`**: Includes additional configuration files from specified
   directories, allowing modular config management.
+
+<br />
+
+## Quick Start
+
+{{% alert context="info" %}}
+Requires Docker Compose 2.24.0 or later.
+{{% /alert %}}
+
+1. Copy `my.cnf` to `/docker/freshrss/production/my.cnf`. Docker creates the
+   other directories under `/docker/freshrss/` on the first start.
+
+2. Change the values in `.env` (Docker Compose CLI) or `stack.env` (Portainer),
+   at least the passwords.
+
+3. Start the stack:
+
+   ```bash
+   docker compose up -d
+   ```
+
+<br />
+
+## Default Web Access
+
+Access the FreshRSS web interface using the following URL:
+
+```bash
+http://your-ip-address:3002
+```
+
+<br />
+
+## Default Login Credentials
+
+{{% alert context="info" %}}
+On the first visit, the installation wizard asks for the database and creates
+the admin account. Use MySQL/MariaDB with the host `freshrss_db` and the
+database name, user, and password from the `.env` or `stack.env` file.
+{{% /alert %}}
+
+**Username**: Created during setup
+
+**Password**: Created during setup
+
+{{% alert context="warning" %}}
+**For security reasons, it is strongly recommended to create a strong username
+and password during the setup.**
+{{% /alert %}}
 
 <br />
 

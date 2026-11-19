@@ -60,7 +60,7 @@ Here's a detailed explanation:
 - **Project name**: `uptime-kuma-beta`, set with the top-level `name:` of the
   file.
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 18, 2025
+- **Date**: November 19, 2026
 - **Description**: Configures a Docker network and the Uptime Kuma Beta service
   for monitoring uptime and status of various services.
 - **RAW Compose File**: [compose.yml]
@@ -73,6 +73,9 @@ Here's a detailed explanation:
 ## Networks Configuration
 
 ```yaml
+---
+name: uptime-kuma-beta
+
 networks:
   uptime-kuma-beta_net:
     attachable: false
@@ -142,7 +145,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: uptime-kuma-beta_db
-    image: docker.io/mariadb:13.0.2
+    image: docker.io/mariadb:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     volumes:
       - /docker/uptime-kuma-beta/testing/db:/var/lib/mysql
@@ -158,11 +161,11 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam
-      MARIADB_ROOT_PASSWORD: ${ROOT_PASSWORD_DB}
-      MARIADB_DATABASE: ${NAME_DB}
-      MARIADB_USER: ${USER_DB}
-      MARIADB_PASSWORD: ${PASSWORD_DB}
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+      MARIADB_ROOT_PASSWORD: ${ROOT_PASSWORD_DB} # Fill in the value in both the .env and stack.env files
+      MARIADB_DATABASE: ${NAME_DB} # Fill in the value in both the .env and stack.env files
+      MARIADB_USER: ${USER_DB} # Fill in the value in both the .env and stack.env files
+      MARIADB_PASSWORD: ${PASSWORD_DB} # Fill in the value in both the .env and stack.env files
     hostname: uptime-kuma-beta_db
     networks:
       uptime-kuma-beta_net:
@@ -189,7 +192,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: uptime-kuma-beta
-    image: ghcr.io/louislam/uptime-kuma:2.1.0-beta-slim.2
+    image: ghcr.io/louislam/uptime-kuma:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     depends_on:
       uptime-kuma-beta_db:
@@ -199,6 +202,8 @@ services:
       - /usr/local/share/ca-certificates:/app/data/docker-tls
       - /var/run/docker.sock:/var/run/docker.sock:ro
     env_file:
+      # Compose loads each file that exists and skips a missing one:
+      # '.env' for the Docker Compose CLI, 'stack.env' for Portainer.
       - path: .env
         required: false
       - path: stack.env
@@ -206,20 +211,22 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam
-      MARIADB_HOST: ${HOST_DB}
-      MARIADB_PORT: ${PORT_DB}
-      MARIADB_NAME: ${NAME_DB}
-      MARIADB_USER: ${USER_DB}
-      MARIADB_PASSWORD: ${PASSWORD_DB}
-    domainname: status.local
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+      # Replace 'root_ca.crt' with your own Root CA certificate, then uncomment the line
+      # NODE_EXTRA_CA_CERTS: /app/data/docker-tls/root_ca.crt
+      MARIADB_HOST: ${HOST_DB} # Fill in the value in both the .env and stack.env files
+      MARIADB_PORT: ${PORT_DB} # Fill in the value in both the .env and stack.env files
+      MARIADB_NAME: ${NAME_DB} # Fill in the value in both the .env and stack.env files
+      MARIADB_USER: ${USER_DB} # Fill in the value in both the .env and stack.env files
+      MARIADB_PASSWORD: ${PASSWORD_DB} # Fill in the value in both the .env and stack.env files
+    domainname: status.local # Customize this with your own domain, e.g., `status.local` to `status.your-fqdn-here.com`.
     hostname: status
     networks:
       uptime-kuma-beta_net:
         ipv4_address: 172.21.3.3
     ports:
-      - "3003:3001/tcp"
-      - "3003:3001/udp"
+      - "3003:3001/tcp" # HTTP
+      - "3003:3001/udp" # HTTP
     security_opt:
       - no-new-privileges:true
     labels:
@@ -250,8 +257,7 @@ services:
     stopping the container.
   - **container_name: uptime-kuma-beta_db**: Names the container
     `uptime-kuma-beta_db`.
-  - **image: docker.io/mariadb:13.0.2**: Uses the MariaDB image, pinned to
-    version `13.0.2`.
+  - **image: docker.io/mariadb**: Uses the MariaDB image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts directories or files into the container.
@@ -294,8 +300,8 @@ services:
     stopping the container.
   - **container_name: uptime-kuma-beta**: Names the container
     `uptime-kuma-beta`.
-  - **image: ghcr.io/louislam/uptime-kuma:2.1.0-beta-slim.2**: Uses the
-    specified Uptime Kuma Beta image.
+  - **image: ghcr.io/louislam/uptime-kuma**: Uses the specified Uptime Kuma Beta
+    image.
   - **depends_on**: Ensures that the database service is healthy before starting
     the app service.
   - **volumes**: Mounts host directories or files into the container.
@@ -565,6 +571,53 @@ general-log = 0
 
 - **`!includedir`**: Includes additional configuration files from specified
   directories, allowing modular config management.
+
+<br />
+
+## Quick Start
+
+{{% alert context="info" %}}
+Requires Docker Compose 2.24.0 or later.
+{{% /alert %}}
+
+1. Copy `my.cnf` to `/docker/uptime-kuma-beta/testing/my.cnf`. Docker creates
+   the other directories under `/docker/uptime-kuma-beta/` on the first start.
+
+2. Change the values in `.env` (Docker Compose CLI) or `stack.env` (Portainer),
+   at least the passwords.
+
+3. Start the stack:
+
+   ```bash
+   docker compose up -d
+   ```
+
+<br />
+
+## Default Web Access
+
+Access the Uptime Kuma Beta web interface using the following URL:
+
+```bash
+http://your-ip-address:3003
+```
+
+<br />
+
+## Default Login Credentials
+
+{{% alert context="info" %}}
+Credentials are created during the initial setup process.
+{{% /alert %}}
+
+**Username**: Created during setup
+
+**Password**: Created during setup
+
+{{% alert context="warning" %}}
+**For security reasons, it is strongly recommended to create a strong username
+and password during the setup.**
+{{% /alert %}}
 
 <br />
 

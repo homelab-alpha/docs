@@ -56,7 +56,7 @@ Here's a detailed explanation:
 - **Filename**: `compose.yml`
 - **Project name**: `mini-qr`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
-- **Date**: October 28, 2026
+- **Date**: November 19, 2026
 - **Description**: Configures a Docker network and the Mini QR service.
 - **RAW Compose File**: [compose.yml]
 - **RAW Nginx Configuration File**: [nginx-proxy.conf]
@@ -66,6 +66,9 @@ Here's a detailed explanation:
 ## Networks Configuration
 
 ```yaml
+---
+name: mini-qr
+
 networks:
   mini-qr_net:
     attachable: false
@@ -135,7 +138,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: mini-qr
-    image: ghcr.io/lyqht/mini-qr:v0.32.0
+    image: ghcr.io/lyqht/mini-qr:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     environment:
       PUID: "1000"
@@ -169,7 +172,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: mini-qr_nginx
-    image: docker.io/nginx:1.31.2-alpine3.23-perl
+    image: docker.io/nginx:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     depends_on:
       mini-qr_app:
@@ -214,8 +217,7 @@ services:
   - **stop_grace_period: 1m**: Waits 1 minute before forcibly stopping the
     container.
   - **container_name: mini-qr**: Names the container.
-  - **image: ghcr.io/lyqht/mini-qr:v0.32.0**: Uses this image, pinned to version
-    `v0.32.0`.
+  - **image: ghcr.io/lyqht/mini-qr**: Uses this image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not present
     locally.
   - **environment**: Sets environment variables.
@@ -350,6 +352,41 @@ The file is divided into the following sections:
 - **Proxy defaults (DRY)**
 - **Upstream**
 - **Server**
+
+<br />
+
+## Quick Start
+
+{{% alert context="info" %}}
+Requires Docker Compose 2.24.0 or later.
+{{% /alert %}}
+
+1. Copy `nginx-proxy.conf` to `/docker/mini-qr/nginx-proxy.conf`. Docker creates
+   the other directories under `/docker/mini-qr/` on the first start.
+
+2. Start the stack:
+
+   ```bash
+   docker compose up -d
+   ```
+
+<br />
+
+## Default Web Access
+
+Access the Mini QR web interface using the following URL:
+
+```bash
+http://your-ip-address:3017
+```
+
+<br />
+
+## Default Login Credentials
+
+**Username**: No username is required.
+
+**Password**: No password is required.
 
 <br />
 

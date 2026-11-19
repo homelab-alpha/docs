@@ -60,7 +60,7 @@ Here's a detailed explanation:
 - **Filename**: `compose.yml`
 - **Project name**: `dockge`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 16, 2025
+- **Date**: November 19, 2026
 - **Description**: Configures a Docker network and the Dockge service for
   managing Docker Compose stacks.
 - **RAW Compose File**: [compose.yml]
@@ -70,6 +70,9 @@ Here's a detailed explanation:
 ## Networks Configuration
 
 ```yaml
+---
+name: dockge
+
 networks:
   dockge_net:
     attachable: false
@@ -140,7 +143,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: dockge
-    image: docker.io/louislam/dockge:1.5.0
+    image: docker.io/louislam/dockge:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     volumes:
       - /docker/dockge/production/app/data:/app/data
@@ -149,16 +152,16 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
       DOCKGE_STACKS_DIR: /opt/stacks
-    domainname: dockge.local
+    domainname: dockge.local # Customize this with your own domain, e.g., `dockge.local` to `dockge.your-fqdn-here.com`.
     hostname: dockge
     networks:
       dockge_net:
         ipv4_address: 172.20.7.2
     ports:
-      - "3005:5001/tcp"
-      - "3005:5001/udp"
+      - "3005:5001/tcp" # HTTP
+      - "3005:5001/udp" # HTTP
     security_opt:
       - no-new-privileges:true
     labels:
@@ -187,8 +190,7 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: dockge**: Names the container "dockge".
-  - **image: docker.io/louislam/dockge:1.5.0**: Uses the Dockge image, pinned to
-    version `1.5.0`.
+  - **image: docker.io/louislam/dockge**: Uses the Dockge image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.
@@ -227,6 +229,47 @@ services:
     - **start_period**: The initial period during which a health check failure
       will not be counted towards the retries (10 seconds).
     - **start_interval**: The time between starting health checks (5 seconds).
+
+<br />
+
+## Quick Start
+
+{{% alert context="info" %}}
+Requires Docker Compose 2.24.0 or later.
+{{% /alert %}}
+
+1. Start the stack:
+
+   ```bash
+   docker compose up -d
+   ```
+
+<br />
+
+## Default Web Access
+
+Access the Dockge web interface using the following URL:
+
+```bash
+http://your-ip-address:3005
+```
+
+<br />
+
+## Default Login Credentials
+
+{{% alert context="info" %}}
+On the first visit, Dockge asks you to create the admin account.
+{{% /alert %}}
+
+**Username**: Created during setup
+
+**Password**: Created during setup
+
+{{% alert context="warning" %}}
+**For security reasons, it is strongly recommended to create a strong username
+and password during the setup.**
+{{% /alert %}}
 
 <br />
 
