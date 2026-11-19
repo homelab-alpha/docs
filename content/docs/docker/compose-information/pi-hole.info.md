@@ -152,7 +152,6 @@ services:
       PUID: "1000"
       PGID: "1000"
       TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
-      WEBPASSWORD: "set a secure password here or it will be random"
     domainname: pi-hole.local # Customize this with your own domain, e.g., `pi-hole.local` to `pi-hole.your-fqdn-here.com`.
     hostname: pi-hole
     networks:
@@ -163,6 +162,7 @@ services:
       - "5353:53/udp" # plain DNS
       - "67:67/udp" # DHCP
       - "3080:80/tcp" # HTTP
+    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     cap_add:
@@ -217,8 +217,6 @@ services:
     - **PGID: "1000"**: Sets the group ID.
     - **TZ: Europe/Amsterdam**: Sets the timezone to Amsterdam (adjust as
       needed).
-    - **WEBPASSWORD: "set a secure password here or it will be random"**: Set a
-      secure password for the Pi-hole admin interface.
   - **domainname: pi-hole.local**: Sets the container's domain name (adjust as
     needed).
   - **hostname: pi-hole**: Names the container `pi-hole`.
@@ -229,6 +227,8 @@ services:
     - **5353:53/udp**: Maps UDP DNS port.
     - **67:67/udp**: Maps the DHCP port.
     - **3080:80/tcp**: Maps HTTP port for the web interface.
+  - **pids_limit: 512**: Limits the number of processes and threads in the
+    container, which protects the host against fork bombs.
   - **security_opt**: Adds security options to the container.
     - **no-new-privileges:true**: Ensures the container cannot gain new
       privileges.
@@ -288,6 +288,16 @@ for a line similar to:
 ```log
 No password set in environment or config file, assigning random password: <password>
 ```
+
+Change it afterwards with:
+
+```bash
+docker exec -it pi-hole pihole setpassword
+```
+
+The Compose file does not set a password on purpose: a password in
+`FTLCONF_webserver_api_password` is visible in the Compose file and can no
+longer be changed from inside the container.
 
 {{% alert context="warning" %}}
 **For security reasons, it is strongly recommended that you change the default

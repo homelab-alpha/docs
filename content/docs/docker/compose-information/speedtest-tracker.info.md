@@ -173,6 +173,7 @@ services:
     networks:
       speedtest-tracker_net:
         ipv4_address: 172.20.23.2
+    pids_limit: 2048 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -251,9 +252,8 @@ services:
         ipv4_address: 172.20.23.3
     ports:
       - "3013:80/tcp" # HTTP
-      - "3013:80/udp" # HTTP
       # - "3013:443/tcp" # HTTPS
-      # - "3013:443/udp" # HTTPS
+    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -312,6 +312,8 @@ services:
   - **networks**: Connects the service to the `speedtest-tracker_net` network.
     - **ipv4_address: 172.20.23.2**: Assigns a static IP address to the
       container.
+  - **pids_limit: 2048**: Limits the number of processes and threads in the
+    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
@@ -400,9 +402,9 @@ services:
       container.
   - **ports**: Maps container ports to host ports.
     - **3013:80/tcp**: Maps HTTP port (TCP).
-    - **3013:80/udp**: Maps HTTP port (UDP).
     - **3013:443/tcp**: Maps HTTPS port (TCP, commented out).
-    - **3013:443/udp**: Maps HTTPS port (UDP, commented out).
+  - **pids_limit: 512**: Limits the number of processes and threads in the
+    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.

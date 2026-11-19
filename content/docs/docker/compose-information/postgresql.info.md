@@ -168,6 +168,7 @@ services:
         published: 5432 # publicly exposed port
         protocol: tcp # tcp or udp
         mode: ingress # host: For publishing a host port on each node
+    pids_limit: 2048 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -219,6 +220,8 @@ services:
   - **ports**: Maps host ports to container ports.
     - **127.0.0.1:5432 -> 5432/tcp**: Publishes the port on the host IP
       `127.0.0.1` only.
+  - **pids_limit: 2048**: Limits the number of processes and threads in the
+    container, which protects the host against fork bombs.
   - **security_opt: no-new-privileges:true**: Prevents the container from
     gaining new privileges.
   - **labels**: A description label.

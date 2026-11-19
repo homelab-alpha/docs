@@ -163,12 +163,11 @@ services:
         ipv4_address: 172.20.5.2
     ports:
       - "8096:8096/tcp" # HTTP
-      - "8096:8096/udp" # HTTP
       - "8920:8920/tcp" # HTTPS
-      - "8920:8920/udp" # HTTPS
     devices:
       - /dev/dri:/dev/dri
       - /dev/dri/renderD128:/dev/dri/renderD128
+    pids_limit: 2048 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -232,17 +231,15 @@ services:
   - **ports**: Maps host ports to container ports.
     - **"8096:8096/tcp"**: Maps TCP port 8096 on the host to port 8096 in the
       container.
-    - **"8096:8096/udp"**: Maps UDP port 8096 on the host to port 8096 in the
-      container.
     - **"8920:8920/tcp"**: Maps TCP port 8920 on the host to port 8920 in the
-      container.
-    - **"8920:8920/udp"**: Maps UDP port 8920 on the host to port 8920 in the
       container.
   - **devices**: Adds host devices to the container.
     - **/dev/dri:/dev/dri**: Adds the host's Direct Rendering Infrastructure
       device.
     - **/dev/dri/renderD128:/dev/dri/renderD128**: Adds the host's render
       device.
+  - **pids_limit: 2048**: Limits the number of processes and threads in the
+    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges: true**: Prevents the container from gaining
       additional privileges.

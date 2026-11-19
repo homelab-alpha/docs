@@ -148,6 +148,11 @@ services:
     container_name: openspeedtest
     image: docker.io/openspeedtest/latest:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
+    read_only: true # Read-only root file system; nginx writes only to the tmpfs paths below.
+    tmpfs:
+      - /var/cache/nginx
+      - /var/run
+      - /tmp
     volumes:
       - /docker/openspeedtest/production/config/nginx.conf:/etc/nginx.conf
       - /docker/openspeedtest/production/config/OpenSpeedTest-Server.conf:/etc/nginx/conf.d/OpenSpeedTest-Server.conf
@@ -166,9 +171,8 @@ services:
         ipv4_address: 172.20.10.2
     ports:
       - "3009:3000/tcp" # HTTP
-      - "3009:3000/udp" # HTTP
       - "3010:3001/tcp" # HTTPS
-      - "3010:3001/udp" # HTTPS
+    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -194,6 +198,9 @@ services:
   - **image: docker.io/openspeedtest/latest**: Uses the OpenSpeedTest image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
+  - **read_only: true**: Mounts the root file system of the container read-only.
+  - **tmpfs**: Mounts `/var/cache/nginx`, `/var/run`, and `/tmp` as in-memory
+    file systems, so the app can still write its runtime files there.
   - **volumes**: Mounts host directories or files into the container.
     - **/docker/openspeedtest/production/config/nginx.conf:/etc/nginx.conf**:
       Mounts the Nginx configuration file.
@@ -214,9 +221,9 @@ services:
       container.
   - **ports**: Maps container ports to host ports.
     - **3009:3000/tcp**: Maps HTTP port 3000 to host port 3009.
-    - **3009:3000/udp**: Maps HTTP port 3000 to host port 3009 (UDP).
     - **3010:3001/tcp**: Maps HTTPS port 3001 to host port 3010.
-    - **3010:3001/udp**: Maps HTTPS port 3001 to host port 3010 (UDP).
+  - **pids_limit: 512**: Limits the number of processes and threads in the
+    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.

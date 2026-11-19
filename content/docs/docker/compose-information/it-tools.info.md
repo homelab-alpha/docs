@@ -148,6 +148,11 @@ services:
     container_name: it-tools
     image: ghcr.io/corentinth/it-tools:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
+    read_only: true # Read-only root file system; nginx writes only to the tmpfs paths below.
+    tmpfs:
+      - /var/cache/nginx
+      - /var/run
+      - /tmp
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -159,9 +164,17 @@ services:
         ipv4_address: 172.20.22.3
     ports:
       - "3014:80/tcp" # HTTP
-      - "3014:80/udp" # HTTP
+    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add: # The minimum for nginx: bind port 80 and switch to the nginx user.
+      - CHOWN
+      - DAC_OVERRIDE
+      - NET_BIND_SERVICE
+      - SETGID
+      - SETUID
     labels:
       com.it-tools.description:
         "A collection of handy online tools for developers, with great UX."
@@ -185,6 +198,9 @@ services:
   - **image: ghcr.io/corentinth/it-tools**: Uses the it-tools image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
+  - **read_only: true**: Mounts the root file system of the container read-only.
+  - **tmpfs**: Mounts `/var/cache/nginx`, `/var/run`, and `/tmp` as in-memory
+    file systems, so the app can still write its runtime files there.
   - **environment**: Sets environment variables.
     - **PUID: "1000"**: Sets the user ID.
     - **PGID: "1000"**: Sets the group ID.
@@ -196,10 +212,15 @@ services:
       container.
   - **ports**: Maps container ports to host ports.
     - **3014:80/tcp**: Maps the HTTP port (TCP).
-    - **3014:80/udp**: Maps the HTTP port (UDP).
+  - **pids_limit: 512**: Limits the number of processes and threads in the
+    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges\:true**: Ensures the container does not gain new
       privileges.
+  - **cap_drop: ALL**: Drops all Linux capabilities.
+  - **cap_add**: Adds back only what nginx needs: `CHOWN`, `DAC_OVERRIDE`,
+    `NET_BIND_SERVICE`, `SETGID`, and `SETUID`. These let it bind port 80 and
+    switch to the `nginx` user.
   - **labels**: Metadata for the container.
     - **com.it-tools.description**: Description label for it-tools.
   - **healthcheck**: Healthcheck configuration.

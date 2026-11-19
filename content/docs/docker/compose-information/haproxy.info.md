@@ -170,11 +170,10 @@ services:
       - 149.112.112.112 # Secondary DNS server (Quad9 - Redundant)
     ports:
       - "80:80/tcp" # HTTP
-      - "80:80/udp" # HTTP
       - "443:443/tcp" # HTTPS
       - "443:443/udp" # HTTPS
       - "8404:8404/tcp" # Statistics Report
-      - "8404:8404/udp" # Statistics Report
+    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -219,11 +218,11 @@ services:
     - **149.112.112.112**: Secondary DNS server (Quad9).
   - **ports**: Maps container ports to host ports.
     - **80:80/tcp**: Maps HTTP port (TCP).
-    - **80:80/udp**: Maps HTTP port (UDP).
     - **443:443/tcp**: Maps HTTPS port (TCP).
     - **443:443/udp**: Maps HTTPS port (UDP).
     - **8404:8404/tcp**: Maps Statistics Report port (TCP).
-    - **8404:8404/udp**: Maps Statistics Report port (UDP).
+  - **pids_limit: 512**: Limits the number of processes and threads in the
+    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges\:true**: Ensures the container does not gain new
       privileges.

@@ -136,7 +136,8 @@ sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/do
    Once Docker is installed, setting up Portainer is straightforward. You can
    choose between the Portainer Community Edition (CE) or the Business Edition
    (BE). Simply copy and paste the command from the
-   [quick install guide portainer](#quick-install-guide-portainer) to get started.
+   [quick install guide portainer](#quick-install-guide-portainer) to get
+   started.
 
 <br />
 
@@ -269,7 +270,8 @@ If you use an Ubuntu derivative distro, such as Linux Mint, you may need to use
    Once Docker is installed, setting up Portainer is straightforward. You can
    choose between the Portainer Community Edition (CE) or the Business Edition
    (BE). Simply copy and paste the command from the
-   [quick install guide portainer](#quick-install-guide-portainer) to get started.
+   [quick install guide portainer](#quick-install-guide-portainer) to get
+   started.
 
 <br />
 
@@ -333,11 +335,10 @@ Congratulations, you have now installed Portainer. From now on, you will use
 Portainer to start new Docker projects.
 
 {{% alert context="primary" %}}
-**Note:**
-If you use one of Homelab-Alpha's Docker run commands or Docker Compose files,
-persistent volumes are utilized. You can find your data from your containers in
-the root directory named `/docker`. For example, all data from the Portainer
-container is stored in `/docker/portainer`. {{% /alert %}}
+**Note:** If you use one of Homelab-Alpha's Docker run commands or Docker
+Compose files, persistent volumes are utilized. You can find your data from your
+containers in the root directory named `/docker`. For example, all data from the
+Portainer container is stored in `/docker/portainer`. {{% /alert %}}
 
 ### Community Edition (CE)
 
@@ -431,5 +432,7 @@ docker run \
   portainer/portainer-ee:latest
 ```
 
-[Official Docker documentation for Fedora]: https://docs.docker.com/desktop/install/fedora
-[Official Docker documentation for Ubuntu]: https://docs.docker.com/desktop/install/ubuntu
+[Official Docker documentation for Fedora]:
+  https://docs.docker.com/desktop/install/fedora
+[Official Docker documentation for Ubuntu]:
+  https://docs.docker.com/desktop/install/ubuntu

@@ -175,6 +175,7 @@ services:
     networks:
       nginx-proxy-manager_net:
         ipv4_address: 172.20.20.2
+    pids_limit: 2048 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -232,11 +233,9 @@ services:
         ipv4_address: 172.20.20.3
     ports:
       - "80:80/tcp" # HTTP
-      - "80:80/udp" # HTTP
       - "81:81/tcp" # web admin port
-      - "81:81/udp" # web admin port
       - "443:443/tcp" # HTTPS
-      - "443:443/udp" # HTTPS
+    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -293,6 +292,8 @@ services:
   - **networks**: Connects the service to the `nginx-proxy-manager_net` network.
     - **ipv4_address: 172.20.20.2**: Assigns a static IP address to the
       container.
+  - **pids_limit: 2048**: Limits the number of processes and threads in the
+    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
@@ -358,11 +359,10 @@ services:
       container.
   - **ports**: Maps container ports to host ports.
     - **80:80/tcp**: Maps HTTP TCP port.
-    - **80:80/udp**: Maps HTTP UDP port.
     - **81:81/tcp**: Maps the UI TCP port.
-    - **81:81/udp**: Maps the UI UDP port.
     - **443:443/tcp**: Maps HTTPS TCP port.
-    - **443:443/udp**: Maps HTTPS UDP port.
+  - **pids_limit: 512**: Limits the number of processes and threads in the
+    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.

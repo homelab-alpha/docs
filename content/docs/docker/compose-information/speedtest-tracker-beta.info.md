@@ -133,6 +133,7 @@ services:
     networks:
       speedtest-tracker_net:
         ipv4_address: 172.20.23.4
+    pids_limit: 2048 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -179,6 +180,8 @@ services:
     container.
   - **networks**: Connects the service to `speedtest-tracker_net` with static IP
     address `172.20.23.4`.
+  - **pids_limit: 2048**: Limits the number of processes and threads in the
+    container, which protects the host against fork bombs.
   - **security_opt: no-new-privileges:true**: Prevents the container from
     gaining new privileges.
   - **labels**: A description label.
@@ -233,7 +236,7 @@ services:
       APP_TIMEZONE: Europe/Amsterdam
       APP_URL: http://localhost
       ASSET_URL: http://localhost
-      APP_DEBUG: true
+      # APP_DEBUG: true # Uncomment for debug mode
       ADMIN_EMAIL: ${ADMIN_EMAIL}
       ADMIN_NAME: ${ADMIN_NAME}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD}
@@ -254,9 +257,8 @@ services:
         ipv4_address: 172.20.23.5
     ports:
       - "80:8080/tcp"
-      - "80:8080/udp"
       - "443:8443/tcp"
-      - "443:8443/udp"
+    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -310,7 +312,8 @@ services:
     - **APP_TIMEZONE: Europe/Amsterdam**
     - **APP_URL: http://localhost**
     - **ASSET_URL: http://localhost**
-    - **APP_DEBUG: True**
+    - **APP_DEBUG**: Commented out, so debug mode is off. Uncomment it only
+      while you debug.
     - **ADMIN_EMAIL: ${ADMIN_EMAIL}**
     - **ADMIN_NAME: ${ADMIN_NAME}**
     - **ADMIN_PASSWORD: ${ADMIN_PASSWORD}**
@@ -330,9 +333,9 @@ services:
     address `172.20.23.5`.
   - **ports**: Maps host ports to container ports.
     - **"80:8080/tcp"**
-    - **"80:8080/udp"**
     - **"443:8443/tcp"**
-    - **"443:8443/udp"**
+  - **pids_limit: 512**: Limits the number of processes and threads in the
+    container, which protects the host against fork bombs.
   - **security_opt: no-new-privileges:true**: Prevents the container from
     gaining new privileges.
   - **labels**: A description label.

@@ -146,11 +146,13 @@ services:
     container_name: netdata
     image: ghcr.io/netdata/netdata:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
+    depends_on:
+      netdata_socket-proxy:
+        condition: service_started
     volumes:
       - /docker/netdata/production/app/cache:/var/cache/netdata
       - /docker/netdata/production/app/config:/etc/netdata
       - /docker/netdata/production/app/lib:/var/lib/netdata
-      - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/group:/host/etc/group:ro
       - /etc/localtime:/etc/localtime:ro
       - /etc/os-release:/host/etc/os-release:ro
@@ -162,6 +164,7 @@ services:
     environment:
       TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
       DOCKER_USR: root
+      DOCKER_HOST: netdata_socket-proxy:2375 # Resolves container names through the read-only socket proxy.
       NETDATA_EXTRA_APK_PACKAGES: lm-sensors
     domainname: netdata.local # Customize this with your own domain, e.g., `netdata.local` to `netdata.your-fqdn-here.com`.
     hostname: netdata
@@ -170,9 +173,10 @@ services:
         ipv4_address: 172.20.4.2
     ports:
       - "19999:19999/tcp" # HTTP
-      - "19999:19999/udp" # HTTP
+    pids_limit: 2048 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - apparmor:unconfined
+      - no-new-privileges:true
     cap_add:
       - SYS_PTRACE
       - SYS_ADMIN
@@ -205,6 +209,8 @@ services:
   - **image: ghcr.io/netdata/netdata**: Uses the Netdata image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
+  - **depends_on**: Starts this service only after `netdata_socket-proxy` has
+    started.
   - **volumes**: Mounts host directories or files into the container.
     - **/docker/netdata/production/app/cache:/var/cache/netdata**: Persists
       Netdata cache data.
@@ -212,8 +218,6 @@ services:
       configuration data.
     - **/docker/netdata/production/app/lib:/var/lib/netdata**: Persists Netdata
       library data.
-    - **/var/run/docker.sock:/var/run/docker.sock:ro**: Mounts the Docker socket
-      read-only.
     - **/etc/group:/host/etc/group:ro**: Mounts the host's group file read-only.
     - **/etc/localtime:/etc/localtime:ro**: Mounts the host's local time file
       read-only.
@@ -229,6 +233,8 @@ services:
   - **environment**: Sets environment variables.
     - **TZ: Europe/Amsterdam**: Sets the timezone to Amsterdam.
     - **DOCKER_USR: root**: Specifies the Docker user as root.
+    - **DOCKER_HOST: netdata_socket-proxy:2375**: Reads the container names
+      through the read-only socket proxy instead of the Docker socket.
     - **NETDATA_EXTRA_APK_PACKAGES: lm-sensors**: Installs additional packages
       (lm-sensors).
   - **domainname: netdata.local**: Sets the domain name for the container.
@@ -239,10 +245,12 @@ services:
   - **ports**: Maps host ports to container ports.
     - **"19999:19999/tcp"**: Maps TCP port 19999 on the host to port 19999 in
       the container.
-    - **"19999:19999/udp"**: Maps UDP port 19999 on the host to port 19999 in
-      the container.
+  - **pids_limit: 2048**: Limits the number of processes and threads in the
+    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **apparmor:unconfined**: Runs the container without AppArmor confinement.
+    - **no-new-privileges:true**: Prevents the container from gaining additional
+      privileges.
   - **cap_add**: Adds additional capabilities to the container.
     - **SYS_PTRACE**: Allows tracing of processes.
     - **SYS_ADMIN**: Allows various administrative operations.
@@ -263,13 +271,86 @@ services:
 
 <br />
 
+### `netdata_socket-proxy`
+
+```yaml
+services:
+  netdata_socket-proxy:
+    # Read-only proxy for the Docker API. The app reaches Docker through this proxy instead of the socket.
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1M"
+        max-file: "2"
+    stop_grace_period: 1m
+    container_name: netdata_socket-proxy
+    image: lscr.io/linuxserver/socket-proxy:<tag> # The current tag is in the RAW compose.yml.
+    pull_policy: if_not_present
+    read_only: true
+    tmpfs:
+      - /run
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+      CONTAINERS: 1 # Allow GET /containers (list and inspect).
+      POST: 0 # Read-only: only GET and HEAD requests reach Docker.
+    hostname: netdata_socket-proxy
+    networks:
+      netdata_net:
+        ipv4_address: 172.20.4.3
+    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
+    security_opt:
+      - no-new-privileges:true
+    labels:
+      com.netdata.socket-proxy.description:
+        "is a read-only Docker API proxy for Netdata."
+```
+
+<br />
+
+- **netdata_socket-proxy**: The read-only Docker socket proxy. `netdata_app`
+  reaches the Docker API through this proxy on port 2375 instead of mounting the
+  Docker socket.
+  - **restart: unless-stopped**: Restarts the container unless it is explicitly
+    stopped.
+  - **logging**: Uses the `json-file` driver, limited to 1MB per file and a
+    maximum of 2 files.
+  - **stop_grace_period: 1m**: Waits 1 minute before forcibly stopping the
+    container.
+  - **container_name: netdata_socket-proxy**: Names the container.
+  - **image: lscr.io/linuxserver/socket-proxy**: Uses the LinuxServer.io socket
+    proxy image.
+  - **pull_policy: if_not_present**: Pulls the image only if it's not present
+    locally.
+  - **read_only: true**: Mounts the root file system of the container read-only.
+  - **tmpfs: /run**: Mounts `/run` as an in-memory file system for the runtime
+    files of the proxy.
+  - **volumes**: Mounts the Docker socket read-only. The `:ro` flag does not
+    limit the Docker API; the proxy does.
+  - **environment**: Sets what the proxy lets through. `CONTAINERS: 1` allows
+    listing and inspecting containers and `POST: 0` blocks every request that
+    changes something. Only `GET` and `HEAD` requests reach Docker.
+  - **hostname: netdata_socket-proxy**: Sets the hostname for the container.
+  - **networks**: Connects the service to the stack network with static IP
+    address `172.20.4.3`.
+  - **pids_limit: 512**: Limits the number of processes and threads in the
+    container, which protects the host against fork bombs.
+  - **security_opt: no-new-privileges:true**: Prevents the container from
+    gaining additional privileges.
+  - **labels**: A description label.
+
+<br />
+
 ## Quick Start
 
 {{% alert context="info" %}}
 Requires Docker Compose 2.24.0 or later.
 {{% /alert %}}
 
-1. Start the stack:
+1. Start the stack. Netdata reads the container names through the read-only
+   socket proxy (`netdata_socket-proxy`) instead of the Docker socket:
 
    ```bash
    docker compose up -d
