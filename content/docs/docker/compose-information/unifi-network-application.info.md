@@ -61,7 +61,7 @@ Here's a detailed explanation:
 - **Project name**: `unifi-network-application`, set with the top-level `name:`
   of the file.
 - **Author**: GJS (homelab-alpha)
-- **Date**: October 28, 2026
+- **Date**: November 19, 2026
 - **Description**: Configures a Docker network, a MongoDB database service, and
   a UniFi Network Application service.
 - **RAW Compose File**: [compose.yml]
@@ -73,6 +73,9 @@ Here's a detailed explanation:
 ## Networks Configuration
 
 ```yaml
+---
+name: unifi-network-application
+
 networks:
   unifi-network-application_net:
     attachable: false
@@ -144,7 +147,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: unifi-network-application_db
-    image: docker.io/mongo:9.0.4
+    image: docker.io/mongo:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     volumes:
       - /docker/unifi-network-application/production/db:/data/db
@@ -201,8 +204,7 @@ services:
 - **stop_grace_period: 1m**: Waits 1 minute before forcibly stopping the
   container.
 - **container_name: unifi-network-application_db**: Names the container.
-- **image: docker.io/mongo:9.0.4**: Uses the MongoDB image, pinned to version
-  `9.0.4`.
+- **image: docker.io/mongo**: Uses the MongoDB image.
 - **pull_policy: if_not_present**: Pulls the image only if it's not present
   locally.
 - **volumes**: Mounts host directories or files into the container.
@@ -255,7 +257,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: unifi-network-application
-    image: ghcr.io/linuxserver/unifi-network-application:10.6.109
+    image: ghcr.io/linuxserver/unifi-network-application:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     depends_on:
       unifi-network-application_db:
@@ -314,8 +316,8 @@ services:
 - **restart**, **logging**, **stop_grace_period**, **pull_policy**: Same
   behavior as the database service.
 - **container_name: unifi-network-application**: Names the container.
-- **image: ghcr.io/linuxserver/unifi-network-application:10.6.109**: Uses the
-  LinuxServer.io UniFi Network Application image, pinned to version `10.6.109`.
+- **image: ghcr.io/linuxserver/unifi-network-application**: Uses the
+  LinuxServer.io UniFi Network Application image.
 - **depends_on**: Starts this service only when the database is
   `service_healthy`.
 - **volumes**: `/docker/unifi-network-application/production/app:/config`
@@ -448,6 +450,58 @@ EOF
 - **db.auth(...)**: Authenticates as the root user.
 - **db.createUser(...)**: Creates the application user with the `dbOwner` role
   on the application database and on the `_stat` database.
+
+<br />
+
+## Quick Start
+
+{{% alert context="info" %}}
+Requires Docker Compose 2.24.0 or later.
+{{% /alert %}}
+
+1. Copy `init-mongo.sh` to `/docker/unifi-network-application/init-mongo.sh`.
+   Docker creates the other directories under
+   `/docker/unifi-network-application/` on the first start.
+
+2. Change the values in `.env` (Docker Compose CLI) or `stack.env` (Portainer),
+   at least the passwords.
+
+3. Start the stack:
+
+   ```bash
+   docker compose up -d
+   ```
+
+<br />
+
+## Default Web Access
+
+Access the UniFi Network Application web interface using the following URL:
+
+```bash
+https://your-ip-address:8443
+```
+
+The application uses a self-signed certificate, so your browser shows a warning
+on the first visit.
+
+<br />
+
+## Default Login Credentials
+
+{{% alert context="info" %}}
+On the first visit, the setup wizard creates the administrator account or
+restores a backup.
+{{% /alert %}}
+
+**Username**: Created during setup
+
+**Password**: Created during setup
+
+{{% alert context="warning" %}}
+**For security reasons, it is strongly recommended to create a strong username
+and password during the setup.**
+{{% /alert %}}
 
 <br />
 

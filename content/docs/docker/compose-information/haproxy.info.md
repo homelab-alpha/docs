@@ -64,7 +64,7 @@ Here's a detailed explanation:
 - **Filename**: `compose.yml`
 - **Project name**: `haproxy`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 18, 2025
+- **Date**: November 19, 2026
 - **Description**: Docker Compose setup for HAProxy load balancing with SSL and
   network management.
 - **RAW Compose File**: [compose.yml]
@@ -75,6 +75,8 @@ Here's a detailed explanation:
 
 ```yaml
 ---
+name: haproxy
+
 networks:
   haproxy_net:
     attachable: true
@@ -145,7 +147,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: haproxy
-    image: docker.io/haproxytech/haproxy-ubuntu:3.4.7
+    image: docker.io/haproxytech/haproxy-ubuntu:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     volumes:
       - /docker/haproxy/production/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
@@ -154,22 +156,25 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam
-    domainname: haproxy.local
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+    domainname: haproxy.local # Customize this with your own domain, e.g., `haproxy.local` to `haproxy.your-fqdn-here.com`.
     hostname: haproxy
     networks:
       haproxy_net:
         ipv4_address: 172.20.21.2
     dns:
-      - 9.9.9.9
-      - 149.112.112.112
+      # Defines custom DNS servers to set on the container network interface configuration.
+      # It can be a single value or a list.
+      # Recommended: Quad9 for Malware Blocking, DNSSEC Validation, and Privacy.
+      - 9.9.9.9 # Primary DNS server   (Quad9 - Security & Privacy)
+      - 149.112.112.112 # Secondary DNS server (Quad9 - Redundant)
     ports:
-      - "80:80/tcp"
-      - "80:80/udp"
-      - "443:433/tcp"
-      - "443:433/udp"
-      - "8404:8404/tcp"
-      - "8404:8404/udp"
+      - "80:80/tcp" # HTTP
+      - "80:80/udp" # HTTP
+      - "443:443/tcp" # HTTPS
+      - "443:443/udp" # HTTPS
+      - "8404:8404/tcp" # Statistics Report
+      - "8404:8404/udp" # Statistics Report
     security_opt:
       - no-new-privileges:true
     labels:
@@ -191,8 +196,8 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: haproxy**: Names the container "haproxy".
-  - **image: docker.io/haproxytech/haproxy-ubuntu:3.4.7**: Uses the official
-    HAProxy Ubuntu image.
+  - **image: docker.io/haproxytech/haproxy-ubuntu**: Uses the official HAProxy
+    Ubuntu image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.
@@ -215,8 +220,8 @@ services:
   - **ports**: Maps container ports to host ports.
     - **80:80/tcp**: Maps HTTP port (TCP).
     - **80:80/udp**: Maps HTTP port (UDP).
-    - **443:433/tcp**: Maps HTTPS port (TCP).
-    - **443:433/udp**: Maps HTTPS port (UDP).
+    - **443:443/tcp**: Maps HTTPS port (TCP).
+    - **443:443/udp**: Maps HTTPS port (UDP).
     - **8404:8404/tcp**: Maps Statistics Report port (TCP).
     - **8404:8404/udp**: Maps Statistics Report port (UDP).
   - **security_opt**: Security options for the container.
@@ -226,6 +231,43 @@ services:
     - **com.haproxy.description**: Description label for HAProxy.
   - **healthcheck**: Healthcheck configuration.
     - **disable: false**: Enables health checks for the container.
+
+<br />
+
+## Quick Start
+
+{{% alert context="info" %}}
+Requires Docker Compose 2.24.0 or later.
+{{% /alert %}}
+
+1. Copy `haproxy.cfg` to `/docker/haproxy/production/haproxy.cfg`. Docker
+   creates the other directories under `/docker/haproxy/` on the first start.
+
+2. Start the stack:
+
+   ```bash
+   docker compose up -d
+   ```
+
+<br />
+
+## Default Access
+
+HAProxy has no web interface. The `main` frontend in `haproxy.cfg` listens on
+port 80:
+
+```bash
+http://your-ip-address:80
+```
+
+Port 8404 is published as well, but `haproxy.cfg` does not define a stats page
+on it.
+
+<br />
+
+## Default Login Credentials
+
+HAProxy has no login. Configure the frontends and backends in `haproxy.cfg`.
 
 <br />
 

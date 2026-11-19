@@ -57,7 +57,7 @@ the system's stability.
 - **Filename**: `compose.yml`
 - **Project name**: `mariadb`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 18, 2025
+- **Date**: November 19, 2026
 - **Description**: Configures a custom network and a MariaDB service using
   Docker Compose.
 - **RAW Compose File**: [compose.yml]
@@ -70,6 +70,9 @@ the system's stability.
 ## Networks Configuration
 
 ```yaml
+---
+name: mariadb
+
 networks:
   mariadb_net:
     attachable: true
@@ -141,13 +144,15 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: mariadb_db
-    image: docker.io/mariadb:13.0.2
+    image: docker.io/mariadb:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     volumes:
-      - /docker/mariadb/production/db:/var/lib/mysql
       - /docker/mariadb/config/my.cnf:/etc/my.cnf
+      - /docker/mariadb/production/db:/var/lib/mysql
       - /sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure
     env_file:
+      # Compose loads each file that exists and skips a missing one:
+      # '.env' for the Docker Compose CLI, 'stack.env' for Portainer.
       - path: .env
         required: false
       - path: stack.env
@@ -155,8 +160,8 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam
-      MARIADB_ROOT_PASSWORD: ${ROOT_PASSWORD_DB}
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+      MARIADB_ROOT_PASSWORD: ${ROOT_PASSWORD_DB} # Fill in the value in both the .env and stack.env files
     hostname: mariadb_db
     networks:
       mariadb_net:
@@ -193,8 +198,7 @@ services:
   - **stop_grace_period: 1m**: Allows a grace period of 1 minute for the
     container to stop.
   - **container_name: mariadb_db**: Names the container `mariadb_db`.
-  - **image: docker.io/mariadb:13.0.2**: Uses the MariaDB image, pinned to
-    version `13.0.2`.
+  - **image: docker.io/mariadb**: Uses the MariaDB image.
   - **pull_policy: if_not_present**: Pulls the image only if it is not already
     present locally.
   - **volumes**: Mounts directories or files into the container.
@@ -262,34 +266,10 @@ flexibility**.
 # Change the MariaDB root password to a strong, unique password of your choice.
 # Ensure the password is complex and not easily guessable.
 ROOT_PASSWORD_DB=StrongUniqueRootPassword1234
-
-# Database Configuration: USER
-# Database host and connection settings
-HOST_DB=mariadb_db
-
-# Database name: Change this to your desired database name
-NAME_DB=mariadb_db
-
-# MariaDB user password: Change this to a strong, unique password
-PASSWORD_DB=StrongUniqueUserPassword5678
-
-# MariaDB connection port (default: 3306)
-PORT_DB=3306
-
-# MariaDB username: Change this to your desired username
-USER_DB=mariadb
 ```
 
 - **`ROOT_PASSWORD_DB`**: The root user's password for the MariaDB instance.
   This user has full administrative privileges. Use a secure and unique value.
-- **`HOST_DB`**: Hostname or IP address of the database server. In Docker-based
-  setups, this usually matches the service name (`mariadb_db`).
-- **`NAME_DB`**: The name of the database to be used by the application (e.g.,
-  mariadb_db).
-- **`PASSWORD_DB`**: The password for the non-root database user (`USER_DB`).
-  Ensure this is secure.
-- **`PORT_DB`**: The port number MariaDB listens on (default: 3306).
-- **`USER_DB`**: The username used to connect to the database.
 
 <br />
 
@@ -346,11 +326,11 @@ innodb-io-capacity-max = 8000
 query-cache-type = 0
 tmp-table-size = 64M
 max-heap-table-size = 64M
-max-connections = 200
+max-connections = 500
 thread-cache-size = 50
 table-definition-cache = 4000
 table-open-cache = 4000
-aria-pagecache-buffer-size = 128M
+aria-pagecache-buffer-size = 256M
 ```
 
 - **`innodb-buffer-pool-size`**: Memory allocated for caching InnoDB data and
@@ -400,9 +380,9 @@ secure-file-priv = /var/lib/mysql/
 #### Binary Logging and Replication
 
 ```cnf
-log-bin = mariadb_binlog
-max-binlog-size = 500M
-expire-logs-days = 7
+log-bin = binlog
+max-binlog-size = 512M
+expire-logs-days = 14
 binlog-checksum = CRC32
 binlog-format = ROW
 log-bin-compress = 1
@@ -494,6 +474,45 @@ general-log = 0
 
 - **`!includedir`**: Includes additional configuration files from specified
   directories, allowing modular config management.
+
+<br />
+
+## Quick Start
+
+{{% alert context="info" %}}
+Requires Docker Compose 2.24.0 or later.
+{{% /alert %}}
+
+1. Copy `config/my.cnf` to `/docker/mariadb/config/my.cnf`. Docker creates the
+   other directories under `/docker/mariadb/` on the first start.
+
+2. Change the values in `.env` (Docker Compose CLI) or `stack.env` (Portainer),
+   at least the passwords.
+
+3. Start the stack:
+
+   ```bash
+   docker compose up -d
+   ```
+
+<br />
+
+## Connection
+
+MariaDB has no web interface. The port is published on the host only
+(`127.0.0.1`), so connect from the host itself:
+
+```bash
+mariadb --host 127.0.0.1 --port 3306 --user root --password
+```
+
+<br />
+
+## Default Login Credentials
+
+**Username**: root
+
+**Password**: The value of `ROOT_PASSWORD_DB` in the `.env` or `stack.env` file.
 
 <br />
 

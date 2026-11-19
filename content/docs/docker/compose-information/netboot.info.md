@@ -61,7 +61,7 @@ Here's a detailed explanation:
 - **Filename**: `compose.yml`
 - **Project name**: `netboot`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 16, 2025
+- **Date**: November 19, 2026
 - **Description**: Configures a Docker network and the NetBoot service,
   providing an environment for network booting various OS and utility disks.
 - **RAW Compose File**: [compose.yml]
@@ -71,6 +71,9 @@ Here's a detailed explanation:
 ## Networks Configuration
 
 ```yaml
+---
+name: netboot
+
 networks:
   netboot_net:
     attachable: false
@@ -141,7 +144,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: netboot
-    image: ghcr.io/netbootxyz/netbootxyz:0.7.6-nbxyz4
+    image: ghcr.io/netbootxyz/netbootxyz:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     volumes:
       - /docker/netboot/production/app:/config
@@ -149,21 +152,21 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
       # MENU_VERSION: 2.0.79 # optional
       # PORT_RANGE: 30000:30010 # optional
       # SUBFOLDER: / # optional
-    domainname: netboot.local
+    domainname: netboot.local # Customize this with your own domain, e.g., `netboot.local` to `netboot.your-fqdn-here.com`.
     hostname: netboot
     networks:
       netboot_net:
         ipv4_address: 172.20.11.2
     ports:
-      - "69:69/udp"
-      - "3011:3000/tcp"
-      - "3011:3000/udp"
-      # - "3012:80/tcp"
-      # - "3012:80/udp"
+      - "69:69/udp" # TFTP Port
+      - "3011:3000/tcp" # Web configuration interface.
+      - "3011:3000/udp" # Web configuration interface.
+      # - "3012:80/tcp" # NGINX server for hosting assets.
+      # - "3012:80/udp" # NGINX server for hosting assets.
     security_opt:
       - no-new-privileges:true
     labels:
@@ -194,8 +197,7 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: netboot**: Names the container "netboot".
-  - **image: ghcr.io/netbootxyz/netbootxyz:0.7.6-nbxyz4**: Uses the NetBootXYZ
-    image, pinned to version `0.7.6-nbxyz4`.
+  - **image: ghcr.io/netbootxyz/netbootxyz**: Uses the NetBootXYZ image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.
@@ -203,8 +205,6 @@ services:
       directory.
     - **/docker/media/images/netboot/assets:/assets**: Mounts the assets
       directory.
-    - **/docker/media/images/iso:/assets**: Mounts the ISO images directory.
-    - **/docker/media/images/dmg:/assets**: Mounts the DMG images directory.
   - **environment**: Sets environment variables.
     - **PUID: "1000"**: Sets the user ID.
     - **PGID: "1000"**: Sets the group ID.
@@ -237,6 +237,47 @@ services:
     - **start_period**: The initial period during which a health check failure
       will not be counted towards the retries (10 seconds).
     - **start_interval**: The time between starting health checks (5 seconds).
+
+<br />
+
+## Quick Start
+
+{{% alert context="info" %}}
+Requires Docker Compose 2.24.0 or later.
+{{% /alert %}}
+
+1. Point the DHCP server of your network to this host as TFTP server (port
+   69/udp). See `notes/netboot_boot_option.md`.
+
+2. Start the stack:
+
+   ```bash
+   docker compose up -d
+   ```
+
+<br />
+
+## Default Web Access
+
+Access the netboot.xyz web interface using the following URL:
+
+**Web configuration interface**:
+
+```bash
+http://your-ip-address:3011
+```
+
+<br />
+
+## Default Login Credentials
+
+**Username**: No username is required.
+
+**Password**: No password is required.
+
+{{% alert context="warning" %}}
+**The web interface has no login. Do not expose it outside your network.**
+{{% /alert %}}
 
 <br />
 

@@ -57,7 +57,7 @@ Here's a detailed explanation:
 - **Filename**: `compose.yml`
 - **Project name**: `plex`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 16, 2025
+- **Date**: November 19, 2026
 - **Description**: Configures a Docker network and service for Plex Media
   Server.
 - **RAW Compose File**: [compose.yml]
@@ -69,6 +69,9 @@ Here's a detailed explanation:
 ## Networks Configuration
 
 ```yaml
+---
+name: plex
+
 networks:
   plex_net:
     attachable: false
@@ -139,13 +142,15 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: plex
-    image: docker.io/plexinc/pms-docker:1.43.5.11079-b3b13e506
+    image: docker.io/plexinc/pms-docker:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     volumes:
       - /docker/plex/production/app/config:/config
       - /docker/plex/production/app/temp:/transcode
       - /docker/media:/data:ro
     env_file:
+      # Compose loads each file that exists and skips a missing one:
+      # '.env' for the Docker Compose CLI, 'stack.env' for Portainer.
       - path: .env
         required: false
       - path: stack.env
@@ -153,27 +158,27 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam
-      PLEX_CLAIM: ${PLEX_CLAIM_TOKEN}
-      ADVERTISE_IP: ${IP_ADDRESS}
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+      PLEX_CLAIM: ${PLEX_CLAIM_TOKEN} # Fill in the value in both the .env and stack.env files
+      ADVERTISE_IP: ${IP_ADDRESS} # Fill in the value in both the .env and stack.env files
       CHANGE_CONFIG_DIR_OWNERSHIP: "false"
       # ALLOWED_NETWORKS: ""
-    domainname: plex.local
+    domainname: plex.local # Customize this with your own domain, e.g., `plex.local` to `plex.your-fqdn-here.com`.
     hostname: plex
     networks:
       plex_net:
         ipv4_address: 172.20.12.2
     ports:
-      - 32400:32400/tcp
-      - 32400:32400/udp
-      - 5353:5353/udp
-      - 8324:8324/tcp
-      - 1900:1900/udp
-      - 32469:32469/tcp
-      - 32410:32410/udp
-      - 32412:32412/udp
-      - 32413:32413/udp
-      - 32414:32414/udp
+      - 32400:32400/tcp # HTTP
+      - 32400:32400/udp # HTTP
+      - 5353:5353/udp # older Bonjour/Avahi network discovery (not is use anymore)
+      - 8324:8324/tcp # controlling Plex for Roku via Plex Companion
+      - 1900:1900/udp # Plex DLNA Server
+      - 32469:32469/tcp # Plex DLNA Server
+      - 32410:32410/udp # GDM network discovery
+      - 32412:32412/udp # GDM network discovery
+      - 32413:32413/udp # GDM network discovery
+      - 32414:32414/udp # GDM network discovery
     devices:
       - /dev/dri:/dev/dri
     security_opt:
@@ -204,8 +209,7 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: plex**: Names the container "plex".
-  - **image: docker.io/plexinc/pms-docker:1.43.5.11079-b3b13e506**: Uses the
-    Plex Media Server image, pinned to version `1.43.5.11079-b3b13e506`.
+  - **image: docker.io/plexinc/pms-docker**: Uses the Plex Media Server image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.
@@ -298,6 +302,46 @@ IP_ADDRESS=http://YourServerIPHere:32400/
   is typically in the format `http://<IP_ADDRESS>:32400/`. Replace the
   placeholder with the actual IP address of your server, ensuring you use the
   correct format for your setup.
+
+<br />
+
+## Quick Start
+
+{{% alert context="info" %}}
+Requires Docker Compose 2.24.0 or later.
+{{% /alert %}}
+
+1. Put your media in `/docker/media`. The stack mounts it in the container.
+
+2. Change the values in `.env` (Docker Compose CLI) or `stack.env` (Portainer),
+   at least the passwords.
+
+3. Get a claim token from <https://www.plex.tv/claim> and put it in
+   `PLEX_CLAIM_TOKEN`. The token expires after a few minutes and is only used on
+   the first start, so start the stack right after.
+
+4. Start the stack:
+
+   ```bash
+   docker compose up -d
+   ```
+
+<br />
+
+## Default Web Access
+
+Access the Plex Media Server web interface using the following URL:
+
+```bash
+http://your-ip-address:32400/web
+```
+
+<br />
+
+## Default Login Credentials
+
+Sign in with your Plex account. The claim token links the server to that account
+on the first start.
 
 <br />
 

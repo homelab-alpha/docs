@@ -60,7 +60,7 @@ Here's a detailed explanation:
 - **Filename**: `compose.yml`
 - **Project name**: `openspeedtest`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 16, 2025
+- **Date**: November 19, 2026
 - **Description**: This file configures a custom Docker network and an
   OpenSpeedTest service, including detailed network settings and service
   configurations for reliable and secure operation.
@@ -71,6 +71,9 @@ Here's a detailed explanation:
 ## Networks Configuration
 
 ```yaml
+---
+name: openspeedtest
+
 networks:
   openspeedtest_net:
     attachable: false
@@ -143,7 +146,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: openspeedtest
-    image: docker.io/openspeedtest/latest:v2.0.8
+    image: docker.io/openspeedtest/latest:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     volumes:
       - /docker/openspeedtest/production/config/nginx.conf:/etc/nginx.conf
@@ -152,20 +155,20 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
       ENABLE_LETSENCRYPT: false
-      DOMAIN_NAME: speedtest.local
+      DOMAIN_NAME: speedtest.local # Customize this with your own domain, e.g., `openspeedtest.local` to `openspeedtest.your-fqdn-here.com`.
       # USER_EMAIL: info@example.com
-    domainname: openspeedtest.local
+    domainname: openspeedtest.local # Customize this with your own domain, e.g., `openspeedtest.local` to `openspeedtest.your-fqdn-here.com`.
     hostname: openspeedtest
     networks:
       openspeedtest_net:
         ipv4_address: 172.20.10.2
     ports:
-      - "3009:3000/tcp"
-      - "3009:3000/udp"
-      - "3010:3001/tcp"
-      - "3010:3001/udp"
+      - "3009:3000/tcp" # HTTP
+      - "3009:3000/udp" # HTTP
+      - "3010:3001/tcp" # HTTPS
+      - "3010:3001/udp" # HTTPS
     security_opt:
       - no-new-privileges:true
     labels:
@@ -188,8 +191,7 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: openspeedtest**: Names the container "openspeedtest".
-  - **image: docker.io/openspeedtest/latest:v2.0.8**: Uses the OpenSpeedTest
-    image, pinned to version `v2.0.8`.
+  - **image: docker.io/openspeedtest/latest**: Uses the OpenSpeedTest image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.
@@ -222,6 +224,52 @@ services:
     - **com.openspeedtest.description**: Description label for OpenSpeedTest.
   - **healthcheck**: Healthcheck configuration.
     - **disable: true**: Disables health checks for the container.
+
+<br />
+
+## Quick Start
+
+{{% alert context="info" %}}
+Requires Docker Compose 2.24.0 or later.
+{{% /alert %}}
+
+1. Copy `nginx.conf` to `/docker/openspeedtest/production/config/nginx.conf`.
+   Copy `OpenSpeedTest-Server.conf` to
+   `/docker/openspeedtest/production/config/OpenSpeedTest-Server.conf`. Docker
+   creates the other directories under `/docker/openspeedtest/` on the first
+   start.
+
+2. Start the stack:
+
+   ```bash
+   docker compose up -d
+   ```
+
+<br />
+
+## Default Web Access
+
+Access the OpenSpeedTest web interface using the following URL:
+
+**HTTP**:
+
+```bash
+http://your-ip-address:3009
+```
+
+**HTTPS**:
+
+```bash
+https://your-ip-address:3010
+```
+
+<br />
+
+## Default Login Credentials
+
+**Username**: No username is required.
+
+**Password**: No password is required.
 
 <br />
 

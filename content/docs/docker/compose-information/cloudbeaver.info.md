@@ -61,7 +61,7 @@ Here's a detailed explanation:
 - **Filename**: `compose.yml`
 - **Project name**: `cloudbeaver`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 16, 2025
+- **Date**: November 19, 2026
 - **Description**: Configures a Docker network and the CloudBeaver service for
   data management using Docker Compose.
 - **RAW Compose File**: [compose.yml]
@@ -71,6 +71,9 @@ Here's a detailed explanation:
 ## Networks Configuration
 
 ```yaml
+---
+name: cloudbeaver
+
 networks:
   cloudbeaver_net:
     attachable: false
@@ -142,22 +145,22 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: cloudbeaver
-    image: docker.io/dbeaver/cloudbeaver:26.2.4
+    image: docker.io/dbeaver/cloudbeaver:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     volumes:
       - /docker/cloudbeaver/production/app:/opt/cloudbeaver/workspace
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam
-    domainname: cloudbeaver.local
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+    domainname: cloudbeaver.local # Customize this with your own domain, e.g., `cloudbeaver.local` to `cloudbeaver.your-fqdn-here.com`.
     hostname: cloudbeaver
     networks:
       cloudbeaver_net:
         ipv4_address: 172.20.14.3
     ports:
-      - "3978:8978/tcp"
-      - "3978:8978/udp"
+      - "3978:8978/tcp" # HTTP(s)
+      - "3978:8978/udp" # HTTP(s)
     security_opt:
       - no-new-privileges:true
     labels:
@@ -186,8 +189,7 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: cloudbeaver**: Names the container "cloudbeaver".
-  - **image: docker.io/dbeaver/cloudbeaver:26.2.4**: Uses the CloudBeaver image,
-    pinned to version `26.2.4`.
+  - **image: docker.io/dbeaver/cloudbeaver**: Uses the CloudBeaver image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.
@@ -222,6 +224,48 @@ services:
     - **start_period**: The initial period during which a health check failure
       will not be counted towards the retries (10 seconds).
     - **start_interval**: The time between starting health checks (5 seconds).
+
+<br />
+
+## Quick Start
+
+{{% alert context="info" %}}
+Requires Docker Compose 2.24.0 or later.
+{{% /alert %}}
+
+1. Start the stack:
+
+   ```bash
+   docker compose up -d
+   ```
+
+<br />
+
+## Default Web Access
+
+Access the CloudBeaver web interface using the following URL:
+
+```bash
+http://your-ip-address:3978
+```
+
+<br />
+
+## Default Login Credentials
+
+{{% alert context="info" %}}
+On the first visit, CloudBeaver opens the initial server configuration, where
+you create the administrator account.
+{{% /alert %}}
+
+**Username**: Created during setup
+
+**Password**: Created during setup
+
+{{% alert context="warning" %}}
+**For security reasons, it is strongly recommended to create a strong username
+and password during the setup.**
+{{% /alert %}}
 
 <br />
 

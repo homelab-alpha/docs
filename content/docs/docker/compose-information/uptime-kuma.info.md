@@ -62,7 +62,7 @@ Here's a detailed explanation:
 - **Filename**: `compose.yml`
 - **Project name**: `uptime-kuma`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
-- **Date**: October 28, 2026
+- **Date**: November 19, 2026
 - **Description**: This file configures a custom Docker network, a MariaDB
   database service, and an Uptime Kuma service for monitoring website uptime and
   alerting.
@@ -75,6 +75,9 @@ Here's a detailed explanation:
 ## Networks Configuration
 
 ```yaml
+---
+name: uptime-kuma
+
 networks:
   uptime-kuma_net:
     attachable: false
@@ -149,7 +152,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: uptime-kuma_db
-    image: docker.io/mariadb:13.0.2
+    image: docker.io/mariadb:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     volumes:
       - /docker/uptime-kuma/production/db:/var/lib/mysql
@@ -199,8 +202,7 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: uptime-kuma_db**: Names the container "uptime-kuma_db".
-  - **image: docker.io/mariadb:13.0.2**: Uses the MariaDB image, pinned to
-    version `13.0.2`.
+  - **image: docker.io/mariadb**: Uses the MariaDB image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.
@@ -259,7 +261,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: uptime-kuma
-    image: ghcr.io/louislam/uptime-kuma:2.5.9-slim
+    image: ghcr.io/louislam/uptime-kuma:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     depends_on:
       uptime-kuma_db:
@@ -316,8 +318,7 @@ services:
   - **restart**, **logging**, **stop_grace_period**, **pull_policy**: Same
     behavior as the database service.
   - **container_name: uptime-kuma**: Names the container "uptime-kuma".
-  - **image: ghcr.io/louislam/uptime-kuma:2.5.9-slim**: Uses the Uptime Kuma
-    image, pinned to version `2.5.9-slim`.
+  - **image: ghcr.io/louislam/uptime-kuma**: Uses the Uptime Kuma image.
   - **depends_on**: Starts this service only when `uptime-kuma_db` reports
     `service_healthy`.
   - **volumes**: Mounts host directories or files into the container.
@@ -425,6 +426,53 @@ comments. The same file layout is explained in detail on the
 - **Character set**: `utf8mb4` with the `utf8mb4_general_ci` collation.
 - **Security**: `secure-file-priv` restricts imports and exports to
   `/var/lib/mysql/`. The password validation and TLS options are commented out.
+
+<br />
+
+## Quick Start
+
+{{% alert context="info" %}}
+Requires Docker Compose 2.24.0 or later.
+{{% /alert %}}
+
+1. Copy `my.cnf` to `/docker/uptime-kuma/production/my.cnf`. Docker creates the
+   other directories under `/docker/uptime-kuma/` on the first start.
+
+2. Change the values in `.env` (Docker Compose CLI) or `stack.env` (Portainer),
+   at least the passwords.
+
+3. Start the stack:
+
+   ```bash
+   docker compose up -d
+   ```
+
+<br />
+
+## Default Web Access
+
+Access the Uptime Kuma web interface using the following URL:
+
+```bash
+http://your-ip-address:3001
+```
+
+<br />
+
+## Default Login Credentials
+
+{{% alert context="info" %}}
+Credentials are created during the initial setup process.
+{{% /alert %}}
+
+**Username**: Created during setup
+
+**Password**: Created during setup
+
+{{% alert context="warning" %}}
+**For security reasons, it is strongly recommended to create a strong username
+and password during the setup.**
+{{% /alert %}}
 
 <br />
 

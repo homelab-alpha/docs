@@ -60,7 +60,7 @@ Docker.
 - **Filename**: `compose.yml`
 - **Project name**: `pi-hole`, set with the top-level `name:` of the file.
 - **Author**: Homelab-Alpha
-- **Date**: Jun 16, 2025
+- **Date**: November 19, 2026
 - **Description**: Configures a Docker network and the Pi-hole service for
   ad-blocking and DHCP functionalities.
 - **RAW Compose File**: [compose.yml]
@@ -70,6 +70,9 @@ Docker.
 ## Networks Configuration
 
 ```yaml
+---
+name: pi-hole
+
 networks:
   pi-hole_net:
     attachable: false
@@ -140,7 +143,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: pi-hole
-    image: ghcr.io/pi-hole/pihole:2026.10.1
+    image: ghcr.io/pi-hole/pihole:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     volumes:
       - /docker/pi-hole/production/app:/etc/pihole
@@ -148,18 +151,18 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
       WEBPASSWORD: "set a secure password here or it will be random"
-    domainname: pi-hole.local
+    domainname: pi-hole.local # Customize this with your own domain, e.g., `pi-hole.local` to `pi-hole.your-fqdn-here.com`.
     hostname: pi-hole
     networks:
       pi-hole_net:
         ipv4_address: 172.20.17.2
     ports:
-      - "5353:53/tcp"
-      - "5353:53/udp"
-      - "67:67/udp"
-      - "3080:80/tcp"
+      - "5353:53/tcp" # plain DNS
+      - "5353:53/udp" # plain DNS
+      - "67:67/udp" # DHCP
+      - "3080:80/tcp" # HTTP
     security_opt:
       - no-new-privileges:true
     cap_add:
@@ -200,8 +203,7 @@ services:
   - **stop_grace_period: 1m**: The grace period before forcibly stopping the
     container.
   - **container_name: pi-hole**: Names the container `pi-hole`.
-  - **image: ghcr.io/pi-hole/pihole:2026.10.1**: Uses the Pi-hole image, pinned
-    to version `2026.10.1`.
+  - **image: ghcr.io/pi-hole/pihole**: Uses the Pi-hole image.
   - **pull_policy: if_not_present**: Only pulls the image if it's not already
     present locally.
   - **volumes**: Mounts host directories into the container for persistent data
@@ -245,6 +247,52 @@ services:
       seconds).
     - **start_interval: 5s**: Interval between starting health checks (5
       seconds).
+
+<br />
+
+## Quick Start
+
+{{% alert context="info" %}}
+Requires Docker Compose 2.24.0 or later.
+{{% /alert %}}
+
+1. Start the stack:
+
+   ```bash
+   docker compose up -d
+   ```
+
+<br />
+
+## Default Web Access
+
+Access the Pi-hole web interface using the following URL:
+
+```bash
+http://your-ip-address:3080/admin/login
+```
+
+DNS is published on port 5353 (TCP and UDP).
+
+<br />
+
+## Default Login Credentials
+
+**Username**: No username is required.
+
+**Password**:
+
+The password for the first setup is in the logs (`docker logs pi-hole`). Look
+for a line similar to:
+
+```log
+No password set in environment or config file, assigning random password: <password>
+```
+
+{{% alert context="warning" %}}
+**For security reasons, it is strongly recommended that you change the default
+credentials after your first login.**
+{{% /alert %}}
 
 <br />
 

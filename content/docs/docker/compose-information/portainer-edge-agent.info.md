@@ -62,7 +62,7 @@ Here's a detailed explanation:
 - **Project name**: `portainer-edge-agent`, set with the top-level `name:` of
   the file.
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 16, 2025
+- **Date**: November 19, 2026
 - **Description**: Configures a Docker network and the Portainer Edge Agent
   service for managing Docker Compose stacks.
 - **RAW Compose File**: [compose.yml]
@@ -74,6 +74,9 @@ Here's a detailed explanation:
 ## Networks Configuration
 
 ```yaml
+---
+name: portainer-edge-agent
+
 networks:
   edge-agent_net:
     attachable: false
@@ -145,22 +148,24 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: edge-agent
-    image: docker.io/portainer/agent:3.0.1
+    image: docker.io/portainer/agent:<tag> # The current tag is in the RAW compose.yml.
     volumes:
       - /docker/portainer/edge-agent/production/app:/data
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/lib/docker/volumes:/var/lib/docker/volumes
       - /:/host
     env_file:
+      # Compose loads each file that exists and skips a missing one:
+      # '.env' for the Docker Compose CLI, 'stack.env' for Portainer.
       - path: .env
         required: false
       - path: stack.env
         required: false
     environment:
-      TZ: Europe/Amsterdam
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
       EDGE: 1
-      EDGE_ID: ${PORTAINER_AGENT_ID}
-      EDGE_KEY: ${PORTAINER_AGENT_KEY}
+      EDGE_ID: ${PORTAINER_AGENT_ID} # Fill in the value in both the .env and stack.env files
+      EDGE_KEY: ${PORTAINER_AGENT_KEY} # Fill in the value in both the .env and stack.env files
       EDGE_INSECURE_POLL: 1
     networks:
       edge-agent_net:
@@ -186,8 +191,7 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: edge-agent**: Names the container "edge-agent".
-  - **image: docker.io/portainer/agent:3.0.1**: Uses the Portainer Edge Agent
-    image, pinned to version `3.0.1`.
+  - **image: docker.io/portainer/agent**: Uses the Portainer Edge Agent image.
   - **volumes**: Mounts host directories or files into the container.
     - **/docker/portainer/edge-agent/production/app:/data**: Mounts the
       application data directory.
@@ -247,6 +251,40 @@ PORTAINER_AGENT_KEY=SecureAgentKey67890
 - **`PORTAINER_AGENT_KEY`**: The key used to secure communication between the
   Portainer agent and Portainer server. This should also be a strong and unique
   string, avoiding easily guessable patterns to maintain security.
+
+<br />
+
+## Quick Start
+
+{{% alert context="info" %}}
+Requires Docker Compose 2.24.0 or later.
+{{% /alert %}}
+
+1. Change the values in `.env` (Docker Compose CLI) or `stack.env` (Portainer),
+   at least the passwords.
+
+2. In Portainer, add an Edge Agent environment and copy its Edge ID and Edge key
+   to `PORTAINER_AGENT_ID` and `PORTAINER_AGENT_KEY`.
+
+3. Start the stack:
+
+   ```bash
+   docker compose up -d
+   ```
+
+<br />
+
+## Default Access
+
+The Edge Agent has no web interface. It connects to your Portainer server, where
+the environment shows up once the agent is running.
+
+<br />
+
+## Default Login Credentials
+
+The agent has no login. It authenticates with `PORTAINER_AGENT_ID` and
+`PORTAINER_AGENT_KEY` from the `.env` or `stack.env` file.
 
 <br />
 

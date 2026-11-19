@@ -63,7 +63,7 @@ Here's a detailed explanation:
 - **Filename**: `compose.yml`
 - **Project name**: `xen-orchestra`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 16, 2025
+- **Date**: November 19, 2026
 - **Description**: This file configures a custom Docker network and a Xen
   Orchestra service. It includes detailed network settings and service
   configurations to ensure Xen Orchestra runs smoothly and securely.
@@ -74,6 +74,9 @@ Here's a detailed explanation:
 ## Networks Configuration
 
 ```yaml
+---
+name: xen-orchestra
+
 networks:
   xen-orchestra_net:
     attachable: false
@@ -146,7 +149,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: xen-orchestra
-    image: docker.io/ronivay/xen-orchestra:5.213.0
+    image: docker.io/ronivay/xen-orchestra:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     volumes:
       # - /docker/xen-orchestra/production/.cert/client-cert.pem:/client-cert.pem
@@ -157,22 +160,25 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
       HTTP_PORT: 80
       HTTPS_PORT: 443
       REDIRECT_TO_HTTPS: false
       # CERT_PATH: "/docker/xen-orchestra/production/.cert/client-cert.pem"
       # KEY_PATH: "/docker/xen-orchestra/production/.cert/client-key.pem"
-    domainname: xo.local
+    domainname: xo.local # Customize this with your own domain, e.g., `xo.local` to `xo.your-fqdn-here.com`.
     hostname: xo
     networks:
       xen-orchestra_net:
         ipv4_address: 172.20.8.2
     ports:
-      - "3006:80/tcp"
-      - "3006:80/udp"
-      # - "3007:443/tcp"
-      # - "3007:443/udp"
+      - "3006:80/tcp" # HTTP
+      - "3006:80/udp" # HTTP
+      # - "3007:443/tcp" # HTTPS
+      # - "3007:443/udp" # HTTPS
+    # these are needed for file restore.
+    # allows one backup to be mounted at once which will be umounted after some
+    # minutes if not used (prevents other backups to be mounted during that)
     # add loop devices (loop1, loop2 etc) if multiple simultaneous mounts needed.
     # devices:
     #   - "/dev/fuse:/dev/fuse"
@@ -211,8 +217,7 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: xen-orchestra**: Names the container "xen-orchestra".
-  - **image: docker.io/ronivay/xen-orchestra:5.213.0**: Uses the Xen Orchestra
-    image, pinned to version `5.213.0`.
+  - **image: docker.io/ronivay/xen-orchestra**: Uses the Xen Orchestra image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.
@@ -265,6 +270,51 @@ services:
     - **start_period**: The initial period during which a health check failure
       will not be counted towards the retries (10 seconds).
     - **start_interval**: The time between starting health checks (5 seconds).
+
+<br />
+
+## Quick Start
+
+{{% alert context="info" %}}
+Requires Docker Compose 2.24.0 or later.
+{{% /alert %}}
+
+1. Start the stack:
+
+   ```bash
+   docker compose up -d
+   ```
+
+<br />
+
+## Default Web Access
+
+Access the Xen Orchestra web interface using the following URL:
+
+```bash
+http://your-ip-address:3006
+```
+
+<br />
+
+## Default Login Credentials
+
+**Username**:
+
+```bash
+admin@admin.net
+```
+
+**Password**:
+
+```bash
+admin
+```
+
+{{% alert context="warning" %}}
+**For security reasons, it is strongly recommended that you change the default
+credentials after your first login.**
+{{% /alert %}}
 
 <br />
 

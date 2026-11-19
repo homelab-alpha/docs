@@ -59,7 +59,7 @@ Here's a detailed explanation:
 - **Filename**: `compose.yml`
 - **Project name**: `harborguard`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
-- **Date**: October 28, 2026
+- **Date**: November 19, 2026
 - **Description**: Configures a Docker network and the HarborGuard service.
 - **RAW Compose File**: [compose.yml]
 - **RAW Environment File**: [stack.env]
@@ -69,6 +69,9 @@ Here's a detailed explanation:
 ## Networks Configuration
 
 ```yaml
+---
+name: harborguard
+
 networks:
   harborguard_net:
     attachable: false
@@ -138,7 +141,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: harborguard
-    image: ghcr.io/harborguard/harborguard:latest
+    image: ghcr.io/harborguard/harborguard:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -214,7 +217,7 @@ services:
   - **stop_grace_period: 1m**: Waits 1 minute before forcibly stopping the
     container.
   - **container_name: harborguard**: Names the container.
-  - **image: ghcr.io/harborguard/harborguard:latest**: Uses this image with the
+  - **image: ghcr.io/harborguard/harborguard**: Uses this image with the
     `latest` tag.
   - **pull_policy: if_not_present**: Pulls the image only if it's not present
     locally.
@@ -305,6 +308,52 @@ USER_DB=harborguard
 - **`NAME_DB`**: Database name: no changes needed
 - **`PASSWORD_DB`**: PostgreSQL user password: no changes needed
 - **`USER_DB`**: PostgreSQL username: no changes needed
+
+<br />
+
+## Quick Start
+
+{{% alert context="info" %}}
+Requires Docker Compose 2.24.0 or later.
+{{% /alert %}}
+
+1. Change the values in `.env` (Docker Compose CLI) or `stack.env` (Portainer),
+   at least the passwords.
+
+2. Start the stack:
+
+   ```bash
+   docker compose up -d
+   ```
+
+<br />
+
+## Default Web Access
+
+Access the Harbor Guard web interface using the following URL:
+
+```bash
+http://your-ip-address:3016
+```
+
+<br />
+
+## Default Login Credentials
+
+{{% alert context="info" %}}
+This setup uses an internal database and does **not** persist your data. For a
+production-ready setup with an external PostgreSQL database, refer to the
+[Harbor Guard GitHub documentation](https://github.com/HarborGuard/HarborGuard),
+including the
+[docker-compose.yml](https://github.com/HarborGuard/HarborGuard/blob/main/docker-compose.yml)
+and
+[.env.example](https://github.com/HarborGuard/HarborGuard/blob/main/.env.example)
+files.
+{{% /alert %}}
+
+**Username**: No username is required.
+
+**Password**: No password is required.
 
 <br />
 

@@ -60,7 +60,7 @@ Here's a detailed explanation:
 - **Project name**: `speedtest-tracker`, set with the top-level `name:` of the
   file.
 - **Author**: GJS (homelab-alpha)
-- **Date**: Dec 30, 2025
+- **Date**: November 19, 2026
 - **Description**: Docker Compose setup for Speedtest Tracker with MariaDB for
   self-hosted internet speed and uptime monitoring.
 - **RAW Compose File**: [compose.yml]
@@ -74,6 +74,8 @@ Here's a detailed explanation:
 
 ```yaml
 ---
+name: speedtest-tracker
+
 networks:
   speedtest-tracker_net:
     attachable: false
@@ -146,13 +148,15 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: speedtest-tracker_db
-    image: docker.io/mariadb:13.0.2
+    image: docker.io/mariadb:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     volumes:
       - /docker/speedtest-tracker/production/db:/var/lib/mysql
       - /docker/speedtest-tracker/production/my.cnf:/etc/my.cnf
       - /sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure
     env_file:
+      # Compose loads each file that exists and skips a missing one:
+      # '.env' for the Docker Compose CLI, 'stack.env' for Portainer.
       - path: .env
         required: false
       - path: stack.env
@@ -160,11 +164,11 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam
-      MARIADB_ROOT_PASSWORD: ${ROOT_PASSWORD_DB}
-      MARIADB_DATABASE: ${NAME_DB}
-      MARIADB_USER: ${USER_DB}
-      MARIADB_PASSWORD: ${PASSWORD_DB}
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+      MARIADB_ROOT_PASSWORD: ${ROOT_PASSWORD_DB} # Fill in the value in both the .env and stack.env files
+      MARIADB_DATABASE: ${NAME_DB} # Fill in the value in both the .env and stack.env files
+      MARIADB_USER: ${USER_DB} # Fill in the value in both the .env and stack.env files
+      MARIADB_PASSWORD: ${PASSWORD_DB} # Fill in the value in both the .env and stack.env files
     hostname: speedtest-tracker_db
     networks:
       speedtest-tracker_net:
@@ -191,7 +195,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: speedtest-tracker
-    image: ghcr.io/linuxserver/speedtest-tracker:1.15.1
+    image: ghcr.io/linuxserver/speedtest-tracker:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     depends_on:
       speedtest-tracker_db:
@@ -201,6 +205,8 @@ services:
       - /docker/speedtest-tracker/production/.cert:/config/keys
       - /docker/speedtest-tracker/production/app:/config
     env_file:
+      # Compose loads each file that exists and skips a missing one:
+      # '.env' for the Docker Compose CLI, 'stack.env' for Portainer.
       - path: .env
         required: false
       - path: stack.env
@@ -208,44 +214,44 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam
-      DB_CONNECTION: mysql
-      DB_HOST: ${HOST_DB}
-      DB_PORT: ${PORT_DB}
-      DB_DATABASE: ${NAME_DB}
-      DB_USERNAME: ${USER_DB}
-      DB_PASSWORD: ${PASSWORD_DB}
-      APP_KEY: ${APP_KEY}
-      APP_LOCALE: en_EN
-      APP_NAME: "Speedtest Tracker"
-      APP_TIMEZONE: Europe/Amsterdam
-      # APP_URL: https://speedtest-tracker.local
-      # ASSET_URL: https://speedtest-tracker.local
-      # APP_DEBUG: true
-      ADMIN_EMAIL: ${ADMIN_EMAIL}
-      ADMIN_NAME: ${ADMIN_NAME}
-      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
-      SPEEDTEST_INTERNET_CHECK_HOSTNAME: "google.com"
-      SPEEDTEST_SCHEDULE: "*/10 * * * *"
-      PUBLIC_DASHBOARD: "true"
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+      DB_CONNECTION: mysql # This is the database connection type, it can be either `mysql` or `pgsql`.
+      DB_HOST: ${HOST_DB} # Fill in the value in both the .env and stack.env files
+      DB_PORT: ${PORT_DB} # Fill in the value in both the .env and stack.env files
+      DB_DATABASE: ${NAME_DB} # Fill in the value in both the .env and stack.env files
+      DB_USERNAME: ${USER_DB} # Fill in the value in both the .env and stack.env files
+      DB_PASSWORD: ${PASSWORD_DB} # Fill in the value in both the .env and stack.env files
+      APP_KEY: ${APP_KEY} # Fill in the value in both the .env and stack.env files
+      APP_LOCALE: en_EN # This is the default language for the application, adjust as needed. Example: nl_NL for Dutch.
+      APP_NAME: "Speedtest Tracker" # This is the name of the application, it can be anything you like.
+      APP_TIMEZONE: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+      # APP_URL: https://speedtest-tracker.local # Adjust this to match your domain or IP address. If you are using a reverse proxy, make sure to set the correct URL.
+      # ASSET_URL: https://speedtest-tracker.local # Adjust this to match your domain or IP address. If you are using a reverse proxy, make sure to set the correct URL.
+      # APP_DEBUG: true # Uncomment for debug mode
+      ADMIN_EMAIL: ${ADMIN_EMAIL} # Fill in the value in both the .env and stack.env files
+      ADMIN_NAME: ${ADMIN_NAME} # Fill in the value in both the .env and stack.env files
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD} # Fill in the value in both the .env and stack.env files
+      SPEEDTEST_INTERNET_CHECK_HOSTNAME: "google.com" # This is the hostname used to check internet connectivity.
+      SPEEDTEST_SCHEDULE: "*/10 * * * *" # Run every 10 minutes - use https://crontab.guru/ for customizing the corn syntax.
+      PUBLIC_DASHBOARD: "true" # Default: false. Set to true to allow public access to the dashboard.
       CHART_BEGIN_AT_ZERO: "true"
-      CHART_DATETIME_FORMAT: "M jS, H:i"
-      DATETIME_FORMAT: "F jS, Y, H:i"
-      DISPLAY_TIMEZONE: "Europe/Amsterdam"
+      CHART_DATETIME_FORMAT: "M jS, H:i" # Example output: Month/Day Hour:Minutes
+      DATETIME_FORMAT: "F jS, Y, H:i" # Example output: Month Day, Full year Hour:Minutes
+      DISPLAY_TIMEZONE: "Europe/Amsterdam" # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
       THRESHOLD_ENABLED: "true"
-      THRESHOLD_DOWNLOAD: "900"
-      THRESHOLD_UPLOAD: "900"
-      THRESHOLD_PING: "25"
-      PRUNE_RESULTS_OLDER_THAN: "31"
-      API_RATE_LIMIT: "30"
-    domainname: speedtest-tracker.local
+      THRESHOLD_DOWNLOAD: "900" # in Mbps
+      THRESHOLD_UPLOAD: "900" # in Mbps
+      THRESHOLD_PING: "25" # in ms
+      PRUNE_RESULTS_OLDER_THAN: "31" # Keep results for 31 days, adjust as needed.
+      API_RATE_LIMIT: "30" # Default: 60 requests per minute
+    domainname: speedtest-tracker.local # Customize this with your own domain, e.g., `speedtest-tracker.local` to `speedtest-tracker.your-fqdn-here.com`.
     hostname: speedtest-tracker
     networks:
       speedtest-tracker_net:
         ipv4_address: 172.20.23.3
     ports:
-      - "3013:80/tcp"
-      - "3013:80/udp"
+      - "3013:80/tcp" # HTTP
+      - "3013:80/udp" # HTTP
       # - "3013:443/tcp" # HTTPS
       # - "3013:443/udp" # HTTPS
     security_opt:
@@ -279,8 +285,7 @@ services:
     stopping the container.
   - **container_name: speedtest-tracker_db**: Names the container
     "speedtest-tracker_db".
-  - **image: docker.io/mariadb:13.0.2**: Uses the MariaDB image, pinned to
-    version `13.0.2`.
+  - **image: docker.io/mariadb**: Uses the MariaDB image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts directories or files into the container.
@@ -338,8 +343,8 @@ services:
     stopping the container.
   - **container_name: speedtest-tracker**: Names the container
     "speedtest-tracker".
-  - **image: ghcr.io/linuxserver/speedtest-tracker:1.15.1**: Uses Speedtest
-    Tracker image version 1.15.1 from the GitHub Container Registry.
+  - **image: ghcr.io/linuxserver/speedtest-tracker**: Uses the Speedtest Tracker
+    image from the GitHub Container Registry.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **depends_on**: Specifies dependencies for this service.
@@ -441,7 +446,7 @@ ROOT_PASSWORD_DB=StrongUniqueRootPassword1234
 HOST_DB=speedtest-tracker_db
 
 # Database name: Change this to your desired database name
-NAME_DB=speedtest-tracker_db
+NAME_DB=speedtest_tracker_db
 
 # MariaDB user password: Change this to a strong, unique password
 PASSWORD_DB=StrongUniqueUserPassword5678
@@ -697,6 +702,63 @@ general-log = 0
 
 - **`!includedir`**: Includes additional configuration files from specified
   directories, allowing modular config management.
+
+<br />
+
+## Quick Start
+
+{{% alert context="info" %}}
+Requires Docker Compose 2.24.0 or later.
+{{% /alert %}}
+
+1. Copy `my.cnf` to `/docker/speedtest-tracker/production/my.cnf`. Docker
+   creates the other directories under `/docker/speedtest-tracker/` on the first
+   start.
+
+2. Change the values in `.env` (Docker Compose CLI) or `stack.env` (Portainer),
+   at least the passwords.
+
+3. Start the stack:
+
+   ```bash
+   docker compose up -d
+   ```
+
+<br />
+
+## Default Web Access
+
+Access the Speedtest Tracker web interface using the following URL:
+
+```bash
+http://your-ip-address:3013
+```
+
+<br />
+
+## Default Login Credentials
+
+{{% alert context="info" %}}
+If you have changed these values in the `.env` and or `stack.env` file, use
+those credentials instead of the default ones.
+{{% /alert %}}
+
+**Username**:
+
+```bash
+admin@example.com
+```
+
+**Password**:
+
+```bash
+StrongUniqueUserPassword9012
+```
+
+{{% alert context="warning" %}}
+**For security reasons, it is strongly recommended that you change the default
+credentials after your first login.**
+{{% /alert %}}
 
 <br />
 

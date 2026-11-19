@@ -59,7 +59,7 @@ Here's a detailed explanation:
 - **Filename**: `compose.yml`
 - **Project name**: `portainer`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 16, 2025
+- **Date**: November 19, 2026
 - **Description**: This file configures a custom Docker network and a Portainer
   service to manage Docker containers. It includes detailed network settings and
   service configurations to ensure Portainer runs smoothly and securely.
@@ -70,6 +70,9 @@ Here's a detailed explanation:
 ## Networks Configuration
 
 ```yaml
+---
+name: portainer
+
 networks:
   portainer_net:
     attachable: false
@@ -136,25 +139,25 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: portainer
-    image: docker.io/portainer/portainer-ee:3.0.1
+    image: docker.io/portainer/portainer-ee:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     volumes:
       - /docker/portainer/production/app:/data
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
-      TZ: Europe/Amsterdam
-    domainname: portainer.local
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+    domainname: portainer.local # Customize this with your own domain, e.g., `portainer.local` to `portainer.your-fqdn-here.com`.
     hostname: portainer
     networks:
       portainer_net:
         ipv4_address: 172.20.1.2
     ports:
-      - "8000:8000/tcp"
-      - "8000:8000/udp"
-      - "9000:9000/tcp"
-      - "9000:9000/udp"
-      - "9443:9443/tcp"
-      - "9443:9443/udp"
+      - "8000:8000/tcp" # Edge agents
+      - "8000:8000/udp" # Edge agents
+      - "9000:9000/tcp" # HTTP
+      - "9000:9000/udp" # HTTP
+      - "9443:9443/tcp" # HTTPS
+      - "9443:9443/udp" # HTTPS
     security_opt:
       - no-new-privileges:true
     labels:
@@ -177,8 +180,7 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: portainer**: Names the container "portainer".
-  - **image: docker.io/portainer/portainer-ee:3.0.1**: Uses the Portainer image,
-    pinned to version `3.0.1`.
+  - **image: docker.io/portainer/portainer-ee**: Uses the Portainer image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.
@@ -212,6 +214,63 @@ services:
     - **com.portainer.description**: Description label for Portainer.
   - **healthcheck**: Healthcheck configuration.
     - **disable: true**: Disables health checks for the container.
+
+<br />
+
+## Quick Start
+
+{{% alert context="info" %}}
+Requires Docker Compose 2.24.0 or later.
+{{% /alert %}}
+
+1. Start the stack:
+
+   ```bash
+   docker compose up -d
+   ```
+
+<br />
+
+## Default Web Access
+
+Access the Portainer web interface using the following URL:
+
+**HTTPS**:
+
+```bash
+https://your-ip-address:9443
+```
+
+**HTTP**:
+
+```bash
+http://your-ip-address:9000
+```
+
+Port 8000 is the tunnel server for Edge Agents.
+
+<br />
+
+## Default Login Credentials
+
+{{% alert context="warning" %}}
+Create the administrator account within **5 minutes** after the first start.
+After that, Portainer stops for security reasons. Restart the container to try
+again:
+
+```bash
+docker compose restart
+```
+{{% /alert %}}
+
+**Username**: Created during setup
+
+**Password**: Created during setup
+
+{{% alert context="warning" %}}
+**For security reasons, it is strongly recommended to create a strong username
+and password during the setup.**
+{{% /alert %}}
 
 <br />
 

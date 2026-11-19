@@ -59,7 +59,7 @@ Here's a detailed explanation:
 - **Filename**: `compose.yml`
 - **Project name**: `jellyfin`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jun 16, 2025
+- **Date**: November 19, 2026
 - **Description**: This file configures a custom Docker network and a Jellyfin
   service to manage and stream media. It includes detailed network settings and
   service configurations to ensure Jellyfin runs smoothly and securely.
@@ -70,6 +70,9 @@ Here's a detailed explanation:
 ## Networks Configuration
 
 ```yaml
+---
+name: jellyfin
+
 networks:
   jellyfin_net:
     attachable: false
@@ -140,7 +143,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: jellyfin
-    image: ghcr.io/jellyfin/jellyfin:10.11.11
+    image: ghcr.io/jellyfin/jellyfin:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     volumes:
       - /docker/jellyfin/production/app:/config
@@ -149,9 +152,9 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam
-      JELLYFIN_PublishedServerUrl: "https://jellyfin.local"
-    domainname: jellyfin.local
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+      JELLYFIN_PublishedServerUrl: "https://jellyfin.local" # Customize this with your own domain, e.g., `jellyfin.local` to `jellyfin.your-fqdn-here.com`.
+    domainname: jellyfin.local # Customize this with your own domain, e.g., `jellyfin.local` to `jellyfin.your-fqdn-here.com`.
     hostname: jellyfin
     extra_hosts:
       host.docker.internal: "host-gateway"
@@ -159,10 +162,10 @@ services:
       jellyfin_net:
         ipv4_address: 172.20.5.2
     ports:
-      - "8096:8096/tcp"
-      - "8096:8096/udp"
-      - "8920:8920/tcp"
-      - "8920:8920/udp"
+      - "8096:8096/tcp" # HTTP
+      - "8096:8096/udp" # HTTP
+      - "8920:8920/tcp" # HTTPS
+      - "8920:8920/udp" # HTTPS
     devices:
       - /dev/dri:/dev/dri
       - /dev/dri/renderD128:/dev/dri/renderD128
@@ -204,8 +207,7 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: jellyfin**: Names the container "jellyfin".
-  - **image: ghcr.io/jellyfin/jellyfin:10.11.11**: Uses the Jellyfin image,
-    pinned to version `10.11.11`.
+  - **image: ghcr.io/jellyfin/jellyfin**: Uses the Jellyfin image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.
@@ -259,6 +261,58 @@ services:
     - **start_period**: The initial period during which a health check failure
       will not be counted towards the retries (10 seconds).
     - **start_interval**: The time between starting health checks (5 seconds).
+
+<br />
+
+## Quick Start
+
+{{% alert context="info" %}}
+Requires Docker Compose 2.24.0 or later.
+{{% /alert %}}
+
+1. Put your media in `/docker/media`. The stack mounts it in the container.
+
+2. Start the stack:
+
+   ```bash
+   docker compose up -d
+   ```
+
+<br />
+
+## Default Web Access
+
+Access the Jellyfin web interface using the following URL:
+
+**HTTP**:
+
+```bash
+http://your-ip-address:8096
+```
+
+**HTTPS (when configured)**:
+
+```bash
+https://your-ip-address:8920
+```
+
+<br />
+
+## Default Login Credentials
+
+{{% alert context="info" %}}
+On the first visit, the setup wizard creates the administrator account and asks
+for your media libraries.
+{{% /alert %}}
+
+**Username**: Created during setup
+
+**Password**: Created during setup
+
+{{% alert context="warning" %}}
+**For security reasons, it is strongly recommended to create a strong username
+and password during the setup.**
+{{% /alert %}}
 
 <br />
 

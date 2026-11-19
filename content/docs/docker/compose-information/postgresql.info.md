@@ -56,7 +56,7 @@ Here's a detailed explanation:
 - **Filename**: `compose.yml`
 - **Project name**: `postgresql`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
-- **Date**: October 28, 2026
+- **Date**: November 19, 2026
 - **Description**: Configures a Docker network and the PostgreSQL service.
 - **RAW Compose File**: [compose.yml]
 - **RAW Environment File**: [stack.env]
@@ -67,6 +67,9 @@ Here's a detailed explanation:
 ## Networks Configuration
 
 ```yaml
+---
+name: postgresql
+
 networks:
   postgresql_net:
     attachable: true
@@ -136,7 +139,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: postgresql_db
-    image: docker.io/postgres:18-trixie
+    image: docker.io/postgres:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     volumes:
       - /docker/postgresql/config/postgresql.conf:/etc/postgresql/postgresql.conf
@@ -188,8 +191,7 @@ services:
   - **stop_grace_period: 1m**: Waits 1 minute before forcibly stopping the
     container.
   - **container_name: postgresql_db**: Names the container.
-  - **image: docker.io/postgres:18-trixie**: Uses this image, pinned to version
-    `18-trixie`.
+  - **image: docker.io/postgres**: Uses this image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not present
     locally.
   - **volumes**: Mounts host directories or files into the container.
@@ -265,6 +267,47 @@ full file with comments. It contains the following sections:
 - **Full Text Search**
 - **Security and Access Control**
 - **Including Additional Configuration Files**
+
+<br />
+
+## Quick Start
+
+{{% alert context="info" %}}
+Requires Docker Compose 2.24.0 or later.
+{{% /alert %}}
+
+1. Copy `config/postgresql.conf` to `/docker/postgresql/config/postgresql.conf`.
+   Docker creates the other directories under `/docker/postgresql/` on the first
+   start.
+
+2. Change the values in `.env` (Docker Compose CLI) or `stack.env` (Portainer),
+   at least the passwords.
+
+3. Start the stack:
+
+   ```bash
+   docker compose up -d
+   ```
+
+<br />
+
+## Connection
+
+PostgreSQL has no web interface. The port is published on the host only
+(`127.0.0.1`), so connect from the host itself:
+
+```bash
+psql --host 127.0.0.1 --port 5432 --username admin
+```
+
+<br />
+
+## Default Login Credentials
+
+**Username**: The value of `POSTGRES_SUPERUSER_NAME` (default `admin`).
+
+**Password**: The value of `POSTGRES_SUPERUSER_PASSWORD` in the `.env` or
+`stack.env` file.
 
 <br />
 

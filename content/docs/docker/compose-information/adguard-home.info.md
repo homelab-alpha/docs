@@ -59,7 +59,7 @@ Here's a detailed explanation:
 - **Filename**: `compose.yml`
 - **Project name**: `adguard-home`, set with the top-level `name:` of the file.
 - **Author**: Homelab-Alpha
-- **Date**: Jun 16, 2025
+- **Date**: November 19, 2026
 - **Description**: Configures a Docker network and the AdGuard Home service for
   blocking ads and tracking across a network.
 - **RAW Compose File**: [compose.yml]
@@ -69,6 +69,9 @@ Here's a detailed explanation:
 ## Networks Configuration
 
 ```yaml
+---
+name: adguard-home
+
 networks:
   adguard-home_net:
     attachable: false
@@ -141,7 +144,7 @@ services:
         max-file: "2"
     stop_grace_period: 1m
     container_name: adguard-home
-    image: docker.io/adguard/adguardhome:v0.107.80
+    image: docker.io/adguard/adguardhome:<tag> # The current tag is in the RAW compose.yml.
     pull_policy: if_not_present
     volumes:
       - /docker/adguard-home/production/app:/opt/adguard-home/work
@@ -149,28 +152,28 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      TZ: Europe/Amsterdam
-    domainname: adguard-home.local
+      TZ: Europe/Amsterdam # Adjust the timezone to match your local timezone. You can find the full list of timezones here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+    domainname: adguard-home.local # Customize this with your own domain, e.g., `adguard-home.local` to `adguard-home.your-fqdn-here.com`.
     hostname: adguard-home
     networks:
       adguard-home_net:
         ipv4_address: 172.20.15.2
     ports:
-      - "53:53/tcp"
-      - "53:53/udp"
-      - "67:67/udp"
-      - "68:68/udp"
-      - "80:80/tcp"
-      - "443:443/tcp"
-      - "443:443/udp"
-      - "784:784/udp"
-      - "853:853/tcp"
-      - "853:853/udp"
-      - "3000:3000/tcp"
-      - "5443:5443/tcp"
-      - "5443:5443/udp"
-      # - "6060:6060/tcp"
-      - "8853:8853/udp"
+      - "53:53/tcp" # plain DNS
+      - "53:53/udp" # plain DNS
+      - "67:67/udp" # DHCP server
+      - "68:68/udp" # Client DHCP
+      - "80:80/tcp" # HTTP
+      - "443:443/tcp" # HTTPS
+      - "443:443/udp" # HTTPS
+      - "784:784/udp" # DNS over QUIC
+      - "853:853/tcp" # DNS over TLS
+      - "853:853/udp" # DNS over TLS
+      - "3000:3000/tcp" # web admin port
+      - "5443:5443/tcp" # DNSCrypt
+      - "5443:5443/udp" # DNSCrypt
+      # - "6060:6060/tcp" # HTTP (pprof)
+      - "8853:8853/udp" # DNS over QUIC
     security_opt:
       - no-new-privileges:true
     labels:
@@ -193,8 +196,7 @@ services:
   - **stop_grace_period: 1m**: Sets a grace period of 1 minute before forcibly
     stopping the container.
   - **container_name: adguard-home**: Names the container "adguard-home".
-  - **image: docker.io/adguard/adguardhome:v0.107.80**: Uses the AdGuard Home
-    image, pinned to version `v0.107.80`.
+  - **image: docker.io/adguard/adguardhome**: Uses the AdGuard Home image.
   - **pull_policy: if_not_present**: Pulls the image only if it's not already
     present locally.
   - **volumes**: Mounts host directories or files into the container.
@@ -229,6 +231,56 @@ services:
     - **com.adguard-home.description**: Description label for AdGuard Home.
   - **healthcheck**: Healthcheck configuration.
     - **disable: true**: Disables the health check.
+
+<br />
+
+## Quick Start
+
+{{% alert context="info" %}}
+Requires Docker Compose 2.24.0 or later.
+{{% /alert %}}
+
+1. Make sure that port 53 on the host is free. On many Linux distributions
+   `systemd-resolved` uses it.
+
+2. Start the stack:
+
+   ```bash
+   docker compose up -d
+   ```
+
+<br />
+
+## Default Web Access
+
+Access the AdGuard Home web interface using the following URL:
+
+**Setup wizard (first start only)**:
+
+```bash
+http://your-ip-address:3000
+```
+
+**Dashboard (after the setup, on the port chosen in the wizard)**:
+
+```bash
+http://your-ip-address:80
+```
+
+<br />
+
+## Default Login Credentials
+
+**Username**: Created during setup
+
+**Password**: Created during setup
+
+The setup wizard has no default credentials: you create the admin account in it.
+
+{{% alert context="warning" %}}
+**For security reasons, it is strongly recommended to create a strong username
+and password during the setup.**
+{{% /alert %}}
 
 <br />
 
