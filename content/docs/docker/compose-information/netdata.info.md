@@ -57,6 +57,7 @@ Here's a detailed explanation:
 ## Compose File Metadata
 
 - **Filename**: `compose.yml`
+- **Project name**: `netdata`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 16, 2025
 - **Description**: This file configures a custom Docker network and a Netdata
@@ -173,7 +174,6 @@ services:
       - SYS_PTRACE
       - SYS_ADMIN
     labels:
-      com.docker.compose.project: "netdata"
       com.netdata.description:
         "is an infrastructure monitoring and troubleshooting."
     healthcheck:
@@ -245,7 +245,6 @@ services:
     - **SYS_PTRACE**: Allows tracing of processes.
     - **SYS_ADMIN**: Allows various administrative operations.
   - **labels**: Metadata for the container.
-    - **com.docker.compose.project: "netdata"**: Project label.
     - **com.netdata.description**: Description label for Netdata.
   - **healthcheck**: Healthcheck configuration.
     - **disable: false**: Enables health checks for the container.

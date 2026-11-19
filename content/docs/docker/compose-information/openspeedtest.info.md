@@ -58,6 +58,7 @@ Here's a detailed explanation:
 ## Compose File Metadata
 
 - **Filename**: `compose.yml`
+- **Project name**: `openspeedtest`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 16, 2025
 - **Description**: This file configures a custom Docker network and an
@@ -168,7 +169,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "openspeedtest"
       com.openspeedtest.description:
         "is a Free and Open-Source HTML5 Network Speed Test Software."
     healthcheck:
@@ -219,7 +219,6 @@ services:
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
   - **labels**: Metadata for the container.
-    - **com.docker.compose.project: "openspeedtest"**: Project label.
     - **com.openspeedtest.description**: Description label for OpenSpeedTest.
   - **healthcheck**: Healthcheck configuration.
     - **disable: true**: Disables health checks for the container.

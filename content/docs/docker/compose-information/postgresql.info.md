@@ -54,6 +54,7 @@ Here's a detailed explanation:
 ## Compose File Metadata
 
 - **Filename**: `compose.yml`
+- **Project name**: `postgresql`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: October 28, 2026
 - **Description**: Configures a Docker network and the PostgreSQL service.
@@ -141,12 +142,12 @@ services:
       - /docker/postgresql/config/postgresql.conf:/etc/postgresql/postgresql.conf
       - /docker/postgresql/18/production/db:/var/lib/postgresql
     env_file:
-      # Choose the correct environment file:
-      # - Use '.env' for Docker Compose.
-      # - Use 'stack.env' for Portainer.
-      # Comment out the file you are not using in the Compose file to avoid issues.
-      - .env
-      - stack.env
+      # Compose loads each file that exists and skips a missing one:
+      # '.env' for the Docker Compose CLI, 'stack.env' for Portainer.
+      - path: .env
+        required: false
+      - path: stack.env
+        required: false
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -196,8 +197,9 @@ services:
     - **/docker/postgresql/18/production/db:/var/lib/postgresql** PostgreSQL 18
       images store the data in `/var/lib/postgresql/18/docker`, so the mount
       point is `/var/lib/postgresql` instead of `/var/lib/postgresql/data`.
-  - **env_file**: Loads the variables from `.env` (Docker Compose) or
-    `stack.env` (Portainer). Comment out the file you are not using.
+  - **env_file**: Loads `.env` (Docker Compose CLI) and `stack.env` (Portainer).
+    Both are listed with `required: false`, so Compose skips the file that is
+    missing.
   - **environment**: Sets environment variables.
     - **PUID: 1000**: The user ID the container runs as.
     - **PGID: 1000**: The group ID the container runs as.
@@ -217,7 +219,7 @@ services:
       `127.0.0.1` only.
   - **security_opt: no-new-privileges:true**: Prevents the container from
     gaining new privileges.
-  - **labels**: Project label and a description label.
+  - **labels**: A description label.
   - **healthcheck**: Runs `pg_isready -U $${POSTGRES_USER}`.
     - **interval / timeout / retries / start_period / start_interval**: 10s / 5s
       / 3 / 10s / 5s.

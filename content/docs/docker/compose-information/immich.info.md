@@ -64,6 +64,7 @@ Here's a detailed explanation:
 ## Compose File Metadata
 
 - **Filename**: `compose.yml`
+- **Project name**: `immich`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 19, 2025
 - **Description**: Docker Compose configuration for Immich with PostgreSQL,
@@ -153,8 +154,10 @@ services:
     volumes:
       - /docker/immich/production/db:/var/lib/postgresql/data
     env_file:
-      - .env
-      - stack.env
+      - path: .env
+        required: false
+      - path: stack.env
+        required: false
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -171,7 +174,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "immich"
       com.immich.db.description: "is a PostgreSQL database."
     healthcheck:
       disable: false
@@ -208,7 +210,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "immich"
       com.immich.redis.description: "is a redis database."
     healthcheck:
       disable: false
@@ -233,8 +234,10 @@ services:
     volumes:
       - /docker/immich/production/ml:/cache
     env_file:
-      - .env
-      - stack.env
+      - path: .env
+        required: false
+      - path: stack.env
+        required: false
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -246,7 +249,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "immich"
       com.immich.ml.description:
         "a machine learning-powered component of immich, designed to enhance
         media management and automation."
@@ -270,10 +272,9 @@ services:
         restart: true
       immich_redis:
         condition: service_healthy
-    links:
-      - immich_db
-      - immich_redis
-      - immich_ml
+      immich_ml:
+        condition: service_started
+        restart: true
     volumes:
       - /docker/immich/production/app:/data
       - /docker/immich/production/app:/usr/src/app/upload
@@ -293,7 +294,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "immich"
       com.immich.description:
         "a self-hosted solution for seamless photo and video management,
         offering privacy and full control."
@@ -321,7 +321,9 @@ services:
   - **volumes**: Mounts host directories into the container.
     - **/docker/immich/production/db:/var/lib/postgresql/data**: Persists
       database data on the host.
-  - **env_file**: Specifies environment files.
+  - **env_file**: Loads `.env` (Docker Compose CLI) and `stack.env` (Portainer).
+    Both are listed with `required: false`, so Compose skips the file that is
+    missing.
     - **.env**: For Docker Compose.
     - **stack.env**: For Portainer.
   - **environment**: Sets environment variables for the PostgreSQL database.
@@ -342,7 +344,6 @@ services:
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
   - **labels**: Metadata for the container.
-    - **com.docker.compose.project: "immich"**: Project label.
     - **com.immich.db.description: "is a PostgreSQL database."**: Description
       label for the database container.
   - **healthcheck**: Healthcheck configuration.
@@ -392,7 +393,6 @@ services:
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
   - **labels**: Metadata for the container.
-    - **com.docker.compose.project: "immich"**: Project label.
     - **com.immich.redis.description: "is a redis database."**: Description
       label for the Redis container.
   - **healthcheck**: Healthcheck configuration.
@@ -425,7 +425,9 @@ services:
     present locally.
   - **volumes**: Mounts host directories into the container.
     - **/docker/immich/production/ml:/cache**: Mounts the cache directory.
-  - **env_file**: Specifies environment files.
+  - **env_file**: Loads `.env` (Docker Compose CLI) and `stack.env` (Portainer).
+    Both are listed with `required: false`, so Compose skips the file that is
+    missing.
     - **.env**: For Docker Compose.
     - **stack.env**: For Portainer.
   - **environment**: Sets environment variables.
@@ -442,7 +444,6 @@ services:
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
   - **labels**: Metadata for the container.
-    - **com.docker.compose.project: "immich"**: Project label.
     - **com.immich.ml.description**: "a machine learning-powered component of
       immich, designed to enhance media management and automation."
   - **healthcheck**: Healthcheck configuration.
@@ -467,10 +468,8 @@ services:
   - **depends_on**: Specifies dependencies for this service.
     - **immich_db**: Waits for the database service to be healthy; will restart.
     - **immich_redis**: Waits for the Redis service to be healthy.
-  - **links**: Links to related containers.
-    - **immich_db**: Links to the database container.
-    - **immich_redis**: Links to the Redis container.
-    - **immich_ml**: Links to the machine learning container.
+    - **immich_ml**: Waits for the machine learning service to start, and
+      restarts with it.
   - **volumes**: Mounts host directories or files into the container.
     - **/docker/immich/production/app:/data**: Mounts the application data
       directory.
@@ -494,7 +493,6 @@ services:
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
   - **labels**: Metadata for the container.
-    - **com.docker.compose.project: "immich"**: Project label.
     - **com.immich.description**: "a self-hosted solution for seamless photo and
       video management, offering privacy and full control."
   - **healthcheck**: Healthcheck configuration.

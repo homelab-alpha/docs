@@ -59,6 +59,8 @@ Here's a detailed explanation:
 ## Compose File Metadata
 
 - **Filename**: `compose.yml`
+- **Project name**: `portainer-edge-agent`, set with the top-level `name:` of
+  the file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 16, 2025
 - **Description**: Configures a Docker network and the Portainer Edge Agent
@@ -150,8 +152,10 @@ services:
       - /var/lib/docker/volumes:/var/lib/docker/volumes
       - /:/host
     env_file:
-      - .env
-      - stack.env
+      - path: .env
+        required: false
+      - path: stack.env
+        required: false
     environment:
       TZ: Europe/Amsterdam
       EDGE: 1
@@ -164,7 +168,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "portainer agent"
       com.edge-agent.description:
         "a remote environment is not directly accessible from docker server."
     healthcheck:
@@ -192,7 +195,9 @@ services:
     - **/var/lib/docker/volumes:/var/lib/docker/volumes**: Mounts Docker
       volumes.
     - **/:/host**: Mounts the host's root directory to the container.
-  - **env_file**: Specifies environment files.
+  - **env_file**: Loads `.env` (Docker Compose CLI) and `stack.env` (Portainer).
+    Both are listed with `required: false`, so Compose skips the file that is
+    missing.
     - **.env**: For Docker Compose.
     - **stack.env**: For Portainer.
   - **environment**: Sets environment variables.
@@ -208,7 +213,6 @@ services:
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
   - **labels**: Metadata for the container.
-    - **com.docker.compose.project: "portainer agent"**: Project label.
     - **com.edge-agent.description**: Description label for Portainer Edge
       Agent.
   - **healthcheck**: Healthcheck configuration.

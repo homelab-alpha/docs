@@ -57,6 +57,7 @@ Here's a detailed explanation:
 ## Compose File Metadata
 
 - **Filename**: `compose.yml`
+- **Project name**: `harborguard`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: October 28, 2026
 - **Description**: Configures a Docker network and the HarborGuard service.
@@ -142,12 +143,12 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     env_file:
-      # Choose the correct environment file:
-      # - Use '.env' for Docker Compose.
-      # - Use 'stack.env' for Portainer.
-      # Comment out the file you are not using in the Compose file to avoid issues.
-      - .env
-      - stack.env
+      # Compose loads each file that exists and skips a missing one:
+      # '.env' for the Docker Compose CLI, 'stack.env' for Portainer.
+      - path: .env
+        required: false
+      - path: stack.env
+        required: false
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -189,7 +190,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "harborguard"
       com.harborguard.description:
         "is a comprehensive container security scanning platform that provides
         an intuitive web interface for managing and visualizing security
@@ -220,8 +220,9 @@ services:
     locally.
   - **volumes**: Mounts host directories or files into the container.
     - **/var/run/docker.sock:/var/run/docker.sock:ro**
-  - **env_file**: Loads the variables from `.env` (Docker Compose) or
-    `stack.env` (Portainer). Comment out the file you are not using.
+  - **env_file**: Loads `.env` (Docker Compose CLI) and `stack.env` (Portainer).
+    Both are listed with `required: false`, so Compose skips the file that is
+    missing.
   - **environment**: Sets environment variables.
     - **PUID: 1000**: The user ID the container runs as.
     - **PGID: 1000**: The group ID the container runs as.
@@ -266,7 +267,7 @@ services:
     - **"3016:3000/udp"**: HTTP.
   - **security_opt: no-new-privileges:true**: Prevents the container from
     gaining new privileges.
-  - **labels**: Project label and a description label.
+  - **labels**: A description label.
   - **healthcheck**: Runs `curl -f http://localhost:3000/api/health`.
     - **interval / timeout / retries / start_period / start_interval**: 1m30s /
       10s / 3 / 40s / 5s.

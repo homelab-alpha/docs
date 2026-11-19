@@ -59,6 +59,7 @@ Here's a detailed explanation:
 ## Compose File Metadata
 
 - **Filename**: `compose.yml`
+- **Project name**: `cloudbeaver`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 16, 2025
 - **Description**: Configures a Docker network and the CloudBeaver service for
@@ -160,7 +161,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "cloudbeaver"
       com.cloudbeaver.description:
         "is an lightweight web application for all-around data management."
     healthcheck:
@@ -209,7 +209,6 @@ services:
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
   - **labels**: Metadata for the container.
-    - **com.docker.compose.project: "cloudbeaver"**: Project label.
     - **com.cloudbeaver.description**: Description label for CloudBeaver.
   - **healthcheck**: Healthcheck configuration.
     - **disable: false**: Enables health checks for the container.

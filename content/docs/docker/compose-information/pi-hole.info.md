@@ -58,6 +58,7 @@ Docker.
 ## Compose File Metadata
 
 - **Filename**: `compose.yml`
+- **Project name**: `pi-hole`, set with the top-level `name:` of the file.
 - **Author**: Homelab-Alpha
 - **Date**: Jun 16, 2025
 - **Description**: Configures a Docker network and the Pi-hole service for
@@ -164,7 +165,6 @@ services:
     cap_add:
       - NET_ADMIN
     labels:
-      com.docker.compose.project: "pi-hole"
       com.pi-hole.description:
         "is a Linux network-level advertisement and Internet tracker blocking
         application which acts as a DNS sinkhole and optionally a DHCP server."
@@ -233,7 +233,6 @@ services:
   - **cap_add**: Adds capabilities to the container.
     - **NET_ADMIN**: Grants network administrator privileges.
   - **labels**: Metadata for the container.
-    - **com.docker.compose.project: "pi-hole"**: Project label.
     - **com.pi-hole.description**: Describes Pi-hole as a DNS sinkhole and
       optional DHCP server.
   - **healthcheck**: Health check configuration.

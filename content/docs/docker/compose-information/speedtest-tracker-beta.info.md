@@ -55,6 +55,8 @@ Here's a detailed explanation:
 ## Compose File Metadata
 
 - **Filename**: `compose.yml`
+- **Project name**: `speedtest-tracker-beta`, set with the top-level `name:` of
+  the file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: October 28, 2026
 - **Description**: Configures a Docker network and the Speedtest Tracker Beta
@@ -145,8 +147,10 @@ services:
       - /docker/speedtest-tracker/production/my.cnf:/etc/my.cnf
       - /sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure
     env_file:
-      - .env
-      - stack.env
+      - path: .env
+        required: false
+      - path: stack.env
+        required: false
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -191,8 +195,9 @@ services:
     - **/docker/speedtest-tracker/production/db:/var/lib/mysql**
     - **/docker/speedtest-tracker/production/my.cnf:/etc/my.cnf**
     - **/sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure**
-  - **env_file**: Loads the variables from `.env` (Docker Compose) or
-    `stack.env` (Portainer). Comment out the file you are not using.
+  - **env_file**: Loads `.env` (Docker Compose CLI) and `stack.env` (Portainer).
+    Both are listed with `required: false`, so Compose skips the file that is
+    missing.
   - **environment**: Sets environment variables.
     - **PUID: 1000**: The user ID the container runs as.
     - **PGID: 1000**: The group ID the container runs as.
@@ -206,7 +211,7 @@ services:
     address `172.21.23.2`.
   - **security_opt: no-new-privileges:true**: Prevents the container from
     gaining new privileges.
-  - **labels**: Project label and a description label.
+  - **labels**: A description label.
   - **healthcheck**: Runs `healthcheck.sh --connect --innodb_initialized`.
     - **interval / timeout / retries / start_period / start_interval**: 10s / 5s
       / 3 / 10s / 5s.
@@ -233,14 +238,14 @@ services:
       speedtest-tracker_db:
         condition: service_healthy
         restart: true
-    links:
-      - speedtest-tracker_db
     volumes:
       - /docker/speedtest-tracker/production/.cert:/config/keys
       - /docker/speedtest-tracker/production/app:/config
     env_file:
-      - .env
-      - stack.env
+      - path: .env
+        required: false
+      - path: stack.env
+        required: false
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -284,7 +289,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "speedtest-tracker"
       com.speedtest-tracker.description:
         "a self-hosted application that monitors the performance and uptime of
         your internet connection."
@@ -314,12 +318,12 @@ services:
     locally.
   - **depends_on**: Starts this service only when `speedtest-tracker_db` has the
     condition `service_healthy`.
-  - **links**: Makes `speedtest-tracker_db` reachable by service name.
   - **volumes**: Mounts host directories or files into the container.
     - **/docker/speedtest-tracker/production/.cert:/config/keys**
     - **/docker/speedtest-tracker/production/app:/config**
-  - **env_file**: Loads the variables from `.env` (Docker Compose) or
-    `stack.env` (Portainer). Comment out the file you are not using.
+  - **env_file**: Loads `.env` (Docker Compose CLI) and `stack.env` (Portainer).
+    Both are listed with `required: false`, so Compose skips the file that is
+    missing.
   - **environment**: Sets environment variables.
     - **PUID: 1000**: The user ID the container runs as.
     - **PGID: 1000**: The group ID the container runs as.
@@ -361,7 +365,7 @@ services:
     - **"443:8443/udp"**
   - **security_opt: no-new-privileges:true**: Prevents the container from
     gaining new privileges.
-  - **labels**: Project label and a description label.
+  - **labels**: A description label.
   - **healthcheck**: Runs
     `curl -fSs APP_URL/api/healthcheck | jq -r .message || exit 1`.
     - **interval / timeout / retries / start_period / start_interval**: 10s / 5s

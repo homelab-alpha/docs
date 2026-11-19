@@ -55,6 +55,7 @@ Here's a detailed explanation:
 ## Compose File Metadata
 
 - **Filename**: `compose.yml`
+- **Project name**: `freshrss`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 18, 2025
 - **Description**: Configures a Docker network and services for FreshRSS and its
@@ -146,8 +147,10 @@ services:
       - /docker/freshrss/production/my.cnf:/etc/my.cnf
       - /sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure
     env_file:
-      - .env
-      - stack.env
+      - path: .env
+        required: false
+      - path: stack.env
+        required: false
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -187,14 +190,14 @@ services:
     depends_on:
       freshrss_db:
         condition: service_healthy
-    links:
-      - freshrss_db
     volumes:
       - /docker/freshrss/production/app/data:/var/www/FreshRSS/data
       - /docker/freshrss/extensions:/var/www/FreshRSS/extensions
     env_file:
-      - .env
-      - stack.env
+      - path: .env
+        required: false
+      - path: stack.env
+        required: false
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -216,7 +219,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "freshrss"
       com.freshrss.description: "is a free, self-hostable feeds aggregator."
     healthcheck:
       disable: false
@@ -252,7 +254,9 @@ services:
       MariaDB configuration file.
     - **/sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure**: Mounts
       system memory pressure info for monitoring.
-  - **env_file**: Specifies environment files.
+  - **env_file**: Loads `.env` (Docker Compose CLI) and `stack.env` (Portainer).
+    Both are listed with `required: false`, so Compose skips the file that is
+    missing.
     - **.env**: For Docker Compose.
     - **stack.env**: For Portainer.
   - **environment**: Sets environment variables.
@@ -302,14 +306,14 @@ services:
     present locally.
   - **depends_on**: Specifies dependencies for this service.
     - **freshrss_db**: Waits for the database service to be healthy.
-  - **links**: Links to the database container.
-    - **freshrss_db**: Links to the `freshrss_db` container.
   - **volumes**: Mounts host directories or files into the container.
     - **/docker/freshrss/production/app/data:/var/www/FreshRSS/data**: Mounts
       the FreshRSS data directory.
     - **/docker/freshrss/extensions:/var/www/FreshRSS/extensions**: Mounts the
       FreshRSS extensions directory.
-  - **env_file**: Specifies environment files.
+  - **env_file**: Loads `.env` (Docker Compose CLI) and `stack.env` (Portainer).
+    Both are listed with `required: false`, so Compose skips the file that is
+    missing.
     - **.env**: For Docker Compose.
     - **stack.env**: For Portainer.
   - **environment**: Sets environment variables.
@@ -334,7 +338,6 @@ services:
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
   - **labels**: Metadata for the container.
-    - **com.docker.compose.project: "freshrss"**: Project label.
     - **com.freshrss.description**: Description label for FreshRSS.
   - **healthcheck**: Healthcheck configuration.
     - **disable: false**: Enables health checks for the container.

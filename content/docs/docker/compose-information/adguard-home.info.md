@@ -57,6 +57,7 @@ Here's a detailed explanation:
 ## Compose File Metadata
 
 - **Filename**: `compose.yml`
+- **Project name**: `adguard-home`, set with the top-level `name:` of the file.
 - **Author**: Homelab-Alpha
 - **Date**: Jun 16, 2025
 - **Description**: Configures a Docker network and the AdGuard Home service for
@@ -173,7 +174,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "adguard-home"
       com.adguard-home.description:
         "is a network-wide software for blocking ads and tracking."
     healthcheck:
@@ -226,7 +226,6 @@ services:
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
   - **labels**: Metadata for the container.
-    - **com.docker.compose.project: "adguard-home"**: Project label.
     - **com.adguard-home.description**: Description label for AdGuard Home.
   - **healthcheck**: Healthcheck configuration.
     - **disable: true**: Disables the health check.

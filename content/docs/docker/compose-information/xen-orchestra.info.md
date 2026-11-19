@@ -61,6 +61,7 @@ Here's a detailed explanation:
 ## Compose File Metadata
 
 - **Filename**: `compose.yml`
+- **Project name**: `xen-orchestra`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 16, 2025
 - **Description**: This file configures a custom Docker network and a Xen
@@ -184,7 +185,6 @@ services:
       - SYS_ADMIN
       - DAC_READ_SEARCH
     labels:
-      com.docker.compose.project: "xen-orchestra"
       com.xen-orchestra.description:
         "is a complete solution to visualize, manage, backup and delegate your
         XCP-ng or XenServer infrastructure."
@@ -252,7 +252,6 @@ services:
     - **DAC_READ_SEARCH**: Adds capability to bypass file read permission
       checks.
   - **labels**: Metadata for the container.
-    - **com.docker.compose.project: "xen-orchestra"**: Project label.
     - **com.xen-orchestra.description**: Description label for Xen Orchestra.
   - **healthcheck**: Healthcheck configuration.
     - **disable: false**: Enables health checks for the container.

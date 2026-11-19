@@ -58,6 +58,7 @@ Here's a detailed explanation:
 ## Compose File Metadata
 
 - **Filename**: `compose.yml`
+- **Project name**: `dockge`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 16, 2025
 - **Description**: Configures a Docker network and the Dockge service for
@@ -161,7 +162,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "dockge"
       com.dockge.description:
         "a fancy, easy-to-use and reactive self-hosted docker compose.yml stack."
     healthcheck:
@@ -214,7 +214,6 @@ services:
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
   - **labels**: Metadata for the container.
-    - **com.docker.compose.project: "dockge"**: Project label.
     - **com.dockge.description**: Description label for Dockge.
   - **healthcheck**: Healthcheck configuration.
     - **disable: false**: Enables health checks for the container.

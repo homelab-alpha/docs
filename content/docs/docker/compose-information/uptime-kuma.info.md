@@ -60,6 +60,7 @@ Here's a detailed explanation:
 ## Compose File Metadata
 
 - **Filename**: `compose.yml`
+- **Project name**: `uptime-kuma`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: October 28, 2026
 - **Description**: This file configures a custom Docker network, a MariaDB
@@ -155,12 +156,12 @@ services:
       - /docker/uptime-kuma/production/my.cnf:/etc/my.cnf
       - /sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure
     env_file:
-      # Choose the correct environment file:
-      # - Use '.env' for Docker Compose.
-      # - Use 'stack.env' for Portainer.
-      # Comment out the file you are not using in the Compose file to avoid issues.
-      - .env
-      - stack.env
+      # Compose loads each file that exists and skips a missing one:
+      # '.env' for the Docker Compose CLI, 'stack.env' for Portainer.
+      - path: .env
+        required: false
+      - path: stack.env
+        required: false
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -209,8 +210,9 @@ services:
       configuration file.
     - **/sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure**: Gives
       MariaDB access to the memory pressure information of the host.
-  - **env_file**: Loads the variables from `.env` (Docker Compose) or
-    `stack.env` (Portainer). Comment out the file you are not using.
+  - **env_file**: Loads `.env` (Docker Compose CLI) and `stack.env` (Portainer).
+    Both are listed with `required: false`, so Compose skips the file that is
+    missing.
   - **environment**: Sets environment variables.
     - **PUID / PGID**: The user and group ID the container runs as.
     - **TZ: Europe/Amsterdam**: Sets the timezone to Amsterdam.
@@ -262,19 +264,17 @@ services:
     depends_on:
       uptime-kuma_db:
         condition: service_healthy
-    links:
-      - uptime-kuma_db
     volumes:
       - /docker/uptime-kuma/production/app:/app/data
       - /usr/local/share/ca-certificates:/app/data/docker-tls
       - /var/run/docker.sock:/var/run/docker.sock:ro
     env_file:
-      # Choose the correct environment file:
-      # - Use '.env' for Docker Compose.
-      # - Use 'stack.env' for Portainer.
-      # Comment out the file you are not using in the Compose file to avoid issues.
-      - .env
-      - stack.env
+      # Compose loads each file that exists and skips a missing one:
+      # '.env' for the Docker Compose CLI, 'stack.env' for Portainer.
+      - path: .env
+        required: false
+      - path: stack.env
+        required: false
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -297,7 +297,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "uptime-kuma"
       com.uptime-kuma.description:
         "is an self-hosted monitoring tool that allows you to monitor uptime,
         status, and notifications for various services and domains."
@@ -321,7 +320,6 @@ services:
     image, pinned to version `2.5.9-slim`.
   - **depends_on**: Starts this service only when `uptime-kuma_db` reports
     `service_healthy`.
-  - **links**: Makes the database reachable under the name `uptime-kuma_db`.
   - **volumes**: Mounts host directories or files into the container.
     - **/docker/uptime-kuma/production/app:/app/data**: Persists Uptime Kuma
       data.
@@ -329,8 +327,9 @@ services:
       directory containing custom CA certificates.
     - **/var/run/docker.sock:/var/run/docker.sock:ro**: Mounts the Docker socket
       read-only.
-  - **env_file**: Loads the variables from `.env` (Docker Compose) or
-    `stack.env` (Portainer). Comment out the file you are not using.
+  - **env_file**: Loads `.env` (Docker Compose CLI) and `stack.env` (Portainer).
+    Both are listed with `required: false`, so Compose skips the file that is
+    missing.
   - **environment**: Sets environment variables.
     - **PUID / PGID**: The user and group ID the container runs as.
     - **TZ: Europe/Amsterdam**: Sets the timezone to Amsterdam.
@@ -355,7 +354,6 @@ services:
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
   - **labels**: Metadata for the container.
-    - **com.docker.compose.project: "uptime-kuma"**: Project label.
     - **com.uptime-kuma.description**: Description label for Uptime Kuma.
   - **healthcheck**: Healthcheck configuration.
     - **disable: false**: Enables health checks for the container.

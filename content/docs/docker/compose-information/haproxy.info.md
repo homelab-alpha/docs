@@ -62,6 +62,7 @@ Here's a detailed explanation:
 ## Compose File Metadata
 
 - **Filename**: `compose.yml`
+- **Project name**: `haproxy`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 18, 2025
 - **Description**: Docker Compose setup for HAProxy load balancing with SSL and
@@ -172,7 +173,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "haproxy"
       com.haproxy.description:
         "the reliable, high performance tcp/http load balancer."
     healthcheck:
@@ -223,7 +223,6 @@ services:
     - **no-new-privileges\:true**: Ensures the container does not gain new
       privileges.
   - **labels**: Metadata for the container.
-    - **com.docker.compose.project: "haproxy"**: Project label.
     - **com.haproxy.description**: Description label for HAProxy.
   - **healthcheck**: Healthcheck configuration.
     - **disable: false**: Enables health checks for the container.

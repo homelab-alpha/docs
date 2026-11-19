@@ -54,6 +54,7 @@ Here's a detailed explanation:
 ## Compose File Metadata
 
 - **Filename**: `compose.yml`
+- **Project name**: `mini-qr`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: October 28, 2026
 - **Description**: Configures a Docker network and the Mini QR service.
@@ -147,7 +148,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "mini-qr"
       com.mini-qr.description:
         "A user-friendly and customizable QR code generator that allows you to
         create styled QR codes with ease."
@@ -174,8 +174,6 @@ services:
     depends_on:
       mini-qr_app:
         condition: service_started
-    links:
-      - mini-qr_app
     volumes:
       - /docker/mini-qr/nginx-proxy.conf:/etc/nginx/nginx.conf
     environment:
@@ -193,7 +191,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "mini-qr-nginx"
       com.mini-qr.description:
         "a flexible and high-performance server that can handle HTTP, mail, TCP,
         and UDP traffic."
@@ -232,7 +229,7 @@ services:
     `172.20.26.2`.
   - **security_opt: no-new-privileges:true**: Prevents the container from
     gaining new privileges.
-  - **labels**: Project label and a description label.
+  - **labels**: A description label.
   - **healthcheck: disable: true**: The health check is disabled for this
     container.
 

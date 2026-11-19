@@ -57,6 +57,8 @@ Here's a detailed explanation:
 ## Compose File Metadata
 
 - **Filename**: `compose.yml`
+- **Project name**: `speedtest-tracker`, set with the top-level `name:` of the
+  file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: Dec 30, 2025
 - **Description**: Docker Compose setup for Speedtest Tracker with MariaDB for
@@ -151,8 +153,10 @@ services:
       - /docker/speedtest-tracker/production/my.cnf:/etc/my.cnf
       - /sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure
     env_file:
-      - .env
-      - stack.env
+      - path: .env
+        required: false
+      - path: stack.env
+        required: false
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -193,14 +197,14 @@ services:
       speedtest-tracker_db:
         condition: service_healthy
         restart: true
-    links:
-      - speedtest-tracker_db
     volumes:
       - /docker/speedtest-tracker/production/.cert:/config/keys
       - /docker/speedtest-tracker/production/app:/config
     env_file:
-      - .env
-      - stack.env
+      - path: .env
+        required: false
+      - path: stack.env
+        required: false
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -247,7 +251,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "speedtest-tracker"
       com.speedtest-tracker.description:
         "a self-hosted application that monitors the performance and uptime of
         your internet connection."
@@ -287,7 +290,9 @@ services:
       custom MariaDB configuration file.
     - **/sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure**: Mounts
       system memory pressure info for monitoring.
-  - **env_file**: Specifies environment files.
+  - **env_file**: Loads `.env` (Docker Compose CLI) and `stack.env` (Portainer).
+    Both are listed with `required: false`, so Compose skips the file that is
+    missing.
     - **.env**: For Docker Compose.
     - **stack.env**: For Portainer.
   - **environment**: Sets environment variables.
@@ -340,14 +345,14 @@ services:
   - **depends_on**: Specifies dependencies for this service.
     - **speedtest-tracker_db**: Waits for the database service to be healthy and
       restarts if required.
-  - **links**: Links to the database container.
-    - **speedtest-tracker_db**: Links to the `speedtest-tracker_db` container.
   - **volumes**: Mounts host directories or files into the container.
     - **/docker/speedtest-tracker/production/.cert:/config/keys**: Mounts the
       TLS certificate keys.
     - **/docker/speedtest-tracker/production/app:/config**: Mounts the main
       application configuration directory.
-  - **env_file**: Specifies environment files.
+  - **env_file**: Loads `.env` (Docker Compose CLI) and `stack.env` (Portainer).
+    Both are listed with `required: false`, so Compose skips the file that is
+    missing.
     - **.env**: For Docker Compose.
     - **stack.env**: For Portainer.
   - **environment**: Sets environment variables.
@@ -397,7 +402,6 @@ services:
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
   - **labels**: Metadata for the container.
-    - **com.docker.compose.project: "speedtest-tracker"**: Project label.
     - **com.speedtest-tracker.description**: Description label for Speedtest
       Tracker.
   - **healthcheck**: Healthcheck configuration.

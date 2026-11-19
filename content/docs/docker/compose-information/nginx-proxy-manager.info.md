@@ -58,6 +58,8 @@ Here's a detailed explanation:
 ## Compose File Metadata
 
 - **Filename**: `compose.yml`
+- **Project name**: `nginx-proxy-manager`, set with the top-level `name:` of the
+  file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 18, 2025
 - **Description**: Docker Compose configuration for Nginx Proxy Manager with
@@ -153,8 +155,10 @@ services:
       # - /docker/nginx-proxy-manager/production/my.cnf:/etc/my.cnf
       - /sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure
     env_file:
-      - .env
-      - stack.env
+      - path: .env
+        required: false
+      - path: stack.env
+        required: false
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -195,14 +199,14 @@ services:
       nginx-proxy-manager_db:
         condition: service_healthy
         restart: true
-    links:
-      - nginx-proxy-manager_db
     volumes:
       - /docker/nginx-proxy-manager/production/app:/data
       - /etc/letsencrypt:/etc/letsencrypt
     env_file:
-      - .env
-      - stack.env
+      - path: .env
+        required: false
+      - path: stack.env
+        required: false
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -230,7 +234,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "nginx-proxy-manager"
       com.nginx-proxy-manager.description:
         "nginx proxy manager expose your services easily and securely."
     healthcheck:
@@ -268,7 +271,9 @@ services:
       out): Mounts the custom MariaDB configuration file when enabled.
     - **/sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure**: Mounts
       system memory pressure info for monitoring.
-  - **env_file**: Specifies environment files.
+  - **env_file**: Loads `.env` (Docker Compose CLI) and `stack.env` (Portainer).
+    Both are listed with `required: false`, so Compose skips the file that is
+    missing.
     - **.env**: For Docker Compose.
     - **stack.env**: For Portainer.
   - **environment**: Sets environment variables.
@@ -320,14 +325,13 @@ services:
     present locally.
   - **depends_on**: Specifies dependencies for this service.
     - **nginx-proxy-manager_db**: Waits for the database service to be healthy.
-  - **links**: Links to the database container.
-    - **nginx-proxy-manager_db**: Links to the `nginx-proxy-manager_db`
-      container.
   - **volumes**: Mounts host directories or files into the container.
     - **/docker/nginx-proxy-manager/production/app:/data**: Mounts the
       application data directory.
     - **/etc/letsencrypt:/etc/letsencrypt**: Mounts LetsEncrypt certificates.
-  - **env_file**: Specifies environment files.
+  - **env_file**: Loads `.env` (Docker Compose CLI) and `stack.env` (Portainer).
+    Both are listed with `required: false`, so Compose skips the file that is
+    missing.
     - **.env**: For Docker Compose.
     - **stack.env**: For Portainer.
   - **environment**: Sets environment variables.
@@ -358,7 +362,6 @@ services:
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
   - **labels**: Metadata for the container.
-    - **com.docker.compose.project: "nginx-proxy-manager"**: Project label.
     - **com.nginx-proxy-manager.description**: Description label for Nginx Proxy
       Manager.
   - **healthcheck**: Healthcheck configuration.

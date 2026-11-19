@@ -57,6 +57,7 @@ Here's a detailed explanation:
 ## Compose File Metadata
 
 - **Filename**: `compose.yml`
+- **Project name**: `portainer`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 16, 2025
 - **Description**: This file configures a custom Docker network and a Portainer
@@ -157,7 +158,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "portainer"
       com.portainer.description:
         "deploy, configure, troubleshoot and secure containers."
     healthcheck:
@@ -209,7 +209,6 @@ services:
     - **no-new-privileges: true**: Prevents the container from gaining
       additional privileges.
   - **labels**: Metadata for the container.
-    - **com.docker.compose.project: "portainer"**: Project label.
     - **com.portainer.description**: Description label for Portainer.
   - **healthcheck**: Healthcheck configuration.
     - **disable: true**: Disables health checks for the container.

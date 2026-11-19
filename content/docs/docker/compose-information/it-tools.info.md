@@ -61,6 +61,7 @@ Here's a detailed explanation:
 ## Compose File Metadata
 
 - **Filename**: `compose.yml`
+- **Project name**: `it-tools`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 18, 2025
 - **Description**: Docker Compose setup for IT-Tools, a suite of
@@ -160,7 +161,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "it-tools"
       com.it-tools.description:
         "A collection of handy online tools for developers, with great UX."
     healthcheck:
@@ -200,7 +200,6 @@ services:
     - **no-new-privileges\:true**: Ensures the container does not gain new
       privileges.
   - **labels**: Metadata for the container.
-    - **com.docker.compose.project: "it-tools"**: Project label.
     - **com.it-tools.description**: Description label for it-tools.
   - **healthcheck**: Healthcheck configuration.
     - **disable: true**: Disables health checks for the container.
