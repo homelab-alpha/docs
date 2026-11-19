@@ -50,22 +50,23 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail. This file
-is used to configure and deploy an Uptime Kuma instance for monitoring website
-uptime and alerting. Uptime Kuma stores its data in a separate MariaDB
-container, which is started first and must be healthy before Uptime Kuma starts.
+Let's break down what this `compose.yml` file does in detail. This file is used
+to configure and deploy an Uptime Kuma instance for monitoring website uptime
+and alerting. Uptime Kuma stores its data in a separate MariaDB container, which
+is started first and must be healthy before Uptime Kuma starts.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
+- **Project name**: `uptime-kuma`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: October 28, 2026
 - **Description**: This file configures a custom Docker network, a MariaDB
   database service, and an Uptime Kuma service for monitoring website uptime and
   alerting.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 - **RAW Environment File**: [stack.env]
 - **RAW MariaDB Configuration File**: [my.cnf]
 
@@ -105,7 +106,7 @@ networks:
   network.
 - **internal: false**: The network is accessible externally.
 - **external: false**: The network is not an externally defined one but created
-  within this `docker-compose` file.
+  within this Compose file.
 - **name: uptime-kuma**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -155,12 +156,12 @@ services:
       - /docker/uptime-kuma/production/my.cnf:/etc/my.cnf
       - /sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure
     env_file:
-      # Choose the correct environment file:
-      # - Use '.env' for Docker Compose.
-      # - Use 'stack.env' for Portainer.
-      # Comment out the file you are not using in the Compose file to avoid issues.
-      - .env
-      - stack.env
+      # Compose loads each file that exists and skips a missing one:
+      # '.env' for the Docker Compose CLI, 'stack.env' for Portainer.
+      - path: .env
+        required: false
+      - path: stack.env
+        required: false
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -209,8 +210,9 @@ services:
       configuration file.
     - **/sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure**: Gives
       MariaDB access to the memory pressure information of the host.
-  - **env_file**: Loads the variables from `.env` (Docker Compose) or
-    `stack.env` (Portainer). Comment out the file you are not using.
+  - **env_file**: Loads `.env` (Docker Compose CLI) and `stack.env` (Portainer).
+    Both are listed with `required: false`, so Compose skips the file that is
+    missing.
   - **environment**: Sets environment variables.
     - **PUID / PGID**: The user and group ID the container runs as.
     - **TZ: Europe/Amsterdam**: Sets the timezone to Amsterdam.
@@ -262,19 +264,17 @@ services:
     depends_on:
       uptime-kuma_db:
         condition: service_healthy
-    links:
-      - uptime-kuma_db
     volumes:
       - /docker/uptime-kuma/production/app:/app/data
       - /usr/local/share/ca-certificates:/app/data/docker-tls
       - /var/run/docker.sock:/var/run/docker.sock:ro
     env_file:
-      # Choose the correct environment file:
-      # - Use '.env' for Docker Compose.
-      # - Use 'stack.env' for Portainer.
-      # Comment out the file you are not using in the Compose file to avoid issues.
-      - .env
-      - stack.env
+      # Compose loads each file that exists and skips a missing one:
+      # '.env' for the Docker Compose CLI, 'stack.env' for Portainer.
+      - path: .env
+        required: false
+      - path: stack.env
+        required: false
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -297,7 +297,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "uptime-kuma"
       com.uptime-kuma.description:
         "is an self-hosted monitoring tool that allows you to monitor uptime,
         status, and notifications for various services and domains."
@@ -321,7 +320,6 @@ services:
     image, pinned to version `2.5.9-slim`.
   - **depends_on**: Starts this service only when `uptime-kuma_db` reports
     `service_healthy`.
-  - **links**: Makes the database reachable under the name `uptime-kuma_db`.
   - **volumes**: Mounts host directories or files into the container.
     - **/docker/uptime-kuma/production/app:/app/data**: Persists Uptime Kuma
       data.
@@ -329,8 +327,9 @@ services:
       directory containing custom CA certificates.
     - **/var/run/docker.sock:/var/run/docker.sock:ro**: Mounts the Docker socket
       read-only.
-  - **env_file**: Loads the variables from `.env` (Docker Compose) or
-    `stack.env` (Portainer). Comment out the file you are not using.
+  - **env_file**: Loads `.env` (Docker Compose CLI) and `stack.env` (Portainer).
+    Both are listed with `required: false`, so Compose skips the file that is
+    missing.
   - **environment**: Sets environment variables.
     - **PUID / PGID**: The user and group ID the container runs as.
     - **TZ: Europe/Amsterdam**: Sets the timezone to Amsterdam.
@@ -355,7 +354,6 @@ services:
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
   - **labels**: Metadata for the container.
-    - **com.docker.compose.project: "uptime-kuma"**: Project label.
     - **com.uptime-kuma.description**: Description label for Uptime Kuma.
   - **healthcheck**: Healthcheck configuration.
     - **disable: false**: Enables health checks for the container.
@@ -432,16 +430,16 @@ comments. The same file layout is explained in detail on the
 
 ## Conclusion
 
-This `docker-compose` file sets up a Docker environment for running Uptime Kuma,
-a self-hosted monitoring tool similar to Uptime Robot, with a dedicated MariaDB
+This Compose file sets up a Docker environment for running Uptime Kuma, a
+self-hosted monitoring tool similar to Uptime Robot, with a dedicated MariaDB
 database. It creates a custom bridge network with static IP addresses, starts
 Uptime Kuma only after the database is healthy, and keeps all credentials in an
 environment file. Both services restart automatically, log efficiently, and run
 with `no-new-privileges`.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/uptime-kuma/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/uptime-kuma/compose.yml
 [stack.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/uptime-kuma/stack.env
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/uptime-kuma/stack.env
 [my.cnf]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/uptime-kuma/my.cnf
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/uptime-kuma/my.cnf

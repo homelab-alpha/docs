@@ -49,20 +49,22 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail for setting
-up a custom Docker network for Nginx Proxy Manager, an easy-to-use reverse proxy
+Let's break down what this `compose.yml` file does in detail for setting up a
+custom Docker network for Nginx Proxy Manager, an easy-to-use reverse proxy
 management tool.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
+- **Project name**: `nginx-proxy-manager`, set with the top-level `name:` of the
+  file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 18, 2025
 - **Description**: Docker Compose configuration for Nginx Proxy Manager with
   MariaDB, custom network, and security best practices.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 - **RAW .env File**: [.env]
 - **RAW stack.env File**: [stack.env]
 - **RAW my.cnf File**: [my.cnf]
@@ -104,8 +106,8 @@ networks:
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
 - **internal: false**: The network is accessible externally.
-- **external: false**: The network is created within this `docker-compose` file,
-  not externally defined.
+- **external: false**: The network is created within this Compose file, not
+  externally defined.
 - **name: nginx-proxy-manager**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -153,8 +155,10 @@ services:
       # - /docker/nginx-proxy-manager/production/my.cnf:/etc/my.cnf
       - /sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure
     env_file:
-      - .env
-      - stack.env
+      - path: .env
+        required: false
+      - path: stack.env
+        required: false
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -195,14 +199,14 @@ services:
       nginx-proxy-manager_db:
         condition: service_healthy
         restart: true
-    links:
-      - nginx-proxy-manager_db
     volumes:
       - /docker/nginx-proxy-manager/production/app:/data
       - /etc/letsencrypt:/etc/letsencrypt
     env_file:
-      - .env
-      - stack.env
+      - path: .env
+        required: false
+      - path: stack.env
+        required: false
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -230,7 +234,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "nginx-proxy-manager"
       com.nginx-proxy-manager.description:
         "nginx proxy manager expose your services easily and securely."
     healthcheck:
@@ -268,7 +271,9 @@ services:
       out): Mounts the custom MariaDB configuration file when enabled.
     - **/sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure**: Mounts
       system memory pressure info for monitoring.
-  - **env_file**: Specifies environment files.
+  - **env_file**: Loads `.env` (Docker Compose CLI) and `stack.env` (Portainer).
+    Both are listed with `required: false`, so Compose skips the file that is
+    missing.
     - **.env**: For Docker Compose.
     - **stack.env**: For Portainer.
   - **environment**: Sets environment variables.
@@ -320,14 +325,13 @@ services:
     present locally.
   - **depends_on**: Specifies dependencies for this service.
     - **nginx-proxy-manager_db**: Waits for the database service to be healthy.
-  - **links**: Links to the database container.
-    - **nginx-proxy-manager_db**: Links to the `nginx-proxy-manager_db`
-      container.
   - **volumes**: Mounts host directories or files into the container.
     - **/docker/nginx-proxy-manager/production/app:/data**: Mounts the
       application data directory.
     - **/etc/letsencrypt:/etc/letsencrypt**: Mounts LetsEncrypt certificates.
-  - **env_file**: Specifies environment files.
+  - **env_file**: Loads `.env` (Docker Compose CLI) and `stack.env` (Portainer).
+    Both are listed with `required: false`, so Compose skips the file that is
+    missing.
     - **.env**: For Docker Compose.
     - **stack.env**: For Portainer.
   - **environment**: Sets environment variables.
@@ -358,7 +362,6 @@ services:
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
   - **labels**: Metadata for the container.
-    - **com.docker.compose.project: "nginx-proxy-manager"**: Project label.
     - **com.nginx-proxy-manager.description**: Description label for Nginx Proxy
       Manager.
   - **healthcheck**: Healthcheck configuration.
@@ -639,8 +642,8 @@ general-log = 0
 
 ## Conclusion
 
-This `docker-compose` file sets up a Docker environment for Nginx Proxy Manager
-and its MariaDB database. The configuration defines a custom bridge network with
+This Compose file sets up a Docker environment for Nginx Proxy Manager and its
+MariaDB database. The configuration defines a custom bridge network with
 specific IP settings and security configurations. The MariaDB service is
 configured to run continuously, with persistent storage for database data and
 custom configuration. The Nginx Proxy Manager service depends on the MariaDB
@@ -649,11 +652,11 @@ certificates. Both services include detailed logging, restart policies, health
 checks, and security options to ensure reliable, efficient, and secure
 operation.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/nginx-proxy-manager/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/nginx-proxy-manager/compose.yml
 [.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/nginx-proxy-manager/.env
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/nginx-proxy-manager/.env
 [stack.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/nginx-proxy-manager/stack.env
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/nginx-proxy-manager/stack.env
 [my.cnf]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/nginx-proxy-manager/my.cnf
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/nginx-proxy-manager/my.cnf

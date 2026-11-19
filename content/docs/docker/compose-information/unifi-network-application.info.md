@@ -48,21 +48,23 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail. This file
-is used to deploy the UniFi Network Application (formerly the UniFi Controller),
-a network management tool, together with a MongoDB database. The application
+Let's break down what this `compose.yml` file does in detail. This file is used
+to deploy the UniFi Network Application (formerly the UniFi Controller), a
+network management tool, together with a MongoDB database. The application
 starts only after the database is healthy.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
+- **Project name**: `unifi-network-application`, set with the top-level `name:`
+  of the file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: October 28, 2026
 - **Description**: Configures a Docker network, a MongoDB database service, and
   a UniFi Network Application service.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 - **RAW Environment File**: [stack.env]
 - **RAW MongoDB Init Script**: [init-mongo.sh]
 
@@ -101,7 +103,7 @@ networks:
 - **networks**: Defines a custom network named `unifi-network-application_net`.
 - **attachable: false**: Other containers can't attach to this network.
 - **internal: false**: The network is accessible externally.
-- **external: false**: The network is created within this `docker-compose` file.
+- **external: false**: The network is created within this Compose file.
 - **name: unifi-network-application**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -148,12 +150,12 @@ services:
       - /docker/unifi-network-application/production/db:/data/db
       - /docker/unifi-network-application/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh:ro
     env_file:
-      # Choose the correct environment file:
-      # - Use '.env' for Docker Compose.
-      # - Use 'stack.env' for Portainer.
-      # Comment out the file you are not using in the Compose file to avoid issues.
-      - .env
-      - stack.env
+      # Compose loads each file that exists and skips a missing one:
+      # '.env' for the Docker Compose CLI, 'stack.env' for Portainer.
+      - path: .env
+        required: false
+      - path: stack.env
+        required: false
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -209,8 +211,9 @@ services:
   - **/docker/unifi-network-application/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh:ro**:
     Mounts the init script read-only. It runs on the first start and creates the
     application user.
-- **env_file**: Loads the variables from `.env` (Docker Compose) or `stack.env`
-  (Portainer). Comment out the file you are not using.
+- **env_file**: Loads `.env` (Docker Compose CLI) and `stack.env` (Portainer).
+  Both are listed with `required: false`, so Compose skips the file that is
+  missing.
 - **environment**: Sets environment variables.
   - **PUID / PGID**: The user and group ID the container runs as.
   - **TZ: Europe/Amsterdam**: Sets the timezone to Amsterdam.
@@ -257,17 +260,15 @@ services:
     depends_on:
       unifi-network-application_db:
         condition: service_healthy
-    links:
-      - unifi-network-application_db
     volumes:
       - /docker/unifi-network-application/production/app:/config
     env_file:
-      # Choose the correct environment file:
-      # - Use '.env' for Docker Compose.
-      # - Use 'stack.env' for Portainer.
-      # Comment out the file you are not using in the Compose file to avoid issues.
-      - .env
-      - stack.env
+      # Compose loads each file that exists and skips a missing one:
+      # '.env' for the Docker Compose CLI, 'stack.env' for Portainer.
+      - path: .env
+        required: false
+      - path: stack.env
+        required: false
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -278,7 +279,7 @@ services:
       MONGO_PASS: ${PASSWORD_DB} # Fill in the value in both the .env and stack.env files
       MONGO_PORT: ${PORT_DB} # Fill in the value in both the .env and stack.env files
       MONGO_USER: ${USER_DB} # Fill in the value in both the .env and stack.env files
-      BASICAUTH: ${BASICAUTH_DB} # Fill in the value in both the .env and stack.env files
+      BASICAUTH: ${BASICAUTH} # Fill in the value in both the .env and stack.env files
       # MONGO_URL: ${MONGODB_URL}  # Fill in the value in both the .env and stack.env files
       MEM_LIMIT: 2048
       MEM_STARTUP: 2048
@@ -301,7 +302,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "unifi-network-application"
       com.unifi-network-application.description:
         "is an end-to-end system of network devices across different locations —
         all controlled from a single interface."
@@ -318,8 +318,6 @@ services:
   LinuxServer.io UniFi Network Application image, pinned to version `10.6.109`.
 - **depends_on**: Starts this service only when the database is
   `service_healthy`.
-- **links**: Makes the database reachable under the name
-  `unifi-network-application_db`.
 - **volumes**: `/docker/unifi-network-application/production/app:/config`
   persists the application configuration.
 - **env_file**: Same behavior as the database service.
@@ -328,7 +326,7 @@ services:
   - **MONGO_AUTHSOURCE / MONGO_HOST / MONGO_DBNAME / MONGO_PASS / MONGO_PORT /
     MONGO_USER**: The database connection settings, taken from the environment
     file.
-  - **BASICAUTH**: Enables basic authentication, taken from `BASICAUTH_DB`.
+  - **BASICAUTH**: Enables basic authentication, taken from `BASICAUTH`.
   - **# MONGO_URL**: Commented out. An alternative to the separate connection
     settings, taken from `MONGODB_URL`.
   - **MEM_LIMIT / MEM_STARTUP**: Memory limit and startup memory of the
@@ -352,7 +350,7 @@ services:
   - **10001/udp**: Access point discovery.
 - **security_opt**: `no-new-privileges:true` prevents the container from gaining
   new privileges.
-- **labels**: Project label and a description label for the application.
+- **labels**: A description label for the application.
 - **healthcheck: disable: true**: The health check is disabled for this
   container.
 
@@ -455,16 +453,16 @@ EOF
 
 ## Conclusion
 
-This `docker-compose` file deploys the UniFi Network Application with a
-dedicated MongoDB database. It creates a custom bridge network with static IP
-addresses, creates the database user with an init script, and starts the
-application only after the database is healthy. The credentials are kept in an
-environment file, and both services restart automatically, log efficiently, and
-run with `no-new-privileges`.
+This Compose file deploys the UniFi Network Application with a dedicated MongoDB
+database. It creates a custom bridge network with static IP addresses, creates
+the database user with an init script, and starts the application only after the
+database is healthy. The credentials are kept in an environment file, and both
+services restart automatically, log efficiently, and run with
+`no-new-privileges`.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/unifi-network-application/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/unifi-network-application/compose.yml
 [stack.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/unifi-network-application/stack.env
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/unifi-network-application/stack.env
 [init-mongo.sh]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/unifi-network-application/init-mongo.sh
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/unifi-network-application/init-mongo.sh

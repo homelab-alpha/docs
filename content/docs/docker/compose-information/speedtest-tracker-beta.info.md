@@ -46,20 +46,22 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail. This file
-deploys the Speedtest Tracker Beta with a MariaDB database. It uses the
-`alexjustesen` image, its own network, and ports 80 and 443.
+Let's break down what this `compose.yml` file does in detail. This file deploys
+the Speedtest Tracker Beta with a MariaDB database. It uses the `alexjustesen`
+image, its own network, and ports 80 and 443.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
+- **Project name**: `speedtest-tracker-beta`, set with the top-level `name:` of
+  the file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: October 28, 2026
 - **Description**: Configures a Docker network and the Speedtest Tracker Beta
   services.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 - **RAW Environment File**: [stack.env]
 - **RAW MariaDB Configuration File**: [my.cnf]
 
@@ -98,7 +100,7 @@ networks:
 - **networks**: Defines a custom network named `speedtest-tracker_net`.
 - **attachable: false**: Other containers can't attach to this network.
 - **internal: false**: The network is accessible externally.
-- **external: false**: The network is created within this `docker-compose` file.
+- **external: false**: The network is created within this Compose file.
 - **name: speedtest-tracker**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -145,8 +147,10 @@ services:
       - /docker/speedtest-tracker/production/my.cnf:/etc/my.cnf
       - /sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure
     env_file:
-      - .env
-      - stack.env
+      - path: .env
+        required: false
+      - path: stack.env
+        required: false
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -191,8 +195,9 @@ services:
     - **/docker/speedtest-tracker/production/db:/var/lib/mysql**
     - **/docker/speedtest-tracker/production/my.cnf:/etc/my.cnf**
     - **/sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure**
-  - **env_file**: Loads the variables from `.env` (Docker Compose) or
-    `stack.env` (Portainer). Comment out the file you are not using.
+  - **env_file**: Loads `.env` (Docker Compose CLI) and `stack.env` (Portainer).
+    Both are listed with `required: false`, so Compose skips the file that is
+    missing.
   - **environment**: Sets environment variables.
     - **PUID: 1000**: The user ID the container runs as.
     - **PGID: 1000**: The group ID the container runs as.
@@ -206,7 +211,7 @@ services:
     address `172.21.23.2`.
   - **security_opt: no-new-privileges:true**: Prevents the container from
     gaining new privileges.
-  - **labels**: Project label and a description label.
+  - **labels**: A description label.
   - **healthcheck**: Runs `healthcheck.sh --connect --innodb_initialized`.
     - **interval / timeout / retries / start_period / start_interval**: 10s / 5s
       / 3 / 10s / 5s.
@@ -233,14 +238,14 @@ services:
       speedtest-tracker_db:
         condition: service_healthy
         restart: true
-    links:
-      - speedtest-tracker_db
     volumes:
       - /docker/speedtest-tracker/production/.cert:/config/keys
       - /docker/speedtest-tracker/production/app:/config
     env_file:
-      - .env
-      - stack.env
+      - path: .env
+        required: false
+      - path: stack.env
+        required: false
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -284,7 +289,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "speedtest-tracker"
       com.speedtest-tracker.description:
         "a self-hosted application that monitors the performance and uptime of
         your internet connection."
@@ -314,12 +318,12 @@ services:
     locally.
   - **depends_on**: Starts this service only when `speedtest-tracker_db` has the
     condition `service_healthy`.
-  - **links**: Makes `speedtest-tracker_db` reachable by service name.
   - **volumes**: Mounts host directories or files into the container.
     - **/docker/speedtest-tracker/production/.cert:/config/keys**
     - **/docker/speedtest-tracker/production/app:/config**
-  - **env_file**: Loads the variables from `.env` (Docker Compose) or
-    `stack.env` (Portainer). Comment out the file you are not using.
+  - **env_file**: Loads `.env` (Docker Compose CLI) and `stack.env` (Portainer).
+    Both are listed with `required: false`, so Compose skips the file that is
+    missing.
   - **environment**: Sets environment variables.
     - **PUID: 1000**: The user ID the container runs as.
     - **PGID: 1000**: The group ID the container runs as.
@@ -361,7 +365,7 @@ services:
     - **"443:8443/udp"**
   - **security_opt: no-new-privileges:true**: Prevents the container from
     gaining new privileges.
-  - **labels**: Project label and a description label.
+  - **labels**: A description label.
   - **healthcheck**: Runs
     `curl -fSs APP_URL/api/healthcheck | jq -r .message || exit 1`.
     - **interval / timeout / retries / start_period / start_interval**: 10s / 5s
@@ -452,14 +456,14 @@ with comments.
 
 ## Conclusion
 
-This `docker-compose` file deploys the Speedtest Tracker Beta with a dedicated
-MariaDB database on its own bridge network. It differs from the regular
-Speedtest Tracker in the image, the network (`172.21.23.0/24`), the published
-ports (80 and 443), and the enabled debug mode.
+This Compose file deploys the Speedtest Tracker Beta with a dedicated MariaDB
+database on its own bridge network. It differs from the regular Speedtest
+Tracker in the image, the network (`172.21.23.0/24`), the published ports (80
+and 443), and the enabled debug mode.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/speedtest-tracker-beta/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/speedtest-tracker-beta/compose.yml
 [stack.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/speedtest-tracker-beta/stack.env
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/speedtest-tracker-beta/stack.env
 [my.cnf]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/speedtest-tracker-beta/my.cnf
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/speedtest-tracker-beta/my.cnf

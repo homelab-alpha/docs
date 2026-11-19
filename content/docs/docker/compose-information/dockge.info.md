@@ -50,19 +50,20 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail for
-deploying Dockge, a user-friendly Docker Compose stack management interface.
+Let's break down what this `compose.yml` file does in detail for deploying
+Dockge, a user-friendly Docker Compose stack management interface.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
+- **Project name**: `dockge`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 16, 2025
 - **Description**: Configures a Docker network and the Dockge service for
   managing Docker Compose stacks.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 
 <br />
 
@@ -99,8 +100,8 @@ networks:
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
 - **internal: false**: The network is accessible externally.
-- **external: false**: The network is created within this `docker-compose` file,
-  not externally defined.
+- **external: false**: The network is created within this Compose file, not
+  externally defined.
 - **name: dockge**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -161,7 +162,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "dockge"
       com.dockge.description:
         "a fancy, easy-to-use and reactive self-hosted docker compose.yml stack."
     healthcheck:
@@ -214,7 +214,6 @@ services:
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
   - **labels**: Metadata for the container.
-    - **com.docker.compose.project: "dockge"**: Project label.
     - **com.dockge.description**: Description label for Dockge.
   - **healthcheck**: Healthcheck configuration.
     - **disable: false**: Enables health checks for the container.
@@ -233,14 +232,13 @@ services:
 
 ## Conclusion
 
-This `docker-compose` file sets up a Docker environment for Dockge, a fancy,
-easy-to-use, and reactive self-hosted Docker Compose stack. The configuration
-defines a custom bridge network with specific IP settings and security
-configurations. The Dockge service is configured to run continuously, with
-persistent storage for application data and Docker Compose stacks. The setup
-ensures Dockge runs efficiently and securely, with appropriate logging and
-restart policies, making it an excellent tool for managing Docker Compose
-stacks.
+This Compose file sets up a Docker environment for Dockge, a fancy, easy-to-use,
+and reactive self-hosted Docker Compose stack. The configuration defines a
+custom bridge network with specific IP settings and security configurations. The
+Dockge service is configured to run continuously, with persistent storage for
+application data and Docker Compose stacks. The setup ensures Dockge runs
+efficiently and securely, with appropriate logging and restart policies, making
+it an excellent tool for managing Docker Compose stacks.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/dockge/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/dockge/compose.yml

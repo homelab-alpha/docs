@@ -46,20 +46,21 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail. This
-configuration is specifically designed to deploy Plex Media Server using Docker
-Compose, ensuring efficient management and streaming of media.
+Let's break down what this `compose.yml` file does in detail. This configuration
+is specifically designed to deploy Plex Media Server using Docker Compose,
+ensuring efficient management and streaming of media.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
+- **Project name**: `plex`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 16, 2025
 - **Description**: Configures a Docker network and service for Plex Media
   Server.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 - **RAW .env File**: [.env]
 - **RAW stack.env File**: [stack.env]
 
@@ -98,8 +99,8 @@ networks:
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
 - **internal: false**: The network is accessible externally.
-- **external: false**: The network is created within this `docker-compose` file,
-  not externally defined.
+- **external: false**: The network is created within this Compose file, not
+  externally defined.
 - **name: plex**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -145,8 +146,10 @@ services:
       - /docker/plex/production/app/temp:/transcode
       - /docker/media:/data:ro
     env_file:
-      - .env
-      - stack.env
+      - path: .env
+        required: false
+      - path: stack.env
+        required: false
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -176,7 +179,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "plex"
       com.plex.description:
         "organizes all of your personal media so you can enjoy it no matter
         where you are."
@@ -212,7 +214,9 @@ services:
     - **/docker/plex/production/app/temp:/transcode**: Mounts the transcode
       directory.
     - **/docker/media:/data:ro**: Mounts the media directory (read-only).
-  - **env_file**: Specifies environment files.
+  - **env_file**: Loads `.env` (Docker Compose CLI) and `stack.env` (Portainer).
+    Both are listed with `required: false`, so Compose skips the file that is
+    missing.
     - **.env**: For Docker Compose.
     - **stack.env**: For Portainer.
   - **environment**: Sets environment variables.
@@ -248,7 +252,6 @@ services:
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
   - **labels**: Metadata for the container.
-    - **com.docker.compose.project: "plex"**: Project label.
     - **com.plex.description**: Description label for Plex Media Server.
   - **healthcheck**: Healthcheck configuration.
     - **disable: false**: Enables health checks for the container.
@@ -300,8 +303,8 @@ IP_ADDRESS=http://YourServerIPHere:32400/
 
 ## Conclusion
 
-This `docker-compose.yml` file sets up a Plex Media Server with its own custom
-bridge network. The configuration includes a persistent storage setup for Plex's
+This `compose.yml` file sets up a Plex Media Server with its own custom bridge
+network. The configuration includes a persistent storage setup for Plex's
 configuration, transcode, and media directories. Environment variables customize
 the setup, including timezone and Plex claim token. The service is configured to
 restart unless stopped manually, with logging options to manage log size and
@@ -309,9 +312,9 @@ retention. The network settings ensure the Plex container has a static IP within
 the specified subnet, and various ports are mapped for Plex services. Security
 options enhance container security by preventing privilege escalation.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/plex/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/plex/compose.yml
 [.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/plex/.env
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/plex/.env
 [stack.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/plex/stack.env
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/plex/stack.env

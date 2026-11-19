@@ -54,19 +54,20 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail for
-deploying HAProxy, a reliable, high-performance TCP/HTTP load balancer.
+Let's break down what this `compose.yml` file does in detail for deploying
+HAProxy, a reliable, high-performance TCP/HTTP load balancer.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
+- **Project name**: `haproxy`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 18, 2025
 - **Description**: Docker Compose setup for HAProxy load balancing with SSL and
   network management.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 
 <br />
 
@@ -104,8 +105,8 @@ networks:
 - **attachable**: Set to `true`, meaning other containers can attach to this
   network.
 - **internal: false**: The network is accessible externally.
-- **external: false**: The network is created within this `docker-compose` file,
-  not externally defined.
+- **external: false**: The network is created within this Compose file, not
+  externally defined.
 - **name: haproxy**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -172,7 +173,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "haproxy"
       com.haproxy.description:
         "the reliable, high performance tcp/http load balancer."
     healthcheck:
@@ -223,7 +223,6 @@ services:
     - **no-new-privileges\:true**: Ensures the container does not gain new
       privileges.
   - **labels**: Metadata for the container.
-    - **com.docker.compose.project: "haproxy"**: Project label.
     - **com.haproxy.description**: Description label for HAProxy.
   - **healthcheck**: Healthcheck configuration.
     - **disable: false**: Enables health checks for the container.
@@ -232,10 +231,10 @@ services:
 
 ## Conclusion
 
-This `docker-compose.yml` file sets up a Docker environment for HAProxy, a
-reliable, high-performance TCP/HTTP load balancer. The configuration defines a
-custom bridge network with specific IP settings and security configurations. The
+This `compose.yml` file sets up a Docker environment for HAProxy, a reliable,
+high-performance TCP/HTTP load balancer. The configuration defines a custom
+bridge network with specific IP settings and security configurations. The
 HAProxy
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/haproxy/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/haproxy/compose.yml

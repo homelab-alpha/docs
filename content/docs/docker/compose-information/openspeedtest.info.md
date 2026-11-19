@@ -50,20 +50,21 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down the `docker-compose.yml` file for OpenSpeedTest, which sets up
-a Docker environment for running a network speed test server.
+Let's break down the `compose.yml` file for OpenSpeedTest, which sets up a
+Docker environment for running a network speed test server.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
+- **Project name**: `openspeedtest`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 16, 2025
 - **Description**: This file configures a custom Docker network and an
   OpenSpeedTest service, including detailed network settings and service
   configurations for reliable and secure operation.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 
 <br />
 
@@ -101,7 +102,7 @@ networks:
   network.
 - **internal: false**: The network is accessible externally.
 - **external: false**: The network is not externally defined but created within
-  this `docker-compose` file.
+  this Compose file.
 - **name: openspeedtest**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -168,7 +169,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "openspeedtest"
       com.openspeedtest.description:
         "is a Free and Open-Source HTML5 Network Speed Test Software."
     healthcheck:
@@ -219,7 +219,6 @@ services:
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
   - **labels**: Metadata for the container.
-    - **com.docker.compose.project: "openspeedtest"**: Project label.
     - **com.openspeedtest.description**: Description label for OpenSpeedTest.
   - **healthcheck**: Healthcheck configuration.
     - **disable: true**: Disables health checks for the container.
@@ -228,13 +227,13 @@ services:
 
 ## Conclusion
 
-This `docker-compose` file sets up a robust Docker environment for running
-OpenSpeedTest, a free and open-source HTML5 network speed test software. It
-creates a custom bridge network with specific IP settings and security
-configurations. The OpenSpeedTest service is configured to run continuously,
-with persistent storage for configuration and logs, and includes options for
-enabling HTTPS with Let's Encrypt. The configuration ensures that OpenSpeedTest
-runs efficiently and securely, with appropriate logging and restart policies.
+This Compose file sets up a robust Docker environment for running OpenSpeedTest,
+a free and open-source HTML5 network speed test software. It creates a custom
+bridge network with specific IP settings and security configurations. The
+OpenSpeedTest service is configured to run continuously, with persistent storage
+for configuration and logs, and includes options for enabling HTTPS with Let's
+Encrypt. The configuration ensures that OpenSpeedTest runs efficiently and
+securely, with appropriate logging and restart policies.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/openspeedtest/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/openspeedtest/compose.yml

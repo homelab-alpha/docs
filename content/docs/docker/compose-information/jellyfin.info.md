@@ -48,21 +48,22 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail. This file
-is used to configure and deploy a Jellyfin media server using Docker Compose,
-ensuring smooth management and streaming of media content.
+Let's break down what this `compose.yml` file does in detail. This file is used
+to configure and deploy a Jellyfin media server using Docker Compose, ensuring
+smooth management and streaming of media content.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
+- **Project name**: `jellyfin`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 16, 2025
 - **Description**: This file configures a custom Docker network and a Jellyfin
   service to manage and stream media. It includes detailed network settings and
   service configurations to ensure Jellyfin runs smoothly and securely.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 
 <br />
 
@@ -100,7 +101,7 @@ networks:
   network.
 - **internal: false**: The network is accessible externally.
 - **external: false**: The network is not an externally defined one but created
-  within this `docker-compose` file.
+  within this Compose file.
 - **name: jellyfin**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -168,7 +169,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "jellyfin"
       com.jellyfin.description:
         "is a free software media system that puts you in control of managing
         and streaming your media."
@@ -245,7 +245,6 @@ services:
     - **no-new-privileges: true**: Prevents the container from gaining
       additional privileges.
   - **labels**: Metadata for the container.
-    - **com.docker.compose.project: "jellyfin"**: Project label.
     - **com.jellyfin.description**: Description label for Jellyfin.
   - **healthcheck**: Healthcheck configuration.
     - **disable: false**: Enables health checks for the container.
@@ -265,12 +264,12 @@ services:
 
 ## Conclusion
 
-This `docker-compose` file sets up a robust Docker environment for running
-Jellyfin, a media management and streaming system. It creates a custom bridge
-network with specific IP settings and security configurations. The Jellyfin
-service is configured with persistent storage, access to media directories, and
-various network and security options. The configuration ensures that Jellyfin
-runs continuously, restarts on failure, and logs efficiently.
+This Compose file sets up a robust Docker environment for running Jellyfin, a
+media management and streaming system. It creates a custom bridge network with
+specific IP settings and security configurations. The Jellyfin service is
+configured with persistent storage, access to media directories, and various
+network and security options. The configuration ensures that Jellyfin runs
+continuously, restarts on failure, and logs efficiently.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/jellyfin/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/jellyfin/compose.yml

@@ -49,19 +49,21 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail for
-deploying Uptime Kuma Beta, a self-hosted monitoring tool.
+Let's break down what this `compose.yml` file does in detail for deploying
+Uptime Kuma Beta, a self-hosted monitoring tool.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
+- **Project name**: `uptime-kuma-beta`, set with the top-level `name:` of the
+  file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 18, 2025
 - **Description**: Configures a Docker network and the Uptime Kuma Beta service
   for monitoring uptime and status of various services.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 - **RAW .env File**: [.env]
 - **RAW stack.env File**: [stack.env]
 - **RAW my.cnf File**: [my.cnf]
@@ -103,7 +105,7 @@ networks:
   network.
 - **internal**: Set to `false`, meaning the network is accessible externally.
 - **external**: Set to `false`, indicating the network is created within the
-  `docker-compose` file.
+  Compose file.
 - **name**: The name of the network is `uptime-kuma-beta`.
 - **driver**: The network uses the `bridge` driver for isolation.
 - **ipam**: Configures IP address management for the network.
@@ -147,12 +149,12 @@ services:
       - /docker/uptime-kuma-beta/testing/my.cnf:/etc/my.cnf
       - /sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure
     env_file:
-      # Choose the correct environment file:
-      # - Use '.env' for Docker Compose.
-      # - Use 'stack.env' for Portainer.
-      # Comment out the file you are not using in the Compose file to avoid issues.
-      - .env
-      - stack.env
+      # Compose loads each file that exists and skips a missing one:
+      # '.env' for the Docker Compose CLI, 'stack.env' for Portainer.
+      - path: .env
+        required: false
+      - path: stack.env
+        required: false
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -192,15 +194,15 @@ services:
     depends_on:
       uptime-kuma-beta_db:
         condition: service_healthy
-    links:
-      - uptime-kuma-beta_db
     volumes:
       - /docker/uptime-kuma-beta/testing/app:/app/data
       - /usr/local/share/ca-certificates:/app/data/docker-tls
       - /var/run/docker.sock:/var/run/docker.sock:ro
     env_file:
-      - .env
-      - stack.env
+      - path: .env
+        required: false
+      - path: stack.env
+        required: false
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -221,7 +223,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "uptime-kuma-beta"
       com.uptime-kuma-beta.description:
         "is an self-hosted monitoring tool that allows you to monitor uptime,
         status, and notifications for various services and domains."
@@ -260,7 +261,9 @@ services:
       MariaDB configuration file.
     - **/sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure**: Mounts
       system memory pressure info for monitoring.
-  - **env_file**: Specifies environment files.
+  - **env_file**: Loads `.env` (Docker Compose CLI) and `stack.env` (Portainer).
+    Both are listed with `required: false`, so Compose skips the file that is
+    missing.
     - **.env**: For Docker Compose.
     - **stack.env**: For Portainer.
   - **environment**: Sets environment variables for the database connection.
@@ -567,17 +570,17 @@ general-log = 0
 
 ## Conclusion
 
-This `docker-compose.yml` file sets up a Docker environment for Uptime Kuma
-Beta, a self-hosted monitoring tool. The configuration defines a custom bridge
-network with specific IP settings, a MariaDB database service, and the Uptime
-Kuma Beta application. This setup ensures that both services run efficiently and
-securely, with proper health checks, logging, and restart policies.
+This `compose.yml` file sets up a Docker environment for Uptime Kuma Beta, a
+self-hosted monitoring tool. The configuration defines a custom bridge network
+with specific IP settings, a MariaDB database service, and the Uptime Kuma Beta
+application. This setup ensures that both services run efficiently and securely,
+with proper health checks, logging, and restart policies.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/uptime-kuma-beta/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/uptime-kuma-beta/compose.yml
 [.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/uptime-kuma-beta/.env
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/uptime-kuma-beta/.env
 [stack.env]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/uptime-kuma-beta/stack.env
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/uptime-kuma-beta/stack.env
 [my.cnf]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/uptime-kuma-beta/my.cnf
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/uptime-kuma-beta/my.cnf

@@ -52,21 +52,22 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail. This file
-is used to configure and deploy a service using Docker Compose, specifically
-setting up Xen Orchestra for managing XCP-ng or XenServer infrastructure.
+Let's break down what this `compose.yml` file does in detail. This file is used
+to configure and deploy a service using Docker Compose, specifically setting up
+Xen Orchestra for managing XCP-ng or XenServer infrastructure.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
+- **Project name**: `xen-orchestra`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: Jun 16, 2025
 - **Description**: This file configures a custom Docker network and a Xen
   Orchestra service. It includes detailed network settings and service
   configurations to ensure Xen Orchestra runs smoothly and securely.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 
 <br />
 
@@ -104,7 +105,7 @@ networks:
   network.
 - **internal: false**: The network is accessible externally.
 - **external: false**: The network is not externally defined but created within
-  this `docker-compose` file.
+  this Compose file.
 - **name: xen-orchestra**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -184,7 +185,6 @@ services:
       - SYS_ADMIN
       - DAC_READ_SEARCH
     labels:
-      com.docker.compose.project: "xen-orchestra"
       com.xen-orchestra.description:
         "is a complete solution to visualize, manage, backup and delegate your
         XCP-ng or XenServer infrastructure."
@@ -252,7 +252,6 @@ services:
     - **DAC_READ_SEARCH**: Adds capability to bypass file read permission
       checks.
   - **labels**: Metadata for the container.
-    - **com.docker.compose.project: "xen-orchestra"**: Project label.
     - **com.xen-orchestra.description**: Description label for Xen Orchestra.
   - **healthcheck**: Healthcheck configuration.
     - **disable: false**: Enables health checks for the container.
@@ -271,13 +270,13 @@ services:
 
 ## Conclusion
 
-This `docker-compose` file sets up a robust Docker environment for running Xen
-Orchestra, a complete solution for managing XCP-ng or XenServer infrastructure.
-It creates a custom bridge network with specific IP settings and security
-configurations. The Xen Orchestra service is configured to manage and backup
-your XCP-ng or XenServer infrastructure with persistent storage, network, and
-security options. The configuration ensures that Xen Orchestra runs
-continuously, restarts on failure, and logs efficiently.
+This Compose file sets up a robust Docker environment for running Xen Orchestra,
+a complete solution for managing XCP-ng or XenServer infrastructure. It creates
+a custom bridge network with specific IP settings and security configurations.
+The Xen Orchestra service is configured to manage and backup your XCP-ng or
+XenServer infrastructure with persistent storage, network, and security options.
+The configuration ensures that Xen Orchestra runs continuously, restarts on
+failure, and logs efficiently.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/xen-orchestra/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/xen-orchestra/compose.yml

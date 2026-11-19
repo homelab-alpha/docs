@@ -46,19 +46,19 @@ information here with caution and verify it if necessary. {{% /alert %}}
 
 <br />
 
-Let's break down what this `docker-compose.yml` file does in detail. This file
-deploys Mini QR, a customizable QR code generator, behind an Nginx reverse
-proxy.
+Let's break down what this `compose.yml` file does in detail. This file deploys
+Mini QR, a customizable QR code generator, behind an Nginx reverse proxy.
 
 Here's a detailed explanation:
 
 ## Compose File Metadata
 
-- **Filename**: `docker-compose.yml`
+- **Filename**: `compose.yml`
+- **Project name**: `mini-qr`, set with the top-level `name:` of the file.
 - **Author**: GJS (homelab-alpha)
 - **Date**: October 28, 2026
 - **Description**: Configures a Docker network and the Mini QR service.
-- **RAW Compose File**: [docker-compose.yml]
+- **RAW Compose File**: [compose.yml]
 - **RAW Nginx Configuration File**: [nginx-proxy.conf]
 
 <br />
@@ -95,7 +95,7 @@ networks:
 - **networks**: Defines a custom network named `mini-qr_net`.
 - **attachable: false**: Other containers can't attach to this network.
 - **internal: false**: The network is accessible externally.
-- **external: false**: The network is created within this `docker-compose` file.
+- **external: false**: The network is created within this Compose file.
 - **name: mini-qr**: Specifies the name of the network.
 - **driver: bridge**: Uses the bridge driver to create an isolated network.
 - **ipam**: Configures IP address management for the network.
@@ -148,7 +148,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "mini-qr"
       com.mini-qr.description:
         "A user-friendly and customizable QR code generator that allows you to
         create styled QR codes with ease."
@@ -175,8 +174,6 @@ services:
     depends_on:
       mini-qr_app:
         condition: service_started
-    links:
-      - mini-qr_app
     volumes:
       - /docker/mini-qr/nginx-proxy.conf:/etc/nginx/nginx.conf
     environment:
@@ -194,7 +191,6 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      com.docker.compose.project: "mini-qr-nginx"
       com.mini-qr.description:
         "a flexible and high-performance server that can handle HTTP, mail, TCP,
         and UDP traffic."
@@ -233,7 +229,7 @@ services:
     `172.20.26.2`.
   - **security_opt: no-new-privileges:true**: Prevents the container from
     gaining new privileges.
-  - **labels**: Project label and a description label.
+  - **labels**: A description label.
   - **healthcheck: disable: true**: The health check is disabled for this
     container.
 
@@ -359,11 +355,11 @@ The file is divided into the following sections:
 
 ## Conclusion
 
-This `docker-compose` file deploys Mini QR on a custom bridge network. The
-application container is not published directly. The Nginx container proxies
-requests to it and publishes port 3017.
+This Compose file deploys Mini QR on a custom bridge network. The application
+container is not published directly. The Nginx container proxies requests to it
+and publishes port 3017.
 
-[docker-compose.yml]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/mini-qr/docker-compose.yml
+[compose.yml]:
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/mini-qr/compose.yml
 [nginx-proxy.conf]:
-  https://raw.githubusercontent.com/homelab-alpha/docker/main/docker-compose-files/mini-qr/nginx-proxy.conf
+  https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/mini-qr/nginx-proxy.conf
