@@ -77,58 +77,22 @@ Here's a detailed explanation:
 name: uptime-kuma-beta
 
 networks:
-  uptime-kuma-beta_net:
-    attachable: false
-    internal: false
-    external: false
-    name: uptime-kuma-beta
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.21.3.0/24
-          ip_range: 172.21.3.0/24
-          gateway: 172.21.3.1
-    driver_opts:
-      com.docker.network.bridge.default_bridge: "false"
-      com.docker.network.bridge.enable_icc: "true"
-      com.docker.network.bridge.enable_ip_masquerade: "true"
-      com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"
-      com.docker.network.bridge.name: "uptimekumabeta"
-      com.docker.network.driver.mtu: "1500"
-    labels:
-      com.uptime-kuma.network.description: "is an isolated bridge network."
+  # Joins the network of the uptime-kuma stack, which must be running first.
+  uptime-kuma_net:
+    external: true
+    name: uptime-kuma
 ```
 
 <br />
 
-- **networks**: This section defines a custom network named
-  `uptime-kuma-beta_net`.
-- **attachable**: Set to `false`, meaning other containers cannot attach to this
-  network.
-- **internal**: Set to `false`, meaning the network is accessible externally.
-- **external**: Set to `false`, indicating the network is created within the
-  Compose file.
-- **name**: The name of the network is `uptime-kuma-beta`.
-- **driver**: The network uses the `bridge` driver for isolation.
-- **ipam**: Configures IP address management for the network.
-  - **driver**: Uses the default IPAM driver.
-  - **config**: Specifies the subnet, IP range, and gateway for the network.
-- **driver_opts**: Additional options for the network driver.
-  - **com.docker.network.bridge.default_bridge: "false"**: Indicates this is not
-    the default Docker bridge.
-  - **com.docker.network.bridge.enable_icc: "true"**: Enables inter-container
-    communication.
-  - **com.docker.network.bridge.enable_ip_masquerade: "true"**: Allows outbound
-    traffic to appear as if it came from the host.
-  - **com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"**: Binds the bridge
-    to all available IP addresses on the host.
-  - **com.docker.network.bridge.name: "uptimekumabeta"**: Names the bridge
-    network.
-  - **com.docker.network.driver.mtu: "1500"**: Sets the Maximum Transmission
-    Unit for the network.
-- **labels**: Metadata for the network, describing it as an isolated bridge
-  network.
+- **networks**: This stack has no network of its own. It joins the network of
+  the `uptime-kuma` stack.
+  - **uptime-kuma_net**: The name of the network inside this Compose file.
+  - **external: true**: The network already exists; Docker Compose does not
+    create or remove it. Start the `uptime-kuma` stack first.
+  - **name: uptime-kuma**: The name of the network in Docker (`172.19.3.0/24`).
+    The database uses `172.19.3.4` and the app `172.19.3.5`; `uptime-kuma` uses
+    `.2` and `.3`.
 
 <br />
 
@@ -168,8 +132,8 @@ services:
       MARIADB_PASSWORD: ${PASSWORD_DB} # Fill in the value in both the .env and stack.env files
     hostname: uptime-kuma-beta_db
     networks:
-      uptime-kuma-beta_net:
-        ipv4_address: 172.21.3.2
+      uptime-kuma_net:
+        ipv4_address: 172.19.3.4
     security_opt:
       - no-new-privileges:true
     labels:
@@ -222,8 +186,8 @@ services:
     domainname: status.local # Customize this with your own domain, e.g., `status.local` to `status.your-fqdn-here.com`.
     hostname: status
     networks:
-      uptime-kuma-beta_net:
-        ipv4_address: 172.21.3.3
+      uptime-kuma_net:
+        ipv4_address: 172.19.3.5
     ports:
       - "3003:3001/tcp" # HTTP
       - "3003:3001/udp" # HTTP
@@ -274,7 +238,7 @@ services:
     - **stack.env**: For Portainer.
   - **environment**: Sets environment variables for the database connection.
   - **hostname: uptime-kuma-beta_db**: Sets the container hostname.
-  - **networks**: Connects the service to the `uptime-kuma-beta_net` network.
+  - **networks**: Connects the service to the `uptime-kuma` network.
     - **ipv4_address**: Assigns a static IP address to the container.
   - **healthcheck**: Configures the health check for the service.
     - **disable: false**: Enables the health check.
@@ -580,13 +544,16 @@ general-log = 0
 Requires Docker Compose 2.24.0 or later.
 {{% /alert %}}
 
-1. Copy `my.cnf` to `/docker/uptime-kuma-beta/testing/my.cnf`. Docker creates
+1. Start the `uptime-kuma` stack first. This stack joins its `uptime-kuma`
+   network, with the database on `172.19.3.4` and the app on `172.19.3.5`.
+
+2. Copy `my.cnf` to `/docker/uptime-kuma-beta/testing/my.cnf`. Docker creates
    the other directories under `/docker/uptime-kuma-beta/` on the first start.
 
-2. Change the values in `.env` (Docker Compose CLI) or `stack.env` (Portainer),
+3. Change the values in `.env` (Docker Compose CLI) or `stack.env` (Portainer),
    at least the passwords.
 
-3. Start the stack:
+4. Start the stack:
 
    ```bash
    docker compose up -d
