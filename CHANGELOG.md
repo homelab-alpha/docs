@@ -121,6 +121,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - chore(renovate): group npm updates in one pr [4a48133](https://github.com/homelab-alpha/docs/commit/4a481339eb7772b9a10cd54aec9416c41d40b8a2) by [@homelab-alpha](https://github.com/homelab-alpha)
 - docs(contributing): sync site pages with the repo [1e47119](https://github.com/homelab-alpha/docs/commit/1e471190c1f026493d5b1416dd02abede26a1f26) by [@homelab-alpha](https://github.com/homelab-alpha)
 - chore(renovate): group docker compose images [a4a5ce5](https://github.com/homelab-alpha/docs/commit/a4a5ce59a481fecf15969dbb8281a14cb8d7749b) by [@homelab-alpha](https://github.com/homelab-alpha)
+- docs(docker): update for the Compose Specification [7ffa6fb](https://github.com/homelab-alpha/docs/commit/7ffa6fb05af345cc55fc4e7abf5c46dc7e0d7fcf) by [@homelab-alpha](https://github.com/homelab-alpha)
+- docs(docker): sync the stack pages with the stacks [08fd023](https://github.com/homelab-alpha/docs/commit/08fd023b7329b082eac2d42255aafca1f11b849a) by [@homelab-alpha](https://github.com/homelab-alpha)
+- docs(docker): rewrite the network guides [44c18c9](https://github.com/homelab-alpha/docs/commit/44c18c944d8cc9d522c088497e5fcd0db9f63414) by [@homelab-alpha](https://github.com/homelab-alpha)
+- docs(docker): sync stack pages with hardening [2152f5f](https://github.com/homelab-alpha/docs/commit/2152f5f21baf739682fe10e021af71dffd4f13a0) by [@homelab-alpha](https://github.com/homelab-alpha)
 
 ### Deprecated
 
@@ -160,6 +164,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix(deps): track bootstrap in go.mod for renovate [aac9d16](https://github.com/homelab-alpha/docs/commit/aac9d1672430822d53f9804cbdda42e1d8bdee2c) by [@homelab-alpha](https://github.com/homelab-alpha)
 - fix(renovate): remove invalid security rule that disabled grouping [16b683d](https://github.com/homelab-alpha/docs/commit/16b683d1f0ae66eee78b13bae73aea91824346e6) by [@homelab-alpha](https://github.com/homelab-alpha)
 - fix(renovate): label all updates in a group [a0bd537](https://github.com/homelab-alpha/docs/commit/a0bd53781202d721a1961d846ed9384b47e50948) by [@homelab-alpha](https://github.com/homelab-alpha)
+- fix(docker): join Uptime Kuma Beta to the network [6133b63](https://github.com/homelab-alpha/docs/commit/6133b63d9d60fd59276f4a9498101703a49dc3eb) by [@homelab-alpha](https://github.com/homelab-alpha)
+- fix(docker): join Speedtest Beta to the network [b1cef46](https://github.com/homelab-alpha/docs/commit/b1cef4618f6944dc7da7525c88aa793f031f89e2) by [@homelab-alpha](https://github.com/homelab-alpha)
 
 ### Security
 
