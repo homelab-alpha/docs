@@ -125,6 +125,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - docs(docker): sync the stack pages with the stacks [08fd023](https://github.com/homelab-alpha/docs/commit/08fd023b7329b082eac2d42255aafca1f11b849a) by [@homelab-alpha](https://github.com/homelab-alpha)
 - docs(docker): rewrite the network guides [44c18c9](https://github.com/homelab-alpha/docs/commit/44c18c944d8cc9d522c088497e5fcd0db9f63414) by [@homelab-alpha](https://github.com/homelab-alpha)
 - docs(docker): sync stack pages with hardening [2152f5f](https://github.com/homelab-alpha/docs/commit/2152f5f21baf739682fe10e021af71dffd4f13a0) by [@homelab-alpha](https://github.com/homelab-alpha)
+- chore(labels): add renovate dependency labels [c2c1a12](https://github.com/homelab-alpha/docs/commit/c2c1a12854afee6c59ff5e83ebf8506d5028901c) by [@homelab-alpha](https://github.com/homelab-alpha)
 
 ### Deprecated
 
