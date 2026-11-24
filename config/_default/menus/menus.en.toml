@@ -10,21 +10,21 @@
   identifier = "community"
   weight     = 20
 
-# Icons in the top header of the docs, before the social icons
+# Icons in the top header of the docs, after the social icons
 # (layouts/partials/docs/top-header.html). The icon is an SVG file in
 # assets/images/social/.
 [[header]]
   name       = "Links"
   url        = "/links/"
   identifier = "links"
-  weight     = 10
+  weight     = 20
   [header.params]
     icon = "links"
 
 [[header]]
-  name       = "Community"
+  name       = "GitHub Community"
   url        = "https://github.com/homelab-alpha/docs/discussions"
   identifier = "community"
-  weight     = 20
+  weight     = 10
   [header.params]
     icon = "community"

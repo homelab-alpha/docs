@@ -41,19 +41,6 @@
 
         <div class="d-flex align-items-center">
             <ul class="list-unstyled mb-0">
-                <!-- Header menu (config/_default/menus), before the social icons -->
-                {{ range .Site.Menus.header }}
-                {{ $external := hasPrefix .URL "http" }}
-                <li class="list-inline-item mb-0">
-                    <a href="{{ if $external }}{{ .URL }}{{ else }}{{ .URL | relLangURL }}{{ end }}" aria-label="{{ .Name }}" title="{{ .Name }}"{{ if $external }} rel="noopener noreferrer" target="_blank"{{ end }}>
-                        <div class="btn btn-icon btn-default border-0">
-                            {{ with resources.Get (printf "images/social/%s.svg" .Params.icon) }}
-                                {{ .Content | safeHTML }}
-                            {{ end }}
-                        </div>
-                    </a>
-                </li>
-                {{ end }}
                 {{ with $.Scratch.Get "social_list" }}
                 {{ range . }}
                     {{ $path := printf "images/social/%s.%s" . "svg" }}
@@ -67,6 +54,19 @@
                         </a>
                     </li>
                     {{ end }}
+                {{ end }}
+                <!-- Header menu (config/_default/menus), after the social icons -->
+                {{ range .Site.Menus.header }}
+                {{ $external := hasPrefix .URL "http" }}
+                <li class="list-inline-item mb-0">
+                    <a href="{{ if $external }}{{ .URL }}{{ else }}{{ .URL | relLangURL }}{{ end }}" aria-label="{{ .Name }}" title="{{ .Name }}"{{ if $external }} rel="noopener noreferrer" target="_blank"{{ end }}>
+                        <div class="btn btn-icon btn-default border-0">
+                            {{ with resources.Get (printf "images/social/%s.svg" .Params.icon) }}
+                                {{ .Content | safeHTML }}
+                            {{ end }}
+                        </div>
+                    </a>
+                </li>
                 {{ end }}
             </ul>
             {{ if eq .Site.Params.docs.darkMode true -}}
