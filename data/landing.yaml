@@ -29,14 +29,18 @@ hero:
     btnText: "View on GitHub"
     url: "https://github.com/homelab-alpha"
 
-  # Lines in the terminal card. A line that starts with "$ " is a command.
+  # Lines in the terminal card. A line that starts with "$ " is a command,
+  # "[+]" is a progress line, and "✔ " is a Docker Compose result:
+  # "✔ <object> <name>  <state>  <time>" (two spaces before the state).
   terminal:
     title: "homelab"
     lines:
       - "$ git clone https://github.com/homelab-alpha/docker.git"
-      - "$ cd docker/compose-files/uptime-kuma"
+      - "$ cd docker/compose-files/dozzle"
       - "$ docker compose up -d"
-      - "✔ Container uptime-kuma  Started"
+      - "[+] Running 2/2"
+      - "✔ Network dozzle  Created  0.1s"
+      - "✔ Container dozzle  Started  0.1s"
 
 docs:
   enable: true
