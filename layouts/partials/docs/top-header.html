@@ -41,6 +41,16 @@
 
         <div class="d-flex align-items-center">
             <ul class="list-unstyled mb-0">
+                <!-- Links page (content/links.md), before the social icons -->
+                <li class="list-inline-item mb-0">
+                    <a href="{{ "links/" | relLangURL }}" aria-label="Links" title="Links">
+                        <div class="btn btn-icon btn-default border-0">
+                            {{ with resources.Get "images/social/links.svg" }}
+                                {{ .Content | safeHTML }}
+                            {{ end }}
+                        </div>
+                    </a>
+                </li>
                 {{ with $.Scratch.Get "social_list" }}
                 {{ range . }}
                     {{ $path := printf "images/social/%s.%s" . "svg" }}
