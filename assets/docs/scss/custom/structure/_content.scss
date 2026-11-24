@@ -204,6 +204,56 @@ i {
   padding-left: 1rem;
 }
 
+// GitHub alerts (render hook: layouts/docs/_markup/render-blockquote.html)
+:root {
+  --alert-note: #0969da;
+  --alert-tip: #1a7f37;
+  --alert-important: #8250df;
+  --alert-warning: #9a6700;
+  --alert-caution: #cf222e;
+}
+
+[data-dark-mode] {
+  --alert-note: #4493f8;
+  --alert-tip: #3fb950;
+  --alert-important: #ab7df8;
+  --alert-warning: #d29922;
+  --alert-caution: #f85149;
+}
+
+.docs-content .main-content .markdown-alert {
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  border-left: 0.25em solid var(--alert-color);
+  > :last-child {
+    margin-bottom: 0;
+  }
+  @each $type in note, tip, important, warning, caution {
+    &.markdown-alert-#{$type} {
+      --alert-color: var(--alert-#{$type});
+    }
+  }
+}
+
+.docs-content .main-content .markdown-alert-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--alert-color);
+}
+
+.markdown-alert-icon {
+  display: inline-flex;
+  svg {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+  }
+}
+
 // Code
 .docs-content .main-content div.highlight {
   margin: 16px 0;

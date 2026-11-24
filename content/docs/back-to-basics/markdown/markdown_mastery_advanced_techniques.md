@@ -61,7 +61,9 @@ Syntax:
 
 Output:
 
-![Note](https://raw.githubusercontent.com/homelab-alpha/docs/main/assets/images/markdown-alerts/markdown_alerts_note.webp)
+<!-- prettier-ignore -->
+> [!NOTE]
+> Useful information that users should know, even when skimming content.
 
 <br />
 
@@ -76,13 +78,15 @@ Syntax:
 
 Output:
 
-![Tip](https://raw.githubusercontent.com/homelab-alpha/docs/main/assets/images/markdown-alerts/markdown_alerts_tip.webp)
+<!-- prettier-ignore -->
+> [!TIP]
+> Helpful advice for doing things better or more easily.
 
 <br />
 
-Syntax:
-
 ## Important
+
+Syntax:
 
 ```plaintext
 > [!IMPORTANT]
@@ -91,7 +95,9 @@ Syntax:
 
 Output:
 
-![Important](https://raw.githubusercontent.com/homelab-alpha/docs/main/assets/images/markdown-alerts/markdown_alerts_important.webp)
+<!-- prettier-ignore -->
+> [!IMPORTANT]
+> Key information users need to know to achieve their goal.
 
 <br />
 
@@ -106,7 +112,9 @@ Syntax:
 
 Output:
 
-![Warning](https://raw.githubusercontent.com/homelab-alpha/docs/main/assets/images/markdown-alerts/markdown_alerts_waring.webp)
+<!-- prettier-ignore -->
+> [!WARNING]
+> Urgent info that needs immediate user attention to avoid problems.
 
 <br />
 
@@ -121,7 +129,9 @@ Syntax:
 
 Output:
 
-![Caution](https://raw.githubusercontent.com/homelab-alpha/docs/main/assets/images/markdown-alerts/markdown_alerts_caution.webp)
+<!-- prettier-ignore -->
+> [!CAUTION]
+> Advises about risks or negative outcomes of certain actions.
 
 <br />
 
@@ -298,18 +308,18 @@ This only applies to Homelab-Alpha website
 <br />
 
 {{% alert %}}
-This is the default alert without any options.<br />No `context`
-or `icon` parameter defined.
+This is the default alert without any options.<br />No `context` or `icon`
+parameter defined.
 {{% /alert %}}
 
 <br />
 
 {{% alert  context="info" %}}
-**Markdown** and <em>HTML</em> will be rendered.
-This next sentence [demonstrates] the colour of a link inside an alert box.
-We’re currently designing a new way to integrate the Payment Element, which
-allows you to create the PaymentIntent or SetupIntent after you render the
-Payment Element. If you’re interested in learning more about this feature.
+**Markdown** and <em>HTML</em> will be rendered. This next sentence
+[demonstrates] the colour of a link inside an alert box. We’re currently
+designing a new way to integrate the Payment Element, which allows you to create
+the PaymentIntent or SetupIntent after you render the Payment Element. If you’re
+interested in learning more about this feature.
 
 _Beginning_ of a second paragraph.
 {{% /alert %}}
@@ -317,9 +327,8 @@ _Beginning_ of a second paragraph.
 <br />
 
 {{% alert icon="🎃" context="info" %}}
-The default <strong>context</strong> icon
-can be overridden with an emoji by setting the named parameter <code>icon</code>
-to the emoji of choice. e.g.
+The default <strong>context</strong> icon can be overridden with an emoji by
+setting the named parameter <code>icon</code> to the emoji of choice. e.g.
 
 <code>{{\< alert icon="🎃" text="Make sure to always self-close the alert shortcode." />}}</code>
 {{% /alert %}}
@@ -367,9 +376,8 @@ This next sentence [demonstrates] the colour of a link inside an alert box.
 <br />
 
 {{% alert context="light" %}}
-The Tutorial is intended for novice to
-intermediate users.<br /> Hello World This next sentence [demonstrates] the
-colour of a link inside an alert box.
+The Tutorial is intended for novice to intermediate users.<br /> Hello World
+This next sentence [demonstrates] the colour of a link inside an alert box.
 {{% /alert %}}
 
 [demonstrates]: https://homelab-alpha.nl
