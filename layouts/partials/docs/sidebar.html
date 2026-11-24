@@ -110,6 +110,16 @@
                     {{ end }}
                 {{ end }}
             {{ end }}
+            {{ range .Site.Menus.sidebar }}
+                <li class="{{ if eq $currentPage.RelPermalink .URL }}current{{ end }}">
+                    <a class="sidebar-root-link" href="{{ .URL | relLangURL }}">
+                        {{ if eq $.Site.Params.docs.sidebarIcons true -}}
+                            <i class="material-icons me-2">{{ .Params.icon | default "link" }}</i>
+                        {{ end }}
+                        {{ .Name }}
+                    </a>
+                </li>
+            {{ end }}
         </ul>
         <!-- sidebar-menu  -->
     </div>

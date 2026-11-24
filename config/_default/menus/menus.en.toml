@@ -9,3 +9,12 @@
   url        = "https://github.com/homelab-alpha/docs/discussions"
   identifier = "community"
   weight     = 20
+
+# Extra items at the bottom of the docs sidebar (layouts/partials/docs/sidebar.html).
+[[sidebar]]
+  name       = "Links"
+  url        = "/links/"
+  identifier = "links"
+  weight     = 10
+  [sidebar.params]
+    icon = "link"
