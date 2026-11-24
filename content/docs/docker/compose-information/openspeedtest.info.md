@@ -189,6 +189,8 @@ services:
 
 - **services**: Defines services to be deployed.
 - **openspeedtest_app**: The service name for the OpenSpeedTest container.
+  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **restart: unless-stopped**: Ensures the container restarts unless it is
     explicitly stopped.
   - **logging**: Configures logging for the container.
@@ -225,8 +227,6 @@ services:
   - **ports**: Maps container ports to host ports.
     - **3009:3000/tcp**: Maps HTTP port 3000 to host port 3009.
     - **3010:3001/tcp**: Maps HTTPS port 3001 to host port 3010.
-  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
-    threads in the container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.

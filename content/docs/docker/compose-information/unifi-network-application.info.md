@@ -201,6 +201,8 @@ services:
 
 <br />
 
+- **deploy.resources.limits.pids: 2048**: Limits the number of processes and
+  threads in the container, which protects the host against fork bombs.
 - **restart: unless-stopped**: Restarts the container unless it is explicitly
   stopped.
 - **logging**: Uses the `json-file` driver, limited to 1MB per file and a
@@ -234,8 +236,6 @@ services:
   container.
 - **networks**: Connects the service to the network with static IP address
   `172.20.19.2`.
-- **deploy.resources.limits.pids: 2048**: Limits the number of processes and
-  threads in the container, which protects the host against fork bombs.
 - **security_opt**: `no-new-privileges:true` prevents the container from gaining
   new privileges.
 - **labels**: `com.unifi-network-application.db.description` describes the
@@ -323,6 +323,8 @@ services:
 
 <br />
 
+- **deploy.resources.limits.pids: 2048**: Limits the number of processes and
+  threads in the container, which protects the host against fork bombs.
 - **restart**, **logging**, **stop_grace_period**, **pull_policy**: Same
   behavior as the database service.
 - **container_name: unifi-network-application**: Names the container.
@@ -360,8 +362,6 @@ services:
   - **8843/tcp**: Guest portal HTTPS redirect.
   - **8880/tcp**: Guest portal HTTP redirect.
   - **10001/udp**: Access point discovery.
-- **deploy.resources.limits.pids: 2048**: Limits the number of processes and
-  threads in the container, which protects the host against fork bombs.
 - **security_opt**: `no-new-privileges:true` prevents the container from gaining
   new privileges.
 - **labels**: A description label for the application.

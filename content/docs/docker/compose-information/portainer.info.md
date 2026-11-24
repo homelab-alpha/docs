@@ -171,6 +171,8 @@ services:
 
 - **services**: Defines services to be deployed.
 - **portainer_app**: The service name for the Portainer container.
+  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **restart: always**: Ensures the container always restarts if it stops or
     crashes.
   - **logging**: Configures logging for the container.
@@ -199,8 +201,6 @@ services:
       container.
     - **"9443:9443/tcp"**: Maps TCP port 9443 on the host to port 9443 in the
       container.
-  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
-    threads in the container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges: true**: Prevents the container from gaining
       additional privileges.

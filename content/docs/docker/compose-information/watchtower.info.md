@@ -178,6 +178,8 @@ services:
 
 - **services**: Defines services to be deployed.
 - **watchtower_app**: The service name for the Watchtower container.
+  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **restart: always**: Ensures the container always restarts on failure.
   - **logging**: Configures logging for the container.
     - **driver: "json-file"**: Uses JSON file logging driver.
@@ -205,8 +207,6 @@ services:
   - **networks**: Connects the service to the `watchtower_net` network.
     - **ipv4_address: 172.20.2.2**: Assigns a static IP address to the
       container.
-  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
-    threads in the container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.

@@ -197,6 +197,8 @@ services:
 
 - **services**: This section defines the services to be deployed.
 - **pi-hole_app**: The service name for the Pi-hole container.
+  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **restart: unless-stopped**: The container will restart unless explicitly
     stopped.
   - **logging**: Configures logging for the container.
@@ -230,8 +232,6 @@ services:
     - **5353:53/udp**: Maps UDP DNS port.
     - **67:67/udp**: Maps the DHCP port.
     - **3080:80/tcp**: Maps HTTP port for the web interface.
-  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
-    threads in the container, which protects the host against fork bombs.
   - **security_opt**: Adds security options to the container.
     - **no-new-privileges:true**: Ensures the container cannot gain new
       privileges.

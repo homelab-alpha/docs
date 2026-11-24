@@ -203,6 +203,8 @@ services:
 <br />
 
 - **plex_app**: The service name for the Plex container.
+  - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **restart: unless-stopped**: Ensures the container restarts unless it is
     explicitly stopped.
   - **logging**: Configures logging for the container.
@@ -254,8 +256,6 @@ services:
   - **devices**: Passes host devices to the container.
     - **/dev/dri:/dev/dri**: Mounts the device for hardware-accelerated
       transcoding.
-  - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
-    threads in the container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.

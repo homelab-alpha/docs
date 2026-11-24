@@ -213,6 +213,8 @@ services:
 <br />
 
 - **harborguard_app**: The service definition.
+  - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **restart: unless-stopped**: Restarts the container unless it is explicitly
     stopped.
   - **logging**: Uses the `json-file` driver, limited to 1MB per file and a
@@ -270,8 +272,6 @@ services:
     address `172.20.27.3`.
   - **ports**: Maps host ports to container ports.
     - **"3016:3000/tcp"**: HTTP.
-  - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
-    threads in the container, which protects the host against fork bombs.
   - **security_opt: no-new-privileges:true**: Prevents the container from
     gaining new privileges.
   - **labels**: A description label.

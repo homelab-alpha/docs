@@ -190,6 +190,8 @@ services:
 
 - **services**: Defines services to be deployed.
 - **haproxy_app**: The service name for the HAProxy container.
+  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **restart: always**: Ensures the container always restarts if it stops.
   - **logging**: Configures logging for the container.
     - **driver: "json-file"**: Uses JSON file logging driver.
@@ -224,8 +226,6 @@ services:
     - **443:443/tcp**: Maps HTTPS port (TCP).
     - **443:443/udp**: Maps HTTPS port (UDP).
     - **8404:8404/tcp**: Maps Statistics Report port (TCP).
-  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
-    threads in the container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges\:true**: Ensures the container does not gain new
       privileges.

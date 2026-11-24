@@ -189,6 +189,8 @@ services:
 <br />
 
 - **postgresql_db**: The service definition.
+  - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **restart: always**: Always restarts the container.
   - **logging**: Uses the `json-file` driver, limited to 1MB per file and a
     maximum of 2 files.
@@ -223,8 +225,6 @@ services:
   - **ports**: Maps host ports to container ports.
     - **127.0.0.1:5432 -> 5432/tcp**: Publishes the port on the host IP
       `127.0.0.1` only.
-  - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
-    threads in the container, which protects the host against fork bombs.
   - **security_opt: no-new-privileges:true**: Prevents the container from
     gaining new privileges.
   - **labels**: A description label.

@@ -190,6 +190,8 @@ services:
 
 - **services**: Defines services to be deployed.
 - **netboot_app**: The service name for the NetBoot container.
+  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **restart: unless-stopped**: Ensures the container restarts unless it is
     explicitly stopped.
   - **logging**: Configures logging for the container.
@@ -220,8 +222,6 @@ services:
     - **69:69/udp**: Maps the TFTP port.
     - **3011:3000/tcp**: Maps the web configuration interface port.
     - **3012:80/tcp**: Maps the NGINX server port (commented out).
-  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
-    threads in the container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
