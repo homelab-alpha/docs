@@ -141,6 +141,10 @@ networks:
 ```yaml
 services:
   xen-orchestra_app:
+    deploy:
+      resources:
+        limits:
+          pids: 512 # Limits the number of processes and threads (fork bomb protection).
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -182,7 +186,6 @@ services:
     #   - "/dev/fuse:/dev/fuse"
     #   - "/dev/loop-control:/dev/loop-control"
     #   - "/dev/loop0:/dev/loop0"
-    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
       - apparmor:unconfined
@@ -244,8 +247,8 @@ services:
     - **/dev/fuse:/dev/fuse**: Mounts the fuse device.
     - **/dev/loop-control:/dev/loop-control**: Mounts the loop control device.
     - **/dev/loop0:/dev/loop0**: Mounts the loop0 device.
-  - **pids_limit: 512**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
+  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.

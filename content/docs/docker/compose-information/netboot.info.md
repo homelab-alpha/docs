@@ -136,6 +136,10 @@ networks:
 ```yaml
 services:
   netboot_app:
+    deploy:
+      resources:
+        limits:
+          pids: 512 # Limits the number of processes and threads (fork bomb protection).
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -165,7 +169,6 @@ services:
       - "69:69/udp" # TFTP Port
       - "3011:3000/tcp" # Web configuration interface.
       # - "3012:80/tcp" # NGINX server for hosting assets.
-    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -217,8 +220,8 @@ services:
     - **69:69/udp**: Maps the TFTP port.
     - **3011:3000/tcp**: Maps the web configuration interface port.
     - **3012:80/tcp**: Maps the NGINX server port (commented out).
-  - **pids_limit: 512**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
+  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.

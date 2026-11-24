@@ -100,6 +100,10 @@ networks:
 ```yaml
 services:
   speedtest-tracker-beta_db:
+    deploy:
+      resources:
+        limits:
+          pids: 2048 # Limits the number of processes and threads (fork bomb protection).
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -133,7 +137,6 @@ services:
     networks:
       speedtest-tracker_net:
         ipv4_address: 172.20.23.4
-    pids_limit: 2048 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -180,8 +183,8 @@ services:
     container.
   - **networks**: Connects the service to `speedtest-tracker_net` with static IP
     address `172.20.23.4`.
-  - **pids_limit: 2048**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
+  - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **security_opt: no-new-privileges:true**: Prevents the container from
     gaining new privileges.
   - **labels**: A description label.
@@ -196,6 +199,10 @@ services:
 ```yaml
 services:
   speedtest-tracker-beta_app:
+    deploy:
+      resources:
+        limits:
+          pids: 512 # Limits the number of processes and threads (fork bomb protection).
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -258,7 +265,6 @@ services:
     ports:
       - "80:8080/tcp"
       - "443:8443/tcp"
-    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -334,8 +340,8 @@ services:
   - **ports**: Maps host ports to container ports.
     - **"80:8080/tcp"**
     - **"443:8443/tcp"**
-  - **pids_limit: 512**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
+  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **security_opt: no-new-privileges:true**: Prevents the container from
     gaining new privileges.
   - **labels**: A description label.

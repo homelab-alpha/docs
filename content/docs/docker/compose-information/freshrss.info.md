@@ -135,6 +135,10 @@ networks:
 ```yaml
 services:
   freshrss_db:
+    deploy:
+      resources:
+        limits:
+          pids: 2048 # Limits the number of processes and threads (fork bomb protection).
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -168,7 +172,6 @@ services:
     networks:
       freshrss_net:
         ipv4_address: 172.20.6.2
-    pids_limit: 2048 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -183,6 +186,10 @@ services:
       start_interval: 5s
 
   freshrss_app:
+    deploy:
+      resources:
+        limits:
+          pids: 512 # Limits the number of processes and threads (fork bomb protection).
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -223,7 +230,6 @@ services:
         ipv4_address: 172.20.6.3
     ports:
       - "3002:80/tcp" # HTTP
-    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -278,8 +284,8 @@ services:
   - **networks**: Connects the service to the `freshrss_net` network.
     - **ipv4_address: 172.20.6.2**: Assigns a static IP address to the
       container.
-  - **pids_limit: 2048**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
+  - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
@@ -341,8 +347,8 @@ services:
       container.
   - **ports**: Maps container ports to host ports.
     - **3002:80/tcp**: Maps the HTTP port (TCP).
-  - **pids_limit: 512**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
+  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.

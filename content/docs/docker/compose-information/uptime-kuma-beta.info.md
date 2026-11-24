@@ -101,6 +101,10 @@ networks:
 ```yaml
 services:
   uptime-kuma-beta_db:
+    deploy:
+      resources:
+        limits:
+          pids: 2048 # Limits the number of processes and threads (fork bomb protection).
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -134,7 +138,6 @@ services:
     networks:
       uptime-kuma_net:
         ipv4_address: 172.19.3.4
-    pids_limit: 2048 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -149,6 +152,10 @@ services:
       start_interval: 5s
 
   uptime-kuma-beta_app:
+    deploy:
+      resources:
+        limits:
+          pids: 512 # Limits the number of processes and threads (fork bomb protection).
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -190,7 +197,6 @@ services:
         ipv4_address: 172.19.3.5
     ports:
       - "3003:3001/tcp" # HTTP
-    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -207,6 +213,10 @@ services:
       start_interval: 5s
 
   uptime-kuma-beta_socket-proxy:
+    deploy:
+      resources:
+        limits:
+          pids: 512 # Limits the number of processes and threads (fork bomb protection).
     # Read-only proxy for the Docker API. The app reaches Docker through this proxy instead of the socket.
     restart: unless-stopped
     logging:
@@ -232,7 +242,6 @@ services:
     networks:
       uptime-kuma_net:
         ipv4_address: 172.19.3.7
-    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -270,8 +279,8 @@ services:
     - **.env**: For Docker Compose.
     - **stack.env**: For Portainer.
   - **environment**: Sets environment variables for the database connection.
-  - **pids_limit: 2048**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
+  - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **security_opt: no-new-privileges:true**: Prevents the container from
     gaining additional privileges.
   - **hostname: uptime-kuma-beta_db**: Sets the container hostname.
@@ -309,8 +318,8 @@ services:
   - **environment**: Sets environment variables for the Uptime Kuma Beta app.
   - **domainname: status.local**: Customizes the domain name for the container.
   - **ports**: Maps container ports to host ports.
-  - **pids_limit: 512**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
+  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **security_opt: no-new-privileges:true**: Prevents the container from
     gaining additional privileges.
   - **healthcheck**: Healthcheck configuration.
@@ -355,8 +364,8 @@ services:
     container.
   - **networks**: Connects the service to the stack network with static IP
     address `172.19.3.7`.
-  - **pids_limit: 512**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
+  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **security_opt: no-new-privileges:true**: Prevents the container from
     gaining additional privileges.
   - **labels**: A description label.

@@ -135,6 +135,10 @@ networks:
 ```yaml
 services:
   dockge_app:
+    deploy:
+      resources:
+        limits:
+          pids: 512 # Limits the number of processes and threads (fork bomb protection).
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -161,7 +165,6 @@ services:
         ipv4_address: 172.20.7.2
     ports:
       - "3005:5001/tcp" # HTTP
-    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -211,8 +214,8 @@ services:
       container.
   - **ports**: Maps container ports to host ports.
     - **3005:5001/tcp**: Maps the HTTP port.
-  - **pids_limit: 512**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
+  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.

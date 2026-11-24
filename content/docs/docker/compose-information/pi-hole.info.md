@@ -135,6 +135,10 @@ networks:
 ```yaml
 services:
   pi-hole_app:
+    deploy:
+      resources:
+        limits:
+          pids: 512 # Limits the number of processes and threads (fork bomb protection).
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -162,7 +166,6 @@ services:
       - "5353:53/udp" # plain DNS
       - "67:67/udp" # DHCP
       - "3080:80/tcp" # HTTP
-    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     cap_add:
@@ -227,8 +230,8 @@ services:
     - **5353:53/udp**: Maps UDP DNS port.
     - **67:67/udp**: Maps the DHCP port.
     - **3080:80/tcp**: Maps HTTP port for the web interface.
-  - **pids_limit: 512**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
+  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **security_opt**: Adds security options to the container.
     - **no-new-privileges:true**: Ensures the container cannot gain new
       privileges.
