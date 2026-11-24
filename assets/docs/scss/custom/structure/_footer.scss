@@ -24,6 +24,10 @@ footer {
   }
   a {
     color: var(--content-link-color);
+    // Links in the copyright line are underlined, so they do not rely on
+    // color alone (WCAG 1.4.1).
+    text-decoration: underline 1px;
+    text-underline-offset: 3px;
   }
   a:hover {
     color: var(--content-link-color);

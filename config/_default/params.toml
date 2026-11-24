@@ -1,6 +1,6 @@
 sans_serif_font = "-apple-system, BlinkMacSystemFont, system-ui, Inter, 'Segoe UI', Roboto, sans-serif"
 secondary_font  = "-apple-system, BlinkMacSystemFont, system-ui, Inter, 'Segoe UI', Roboto, sans-serif"
-mono_font       = "JetBrains Mono"
+mono_font       = "'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace"
 
 [landingpage]
   enabled = false

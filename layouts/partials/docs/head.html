@@ -52,18 +52,9 @@
         {{ $darkModeInit := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/darkmode-init.js") | js.Build | minify -}}
         <script>{{ $darkModeInit.Content | safeJS }}</script>
     {{ end -}}
-    <!-- FlexSearch -->
-    {{ if or (not (isset .Site.Params.flexsearch "enabled")) (eq .Site.Params.flexsearch.enabled true) -}}
-            {{ $flexSearch := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/flexsearch.bundle.js") }}
-            {{- if not hugo.IsServer }}
-                {{ $flexSearch := $flexSearch | minify | fingerprint "sha384" }}
-                <script type="text/javascript" src="{{ $flexSearch.Permalink }}" integrity="{{ $flexSearch.Data.Integrity }}" crossorigin="anonymous"></script>
-                {{ else }}
-                <script type="text/javascript" src="{{ $flexSearch.Permalink }}"></script>
-            {{ end }}
-    {{ end }}
-    <!-- Fonts -->
-    <link rel="preload" as="font" href="{{ "/docs/fonts/inter-latin-wght-normal.woff2" | absURL }}" type="font/woff2" crossorigin>
+    <!-- Fonts: Inter is not preloaded. The font stack starts with the system
+         font (-apple-system, system-ui), so Inter is only a fallback and a
+         preload would only take bandwidth from the stylesheet. -->
 
     <!-- Custom CSS -->
     {{- $options := dict "transpiler" "dartsass" "silenceDeprecations" (slice "import" "global-builtin" "if-function" "color-functions") "enableSourceMap" true }}
@@ -76,8 +67,15 @@
         {{- $style = $style | minify | fingerprint "sha384" }}
     {{- end -}}
     <link rel="stylesheet" href="{{ $style.RelPermalink }}" {{ if hugo.IsProduction }}integrity="{{ $style.Data.Integrity }}"{{ end -}} crossorigin="anonymous">
-    <!-- Katex CSS -->
+    <!-- Katex: only on pages with math. The page needs "katex: true", and its
+         text (outside code) has a math delimiter: $, \(, or \[. Other pages do
+         not load the KaTeX CSS and JavaScript. -->
+    {{- $needsKatex := false -}}
     {{- if .Params.katex -}}
+        {{- $text := .Content | replaceRE `(?s)<pre[^>]*>.*?</pre>|<code[^>]*>.*?</code>` "" -}}
+        {{- $needsKatex = gt (len (findRE `\$|\\\(|\\\[` $text 1)) 0 -}}
+    {{- end -}}
+    {{- if $needsKatex -}}
     {{- $options := dict "transpiler" "dartsass" "silenceDeprecations" (slice "import" "global-builtin" "if-function" "color-functions") "enableSourceMap" true }}
     {{- if hugo.IsProduction}}
         {{- $options := dict "transpiler" "dartsass" "silenceDeprecations" (slice "import" "global-builtin" "if-function" "color-functions") "enableSourceMap" false "outputStyle" "compressed" }}
@@ -87,24 +85,11 @@
     {{- if hugo.IsProduction }}
         {{- $katexCSS = $katexCSS | minify | fingerprint "sha384" }}
     {{- end -}}
-    <link rel="stylesheet" href="{{ $katexCSS.RelPermalink }}" {{ if hugo.IsProduction }}integrity="{{ $katexCSS.Data.Integrity }}"{{ end -}} crossorigin="anonymous">
+    {{- /* Inline the small KaTeX stylesheet, so it does not block rendering as a
+       separate request. Its font URLs are relative to /docs/scss/, so make
+       them absolute. */}}
+    <style>{{ replace $katexCSS.Content "url(../fonts/" (printf "url(%s" ("docs/fonts/" | relURL)) | safeCSS }}</style>
     {{- end -}}
-    <!-- Katex JS -->
-    {{- if .Params.katex -}}
-    {{ $katex := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/katex.js") }}
-    {{ $katexAutoRender := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/auto-render.js") }}
-    {{ if hugo.IsProduction }}
-        {{ $katex = $katex | minify | fingerprint "sha384" }}
-        {{ $katexAutoRender = $katexAutoRender | minify | fingerprint "sha384" }}
-    {{- end -}}
-    <script src="{{ $katex.RelPermalink }}" {{ if hugo.IsProduction }}integrity="{{ $katex.Data.Integrity }}"{{ end -}} defer></script>
-    <script src="{{ $katexAutoRender.RelPermalink }}" {{ if hugo.IsProduction }}integrity="{{ $katexAutoRender.Data.Integrity }}"{{ end -}} defer></script>
-    {{ end -}}
-
-    <!-- Katex Config -->
-    {{ if .Params.katex }}
-        {{- partialCached (printf "%s/%s" ($.Scratch.Get "pathName") "footer/katex.html") . -}}
-    {{ end }}
     <!-- Plausible Analytics Config -->
     {{- if not hugo.IsServer }}
     {{ if and (.Site.Params.plausible.scriptURL | default "https://plausible.io") (.Site.Params.plausible.dataDomain) -}}
@@ -117,4 +102,24 @@
         {{- template "_internal/google_analytics.html" . -}}
     {{- end -}}
     {{- end -}}
+    <!-- Scripts (defer): in the head, so the browser finds and downloads them
+         early; they still run after the page is parsed, in this order. -->
+    {{- partialCached (printf "%s/%s" ($.Scratch.Get "pathName") "footer/footer-scripts.html") . -}}
+    <!-- KaTeX after the other scripts, so code highlighting does not wait for it. -->
+    <!-- Katex JS -->
+    {{- if $needsKatex -}}
+    {{ $katex := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/katex.js") }}
+    {{ $katexAutoRender := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/auto-render.js") }}
+    {{ if hugo.IsProduction }}
+        {{ $katex = $katex | minify | fingerprint "sha384" }}
+        {{ $katexAutoRender = $katexAutoRender | minify | fingerprint "sha384" }}
+    {{- end -}}
+    <script src="{{ $katex.RelPermalink }}" {{ if hugo.IsProduction }}integrity="{{ $katex.Data.Integrity }}"{{ end -}} defer></script>
+    <script src="{{ $katexAutoRender.RelPermalink }}" {{ if hugo.IsProduction }}integrity="{{ $katexAutoRender.Data.Integrity }}"{{ end -}} defer></script>
+    {{ end -}}
+
+    <!-- Katex Config -->
+    {{ if $needsKatex }}
+        {{- partialCached (printf "%s/%s" ($.Scratch.Get "pathName") "footer/katex.html") . -}}
+    {{ end }}
 </head>

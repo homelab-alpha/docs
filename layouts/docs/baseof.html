@@ -94,8 +94,6 @@
             <script>{{ $darkModeSwitch.Content | safeJS }}</script>
         {{ end -}}
 
-        {{- partialCached (printf "%s/%s" ($.Scratch.Get "pathName") "footer/footer-scripts.html") . -}}
-
         <!-- FlexSearch Config -->
         {{ if or (not (isset .Site.Params.flexsearch "enabled")) (eq .Site.Params.flexsearch.enabled true) -}}
                 {{- partialCached (printf "%s/%s" ($.Scratch.Get "pathName") "footer/flexsearch.html") . -}}

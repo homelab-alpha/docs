@@ -14,15 +14,39 @@
     {{ if hugo.IsProduction }}
         {{ $mermaid = $mermaid | fingerprint "sha384" }}
     {{ end }}
-    <script src="{{ $mermaid.RelPermalink }}" {{ if hugo.IsProduction }}integrity="{{ $mermaid.Data.Integrity }}"{{ end }}></script>
     <script>
-        const config = {
-            startOnLoad:true,
-            logLevel: "error",
-            align: "center",
-            theme:"null"
-        };
-        mermaid.initialize(config);
+        // Mermaid is large, so it loads only when a diagram comes near the
+        // visible part of the page, not on page load.
+        (() => {
+            const diagrams = document.querySelectorAll("pre.mermaid");
+            if (diagrams.length === 0) return;
+            let loading = false;
+            const load = () => {
+                if (loading) return;
+                loading = true;
+                observer.disconnect();
+                const script = document.createElement("script");
+                script.src = {{ $mermaid.RelPermalink }};
+                {{- if hugo.IsProduction }}
+                script.integrity = {{ $mermaid.Data.Integrity }};
+                script.crossOrigin = "anonymous";
+                {{- end }}
+                script.onload = () => {
+                    mermaid.initialize({
+                        startOnLoad: false,
+                        logLevel: "error",
+                        align: "center",
+                        theme: "null"
+                    });
+                    mermaid.run({ nodes: diagrams });
+                };
+                document.head.appendChild(script);
+            };
+            const observer = new IntersectionObserver((entries) => {
+                if (entries.some((entry) => entry.isIntersecting)) load();
+            }, { rootMargin: "600px 0px" });
+            diagrams.forEach((diagram) => observer.observe(diagram));
+        })();
     </script>
     {{ end }}
 

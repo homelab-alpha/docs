@@ -23,12 +23,14 @@
 {{ end -}}
 
 {{ if eq .Site.Params.docs.prism true -}}
+    {{ $prismManual := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/prism-manual.js") }}
     {{ $prism := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/prism.js") }}
     {{- $opts := dict
         "params" (dict "langPath" (urls.JoinPath .Site.BaseURL "docs/js/components/"))
     -}}
     {{ $prism := $prism | js.Build $opts -}}
-    {{ $slice = $slice | append $prism -}}
+    {{ $prismLazy := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/prism-lazy.js") }}
+    {{ $slice = $slice | append $prismManual $prism $prismLazy -}}
 {{ end -}}
 
 <!-- Bootstrap JS -->

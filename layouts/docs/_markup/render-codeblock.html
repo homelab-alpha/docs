@@ -7,7 +7,12 @@
   {{ $innerRemoveLB := replaceRE "\r\n?|\n" "" .Inner | string }}
   {{ $innerHash := substr (sha1 (printf "%s%s" $innerRemoveLB $ordinal)) 0 7 }}
 
-  {{- $classes := slice (printf "language-%s" .Type) .Attributes.class }}
+  <!-- Languages that Prism does not have: use a close one, so the Prism
+       autoloader does not request a file that does not exist (404). -->
+  {{- $type := .Type }}
+  {{- $prismAliases := dict "env" "ini" "cnf" "ini" "terraform" "hcl" "pem" "plaintext" "adblock" "plaintext" }}
+  {{- with index $prismAliases $type }}{{ $type = . }}{{ end }}
+  {{- $classes := slice (printf "language-%s" $type) .Attributes.class }}
 
   <!-- Options List -->
   {{- $options := .Options }}
@@ -74,7 +79,9 @@
       {{- printf " %s=%q" $k $v | safeHTMLAttr }}
     {{- end -}}
   >
-  <code>
+  {{- /* The language class on the code element too (Prism sets it there when it
+         highlights), so a block that is not highlighted yet has the theme colors. */}}
+  <code class="language-{{ $type }}">
   {{- .Inner -}}
   </code>
   </pre>

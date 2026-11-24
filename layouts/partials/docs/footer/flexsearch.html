@@ -85,72 +85,97 @@
 
     (function(){
 
-    var index = new FlexSearch.Document({
-        // FlexSearch 0.8 removes repeated letters by default (so "ssh" also
-        // finds "sh"). Keep the default Latin normalisation without that.
-        encoder: new FlexSearch.Encoder(FlexSearch.Charset.LatinDefault, {dedupe: false}),
-        tokenize: {{ .Site.Params.flexsearch.tokenize | default "forward" }},
-        minlength: {{ .Site.Params.flexsearch.minQueryChar | default 0}},
-        cache: {{ .Site.Params.flexsearch.cache | default 100 }},
-        document: {
-        id: 'id',
-        store: [
-            "href", "title", "description"
-        ],
-        index: ["title", "description", "content"]
-        }
-    });
-
-
-    // Not yet supported: https://github.com/nextapps-de/flexsearch#complex-documents
-
-
-    // var docs = [
-    //     {{ range $index, $page := (where .Site.Pages "Section" "docs") -}}
-    //     {
-    //         id: {{ $index }},
-    //         href: {{ .Permalink }},
-    //         title: {{ .Title }},
-    //         description: {{ .Description }},
-    //         content: {{ .Content }}
-    //     },
-    //     {{ end -}}
-    // ];
-
-
-    // https://discourse.gohugo.io/t/range-length-or-last-element/3803/2
-
-    {{ $list := slice }}
-    {{- if and (isset .Site.Params.flexsearch "searchsectionsindex") (not (eq (len .Site.Params.flexsearch.searchSectionsIndex) 0)) }}
-        {{- if eq .Site.Params.flexsearch.searchSectionsIndex "ALL" }}
-            {{- $list = .Site.Pages }}
-        {{- else }}
-            {{- $list = (where .Site.Pages "Type" "in" .Site.Params.flexsearch.searchSectionsIndex) }}
-        {{- if (in .Site.Params.flexsearch.searchSectionsIndex "HomePage") }}
-            {{ $list = $list | append .Site.Home }}
-        {{- end }}
-        {{- end }}
-    {{- else }}
-        {{- $list = (where .Site.Pages "Section" ($.Scratch.Get "pathName")) }}
+    // The search index is built the first time a visitor searches (or opens
+    // the search box), not on page load: FlexSearch and /search-index.json
+    // are loaded then. That keeps page loads fast.
+    {{- $flexSearch := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/flexsearch.bundle.js") }}
+    {{- if not hugo.IsServer }}
+        {{- $flexSearch = $flexSearch | minify | fingerprint "sha384" }}
     {{- end }}
+    const flexSearchSrc = {{ $flexSearch.RelPermalink }};
+    const flexSearchIntegrity = {{ if not hugo.IsServer }}{{ $flexSearch.Data.Integrity }}{{ else }}""{{ end }};
+    {{- /* The search index: one JSON file for the whole site, made once (this
+           partial is cached) and fingerprinted, so browsers can cache it. */}}
+    {{- $list := slice -}}
+    {{- $pathName := $.Scratch.Get "pathName" -}}
+    {{- if and (isset .Site.Params.flexsearch "searchsectionsindex") (not (eq (len .Site.Params.flexsearch.searchSectionsIndex) 0)) -}}
+      {{- if eq .Site.Params.flexsearch.searchSectionsIndex "ALL" -}}
+        {{- $list = .Site.Pages -}}
+      {{- else -}}
+        {{- $list = where .Site.Pages "Type" "in" .Site.Params.flexsearch.searchSectionsIndex -}}
+        {{- if in .Site.Params.flexsearch.searchSectionsIndex "HomePage" -}}
+          {{- $list = $list | append .Site.Home -}}
+        {{- end -}}
+      {{- end -}}
+    {{- else -}}
+      {{- $list = where .Site.Pages "Section" $pathName -}}
+    {{- end -}}
+    {{- $docs := slice -}}
+    {{- range $index, $page := $list -}}
+      {{- $description := .Description | default (.Summary | htmlUnescape | plainify) -}}
+      {{- $docs = $docs | append (dict
+        "id" $index
+        "href" .RelPermalink
+        "title" .Title
+        "description" $description
+        "content" (.Content | htmlUnescape | plainify)
+      ) -}}
+    {{- end -}}
+    {{- $searchIndex := resources.FromString "docs/search-index.json" ($docs | jsonify) | minify | fingerprint "sha256" }}
+    const searchIndexURL = {{ $searchIndex.RelPermalink }};
 
-    {{ $len := (len $list) -}}
+    let index = null;
+    let indexPromise = null;
 
-    {{ range $index, $element := $list -}}
-        index.add(
-            {
-                id: {{ $index }},
-                href: "{{ .RelPermalink }}",
-                title: {{ .Title }},
-                {{ with .Description -}}
-                    description: {{ . }},
-                {{ else -}}
-                description: {{ .Summary | htmlUnescape | plainify }},
-                {{ end -}}
-                content: {{ .Content | htmlUnescape | plainify }}
+    function loadFlexSearch() {
+        if (window.FlexSearch) return Promise.resolve();
+        return new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = flexSearchSrc;
+            if (flexSearchIntegrity) {
+                script.integrity = flexSearchIntegrity;
+                script.crossOrigin = 'anonymous';
             }
-        );
-    {{ end -}}
+            script.onload = resolve;
+            script.onerror = reject;
+            document.head.appendChild(script);
+        });
+    }
+
+    function ensureIndex() {
+        if (indexPromise) return indexPromise;
+        indexPromise = Promise.all([
+            loadFlexSearch(),
+            fetch(searchIndexURL).then((response) => response.json())
+        ]).then(([, docs]) => {
+            const newIndex = new FlexSearch.Document({
+                // FlexSearch 0.8 removes repeated letters by default (so "ssh" also
+                // finds "sh"). Keep the default Latin normalisation without that.
+                encoder: new FlexSearch.Encoder(FlexSearch.Charset.LatinDefault, {dedupe: false}),
+                tokenize: {{ .Site.Params.flexsearch.tokenize | default "forward" }},
+                minlength: {{ .Site.Params.flexsearch.minQueryChar | default 0}},
+                cache: {{ .Site.Params.flexsearch.cache | default 100 }},
+                document: {
+                id: 'id',
+                store: [
+                    "href", "title", "description"
+                ],
+                index: ["title", "description", "content"]
+                }
+            });
+            for (const doc of docs) newIndex.add(doc);
+            index = newIndex;
+        }).catch((error) => {
+            indexPromise = null;
+            throw error;
+        });
+        return indexPromise;
+    }
+
+    // Start loading as soon as the visitor shows interest in searching.
+    search.addEventListener('focus', () => { ensureIndex().catch(() => {}); }, {once: true});
+    document.getElementById('flexsearch-button')?.addEventListener('click', () => { ensureIndex().catch(() => {}); }, {once: true});
+    flexsearchContainer.addEventListener('show.bs.collapse', () => { ensureIndex().catch(() => {}); }, {once: true});
 
     // Flatten the per-field results of index.search() into one Map keyed by
     // href, which also removes duplicates. The Map keeps the ranking order.
@@ -183,6 +208,19 @@
     search.addEventListener('input', show_results, true);
 
     function show_results(){
+        if (!index) {
+            // Show the results when the index is ready.
+            const input = this;
+            ensureIndex().then(() => show_results.call(input)).catch(() => {
+                suggestions.innerHTML = "";
+                suggestions.classList.remove('d-none');
+                const errorMessage = document.createElement('div');
+                errorMessage.textContent = "The search index could not be loaded.";
+                errorMessage.classList.add("suggestion__no-results");
+                suggestions.appendChild(errorMessage);
+            });
+            return;
+        }
         const maxResult = {{ .Site.Params.flexsearch.maxResult | default 5}};
         const minlength = {{ .Site.Params.flexsearch.minQueryChar | default 0}};
         var searchQuery = sanitizeHTML(this.value);
