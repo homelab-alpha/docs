@@ -5,20 +5,16 @@
             <a class="text-decoration-none text-reset" href="{{ .Permalink }}">
                 <div class="card h-100 features feature-full-bg rounded p-4 position-relative overflow-hidden border-1">
                     <span class="icon-color d-flex my-3">
-                        {{ if eq .Params.icontype "simple-icons" -}}
-                        <i class="si si-{{ .Params.icon }} align-middle"></i>
-                        {{ else -}}
-                        <i class="material-icons align-middle">{{- .Params.icon | default "article" }}</i>
-                        {{ end -}}
+                        {{ partial "svg-icon.html" (dict "name" (.Params.icon | default "article") "tag" "i" "class" "align-middle") }}
                         {{ if .Draft }}<span class="badge bg-default ms-2 fs-6 align-middle">DRAFT</span>{{ end }}
-                        {{ if .IsSection }}<i class="material-icons icon-faint align-middle ms-auto" title="Directory">folder</i>{{ end }}
+                        {{ if .IsSection }}{{ partial "svg-icon.html" (dict "name" "folder" "class" "icon-faint align-middle ms-auto" "title" "Directory") }}{{ end }}
                     </span>
                     <div class="card-body p-0 content">
                         <p class="fs-5 fw-semibold card-title mb-1">{{ .Title }}</p>
                         <p class="para card-text mb-0">{{ .Description | truncate (.Site.Params.docs.listDescTrunc | default 100) | markdownify }}</p>
                     </div>
                     <!-- <div class="position-absolute top-0 end-0">
-                        <i class="material-icons opacity-05">{{- .Params.icon }}</i>
+                        {{ partial "svg-icon.html" (dict "name" .Params.icon "tag" "i" "class" "opacity-05") }}
                     </div> -->
                 </div>
             </a>

@@ -5,8 +5,7 @@
             <h4 class="text-center">The page you are looking for doesn't exist or has been moved.</h4>
         </div>
         <div class="px-1">
-            <a href="{{ "" | relURL }}"><i class="material-icons size-48 me-0">home</i></a>
-            <!-- <a href="{{ "" | relURL }}"><i class="material-icons size-48 me-0">menu_book</i></a> -->
+            <a href="{{ "" | relURL }}">{{ partial "svg-icon.html" (dict "name" "home" "tag" "i" "class" "size-48 me-0") }}</a>
         </div>
       </div>
 {{ end }}

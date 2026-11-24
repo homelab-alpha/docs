@@ -54,7 +54,7 @@
                                         <div class="docs-content col-12 {{ if .IsBranch }}{{ else }}{{ if site.Params.docs.toc | default true }}{{ if and (ne .Params.toc false) (ne .TableOfContents "<nav id=\"TableOfContents\"></nav>") }}col-xl-9{{else}}{{end}}{{ else }}{{ end }}{{ end }} mt-0">
                                             <div class="mb-0 d-flex">
                                                 {{ if site.Params.docs.titleIcon | default false }}
-                                                <i class="material-icons title-icon me-2">{{- .Params.icon | default "article" }}</i>
+                                                {{ partial "svg-icon.html" (dict "name" (.Params.icon | default "article") "tag" "i" "class" "title-icon me-2") }}
                                                 {{ end }}
                                                 <h1 class="content-title mb-0">
                                                     {{ $currentPage.Title }}

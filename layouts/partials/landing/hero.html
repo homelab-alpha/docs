@@ -64,7 +64,7 @@
                         {{ with .ctaButton }}
                             <a href="{{ relLangURL .url }}" class="btn btn-lg btn-primary me-2 mt-2">
                                 {{ with .icon }}
-                                    <span class="material-icons align-middle">{{ . }}</span>
+                                    {{ partial "svg-icon.html" (dict "name" . "tag" "span" "class" "align-middle") }}
                                 {{ end }}
                                 {{ with .btnText }}
                                     {{ . }}
@@ -74,7 +74,7 @@
                         {{ with .cta2Button }}
                         <a href="{{ relLangURL .url }}" class="btn btn-lg btn-outline-primary mt-2">
                             {{ with .icon }}
-                                <span class="material-icons align-middle">{{ . }}</span>
+                                {{ partial "svg-icon.html" (dict "name" . "tag" "span" "class" "align-middle") }}
                             {{ end }}
                             {{ with .btnText }}
                                 {{ . }}

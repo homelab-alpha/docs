@@ -196,11 +196,14 @@
           }
         }
         > button:after {
-          content: "\e5cc" !important;
+          content: "" !important;
           color: var(--sidebar-text-color);
-          font-family: "Material Symbols Outlined";
-          font-weight: 500;
-          font-size: 22px;
+          // The icon is an SVG mask in the text color (see --chevron-right).
+          width: 22px;
+          height: 22px;
+          background-color: currentColor;
+          -webkit-mask: var(--chevron-right) center / contain no-repeat;
+          mask: var(--chevron-right) center / contain no-repeat;
           position: absolute;
           right: 15px;
           top: 7px;
@@ -219,11 +222,16 @@
           button {
             font-size: 14px;
             &:before {
-              content: var(--sidebar-directory-icon);
+              content: "";
+              display: inline-block;
+              width: 14px;
+              height: 14px;
+              vertical-align: -1px;
               color: var(--sidebar-text-color);
-              font-family: "Material Symbols Outlined";
+              background-color: currentColor;
+              -webkit-mask: var(--sidebar-directory-icon) center / contain no-repeat;
+              mask: var(--sidebar-directory-icon) center / contain no-repeat;
               margin-right: 4px;
-              font-size: 14px;
               transition: all 0.3s ease;
             }
             &:after {
@@ -254,11 +262,20 @@
               a {
                 font-weight: 400;
                 &:before {
-                  content: var(--sidebar-file-icon);
+                  content: "";
+                  display: inline-block;
+                  // As high as one line of text, with the icon in the middle,
+                  // so it stays next to the first line when the name wraps.
+                  flex-shrink: 0;
+                  width: 14px;
+                  height: 21px;
+                  height: 1lh;
+                  vertical-align: top;
                   color: var(--sidebar-text-color);
-                  font-family: "Material Symbols Outlined";
+                  background-color: currentColor;
+                  -webkit-mask: var(--sidebar-file-icon) center / contain no-repeat;
+                  mask: var(--sidebar-file-icon) center / contain no-repeat;
                   margin-right: 4px;
-                  font-size: 14px;
                   transition: all 0.3s ease;
                 }
                 .badge,
