@@ -44,7 +44,7 @@
                 <p class="lead mb-0">{{ .Description }}</p>
             </header>
 
-            {{ range site.Data.links.sections }}
+            {{ range hugo.Data.links.sections }}
             <section class="mt-5">
                 <h2 class="fs-4 fw-semibold mb-0">{{ .title }}</h2>
                 <div class="row">
@@ -53,8 +53,8 @@
                         <a class="text-decoration-none text-reset" href="{{ .url }}" rel="noopener noreferrer" target="_blank">
                             <div class="card h-100 features feature-full-bg rounded p-4 position-relative overflow-hidden border-1">
                                 <span class="icon-color d-flex my-3">
-                                    <i class="material-icons align-middle" aria-hidden="true">{{ .icon | default "link" }}</i>
-                                    <i class="material-icons icon-faint align-middle ms-auto" aria-hidden="true">open_in_new</i>
+                                    {{ partial "svg-icon.html" (dict "name" (.icon | default "link") "tag" "i" "class" "align-middle") }}
+                                    {{ partial "svg-icon.html" (dict "name" "open_in_new" "tag" "i" "class" "icon-faint align-middle ms-auto") }}
                                 </span>
                                 <div class="card-body p-0 content">
                                     <p class="fs-5 fw-semibold card-title mb-1">{{ .title }}</p>

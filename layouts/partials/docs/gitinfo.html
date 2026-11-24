@@ -22,21 +22,19 @@
     {{ if .Site.Params.docs.editPage | default false -}}
     <div id="edit-this-page" class="mt-1">
         <a href="{{ $editPageURL }}" alt="{{ .Title }}" rel="noopener noreferrer" target="_blank">
-            <!-- <span class="material-icons size-20 align-text-bottom text-primary">edit</span> -->
             <span class="me-1 align-text-bottom">
                 {{ with resources.Get $iconPath }}
                     {{ .Content | safeHTML }}
                 {{ end }}
             </span>
             Edit this page
-            <!-- <span class="material-icons size-20 align-text-bottom text-primary">open_in_new</span> -->
         </a>
     </div>
     {{ end }}
     {{ with .OutputFormats.Get "ereader" -}}
     <div id="ereader-version" class="mt-1">
         <a href="{{ .RelPermalink }}">
-            <span class="material-icons size-20 align-text-bottom me-1" aria-hidden="true">chrome_reader_mode</span>
+            {{ partial "svg-icon.html" (dict "name" "chrome_reader_mode" "tag" "span" "class" "size-20 align-text-bottom me-1") }}
             E-reader version
         </a>
     </div>
@@ -59,7 +57,7 @@
                 {{- else -}}
                     {{ dateFormat "January 02, 2006 15:04 UTC" .GitInfo.AuthorDate }}
                 {{- end -}}
-            </span>. <span class="material-icons size-20 align-text-bottom opacity-75">history</span>
+            </span>. {{ partial "svg-icon.html" (dict "name" "history" "tag" "span" "class" "size-20 align-text-bottom opacity-75") }}
         </p>
     </div>
     {{ end }}

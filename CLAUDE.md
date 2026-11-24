@@ -63,6 +63,9 @@ the other linters. For one file, `npx prettier --write <file>` uses the same
   and file or by content, not by line number.
 - The code style guide is in `.github/docs/`, not in the site content under
   `content/docs/`.
+- Icons are inline SVG, not a font: `assets/icons/material/<name>.svg`, put in a
+  page with the partial `svg-icon.html`. A missing icon stops the build. See
+  `assets/icons/README.md` to add one.
 
 ## Repository conventions
 

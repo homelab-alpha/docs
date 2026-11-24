@@ -15,7 +15,7 @@
                 </div>
             </a>
             <button id="close-sidebar" class="btn btn-icon btn-soft">
-                <span class="material-icons size-20 menu-icon align-middle">menu</span>
+                {{ partial "svg-icon.html" (dict "name" "menu" "tag" "span" "class" "size-20 menu-icon align-middle") }}
             </button>
             {{ if or (not (isset .Site.Params.flexsearch "enabled")) (eq .Site.Params.flexsearch.enabled true) -}}
                     <!-- <form class="flexsearch position-relative flex-grow-1 ms-2 me-lg-2 d-none">
@@ -23,7 +23,7 @@
                         <div id="suggestions" class="shadow bg-white rounded d-none"></div>
                     </form> -->
                     <button id="flexsearch-button" class="ms-3 btn btn-soft" data-bs-toggle="collapse" data-bs-target="#FlexSearchCollapse" aria-expanded="false" aria-controls="FlexSearchCollapse">
-                        <span class="material-icons size-20 menu-icon align-middle">search</span>
+                        {{ partial "svg-icon.html" (dict "name" "search" "tag" "span" "class" "size-20 menu-icon align-middle") }}
                         <span class="flexsearch-button-placeholder ms-1 me-2 d-none d-sm-block">{{ i18n "search_title" }}</span>
                         <div class="d-none d-sm-block">
                             <span class="flexsearch-button-keys">

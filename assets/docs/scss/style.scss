@@ -10,7 +10,6 @@ $code-block-padding-top: {{ if eq .Site.Params.docs.prism true -}}0{{ else }}1.2
 @import "custom/fonts/fonts";
 
 // Icon Fonts
-@import "custom/plugins/icons/google-material";
 
 // Core files
 @import "../../scss/bootstrap/functions";

@@ -1,0 +1,30 @@
+{{- /*
+  Inline SVG icon from assets/icons/material/<name>.svg.
+
+  The icons are the Material Symbols Outlined glyphs, saved as SVG files, so the
+  site needs no icon font and no third-party icon CSS. The SVG sits in an
+  element (default "i") with the class "material-icons", so the existing sizes,
+  colors, and layout rules still apply. The icon is decorative (aria-hidden);
+  give the link or button a label.
+
+  Parameters:
+    name   icon name, for example "link" (required)
+    class  extra classes for the element (optional)
+    tag    "i" or "span" (optional, default "i")
+    title  tooltip text (optional)
+
+  Usage: {{ partial "svg-icon.html" (dict "name" "link" "class" "align-middle") }}
+*/ -}}
+{{- $name := lower (trim (string .name) " \n\t") -}}
+{{- $tag := .tag | default "i" -}}
+{{- if not (in (slice "i" "span") $tag) }}{{ errorf "svg-icon: tag %q is not allowed" $tag }}{{ end -}}
+{{- $classes := "material-icons" -}}
+{{- with .class }}{{ $classes = printf "%s %s" $classes (trim (string .) " ") }}{{ end -}}
+{{- with resources.Get (printf "icons/material/%s.svg" $name) -}}
+  {{- $svg := replace (trim .Content "\n") "<svg " `<svg focusable="false" ` -}}
+  {{- $title := "" -}}
+  {{- with $.title }}{{ $title = printf ` title="%s"` (htmlEscape .) }}{{ end -}}
+  {{- printf `<%s class="%s" aria-hidden="true"%s>%s</%s>` $tag $classes $title $svg $tag | safeHTML -}}
+{{- else -}}
+  {{- errorf "Icon %q not found: add assets/icons/material/%s.svg (see assets/icons/README.md)" $name $name -}}
+{{- end -}}

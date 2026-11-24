@@ -11,9 +11,8 @@
   {{ with .Get "icon" }}
   {{ . }}
   {{ else }}
-  <span class="material-icons size-20 me-2">
-  {{ with .Get "context" }}{{ index $icon_array . }}{{ else }}{{ $icon_array.default }}{{ end }}
-  </span>
+  {{ $iconName := index $icon_array (.Get "context" | default "default") | default $icon_array.default }}
+  {{ partial "svg-icon.html" (dict "name" $iconName "tag" "span" "class" "size-20 me-2") }}
   {{- end -}}
   </div>
   {{ with .Get "text" }}

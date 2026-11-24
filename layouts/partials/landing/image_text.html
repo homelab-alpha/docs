@@ -41,13 +41,13 @@
                     {{ if .list }}
                     <ul class="list-unstyled text-muted">
                         {{ range .list }}
-                        <li class="mb-1"><span class="text-primary h5 me-2"><i class="material-icons align-middle size-20">{{ .icon }}</i></span>{{ .text | markdownify }}</li>
+                        <li class="mb-1"><span class="text-primary h5 me-2">{{ partial "svg-icon.html" (dict "name" .icon "tag" "i" "class" "align-middle size-20") }}</span>{{ .text | markdownify }}</li>
                         {{ end }}
                     </ul>
                     {{ end }}
                     {{ with .ctaButton }}
                     <div class="mt-4">
-                        <a href="{{ .url }}" class="mt-3 h6 text-primary">{{ .text | markdownify }} <i class="material-icons align-middle mb-1">chevron_right</i></a>
+                        <a href="{{ .url }}" class="mt-3 h6 text-primary">{{ .text | markdownify }} {{ partial "svg-icon.html" (dict "name" "chevron_right" "tag" "i" "class" "align-middle mb-1") }}</a>
                     </div>
                     {{ end }}
                 </div>

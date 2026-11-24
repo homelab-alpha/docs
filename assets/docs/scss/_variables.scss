@@ -291,10 +291,13 @@ $btn-link-hover-color: var(--#{$prefix}link-hover-color);
   // Icons
   --icon-color: var(--primary);
 
-  --folder: "\e2c7";
-  --article: "\ef42";
-  --dash: "\f88a";
-  --dir-right: "\e5da";
+  // Material Symbols glyphs as SVG masks (assets/icons/material/*.svg), used
+  // as mask-image on pseudo-elements, which take the text color.
+  --folder: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='M160 -160Q127 -160 103.5 -183.5Q80 -207 80 -240V-720Q80 -753 103.5 -776.5Q127 -800 160 -800H400L480 -720H800Q833 -720 856.5 -696.5Q880 -673 880 -640V-240Q880 -207 856.5 -183.5Q833 -160 800 -160ZM160 -240H800Q800 -240 800.0 -240.0Q800 -240 800 -240V-640Q800 -640 800.0 -640.0Q800 -640 800 -640H447L367 -720H160Q160 -720 160.0 -720.0Q160 -720 160 -720V-240Q160 -240 160.0 -240.0Q160 -240 160 -240ZM160 -240Q160 -240 160.0 -240.0Q160 -240 160 -240V-720Q160 -720 160.0 -720.0Q160 -720 160 -720V-640Q160 -640 160.0 -640.0Q160 -640 160 -640V-240Q160 -240 160.0 -240.0Q160 -240 160 -240Z'/%3E%3C/svg%3E");
+  --article: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='M280 -280H560V-360H280ZM280 -440H680V-520H280ZM280 -600H680V-680H280ZM200 -120Q167 -120 143.5 -143.5Q120 -167 120 -200V-760Q120 -793 143.5 -816.5Q167 -840 200 -840H760Q793 -840 816.5 -816.5Q840 -793 840 -760V-200Q840 -167 816.5 -143.5Q793 -120 760 -120ZM200 -200H760Q760 -200 760.0 -200.0Q760 -200 760 -200V-760Q760 -760 760.0 -760.0Q760 -760 760 -760H200Q200 -760 200.0 -760.0Q200 -760 200 -760V-200Q200 -200 200.0 -200.0Q200 -200 200 -200ZM200 -760Q200 -760 200.0 -760.0Q200 -760 200 -760V-200Q200 -200 200.0 -200.0Q200 -200 200 -200Q200 -200 200.0 -200.0Q200 -200 200 -200V-760Q200 -760 200.0 -760.0Q200 -760 200 -760Z'/%3E%3C/svg%3E");
+  --dash: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='M240 -440V-520H720V-440Z'/%3E%3C/svg%3E");
+  --dir-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='M560 -120 503 -177 647 -320H200V-800H280V-400H647L503 -544L559 -601L800 -360Z'/%3E%3C/svg%3E");
+  --chevron-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='M504 -480 320 -664 376 -720 616 -480 376 -240 320 -296Z'/%3E%3C/svg%3E");
 
   // Cards
   --card-bg: var(--white);

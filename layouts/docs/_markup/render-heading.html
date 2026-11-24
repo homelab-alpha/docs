@@ -1,1 +1,1 @@
-<h{{ .Level }} id="{{ .Anchor | safeURL }}">{{ .Text | safeHTML }} <a href="#{{ .Anchor | safeURL }}" class="anchor" aria-hidden="true"><i class="material-icons align-middle">link</i></a></h{{ .Level }}>
+<h{{ .Level }} id="{{ .Anchor | safeURL }}">{{ .Text | safeHTML }} <a href="#{{ .Anchor | safeURL }}" class="anchor" aria-hidden="true">{{ partial "svg-icon.html" (dict "name" "link" "tag" "i" "class" "align-middle") }}</a></h{{ .Level }}>
