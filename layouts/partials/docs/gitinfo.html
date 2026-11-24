@@ -35,7 +35,10 @@
     {{ end }}
     {{ with .OutputFormats.Get "ereader" -}}
     <div id="ereader-version" class="mt-1">
-        <a href="{{ .RelPermalink }}">E-reader version</a>
+        <a href="{{ .RelPermalink }}">
+            <span class="material-icons size-20 align-text-bottom me-1" aria-hidden="true">chrome_reader_mode</span>
+            E-reader version
+        </a>
     </div>
     {{ end }}
     {{ if .Site.Params.docs.lastMod | default false -}}
