@@ -6,10 +6,14 @@
 // the sidebar. The table of contents stays next to the text, so a line of text
 // is about 120 characters or less.
 //
+// The footer has the same width, so the copyright line starts at the same
+// place as the content.
+//
 // Below 1800 px nothing changes.
 
 @media (min-width: 1800px) {
-  .page-wrapper .page-content > .container-fluid {
+  .page-wrapper .page-content > .container-fluid,
+  .page-wrapper .page-content > footer > .container-fluid {
     max-width: 1280px;
     margin-inline: auto;
   }
