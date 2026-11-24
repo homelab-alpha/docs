@@ -12,6 +12,8 @@
   --landing-terminal-text: #e6edf3;
   --landing-terminal-prompt: #3fb950;
   --landing-terminal-output: #8b949e;
+  --landing-terminal-cmd: #56d4dd;
+  --landing-terminal-progress: #a5a0ff;
   --landing-muted: var(--gray-700);
 }
 
@@ -162,12 +164,38 @@
       padding: 0;
       font-size: inherit;
     }
+    .line {
+      display: block;
+    }
     .prompt {
       color: var(--landing-terminal-prompt);
       font-weight: 700;
     }
+    .cmd {
+      color: var(--landing-terminal-cmd);
+    }
+    .flag,
+    .ok,
+    .state {
+      color: var(--landing-terminal-prompt);
+    }
+    .running,
+    .time {
+      color: var(--landing-terminal-progress);
+    }
     .output {
       color: var(--landing-terminal-output);
+    }
+    // A result line: the states line up in a column, the time is on the right.
+    .result {
+      display: grid;
+      grid-template-columns: 1.25ch 20ch auto 1fr;
+      .ok {
+        grid-column: 1;
+      }
+      .time {
+        justify-self: end;
+      }
     }
     .cursor {
       display: inline-block;

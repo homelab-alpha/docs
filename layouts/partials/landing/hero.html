@@ -31,8 +31,28 @@
                         <span></span><span></span><span></span>
                         {{ with .title }}<figcaption>{{ . }}</figcaption>{{ end }}
                     </div>
-<pre class="landing-terminal-body"><code>{{ range .lines }}{{ if strings.HasPrefix . "$ " }}<span class="prompt">$</span> {{ strings.TrimPrefix "$ " . }}{{ else }}<span class="output">{{ . }}</span>{{ end }}
-{{ end }}<span class="prompt">$</span> <span class="cursor" aria-hidden="true"></span></code></pre>
+<pre class="landing-terminal-body"><code>
+{{- range .lines -}}
+    {{- if strings.HasPrefix . "$ " -}}
+        {{- /* A command: the program and the flags get their own color. */ -}}
+        <span class="line"><span class="prompt">$</span>
+        {{- range $i, $word := split (strings.TrimPrefix "$ " .) " " }} <span class="{{ if eq $i 0 }}cmd{{ else if strings.HasPrefix $word "-" }}flag{{ end }}">{{ $word }}</span>{{ end -}}
+        </span>
+    {{- else if strings.HasPrefix . "✔ " -}}
+        {{- /* A Docker Compose result: "✔ <object> <name>  <state>  <time>". */ -}}
+        {{- $m := findRESubmatch `^✔ (.+?)\s{2,}(\S+)(?:\s+(\S+))?$` . 1 -}}
+        {{- with index $m 0 -}}
+            <span class="line result"><span class="ok">✔</span><span class="name"> {{ index . 1 }}</span><span class="state">{{ index . 2 }}</span>{{ with index . 3 }}<span class="time">{{ . }}</span>{{ end }}</span>
+        {{- else -}}
+            <span class="line"><span class="ok">✔</span>{{ strings.TrimPrefix "✔" . }}</span>
+        {{- end -}}
+    {{- else if strings.HasPrefix . "[+]" -}}
+        <span class="line running">{{ . }}</span>
+    {{- else -}}
+        <span class="line output">{{ . }}</span>
+    {{- end -}}
+{{- end -}}
+<span class="line"><span class="prompt">$</span> <span class="cursor" aria-hidden="true"></span></span></code></pre>
                 </figure>
             </div>
             {{ end }}
