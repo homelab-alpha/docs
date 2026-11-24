@@ -4,12 +4,6 @@
   identifier = "docs"
   weight     = 10
 
-[[primary]]
-  name       = "Community"
-  url        = "https://github.com/homelab-alpha/docs/discussions"
-  identifier = "community"
-  weight     = 20
-
 # Icons in the top header of the docs, after the social icons
 # (layouts/partials/docs/top-header.html). The icon is an SVG file in
 # assets/images/social/.
