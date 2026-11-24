@@ -34,9 +34,9 @@ hero:
     title: "homelab"
     lines:
       - "$ git clone https://github.com/homelab-alpha/docker.git"
-      - "$ cd docker/compose-files/uptime-kuma"
+      - "$ cd docker/compose-files/dozzle"
       - "$ docker compose up -d"
-      - "✔ Container uptime-kuma  Started"
+      - "✔ Container dozzle  Started"
 
 docs:
   enable: true
