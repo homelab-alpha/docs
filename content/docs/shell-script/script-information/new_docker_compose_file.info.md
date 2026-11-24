@@ -62,7 +62,7 @@ specific configurations.
 
 - **Filename**: `new_docker_compose_file.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Nov 19, 2026
+- **Date**: November 19, 2026
 - **Version**: 2.2.0
 - **Description**: The script automates the creation of Docker Compose and
   configuration files, setting up a Docker container with the specified

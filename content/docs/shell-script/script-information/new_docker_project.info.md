@@ -59,7 +59,7 @@ structure and configuration files for Docker containers.
 
 - **Filename**: `new_docker_project.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Nov 19, 2026
+- **Date**: November 19, 2026
 - **Version**: 2.2.0
 - **Description**: This script creates a new Docker container directory
   structure and configuration files based on user input.
