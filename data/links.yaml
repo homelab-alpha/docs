@@ -1,0 +1,46 @@
+# Links on the page /links/ (layouts/_default/links.html).
+# Each section has a title and links. A link has a title, a description, a URL,
+# and a Material Symbols icon name (the same icons as the sidebar).
+
+sections:
+  - title: "Projects"
+    links:
+      - title: "AdGuard Home"
+        description: "Filter lists for AdGuard Home that block ads, trackers, phishing, and fraudulent websites."
+        url: "https://github.com/homelab-alpha/adguard-home"
+        icon: "dns"
+      - title: "Docker"
+        description: "Docker Compose stacks, network guides, and an image template for a self-hosted homelab."
+        url: "https://github.com/homelab-alpha/docker"
+        icon: "devices"
+      - title: "Dotfiles"
+        description: "Dotfiles and a menu-driven installer for a Linux shell environment."
+        url: "https://github.com/homelab-alpha/dotfiles"
+        icon: "home_storage"
+      - title: "Kairos"
+        description: "A Home Assistant Lovelace card for day-ahead electricity prices."
+        url: "https://github.com/homelab-alpha/kairos"
+        icon: "bolt"
+      - title: "OpenSSL"
+        description: "Scripts to generate self-signed certificates for a homelab and for testing."
+        url: "https://github.com/homelab-alpha/openssl"
+        icon: "shield_locked"
+      - title: "Shell Script"
+        description: "Shell scripts and shell functions for system automation and optimization."
+        url: "https://github.com/homelab-alpha/shell-script"
+        icon: "deployed_code"
+      - title: "Docs"
+        description: "The source of this documentation site, built with Hugo."
+        url: "https://github.com/homelab-alpha/docs"
+        icon: "menu_book"
+
+  - title: "Community"
+    links:
+      - title: "GitHub"
+        description: "All Homelab-Alpha repositories and projects."
+        url: "https://github.com/homelab-alpha"
+        icon: "code"
+      - title: "GitHub Discussions"
+        description: "Ask questions, share ideas, and get help with the documentation."
+        url: "https://github.com/homelab-alpha/docs/discussions"
+        icon: "forum"
