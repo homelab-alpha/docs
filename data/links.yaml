@@ -42,5 +42,5 @@ sections:
         icon: "code"
       - title: "GitHub Discussions"
         description: "Ask questions, share ideas, and get help with the documentation."
-        url: "https://github.com/homelab-alpha/docs/discussions"
+        url: "https://github.com/homelab-alpha/homelab-alpha/discussions"
         icon: "forum"

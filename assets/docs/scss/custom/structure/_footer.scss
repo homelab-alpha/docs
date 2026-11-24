@@ -3,6 +3,14 @@
 //
 footer {
   position: relative;
+  // The same side padding as the content (.layout-spacing), so the copyright
+  // line starts at the same place as the content.
+  .footer-spacing {
+    padding-inline: 14px;
+    @media (max-width: 425px) {
+      padding-inline: 0;
+    }
+  }
   color: var(--text-muted);
   background: var(--body-bg);
   height: 58px;

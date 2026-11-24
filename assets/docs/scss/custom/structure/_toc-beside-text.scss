@@ -30,15 +30,6 @@ $header-offset: 94px; // the space for the header, as in the layout of the page
     padding-left: 0;
   }
 
-  // The footer spans the whole window, so it still needs room for the open
-  // sidebar. Without it, the copyright line is behind the sidebar.
-  .page-wrapper .page-content > footer {
-    transition: padding-left 0.3s ease;
-  }
-
-  .page-wrapper.toggled .page-content > footer {
-    padding-left: 300px;
-  }
 
   @supports selector(:has(a)) {
     .page-wrapper
@@ -47,6 +38,14 @@ $header-offset: 94px; // the space for the header, as in the layout of the page
       position: relative;
       max-width: $text-width;
       margin-inline: auto;
+    }
+
+    // The footer text starts at the same place as the text block.
+    .page-wrapper
+      .page-content:has(.docs-toc:not(.visually-hidden))
+      > footer
+      > .container-fluid {
+      max-width: $text-width;
     }
 
     // The text uses the whole width of its block.

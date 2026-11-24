@@ -17,7 +17,7 @@
 
 [[header]]
   name       = "GitHub Community"
-  url        = "https://github.com/homelab-alpha/docs/discussions"
+  url        = "https://github.com/homelab-alpha/homelab-alpha/discussions"
   identifier = "community"
   weight     = 10
   [header.params]

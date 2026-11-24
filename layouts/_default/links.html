@@ -73,7 +73,15 @@
             </p>
         </main>
 
-        {{- partialCached (printf "%s/%s" ($.Scratch.Get "pathName") "footer.html") . -}}
+        <!-- Footer in the same container as the cards, so the copyright line starts at the same place -->
+        <footer class="d-print-none">
+            <div class="container">
+                <p class="text-sm-start text-center mb-0">
+                    {{ $yearToken := (cond (isset .Site.Params (lower "copyrightYearToken")) $.Site.Params.copyrightYearToken ":YEAR:") }}
+                    {{ replace $.Site.Params.footer.copyright $yearToken (string (now.Format "2006")) | markdownify }}
+                </p>
+            </div>
+        </footer>
 
         {{ if eq .Site.Params.docs.darkMode true -}}
             {{ $darkModeSwitch := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/darkmode-switch.js") | js.Build | minify }}
