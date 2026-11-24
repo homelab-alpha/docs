@@ -45,9 +45,9 @@ katex: true
 
 Supported versions:
 
-- Fedora 42
-- Fedora 41
-- Fedora 40
+- Fedora 45
+- Fedora 44
+- Fedora 43
 
 {{% /alert %}}
 
@@ -57,35 +57,11 @@ Before you install Docker Engine for the first time on a new host machine, you
 need to set up the Docker repository. Afterward, you can install and update
 Docker from the repository.
 
-Install the `dnf-plugins-core` package (which provides the commands to manage
-your dnf repositories) and set up the repository:
-
-{{< tabs tabTotal="2" >}}
-{{% tab tabName="Fedora 42" %}}
-
-### Set Up Docker Repository on Fedora 42
-
-Run the following commands to enable the official Docker repository:
+Set up the repository:
 
 ```bash
-sudo dnf -y install dnf-plugins-core
-sudo dnf config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo
+sudo dnf config-manager addrepo --from-repofile https://download.docker.com/linux/fedora/docker-ce.repo
 ```
-
-{{% /tab %}}
-{{% tab tabName="Fedora 41 & 40" %}}
-
-### Set Up Docker Repository on Fedora 41 and 40
-
-For older Fedora versions (41 and 40), use `dnf-3` to add the Docker repository:
-
-```bash
-sudo dnf -y install dnf-plugins-core
-sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
-```
-
-{{% /tab %}}
-{{< /tabs >}}
 
 <br />
 
@@ -189,10 +165,10 @@ sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/do
 
 Supported versions:
 
-- Ubuntu Oracular 24.10
+- Ubuntu Stonking 26.10
+- Ubuntu Resolute 26.04 (LTS)
 - Ubuntu Noble 24.04 (LTS)
 - Ubuntu Jammy 22.04 (LTS)
-- Ubuntu Focal 20.04 (LTS)
 
 {{% /alert %}}
 
@@ -211,18 +187,23 @@ sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyring
 sudo chmod a+r /etc/apt/keyrings/docker.asc
 
 # Add the repository to Apt sources:
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
+Types: deb
+URIs: https://download.docker.com/linux/ubuntu
+Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+Components: stable
+Architectures: $(dpkg --print-architecture)
+Signed-By: /etc/apt/keyrings/docker.asc
+EOF
 sudo apt-get update
 ```
 
 <br />
 
 {{% alert context="primary" %}}
-If you use an Ubuntu derivative distro, such as Linux Mint, you may need to use
-**UBUNTU_CODENAME** instead of **VERSION_CODENAME**. {{% /alert %}}
+Ubuntu derivative distributions, such as Linux Mint, are not officially
+supported, though they may work. The command above uses **UBUNTU_CODENAME** when
+it is set, so it also finds the Ubuntu base of a derivative. {{% /alert %}}
 
 <br />
 
@@ -312,6 +293,13 @@ If you use an Ubuntu derivative distro, such as Linux Mint, you may need to use
    sudo rm -rf /var/lib/containerd
    ```
 
+5. Remove the source list and the keyring:
+
+   ```bash
+   sudo rm /etc/apt/sources.list.d/docker.sources
+   sudo rm /etc/apt/keyrings/docker.asc
+   ```
+
    You have now successfully uninstalled Docker Engine.
 
 <br />
@@ -327,9 +315,8 @@ Portainer container from Docker Hub.
 
 After that, open your browser and navigate to the IP address of your local
 machine where Docker is installed. For example, if your server's IP address is
-`192.168.10.10`, go to `http://192.168.10.10:9000` or
-`https://192.168.10.10:9443` to access the Portainer GUI. Follow the
-instructions there to complete the installation of Portainer.
+`192.168.10.10`, go to `https://192.168.10.10:9443` to access the Portainer GUI.
+Follow the instructions there to complete the installation of Portainer.
 
 Congratulations, you have now installed Portainer. From now on, you will use
 Portainer to start new Docker projects.
@@ -354,7 +341,7 @@ docker network create \
   --opt "com.docker.network.bridge.host_binding_ipv4"="0.0.0.0" \
   --opt "com.docker.network.bridge.name"="portainer" \
   --opt "com.docker.network.driver.mtu"="1500" \
-  --label "com.portainer.network.description"="is an isolated network." \
+  --label "com.portainer.network.description"="is an isolated bridge network." \
   portainer_net
 
 docker run \
@@ -364,6 +351,7 @@ docker run \
   --log-driver json-file \
   --log-opt max-size=1M \
   --log-opt max-file=2 \
+  --stop-timeout 60 \
   --name portainer \
   --pull missing \
   --volume /docker/portainer/production/app:/data \
@@ -373,16 +361,13 @@ docker run \
   --hostname portainer \
   --ip 172.20.1.2 \
   --publish 8000:8000/tcp \
-  --publish 8000:8000/udp \
-  --publish 9000:9000/tcp \
-  --publish 9000:9000/udp \
   --publish 9443:9443/tcp \
-  --publish 9443:9443/udp \
+  --pids-limit 512 \
   --security-opt="no-new-privileges=true" \
   --label "com.docker.compose.project"="portainer" \
   --label "com.portainer.description"="deploy, configure, troubleshoot and secure containers." \
   --no-healthcheck \
-  portainer/portainer-ce:latest
+  docker.io/portainer/portainer-ce:lts
 ```
 
 <br />
@@ -401,7 +386,7 @@ docker network create \
   --opt "com.docker.network.bridge.host_binding_ipv4"="0.0.0.0" \
   --opt "com.docker.network.bridge.name"="portainer" \
   --opt "com.docker.network.driver.mtu"="1500" \
-  --label "com.portainer.network.description"="is an isolated network." \
+  --label "com.portainer.network.description"="is an isolated bridge network." \
   portainer_net
 
 docker run \
@@ -411,6 +396,7 @@ docker run \
   --log-driver json-file \
   --log-opt max-size=1M \
   --log-opt max-file=2 \
+  --stop-timeout 60 \
   --name portainer \
   --pull missing \
   --volume /docker/portainer/production/app:/data \
@@ -420,19 +406,16 @@ docker run \
   --hostname portainer \
   --ip 172.20.1.2 \
   --publish 8000:8000/tcp \
-  --publish 8000:8000/udp \
-  --publish 9000:9000/tcp \
-  --publish 9000:9000/udp \
   --publish 9443:9443/tcp \
-  --publish 9443:9443/udp \
+  --pids-limit 512 \
   --security-opt="no-new-privileges=true" \
   --label "com.docker.compose.project"="portainer" \
   --label "com.portainer.description"="deploy, configure, troubleshoot and secure containers." \
   --no-healthcheck \
-  portainer/portainer-ee:latest
+  docker.io/portainer/portainer-ee:lts
 ```
 
 [Official Docker documentation for Fedora]:
-  https://docs.docker.com/desktop/install/fedora
+  https://docs.docker.com/engine/install/fedora/
 [Official Docker documentation for Ubuntu]:
-  https://docs.docker.com/desktop/install/ubuntu
+  https://docs.docker.com/engine/install/ubuntu/
