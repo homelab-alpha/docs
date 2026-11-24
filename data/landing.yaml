@@ -1,38 +1,143 @@
 ---
+# Landing page at / (layouts/index.html). It is shown only when
+# params.landingpage.enabled is true; otherwise / redirects to /docs/.
+#
+# Each section has:
+#   enable:   show the section (true or false)
+#   weight:   order on the page, low to high
+#   template: partial in layouts/partials/landing/ (hero, card_grid,
+#             feature_grid, or cta)
+# Icons are Material Symbols names from assets/icons/material/.
+
 hero:
   enable: true
   weight: 10
   template: hero
 
-  backgroundImage:
-    path: "images/landing-page"
-    filename:
-      desktop: "gradient_desktop.webp"
-      mobile: "gradient_mobile.webp"
-
-  badge:
-    text: "v0.1.3"
-    color: secondary # primary, secondary, success, danger, warning, info, light, dark
-    pill: false
-    soft: true
-
-  title: Homelab-Alpha
-  subtitle: Your gateway to Homelab-Alpha's open source documentation.
-
-  image:
-    path: "images"
-    filename: "homelab-alpha_screenshot.webp"
-    alt: "Homelab-Alpha Screenshot"
-    boxShadow: true
-    rounded: true
+  eyebrow: "Open source documentation"
+  title: "Homelab-Alpha"
+  subtitle: >-
+    Guides, scripts, and configurations for a **self-hosted homelab**. From Docker Compose stacks and DNS filtering to
+    shell scripts and certificates.
 
   ctaButton:
-    icon: rocket_launch
-    btnText: "Get Started"
-    url: "https://homelab-alpha.nl/docs"
+    icon: menu_book
+    btnText: "Read the docs"
+    url: "/docs/"
   cta2Button:
-    icon: construction
-    btnText: "In Development"
-    url: "https://github.com/homelab-alpha/docs"
+    icon: code
+    btnText: "View on GitHub"
+    url: "https://github.com/homelab-alpha"
 
-  # info:
+  # Lines in the terminal card. A line that starts with "$ " is a command.
+  terminal:
+    title: "homelab"
+    lines:
+      - "$ git clone https://github.com/homelab-alpha/docker.git"
+      - "$ cd docker/compose-files/uptime-kuma"
+      - "$ docker compose up -d"
+      - "✔ Container uptime-kuma  Started"
+
+docs:
+  enable: true
+  weight: 20
+  template: card_grid
+
+  title: "Explore the documentation"
+  subtitle: "Pick a topic and start building."
+
+  items:
+    - title: "Docker"
+      icon: devices
+      description: "Compose stacks, networks, and images for a containerized homelab."
+      url: "/docker/"
+    - title: "AdGuard Home"
+      icon: dns
+      description: "Network-wide blocking of ads, trackers, and phishing with filter lists."
+      url: "/adguard-home/"
+    - title: "Linux"
+      icon: terminal
+      description: "Commands, configuration, and tips for the systems that run your homelab."
+      url: "/linux/"
+    - title: "Shell Script"
+      icon: deployed_code
+      description: "Scripts and shell functions that automate everyday system tasks."
+      url: "/shell-script/"
+    - title: "Dotfiles"
+      icon: home_storage
+      description: "A personal shell environment with a menu-driven installer."
+      url: "/dotfiles/"
+    - title: "OpenSSL"
+      icon: shield_locked
+      description: "Self-signed certificates for a homelab and for testing."
+      url: "/openssl/"
+    - title: "Kairos"
+      icon: bolt
+      description: "A Home Assistant card for day-ahead electricity prices."
+      url: "/kairos/"
+    - title: "Back to Basics"
+      icon: design_services
+      description: "Guides on Docker, Markdown, and more, for beginners and as a refresher."
+      url: "/back-to-basics/"
+    - title: "Contributing"
+      icon: heart_plus
+      description: "Help improve the documentation or the code."
+      url: "/contributing/"
+
+features:
+  enable: true
+  weight: 30
+  template: feature_grid
+
+  title: "Made to read"
+  subtitle: "A fast, private documentation site that works on every screen."
+
+  items:
+    - title: "Fast"
+      icon: speed
+      description: "Scores 100 on Google Lighthouse. Scripts and diagrams load only when a page needs them."
+    - title: "Dark mode"
+      icon: dark_mode
+      description: "Follows the theme of your system, or choose light or dark yourself."
+    - title: "Search"
+      icon: search
+      description: "Full-text search of all pages, right in the browser."
+    - title: "E-reader version"
+      icon: chrome_reader_mode
+      description: "A light version of every page for e-readers and slow connections."
+    - title: "No third parties"
+      icon: visibility_off
+      description: "No trackers, no external fonts or icons. Everything comes from this site."
+    - title: "Open source"
+      icon: public
+      description: "All content and code are on GitHub, licensed under CC BY-NC-SA 4.0."
+
+projects:
+  enable: true
+  weight: 40
+  template: card_grid
+
+  title: "Projects on GitHub"
+  subtitle: "The repositories behind the documentation."
+
+  # Take the items from a section of data/links.yaml (the /links/ page).
+  linksSection: "Projects"
+  external: true
+
+community:
+  enable: true
+  weight: 50
+  template: cta
+
+  icon: groups
+  title: "Join the community"
+  subtitle: "Ask questions, share ideas, and get help with your homelab."
+
+  ctaButton:
+    icon: forum
+    btnText: "GitHub Discussions"
+    url: "https://github.com/homelab-alpha/homelab-alpha/discussions"
+  cta2Button:
+    icon: link
+    btnText: "All links"
+    url: "/links/"
