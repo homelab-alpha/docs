@@ -1,0 +1,16 @@
+{{- /*
+  Blockquote render hook for the e-reader version.
+  - GitHub alerts render as a plain blockquote with a bold title, without
+    icons or colors, so old e-reader browsers show them well.
+*/ -}}
+{{- if eq .Type "alert" -}}
+  {{- $title := or .AlertTitle (title (lower .AlertType)) -}}
+  <blockquote class="markdown-alert markdown-alert-{{ lower .AlertType }}">
+    <p><strong>{{ $title }}</strong></p>
+    {{ .Text }}
+  </blockquote>
+{{- else -}}
+  <blockquote>
+    {{ .Text }}
+  </blockquote>
+{{- end -}}
