@@ -1,0 +1,7 @@
+{{- /* Title and subtitle of a landing page section. Context: the section data. */ -}}
+{{- if or .title .subtitle }}
+<div class="landing-section-heading text-center mx-auto mb-5">
+    {{ with .title }}<h2 class="landing-section-title mb-2">{{ . }}</h2>{{ end }}
+    {{ with .subtitle }}<p class="landing-lead mb-0">{{ . | markdownify }}</p>{{ end }}
+</div>
+{{- end }}

@@ -1,0 +1,27 @@
+{{- /*
+  Landing page section: call to action. Context: dict "id" "data" "page".
+  data: icon, title, subtitle, ctaButton, cta2Button (icon, btnText, url).
+*/ -}}
+{{- with .data }}
+<section id="{{ $.id }}" class="landing-section">
+    <div class="container">
+        <div class="landing-cta text-center">
+            {{ with .icon }}<span class="landing-feature-icon mb-3">{{ partial "svg-icon.html" (dict "name" . "tag" "i" "class" "align-middle") }}</span>{{ end }}
+            <h2 class="landing-section-title mb-2">{{ .title }}</h2>
+            {{ with .subtitle }}<p class="landing-lead mb-4">{{ . | markdownify }}</p>{{ end }}
+            <div class="d-flex flex-wrap justify-content-center gap-2">
+                {{ with .ctaButton }}
+                <a href="{{ relLangURL .url }}" class="btn btn-lg btn-primary landing-btn"{{ if strings.HasPrefix .url "http" }} rel="noopener noreferrer" target="_blank"{{ end }}>
+                    {{ with .icon }}{{ partial "svg-icon.html" (dict "name" . "tag" "span" "class" "align-middle me-1") }}{{ end }}{{ .btnText }}
+                </a>
+                {{ end }}
+                {{ with .cta2Button }}
+                <a href="{{ relLangURL .url }}" class="btn btn-lg btn-default landing-btn"{{ if strings.HasPrefix .url "http" }} rel="noopener noreferrer" target="_blank"{{ end }}>
+                    {{ with .icon }}{{ partial "svg-icon.html" (dict "name" . "tag" "span" "class" "align-middle me-1") }}{{ end }}{{ .btnText }}
+                </a>
+                {{ end }}
+            </div>
+        </div>
+    </div>
+</section>
+{{- end }}

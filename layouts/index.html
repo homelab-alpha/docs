@@ -1,22 +1,78 @@
-{{- define "main" -}}
-    {{- $landingPageEnabled := .Site.Params.landingpage.enabled | default false -}}
-    {{- if not $landingPageEnabled -}}
-        <script>
-            window.location.href = "/docs/";
-        </script>
-    {{- else -}}
-        {{- $landingData := hugo.Data.landing -}}
-        {{- $sections := slice -}}
-        {{- range $sectionTitle, $value := $landingData -}}
-            {{- $weight := printf "%v" $value.weight -}}
-            {{- $template := replaceRE `( |-{1,})` "_" $value.template -}}
-            {{- $section := dict "sectionTitle" $sectionTitle "weight" $weight "template" $template -}}
-            {{- $sections = $sections | append $section -}}
-        {{- end -}}
-        {{- $sortedSections := sort $sections "weight" -}}
-        {{- range $sortedSections -}}
-            {{- $.Scratch.Set "sectionTitle" .sectionTitle -}}
-            {{- partial (printf "landing/%s.html" .template) $.Page -}}
-        {{- end -}}
-    {{- end -}}
-{{- end -}}
+<!DOCTYPE html>
+{{- /*
+  Home page. With params.landingpage.enabled the landing page is shown, built
+  from the sections in data/landing.yaml (sorted by weight, one partial in
+  layouts/partials/landing/ per section). It uses the head, the cards, and the
+  dark mode switch of the docs, so it has the same style as the rest of the
+  site. Without the setting, the home page redirects to /docs/.
+*/ -}}
+{{ $.Scratch.Delete "social_list" }}
+{{ $.Scratch.Set "pathName" (printf "%s" (.Site.Params.docs.pathName | default "docs")) }}
+{{- $enabled := .Site.Params.landingpage.enabled | default false -}}
+{{- $docsURL := relLangURL "docs/" -}}
+<html lang="{{ .Site.Language.Lang }}" dir="{{ .Site.Language.Direction | default "ltr" }}">
+{{- if not $enabled }}
+    <head>
+        <meta charset="utf-8">
+        <title>{{ .Site.Title }}</title>
+        <meta name="robots" content="noindex">
+        <meta http-equiv="refresh" content="0; url={{ $docsURL }}">
+        <link rel="canonical" href="{{ "docs/" | absLangURL }}">
+    </head>
+    <body>
+        <script>window.location.replace({{ $docsURL }});</script>
+        <p><a href="{{ $docsURL }}">Go to the documentation</a></p>
+    </body>
+{{- else }}
+    {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "head.html") . -}}
+    <body class="landing">
+        <header class="landing-header">
+            <div class="container d-flex align-items-center">
+                <a class="landing-brand d-flex align-items-center text-reset text-decoration-none" href="{{ relLangURL "" }}" aria-label="Homelab-Alpha home">
+                    {{ with resources.Get "images/logos/logo.svg" }}{{ .Content | safeHTML }}{{ end }}
+                    <span class="fw-semibold ms-2 d-none d-sm-inline">{{ .Site.Params.docs.title | default .Site.Title }}</span>
+                </a>
+                <nav class="ms-auto d-flex align-items-center" aria-label="Main">
+                    <a class="landing-nav-link" href="{{ $docsURL }}">Docs</a>
+                    <a class="landing-nav-link" href="{{ relLangURL "links/" }}">Links</a>
+                    {{ with .Site.Params.social.github }}
+                    <a class="btn btn-icon btn-default ms-1" href="https://github.com/{{ . }}" rel="noopener noreferrer" target="_blank" aria-label="GitHub">
+                        {{ with resources.Get "images/social/github.svg" }}{{ .Content | safeHTML }}{{ end }}
+                    </a>
+                    {{ end }}
+                    {{ if eq .Site.Params.docs.darkMode true -}}
+                    <span class="ms-1">{{ partial "mode-switch.html" . }}</span>
+                    {{- end }}
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            {{- $sections := slice -}}
+            {{- range $key, $value := hugo.Data.landing -}}
+                {{- if $value.enable -}}
+                    {{- $sections = $sections | append (dict "key" $key "weight" (int ($value.weight | default 0)) "data" $value) -}}
+                {{- end -}}
+            {{- end -}}
+            {{- range sort $sections "weight" -}}
+                {{- $template := replaceRE `( |-{1,})` "_" .data.template -}}
+                {{- partial (printf "landing/%s.html" $template) (dict "id" .key "data" .data "page" $) -}}
+            {{- end -}}
+        </main>
+
+        <footer class="d-print-none">
+            <div class="container">
+                <p class="text-sm-start text-center mb-0">
+                    {{ $yearToken := (cond (isset .Site.Params (lower "copyrightYearToken")) $.Site.Params.copyrightYearToken ":YEAR:") }}
+                    {{ replace $.Site.Params.footer.copyright $yearToken (string (now.Format "2006")) | markdownify }}
+                </p>
+            </div>
+        </footer>
+
+        {{ if eq .Site.Params.docs.darkMode true -}}
+            {{ $darkModeSwitch := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/darkmode-switch.js") | js.Build | minify }}
+            <script>{{ $darkModeSwitch.Content | safeJS }}</script>
+        {{ end -}}
+    </body>
+{{- end }}
+</html>
