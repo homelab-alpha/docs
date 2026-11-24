@@ -31,18 +31,12 @@ keywords:
   - electricity price breakdown
   - custom card
 
-draft: true
+draft: false
 weight: 6501
 
 toc: true
 katex: true
 ---
-
-<br />
-
-{{% alert context="warning" %}}
-**Caution** - This documentation is in progress
-{{% /alert %}}
 
 <br />
 

@@ -83,6 +83,7 @@ hands-on environment.
   a self-hosted homelab.
 - **[dotfiles]:** Dotfiles and a menu-driven installer to customize and
   configure a Linux shell environment.
+- **[Kairos]:** A Home Assistant Lovelace card for day-ahead electricity prices.
 - **[OpenSSL]:** Configuration files and helper scripts to generate self-signed
   certificates for a homelab and for testing. Not suitable for production use.
 - **[Shell Script]:** A collection of shell scripts and shell functions for
@@ -100,7 +101,8 @@ hands-on environment.
 ## Notes
 
 - Contributions are welcome. Read the [contributing guidelines] first. They
-  describe the branch names, the commit messages, and the review process.
+  describe the branch names, the commit messages, and the review process. Kairos
+  does not accept contributions until release v1.0.0.
 - AI-assisted contributions follow the AI contribution policy of the repository.
 - Having issues with one of my repositories? Don't hesitate to ask for help!
 - Follow me for more exciting projects and updates!
@@ -122,6 +124,7 @@ SERVICE**, **LICENSE**, and **NOTICE**.
 [AdGuard Home]: https://github.com/homelab-alpha/adguard-home
 [Docker]: https://github.com/homelab-alpha/docker
 [dotfiles]: https://github.com/homelab-alpha/dotfiles
+[Kairos]: https://github.com/homelab-alpha/kairos
 [OpenSSL]: https://github.com/homelab-alpha/openssl
 [Shell Script]: https://github.com/homelab-alpha/shell-script
 [Docs]: https://github.com/homelab-alpha/docs

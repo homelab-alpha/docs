@@ -84,18 +84,20 @@ Even so, it is advisable to verify the information before you rely on it.
 
 **Can I contribute to the documentation?**\
 Yes. Contributions are welcome in all Homelab-Alpha repositories, including the
-source of this site. Read the [contributing guidelines] first. They describe the
-branch names, the commit messages, and the review process.
+source of this site. Kairos is the exception: it does not accept contributions
+until release v1.0.0. Read the [contributing guidelines] first. They describe
+the branch names, the commit messages, and the review process.
 
 **Which license applies to the content?**\
 The content is licensed under the Creative Commons
 Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA
-4.0). See the [license] page for the full text.
+4.0). See the [license] page for the full text. Kairos is the exception: it is
+licensed under the Apache License 2.0.
 
 **Where can I find the source of the scripts and configuration files?**\
 Every project has its own repository on [GitHub]: AdGuard Home, Docker,
-dotfiles, OpenSSL, and Shell Script. The documentation pages show and explain
-the files from those repositories.
+dotfiles, Kairos, OpenSSL, and Shell Script. The documentation pages show and
+explain the files from those repositories.
 
 <br />
 

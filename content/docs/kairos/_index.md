@@ -6,6 +6,6 @@ description:
 url: "kairos"
 icon: "bolt"
 
-draft: true
+draft: false
 weight: 6500
 ---
