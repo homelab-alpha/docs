@@ -25,18 +25,12 @@ keywords:
   - heatmap
   - kiosk mode
 
-draft: true
+draft: false
 weight: 6503
 
 toc: true
 katex: true
 ---
-
-<br />
-
-{{% alert context="warning" %}}
-**Caution** - This documentation is in progress
-{{% /alert %}}
 
 <br />
 

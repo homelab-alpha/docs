@@ -61,8 +61,8 @@ for traceability.
 
 - **Filename**: `ssh_keygen_script.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: May 18, 2024
-- **Version**: 1.0
+- **Date**: December 07, 2024
+- **Version**: 1.0.1
 - **Description**: This script automates the generation and conversion of SSH
   key pairs for secure communication. It supports both `ed25519` and `RSA` key
   types, allowing users to specify the desired key type, filename for the key

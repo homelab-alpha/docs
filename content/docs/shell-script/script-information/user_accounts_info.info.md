@@ -60,8 +60,8 @@ a formatted manner.
 
 - **Filename**: `user_accounts_info.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: May 18, 2024
-- **Version**: 1.0
+- **Date**: December 07, 2024
+- **Version**: 1.0.1
 - **Description**: The script retrieves information about system user accounts
   and organizes them into system and normal user categories.
 - **RAW Script**: [user_accounts_info.sh]

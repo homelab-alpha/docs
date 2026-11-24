@@ -130,6 +130,10 @@ networks:
 ```yaml
 services:
   mini-qr_app:
+    deploy:
+      resources:
+        limits:
+          pids: 512 # Limits the number of processes and threads (fork bomb protection).
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -153,7 +157,6 @@ services:
     networks:
       mini-qr_net:
         ipv4_address: 172.20.26.2
-    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -170,6 +173,10 @@ services:
       start_interval: 5s
 
   mini-qr_nginx:
+    deploy:
+      resources:
+        limits:
+          pids: 512 # Limits the number of processes and threads (fork bomb protection).
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -201,7 +208,6 @@ services:
         ipv4_address: 172.20.26.3
     ports:
       - "3017:80/tcp" # HTTP
-    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     cap_drop:
@@ -229,6 +235,8 @@ services:
 <br />
 
 - **mini-qr_app**: The service definition.
+  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **restart: unless-stopped**: Restarts the container unless it is explicitly
     stopped.
   - **logging**: Uses the `json-file` driver, limited to 1MB per file and a
@@ -251,8 +259,6 @@ services:
   - **hostname: mini-qr**: Sets the hostname for the container.
   - **networks**: Connects the service to `mini-qr_net` with static IP address
     `172.20.26.2`.
-  - **pids_limit: 512**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
   - **security_opt: no-new-privileges:true**: Prevents the container from
     gaining new privileges.
   - **labels**: A description label.
@@ -260,6 +266,8 @@ services:
     container.
 
 - **mini-qr_nginx**: The nginx reverse proxy in front of the Mini QR app.
+  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **restart: unless-stopped**: Restarts the container unless it is explicitly
     stopped.
   - **logging**: Uses the `json-file` driver, limited to 1MB per file and a
@@ -281,8 +289,6 @@ services:
   - **networks**: Connects the service to `mini-qr_net` with static IP address
     `172.20.26.3`.
   - **ports: 3017:80/tcp**: Publishes the web interface on host port 3017.
-  - **pids_limit: 512**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
   - **security_opt: no-new-privileges:true**: Prevents the container from
     gaining additional privileges.
   - **cap_drop: ALL**: Drops all Linux capabilities.

@@ -140,6 +140,10 @@ networks:
 ```yaml
 services:
   speedtest-tracker_db:
+    deploy:
+      resources:
+        limits:
+          pids: 2048 # Limits the number of processes and threads (fork bomb protection).
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -173,7 +177,6 @@ services:
     networks:
       speedtest-tracker_net:
         ipv4_address: 172.20.23.2
-    pids_limit: 2048 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -188,6 +191,10 @@ services:
       start_interval: 5s
 
   speedtest-tracker_app:
+    deploy:
+      resources:
+        limits:
+          pids: 512 # Limits the number of processes and threads (fork bomb protection).
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -253,7 +260,6 @@ services:
     ports:
       - "3013:80/tcp" # HTTP
       # - "3013:443/tcp" # HTTPS
-    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -274,6 +280,8 @@ services:
 
 - **services**: Defines services to be deployed.
 - **speedtest-tracker_db**: The service name for the MariaDB container.
+  - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **restart: unless-stopped**: Ensures the container restarts unless it is
     explicitly stopped.
   - **logging**: Configures logging for the container.
@@ -312,8 +320,6 @@ services:
   - **networks**: Connects the service to the `speedtest-tracker_net` network.
     - **ipv4_address: 172.20.23.2**: Assigns a static IP address to the
       container.
-  - **pids_limit: 2048**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
@@ -335,6 +341,8 @@ services:
 
 - **speedtest-tracker_app**: The service name for the Speedtest Tracker
   container.
+  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **restart: unless-stopped**: Ensures the container restarts unless it is
     explicitly stopped.
   - **logging**: Configures logging for the container.
@@ -403,8 +411,6 @@ services:
   - **ports**: Maps container ports to host ports.
     - **3013:80/tcp**: Maps HTTP port (TCP).
     - **3013:443/tcp**: Maps HTTPS port (TCP, commented out).
-  - **pids_limit: 512**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.

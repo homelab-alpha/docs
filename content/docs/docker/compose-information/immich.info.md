@@ -143,6 +143,10 @@ networks:
 ```yaml
 services:
   immich_db:
+    deploy:
+      resources:
+        limits:
+          pids: 2048 # Limits the number of processes and threads (fork bomb protection).
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -175,7 +179,6 @@ services:
     networks:
       immich_net:
         ipv4_address: 172.20.24.2
-    pids_limit: 2048 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -190,6 +193,10 @@ services:
       start_interval: 5s
 
   immich_redis:
+    deploy:
+      resources:
+        limits:
+          pids: 2048 # Limits the number of processes and threads (fork bomb protection).
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -212,7 +219,6 @@ services:
     networks:
       immich_net:
         ipv4_address: 172.20.24.3
-    pids_limit: 2048 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -227,6 +233,10 @@ services:
       start_interval: 5s
 
   immich_ml:
+    deploy:
+      resources:
+        limits:
+          pids: 2048 # Limits the number of processes and threads (fork bomb protection).
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -254,7 +264,6 @@ services:
     networks:
       immich_net:
         ipv4_address: 172.20.24.4
-    pids_limit: 2048 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -265,6 +274,10 @@ services:
       disable: false
 
   immich_app:
+    deploy:
+      resources:
+        limits:
+          pids: 2048 # Limits the number of processes and threads (fork bomb protection).
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -299,7 +312,6 @@ services:
         ipv4_address: 172.20.24.5
     ports:
       - "3015:2283/tcp" # HTTP
-    pids_limit: 2048 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -314,6 +326,8 @@ services:
 
 - **services**: Defines services to be deployed.
 - **immich_db**: The service name for the PostgreSQL database container.
+  - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **restart: unless-stopped**: Ensures the container restarts unless it is
     explicitly stopped.
   - **logging**: Configures logging for the container.
@@ -349,8 +363,6 @@ services:
   - **networks**: Connects the service to the `immich_net` network.
     - **ipv4_address: 172.20.24.2**: Assigns a static IP address to the
       container.
-  - **pids_limit: 2048**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
@@ -371,6 +383,8 @@ services:
 <br />
 
 - **immich_redis**: The service name for the Redis database container.
+  - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **restart: unless-stopped**: Ensures the container restarts unless it is
     explicitly stopped.
   - **logging**: Configures logging for the container.
@@ -400,8 +414,6 @@ services:
   - **networks**: Connects the service to the `immich_net` network.
     - **ipv4_address: 172.20.24.3**: Assigns a static IP address to the
       container.
-  - **pids_limit: 2048**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
@@ -422,6 +434,8 @@ services:
 <br />
 
 - **immich_ml**: The service name for the machine learning component container.
+  - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **restart: unless-stopped**: Ensures the container restarts unless it is
     explicitly stopped.
   - **logging**: Configures logging for the container.
@@ -452,8 +466,6 @@ services:
   - **networks**: Connects the service to the `immich_net` network.
     - **ipv4_address: 172.20.24.4**: Assigns a static IP address to the
       container.
-  - **pids_limit: 2048**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
@@ -466,6 +478,8 @@ services:
 <br />
 
 - **immich_app**: The service name for the Immich application container.
+  - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **restart: unless-stopped**: Ensures the container restarts unless it is
     explicitly stopped.
   - **logging**: Configures logging for the container.
@@ -502,8 +516,6 @@ services:
       container.
   - **ports**: Maps container ports to host ports.
     - **3015:2283/tcp**: Maps TCP port 2283 in the container to host port 3015.
-  - **pids_limit: 2048**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.

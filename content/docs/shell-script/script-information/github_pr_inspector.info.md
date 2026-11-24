@@ -61,7 +61,7 @@ manage GitHub pull request inspection by allowing users to generate `.patch` and
 
 - **Filename**: `github_pr_inspector.sh`
 - **Author**: GJS (homelab-alpha)
-- **Date**: Jan 03, 2025
+- **Date**: January 03, 2025
 - **Version**: 1.0.0
 - **Description**: This script provides an interactive interface for generating
   .patch and .diff links for GitHub pull requests. It allows users to inspect PR

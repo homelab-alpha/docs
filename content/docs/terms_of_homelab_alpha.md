@@ -83,9 +83,7 @@ non-commercial purposes in accordance with the terms of that license.
 Attribution is required, and adapted material must be shared under the same
 license.
 
-Contributions submitted to this project are governed by the same license, as
-described in
-[CONTRIBUTING.md](https://github.com/homelab-alpha/docs/blob/main/CONTRIBUTING.md).
+Contributions submitted to this project are governed by the same license.
 
 ## 3. Vulnerability Reporting
 
@@ -119,8 +117,8 @@ change their terms.
 - Licenses and attribution notices are listed in the
   [NOTICE](https://github.com/homelab-alpha/docs/blob/main/NOTICE) file and in
   the dependency configuration files of the project (for example, `package.json`
-  and `package-lock.json`). Dependency changes are checked for denied licenses
-  by the Dependency Review workflow.
+  and `package-lock.json`). The Dependency Review workflow checks dependency
+  changes for licenses that are not allowed.
 - We do not control the licenses of third-party components and cannot guarantee
   that they stay the same. A component can change its license in a later
   version.

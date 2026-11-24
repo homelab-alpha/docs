@@ -142,6 +142,10 @@ networks:
 ```yaml
 services:
   nginx-proxy-manager_db:
+    deploy:
+      resources:
+        limits:
+          pids: 2048 # Limits the number of processes and threads (fork bomb protection).
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -175,7 +179,6 @@ services:
     networks:
       nginx-proxy-manager_net:
         ipv4_address: 172.20.20.2
-    pids_limit: 2048 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -190,6 +193,10 @@ services:
       start_interval: 5s
 
   nginx-proxy-manager_app:
+    deploy:
+      resources:
+        limits:
+          pids: 512 # Limits the number of processes and threads (fork bomb protection).
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -235,7 +242,6 @@ services:
       - "80:80/tcp" # HTTP
       - "81:81/tcp" # web admin port
       - "443:443/tcp" # HTTPS
-    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -255,6 +261,8 @@ services:
 
 - **services**: Defines services to be deployed.
 - **nginx-proxy-manager_db**: The service name for the MariaDB container.
+  - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **restart: unless-stopped**: Ensures the container restarts unless it is
     explicitly stopped.
   - **logging**: Configures logging for the container.
@@ -292,8 +300,6 @@ services:
   - **networks**: Connects the service to the `nginx-proxy-manager_net` network.
     - **ipv4_address: 172.20.20.2**: Assigns a static IP address to the
       container.
-  - **pids_limit: 2048**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.
@@ -315,6 +321,8 @@ services:
 
 - **nginx-proxy-manager_app**: The service name for the Nginx Proxy Manager
   container.
+  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **restart: unless-stopped**: Ensures the container restarts unless it is
     explicitly stopped.
   - **logging**: Configures logging for the container.
@@ -361,8 +369,6 @@ services:
     - **80:80/tcp**: Maps HTTP TCP port.
     - **81:81/tcp**: Maps the UI TCP port.
     - **443:443/tcp**: Maps HTTPS TCP port.
-  - **pids_limit: 512**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.

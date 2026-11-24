@@ -136,6 +136,10 @@ networks:
 ```yaml
 services:
   adguard-home_app:
+    deploy:
+      resources:
+        limits:
+          pids: 512 # Limits the number of processes and threads (fork bomb protection).
     restart: always
     logging:
       driver: "json-file"
@@ -174,7 +178,6 @@ services:
       - "5443:5443/udp" # DNSCrypt
       # - "6060:6060/tcp" # HTTP (pprof)
       - "8853:8853/udp" # DNS over QUIC
-    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -188,6 +191,8 @@ services:
 
 - **services**: Defines services to be deployed.
 - **adguard-home_app**: The service name for the AdGuard Home container.
+  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **restart: always**: Ensures the container restarts automatically if it
     stops.
   - **logging**: Configures logging for the container.
@@ -225,8 +230,6 @@ services:
     - **3000:3000/tcp**: Maps the web admin port.
     - **5443:5443/tcp**: Maps the DNSCrypt port.
     - **8853:8853/udp**: Maps DNS over QUIC.
-  - **pids_limit: 512**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.

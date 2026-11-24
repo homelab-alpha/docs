@@ -136,6 +136,10 @@ networks:
 ```yaml
 services:
   netdata_app:
+    deploy:
+      resources:
+        limits:
+          pids: 2048 # Limits the number of processes and threads (fork bomb protection).
     restart: always
     logging:
       driver: "json-file"
@@ -173,7 +177,6 @@ services:
         ipv4_address: 172.20.4.2
     ports:
       - "19999:19999/tcp" # HTTP
-    pids_limit: 2048 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - apparmor:unconfined
       - no-new-privileges:true
@@ -197,6 +200,8 @@ services:
 
 - **services**: Defines services to be deployed.
 - **netdata_app**: The service name for the Netdata container.
+  - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **restart: always**: Ensures the container always restarts if it stops or
     fails.
   - **logging**: Configures logging for the container.
@@ -245,8 +250,6 @@ services:
   - **ports**: Maps host ports to container ports.
     - **"19999:19999/tcp"**: Maps TCP port 19999 on the host to port 19999 in
       the container.
-  - **pids_limit: 2048**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **apparmor:unconfined**: Runs the container without AppArmor confinement.
     - **no-new-privileges:true**: Prevents the container from gaining additional
@@ -276,6 +279,10 @@ services:
 ```yaml
 services:
   netdata_socket-proxy:
+    deploy:
+      resources:
+        limits:
+          pids: 512 # Limits the number of processes and threads (fork bomb protection).
     # Read-only proxy for the Docker API. The app reaches Docker through this proxy instead of the socket.
     restart: unless-stopped
     logging:
@@ -300,7 +307,6 @@ services:
     networks:
       netdata_net:
         ipv4_address: 172.20.4.3
-    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -313,6 +319,8 @@ services:
 - **netdata_socket-proxy**: The read-only Docker socket proxy. `netdata_app`
   reaches the Docker API through this proxy on port 2375 instead of mounting the
   Docker socket.
+  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **restart: unless-stopped**: Restarts the container unless it is explicitly
     stopped.
   - **logging**: Uses the `json-file` driver, limited to 1MB per file and a
@@ -335,8 +343,6 @@ services:
   - **hostname: netdata_socket-proxy**: Sets the hostname for the container.
   - **networks**: Connects the service to the stack network with static IP
     address `172.20.4.3`.
-  - **pids_limit: 512**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
   - **security_opt: no-new-privileges:true**: Prevents the container from
     gaining additional privileges.
   - **labels**: A description label.

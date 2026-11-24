@@ -138,6 +138,10 @@ networks:
 ```yaml
 services:
   it-tools_app:
+    deploy:
+      resources:
+        limits:
+          pids: 512 # Limits the number of processes and threads (fork bomb protection).
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -164,7 +168,6 @@ services:
         ipv4_address: 172.20.22.3
     ports:
       - "3014:80/tcp" # HTTP
-    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     cap_drop:
@@ -186,6 +189,8 @@ services:
 
 - **services**: Defines services to be deployed.
 - **it-tools_app**: The service name for the it-tools container.
+  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **restart: unless-stopped**: Ensures the container restarts unless it is
     explicitly stopped.
   - **logging**: Configures logging for the container.
@@ -212,8 +217,6 @@ services:
       container.
   - **ports**: Maps container ports to host ports.
     - **3014:80/tcp**: Maps the HTTP port (TCP).
-  - **pids_limit: 512**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges\:true**: Ensures the container does not gain new
       privileges.

@@ -94,7 +94,7 @@ docker pull image_name
 docker run image_name
 ```
 
-For using Docker Compose, create a `docker-compose.yml` file with your app's
+For using Docker Compose, create a `compose.yml` file with your app's
 configuration and then run the following command:
 
 ```bash

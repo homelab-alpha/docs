@@ -140,6 +140,10 @@ networks:
 ```yaml
 services:
   edge-agent_app:
+    deploy:
+      resources:
+        limits:
+          pids: 512 # Limits the number of processes and threads (fork bomb protection).
     restart: always
     logging:
       driver: "json-file"
@@ -170,7 +174,6 @@ services:
     networks:
       edge-agent_net:
         ipv4_address: 172.20.18.2
-    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -184,6 +187,8 @@ services:
 
 - **services**: Defines services to be deployed.
 - **edge-agent_app**: The service name for the Portainer Edge Agent container.
+  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **restart: always**: Ensures the container restarts automatically.
   - **logging**: Configures logging for the container.
     - **driver: "json-file"**: Uses JSON file logging driver.
@@ -217,8 +222,6 @@ services:
   - **networks**: Connects the service to the `edge-agent_net` network.
     - **ipv4_address: 172.20.18.2**: Assigns a static IP address to the
       container.
-  - **pids_limit: 512**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.

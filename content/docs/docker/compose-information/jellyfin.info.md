@@ -135,6 +135,10 @@ networks:
 ```yaml
 services:
   jellyfin_app:
+    deploy:
+      resources:
+        limits:
+          pids: 2048 # Limits the number of processes and threads (fork bomb protection).
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -167,7 +171,6 @@ services:
     devices:
       - /dev/dri:/dev/dri
       - /dev/dri/renderD128:/dev/dri/renderD128
-    pids_limit: 2048 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -197,6 +200,8 @@ services:
 
 - **services**: Defines services to be deployed.
 - **jellyfin_app**: The service name for the Jellyfin container.
+  - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **restart: unless-stopped**: Ensures the container restarts unless it is
     explicitly stopped.
   - **logging**: Configures logging for the container.
@@ -238,8 +243,6 @@ services:
       device.
     - **/dev/dri/renderD128:/dev/dri/renderD128**: Adds the host's render
       device.
-  - **pids_limit: 2048**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges: true**: Prevents the container from gaining
       additional privileges.

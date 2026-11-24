@@ -136,6 +136,10 @@ networks:
 ```yaml
 services:
   mariadb_db:
+    deploy:
+      resources:
+        limits:
+          pids: 2048 # Limits the number of processes and threads (fork bomb protection).
     restart: always
     logging:
       driver: "json-file"
@@ -172,7 +176,6 @@ services:
         published: 3306 # publicly exposed port
         protocol: tcp # tcp or udp
         mode: ingress # host: For publishing a host port on each node
-    pids_limit: 2048 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -191,6 +194,8 @@ services:
 
 - **services**: Defines services to be deployed.
 - **mariadb_db**: The service name for the MariaDB container.
+  - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **restart: always**: The container always restarts when it stops.
   - **logging**: Configures logging for the container.
     - **driver: "json-file"**: Uses the JSON file logging driver.
@@ -232,8 +237,6 @@ services:
     - **published: 3306**: The port that is exposed on the host.
     - **protocol: tcp**: Uses TCP.
     - **mode: ingress**: Publishes the port on the swarm ingress network.
-  - **pids_limit: 2048**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
   - **security_opt**: Adds security options to the container.
     - **no-new-privileges:true**: Ensures that the container cannot gain new
       privileges.

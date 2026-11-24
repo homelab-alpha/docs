@@ -137,6 +137,10 @@ networks:
 ```yaml
 services:
   cloudbeaver_app:
+    deploy:
+      resources:
+        limits:
+          pids: 512 # Limits the number of processes and threads (fork bomb protection).
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -160,7 +164,6 @@ services:
         ipv4_address: 172.20.14.3
     ports:
       - "3978:8978/tcp" # HTTP(s)
-    pids_limit: 512 # Limits the number of processes and threads (fork bomb protection).
     security_opt:
       - no-new-privileges:true
     labels:
@@ -180,6 +183,8 @@ services:
 
 - **services**: Defines services to be deployed.
 - **cloudbeaver_app**: The service name for the CloudBeaver container.
+  - **deploy.resources.limits.pids: 512**: Limits the number of processes and
+    threads in the container, which protects the host against fork bombs.
   - **restart: unless-stopped**: Ensures the container restarts unless it is
     explicitly stopped.
   - **logging**: Configures logging for the container.
@@ -206,8 +211,6 @@ services:
       container.
   - **ports**: Maps container ports to host ports.
     - **3978:8978/tcp**: Maps the HTTP(s) port.
-  - **pids_limit: 512**: Limits the number of processes and threads in the
-    container, which protects the host against fork bombs.
   - **security_opt**: Security options for the container.
     - **no-new-privileges:true**: Ensures the container does not gain new
       privileges.

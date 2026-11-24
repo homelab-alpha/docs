@@ -25,18 +25,12 @@ keywords:
   - Home Assistant dashboard resource
   - custom:kairos-card
 
-draft: true
+draft: false
 weight: 6502
 
 toc: true
 katex: true
 ---
-
-<br />
-
-{{% alert context="warning" %}}
-**Caution** - This documentation is in progress
-{{% /alert %}}
 
 <br />
 
