@@ -36,6 +36,8 @@ hero:
       - "$ git clone https://github.com/homelab-alpha/docker.git"
       - "$ cd docker/compose-files/dozzle"
       - "$ docker compose up -d"
+      - "[+] Running 2/2"
+      - "✔ Network dozzle    Created"
       - "✔ Container dozzle  Started"
 
 docs:
