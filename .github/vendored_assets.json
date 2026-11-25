@@ -133,7 +133,7 @@
       "files": {
         "assets/docs/js/simple-scrollspy.min.js": {
           "from": "demo/dist/simple-scrollspy.min.js",
-          "sha256": "eb11f83c6f40d56509b5cefa9a53ecbc303965ac90ddcd00ba8185deee79dbe4"
+          "sha256": "7b6733019dee4d590d9c4f660df5de0c567d9a391f6fba2031efd298d6109653"
         }
       }
     },
