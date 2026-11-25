@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 182 24" width="182" height="24" role="img" aria-label="Build &amp; Deploy: passing">
-  <title>Build &amp; Deploy: passing</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 24" width="176" height="24" role="img" aria-label="Build &amp; Deploy: failing">
+  <title>Build &amp; Deploy: failing</title>
   <style>
     .tile { fill: #eaeef2; stroke: #c3c9cf; }
     .icon { stroke: #5c5c61; }
@@ -20,9 +20,9 @@
       .dot-none { stroke: #8b949e; }
     }
   </style>
-  <rect class="tile" x="0.5" y="0.5" width="181" height="23" rx="11.5" stroke-width="1"/>
+  <rect class="tile" x="0.5" y="0.5" width="175" height="23" rx="11.5" stroke-width="1"/>
   <g class="icon" transform="translate(12 6.0) scale(0.75)" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M2 8 H14 M8 2 C5.5 4.5 5.5 11.5 8 14 M8 2 C10.5 4.5 10.5 11.5 8 14"/></g>
   <text class="label" x="32" y="16" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="400" textLength="77.0" lengthAdjust="spacing">Build &amp; Deploy</text>
-  <text class="value" x="113.0" y="16" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" textLength="43.1" lengthAdjust="spacing">passing</text>
-  <circle class="dot-ok" cx="167.1" cy="12.0" r="3.0"/>
+  <text class="value" x="113.0" y="16" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" textLength="37.5" lengthAdjust="spacing">failing</text>
+  <circle class="dot-fail" cx="161.5" cy="12.0" r="3.0"/>
 </svg>
