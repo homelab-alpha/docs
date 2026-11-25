@@ -22,7 +22,10 @@ regexes = ['''UfXXWzQ2B1yVX57GU3QV8EQyTizMUvUm''']
 [[allowlists]]
 description = "Example EC private key in the OpenSSL overview, in English and Dutch"
 targetRules = ["private-key"]
-paths = ['''content(-nl)?/docs/openssl/openssl_overview\.md$''']
+paths = [
+  '''content/docs/openssl/openssl_overview\.md$''',
+  '''content-nl/docs/openssl/openssl_overview\.md$''',
+]
 
 [[allowlists]]
 description = "False positive in the vendored, minified Mermaid bundle"
