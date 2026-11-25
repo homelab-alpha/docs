@@ -2,8 +2,10 @@ sans_serif_font = "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', H
 secondary_font  = "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif"
 mono_font       = "'JetBrains Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace"
 
+# Show the landing page at / (layouts/index.html). Without it, / redirects to
+# /docs/.
 [landingpage]
-  enabled = false
+  enabled = true
 
 [head]
   author = "Homelab-Alpha"
