@@ -28,11 +28,34 @@ const TYPES = {
 
 const COMPRESS = new Set([".css", ".html", ".js", ".json", ".svg", ".txt", ".webmanifest", ".xml"]);
 
+// The site root, with a separator at the end, so "/site-other" does not count
+// as inside "/site".
+const ROOT = path.resolve(SITE_DIR) + path.sep;
+
+// The URL path of a request as a clean absolute path ("/a/b/"), or null when it
+// cannot be decoded. It never starts with "//", so it is always a local path.
+function cleanPath(urlPath) {
+  let p;
+  try {
+    p = decodeURIComponent(String(urlPath).split(/[?#]/)[0]);
+  } catch {
+    return null;
+  }
+  const clean = path.posix.normalize("/" + p.replace(/\\/g, "/")).replace(/^\/+/, "/");
+  return p.endsWith("/") && !clean.endsWith("/") ? clean + "/" : clean;
+}
+
+// The file or folder for a clean path, or null when it is outside the site.
+function sitePath(clean) {
+  const file = path.resolve(ROOT, "." + clean);
+  return file === ROOT.slice(0, -1) || file.startsWith(ROOT) ? file : null;
+}
+
 // Map a URL path to a file in the site, or null.
 export function resolveFile(urlPath) {
-  let p = decodeURIComponent(urlPath.split(/[?#]/)[0]);
-  const file = path.join(SITE_DIR, p);
-  if (!file.startsWith(SITE_DIR)) return null;
+  const clean = cleanPath(urlPath);
+  const file = clean === null ? null : sitePath(clean);
+  if (file === null) return null;
   if (existsSync(file) && statSync(file).isDirectory()) {
     const index = path.join(file, "index.html");
     return existsSync(index) ? index : null;
@@ -50,9 +73,11 @@ export function startServer() {
     let status = 200;
     if (!file) {
       // A directory path without a trailing slash: redirect, like a real host.
-      const dir = path.join(SITE_DIR, decodeURIComponent(req.url.split(/[?#]/)[0]));
-      if (!req.url.endsWith("/") && existsSync(path.join(dir, "index.html"))) {
-        res.writeHead(301, { Location: req.url + "/" });
+      // The target is the clean local path, never the raw request URL.
+      const clean = cleanPath(req.url);
+      const dir = clean === null ? null : sitePath(clean);
+      if (dir !== null && !clean.endsWith("/") && existsSync(path.join(dir, "index.html"))) {
+        res.writeHead(301, { Location: clean + "/" });
         res.end();
         return;
       }
