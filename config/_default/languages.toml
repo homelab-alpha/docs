@@ -2,9 +2,6 @@
 # /nl/. The interface texts are in i18n/<language>.toml, translated data files
 # are data/<name>_<language>.yaml (see layouts/partials/data.html), and
 # translated pages are in the content folder of the language.
-#
-# Dutch is prepared but disabled until enough pages are translated. To test it,
-# set disabled = false and run hugo server.
 
 [en]
   contentDir = "content"
@@ -15,7 +12,6 @@
 
 [nl]
   contentDir = "content-nl"
-  disabled   = true
   label      = "Nederlands"
   locale     = "nl-NL"
   title      = "Homelab-Alpha"

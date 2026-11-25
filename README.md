@@ -146,8 +146,8 @@ the Build & Deploy workflow.
 
 ### Languages
 
-The site is in English at `/`. Dutch is prepared at `/nl/` but disabled until
-enough pages are translated (`config/_default/languages.toml`).
+The site is in English at `/` and in Dutch at `/nl/`
+(`config/_default/languages.toml`).
 
 - Interface texts: `i18n/en.toml` and `i18n/nl.toml`, with the same keys.
 - Data files: `data/landing.yaml` and `data/links.yaml`, with Dutch versions in
@@ -157,7 +157,8 @@ enough pages are translated (`config/_default/languages.toml`).
 - Pages: a Dutch page goes in `content-nl/`, at the same path as the English
   page in `content/`, so the language menu links the two.
 
-To test Dutch, set `disabled = false` for `nl` and run `hugo server`.
+When an English page changes, update the Dutch page as well. This includes the
+pages in `script-information/`, which show the text of the scripts.
 
 ## Project Structure
 
