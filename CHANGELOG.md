@@ -21,6 +21,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat(ui): refresh the typography, theme, and materials [ae55799](https://github.com/homelab-alpha/docs/commit/ae55799897ab32fbda692d056e406be45ec551ea) by [@homelab-alpha](https://github.com/homelab-alpha)
 - feat(ui): improve the layout on large screens [192b0a0](https://github.com/homelab-alpha/docs/commit/192b0a001b1ce9d40c3a8649cc51c16466d3175c) by [@homelab-alpha](https://github.com/homelab-alpha)
 - feat(ui): place the TOC next to the centered text [c03a3db](https://github.com/homelab-alpha/docs/commit/c03a3db3731ea1d37a52886ccd92cf9ef20b9758) by [@homelab-alpha](https://github.com/homelab-alpha)
+- feat(layout): add an icon to the e-reader link [3b863a2](https://github.com/homelab-alpha/docs/commit/3b863a28d792fad26dc3effcec2ca5bcc3936359) by [@homelab-alpha](https://github.com/homelab-alpha)
+- feat(links): add a links page and header icons [44fabee](https://github.com/homelab-alpha/docs/commit/44fabee0a9ab58d2883738ec38f58bf042ebca72) by [@homelab-alpha](https://github.com/homelab-alpha)
+- feat(markup): render GitHub alerts natively [c29fda8](https://github.com/homelab-alpha/docs/commit/c29fda86097f929dfed3b4056a50337aac3fac42) by [@homelab-alpha](https://github.com/homelab-alpha)
+- feat(landing): add a new landing page design [779d9e5](https://github.com/homelab-alpha/docs/commit/779d9e509d6f89fcfdbc2e222f090566b7729499) by [@homelab-alpha](https://github.com/homelab-alpha)
+- feat(landing): use dozzle in the terminal example [fe492d8](https://github.com/homelab-alpha/docs/commit/fe492d815b31dd1ec5d33b2bdbe6f123c22a2677) by [@homelab-alpha](https://github.com/homelab-alpha)
 
 ### Changed
 
@@ -127,6 +132,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - docs(docker): sync stack pages with hardening [2152f5f](https://github.com/homelab-alpha/docs/commit/2152f5f21baf739682fe10e021af71dffd4f13a0) by [@homelab-alpha](https://github.com/homelab-alpha)
 - chore(labels): add renovate dependency labels [c2c1a12](https://github.com/homelab-alpha/docs/commit/c2c1a12854afee6c59ff5e83ebf8506d5028901c) by [@homelab-alpha](https://github.com/homelab-alpha)
 - docs: add conventional commits cheatsheet [961b831](https://github.com/homelab-alpha/docs/commit/961b831cf2238382fbd70aceee8ae2c9d2750427) by [@homelab-alpha](https://github.com/homelab-alpha)
+- docs: update the docs to the repositories [75089cf](https://github.com/homelab-alpha/docs/commit/75089cf9e8f0ffda8bc2f35cdd7244e4c419a5cf) by [@homelab-alpha](https://github.com/homelab-alpha)
+- refactor(icons): use inline svg icons [4e0e76c](https://github.com/homelab-alpha/docs/commit/4e0e76ca33659d477ef69bdbf0ad415f6b381748) by [@homelab-alpha](https://github.com/homelab-alpha)
+- docs(linux): add logs and logrotate guide [4b43442](https://github.com/homelab-alpha/docs/commit/4b43442a624978b6513b6d8004bc6d5cdeea7306) by [@homelab-alpha](https://github.com/homelab-alpha)
 
 ### Deprecated
 
@@ -168,6 +176,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix(renovate): label all updates in a group [a0bd537](https://github.com/homelab-alpha/docs/commit/a0bd53781202d721a1961d846ed9384b47e50948) by [@homelab-alpha](https://github.com/homelab-alpha)
 - fix(docker): join Uptime Kuma Beta to the network [6133b63](https://github.com/homelab-alpha/docs/commit/6133b63d9d60fd59276f4a9498101703a49dc3eb) by [@homelab-alpha](https://github.com/homelab-alpha)
 - fix(docker): join Speedtest Beta to the network [b1cef46](https://github.com/homelab-alpha/docs/commit/b1cef4618f6944dc7da7525c88aa793f031f89e2) by [@homelab-alpha](https://github.com/homelab-alpha)
+- fix(layout): keep the footer beside the sidebar [00f83d9](https://github.com/homelab-alpha/docs/commit/00f83d936b896b9303340cb525e5334af8c81fa4) by [@homelab-alpha](https://github.com/homelab-alpha)
+- fix(layout): align the footer with the content [7930260](https://github.com/homelab-alpha/docs/commit/7930260b88aff0507b5db8183ddfc4439e68fc4e) by [@homelab-alpha](https://github.com/homelab-alpha)
+- fix(perf): reach lighthouse 100 on most pages [6076f7f](https://github.com/homelab-alpha/docs/commit/6076f7f236b801f47894684a6ba29dc01c378d6d) by [@homelab-alpha](https://github.com/homelab-alpha)
 
 ### Security
 
