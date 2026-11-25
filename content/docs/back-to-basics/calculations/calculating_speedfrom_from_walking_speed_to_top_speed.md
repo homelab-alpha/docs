@@ -31,13 +31,11 @@ keywords:
   - time per kilometer
   - slope impact on speed
 
-weight: 2103
+weight: 2101
 
 toc: true
 katex: true
 ---
-
-<br />
 
 ## How to Calculate Speed?
 
@@ -75,8 +73,6 @@ katex: true
 | 30 sec per km          | 120 km/h         | 74.56 mph       | Standard highway speed                 |
 | 27 sec per km          | 130 km/h         | 80.78 mph       | Maximum speed on some highways         |
 
-<br />
-
 ## Calculating Speed: From Flat Terrain to Steep Ascents
 
 | **Slope (%)** | **Time Change**  | **Description**                             | **Time per Kilometer** | **Speed (km/h)** | **Speed (mph)** | **Terrain**     |
@@ -92,8 +88,6 @@ katex: true
 | +35%          | +175% extra time | Nearly impassable, very heavy effort        | 33 minutes             | 1.82 km/h        | 1.13 mph        | Extremely steep |
 | +40%          | +200% extra time | Very steep, significant challenge           | 36 minutes             | 1.67 km/h        | 1.04 mph        | Very extreme    |
 | +45%          | +225% extra time | Extremely steep, nearly impossible to climb | 39 minutes             | 1.54 km/h        | 0.96 mph        | Extremely steep |
-
-<br />
 
 ## Calculating Speed: From Flat Terrain to Steep Descents
 

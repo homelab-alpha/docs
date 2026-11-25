@@ -30,19 +30,15 @@ keywords:
   - cron certificate check
   - systemd timer
 
-weight: 8112
+weight: 9112
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down the script `tls_certificate_status.sh`. This script reports the
 expiry status of all certificates under `$HOME/tls/certs`: the trusted identity,
@@ -65,8 +61,6 @@ or in a systemd timer because it reports the result in its exit code.
   under `$HOME/tls/certs`: the trusted identity, the root CA, the intermediate
   CA, and all server and client certificates.
 - **RAW Script**: [tls_certificate_status.sh]
-
-<br />
 
 ## Usage
 
@@ -103,14 +97,10 @@ The alias is `openssl-status`.
 - Dates are calculated in Bash from the OpenSSL notAfter value, so the script
   does not depend on the date command of a specific system.
 
-<br />
-
 ## Detailed Explanation
 
 The sections below follow the script from top to bottom. Functions that are not
 defined here, such as `print_error`, come from `scripts/lib/common.sh`.
-
-<br />
 
 ### Defaults
 
@@ -120,8 +110,6 @@ warn_days=30
 ca_warn_days=180
 quiet=false
 ```
-
-<br />
 
 ### Define directory paths Stop script on error
 
@@ -134,8 +122,6 @@ on purpose, and the callers decide what a failure means.
 # the callers decide what a failure means.
 set -Eeuo pipefail
 ```
-
-<br />
 
 ### Load the shared functions
 
@@ -153,8 +139,6 @@ certs_certificates_dir="$certs_dir/certificates"
 index_file="$base_dir/db/index.txt"
 ```
 
-<br />
-
 ### Function: show the help text
 
 ```bash
@@ -164,8 +148,6 @@ show_help() {
 }
 ```
 
-<br />
-
 ### Function: check that a value is a positive integer
 
 ```bash
@@ -174,8 +156,6 @@ is_number() {
   [[ "$1" =~ ^[0-9]+$ ]]
 }
 ```
-
-<br />
 
 ### Function: parse arguments
 
@@ -217,8 +197,6 @@ parse_arguments() {
 }
 ```
 
-<br />
-
 ### Function: convert a calendar date to days since 1970-01-01
 
 ```bash
@@ -233,8 +211,6 @@ days_from_civil() {
   echo $((era * 146097 + doe - 719468))
 }
 ```
-
-<br />
 
 ### Function: convert the OpenSSL notAfter value to epoch seconds
 
@@ -263,8 +239,6 @@ notafter_to_epoch() {
 }
 ```
 
-<br />
-
 ### Function: determine the type of a certificate
 
 ```bash
@@ -288,8 +262,6 @@ get_type() {
 }
 ```
 
-<br />
-
 ### Function: get the Common Name of a certificate
 
 ```bash
@@ -301,8 +273,6 @@ get_cn() {
   echo "${subject%%,*}"
 }
 ```
-
-<br />
 
 ### Function: check if a certificate is revoked
 
@@ -330,8 +300,6 @@ is_revoked() {
   entry_is_revoked "$database" "$file"
 }
 ```
-
-<br />
 
 ### Function: check one certificate and store the result
 
@@ -383,8 +351,6 @@ check_certificate() {
 }
 ```
 
-<br />
-
 ### Function: scan a directory for certificates
 
 ```bash
@@ -407,8 +373,6 @@ scan_directory() {
   done
 }
 ```
-
-<br />
 
 ### Function: print the results
 
@@ -445,8 +409,6 @@ print_results() {
 }
 ```
 
-<br />
-
 ### Main process
 
 ```bash
@@ -482,8 +444,6 @@ if [[ "$quiet" = false ]]; then
 fi
 ```
 
-<br />
-
 ### Exit with the most severe result
 
 ```bash
@@ -497,8 +457,6 @@ elif [[ "$had_warning" = true ]]; then
 fi
 exit 0
 ```
-
-<br />
 
 ## Conclusion
 

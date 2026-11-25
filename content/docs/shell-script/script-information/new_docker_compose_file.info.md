@@ -38,19 +38,15 @@ keywords:
   - Container orchestration
   - Environment configuration
 
-weight: 9100
+weight: 10215
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named
 `new_docker_compose_file.sh`, authored by GJS (homelab-alpha), and its purpose
@@ -69,8 +65,6 @@ specific configurations.
   environment and MariaDB configurations.
 - **RAW Script**: [new_docker_compose_file.sh]
 
-<br />
-
 ## Command Validation
 
 The script starts by validating the existence of required commands (`mkdir`,
@@ -86,8 +80,6 @@ for cmd in mkdir touch chown; do
 done
 ```
 
-<br />
-
 ## Message Display Function
 
 A function `display_message` is defined to format and display messages to the
@@ -98,8 +90,6 @@ display_message() {
   echo -e "\n$1\n"
 }
 ```
-
-<br />
 
 ## User Input for Container Name
 
@@ -116,8 +106,6 @@ if [[ ! "$container_name" =~ ^[a-zA-Z0-9_-]+$ ]]; then
   exit 1
 fi
 ```
-
-<br />
 
 ## Directory Setup
 
@@ -147,8 +135,6 @@ for dir in "${directories[@]}"; do
 done
 ```
 
-<br />
-
 ## Creating Configuration Files
 
 The script creates `.env`, `stack.env`, `compose.yml`, `compose_testing.yml`,
@@ -161,8 +147,6 @@ if ! touch "$dir_path/compose.yml" "$dir_path/compose_testing.yml" "$dir_path/.e
   exit 1
 fi
 ```
-
-<br />
 
 ## Populating `compose.yml` and `compose_testing.yml` Files
 
@@ -664,8 +648,6 @@ volumes:
 EOL
 ```
 
-<br />
-
 ## Populating `.env` and `stack.env` Files
 
 Both `.env` and `stack.env` files are populated with template content, including
@@ -697,8 +679,6 @@ USER_DB=${container_name}
 EOL
 done
 ```
-
-<br />
 
 ## Populating `my.cnf`
 
@@ -951,8 +931,6 @@ general-log = 0
 EOL
 ```
 
-<br />
-
 ## Completion Message
 
 Finally, the script displays a message indicating that the Docker Compose file
@@ -961,8 +939,6 @@ has been created in the specified directory.
 ```bash
 display_message "Docker container directory structure created in $dir_path."
 ```
-
-<br />
 
 ## Conclusion
 

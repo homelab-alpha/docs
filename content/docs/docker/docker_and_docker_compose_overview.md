@@ -44,8 +44,6 @@ toc: true
 katex: true
 ---
 
-<br />
-
 ## Introduction
 
 How cool that you've discovered our Docker projects! Here you'll find everything
@@ -58,8 +56,6 @@ across different environments and simplify dependency management.
 So, let us help you enhance your development experience and quickly set up your
 projects with Docker and Docker Compose!
 
-<br />
-
 ## What is Docker?
 
 [Docker] is a platform used to develop, deploy, and run applications in
@@ -71,16 +67,12 @@ With Docker, developers can build, share, and run containers across different
 environments, regardless of the infrastructure. This ensures consistent
 operation of software no matter where it's run.
 
-<br />
-
 ## What is Docker Compose?
 
 [Docker Compose] is a tool for defining and running multi-container Docker
 applications. With Compose, you can easily create a YAML file to configure your
 app's services, networks, and volumes, allowing you to start your entire app
 with just a few commands.
-
-<br />
 
 ### Basic Usage
 
@@ -102,8 +94,6 @@ docker compose up
 ```
 
 This will start all services as specified in the YAML file.
-
-<br />
 
 ## Dockerfile
 
@@ -132,8 +122,6 @@ WORKDIR /app
 CMD ["python", "app.py"]
 ```
 
-<br />
-
 ## Docker Compose File
 
 A Docker Compose file is a YAML file that defines the services, networks, and
@@ -156,8 +144,6 @@ services:
       MYSQL_ROOT_PASSWORD: example
 ```
 
-<br />
-
 ## FAQs
 
 **What's the difference between Docker and Docker Compose?**\
@@ -171,8 +157,6 @@ Yes, Docker Desktop provides support for both Windows, macOS and Linux.
 You can create your own Docker image by writing a Dockerfile that defines your
 application's configuration and dependencies.
 
-<br />
-
 ## Resources
 
 - [Docker Documentation]
@@ -181,16 +165,12 @@ application's configuration and dependencies.
 That's a quick introduction to Docker and Docker Compose. Have fun
 containerizing! 🐳
 
-<br />
-
 ## Contribute to Homelab-Alpha - Docker
 
 We value your contribution. We want to make it as easy as possible to submit
 your contributions to the Homelab-Alpha - docker repository. Changes to the
 docker are handled through pull requests against the `main` branch. To learn how
 to contribute, see [contribute].
-
-<br />
 
 ## License
 

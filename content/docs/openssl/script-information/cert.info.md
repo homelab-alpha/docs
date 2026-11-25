@@ -30,19 +30,15 @@ keywords:
   - Certificate issuance
   - Shell scripting
 
-weight: 8116
+weight: 9102
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down the script `cert.sh`. This script creates a server or client
 certificate with an ECDSA or RSA key, signed by the intermediate certificate
@@ -65,8 +61,6 @@ changed.
 - **Description**: This script creates a server or client certificate with an
   ECDSA or RSA key, signed by the intermediate certificate authority.
 - **RAW Script**: [cert.sh]
-
-<br />
 
 ## Usage
 
@@ -114,14 +108,10 @@ Without `--fqdn` the script asks for the details.
 - The script waits up to two minutes for another certificate script, a renewal,
   or a revocation that uses the database.
 
-<br />
-
 ## Detailed Explanation
 
 The sections below follow the script from top to bottom. Functions that are not
 defined here, such as `print_error`, come from `scripts/lib/common.sh`.
-
-<br />
 
 ### Stop script on error
 
@@ -129,8 +119,6 @@ defined here, such as `print_error`, come from `scripts/lib/common.sh`.
 # Stop script on error
 set -Eeuo pipefail
 ```
-
-<br />
 
 ### Load the shared functions
 
@@ -141,8 +129,6 @@ The shared functions, such as the messages and the checks, are in
 # shellcheck source=scripts/lib/common.sh
 source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/../lib/common.sh"
 ```
-
-<br />
 
 ### Function: turn a comma-separated list of IPv4 addresses into subject alternative name entries
 
@@ -175,8 +161,6 @@ build_ip_san() {
 }
 ```
 
-<br />
-
 ### Function: remove the temporary folder
 
 Function to remove the temporary folder. It runs from the EXIT trap.
@@ -201,8 +185,6 @@ cleanup() {
 }
 ```
 
-<br />
-
 ### Certificate information
 
 ```bash
@@ -224,8 +206,6 @@ install_status=0
 ca_passphrase=""
 ca_options=()
 ```
-
-<br />
 
 ### Function: parse arguments
 
@@ -342,8 +322,6 @@ parse_arguments "$@"
 require_openssl 2
 ```
 
-<br />
-
 ### Ask for the details only when `--fqdn` is not given
 
 ```bash
@@ -356,8 +334,6 @@ if [[ "$localhost" == "false" && "$non_interactive" == "false" ]]; then
   fi
 fi
 ```
-
-<br />
 
 ### The FQDN becomes a part of filenames and of the extension file
 
@@ -378,8 +354,6 @@ if [[ "$fqdn" == \*.* && "$add_www" == "true" ]]; then
 fi
 ```
 
-<br />
-
 ### Validate the IPv4 addresses and build the subject alternative name entries
 
 ```bash
@@ -393,8 +367,6 @@ if [[ -n "${ip_list// /}" ]]; then
 fi
 ```
 
-<br />
-
 ### The Common Name is always the FQDN
 
 The Common Name is always the FQDN, so openssl req does not ask for it and the
@@ -405,8 +377,6 @@ database entry, the filenames, and the names in the certificate agree.
 # the database entry, the file names, and the names in the certificate agree.
 req_subject=(-subj "/CN=${fqdn}")
 ```
-
-<br />
 
 ### Define directory paths
 
@@ -429,8 +399,6 @@ key_file="$private_certificates_dir/${fqdn}.pem"
 enter_home 2
 ```
 
-<br />
-
 ### Check that everything needed is present, before anything changes
 
 ```bash
@@ -451,8 +419,6 @@ done
 [[ "$missing" == "false" ]] || exit 2
 ```
 
-<br />
-
 ### A revoked intermediate CA must not issue certificates
 
 ```bash
@@ -463,8 +429,6 @@ if [[ -n "$ca_database" ]] && entry_is_revoked "$ca_database" "$certs_intermedia
   exit 2
 fi
 ```
-
-<br />
 
 ### The key of the intermediate CA can be encrypted (`ca.sh --passphrase`)
 
@@ -477,16 +441,12 @@ if key_is_encrypted "$private_dir/intermediate/ca.pem"; then
 fi
 ```
 
-<br />
-
 ### Two scripts must not change the database at the same time
 
 ```bash
 # Two scripts must not change the database at the same time
 acquire_lock 2 120 "Another certificate script is still running. Try again later."
 ```
-
-<br />
 
 ### Only valid entries (status V, the first field) count
 
@@ -504,8 +464,6 @@ if awk -F'\t' -v cn="/CN=${fqdn}" '
 fi
 ```
 
-<br />
-
 ### If `unique_subject` is enabled and Certificate exists, display an error and exit
 
 ```bash
@@ -516,8 +474,6 @@ if unique_subject_enabled "$db_dir/index.txt.attr" && [[ "$cn_exists" == "true" 
   exit 2
 fi
 ```
-
-<br />
 
 ### The subject alternative names of the certificate
 
@@ -536,8 +492,6 @@ else
   san_names="DNS:${fqdn}"
 fi
 ```
-
-<br />
 
 ### Check the names against the name constraints of the authorities
 
@@ -575,8 +529,6 @@ if [[ "$reuse_key" == "true" ]]; then
 fi
 ```
 
-<br />
-
 ### Work in a temporary folder that only the owner can read
 
 Work in a temporary folder that only the owner can read. The traps are set
@@ -596,8 +548,6 @@ new_chain="$work_dir/chain_bundle.pem"
 new_haproxy="$work_dir/haproxy.pem"
 ```
 
-<br />
-
 ### Generate the key, or reuse the existing key with `--reuse-key`
 
 ```bash
@@ -615,8 +565,6 @@ fi
 chmod 600 "$new_key"
 ```
 
-<br />
-
 ### Generate Certificate Signing Request (CSR)
 
 ```bash
@@ -626,8 +574,6 @@ digest="sha384"
 [[ "$algo" == "ecdsa" ]] || digest="sha256"
 openssl req -new "-$digest" -config "$config_file" "${req_subject[@]}" -key "$new_key" -out "$new_csr"
 ```
-
-<br />
 
 ### Create an extfile with all the alternative names
 
@@ -650,8 +596,6 @@ fi
 } >"$new_extfile"
 ```
 
-<br />
-
 ### Generate Certificate
 
 ```bash
@@ -664,8 +608,6 @@ TLS_CA_PASSPHRASE_VALUE="$ca_passphrase" openssl ca -config "$config_file" ${ca_
   -rand_serial -notext -batch -in "$new_csr" -out "$new_cert" -extfile "$new_extfile"
 ```
 
-<br />
-
 ### Create Certificate Chain Bundle
 
 ```bash
@@ -673,8 +615,6 @@ TLS_CA_PASSPHRASE_VALUE="$ca_passphrase" openssl ca -config "$config_file" ${ca_
 print_section_header "Create Certificate Chain Bundle"
 cat "$new_cert" "$ca_chain" >"$new_chain"
 ```
-
-<br />
 
 ### Create Certificate Chain Bundle for HAProxy
 
@@ -688,8 +628,6 @@ if [[ "$role" == "server" ]]; then
 fi
 ```
 
-<br />
-
 ### Verify the certificate against the CA chain and the private key
 
 ```bash
@@ -702,8 +640,6 @@ if [[ "$(openssl x509 -in "$new_cert" -noout -pubkey)" != "$(openssl pkey -in "$
 fi
 echo "The certificate matches the private key."
 ```
-
-<br />
 
 ### Put the files in place
 
@@ -743,8 +679,6 @@ if [[ "$role" == "server" ]]; then
 fi
 ```
 
-<br />
-
 ### Script completion message
 
 ```bash
@@ -754,8 +688,6 @@ print_cyan "Certificate process successfully completed."
 
 exit 0
 ```
-
-<br />
 
 ## Conclusion
 

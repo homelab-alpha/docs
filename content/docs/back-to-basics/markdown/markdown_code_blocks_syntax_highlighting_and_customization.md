@@ -1,7 +1,8 @@
 ---
 title: "Markdown Code Blocks: Syntax Highlighting and Customization"
-description: "Learn how to use Markdown's code block features, including syntax
-  highlighting with Prism and customization options."
+description:
+  "Learn how to use Markdown's code block features, including syntax
+  highlighting with Chroma and customization options."
 url: "back-to-basics/markdown/code-blocks"
 aliases: ""
 icon: "code_blocks"
@@ -19,27 +20,24 @@ tags:
   - Markdown
   - Code Blocks
   - Syntax Highlighting
-  - Prism
+  - Chroma
 keywords:
   - Markdown
   - Code Blocks
   - Syntax Highlighting
-  - Prism
+  - Chroma
 
-weight: 2500
+weight: 2501
 
 toc: true
 katex: true
 ---
 
-<br />
-
 ## Syntax Highlighting
 
-Syntax highlighting is supported by [Prism] (the default). It can be disabled in
-favour of Hugo's built-in syntax highlighter, [Chroma].
-
-<br />
+Hugo's built-in syntax highlighter, [Chroma], highlights code blocks when the
+site is built, in the GitHub Light and GitHub Dark colors. The `prism` shortcode
+below still works and uses the same highlighter.
 
 ## code fences - `bash`
 
@@ -56,8 +54,6 @@ Output:
 ```bash
 curl -X POST -is "http://localhost:4242/create-checkout-session" -d ""
 ```
-
-<br />
 
 ## code fences - `JavaScript`
 
@@ -82,8 +78,6 @@ function foo(bar) {
   return a + bar(b);
 }
 ```
-
-<br />
 
 ## code fences - `html`
 
@@ -120,8 +114,6 @@ Output:
   </body>
 </html>
 ```
-
-<br />
 
 ## code fences - `swift`
 
@@ -163,8 +155,6 @@ STPAPIClient.shared.createSource(with: sourceParams) { (source, error) in
 }
 ```
 
-<br />
-
 ## code fences - `treeview`
 
 Syntax:
@@ -205,8 +195,6 @@ Output:
     └── app.scss
 ```
 
-<br />
-
 ## prism shortcode - `go`
 
 {{% alert context="danger" %}}
@@ -215,7 +203,7 @@ This only applies to Homelab-Alpha website {{% /alert %}}
 Syntax:
 
 ```plaintext
-{{< prism lang="go" start="46" line="6-13,15-25,27-44,45,46,48-52" >}} package
+{{</* prism lang="go" start="46" line="6-13,15-25,27-44,45,46,48-52" */>}} package
 main
 
 import ( "net/http"
@@ -251,7 +239,7 @@ s, \_ := session.New(params)
 
 if err != nil { return err }
 
-return c.Redirect(http.StatusSeeOther, s.URL) } {{< /prism >}}
+return c.Redirect(http.StatusSeeOther, s.URL) } {{</* /prism */>}}
 ```
 
 Output:
@@ -293,8 +281,6 @@ s, \_ := session.New(params)
 if err != nil { return err }
 
 return c.Redirect(http.StatusSeeOther, s.URL) } {{< /prism >}}
-
-<br />
 
 ## prism shortcode - `JavaScript`
 
@@ -304,8 +290,8 @@ This only applies to Homelab-Alpha website {{% /alert %}}
 Syntax:
 
 ```plaintext
-{{< prism lang="JavaScript" linkable-line-numbers="true" line-numbers="true" start="19" line-offset="19" line="19,22-23" >}}
-function foo(bar) { var a = 42, b = 'Prism'; return a + bar(b); } {{< /prism >}}
+{{</* prism lang="JavaScript" linkable-line-numbers="true" line-numbers="true" start="19" line-offset="19" line="19,22-23" */>}}
+function foo(bar) { var a = 42, b = 'Prism'; return a + bar(b); } {{</* /prism */>}}
 ```
 
 Output:
@@ -313,5 +299,4 @@ Output:
 {{< prism lang="JavaScript" linkable-line-numbers="true" line-numbers="true" start="19" line-offset="19" line="19,22-23" >}}
 function foo(bar) { var a = 42, b = 'Prism'; return a + bar(b); } {{< /prism >}}
 
-[Prism]: https://prismjs.com/index.html
 [Chroma]: https://github.com/alecthomas/chroma

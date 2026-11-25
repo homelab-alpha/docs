@@ -38,19 +38,15 @@ keywords:
   - XCP-ng Management
   - XenServer Management
 
-weight: 4100
+weight: 4128
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this `compose.yml` file does in detail. This file is used
 to configure and deploy a service using Docker Compose, specifically setting up
@@ -68,8 +64,6 @@ Here's a detailed explanation:
   Orchestra service. It includes detailed network settings and service
   configurations to ensure Xen Orchestra runs smoothly and securely.
 - **RAW Compose File**: [compose.yml]
-
-<br />
 
 ## Networks Configuration
 
@@ -101,8 +95,6 @@ networks:
       com.xen-orchestra.network.description: "is an isolated bridge network."
 ```
 
-<br />
-
 - **networks**: This section defines a custom network named `xen-orchestra_net`.
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
@@ -133,8 +125,6 @@ networks:
 - **labels**: Metadata for the network.
   - **com.xen-orchestra.network.description**: A description label for the
     network.
-
-<br />
 
 ## Services Configuration
 
@@ -206,8 +196,6 @@ services:
       start_interval: 5s
 ```
 
-<br />
-
 - **services**: Defines services to be deployed.
 - **xen-orchestra_app**: The service name for the Xen Orchestra container.
   - **deploy.resources.limits.pids: 512**: Limits the number of processes and
@@ -272,8 +260,6 @@ services:
       will not be counted towards the retries (10 seconds).
     - **start_interval**: The time between starting health checks (5 seconds).
 
-<br />
-
 ## Quick Start
 
 {{% alert context="info" %}}
@@ -286,8 +272,6 @@ Requires Docker Compose 2.24.0 or later.
    docker compose up -d
    ```
 
-<br />
-
 ## Default Web Access
 
 Access the Xen Orchestra web interface using the following URL:
@@ -295,8 +279,6 @@ Access the Xen Orchestra web interface using the following URL:
 ```bash
 http://your-ip-address:3006
 ```
-
-<br />
 
 ## Default Login Credentials
 
@@ -316,8 +298,6 @@ admin
 **For security reasons, it is strongly recommended that you change the default
 credentials after your first login.**
 {{% /alert %}}
-
-<br />
 
 ## Conclusion
 

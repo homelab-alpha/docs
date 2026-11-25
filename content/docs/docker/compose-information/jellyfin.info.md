@@ -34,19 +34,15 @@ keywords:
   - Docker Environment
   - Portainer Service
 
-weight: 4100
+weight: 4110
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this `compose.yml` file does in detail. This file is used
 to configure and deploy a Jellyfin media server using Docker Compose, ensuring
@@ -64,8 +60,6 @@ Here's a detailed explanation:
   service to manage and stream media. It includes detailed network settings and
   service configurations to ensure Jellyfin runs smoothly and securely.
 - **RAW Compose File**: [compose.yml]
-
-<br />
 
 ## Networks Configuration
 
@@ -97,8 +91,6 @@ networks:
       com.jellyfin.network.description: "is an isolated bridge network."
 ```
 
-<br />
-
 - **networks**: This section defines a custom network named `jellyfin_net`.
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
@@ -127,8 +119,6 @@ networks:
     Unit size for the network.
 - **labels**: Metadata for the network.
   - **com.jellyfin.network.description**: A description label for the network.
-
-<br />
 
 ## Services Configuration
 
@@ -196,8 +186,6 @@ services:
       start_interval: 5s
 ```
 
-<br />
-
 - **services**: Defines services to be deployed.
 - **jellyfin_app**: The service name for the Jellyfin container.
   - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
@@ -262,8 +250,6 @@ services:
       will not be counted towards the retries (10 seconds).
     - **start_interval**: The time between starting health checks (5 seconds).
 
-<br />
-
 ## Quick Start
 
 {{% alert context="info" %}}
@@ -277,8 +263,6 @@ Requires Docker Compose 2.24.0 or later.
    ```bash
    docker compose up -d
    ```
-
-<br />
 
 ## Default Web Access
 
@@ -296,8 +280,6 @@ http://your-ip-address:8096
 https://your-ip-address:8920
 ```
 
-<br />
-
 ## Default Login Credentials
 
 {{% alert context="info" %}}
@@ -313,8 +295,6 @@ for your media libraries.
 **For security reasons, it is strongly recommended to create a strong username
 and password during the setup.**
 {{% /alert %}}
-
-<br />
 
 ## Conclusion
 

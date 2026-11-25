@@ -1,3 +1,5 @@
 {{- /* Mermaid needs JavaScript, so e-readers get the diagram source as text. */ -}}
-<p><strong>Diagram</strong> (shown as text, because this version has no scripts):</p>
-<pre><code>{{ strings.TrimRight "\r\n" .Inner }}</code></pre>
+{{- partial "ereader/code-block.html" (dict
+  "code" .Inner
+  "title" "Diagram (Mermaid source; this version has no scripts)"
+) -}}

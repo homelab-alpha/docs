@@ -1,0 +1,26 @@
+{{- /*
+  The tile color of a card: the color of its topic, so a topic has the same
+  color on /docs/, on the landing page, and on /links/. The color is set in the
+  front matter of the topic (color in content/docs/<topic>/_index.md); the
+  tile classes are in assets/docs/scss/custom/pages/_docs-list.scss.
+
+  Context: dict
+    color  a color (optional; wins over the topic)
+    topic  the URL of a topic, for example "/docker/" (optional)
+  Returns: string, a color name, or "" for the accent color.
+*/ -}}
+{{- $color := .color | default "" -}}
+{{- if and (not $color) .topic -}}
+  {{- $url := relLangURL .topic -}}
+  {{- with site.GetPage "/docs" -}}
+    {{- range .Sections -}}
+      {{- if eq .RelPermalink $url }}{{ $color = .Params.color | default "" }}{{ end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $known := slice "blue" "green" "purple" "orange" "pink" "teal" "yellow" "gray" "red" "indigo" -}}
+{{- if and $color (not (in $known $color)) -}}
+  {{- warnf "tile-color: unknown color %q (known: %s)" $color (delimit $known ", ") -}}
+  {{- $color = "" -}}
+{{- end -}}
+{{- return $color -}}

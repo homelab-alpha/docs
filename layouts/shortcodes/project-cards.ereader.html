@@ -1,0 +1,11 @@
+{{- /*
+  project-cards shortcode in the e-reader version: a plain list of links with
+  their descriptions, no cards, icons, or colors.
+*/ -}}
+{{- $name := .Get "section" | default "Projects" -}}
+{{- $section := index (where hugo.Data.links.sections "title" $name) 0 -}}
+<ul>
+  {{- range $section.links }}
+  <li><a href="{{ .url }}"><strong>{{ .title }}</strong></a>: {{ .description }}</li>
+  {{- end }}
+</ul>

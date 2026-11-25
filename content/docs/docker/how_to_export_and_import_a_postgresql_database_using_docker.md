@@ -36,8 +36,6 @@ toc: true
 katex: true
 ---
 
-<br />
-
 ## 1. SSH into the Docker Host
 
 Connect to your Docker host via SSH:
@@ -45,8 +43,6 @@ Connect to your Docker host via SSH:
 ```bash
 ssh user@your-docker-server -p 22
 ```
-
-<br />
 
 ## 2. Access the PostgreSQL Container
 
@@ -59,8 +55,6 @@ Open an interactive shell inside your PostgreSQL container:
 ```bash
 docker exec -it postgresql bash
 ```
-
-<br />
 
 ## 3. Export the `testing_db` Database
 
@@ -89,8 +83,6 @@ pg_dump -U postgresql -Fc testing_db -f /var/lib/postgresql/data/testing_db_back
   `pg_restore`).
 - `-f`: Specifies the output file for the dump.
 
-<br />
-
 ## 4. Transfer the Backup to the New Server
 
 Copy the dump file from the Docker host to the new server using `scp`:
@@ -104,8 +96,6 @@ scp /var/lib/postgresql/data/testing_db_backup.dump user@new-server:/var/lib/pos
 - `rsync`
 - SFTP clients
 - Physical media (USB drive, etc.)
-
-<br />
 
 ## 5. Import the Database on the New Server
 
@@ -126,8 +116,6 @@ psql -U postgresql -c "DROP DATABASE testing_db;"
 psql -U postgresql -c "CREATE DATABASE testing_db;"
 ```
 
-<br />
-
 ## 6. Verify the Import
 
 Confirm that the import was successful by listing the tables:
@@ -135,8 +123,6 @@ Confirm that the import was successful by listing the tables:
 ```bash
 psql -U postgresql -d testing_db -c "\dt"
 ```
-
-<br />
 
 ## Conclusion
 

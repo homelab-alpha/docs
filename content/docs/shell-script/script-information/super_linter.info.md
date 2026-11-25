@@ -36,18 +36,14 @@ keywords:
   - directory linting
   - linting tool
 
-weight: 9100
+weight: 10218
 
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named
 `super_linter.sh`, authored by GJS (homelab-alpha), and its purpose is to
@@ -67,13 +63,9 @@ either a local Git repository or a specific folder.
   specific folder.
 - **RAW Script**:[super_linter.sh]
 
-<br />
-
 The script provides functions to run the Super Linter Docker container with
 different options, processes command-line arguments, and presents a menu for the
 user to choose which linting mode to run.
-
-<br />
 
 ## Default Debug Mode
 
@@ -83,8 +75,6 @@ DEBUG=false
 
 The script starts by setting a default value for the debug mode, which is
 `false`.
-
-<br />
 
 ## Function to Run Docker with Standard Options
 
@@ -105,8 +95,6 @@ run_docker_super_linter() {
 This function runs the Super Linter Docker container with standard options. It
 sets environment variables, removes the container after it runs, and mounts the
 current working directory to `/tmp/lint` inside the container.
-
-<br />
 
 ## Function to Run Docker with Extra Options
 
@@ -129,8 +117,6 @@ This function is similar to the previous one but includes an additional
 environment variable `USE_FIND_ALGORITHM=true` and mounts the current directory
 to `/tmp/lint/file`.
 
-<br />
-
 ## Processing Command-Line Options
 
 ```bash
@@ -152,8 +138,6 @@ The script processes command-line arguments to check if the debug mode should be
 enabled (`-d` or `--debug`). If an unknown parameter is provided, it prints an
 error message and exits.
 
-<br />
-
 ## Check if Debug Mode is Enabled
 
 ```bash
@@ -163,8 +147,6 @@ fi
 ```
 
 If the debug mode is enabled, it prints a message indicating so.
-
-<br />
 
 ## Menu for User Choice
 
@@ -177,8 +159,6 @@ read -rp "Enter the number of the desired option: " choice
 
 The script presents a menu for the user to choose whether to lint the root
 directory or a specific file/folder.
-
-<br />
 
 ## Execute the Selected Option
 
@@ -207,8 +187,6 @@ esac
 Depending on the user's choice, the script calls the appropriate function to run
 the Super Linter Docker container. If debug mode is enabled, it also sets the
 `LOG_LEVEL` to `DEBUG`.
-
-<br />
 
 ## Conclusion
 

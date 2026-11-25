@@ -28,9 +28,7 @@ on:
         default: false
         type: boolean
 
-permissions:
-  contents: write
-  pull-requests: write
+permissions: {}
 
 concurrency:
   group: dark-visitors-agents-${{ github.repository || github.run_id }}
@@ -41,6 +39,9 @@ jobs:
     name: 🤖 Update robots.txt
     runs-on: ubuntu-26.04
     timeout-minutes: 15
+    permissions:
+      contents: write # Create the branch and the signed commit with robots.txt.
+      pull-requests: write # Open the pull request with the change.
 
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

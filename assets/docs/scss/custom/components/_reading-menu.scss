@@ -1,0 +1,229 @@
+//
+// reading-menu.scss: the skip link, the reading menu
+// (layouts/partials/reading-menu.html), the language menu
+// (layouts/partials/language-menu.html), and the reading settings that the
+// reading menu sets as data-read-* attributes on <html>. The menus use the
+// panel, rows, and switches of the theme menu (_theme-menu.scss).
+//
+
+// Skip link: hidden until it gets the keyboard focus.
+.skip-link {
+  position: absolute;
+  top: 8px;
+  inset-inline-start: 8px;
+  z-index: 2000;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: var(--color-accent-emphasis);
+  color: var(--color-fg-on-emphasis);
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-200%);
+
+  &:focus,
+  &:focus-visible {
+    transform: none;
+    color: var(--color-fg-on-emphasis);
+    outline: 2px solid var(--color-fg-default);
+    outline-offset: 2px;
+  }
+}
+
+// The target of the skip link gets the focus, but shows no ring.
+#main[tabindex="-1"]:focus {
+  outline: none;
+}
+
+.reading-menu-aa {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.theme-menu-button .language-menu-icon {
+  display: inline-flex;
+}
+
+.language-menu-code {
+  margin-inline-start: 4px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.language-menu-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  a {
+    color: var(--color-fg-default);
+    text-decoration: none;
+  }
+
+  a:focus-visible {
+    outline: 2px solid var(--color-accent-fg);
+    outline-offset: -2px;
+  }
+
+  a[aria-current="true"] {
+    .theme-menu-check {
+      visibility: visible;
+    }
+
+    .theme-menu-label {
+      font-weight: 600;
+    }
+  }
+}
+
+// The fonts and sizes of the options show what they do.
+.reading-option-read-font-legible {
+  font-family: "Atkinson Hyperlegible", sans-serif;
+}
+
+.reading-option-read-font-dyslexic {
+  font-family: "OpenDyslexic", sans-serif;
+  font-size: 0.8125rem;
+}
+
+.reading-menu-preview {
+  margin: 0 4px 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--color-border-default);
+  border-radius: 8px;
+  background: var(--color-canvas-default);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.reading-menu-reset {
+  display: block;
+  margin-inline-start: auto;
+  margin-inline-end: 4px;
+  padding: 4px 8px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--color-accent-fg);
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--color-neutral-muted);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent-fg);
+  }
+}
+
+// Reading settings. Code keeps its monospace font and normal spacing.
+
+html[data-read-font="legible"] body {
+  font-family: "Atkinson Hyperlegible", $font-family-secondary;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Atkinson Hyperlegible", $font-family-base;
+  }
+}
+
+html[data-read-font="dyslexic"] body {
+  font-family: "OpenDyslexic", $font-family-secondary;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "OpenDyslexic", $font-family-base;
+  }
+}
+
+// Text size: the root size, so everything in rem grows with it.
+html[data-read-size="s"] {
+  font-size: 93.75%;
+}
+
+html[data-read-size="l"] {
+  font-size: 112.5%;
+}
+
+html[data-read-size="xl"] {
+  font-size: 125%;
+}
+
+// Wide spacing, after WCAG 1.4.12 (text spacing): line height 1.5 or more,
+// paragraph spacing 2 × the font size, letter spacing 0.12 × and word spacing
+// 0.16 × the font size.
+html[data-read-spacing="wide"] {
+  .main-content,
+  .site-page-main {
+    letter-spacing: 0.12em;
+    word-spacing: 0.16em;
+
+    p,
+    li,
+    dd,
+    blockquote,
+    td,
+    th {
+      line-height: 1.8;
+    }
+
+    p {
+      margin-bottom: 2em;
+    }
+
+    pre,
+    code,
+    kbd,
+    samp,
+    .katex {
+      letter-spacing: normal;
+      word-spacing: normal;
+    }
+  }
+}
+
+// Narrow text column: about 65 characters a line, easier to follow. Code
+// blocks, tables, and figures keep the full width.
+html[data-read-narrow] {
+  .main-content,
+  .site-page-main {
+    > p,
+    > ul,
+    > ol,
+    > dl,
+    > blockquote,
+    > h1,
+    > h2,
+    > h3,
+    > h4,
+    > h5,
+    > h6,
+    .faq-answer,
+    .alert {
+      max-width: 65ch;
+    }
+  }
+}
+
+// Reduced motion: no transitions, animations, or smooth scrolling.
+html[data-read-motion] {
+  scroll-behavior: auto;
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

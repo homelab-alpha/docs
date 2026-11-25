@@ -38,13 +38,11 @@ keywords:
   - Nano features
   - Nano tutorial
 
-weight: 2600
+weight: 2602
 
 toc: true
 katex: true
 ---
-
-<br />
 
 ## Introduction to Nano – The Text Editor
 
@@ -54,8 +52,6 @@ edit. If the file doesn't exist, Nano will create a new one with that name.
 ```bash
 nano filename.txt
 ```
-
-<br />
 
 ## Basic Navigation
 
@@ -67,15 +63,11 @@ keys move up and down a page at a time.
 - Use `Ctrl + Y` scrolls up one line.
 - Use `Ctrl + V` scrolls down one line.
 
-<br />
-
 ## Editing Text
 
 Type directly into the editor to add or modify text. Use the backspace key to
 delete characters. To delete entire lines, use `Ctrl + K` to cut the line. Use
 `Ctrl + U` to paste the cut line.
-
-<br />
 
 ## Saving and Exiting
 
@@ -83,23 +75,17 @@ To save your changes, press `Ctrl + O` (WriteOut). You'll be prompted to confirm
 the filename. To exit Nano, press `Ctrl + X` (Exit). If you haven't saved your
 changes, Nano will prompt you to save before exiting.
 
-<br />
-
 ## Searching
 
 Press `Ctrl + W` to search for text within the file. Type the word or phrase you
 want to search for and press Enter. Use `Ctrl + W` again to find the next
 occurrence.
 
-<br />
-
 ## Other Useful Commands
 
 Use `Ctrl + G` displays the help menu with all available commands. Use
 `Ctrl + C` shows the current cursor position. Use `Ctrl + \_` (underscore)
 enables or disables soft wrapping of long lines.
-
-<br />
 
 ## Customization
 

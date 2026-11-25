@@ -35,19 +35,15 @@ keywords:
   - secure communication
   - script logging
 
-weight: 9100
+weight: 10217
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named
 `ssh_keygen_script.sh`, authored by GJS (homelab-alpha), and its purpose is to
@@ -70,8 +66,6 @@ for traceability.
   designated log file for traceability.
 - **RAW Script**: [ssh_keygen_script.sh]
 
-<br />
-
 ## Usage Instructions
 
 - **Usage**: `./ssh_keygen_script.sh [-v] [-d /path/to/ssh_directory]`
@@ -87,15 +81,11 @@ for traceability.
   3. Generate and convert an SSH key pair with a custom SSH directory:
      `./ssh_keygen_script.sh -d /custom/path/to/ssh_directory`
 
-<br />
-
 ## Default Values and Configuration
 
 - **Default SSH Directory**: `$HOME/.ssh`
 - **Default File Extension for Converted Keys**: `ppk`
 - **Log File Path**: `$ssh_dir/ssh_keygen_script.log`
-
-<br />
 
 ## Script Functions
 
@@ -151,8 +141,6 @@ for traceability.
      echo "${timestamp} - ${1}" >>"$log_file" 2>&1
    }
    ```
-
-<br />
 
 ### Main Functionalities
 
@@ -301,8 +289,6 @@ for traceability.
    }
    ```
 
-<br />
-
 ### Script Execution
 
 1. **Check Required Software**: Ensures necessary software is installed.
@@ -372,8 +358,6 @@ for traceability.
 This detailed breakdown provides a comprehensive understanding of the
 `ssh_keygen_script.sh` script, covering its purpose, usage, key functionalities,
 and execution flow.
-
-<br />
 
 ## Conclusion
 

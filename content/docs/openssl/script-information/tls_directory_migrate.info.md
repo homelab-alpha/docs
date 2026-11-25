@@ -29,19 +29,15 @@ keywords:
   - backward compatibility
   - homelab certificates
 
-weight: 8115
+weight: 9113
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down the script `tls_directory_migrate.sh`. This script moves the
 old directory `$HOME/ssl` to `$HOME/tls` and leaves a symbolic link
@@ -64,8 +60,6 @@ the database. Run it once. A second run does nothing.
   (cron jobs, systemd units, hooks, and HAProxy or nginx configuration) keep
   working.
 - **RAW Script**: [tls_directory_migrate.sh]
-
-<br />
 
 ## Usage
 
@@ -93,14 +87,10 @@ The alias is `openssl-migrate-tls`.
 - The certificates are for a homelab and for testing.
 - Remove the symbolic link `$HOME/ssl` yourself when nothing uses the old path.
 
-<br />
-
 ## Detailed Explanation
 
 The sections below follow the script from top to bottom. Functions that are not
 defined here, such as `print_error`, come from `scripts/lib/common.sh`.
-
-<br />
 
 ### Stop script on error
 
@@ -113,8 +103,6 @@ callers decide what a failure means.
 set -Eeuo pipefail
 ```
 
-<br />
-
 ### Load the shared functions
 
 The shared functions, such as the messages and the checks, are in
@@ -125,8 +113,6 @@ The shared functions, such as the messages and the checks, are in
 source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/lib/common.sh" || exit 2
 ```
 
-<br />
-
 ### Function: show the usage (from the header of this script)
 
 ```bash
@@ -136,8 +122,6 @@ show_help() {
 }
 ```
 
-<br />
-
 ### Define paths
 
 ```bash
@@ -145,8 +129,6 @@ show_help() {
 old_dir="$HOME/ssl"
 new_dir="$HOME/tls"
 ```
-
-<br />
 
 ### Parse the arguments
 
@@ -171,8 +153,6 @@ while [[ $# -gt 0 ]]; do
 done
 ```
 
-<br />
-
 ### Decide what to do
 
 ```bash
@@ -192,8 +172,6 @@ if [[ -e "$new_dir" ]]; then
   exit 2
 fi
 ```
-
-<br />
 
 ### List the configuration files that contain the old path
 
@@ -217,8 +195,6 @@ if [[ "$dry_run" = true ]]; then
   exit 0
 fi
 ```
-
-<br />
 
 ### Do not move the directory during a renewal or a revocation
 
@@ -246,8 +222,6 @@ if ! ln -s tls "$old_dir"; then
 fi
 ```
 
-<br />
-
 ### Change the path in the configuration files, after a copy
 
 ```bash
@@ -266,8 +240,6 @@ echo
 print_cyan "Moved $old_dir to $new_dir. $changed configuration file(s) changed."
 echo "The old path $old_dir is now a link to $new_dir. Remove it when nothing uses it."
 ```
-
-<br />
 
 ## Conclusion
 

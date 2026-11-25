@@ -1,0 +1,164 @@
+//
+// toolbar.scss: the docs toolbar (layouts/partials/docs/top-header.html), after
+// the HIG toolbar: a translucent bar of 56 px, a search field in the middle,
+// and icon buttons of 44 × 44 px with the theme menu on the right. The
+// selectors match the weight of the sidebar styles, so these rules win.
+//
+
+:root {
+  --toolbar-height: 56px;
+}
+
+.page-wrapper .page-content .top-header {
+  max-height: none;
+
+  .header-bar {
+    height: var(--toolbar-height);
+    padding: 0 16px;
+    gap: 12px;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--color-border-default);
+
+    @media (max-width: 425px) {
+      padding: 0 8px;
+      gap: 4px;
+    }
+  }
+}
+
+// The sidebar header lines up with the toolbar.
+.page-wrapper .sidebar-wrapper .sidebar-brand {
+  height: var(--toolbar-height);
+}
+
+.page-wrapper .page-content .layout-spacing {
+  padding-top: calc(var(--toolbar-height) + 24px) !important;
+}
+
+.toolbar-start,
+.toolbar-end {
+  flex: 0 0 auto;
+  gap: 4px;
+}
+
+// Icon buttons: a hit area of 44 × 44 px with a rounded hover fill.
+.toolbar-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-fg-default);
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background: var(--color-neutral-muted);
+    color: var(--color-fg-default);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent-fg);
+    outline-offset: -2px;
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .toolbar-icon {
+    display: inline-flex;
+    font-size: 20px;
+  }
+}
+
+// Search field: looks like a field, opens the search.
+.page-wrapper .page-content .top-header #flexsearch-button.toolbar-search {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: 8px;
+  max-width: 480px;
+  height: 36px;
+  margin: 0 auto;
+  padding: 0 8px 0 12px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: var(--color-neutral-muted) !important;
+  color: var(--color-fg-muted);
+  font-size: 0.9375rem;
+  text-align: left;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+
+  &:hover {
+    border-color: var(--color-border-default);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent-fg);
+    outline-offset: 1px;
+  }
+
+  .toolbar-search-icon {
+    display: inline-flex;
+    font-size: 18px;
+  }
+
+  .toolbar-search-placeholder {
+    flex: 1 1 auto;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  // Narrow screens: a search button only.
+  @media (max-width: 575.98px) {
+    flex: 0 0 auto;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin: 0 0 0 auto;
+    padding: 0;
+    background: transparent !important;
+    color: var(--color-fg-default);
+
+    .toolbar-search-placeholder,
+    .toolbar-kbd {
+      display: none;
+    }
+  }
+}
+
+.toolbar-kbd {
+  flex: 0 0 auto;
+  padding: 1px 6px;
+  border: 1px solid var(--color-border-default);
+  border-radius: 5px;
+  background: transparent;
+  color: var(--color-fg-muted);
+  font-family: inherit;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  box-shadow: none;
+
+  // The keys are drawn from data-keys, so they are not part of the button's
+  // accessible name, which must start with its visible text.
+  &::before {
+    content: attr(data-keys);
+  }
+}
+
+// Narrow screens: room for the menu, search, and appearance buttons only. The
+// mobile navigation (phase 8 of the design plan) decides where the links go.
+@media (max-width: 575.98px) {
+  .toolbar-end nav {
+    display: none;
+  }
+}

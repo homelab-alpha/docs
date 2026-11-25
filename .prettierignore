@@ -79,3 +79,12 @@ test-results/
 
 # --- Generated Files ---
 CONTRIBUTORS.md
+
+# --- Third-party files, unchanged from npm (.github/vendored_assets.json) ---
+assets/docs/js/auto-render.js
+assets/docs/js/dayjs.min.js
+assets/docs/js/flexsearch.bundle.js
+assets/docs/js/katex.js
+assets/docs/js/mermaid.min.js
+assets/docs/js/relativeTime.min.js
+assets/docs/js/simple-scrollspy.min.js

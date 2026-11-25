@@ -1,0 +1,7 @@
+{{- /*
+  prism shortcode in the e-reader version: a plain code block
+  (layouts/partials/ereader/code-block.html), without highlighted lines or line
+  numbers.
+*/ -}}
+{{- $lang := cond (and .IsNamedParams (gt (len .Params) 0)) (.Get "lang") (.Get 0) -}}
+{{- partial "ereader/code-block.html" (dict "code" (replaceRE "^\r?\n" "" .Inner | string) "lang" $lang) -}}

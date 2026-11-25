@@ -28,13 +28,11 @@ keywords:
   - handling errors in shell scripts
   - script status codes
 
-weight: 9903
+weight: 10903
 
 toc: true
 katex: true
 ---
-
-<br />
 
 ## Introduction
 
@@ -43,8 +41,6 @@ handling within shell scripts. They indicate whether commands and functions
 succeeded or failed, providing essential feedback for debugging and process
 control. This guide explores common exit and return codes, their meanings, and
 practical examples of how to use them effectively in your scripts.
-
-<br />
 
 ## Exit Codes in Shell Scripts
 
@@ -65,8 +61,6 @@ Below are some common exit codes and their meanings:
 | **143**       | Terminated by SIGTERM (e.g., a request to terminate).                                                 |
 | **255**       | Exit status out of range or unspecified error.                                                        |
 
-<br />
-
 ### Example of Using Exit Codes
 
 ```bash
@@ -84,8 +78,6 @@ echo "The file 'config.txt' has been found. Proceeding with processing."
 
 exit 0  # Successfully executed
 ```
-
-<br />
 
 ## Return Codes in Shell Scripts
 
@@ -122,8 +114,6 @@ after calling the function. Below are common return codes and their meanings:
 | **130**         | Canceled by Ctrl+C (SIGINT).                                                                          |
 | **143**         | Terminated by SIGTERM (e.g., a request to terminate).                                                 |
 | **255**         | Return status out of range or unspecified error.                                                      |
-
-<br />
 
 ### Example of Using Return Codes
 
@@ -164,16 +154,12 @@ echo "Proceeding with processing."
 exit 0  # Successfully executed
 ```
 
-<br />
-
 ## Similarities and Differences between Exit Codes and Return Codes
 
 ### Similarities
 
 - **Numeric Values**: Both exit and return codes are numeric and indicate the
   status of execution, whether successful or with errors.
-
-<br />
 
 ### Differences
 
@@ -195,8 +181,6 @@ exit 0  # Successfully executed
 By using both exit and return codes, you can effectively manage and report the
 status and errors of your scripts and functions.
 
-<br />
-
 ## Debugging and Logging
 
 ### Debugging Tips
@@ -206,8 +190,6 @@ To debug scripts effectively:
 - **Enable Verbose Mode**: Use `set -x` to trace command execution.
 - **Use Debugging Tools**: Tools like `shellcheck` can help identify potential
   issues in your scripts.
-
-<br />
 
 ### Logging Examples
 
@@ -229,16 +211,12 @@ echo "Exit code: $exit_code" >> $LOGFILE
 exit $exit_code
 ```
 
-<br />
-
 ## Exit Codes in Complex Scenarios
 
 ### Chained Commands
 
 When using chained commands (e.g., `command1 && command2`), the exit status of
 `command2` depends on the exit status of `command1`.
-
-<br />
 
 ### Subshells
 
@@ -252,8 +230,6 @@ command:
 )
 subshell_exit_code=$?
 ```
-
-<br />
 
 ## Return Codes in Complex Scenarios
 
@@ -279,8 +255,6 @@ parent_function() {
 parent_function
 ```
 
-<br />
-
 ## Custom Exit and Return Codes
 
 ### Defining Custom Codes
@@ -298,8 +272,6 @@ if [ some_condition ]; then
 fi
 ```
 
-<br />
-
 ## CI/CD Integration
 
 ### CI/CD Pipelines
@@ -308,8 +280,6 @@ In CI/CD
 
 environments, configure pipelines to handle specific exit codes effectively to
 manage build and deployment processes.
-
-<br />
 
 ### Automatic Error Handling
 
@@ -324,8 +294,6 @@ command || {
 }
 ```
 
-<br />
-
 ## FAQs
 
 ### What should I do if a script returns an unexpected exit code?
@@ -339,8 +307,6 @@ command || {
 5. **Consult Documentation**: Refer to documentation for specific exit codes.
 6. **Test in Small Steps**: Isolate the error by running smaller script
    segments.
-
-<br />
 
 ### How can I handle exit codes in a cross-platform environment?
 
@@ -357,8 +323,6 @@ command || {
 6. **Document Platform-Specific Behavior**: Note any required platform-specific
    adjustments.
 
-<br />
-
 ### How can I effectively use and document custom exit codes?
 
 **Answer:** For custom exit codes:
@@ -368,8 +332,6 @@ command || {
 3. **Use Consistently**: Apply custom codes consistently across scripts.
 4. **Communicate with Your Team**: Ensure your team understands custom codes.
 5. **Check for Conflicts**: Avoid conflicts with standard or other custom codes.
-
-<br />
 
 ### How can I manage exit codes in complex scripts?
 
@@ -382,8 +344,6 @@ command || {
    these scenarios.
 5. **Implement Error Handling Logic**: Check exit codes and implement
    appropriate error handling.
-
-<br />
 
 ## Conclusion
 

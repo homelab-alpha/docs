@@ -39,19 +39,15 @@ keywords:
   - Reboot events
   - Shutdown events
 
-weight: 9100
+weight: 10203
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named
 `check_system_info.sh`, authored by GJS (homelab-alpha), and its purpose is to
@@ -71,8 +67,6 @@ usage, disk usage, disk usage inodes, and last reboot/shutdown events.
   reboot/shutdown events.
 - **RAW Script**: [check_system_info.sh]
 
-<br />
-
 ## Script Structure and Functions
 
 ### Print Section Separators
@@ -86,8 +80,6 @@ print_separator() {
 }
 ```
 
-<br />
-
 ### Check if a Command Exists
 
 A helper function `command_exists` checks if a command is available on the
@@ -99,8 +91,6 @@ command_exists() {
 }
 ```
 
-<br />
-
 ### Initial Information
 
 Prints the current date, user, and system uptime.
@@ -110,8 +100,6 @@ print_separator
 echo "$(date) │ $(whoami)@$(hostname --all-ip-addresses) │ $(uptime --pretty)"
 print_separator
 ```
-
-<br />
 
 ## Checking for Required Commands
 
@@ -146,8 +134,6 @@ else
 fi
 ```
 
-<br />
-
 ## Detailed System Information
 
 ### System Info
@@ -172,8 +158,6 @@ fi
 print_separator
 ```
 
-<br />
-
 ### System Temperature
 
 Checks and prints system temperature using the `sensors` command.
@@ -188,8 +172,6 @@ else
 fi
 print_separator
 ```
-
-<br />
 
 ### Systemctl Status
 
@@ -206,8 +188,6 @@ fi
 print_separator
 ```
 
-<br />
-
 ### RAM/SWAP Usage
 
 Shows RAM and SWAP usage using the `free` command.
@@ -222,8 +202,6 @@ else
 fi
 print_separator
 ```
-
-<br />
 
 ### Disk Usage
 
@@ -240,8 +218,6 @@ fi
 print_separator
 ```
 
-<br />
-
 ### Disk Usage Inodes
 
 Shows inode usage of the disk.
@@ -257,8 +233,6 @@ fi
 print_separator
 ```
 
-<br />
-
 ### Last Reboot/Shutdown Events
 
 Displays the last three system shutdown events.
@@ -273,8 +247,6 @@ else
 fi
 print_separator
 ```
-
-<br />
 
 ## Conclusion
 

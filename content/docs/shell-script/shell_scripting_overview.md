@@ -35,18 +35,14 @@ keywords:
   - copyright
   - license
 
-weight: 9901
+weight: 10901
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="warning" %}}
 **Caution** - This documentation is in progress {{% /alert %}}
-
-<br />
 
 ## Introduction
 
@@ -54,8 +50,6 @@ Shell script are plain text files containing commands that are interpreted and
 executed by the shell. They are commonly used for automating tasks, managing
 system configurations, and performing various operations in Unix-like operating
 systems.
-
-<br />
 
 ## Usage
 
@@ -72,8 +66,6 @@ following command:
 
 Replace `script_name.sh` with the name of the script you want to run.
 
-<br />
-
 ## Shell Scripts
 
 Here's a brief overview of the scripts available in Homelab-Alpha Shell Script
@@ -87,16 +79,12 @@ audio.\
 **Detailed Explanation:** [audio_converter.info]\
 **RAW Script:** [audio_converter.sh]
 
-<br />
-
 ### check_pi_throttling.sh
 
 **Description:** This script checks the throttling status of a Raspberry Pi by
 querying the vcgencmd tool.\
 **Detailed Explanation:** [check_pi_throttling.info]\
 **RAW Script:** [check_pi_throttling.sh]
-
-<br />
 
 ### check_system_info.sh
 
@@ -106,8 +94,6 @@ RAM/SWAP usage, disk usage, disk usage inodes, and last reboot/shutdown events.\
 **Detailed Explanation:** [check_system_info.info]\
 **RAW Script:** [check_system_info.sh]
 
-<br />
-
 ### clearcache.sh
 
 **Description:** This script drop clean caches, as well as reclaimable slab
@@ -115,16 +101,12 @@ objects like dentries and inodes.\
 **Detailed Explanation:** [clearcache.info]\
 **RAW Script:** [clearcache.sh]
 
-<br />
-
 ### cronjob_template.sh
 
 **Description:** This script is a cronjob template and sends a ping to a
 monitoring server for system health check. \
 **Detailed Explanation:** [cronjob_template.info]\
 **RAW Script:** [cronjob_template.sh]
-
-<br />
 
 ### github_pr_inspector.sh
 
@@ -136,8 +118,6 @@ flexible user experience \
 **Detailed Explanation:** [github_pr_inspector.info]\
 **RAW Script:** [github_pr_inspector.sh]
 
-<br />
-
 ### gnome_keybindings_backup_restore.sh
 
 **Description:** This script allows you to easily create backups of GNOME
@@ -148,8 +128,6 @@ your preference. \
 **Detailed Explanation:** [gnome_keybindings_backup_restore.info]\
 **RAW Script:** [gnome_keybindings_backup_restore.sh]
 
-<br />
-
 ### gpg_keygen_script.sh
 
 **Description:** This script generates a GPG key pair for secure communication.
@@ -159,8 +137,6 @@ directory.\
 **Detailed Explanation:** [gpg_keygen_script.info]\
 **RAW Script:** [gpg_keygen_script.sh]
 
-<br />
-
 ### install_latest_dart_sass.sh
 
 **Description:** This script fetches the latest version of Dart Sass from the
@@ -168,8 +144,6 @@ official GitHub repository, downloads it, installs it to /usr/local/dart-sass,
 and cleans up the downloaded files.\
 **Detailed Explanation:** [install_latest_dart_sass.info]\
 **RAW Script:** [install_latest_dart_sass.sh]
-
-<br />
 
 ### install_latest_go.sh
 
@@ -179,8 +153,6 @@ downloaded files.\
 **Detailed Explanation:** [install_latest_go.info]\
 **RAW Script:** [install_latest_go.sh]
 
-<br />
-
 ### install_latest_hugo.sh
 
 **Description:** This script fetches the latest version of Hugo from the
@@ -188,8 +160,6 @@ official GitHub repository, downloads it, installs it to
 /usr/local/hugo-extended, and cleans up the downloaded files.\
 **Detailed Explanation:** [install_latest_hugo.info]\
 **RAW Script:** [install_latest_hugo.sh]
-
-<br />
 
 ### install_latest_jetbrains_mono.sh
 
@@ -199,8 +169,6 @@ fonts directory, and cleans up the downloaded files.\
 **Detailed Explanation:** [install_latest_jetbrains_mono.info]\
 **RAW Script:** [install_latest_jetbrains_mono.sh]
 
-<br />
-
 ### install_latest_protoc.sh
 
 **Description:** This script fetches the latest version of protoc (Protocol
@@ -208,8 +176,6 @@ Buffers) from the official GitHub repository, downloads it, installs it to
 /usr/local/protoc, and cleans up the downloaded files.\
 **Detailed Explanation:** [install_latest_protoc.info]\
 **RAW Script:** [install_latest_protoc.sh]
-
-<br />
 
 ### maintain_git_repo.sh
 
@@ -221,8 +187,6 @@ or to ensure a clean history for better project management and collaboration.\
 **Detailed Explanation:** [maintain_git_repo.info]\
 **RAW Script:** [maintain_git_repo.sh]
 
-<br />
-
 ### new_docker_compose_file.sh
 
 **Description:** This script creates a new Docker-Compose file and configuration
@@ -230,16 +194,12 @@ files based on user input.\
 **Detailed Explanation:** [new_docker_compose_file.info]\
 **RAW Script:** [new_docker_compose_file.sh]
 
-<br />
-
 ### new_docker_project.sh
 
 **Description:** This script creates a new Docker container directory structure
 and configuration files based on user input.\
 **Detailed Explanation:** [new_docker_project.info]\
 **RAW Script:** [new_docker_project.sh]
-
-<br />
 
 ### ssh_keygen_script.sh
 
@@ -251,8 +211,6 @@ for traceability.\
 **Detailed Explanation:** [ssh_keygen_script.info]\
 **RAW Script:** [ssh_keygen_script.sh]
 
-<br />
-
 ### super_linter.sh
 
 **Description:** This script facilitates local linting of code repositories
@@ -262,8 +220,6 @@ folder.\
 **Detailed Explanation:** [super_linter.info]\
 **RAW Script:** [super_linter.sh]
 
-<br />
-
 ### sync_containers.sh
 
 **Description:** This script synchronizes Docker container images from a
@@ -271,8 +227,6 @@ predefined list. It checks the available disk space, verifies the format of the
 Docker container labels, and logs all actions and errors to a log file.\
 **Detailed Explanation:** [sync_containers.info]\
 **RAW Script:** [sync_containers.sh]
-
-<br />
 
 ### uptime_kuma_pr_test_v2.sh
 
@@ -282,16 +236,12 @@ ports for the app and API.\
 **Detailed Explanation:** [uptime_kuma_pr_test_v2.info]\
 **RAW Script:** [uptime_kuma_pr_test_v2.sh]
 
-<br />
-
 ### user_accounts_info.sh
 
 **Description:** This script retrieves information about system user accounts
 and organizes them into system and normal user categories.\
 **Detailed Explanation:** [user_accounts_info.info]\
 **RAW Script:** [user_accounts_info.sh]
-
-<br />
 
 ## Function Scripts
 
@@ -306,8 +256,6 @@ directories, including recursive copying. \
 **Detailed Explanation:** [cpg.info]\
 **RAW Script:** [cpg.sh]
 
-<br />
-
 ### dns_check.sh
 
 **Description:** This script checks network connectivity and DNS server
@@ -316,16 +264,12 @@ network issues. \
 **Detailed Explanation:** [dns_check.info]\
 **RAW Script:** [dns_check.sh]
 
-<br />
-
 ### encrypt_and_decrypt.sh
 
 **Description:** This script provides functions to encrypt and decrypt files or
 directories using AES-256 encryption algorithm with OpenSSL. \
 **Detailed Explanation:** [encrypt_and_decrypt.info]\
 **RAW Script:** [encrypt_and_decrypt.sh]
-
-<br />
 
 ### ex.sh
 
@@ -336,16 +280,12 @@ appropriate extraction method.\
 **Detailed Explanation:** [ex.info]\
 **RAW Script:** [ex.sh]
 
-<br />
-
 ### health_check.sh
 
 **Description:** This script checks the availability of a given URL using both
 HTTP and HTTPS protocols.\
 **Detailed Explanation:** [health_check.info]\
 **RAW Script:** [health_check.sh]
-
-<br />
 
 ### mkdirg.sh
 
@@ -354,16 +294,12 @@ navigates into it.\
 **Detailed Explanation:** [mkdirg.info]\
 **RAW Script:** [mkdirg.sh]
 
-<br />
-
 ### mvg.sh
 
 **Description:** This script moves a file or directory to a specified
 destination and then enters the destination directory.\
 **Detailed Explanation:** [mvg.info]\
 **RAW Script:** [mvg.sh]
-
-<br />
 
 ### targzip.sh
 
@@ -372,16 +308,12 @@ compresses it using gzip.\
 **Detailed Explanation:** [targzip.info]\
 **RAW Script:** [targzip.sh]
 
-<br />
-
 ### tarzip.sh
 
 **Description:** This script creates a compressed archive (.zip) of a specified
 folder using tar and zip commands.\
 **Detailed Explanation:** [tarzip.info]\
 **RAW Script:** [tarzip.sh]
-
-<br />
 
 ### up.sh
 
@@ -391,14 +323,10 @@ script in a terminal and provide the number of levels to move up.\
 **Detailed Explanation:** [up.info]\
 **RAW Script:** [up.sh]
 
-<br />
-
 ## Dotfiles Scripts
 
 Here's a brief overview of scripts that are available in Homelab-Alpha Dotfiles
 repositorie:
-
-<br />
 
 ### dotfiles_installer.sh
 
@@ -406,8 +334,6 @@ repositorie:
 dotfiles, including creating backups and restoring them if necessary.\
 **Detailed Explanation:** [dotfiles_installer.info]\
 **RAW Script:** [dotfiles_installer.sh]
-
-<br />
 
 ## OpenSSL Scripts
 
@@ -422,8 +348,6 @@ the end if it doesn't already exist..\
 **Detailed Explanation:** [tls_dotfiles_installer.info]\
 **RAW Script:** [tls_dotfiles_installer.sh]
 
-<br />
-
 ### tls_directory_setup.sh
 
 **Description:** Sets up the TLS certificate management directories, creates a
@@ -431,8 +355,6 @@ database for each authority, and copies the OpenSSL configuration files. The
 script is safe to run again.\
 **Detailed Explanation:** [tls_directory_setup.info]\
 **RAW Script:** [tls_directory_setup.sh]
-
-<br />
 
 ### tls_directory_migrate.sh
 
@@ -442,8 +364,6 @@ files.\
 **Detailed Explanation:** [tls_directory_migrate.info]\
 **RAW Script:** [tls_directory_migrate.sh]
 
-<br />
-
 ### trusted_id.sh
 
 **Description:** This script generates and manages a trusted root certificate,
@@ -451,8 +371,6 @@ including key generation, certificate creation, verification, and format
 conversion.\
 **Detailed Explanation:** [trusted-id.info]\
 **RAW Script:** [trusted_id.sh]
-
-<br />
 
 ### root_ca.sh
 
@@ -462,8 +380,6 @@ processes.\
 **Detailed Explanation:** [root_ca.info]\
 **RAW Script:** [root_ca.sh]
 
-<br />
-
 ### ca.sh
 
 **Description:** This script manages an Intermediate Certificate Authority,
@@ -471,8 +387,6 @@ handling key generation, CSR creation, certificate issuance, and verification
 processes.\
 **Detailed Explanation:** [ca.info]\
 **RAW Script:** [ca.sh]
-
-<br />
 
 ### cert_ecdsa_localhost.sh
 
@@ -482,8 +396,6 @@ verification.\
 **Detailed Explanation:** [cert_ecdsa_localhost.info]\
 **RAW Script:** [cert_ecdsa_localhost.sh]
 
-<br />
-
 ### cert_ecdsa_server.sh
 
 **Description:** This script automates the generation of an ECDSA server
@@ -492,8 +404,6 @@ verification.\
 **Detailed Explanation:** [cert_ecdsa_server.info]\
 **RAW Script:** [cert_ecdsa_server.sh]
 
-<br />
-
 ### cert_ecdsa_client.sh
 
 **Description:** This script automates the generation of an ECDSA client
@@ -501,8 +411,6 @@ certificate, including key creation, CSR generation, certificate issuance, and
 verification.\
 **Detailed Explanation:** [cert_ecdsa_client.info]\
 **RAW Script:** [cert_ecdsa_client.sh]
-
-<br />
 
 ### cert_rsa_server.sh
 
@@ -513,8 +421,6 @@ bundles.\
 **Detailed Explanation:** [cert_rsa_server.info]\
 **RAW Script:** [cert_rsa_server.sh]
 
-<br />
-
 ### cert_rsa_client.sh
 
 **Description:** Automates the process of creating and managing RSA client
@@ -522,8 +428,6 @@ certificates, including key generation, CSR creation, certificate issuance,
 verification, and preparation of certificate chain bundles.\
 **Detailed Explanation:** [cert_rsa_client.info]\
 **RAW Script:** [cert_rsa_client.sh]
-
-<br />
 
 ### cert.sh
 
@@ -533,8 +437,6 @@ ECDSA or RSA key, signed by the intermediate certificate authority. The five
 **Detailed Explanation:** [cert.info]\
 **RAW Script:** [cert.sh]
 
-<br />
-
 ### common.sh
 
 **Description:** The shared functions of the OpenSSL scripts: messages, the base
@@ -542,8 +444,6 @@ directory, input checks, passphrases, the lock, and the archive. The other
 scripts load this file with `source`.\
 **Detailed Explanation:** [common.info]\
 **RAW Script:** [common.sh]
-
-<br />
 
 ### verify_tls_certificates.sh
 
@@ -553,16 +453,12 @@ detailed verification processes.\
 **Detailed Explanation:** [verify_tls_certificates.info]\
 **RAW Script:** [verify_tls_certificates.sh]
 
-<br />
-
 ## Log Files
 
 The location of log files can vary depending on the specific operating system
 and application being used. Log files are often stored in a subdirectory within
 the application's installation directory or in a system directory such as
 `/var/log` on Linux
-
-<br />
 
 ## Contribute to Homelab-Alpha - Shell Script
 
@@ -571,15 +467,11 @@ your contributions to the Homelab-Alpha - shell-script repository. Changes to
 the shell-script are handled through pull requests against the `main` branch. To
 learn how to contribute, see [contribute].
 
-<br />
-
 ## Acknowledgements
 
 - [ShellCheck]: A tool for analyzing shell scripts and providing suggestions for
   improvement.
 - [Bash Scripting Guide]: A comprehensive guide to bash scripting.
-
-<br />
 
 ## License
 
@@ -718,7 +610,7 @@ the attribution requirements.
   docs/../../openssl/script-information/tls_directory_migrate.info.md
 [tls_directory_migrate.sh]:
   https://raw.githubusercontent.com/homelab-alpha/openssl/main/scripts/tls_directory_migrate.sh
-[trusted-id.info]: docs/../../openssl/script-information/trusted-id.info.md
+[trusted-id.info]: docs/../../openssl/script-information/trusted_id.info.md
 [trusted_id.sh]:
   https://raw.githubusercontent.com/homelab-alpha/openssl/main/scripts/certificate-authority/trusted_id.sh
 [root_ca.info]: docs/../../openssl/script-information/root_ca.info.md

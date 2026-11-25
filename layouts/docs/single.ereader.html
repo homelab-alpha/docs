@@ -9,12 +9,7 @@
   {{- with .Description }}
   <p class="lead">{{ . | markdownify | plainify }}</p>
   {{- end }}
-  {{- if in .TableOfContents "<li>" }}
-  <nav class="toc" aria-label="Table of contents">
-    <p class="toc-title">On this page</p>
-    {{ .TableOfContents }}
-  </nav>
-  {{- end }}
+  {{ partial "ereader/toc.html" . }}
   {{ .Content }}
 </main>
 {{- /*

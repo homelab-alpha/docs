@@ -10,8 +10,12 @@
   <p class="lead">{{ . | markdownify | plainify }}</p>
   {{- end }}
   {{ .Content }}
+  {{- if eq .Path "/docs" }}
+  {{ partial "ereader/topics.html" . }}
+  {{- else }}
   {{- with .Pages.ByWeight }}
   {{ partial "ereader/items.html" . }}
+  {{- end }}
   {{- end }}
 </main>
 {{ partial "ereader/footer.html" . }}

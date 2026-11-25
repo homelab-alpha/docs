@@ -1,5 +1,6 @@
 <head>
     <meta charset="utf-8" />
+    {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "csp.html") . }}
     <title>
         {{- $url := replace .Permalink ( printf "%s" .Site.BaseURL) "" }}
         {{- if eq $url "/" }}
@@ -43,23 +44,18 @@
     {{ block "favicon" . }}{{ partialCached (printf "%s/%s" ($.Scratch.Get "pathName") "head/favicon.html") . }}{{ end }}
     {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "head/opengraph") . }}
     {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "head/twitter_cards") . }}
-    <!-- Atom feed autodiscovery -->
-    {{- with .Site.Title }}
-        <link rel="alternate" type="application/atom+xml" title="Atom feed for {{ . }}" href="/index.xml" />
-    {{- end }}
     <!-- Dark Mode -->
     {{ if eq .Site.Params.docs.darkMode true -}}
-        {{ $darkModeInit := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/darkmode-init.js") | js.Build | minify -}}
-        <script>{{ $darkModeInit.Content | safeJS }}</script>
+        {{- /* Inline before the first paint; its hash is in the CSP (csp.html). */}}
+        <script>{{ (partial (printf "%s/%s" ($.Scratch.Get "pathName") "inline-script.html") "darkmode-init").Content | safeJS }}</script>
     {{ end -}}
-    <!-- Fonts: Inter is not preloaded. The font stack starts with the system
-         font (-apple-system, system-ui), so Inter is only a fallback and a
-         preload would only take bandwidth from the stylesheet. -->
+    <!-- Fonts: text uses the system font; only the code font (JetBrains Mono)
+         is self-hosted, with font-display: optional, so it is not preloaded. -->
 
     <!-- Custom CSS -->
     {{- $options := dict "transpiler" "dartsass" "silenceDeprecations" (slice "import" "global-builtin" "if-function" "color-functions") "enableSourceMap" true }}
     {{- if hugo.IsProduction}}
-        {{- $options := dict "transpiler" "dartsass" "silenceDeprecations" (slice "import" "global-builtin" "if-function" "color-functions") "enableSourceMap" false "outputStyle" "compressed" }}
+        {{- $options = dict "transpiler" "dartsass" "silenceDeprecations" (slice "import" "global-builtin" "if-function" "color-functions") "enableSourceMap" false "outputStyle" "compressed" }}
     {{- end }}
     {{- $style := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "scss/style.scss") }}
     {{- $style = $style | resources.ExecuteAsTemplate (printf "/%s/%s" ($.Scratch.Get "pathName") "scss/style.scss") . | css.Sass $options }}
@@ -78,7 +74,7 @@
     {{- if $needsKatex -}}
     {{- $options := dict "transpiler" "dartsass" "silenceDeprecations" (slice "import" "global-builtin" "if-function" "color-functions") "enableSourceMap" true }}
     {{- if hugo.IsProduction}}
-        {{- $options := dict "transpiler" "dartsass" "silenceDeprecations" (slice "import" "global-builtin" "if-function" "color-functions") "enableSourceMap" false "outputStyle" "compressed" }}
+        {{- $options = dict "transpiler" "dartsass" "silenceDeprecations" (slice "import" "global-builtin" "if-function" "color-functions") "enableSourceMap" false "outputStyle" "compressed" }}
     {{- end -}}
     {{- $katexCSS := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "scss/katex.scss") }}
     {{- $katexCSS = $katexCSS | resources.ExecuteAsTemplate (printf "/%s/%s" ($.Scratch.Get "pathName") "scss/katex.scss") . | css.Sass $options }}

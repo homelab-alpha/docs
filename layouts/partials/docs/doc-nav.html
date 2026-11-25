@@ -1,37 +1,22 @@
-<hr class="doc-hr">
-<div id="doc-nav" class="d-print-none">
+{{- /*
+  Previous and next page in the same section, as two cards: "Previous" on the
+  left and "Next" on the right, each with the page title in the accent color.
+  $pages.Next is the page before this one in the sidebar order.
+*/ -}}
 {{ if or .Prev .Next -}}
-	<!-- https://www.feliciano.tech/blog/custom-sort-hugo-single-pages/ -->
-	{{ $pages := where .Site.RegularPages "Section" .Section -}}
-    <div class="row flex-xl-nowrap {{ if .Next }}{{ else }}flex-row-reverse{{ end }}">
-	{{ with $pages.Next . -}}
-        <div class="col-sm-6 pt-2 doc-next">
-		<a href="{{ .RelPermalink }}">
-			<div class="card h-100 my-1">
-				<div class="card-body py-2">
-                    <p class="card-title fs-5 fw-semibold lh-base mb-0">{{ partial "svg-icon.html" (dict "name" "navigate_before" "tag" "i" "class" "align-middle") }} {{ .Title }}</p>
-					{{ if eq .Site.Params.docs.navDesc true -}}
-                    	<p class="card-text ms-2">{{ .Description | truncate (.Site.Params.docs.navDescTrunc | default 40) }}</p>
-					{{ end }}
-				</div>
-			</div>
-		</a>
-        </div>
-	{{ end -}}
-	{{ with $pages.Prev . -}}
-        <div class="col-sm-6 pt-2 doc-prev">
-		<a class="ms-auto" href="{{ .RelPermalink }}">
-			<div class="card h-100 my-1 text-end">
-				<div class="card-body py-2">
-                    <p class="card-title fs-5 fw-semibold lh-base mb-0">{{ .Title }} {{ partial "svg-icon.html" (dict "name" "navigate_next" "tag" "i" "class" "align-middle") }}</p>
-					{{ if eq .Site.Params.docs.navDesc true -}}
-                    	<p class="card-text me-2">{{ .Description | truncate (.Site.Params.docs.navDescTrunc | default 40) }}</p>
-					{{ end }}
-				</div>
-			</div>
-		</a>
-        </div>
-	{{ end -}}
-    </div>
+{{ $pages := where .Site.RegularPages "Section" .Section -}}
+<nav id="doc-nav" class="doc-nav d-print-none" aria-label="{{ i18n "doc_nav" | default "Previous and next page" }}">
+    {{ with $pages.Next . -}}
+    <a class="doc-nav-card doc-prev" href="{{ .RelPermalink }}" rel="prev">
+        <span class="doc-nav-label">{{ partial "svg-icon.html" (dict "name" "navigate_before" "tag" "span" "class" "doc-nav-icon") }}{{ i18n "previous" | default "Previous" }}</span>
+        <span class="doc-nav-title">{{ .Title }}</span>
+    </a>
+    {{ end -}}
+    {{ with $pages.Prev . -}}
+    <a class="doc-nav-card doc-next" href="{{ .RelPermalink }}" rel="next">
+        <span class="doc-nav-label">{{ i18n "next" | default "Next" }}{{ partial "svg-icon.html" (dict "name" "navigate_next" "tag" "span" "class" "doc-nav-icon") }}</span>
+        <span class="doc-nav-title">{{ .Title }}</span>
+    </a>
+    {{ end -}}
+</nav>
 {{ end -}}
-</div>

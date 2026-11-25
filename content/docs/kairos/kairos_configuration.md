@@ -26,13 +26,11 @@ keywords:
   - kiosk mode
 
 draft: false
-weight: 6503
+weight: 7001
 
 toc: true
 katex: true
 ---
-
-<br />
 
 A minimal card:
 

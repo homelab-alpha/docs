@@ -31,19 +31,15 @@ keywords:
   - Docker networking
   - container networking
 
-weight: 4100
+weight: 4202
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Docker offers several network drivers. This guide compares the three that the
 stacks in the [docker repository](https://github.com/homelab-alpha/docker) use

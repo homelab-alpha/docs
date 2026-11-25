@@ -40,19 +40,15 @@ keywords:
   - docker compose example
   - immich deployment
 
-weight: 4100
+weight: 4108
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this `compose.yml` file does in detail for deploying
 Immich, a self-hosted photo and video management solution, along with its
@@ -72,8 +68,6 @@ Here's a detailed explanation:
 - **RAW Compose File**: [compose.yml]
 - **RAW .env File**: [.env]
 - **RAW stack.env File**: [stack.env]
-
-<br />
 
 ## Networks Configuration
 
@@ -105,8 +99,6 @@ networks:
       com.immich.network.description: "is an isolated bridge network."
 ```
 
-<br />
-
 - **networks**: Defines a custom network named `immich_net`.
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
@@ -135,8 +127,6 @@ networks:
     Unit size for the network.
 - **labels**: Metadata for the network.
   - **com.immich.network.description**: A description label for the network.
-
-<br />
 
 ## Services Configuration
 
@@ -322,8 +312,6 @@ services:
       disable: false
 ```
 
-<br />
-
 - **services**: Defines services to be deployed.
 - **immich_db**: The service name for the PostgreSQL database container.
   - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
@@ -380,8 +368,6 @@ services:
     - **start_period: 10s**: Initial grace period before health checks count.
     - **start_interval: 5s**: Time between starting health checks.
 
-<br />
-
 - **immich_redis**: The service name for the Redis database container.
   - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
     threads in the container, which protects the host against fork bombs.
@@ -431,8 +417,6 @@ services:
     - **start_period: 10s**: Initial grace period before health checks count.
     - **start_interval: 5s**: Time between starting health checks.
 
-<br />
-
 - **immich_ml**: The service name for the machine learning component container.
   - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
     threads in the container, which protects the host against fork bombs.
@@ -474,8 +458,6 @@ services:
       immich, designed to enhance media management and automation."
   - **healthcheck**: Healthcheck configuration.
     - **disable: false**: Enables health checks for the container.
-
-<br />
 
 - **immich_app**: The service name for the Immich application container.
   - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
@@ -525,16 +507,12 @@ services:
   - **healthcheck**: Healthcheck configuration.
     - **disable: false**: Enables health checks for the container.
 
-<br />
-
 ## Environment Variables
 
 This file contains configuration settings that can be used by various
 applications (such as Docker containers or your MariaDB server). These values
 are stored outside the source code to enhance **security, portability, and
 flexibility**.
-
-<br />
 
 ### Variables in this file
 
@@ -558,8 +536,6 @@ USER_DB=postgres
 - **`USER_DB`**: The PostgreSQL username used by the Immich stack. This is
   required and **must not be modified** (default: `postgres`).
 
-<br />
-
 ## Quick Start
 
 {{% alert context="info" %}}
@@ -575,8 +551,6 @@ Requires Docker Compose 2.24.0 or later.
    docker compose up -d
    ```
 
-<br />
-
 ## Default Web Access
 
 Access the Immich web interface using the following URL:
@@ -584,8 +558,6 @@ Access the Immich web interface using the following URL:
 ```bash
 http://your-ip-address:3015
 ```
-
-<br />
 
 ## Default Login Credentials
 
@@ -602,8 +574,6 @@ becomes the admin user.
 **For security reasons, it is strongly recommended to create a strong username
 and password during the setup.**
 {{% /alert %}}
-
-<br />
 
 ## Conclusion
 

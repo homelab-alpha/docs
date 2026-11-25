@@ -25,13 +25,11 @@ keywords:
   - shell script commands
   - shell script examples
 
-weight: 9902
+weight: 10902
 
 toc: true
 katex: true
 ---
-
-<br />
 
 ## Introduction to Shell Scripting
 
@@ -39,8 +37,6 @@ Shell scripting is a powerful tool that allows you to automate tasks, manipulate
 files, and streamline your workflow by executing a series of commands in a
 script file. It acts as a bridge between you and the operating system, making
 repetitive tasks easier and faster.
-
-<br />
 
 ## Getting Started
 
@@ -57,8 +53,6 @@ environment:
    or Linux, you already have one. Windows users can use tools like Git Bash,
    WSL (Windows Subsystem for Linux), or Cygwin.
 
-<br />
-
 ### Basic Commands
 
 Here are some basic commands you'll frequently use in shell scripting:
@@ -69,8 +63,6 @@ Here are some basic commands you'll frequently use in shell scripting:
 - `pwd`: Prints the current working directory.
 - `mkdir`: Creates a new directory.
 - `rm`: Removes files or directories.
-
-<br />
 
 ## Writing Your First Script
 
@@ -102,8 +94,6 @@ Let's write a simple script to get you started:
    ```
 
 You should see the output Hello, World! in your terminal.
-
-<br />
 
 ## Common Shell Script Commands
 
@@ -144,8 +134,6 @@ greet() {
 greet "Bob"
 ```
 
-<br />
-
 ## Shell Script Examples
 
 ### Example 1: Backup Script
@@ -166,8 +154,6 @@ else
 fi
 ```
 
-<br />
-
 ### Example 2: User Management Script
 
 This script adds a new user to the system:
@@ -180,8 +166,6 @@ sudo useradd -m "$username"
 echo "User $username has been added."
 ```
 
-<br />
-
 ## Advanced Topics
 
 Once you're comfortable with the basics, you can explore more advanced topics
@@ -193,8 +177,6 @@ such as:
 - Debugging: Using tools like set -x to trace your script's execution.
 - Scripting Best Practices: Writing clean, maintainable, and efficient scripts.
 
-<br />
-
 ## Resources
 
 To further your shell scripting skills, check out these resources:
@@ -204,13 +186,9 @@ To further your shell scripting skills, check out these resources:
   - _"Linux Command-Line and Shell Scripting Bible"_ by Richard Blum and
     Christine Bresnahan
 
-<br />
-
 - **Online Tutorials**:
   - [Shell Scripting Tutorial]
   - [Bash Guide for Beginners]
-
-<br />
 
 - **Communities**:
   - [Stack Overflow]

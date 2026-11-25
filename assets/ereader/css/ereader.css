@@ -20,6 +20,8 @@ body {
   font-family: Georgia, "Times New Roman", serif;
   font-size: 112%;
   line-height: 1.5;
+  /* Long names and paths break, so a page never scrolls sideways. */
+  word-wrap: break-word;
 }
 
 /* Old WebKit builds do not know the HTML5 sectioning elements. */
@@ -151,10 +153,36 @@ pre code {
   font-size: 1em;
 }
 
+/* Code block with a label (the language or a title) on top. */
+.code-block {
+  margin: 0.8em 0;
+}
+
+.code-label {
+  margin: 0;
+  padding: 0.2em 0.6em;
+  border: 1px solid #000;
+  border-bottom: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.75em;
+  font-weight: bold;
+}
+
+.code-block pre {
+  margin: 0;
+}
+
+/* Alerts: the bold title sits right at the top of the quote. */
+.markdown-alert-title {
+  margin-top: 0.4em;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.9em;
+  /* WebKit: a long word in a cell breaks instead of widening the table. */
+  word-break: break-word;
 }
 
 th,
@@ -168,6 +196,15 @@ td {
 
 th {
   font-weight: bold;
+}
+
+/*
+ * Some pages put a <br /> between blocks as extra space on the full site. On
+ * a small e-ink screen that space only costs room, so drop a line break that
+ * sits directly in the page, outside a paragraph.
+ */
+main > br {
+  display: none;
 }
 
 /* Breadcrumbs, navigation, and footer. */
@@ -188,17 +225,25 @@ th {
   font-size: 0.95em;
 }
 
+/* No bullets: the levels show by their indent. */
 .toc ul {
-  margin: 0.2em 0;
-  padding-left: 1.2em;
-}
-
-/* Hugo wraps the headings in an empty outer list; hide its bullet. */
-.toc nav > ul,
-.toc nav > ul > li {
   margin: 0;
   padding-left: 0;
   list-style: none;
+}
+
+.toc ul ul {
+  padding-left: 1.2em;
+}
+
+.toc li {
+  margin: 0;
+}
+
+/* A larger tap target on a touch screen. */
+.toc a {
+  display: block;
+  padding: 0.2em 0;
 }
 
 .toc-title {
@@ -227,6 +272,10 @@ th {
 
 .items a {
   font-weight: bold;
+}
+
+.item-count {
+  font-size: 0.85em;
 }
 
 .item-note {
@@ -264,4 +313,15 @@ th {
 
 .site-footer p {
   margin: 0.4em 0;
+}
+
+/* Footer links get room around them, as tap targets. */
+.site-footer a {
+  display: inline-block;
+  padding: 0.2em 0;
+}
+
+/* About page: show the skill icons once, in the light theme. */
+.skills-dark {
+  display: none;
 }

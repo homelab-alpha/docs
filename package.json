@@ -10,9 +10,20 @@
   },
   "scripts": {
     "lint": "bash .github/scripts/lint.sh",
-    "lint:fix": "bash .github/scripts/lint.sh --fix"
+    "lint:fix": "bash .github/scripts/lint.sh --fix",
+    "test": "npm run test:csp && npm run test:links && npm run test:a11y && npm run test:lighthouse",
+    "test:links": "node tests/links.mjs",
+    "test:a11y": "node tests/a11y.mjs",
+    "test:screenshots": "node tests/screenshots.mjs",
+    "test:lighthouse": "node tests/lighthouse.mjs",
+    "test:csp": "python3 .github/scripts/check_csp.py",
+    "vendor:update": "node .github/scripts/update_vendored_assets.mjs",
+    "vendor:check": "python3 .github/scripts/check_vendored_assets.py"
   },
   "devDependencies": {
+    "axe-core": "4.14.1",
+    "lighthouse": "13.6.0",
+    "playwright-core": "1.65.1",
     "prettier": "3.10.1",
     "textlint": "16.1.3",
     "textlint-filter-rule-allowlist": "4.0.0",

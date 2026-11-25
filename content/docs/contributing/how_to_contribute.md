@@ -37,13 +37,11 @@ keywords:
   - feature request template
   - Homelab-Alpha discussions
 
-weight: 3001
+weight: 3003
 
 toc: true
 katex: true
 ---
-
-<br />
 
 {{% alert context="primary" %}}
 The following **Homelab-Alpha** projects welcome contributions from the
@@ -58,8 +56,6 @@ community:
 - **[Shell Script]**
 - **[Docs]**
   {{% /alert %}}
-
-<br />
 
 Thank you for your interest in contributing to **docs**! We welcome
 contributions of all kinds — from bug reports and feature requests to code

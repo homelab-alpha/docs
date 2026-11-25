@@ -1,37 +1,34 @@
-{{ $inner := replaceRE "^\r?\n" "" .Inner | string }}
-{{ $innerRemoveLB := replaceRE "\r\n?|\n" "" .Inner | string }}
-{{ $ordinal := .Ordinal }}
-{{ $codeHash := sha1 (delimit (slice $innerRemoveLB $ordinal "prismshortcode") "") }}
-{{ $codeHashShort := substr $codeHash 0 7 }}
-{{ if len .Params | eq 0 }}
-  <pre id="{{ $codeHashShort }}"><code>{{ $inner }}</code></pre>
-{{ else }}
-  {{ if .IsNamedParams }}
-      <div class="prism-shortcode {{- if .Get "line" }} data-line{{ end }}">
-      <pre {{- if .Get "id" }} id="{{ .Get "id" }}"{{ else }} id="{{ $codeHashShort }}"{{ end }} class="
-        {{- if .Get "lang" }}language-{{ .Get "lang" }}{{ end }}
-        {{- if .Get "line-numbers" }} line-numbers{{ end }}
-        {{- if .Get "linkable-line-numbers" }} linkable-line-numbers{{ end }}
-        {{- if .Get "command-line" }} command-line{{ end }}"
-        {{- /* file highlight plugin */ -}}
-        {{- if .Get "src" }} data-src="{{ .Get "src" }}"{{ end }}
-        {{- if .Get "src-range" }} data-range="{{ .Get "src-range" }}"{{ end }}
-        {{- /* line highlight plugin */ -}}
-        {{- if .Get "line" }} data-line="{{ .Get "line" }}"{{ end }}
-        {{- if .Get "line-offset" }} data-line-offset="{{ .Get "line-offset" }}"{{ end }}
-        {{- /* line number plugin */ -}}
-        {{- if .Get "start" }} data-start="{{ .Get "start" }}"{{ end }}
-        {{- /* command-line plugin */ -}}
-        {{- if .Get "user" }} data-user="{{ .Get "user" }}"{{ end }}
-        {{- if .Get "host" }} data-host="{{ .Get "host" }}"{{ end }}
-        {{- if .Get "prompt" }} data-prompt="{{ .Get "prompt" }}"{{ end }}
-        {{- if .Get "output" }} data-output="{{ .Get "output" }}"{{ end }}
-        >{{- if .Get "src" }}{{ $inner }}{{ else }}<code {{ if .Get "lang" }}class="language-{{ .Get "lang" }}"{{ end }}
-        >{{ $inner }}</code>{{ end }}</pre>
-      </div>
-  {{ else }}
-      <pre id="{{ $codeHashShort }}" class="language-{{ .Get 0 }}">
-        <code class="language-{{ .Get 0 }}">{{ $inner }}</code>
-      </pre>
-  {{ end }}
-{{ end }}
+{{- /*
+  prism shortcode: kept for pages that use it. Prism is gone; the code is
+  highlighted at build time like every code block
+  (layouts/partials/docs/code-block.html).
+
+  Parameters: lang, line-numbers, start, line (lines to highlight, such as
+  "6-13,15"), line-offset (the number of the first line in "line"), and
+  linkable-line-numbers. Without parameters: a plain block.
+*/ -}}
+{{- $code := replaceRE "^\r?\n" "" .Inner | string -}}
+{{- if and .IsNamedParams (gt (len .Params) 0) -}}
+  {{- $options := dict -}}
+  {{- if eq (.Get "line-numbers") "true" }}{{ $options = merge $options (dict "linenos" "table") }}{{ end -}}
+  {{- with .Get "start" }}{{ $options = merge $options (dict "linenostart" (int .)) }}{{ end -}}
+  {{- if eq (.Get "linkable-line-numbers") "true" }}{{ $options = merge $options (dict "anchorlinenos" true) }}{{ end -}}
+  {{- with .Get "line" -}}
+    {{- /* Prism counts the lines from line-offset; Chroma from the first line. */ -}}
+    {{- $offset := sub (int ($.Get "line-offset" | default "1")) 1 -}}
+    {{- $ranges := slice -}}
+    {{- range split . "," -}}
+      {{- $parts := split (trim . " ") "-" -}}
+      {{- $from := sub (int (index $parts 0)) $offset -}}
+      {{- if gt (len $parts) 1 -}}
+        {{- $ranges = $ranges | append (printf "%d-%d" $from (sub (int (index $parts 1)) $offset)) -}}
+      {{- else -}}
+        {{- $ranges = $ranges | append (string $from) -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $options = merge $options (dict "hl_lines" (delimit $ranges " ")) -}}
+  {{- end -}}
+  {{- partial "docs/code-block.html" (dict "code" $code "lang" (.Get "lang") "options" $options) -}}
+{{- else -}}
+  {{- partial "docs/code-block.html" (dict "code" $code "lang" (.Get 0)) -}}
+{{- end -}}

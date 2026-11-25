@@ -32,19 +32,15 @@ keywords:
   - URL availability
   - monitoring script
 
-weight: 9200
+weight: 10105
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named
 `health_check.sh`, authored by GJS (homelab-alpha), and its purpose is to check
@@ -59,8 +55,6 @@ the availability of a given URL using both HTTP and HTTPS protocols.
 - **Description**: This script checks the availability of a given URL using both
   HTTP and HTTPS protocols.
 - **RAW Script**: [health_check.sh]
-
-<br />
 
 The script defines a function named `health-check` that performs the URL
 availability check. Let's go through the script line by line.
@@ -78,8 +72,6 @@ The function `health-check` is defined here. Three variables, `green`, `red`,
 and `end`, are set to escape codes for colored output in the terminal (green for
 success, red for failure, and resetting to default color).
 
-<br />
-
 ## Checking for URL Argument
 
 ```bash
@@ -93,8 +85,6 @@ This block checks if the user has provided a URL as an argument. If not, it
 prints a message prompting the user to provide a URL and returns an exit status
 of 1, indicating an error.
 
-<br />
-
 ## URL and Protocols
 
 ```bash
@@ -105,8 +95,6 @@ of 1, indicating an error.
 
 The provided URL is assigned to the variable `url`. An array `protocols` is
 defined, containing the strings `"https"` and `"http"`.
-
-<br />
 
 ## Loop Through Protocols
 
@@ -133,8 +121,6 @@ If the `curl` command succeeds (indicating the URL is accessible), it prints a
 message that the URL is UP, colored green, and returns an exit status of 0,
 indicating success.
 
-<br />
-
 ## If Both Protocols Fail
 
 ```bash
@@ -145,8 +131,6 @@ indicating success.
 
 If neither HTTP nor HTTPS versions of the URL are accessible, the script prints
 a message that both are DOWN, colored red, and returns an exit status of 1.
-
-<br />
 
 ## Conclusion
 

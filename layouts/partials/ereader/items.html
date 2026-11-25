@@ -1,5 +1,6 @@
 {{- /*
-  List of pages with a short description.
+  List of pages with a short description. A section also shows how many pages
+  it holds.
   Context: a collection of pages.
 */ -}}
 <ul class="items">
@@ -8,6 +9,10 @@
     {{- with .OutputFormats.Get "ereader" }}
   <li>
     <a href="{{ .RelPermalink }}">{{ $page.Title }}</a>
+    {{- if $page.IsSection }}
+      {{- $n := len $page.RegularPagesRecursive }}
+    <span class="item-count">&middot; {{ $n }} {{ cond (eq $n 1) "page" "pages" }}</span>
+    {{- end }}
     {{- with $page.Description }}
     <span class="item-note">{{ . | markdownify | plainify | truncate 140 }}</span>
     {{- end }}

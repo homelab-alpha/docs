@@ -48,19 +48,15 @@ keywords:
   - Docker monitoring
   - Docker logging
 
-weight: 2200
+weight: 2201
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 ## Docker Compose
 
@@ -114,8 +110,6 @@ In this example:
   communication between them.
 - A volume (`db_data`) is used to persist the database data.
 
-<br />
-
 ## Docker Networking
 
 Docker Networking allows you to customize networking for seamless
@@ -155,8 +149,6 @@ In this example:
 - The `my_network` network is explicitly defined with the `bridge` driver, which
   provides a bridge network mode for containers.
 
-<br />
-
 ## Docker Volumes
 
 Docker Volumes enable you to persist container data securely, ensuring integrity
@@ -184,8 +176,6 @@ In this example:
 - The volume `db_data` is mounted to the container at the path `/var/lib/mysql`,
   ensuring that data is stored persistently even if the container is stopped or
   removed.
-
-<br />
 
 ## Docker Swarm
 
@@ -238,8 +228,6 @@ In this example:
 - This setup allows Docker Swarm to manage the deployment and scaling of the
   services across the cluster, providing high availability and load balancing.
 
-<br />
-
 ## Docker Security
 
 Docker Security allows you to safeguard applications with isolation, user
@@ -275,8 +263,6 @@ In this example:
 This setup demonstrates how Docker allows you to implement security best
 practices, such as running processes with the least privileged access, to
 mitigate risks and protect your applications.
-
-<br />
 
 ## Dockerfile Best Practices
 
@@ -328,8 +314,6 @@ In this example:
 This example demonstrates how to implement Dockerfile best practices to optimize
 builds, reduce image size, and enhance security.
 
-<br />
-
 ## Docker Registry
 
 Docker Registry allows you to set up private registries for secure image storage
@@ -365,8 +349,6 @@ use a Docker Registry:
 By setting up a private Docker Registry, you ensure that your organization's
 Docker images are stored securely and can be distributed internally, providing
 better control and governance over your containerized applications.
-
-<br />
 
 ## Advanced Techniques
 
@@ -409,8 +391,6 @@ service discovery and load balancing:
 By leveraging tools like Consul or etcd for service discovery and load
 balancing, you can efficiently manage your microservices architecture, ensuring
 high availability and optimal resource utilization.
-
-<br />
 
 ### CI/CD Integration
 
@@ -462,8 +442,6 @@ By integrating Docker with your CI/CD pipeline, you can automate the software
 delivery process, leading to faster iteration cycles, improved quality, and
 increased productivity.
 
-<br />
-
 ### Kubernetes Orchestration
 
 Harness the power of Kubernetes for automated deployment, scaling, and
@@ -507,8 +485,6 @@ By leveraging Kubernetes for orchestration, you can automate deployment,
 scaling, and management tasks, ensuring high availability and reliability for
 your containerized applications.
 
-<br />
-
 ### Microservices Architecture
 
 Decompose monolithic apps into smaller, scalable services with Docker containers
@@ -540,8 +516,6 @@ containers:
 By adopting a microservices architecture with Docker containers, you can achieve
 greater scalability, flexibility, and resilience in your application, enabling
 easier development, deployment, and maintenance.
-
-<br />
 
 ### Infrastructure as Code (IaC)
 
@@ -580,8 +554,6 @@ In this example:
 By using Infrastructure as Code, you can programmatically provision and manage
 Docker hosts, ensuring reproducibility, scalability, and consistency in your
 infrastructure deployment process.
-
-<br />
 
 ### Monitoring and Logging
 
@@ -641,8 +613,6 @@ using Prometheus and the ELK stack:
 By implementing monitoring with Prometheus and logging with the ELK stack, you
 can gain insights into your containerized applications' performance and
 troubleshoot issues effectively.
-
-<br />
 
 ## Conclusion
 

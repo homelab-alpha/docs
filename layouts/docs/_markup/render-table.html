@@ -1,0 +1,31 @@
+{{- /*
+  Table render hook: the table sits in a region that scrolls on narrow
+  screens. The region can get keyboard focus, so it scrolls with the arrow
+  keys too (WCAG 2.1.1).
+*/ -}}
+<div class="table-wrapper" role="region" tabindex="0" aria-label="{{ i18n "table" | default "Table" }}">
+<table{{ partial "docs/html-attributes.html" (dict "attrs" .Attributes "page" .Page) | safeHTMLAttr }}>
+  <thead>
+    {{- range .THead }}
+      <tr>
+        {{- range . }}
+          <th {{- with .Alignment }} style="text-align: {{ . }}"{{ end }}>
+            {{- .Text -}}
+          </th>
+        {{- end }}
+      </tr>
+    {{- end }}
+  </thead>
+  <tbody>
+    {{- range .TBody }}
+      <tr>
+        {{- range . }}
+          <td {{- with .Alignment }} style="text-align: {{ . }}"{{ end }}>
+            {{- .Text -}}
+          </td>
+        {{- end }}
+      </tr>
+    {{- end }}
+  </tbody>
+</table>
+</div>

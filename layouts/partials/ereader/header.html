@@ -1,17 +1,21 @@
 {{- /*
-  Breadcrumbs of an e-reader page.
+  Breadcrumbs of an e-reader page. The first crumb is the e-reader home page,
+  which shows the same topics as the documentation home (/docs/).
   Context: the page being rendered.
 */ -}}
-{{- if and (not .IsHome) (gt (len .Ancestors) 1) }}
+{{- if and (not .IsHome) (ne .Path "/docs") }}
 <nav class="breadcrumbs" aria-label="Breadcrumb">
+  {{- with site.Home.OutputFormats.Get "ereader" }}
+  <a href="{{ .RelPermalink }}">{{ site.Params.docs.title | default site.Title }}</a> &rsaquo;
+  {{- end }}
   {{- range .Ancestors.Reverse }}
-    {{- if not .IsHome }}
+    {{- if and (not .IsHome) (ne .Path "/docs") }}
       {{- $title := .Title }}
       {{- with .OutputFormats.Get "ereader" }}
   <a href="{{ .RelPermalink }}">{{ $title }}</a> &rsaquo;
       {{- end }}
     {{- end }}
   {{- end }}
-  {{ .Title }}
+  <span aria-current="page">{{ .Title }}</span>
 </nav>
 {{- end }}

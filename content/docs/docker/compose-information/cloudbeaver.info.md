@@ -37,19 +37,15 @@ keywords:
   - Infrastructure Monitoring
   - Self-hosted Docker Management
 
-weight: 4100
+weight: 4102
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this `compose.yml` file does in detail for deploying
 CloudBeaver, a lightweight web application for all-around data management.
@@ -65,8 +61,6 @@ Here's a detailed explanation:
 - **Description**: Configures a Docker network and the CloudBeaver service for
   data management using Docker Compose.
 - **RAW Compose File**: [compose.yml]
-
-<br />
 
 ## Networks Configuration
 
@@ -98,8 +92,6 @@ networks:
       com.cloudbeaver.network.description: "is an isolated bridge network."
 ```
 
-<br />
-
 - **networks**: This section defines a custom network named `cloudbeaver_net`.
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
@@ -129,8 +121,6 @@ networks:
 - **labels**: Metadata for the network.
   - **com.cloudbeaver.network.description**: A description label for the
     network.
-
-<br />
 
 ## Services Configuration
 
@@ -178,8 +168,6 @@ services:
       start_period: 10s
       start_interval: 5s
 ```
-
-<br />
 
 - **services**: Defines services to be deployed.
 - **cloudbeaver_app**: The service name for the CloudBeaver container.
@@ -229,8 +217,6 @@ services:
       will not be counted towards the retries (10 seconds).
     - **start_interval**: The time between starting health checks (5 seconds).
 
-<br />
-
 ## Quick Start
 
 {{% alert context="info" %}}
@@ -243,8 +229,6 @@ Requires Docker Compose 2.24.0 or later.
    docker compose up -d
    ```
 
-<br />
-
 ## Default Web Access
 
 Access the CloudBeaver web interface using the following URL:
@@ -252,8 +236,6 @@ Access the CloudBeaver web interface using the following URL:
 ```bash
 http://your-ip-address:3978
 ```
-
-<br />
 
 ## Default Login Credentials
 
@@ -270,8 +252,6 @@ you create the administrator account.
 **For security reasons, it is strongly recommended to create a strong username
 and password during the setup.**
 {{% /alert %}}
-
-<br />
 
 ## Conclusion
 

@@ -37,19 +37,15 @@ keywords:
   - Infrastructure Monitoring
   - Self-hosted Docker Management
 
-weight: 4100
+weight: 4119
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this `compose.yml` file does in detail for deploying
 Portainer Edge Agent, a user-friendly Docker Compose stack management interface.
@@ -68,8 +64,6 @@ Here's a detailed explanation:
 - **RAW Compose File**: [compose.yml]
 - **RAW .env File**: [.env]
 - **RAW stack.env File**: [stack.env]
-
-<br />
 
 ## Networks Configuration
 
@@ -101,8 +95,6 @@ networks:
       com.edge-agent.network.description: "is an isolated bridge network."
 ```
 
-<br />
-
 - **networks**: This section defines a custom network named `edge-agent_net` for
   the Portainer Edge Agent.
 - **attachable**: Set to `false`, meaning other containers can't attach to this
@@ -132,8 +124,6 @@ networks:
     Unit size for the network.
 - **labels**: Metadata for the network.
   - **com.edge-agent.network.description**: A description label for the network.
-
-<br />
 
 ## Services Configuration
 
@@ -183,8 +173,6 @@ services:
       disable: true
 ```
 
-<br />
-
 - **services**: Defines services to be deployed.
 - **edge-agent_app**: The service name for the Portainer Edge Agent container.
   - **deploy.resources.limits.pids: 512**: Limits the number of processes and
@@ -231,15 +219,11 @@ services:
   - **healthcheck**: Healthcheck configuration.
     - **disable: true**: Disables health checks for the container.
 
-<br />
-
 ## Environment Variables
 
 This file contains configuration settings that can be used by various
 applications (such as Docker containers or your MySQL server). The values are
 variables stored outside the source code for security purposes.
-
-<br />
 
 ### Variables in this file
 
@@ -267,8 +251,6 @@ EDGE_INSECURE_POLL=0
 - **`EDGE_INSECURE_POLL`**: `0` checks the TLS certificate of the Portainer
   server. Set it to `1` only if the server uses a self-signed certificate.
 
-<br />
-
 ## Quick Start
 
 {{% alert context="info" %}}
@@ -292,21 +274,15 @@ Requires Docker Compose 2.24.0 or later.
    docker compose up -d
    ```
 
-<br />
-
 ## Default Access
 
 The Edge Agent has no web interface. It connects to your Portainer server, where
 the environment shows up once the agent is running.
 
-<br />
-
 ## Default Login Credentials
 
 The agent has no login. It authenticates with `PORTAINER_AGENT_ID` and
 `PORTAINER_AGENT_KEY` from the `.env` or `stack.env` file.
-
-<br />
 
 ## Conclusion
 

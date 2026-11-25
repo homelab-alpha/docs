@@ -1,0 +1,10 @@
+{{- /*
+  Math of the e-reader version. KaTeX needs scripts and web fonts, so the
+  formula is shown as its TeX source: a block as a labeled code block, inline
+  math as inline code.
+*/ -}}
+{{- if eq .Type "block" -}}
+{{- partial "ereader/code-block.html" (dict "code" (strings.TrimLeft "\r\n" .Inner) "title" "Formula (TeX)") -}}
+{{- else -}}
+<code>{{ .Inner }}</code>
+{{- end -}}

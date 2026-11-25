@@ -1,0 +1,171 @@
+//
+// sidebar-list.scss: the docs sidebar as a source list, after the HIG
+// (layouts/partials/docs/sidebar.html). Rows of at least 36 px with rounded
+// hover and selection, an accent icon for each section, a chevron for each
+// group, and the current page in an accent fill.
+//
+
+.page-wrapper .sidebar-wrapper {
+  .sidebar-content {
+    height: calc(100% - var(--toolbar-height, 56px));
+    max-height: none;
+    background: var(--color-canvas-subtle);
+    border-right: 1px solid var(--color-border-default);
+  }
+
+  .sidebar-brand {
+    background: var(--color-canvas-subtle);
+    border-right: 1px solid var(--color-border-default);
+    border-bottom: 1px solid var(--color-border-default);
+
+    // The logo and name of the site header (.site-header-brand in
+    // pages/_site-pages.scss); these rules undo the old Lotus brand style.
+    > a.sidebar-brand-link {
+      flex-grow: 0;
+      text-transform: none;
+      font-weight: 600;
+
+      svg {
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
+
+  .sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 12px 8px 32px;
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin: 2px 0;
+      padding: 0 0 0 12px;
+    }
+
+    // Children of a section line up with the text after its icon.
+    .depth-0 > .sidebar-submenu > ul {
+      padding-left: 30px;
+    }
+  }
+
+  // The pages after the sections (About Us, FAQ, ...), below a separator line.
+  .sidebar-menu > .sidebar-separator {
+    margin-top: 8px;
+    padding-top: 10px;
+    border-top: 1px solid var(--color-border-default);
+  }
+
+  // Pages outside the docs (Links), below a separator line.
+  .sidebar-menu:has(+ .sidebar-extra) {
+    padding-bottom: 12px;
+  }
+
+  .sidebar-menu.sidebar-extra {
+    margin: 0 8px;
+    padding: 12px 0 32px;
+    border-top: 1px solid var(--color-border-default);
+  }
+
+  .sidebar-submenu {
+    display: none;
+
+    &.d-block {
+      display: block;
+    }
+  }
+
+  .sidebar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 36px;
+    margin: 0;
+    padding: 6px 10px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--color-fg-default);
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.35;
+    text-align: left;
+    text-decoration: none;
+    letter-spacing: normal;
+    transition: background-color 0.15s ease;
+
+    &:hover {
+      background: var(--color-neutral-muted);
+      color: var(--color-fg-default);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-accent-fg);
+      outline-offset: -2px;
+    }
+  }
+
+  // Sections: a little larger, with an icon.
+  .depth-0 > .sidebar-row {
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+
+  .sidebar-label {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .sidebar-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    width: 20px;
+    color: var(--color-accent-fg);
+    font-size: 20px;
+
+    svg {
+      width: 1em;
+      height: 1em;
+      fill: currentColor;
+    }
+  }
+
+  // Chevron: points right when closed, down when open.
+  .sidebar-chevron {
+    flex: 0 0 auto;
+    width: 14px;
+    height: 14px;
+    background-color: var(--color-fg-muted);
+    -webkit-mask: var(--chevron-right) center / contain no-repeat;
+    mask: var(--chevron-right) center / contain no-repeat;
+    transition: transform 0.2s ease;
+  }
+
+  .sidebar-row[aria-expanded="true"] .sidebar-chevron {
+    transform: rotate(90deg);
+  }
+
+  // The group that holds the current page.
+  .sidebar-dropdown.current > .sidebar-row {
+    font-weight: 600;
+  }
+
+  // The current page: an accent fill with white text.
+  li.current > a.sidebar-row {
+    background: var(--color-accent-emphasis);
+    color: var(--color-fg-on-emphasis);
+    font-weight: 600;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sidebar-row,
+    .sidebar-chevron {
+      transition: none;
+    }
+  }
+}

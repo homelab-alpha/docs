@@ -30,19 +30,15 @@ keywords:
   - openssl ca gencrl
   - homelab certificates
 
-weight: 8114
+weight: 9110
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down the script `revoke_tls_certificates.sh`. This script revokes a
 server or client certificate and generates a Certificate Revocation List (CRL).
@@ -79,8 +75,6 @@ copy of `index.txt` is saved before the database is changed.
 - **Description**: This script revokes a server or client certificate and
   generates a Certificate Revocation List (CRL).
 - **RAW Script**: [revoke_tls_certificates.sh]
-
-<br />
 
 ## Usage
 
@@ -135,14 +129,10 @@ or `TLS_TRUSTED_ID_PASSPHRASE` (trusted identity).
   do that with `--replace`. Run `--crl-only` afterwards to put those entries in
   the CRL.
 
-<br />
-
 ## Detailed Explanation
 
 The sections below follow the script from top to bottom. Functions that are not
 defined here, such as `print_error`, come from `scripts/lib/common.sh`.
-
-<br />
 
 ### Define directory paths Stop script on error
 
@@ -155,8 +145,6 @@ on purpose, and the callers decide what a failure means.
 # the callers decide what a failure means.
 set -Eeuo pipefail
 ```
-
-<br />
 
 ### Load the shared functions
 
@@ -174,8 +162,6 @@ crl_backup_dir="$base_dir/crl-backup"
 archive_root="$base_dir/archive"
 database_backup_dir="$archive_root/_database"
 ```
-
-<br />
 
 ### The authority that signs: its configuration file, certificate, key, chain, and CRL
 
@@ -199,8 +185,6 @@ signer_passphrase=""
 signer_options=()
 ```
 
-<br />
-
 ### Defaults
 
 ```bash
@@ -214,8 +198,6 @@ dry_run=false
 assume_yes=false
 ```
 
-<br />
-
 ### State
 
 ```bash
@@ -226,8 +208,6 @@ plan_expires=()
 log=""
 ```
 
-<br />
-
 ### Function: show the help text
 
 ```bash
@@ -236,8 +216,6 @@ show_help() {
   sed -n '/^# Usage:/,/^# Exit codes:/p' "$0" | sed '$d' | sed 's/^# \{0,1\}//'
 }
 ```
-
-<br />
 
 ### Function: check that a reason is supported
 
@@ -250,8 +228,6 @@ is_valid_reason() {
   esac
 }
 ```
-
-<br />
 
 ### Function: select the authority that signs the certificate to revoke
 
@@ -291,8 +267,6 @@ set_issuer() {
   esac
 }
 ```
-
-<br />
 
 ### Function: parse arguments
 
@@ -382,8 +356,6 @@ parse_arguments() {
 }
 ```
 
-<br />
-
 ### Function: check that everything needed is present, before anything changes
 
 ```bash
@@ -434,8 +406,6 @@ preflight() {
 }
 ```
 
-<br />
-
 ### Function: ask for the passphrase of the key that signs, when it is encrypted
 
 ```bash
@@ -448,8 +418,6 @@ prepare_signer() {
 }
 ```
 
-<br />
-
 ### Function: run openssl ca with the key of the authority that signs
 
 ```bash
@@ -459,8 +427,6 @@ signer_ca() {
     ${signer_options[@]+"${signer_options[@]}"} "$@" 9>&-
 }
 ```
-
-<br />
 
 ### Function: list the serial numbers of the valid (V) entries of an FQDN
 
@@ -473,8 +439,6 @@ list_valid_serials() {
 }
 ```
 
-<br />
-
 ### Function: check if an FQDN has an entry with status R
 
 ```bash
@@ -485,8 +449,6 @@ has_revoked_entry() {
     END { exit !found }' "$index_file"
 }
 ```
-
-<br />
 
 ### Function: select the certificate of an authority to revoke
 
@@ -509,8 +471,6 @@ select_authority() {
   plan_expires+=("${enddate#notAfter=}")
 }
 ```
-
-<br />
 
 ### Function: select the entries to revoke
 
@@ -559,8 +519,6 @@ select_targets() {
 }
 ```
 
-<br />
-
 ### Function: print the plan
 
 ```bash
@@ -583,8 +541,6 @@ print_plan() {
 }
 ```
 
-<br />
-
 ### Function: save a copy of the database before it changes
 
 ```bash
@@ -598,8 +554,6 @@ backup_database() {
   echo "Database copy: $database_backup_dir/$backup_name.$stamp"
 }
 ```
-
-<br />
 
 ### Function: revoke the planned entries
 
@@ -632,8 +586,6 @@ revoke_entries() {
   return $status
 }
 ```
-
-<br />
 
 ### Function: generate and check the CRL
 
@@ -675,8 +627,6 @@ create_crl() {
   print_warning "The certificates have no CRL distribution point. Install the CRL where it is used. Generate a new one with --crl-only before it expires."
 }
 ```
-
-<br />
 
 ### Main process
 
@@ -720,8 +670,6 @@ if [[ "$crl_only" = false ]]; then
 fi
 ```
 
-<br />
-
 ### Generate the CRL, also after a partial failure, so it matches the database
 
 ```bash
@@ -743,8 +691,6 @@ if [[ "$crl_only" = false ]]; then
 fi
 exit 0
 ```
-
-<br />
 
 ## Conclusion
 

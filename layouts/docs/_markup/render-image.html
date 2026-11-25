@@ -1,35 +1,42 @@
-{{ $dest := .Destination }}
-{{ $text := .PlainText }}
-{{ $url := urls.Parse $dest }}
-
-{{ $image := newScratch }}
-{{ with $url.Scheme }}
-  {{  $image.Set "resource" (resources.GetRemote $dest) }}
-{{ else }}
-  {{  $image.Set "resource" (resources.Get $dest) }}
-{{ end }}
-
-{{ if .Title }}
+{{- /*
+  Image render hook.
+  - A remote image is fetched at build time (resources.GetRemote; the allowed
+    hosts are in config/_default/security.toml) and served from this site.
+  - A local SVG from assets/ is put inline. A remote SVG is never put inline:
+    its markup comes from another host and could carry scripts, so it is shown
+    with an <img> element, where scripts do not run.
+  - If the image cannot be found, the destination is used as it is; Hugo still
+    checks the URL, so "javascript:" and the like are replaced.
+*/ -}}
+{{- $dest := .Destination -}}
+{{- $text := .PlainText -}}
+{{- $url := urls.Parse $dest -}}
+{{- $res := false -}}
+{{- if $url.Scheme -}}
+  {{- with try (resources.GetRemote $dest) -}}
+    {{- with .Err }}{{ warnf "Image %q in %s could not be fetched: %s" $dest $.Page.String . }}{{ end -}}
+    {{- with .Value }}{{ $res = . }}{{ end -}}
+  {{- end -}}
+{{- else -}}
+  {{- with resources.Get $dest }}{{ $res = . }}{{ end -}}
+{{- end -}}
+{{- define "partials/inline/render-image-img.html" -}}
+  {{- with .res -}}
+    {{- if and (eq .MediaType.SubType "svg") (not $.remote) -}}
+      {{ .Content | safeHTML }}
+    {{- else -}}
+      <img src="{{ .RelPermalink }}" alt="{{ $.alt }}"{{ if reflect.IsImageResourceWithMeta . }} width="{{ .Width }}" height="{{ .Height }}"{{ end }} loading="lazy">
+    {{- end -}}
+  {{- else -}}
+    <img src="{{ .dest }}" alt="{{ .alt }}" loading="lazy">
+  {{- end -}}
+{{- end -}}
+{{- $ctx := dict "res" $res "alt" $text "dest" $dest "remote" (ne $url.Scheme "") -}}
+{{- if .Title -}}
   <figure>
-    {{ with ($image.Get "resource") }}
-      {{ if eq .MediaType.SubType "svg" }}
-        {{ .Content | safeHTML }}
-      {{ else }}
-        <img src="{{ .RelPermalink | safeURL }}" alt="{{ $text }}" width="{{ .Width }}" height="{{ .Height }}" loading="lazy">
-      {{ end }}
-    {{ else }}
-      <img src="{{ .Destination | safeURL }}" alt="{{ $text }}" width="{{ .Width }}" height="{{ .Height }}" loading="lazy">
-    {{ end }}
+    {{ partial "inline/render-image-img.html" $ctx }}
     <figcaption>{{ .Title | markdownify }}</figcaption>
   </figure>
-{{ else }}
-  {{ with ($image.Get "resource") }}
-    {{ if eq .MediaType.SubType "svg" }}
-      {{ .Content | safeHTML }}
-    {{ else }}
-      <img src="{{ .RelPermalink | safeURL }}" alt="{{ $text }}" width="{{ .Width }}" height="{{ .Height }}" loading="lazy">
-    {{ end }}
-  {{ else }}
-    <img src="{{ .Destination | safeURL }}" alt="{{ $text }}" loading="lazy">
-  {{ end }}
-{{ end }}
+{{- else -}}
+  {{ partial "inline/render-image-img.html" $ctx }}
+{{- end -}}

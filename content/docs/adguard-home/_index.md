@@ -5,6 +5,7 @@ description:
   clean and safe browsing environment."
 url: "adguard-home"
 icon: "dns"
+color: "green"
 
 weight: 1000
 ---

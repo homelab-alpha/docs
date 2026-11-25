@@ -35,19 +35,15 @@ keywords:
   - Infrastructure Monitoring
   - Self-hosted Monitoring
 
-weight: 4100
+weight: 4125
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this `compose.yml` file does in detail for deploying
 Uptime Kuma Beta, a self-hosted monitoring tool.
@@ -68,8 +64,6 @@ Here's a detailed explanation:
 - **RAW stack.env File**: [stack.env]
 - **RAW my.cnf File**: [my.cnf]
 
-<br />
-
 ## Networks Configuration
 
 ```yaml
@@ -83,8 +77,6 @@ networks:
     name: uptime-kuma
 ```
 
-<br />
-
 - **networks**: This stack has no network of its own. It joins the network of
   the `uptime-kuma` stack.
   - **uptime-kuma_net**: The name of the network inside this Compose file.
@@ -93,8 +85,6 @@ networks:
   - **name: uptime-kuma**: The name of the network in Docker (`172.19.3.0/24`).
     The database uses `172.19.3.4` and the app `172.19.3.5`; `uptime-kuma` uses
     `.2` and `.3`.
-
-<br />
 
 ## Services Configuration
 
@@ -249,8 +239,6 @@ services:
         "is a read-only Docker API proxy for Uptime Kuma Beta."
 ```
 
-<br />
-
 - **services**: Defines services to be deployed.
 - **uptime-kuma-beta_db**: The service for the MariaDB database.
   - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
@@ -297,8 +285,6 @@ services:
       considered (10 seconds).
     - **start_interval**: The time between health checks (5 seconds).
 
-<br />
-
 - **uptime-kuma-beta_app**: The service for the Uptime Kuma Beta app.
   - **deploy.resources.limits.pids: 512**: Limits the number of processes and
     threads in the container, which protects the host against fork bombs.
@@ -335,8 +321,6 @@ services:
       will not be counted towards the retries (10 seconds).
     - **start_interval**: The time between starting health checks (5 seconds).
 
-<br />
-
 - **uptime-kuma-beta_socket-proxy**: The read-only Docker socket proxy.
   `uptime-kuma-beta_app` reaches the Docker API through this proxy on port 2375
   instead of mounting the Docker socket.
@@ -370,16 +354,12 @@ services:
     gaining additional privileges.
   - **labels**: A description label.
 
-<br />
-
 ## Environment Variables
 
 This file contains configuration settings that can be used by various
 applications (such as Docker containers or your MariaDB server). These values
 are stored outside the source code to enhance **security, portability, and
 flexibility**.
-
-<br />
 
 ### Variables in this file
 
@@ -417,14 +397,10 @@ USER_DB=uptime-kuma
 - **`PORT_DB`**: The port number MariaDB listens on (default: 3306).
 - **`USER_DB`**: The username used to connect to the database.
 
-<br />
-
 ## MariaDB/MySQL Configuration
 
 This file configures MariaDB or MySQL behavior, covering server operations,
 performance tuning, replication, security, and character encoding.
-
-<br />
 
 ### Sections in this file
 
@@ -453,8 +429,6 @@ skip-symbolic-links
   prevents non-repeatable reads.
 - **`skip-symbolic-links`**: Disallows symbolic links in data files for security
   reasons.
-
-<br />
 
 #### Performance Optimizations
 
@@ -501,8 +475,6 @@ aria-pagecache-buffer-size = 128M
 - **`aria-pagecache-buffer-size`**: Buffer size for Aria storage engine (if
   used).
 
-<br />
-
 #### Security Settings
 
 ```cnf
@@ -520,8 +492,6 @@ secure-file-priv = /var/lib/mysql/
 - **`plugin-load-add`**: Optional—enables the password validation plugin.
 - **`validate-password-*`**: Enforces strong password policies when creating
   users. Uncomment to enable.
-
-<br />
 
 #### Binary Logging and Replication
 
@@ -549,8 +519,6 @@ slave_connections_needed_for_purge = 0
 - **`slave_connections_needed_for_purge`**: Controls purge dependency on
   replication status.
 
-<br />
-
 #### Character Set and Encoding
 
 ```cnf
@@ -562,8 +530,6 @@ init-connect = 'SET NAMES utf8mb4'
 - **`character-set-server` / `collation-server`**: Defines UTF-8 as the default
   character set and collation.
 - **`init-connect`**: Ensures clients use the same character set on connection.
-
-<br />
 
 #### Monitoring and Debugging
 
@@ -584,8 +550,6 @@ general-log = 0
   monitoring info to logs (disabled here).
 - **`general-log`**: Logs every query—disabled by default for performance.
 
-<br />
-
 #### Temporary Files
 
 ```cnf
@@ -594,8 +558,6 @@ general-log = 0
 
 - **`tmpdir`**: Directory for storing temporary files. Uncomment and customize
   for specific storage needs.
-
-<br />
 
 #### SSL/TLS Security
 
@@ -609,8 +571,6 @@ general-log = 0
 - **SSL/TLS settings**: Optional configuration for encrypted client-server
   communication. Uncomment and configure as needed.
 
-<br />
-
 #### Inclusion of Additional Configuration Files
 
 ```cnf
@@ -620,8 +580,6 @@ general-log = 0
 
 - **`!includedir`**: Includes additional configuration files from specified
   directories, allowing modular config management.
-
-<br />
 
 ## Quick Start
 
@@ -649,8 +607,6 @@ Requires Docker Compose 2.24.0 or later.
    daemon `http://uptime-kuma-beta_socket-proxy:2375`. The stack has no direct
    access to the Docker socket; this read-only proxy is the only way in.
 
-<br />
-
 ## Default Web Access
 
 Access the Uptime Kuma Beta web interface using the following URL:
@@ -658,8 +614,6 @@ Access the Uptime Kuma Beta web interface using the following URL:
 ```bash
 http://your-ip-address:3003
 ```
-
-<br />
 
 ## Default Login Credentials
 
@@ -675,8 +629,6 @@ Credentials are created during the initial setup process.
 **For security reasons, it is strongly recommended to create a strong username
 and password during the setup.**
 {{% /alert %}}
-
-<br />
 
 ## Conclusion
 

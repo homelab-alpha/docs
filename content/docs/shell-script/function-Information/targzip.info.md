@@ -36,19 +36,15 @@ keywords:
   - linux scripting
   - shell automation
 
-weight: 9200
+weight: 10108
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named
 `targzip.sh`, authored by GJS (homelab-alpha), and its purpose is to create a
@@ -66,8 +62,6 @@ compression, and verification of the compressed file.
   compresses it using gzip.
 - **Usage**: `targzip <directory or file>`
 - **RAW Script**: [targzip.sh]
-
-<br />
 
 ## Function Definition
 
@@ -94,8 +88,6 @@ The function `targzip` starts by defining several local variables:
 - `compressedFile`: The name of the compressed file, which is the tar filename
   with a `.gz` extension.
 
-<br />
-
 ## Create Tar Archive
 
 ```bash
@@ -112,8 +104,6 @@ uses the `tar` command with the `--create`, `--file`, `--verify`, and
 - `--verbose`: Provides detailed information about the process.
 
 If the tar command fails, the function returns 1, indicating an error.
-
-<br />
 
 ## Determine File Size
 
@@ -141,8 +131,6 @@ different systems:
 If neither command works, it outputs an error message and returns 1. If
 successful, it prints the size of the tar file.
 
-<br />
-
 ## Compress Tar Archive
 
 ```bash
@@ -162,8 +150,6 @@ The script then compresses the tar file using `gzip` with the options:
 
 If the compression succeeds, it deletes the original tar file.
 
-<br />
-
 ## Verify Compressed File
 
 ```bash
@@ -181,8 +167,6 @@ tests the compressed file for errors. If successful, it prints a success message
 and changes the permissions of the compressed file to be readable and writable
 by the owner and readable by others (`chmod 644`).
 
-<br />
-
 ## Call the Function
 
 ```bash
@@ -191,8 +175,6 @@ targzip "$1"
 
 Finally, the script calls the `targzip` function with the first argument passed
 to the script, initiating the archiving and compression process.
-
-<br />
 
 ## Conclusion
 

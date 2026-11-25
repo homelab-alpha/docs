@@ -34,7 +34,16 @@ title                  = "Homelab-Alpha | Your gateway to Homelab-Alpha's open s
   path      = "ereader"
   isHTML    = true
 
+# security.txt (RFC 9116) at /.well-known/security.txt, made on every build so
+# its Expires date stays current. See layouts/index.securitytxt.txt.
+[outputFormats.securitytxt]
+  mediaType      = "text/plain"
+  baseName       = "security"
+  path           = ".well-known"
+  isPlainText    = true
+  notAlternative = true
+
 [outputs]
-  home    = ["html", "ereader"]
+  home    = ["html", "ereader", "securitytxt"]
   section = ["html", "ereader"]
   page    = ["html", "ereader"]

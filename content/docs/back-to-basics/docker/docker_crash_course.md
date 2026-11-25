@@ -36,19 +36,15 @@ keywords:
   - Dockerizing applications
   - Docker Hub registry
 
-weight: 2200
+weight: 2202
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 ## What is Docker
 
@@ -56,8 +52,6 @@ Docker is a platform that allows you to package, distribute, and run
 applications within containers. Containers are lightweight, portable, and
 self-sufficient environments that encapsulate everything needed to run an
 application, including its code, runtime, system tools, libraries, and settings.
-
-<br />
 
 ## Key Concepts
 
@@ -71,8 +65,6 @@ application, including its code, runtime, system tools, libraries, and settings.
 - **Docker Hub** Docker Hub is a cloud-based registry service that hosts Docker
   images. It allows users to share and distribute images publicly or privately.
 
-<br />
-
 ## Getting Started
 
 ### Installation
@@ -80,8 +72,6 @@ application, including its code, runtime, system tools, libraries, and settings.
 Install Docker Desktop from the [official website]. After installation, Docker
 CLI (`docker`) and Docker Compose (`docker compose`) commands will be available
 in your terminal.
-
-<br />
 
 ### Basic Commands
 
@@ -94,8 +84,6 @@ in your terminal.
 - `docker stop <container>`: Stops a running container.
 - `docker rm <container>`: Removes a container.
 - `docker rmi <image>`: Removes an image.
-
-<br />
 
 ### Creating a Dockerfile
 
@@ -111,15 +99,11 @@ RUN pip install -r requirements.txt
 CMD ["python", "app.py"]
 ```
 
-<br />
-
 ### Building an Image
 
 Navigate to the directory containing the Dockerfile. Run\
 `docker build -t <image_name> .` to build the image. Replace `<image_name>` with
 a name for your image.
-
-<br />
 
 ### Running a Container
 
@@ -127,16 +111,12 @@ Once the image is built, you can run a container using\
 `docker run <image_name>`. You can specify additional options such as port
 mappings, volume mounts, and environment variables.
 
-<br />
-
 ### Publishing to Docker Hub
 
 Create a Docker Hub account if you haven't already. Log in to Docker Hub using
 `docker login`. Tag your image with your Docker Hub username and repository
 name: `docker tag <image_name> <username>/<repository_name>`. Push the image to
 Docker Hub: `docker push <username>/<repository_name>`.
-
-<br />
 
 ## Conclusion
 

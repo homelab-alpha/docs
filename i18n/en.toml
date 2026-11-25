@@ -14,25 +14,208 @@
     other = "to close"
 
 [search_cancel]
-    other = "cancel"
+    other = "Cancel"
 
 [search_no_results]
     other = "No results for"
 
-[feedback_yes]
-    other = "Yes"
+[theme]
+    other = "Theme"
 
-[feedback_no]
-    other = "No"
+[theme_mode]
+    other = "Theme mode"
 
-[feedback_helpful]
-    other = "Was this page helpful?"
+[theme_system]
+    other = "System"
 
-[feedback_submit]
-    other = "Submit"
+[theme_light]
+    other = "Light"
 
-[enable_light_mode]
-    other = "Enable light mode"
+[theme_dark]
+    other = "Dark"
 
-[enable_dark_mode]
-    other = "Enable dark mode"
+[theme_light_theme]
+    other = "Light theme"
+
+[theme_dark_theme]
+    other = "Dark theme"
+
+[theme_default]
+    other = "Default"
+
+[theme_dimmed]
+    other = "Dimmed"
+
+[theme_colorblind]
+    other = "Protanopia and deuteranopia"
+
+[theme_tritanopia]
+    other = "Tritanopia"
+
+[theme_contrast]
+    other = "Increase contrast"
+
+[theme_light_mode]
+    other = "Light mode"
+
+[theme_dark_mode]
+    other = "Dark mode"
+
+[toggle_sidebar]
+    other = "Toggle the sidebar"
+
+[site_links]
+    other = "Site links"
+
+[docs_navigation]
+    other = "Documentation"
+
+[breadcrumb]
+    other = "Breadcrumb"
+
+[doc_nav]
+    other = "Previous and next page"
+
+[previous]
+    other = "Previous"
+
+[next]
+    other = "Next"
+
+[table]
+    other = "Table"
+
+[copy_code]
+    other = "Copy code"
+
+[copied]
+    other = "Copied"
+
+[copy_failed]
+    other = "Copy failed"
+
+[code]
+    other = "code"
+
+[diagram]
+    other = "Diagram"
+
+[search_results]
+    other = "Search results"
+
+[page_navigation]
+    other = "Page navigation"
+
+[on_this_page]
+    other = "On this page"
+
+[close]
+    other = "Close"
+
+[topics]
+    other = "Topics"
+
+[item]
+    other = "item"
+
+[items]
+    other = "items"
+
+[legal]
+    other = "Legal"
+
+[license]
+    other = "License"
+
+[terms]
+    other = "Terms"
+
+[docs]
+    other = "Docs"
+
+[links]
+    other = "Links"
+
+[page_not_found]
+    other = "Page not found"
+
+[page_not_found_text]
+    other = "The page you are looking for doesn't exist or has been moved."
+
+[go_to_docs]
+    other = "Go to the documentation"
+
+[skip_to_content]
+    other = "Skip to content"
+
+[reading]
+    other = "Reading settings"
+
+[reading_font]
+    other = "Font"
+
+[reading_font_default]
+    other = "Default"
+
+[reading_font_legible]
+    other = "Legible"
+
+[reading_font_dyslexic]
+    other = "Dyslexic"
+
+[reading_size]
+    other = "Text size"
+
+[reading_size_s]
+    other = "S"
+
+[reading_size_s_label]
+    other = "Small"
+
+[reading_size_m]
+    other = "M"
+
+[reading_size_m_label]
+    other = "Medium"
+
+[reading_size_l]
+    other = "L"
+
+[reading_size_l_label]
+    other = "Large"
+
+[reading_size_xl]
+    other = "XL"
+
+[reading_size_xl_label]
+    other = "Extra large"
+
+[reading_spacing]
+    other = "Spacing"
+
+[reading_spacing_normal]
+    other = "Normal"
+
+[reading_spacing_wide]
+    other = "Wide"
+
+[reading_more]
+    other = "More reading settings"
+
+[reading_narrow]
+    other = "Narrow text column"
+
+[reading_motion]
+    other = "Reduce motion"
+
+[reading_preview]
+    other = "Preview"
+
+[reading_preview_text]
+    other = "The quick brown fox jumps over the lazy dog."
+
+[reading_reset]
+    other = "Reset"
+
+[language]
+    other = "Language"

@@ -35,19 +35,15 @@ keywords:
   - homelab docker
   - docker networking
 
-weight: 4100
+weight: 4115
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this `compose.yml` file does in detail for setting up a
 custom Docker network for Nginx Proxy Manager, an easy-to-use reverse proxy
@@ -68,8 +64,6 @@ Here's a detailed explanation:
 - **RAW .env File**: [.env]
 - **RAW stack.env File**: [stack.env]
 - **RAW my.cnf File**: [my.cnf]
-
-<br />
 
 ## Networks Configuration
 
@@ -102,8 +96,6 @@ networks:
         "is an isolated bridge network."
 ```
 
-<br />
-
 - **networks**: Defines a custom network named `nginx-proxy-manager_net`.
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
@@ -134,8 +126,6 @@ networks:
 - **labels**: Metadata for the network.
   - **com.nginx-proxy-manager.network.description**: A description label for the
     network.
-
-<br />
 
 ## Services Configuration
 
@@ -257,8 +247,6 @@ services:
       start_interval: 5s
 ```
 
-<br />
-
 - **services**: Defines services to be deployed.
 - **nginx-proxy-manager_db**: The service name for the MariaDB container.
   - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
@@ -316,8 +304,6 @@ services:
     - **start_period**: The period after which health check failures are
       considered (10 seconds).
     - **start_interval**: The time between health checks (5 seconds).
-
-<br />
 
 - **nginx-proxy-manager_app**: The service name for the Nginx Proxy Manager
   container.
@@ -389,16 +375,12 @@ services:
       will not be counted towards the retries (40 seconds).
     - **start_interval**: The time between starting health checks (5 seconds).
 
-<br />
-
 ## Environment Variables
 
 This file contains configuration settings that can be used by various
 applications (such as Docker containers or your MariaDB server). These values
 are stored outside the source code to enhance **security, portability, and
 flexibility**.
-
-<br />
 
 ### Variables in this file
 
@@ -445,14 +427,10 @@ ADMIN_PASSWORD=StrongUniqueAdminPassword1234
 - **`ADMIN_PASSWORD`**: The initial administrator password for Nginx Proxy
   Manager. Use a strong, unique password to secure the admin account.
 
-<br />
-
 ## MariaDB/MySQL Configuration
 
 This file configures MariaDB or MySQL behavior, covering server operations,
 performance tuning, replication, security, and character encoding.
-
-<br />
 
 ### Sections in this file
 
@@ -481,8 +459,6 @@ skip-symbolic-links
   prevents non-repeatable reads.
 - **`skip-symbolic-links`**: Disallows symbolic links in data files for security
   reasons.
-
-<br />
 
 #### Performance Optimizations
 
@@ -529,8 +505,6 @@ aria-pagecache-buffer-size = 128M
 - **`aria-pagecache-buffer-size`**: Buffer size for Aria storage engine (if
   used).
 
-<br />
-
 #### Security Settings
 
 ```cnf
@@ -548,8 +522,6 @@ secure-file-priv = /var/lib/mysql/
 - **`plugin-load-add`**: Optional—enables the password validation plugin.
 - **`validate-password-*`**: Enforces strong password policies when creating
   users. Uncomment to enable.
-
-<br />
 
 #### Binary Logging and Replication
 
@@ -577,8 +549,6 @@ slave_connections_needed_for_purge = 0
 - **`slave_connections_needed_for_purge`**: Controls purge dependency on
   replication status.
 
-<br />
-
 #### Character Set and Encoding
 
 ```cnf
@@ -590,8 +560,6 @@ init-connect = 'SET NAMES utf8mb4'
 - **`character-set-server` / `collation-server`**: Defines UTF-8 as the default
   character set and collation.
 - **`init-connect`**: Ensures clients use the same character set on connection.
-
-<br />
 
 #### Monitoring and Debugging
 
@@ -612,8 +580,6 @@ general-log = 0
   monitoring info to logs (disabled here).
 - **`general-log`**: Logs every query—disabled by default for performance.
 
-<br />
-
 #### Temporary Files
 
 ```cnf
@@ -622,8 +588,6 @@ general-log = 0
 
 - **`tmpdir`**: Directory for storing temporary files. Uncomment and customize
   for specific storage needs.
-
-<br />
 
 #### SSL/TLS Security
 
@@ -637,8 +601,6 @@ general-log = 0
 - **SSL/TLS settings**: Optional configuration for encrypted client-server
   communication. Uncomment and configure as needed.
 
-<br />
-
 #### Inclusion of Additional Configuration Files
 
 ```cnf
@@ -648,8 +610,6 @@ general-log = 0
 
 - **`!includedir`**: Includes additional configuration files from specified
   directories, allowing modular config management.
-
-<br />
 
 ## Quick Start
 
@@ -666,8 +626,6 @@ Requires Docker Compose 2.24.0 or later.
    docker compose up -d
    ```
 
-<br />
-
 ## Default Web Access
 
 Access the Nginx Proxy Manager web interface using the following URL:
@@ -675,8 +633,6 @@ Access the Nginx Proxy Manager web interface using the following URL:
 ```bash
 http://your-ip-address:81
 ```
-
-<br />
 
 ## Default Login Credentials
 
@@ -701,8 +657,6 @@ StrongUniqueAdminPassword1234
 **For security reasons, it is strongly recommended that you change the default
 credentials after your first login.**
 {{% /alert %}}
-
-<br />
 
 ## Conclusion
 

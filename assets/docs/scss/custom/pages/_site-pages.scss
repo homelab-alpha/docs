@@ -1,0 +1,278 @@
+//
+// site-pages.scss: the pages without the docs sidebar (landing page, links
+// page, 404 page) and the site footer of every page, in the new design. See
+// layouts/partials/site-header.html and layouts/partials/site-footer.html.
+//
+
+.site-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--color-canvas-default);
+  color: var(--color-fg-default);
+}
+
+.site-page-main {
+  flex: 1 0 auto;
+  padding-block: 3rem 4rem;
+}
+
+// Header: a translucent toolbar that stays at the top.
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+  border-bottom: 1px solid var(--color-border-default);
+  background: var(--color-header-bg);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+
+  @media (prefers-reduced-transparency: reduce) {
+    background: var(--color-canvas-default);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+.site-header-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: var(--toolbar-height, 56px);
+}
+
+.site-header-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  color: var(--color-fg-default);
+  font-weight: 600;
+  text-decoration: none;
+
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  &:hover {
+    color: var(--color-fg-default);
+  }
+
+  @media (max-width: 575.98px) {
+    .site-header-name {
+      display: none;
+    }
+  }
+}
+
+.site-header-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.site-header-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 10px;
+  border-radius: 8px;
+  color: var(--color-fg-muted);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-decoration: none;
+
+  &:hover {
+    background: var(--color-neutral-muted);
+    color: var(--color-fg-default);
+  }
+
+  &.is-current {
+    color: var(--color-fg-default);
+    font-weight: 600;
+  }
+}
+
+.site-header-brand,
+.site-header-link {
+  &:focus-visible {
+    outline: 2px solid var(--color-accent-fg);
+    outline-offset: 2px;
+  }
+}
+
+// Shared page parts: large title, lead, headings, and buttons.
+.site-page {
+  .content-title {
+    margin: 0 0 0.5rem;
+    font-size: clamp(2rem, 1.6rem + 1.4vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .lead {
+    max-width: 40rem;
+    color: var(--color-fg-muted);
+    font-size: 1.3125rem;
+    line-height: 1.38;
+  }
+
+  .docs-list-heading {
+    margin: 2.5rem 0 1rem;
+    font-size: 1.375rem;
+    font-weight: 700;
+  }
+}
+
+.site-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 22px;
+  background: var(--color-neutral-muted);
+  color: var(--color-accent-fg);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+
+  &:hover {
+    color: var(--color-accent-fg);
+    filter: brightness(0.97);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent-fg);
+    outline-offset: 2px;
+  }
+}
+
+.site-button-primary {
+  background: var(--color-accent-emphasis);
+  color: var(--color-fg-on-emphasis);
+
+  &:hover {
+    color: var(--color-fg-on-emphasis);
+  }
+}
+
+.site-button-icon {
+  display: inline-flex;
+  font-size: 18px;
+
+  svg {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+  }
+}
+
+// Links page
+.links-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  .lead {
+    margin-inline: auto;
+  }
+}
+
+.links-logo svg {
+  display: block;
+  width: 72px;
+  height: 72px;
+  margin-bottom: 1rem;
+}
+
+.links-section .docs-card-meta {
+  overflow-wrap: anywhere;
+}
+
+// 404 page
+.not-found {
+  max-width: 40rem;
+  margin: 4rem auto;
+  text-align: center;
+
+  .lead {
+    margin: 0 auto 2rem;
+  }
+}
+
+.not-found-code {
+  margin: 0 0 0.5rem;
+  color: var(--color-accent-fg);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.not-found-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+// Footer of every page: footnote size, muted, with underlined links (WCAG 1.4.1).
+footer.site-footer {
+  height: auto;
+  padding-block: 20px;
+  border-top: 1px solid var(--color-border-default);
+  background: transparent;
+  color: var(--color-fg-muted);
+  font-size: 0.8125rem;
+  box-shadow: none !important;
+
+  a {
+    color: var(--color-fg-muted);
+    text-decoration: underline;
+    text-decoration-color: var(--color-border-default);
+    text-underline-offset: 3px;
+
+    &:hover {
+      color: var(--color-accent-fg);
+      text-decoration-color: currentColor;
+    }
+  }
+}
+
+.site-footer-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 24px;
+
+  @media (max-width: 575.98px) {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+.site-footer-links {
+  display: flex;
+  gap: 16px;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+  }
+}
+
+// Docs pages: room on the right for the back to top button.
+.page-content footer.site-footer .site-footer-row {
+  padding-right: 64px;
+
+  @media (max-width: 575.98px) {
+    padding-right: 0;
+  }
+}

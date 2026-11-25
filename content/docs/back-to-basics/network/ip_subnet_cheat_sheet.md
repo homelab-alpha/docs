@@ -27,13 +27,11 @@ keywords:
   - subnetting calculations
   - network administration
 
-weight: 2700
+weight: 2704
 
 toc: true
 katex: true
 ---
-
-<br />
 
 ## Basic Concepts
 
@@ -47,21 +45,15 @@ Here’s a quick overview:
   - Number of Networks: 128 (2^7)
   - Hosts per Network: 16,777,214
 
-  <br />
-
 - **Class B**: `128.0.0.0` to `191.255.0.0`
   - Default Subnet Mask: `255.255.0.0` (`/16`)
   - Number of Networks: 16,384 (2^14)
   - Hosts per Network: 65,534
 
-  <br />
-
 - **Class C**: `192.0.0.0` to `223.255.255.0`
   - Default Subnet Mask: `255.255.255.0` (`/24`)
   - Number of Networks: 2,097,152 (2^21)
   - Hosts per Network: 254
-
-<br />
 
 ### Private IP Address Ranges
 
@@ -71,8 +63,6 @@ internet. Here are the ranges:
 - **Class A**: `10.0.0.0` to `10.255.255.255`
 - **Class B**: `172.16.0.0` to `172.31.255.255`
 - **Class C**: `192.168.0.0` to `192.168.255.255`
-
-<br />
 
 ## Subnet Masks and CIDR Notation
 
@@ -106,8 +96,6 @@ form.
 | /29           | 255.255.255.248 | 6            | 8                |
 | /30           | 255.255.255.252 | 2            | 4                |
 
-<br />
-
 ## Quick Reference for Common Subnets
 
 ### Class A Subnetting
@@ -119,8 +107,6 @@ form.
 | 255.255.0.0   | /16  | 65,534       | Commonly used |
 | 255.255.255.0 | /24  | 254          |               |
 
-<br />
-
 ### Class B Subnetting
 
 | Subnet Mask     | CIDR | Usable Hosts | Notes         |
@@ -129,8 +115,6 @@ form.
 | 255.255.240.0   | /20  | 4,094        |               |
 | 255.255.255.0   | /24  | 254          | Commonly used |
 | 255.255.255.240 | /28  | 14           |               |
-
-<br />
 
 ### Class C Subnetting
 
@@ -144,15 +128,11 @@ form.
 | 255.255.255.248 | /29  | 6            |                      |
 | 255.255.255.252 | /30  | 2            | Point-to-point links |
 
-<br />
-
 ## Special IP Address Ranges
 
 IP address ranges have specific purposes, from local communication to testing
 and future use. Here's a detailed look at these special IP address ranges,
 presented in a more visual and structured format.
-
-<br />
 
 ### Reserved and Private Ranges
 
@@ -165,8 +145,6 @@ presented in a more visual and structured format.
 | `172.16.0.0/12`  | Private Network | Used for local communications within a private network.           |
 | `192.168.0.0/16` | Private Network | Widely used in home networks and small businesses.                |
 
-<br />
-
 ### Documentation and Testing
 
 | **IP Range**      | **Description** | **Notes**                                |
@@ -174,8 +152,6 @@ presented in a more visual and structured format.
 | `192.0.2.0/24`    | TEST-NET-1      | Reserved for documentation and examples. |
 | `198.51.100.0/24` | TEST-NET-2      | Reserved for documentation and examples. |
 | `203.0.113.0/24`  | TEST-NET-3      | Reserved for documentation and examples. |
-
-<br />
 
 ### Specialized Purposes
 
@@ -186,8 +162,6 @@ presented in a more visual and structured format.
 | `224.0.0.0/4`     | Multicast                                | Reserved for multicast traffic.                               |
 | `240.0.0.0/4`     | Reserved for Future Use                  | Experimental, reserved for future protocols or applications.  |
 | `255.255.255.255` | Broadcast                                | Limited broadcast to all hosts on the local network.          |
-
-<br />
 
 ## Visual Explanation and Practical Examples
 
@@ -212,8 +186,6 @@ presented in a more visual and structured format.
 +---------------------+
 ```
 
-<br />
-
 ### Loopback Address
 
 - **Range**: `127.0.0.0/8`
@@ -229,8 +201,6 @@ presented in a more visual and structured format.
 | http://127.0.0.1          |
 +---------------------------+
 ```
-
-<br />
 
 ### Private Network Addresses
 
@@ -253,8 +223,6 @@ presented in a more visual and structured format.
 +----------------------------------------------+
 ```
 
-<br />
-
 ## Practical Usage of Special IP Ranges
 
 ### Broadcast Address (255.255.255.255)
@@ -262,15 +230,11 @@ presented in a more visual and structured format.
 - **Usage**: Send a message to all devices in the local network segment.
 - **Example**: A DHCP request might be broadcast to `255.255.255.255`.
 
-<br />
-
 ### Multicast Address (224.0.0.0/4)
 
 - **Usage**: Stream data to multiple devices simultaneously.
 - **Example**: Video conferencing tools often use multicast to distribute video
   streams.
-
-<br />
 
 ## Common Calculations
 
@@ -280,8 +244,6 @@ presented in a more visual and structured format.
 2. **Calculate the block size**:
    `256 - the value in the subnet mask's relevant octet`.
 3. **List subnet ranges** using the block size.
-
-<br />
 
 #### For example
 
@@ -295,8 +257,6 @@ For `192.168.1.0/26`:
    - `192.168.1.128` - `192.168.1.191`
    - `192.168.1.192` - `192.168.1.255`
 
-<br />
-
 ### Calculating Usable Hosts
 
 - **Formula**: `2^n - 2`
@@ -305,8 +265,6 @@ For `192.168.1.0/26`:
   - Host Bits: `32 - 26 = 6`
   - Usable Hosts: `2^6 - 2 = 62`
 
-<br />
-
 ### Binary to Decimal Conversion
 
 Understanding binary to decimal conversion is key in subnetting:
@@ -314,15 +272,11 @@ Understanding binary to decimal conversion is key in subnetting:
 - Powers of 2: `2^0 = 1`, `2^1 = 2`, `2^2 = 4`, ..., `2^8 = 256`
 - Example: Binary `11000000` equals decimal `192`.
 
-<br />
-
 ### Subnetting Practice Exercises
 
 1. **Determine the number of subnets and hosts per subnet** for a given CIDR.
 2. **Practice converting binary to decimal and vice versa**.
 3. **Calculate subnet ranges and broadcast addresses**.
-
-<br />
 
 ## Quick Tips
 
@@ -333,8 +287,6 @@ Understanding binary to decimal conversion is key in subnetting:
   allocations and network design.
 - **Practice, Practice, Practice**: Regular practice with different scenarios
   will improve your subnetting skills.
-
-<br />
 
 ## Conclusion
 

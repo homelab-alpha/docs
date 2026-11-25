@@ -38,19 +38,15 @@ keywords:
   - command line audio converter
   - automate audio conversion
 
-weight: 9100
+weight: 10201
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named
 `audio_converter.sh`, authored by GJS (homelab-alpha), and its purpose is to
@@ -68,8 +64,6 @@ specific settings for bitrate, sampling rate, and channel configuration.
   2-channel audio.
 - **Dependencies**: `avconv`, `ffmpeg`
 - **RAW Script**: [audio_converter.sh]
-
-<br />
 
 ## Setup
 
@@ -100,8 +94,6 @@ specific settings for bitrate, sampling rate, and channel configuration.
    ```
    This block checks if the specified directory exists. If it doesn't, it
    creates the directory.
-
-<br />
 
 ## File Conversion
 
@@ -160,8 +152,6 @@ specific settings for bitrate, sampling rate, and channel configuration.
      If the file doesn't match any of the recognized extensions, the script
      skips it and prints a message.
 
-<br />
-
 ## Cleanup
 
 6. **Disable Case-Insensitive Matching**:
@@ -177,8 +167,6 @@ specific settings for bitrate, sampling rate, and channel configuration.
    exit 0
    ```
    This ends the script.
-
-<br />
 
 ## Conclusion
 

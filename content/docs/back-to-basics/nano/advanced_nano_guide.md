@@ -40,23 +40,17 @@ keywords:
   - Nano regex
   - Nano window splitting
 
-weight: 2600
+weight: 2601
 
 toc: true
 katex: true
 ---
 
-<br />
-
 ## Multiple Buffer Editing
-
-<br />
 
 Nano allows simultaneous editing of multiple buffers. Use
 `nano -O file1.txt file2.txt` to open multiple files. Navigate between buffers
 using `Alt + <` and `Alt + >`.
-
-<br />
 
 ## Copying and Pasting
 
@@ -64,28 +58,20 @@ Mark text for copying using `Alt + ^`. Move the cursor to the end of the desired
 text and\
 press `Alt + 6` to copy. Paste using `Alt + U`.
 
-<br />
-
 ## Syntax Highlighting
 
 Enable syntax highlighting with `-Y` flag: `nano -Y <language> filename`.
 Replace `<language>` with the language identifier (e.g., `sh`, `python`, `c`).
-
-<br />
 
 ## Spell Checking
 
 Toggle spell checking with `-S` flag: `nano -S filename`. Use `Ctrl + T` to
 switch spell checking on/off.
 
-<br />
-
 ## Line Numbering
 
 Display line numbers using `-c` flag: `nano -c filename`. Line numbers appear on
 the left side.
-
-<br />
 
 ## Regular Expression Search and Replace
 
@@ -118,21 +104,15 @@ Follow these steps:
 
 Good luck with using regular expressions for efficient search and replace!
 
-<br />
-
 ## Custom Key Bindings
 
 Customize key bindings in `.nanorc` file using the `bind` command\
 for example: `bind ^X savefile main`.
 
-<br />
-
 ## Advanced Options
 
 Explore advanced options in the Nano manual (`man nano`) for extensive
 customization.
-
-<br />
 
 ## Conclusion
 

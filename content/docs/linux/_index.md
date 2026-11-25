@@ -9,6 +9,7 @@ description:
   and businesses seeking reliable and cost-effective solutions."
 url: "linux"
 icon: "code"
+color: "indigo"
 
-weight: 7000
+weight: 8000
 ---

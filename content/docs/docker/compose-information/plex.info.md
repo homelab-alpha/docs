@@ -32,19 +32,15 @@ keywords:
   - Media server Docker container
   - Docker network configuration
 
-weight: 4100
+weight: 4118
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this `compose.yml` file does in detail. This configuration
 is specifically designed to deploy Plex Media Server using Docker Compose,
@@ -63,8 +59,6 @@ Here's a detailed explanation:
 - **RAW Compose File**: [compose.yml]
 - **RAW .env File**: [.env]
 - **RAW stack.env File**: [stack.env]
-
-<br />
 
 ## Networks Configuration
 
@@ -96,8 +90,6 @@ networks:
       com.plex.network.description: "is an isolated bridge network."
 ```
 
-<br />
-
 - **networks**: Defines a custom network named `plex_net`.
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
@@ -126,8 +118,6 @@ networks:
     Unit size for the network.
 - **labels**: Metadata for the network.
   - **com.plex.network.description**: A description label for the network.
-
-<br />
 
 ## Plex Media Server Service
 
@@ -199,8 +189,6 @@ services:
       start_period: 10s
       start_interval: 5s
 ```
-
-<br />
 
 - **plex_app**: The service name for the Plex container.
   - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
@@ -274,15 +262,11 @@ services:
       will not be counted towards the retries (10 seconds).
     - **start_interval**: The time between starting health checks (5 seconds).
 
-<br />
-
 ## Environment Variables
 
 This file contains configuration settings that various applications (such as
 Docker containers or MySQL servers) can use. By storing these values outside the
 source code, sensitive data—like passwords and tokens—remains secure.
-
-<br />
 
 ### Variables in this file
 
@@ -307,8 +291,6 @@ IP_ADDRESS=http://YourServerIPHere:32400/
   placeholder with the actual IP address of your server, ensuring you use the
   correct format for your setup.
 
-<br />
-
 ## Quick Start
 
 {{% alert context="info" %}}
@@ -330,8 +312,6 @@ Requires Docker Compose 2.24.0 or later.
    docker compose up -d
    ```
 
-<br />
-
 ## Default Web Access
 
 Access the Plex Media Server web interface using the following URL:
@@ -340,14 +320,10 @@ Access the Plex Media Server web interface using the following URL:
 http://your-ip-address:32400/web
 ```
 
-<br />
-
 ## Default Login Credentials
 
 Sign in with your Plex account. The claim token links the server to that account
 on the first start.
-
-<br />
 
 ## Conclusion
 

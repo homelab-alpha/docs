@@ -10,6 +10,8 @@
 {{- $css := resources.Get "ereader/css/ereader.css" | minify -}}
 <head>
   <meta charset="utf-8">
+  {{- /* No scripts at all; images from this site, or the remote image as a fallback. */}}
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src 'self' data: {{ delimit site.Params.security.imageHosts " " }}; base-uri 'none'; form-action 'none'">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, follow">
   <title>{{ $title }}</title>

@@ -34,13 +34,11 @@ keywords:
   - mathematical expressions examples
   - Markdown diagrams
 
-weight: 2500
+weight: 2505
 
 toc: true
 katex: true
 ---
-
-<br />
 
 ## Markdown extensions
 
@@ -67,8 +65,6 @@ Output:
 | Quotes           | `"Isn't this fun?"`             | "Isn't this fun?"             |
 | Dashes           | `-- is en-dash, --- is em-dash` | -- is en-dash, --- is em-dash |
 
-<br />
-
 ### KaTeX
 
 You can render LaTeX mathematical expressions using [KaTeX]:
@@ -93,10 +89,7 @@ $$
 \Gamma(z) = \int_0^\infty t^{z-1}e^{-t}dt\,.
 $$
 
-> You can find more information about **LaTeX** mathematical expressions [here].
-> You can find more information about **LaTeX** mathematical expressions [in this detailed post].
-
-<br />
+> For more on **LaTeX** math expressions, see [this detailed post].
 
 ### UML diagrams
 
@@ -158,8 +151,6 @@ A --> C(Round Rect)
 B --> D{Rhombus}
 C --> D
 ```
-
-<br />
 
 ### Sequence diagram
 
@@ -527,5 +518,6 @@ Rel(SystemC, customerA, "Sends e-mails to")
 ```
 
 [KaTeX]: https://khan.github.io/KaTeX
-[in this detailed post]: http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference
+[this detailed post]:
+  http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference
 [Mermaid]: https://mermaidjs.github.io

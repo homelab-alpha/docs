@@ -34,27 +34,21 @@ keywords:
   - Advanced Configuration
   - Dockerfile
 
-weight: 2300
+weight: 2301
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 ## Advanced Docker Compose Concepts
 
 Docker Compose is a powerful tool for defining and running multi-container
 Docker applications. In this guide, we'll explore some advanced techniques and
 best practices for using Docker Compose effectively.
-
-<br />
 
 ## Environment Variables
 
@@ -69,8 +63,6 @@ services:
       - DEBUG=true
 ```
 
-<br />
-
 ## Volumes
 
 Volumes allow sharing data between containers and the host machine. You can
@@ -83,8 +75,6 @@ services:
       - ./data:/app/data
 ```
 
-<br />
-
 ## Networks
 
 Docker Compose automatically creates a default network for your services. You
@@ -96,8 +86,6 @@ networks:
   mynetwork:
     driver: bridge
 ```
-
-<br />
 
 ## Service Dependencies
 
@@ -112,8 +100,6 @@ services:
       - db
 ```
 
-<br />
-
 ## Scaling Services
 
 You can scale services horizontally by specifying the number of replicas. Use
@@ -127,8 +113,6 @@ services:
     deploy:
       replicas: 3
 ```
-
-<br />
 
 ## Health Checks
 
@@ -145,15 +129,11 @@ services:
       retries: 3
 ```
 
-<br />
-
 ## Advanced Configuration
 
 Explore advanced configurations like resource constraints, logging options, and
 custom Dockerfile paths to fine-tune your services. Consult the Docker Compose
 documentation for more details.
-
-<br />
 
 ## Conclusion
 

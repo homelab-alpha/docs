@@ -1,5 +1,7 @@
 {{- /*
-  Footer of an e-reader page.
+  Footer of an e-reader page: the date of the last change, a link to the full
+  version of the page, and the same copyright, license, and links as the site
+  footer (layouts/partials/site-footer.html).
   Context: the page being rendered.
 */ -}}
 <div class="site-footer">
@@ -7,9 +9,18 @@
   {{- if and .IsPage .Lastmod }}
   <p>Last updated: {{ .Lastmod.Format "January 2, 2006" }}.</p>
   {{- end }}
-  <p>
-    &copy; <a href="{{ site.Params.head.website }}">Homelab-Alpha</a>.
-    Licensed under
-    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>.
+  {{- /* "?full=1" keeps Kindle and Kobo browsers on the full site (head/ereader.html). */}}
+  {{- with .OutputFormats.Get "html" }}
+  <p><a href="{{ .RelPermalink }}?full=1">Full version of this page</a></p>
+  {{- end }}
+  {{- $yearToken := cond (isset site.Params (lower "copyrightYearToken")) site.Params.copyrightYearToken ":YEAR:" }}
+  <p>{{ replace site.Params.footer.copyright $yearToken (string (now.Format "2006")) | markdownify }}</p>
+  <p class="footer-links">
+    {{- with site.GetPage "/docs/license" }}{{ with .OutputFormats.Get "ereader" }}
+    <a href="{{ .RelPermalink }}">License</a>
+    {{- end }}{{ end }}
+    {{- with site.GetPage "/docs/terms_of_homelab_alpha" }}{{ with .OutputFormats.Get "ereader" }}
+    &middot; <a href="{{ .RelPermalink }}">Terms</a>
+    {{- end }}{{ end }}
   </p>
 </div>

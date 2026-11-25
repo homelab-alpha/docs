@@ -30,19 +30,15 @@ keywords:
   - Automated deployment
   - Error handling
 
-weight: 9100
+weight: 10213
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named
 `install_latest_protoc.sh`, authored by GJS (homelab-alpha), and its purpose is
@@ -59,8 +55,6 @@ Buffers) from the official GitHub repository.
   Buffers) from the official GitHub repository, downloads it, installs it to
   `/usr/local/protoc`, and cleans up the downloaded files.
 - **RAW Script**: [install_latest_protoc.sh]
-
-<br />
 
 ## Logging
 
@@ -86,8 +80,6 @@ log_error() {
 }
 ```
 
-<br />
-
 ## Fetching the Latest Version
 
 The script starts by fetching the latest version of Protoc using the GitHub API.
@@ -99,8 +91,6 @@ version number.
 ```bash
 LATEST_VERSION=$(curl -s https://api.github.com/repos/protocolbuffers/protobuf/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
 ```
-
-<br />
 
 ## Error Handling for Version Fetching
 
@@ -115,8 +105,6 @@ if [ -z "$LATEST_VERSION" ]; then
 fi
 ```
 
-<br />
-
 ## Constructing the Download URL
 
 Using the fetched version number, the script constructs the URL to download the
@@ -126,8 +114,6 @@ latest Protoc (Protocol Buffers) binary.
 DOWNLOAD_URL="https://github.com/protocolbuffers/protobuf/releases/download/${LATEST_VERSION}/protoc-${LATEST_VERSION#v}-linux-x86_64.zip"
 ```
 
-<br />
-
 ## Defining the Download Directory
 
 The script defines a directory where the downloaded file will be saved. In this
@@ -136,8 +122,6 @@ case, it uses the `Downloads` directory in the user's home directory.
 ```bash
 DOWNLOAD_DIR="$HOME/Downloads"
 ```
-
-<br />
 
 ## Downloading the Latest Version
 
@@ -154,8 +138,6 @@ echo
 log "Successfully downloaded Protoc version ${LATEST_VERSION} to $DOWNLOAD_DIR."
 ```
 
-<br />
-
 ## Extracting the Downloaded File
 
 The script extracts the contents of the downloaded .zip file to the download
@@ -164,8 +146,6 @@ directory using `unzip`.
 ```bash
 unzip -o "$DOWNLOAD_DIR/protoc-${LATEST_VERSION}-linux-x86_64.zip" -d "$DOWNLOAD_DIR/protoc"
 ```
-
-<br />
 
 ## Preparing the Installation Directory
 
@@ -177,8 +157,6 @@ ensure a clean installation.
 sudo mkdir -p /usr/local/protoc
 sudo rm -rf /usr/local/protoc/*
 ```
-
-<br />
 
 ## Moving Files to the Installation Directory
 
@@ -193,8 +171,6 @@ fi
 log "Protoc version ${LATEST_VERSION} installed successfully."
 ```
 
-<br />
-
 ## Cleaning Up
 
 The script removes the downloaded .zip file and the extracted directory from the
@@ -205,8 +181,6 @@ rm -r "$DOWNLOAD_DIR/protoc-${LATEST_VERSION}-linux-x86_64.zip"
 rm -rf "$DOWNLOAD_DIR/protoc"
 log "Cleanup complete."
 ```
-
-<br />
 
 ## Checking for Protoc Command Availability
 
@@ -225,8 +199,6 @@ else
   log "Protoc version: $(protoc --version)"
 fi
 ```
-
-<br />
 
 ## Conclusion
 

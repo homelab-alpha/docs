@@ -22,9 +22,8 @@ The `icon` of a page (front matter), of a link in `data/links.yaml`, and of an
 item in `data/landing.yaml` is the name of a file in `material/`. The build
 stops with an error when the file does not exist.
 
-The sidebar arrows and the folder and file marks are the same icons, as CSS
-masks in `assets/docs/scss/_variables.scss` (`--chevron-right`, `--dir-right`,
-`--dash`, `--folder`, `--article`).
+The chevrons of the sidebar groups and the breadcrumbs are the same icon, as a
+CSS mask in `assets/docs/scss/_variables.scss` (`--chevron-right`).
 
 ## Add an icon
 
@@ -36,5 +35,5 @@ masks in `assets/docs/scss/_variables.scss` (`--chevron-right`, `--dir-right`,
    `width="1em" height="1em" fill="currentColor"` on the `<svg>` element, as in
    the other files.
 
-The icons in `../images/social/` (GitHub, GitHub Community, Links) are separate
-SVG files with a stroke style; the top header loads them directly.
+The icons in `../images/social/` (GitHub, GitLab, Bitbucket) are separate SVG
+files for the "Edit on" link of a page (`layouts/partials/docs/gitinfo.html`).

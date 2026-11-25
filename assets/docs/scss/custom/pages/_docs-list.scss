@@ -1,0 +1,163 @@
+//
+// docs-list.scss: section lists and the docs home (layouts/docs/list.html) in
+// the new design: a grid of cards with an icon tile. On the docs home each
+// topic has its own tile color.
+//
+
+.docs-card-icon {
+  display: inline-flex;
+
+  svg {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+  }
+}
+
+.docs-content .docs-list-heading {
+  margin: 2.5rem 0 1rem;
+  font-size: 1.375rem;
+  font-weight: 700;
+}
+
+.docs-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+  margin: 1.5rem 0 0;
+  padding: 0;
+
+  > li {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    &::before {
+      content: none !important;
+    }
+  }
+}
+
+.docs-content .main-content .docs-card,
+.docs-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  padding: 20px;
+  border: 1px solid var(--color-border-default);
+  border-radius: 16px;
+  background: var(--color-canvas-default);
+  color: var(--color-fg-default);
+  text-decoration: none;
+  transition:
+    border-color 0.15s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: var(--color-accent-fg);
+    color: var(--color-fg-default);
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: var(--color-shadow-medium);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent-fg);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+.docs-card-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 4px;
+  border-radius: 10px;
+  background: var(--color-accent-subtle);
+  color: var(--color-accent-fg);
+  font-size: 22px;
+
+  // A topic: a solid tile in its own color (partials/docs/tile-color.html),
+  // in the GitHub emphasis colors. Used on /docs/, the landing page, and /links/.
+  &[class*="tile-"] {
+    color: #ffffff;
+  }
+
+  &.tile-blue {
+    background: #1f6feb;
+  }
+
+  &.tile-green {
+    background: #1f883d;
+  }
+
+  &.tile-purple {
+    background: #8250df;
+  }
+
+  &.tile-orange {
+    background: #bc4c00;
+  }
+
+  &.tile-pink {
+    background: #bf3989;
+  }
+
+  &.tile-teal {
+    background: #1b7c83;
+  }
+
+  &.tile-yellow {
+    background: #9a6700;
+  }
+
+  &.tile-gray {
+    background: #59636e;
+  }
+
+  &.tile-red {
+    background: #cf222e;
+  }
+
+  &.tile-indigo {
+    background: #4f46e5;
+  }
+}
+
+.docs-card-title {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.docs-card-text {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--color-fg-muted);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+
+  p {
+    margin: 0;
+  }
+}
+
+.docs-card-meta {
+  margin-top: auto;
+  padding-top: 4px;
+  color: var(--color-fg-muted);
+  font-size: 0.8125rem;
+}

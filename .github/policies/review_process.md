@@ -168,6 +168,11 @@ Reviewers assess pull requests against the following criteria:
 - Does it follow the practices in [SECURITY.md](../../SECURITY.md) and
   [code_style_and_standards_guides.md](../docs/code_style_and_standards_guides.md#security-practices)?
 - Does it introduce new dependencies, and if so, are they justified and safe?
+- Does Markdown content contain raw HTML (`<script>`, `<iframe>`, `<img>`, event
+  handlers such as `onerror`, or `javascript:` links)? The site allows raw HTML
+  in Markdown (`unsafe = true` in `config/_default/markup.toml`), so review it
+  as code. The Content Security Policy blocks inline scripts and handlers, and
+  the Build & Deploy workflow fails on them, but a reviewer is the first check.
 
 ### Tests
 
@@ -235,6 +240,11 @@ review process:
 Automated pull requests are labeled with the update type and the dependency
 name, making them easy to filter in the pull request list.
 
+Third-party files that the site ships (`.github/vendored_assets.json`, labeled
+`vendored`) need one more step: Renovate updates only the version, so run
+`npm run vendor:update` on the branch, review the diff, and commit the files.
+The Build & Deploy check fails until the files match the manifest.
+
 ## Escalation
 
 If a contributor disagrees with a review decision, the following steps apply:
@@ -252,6 +262,7 @@ For the full conflict resolution process, see
 
 ## Revision History
 
-| Version | Date       | Author        | Changes          |
-| :------ | :--------- | :------------ | :--------------- |
-| 1.0.0   | 2026-10-29 | Homelab-Alpha | Initial release. |
+| Version | Date       | Author        | Changes                                                                      |
+| :------ | :--------- | :------------ | :--------------------------------------------------------------------------- |
+| 1.0.0   | 2026-10-29 | Homelab-Alpha | Initial release.                                                             |
+| 1.1.0   | 2026-11-25 | Homelab-Alpha | Review raw HTML in Markdown; fetch third-party files after Renovate updates. |

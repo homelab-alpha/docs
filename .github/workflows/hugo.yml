@@ -178,6 +178,39 @@ jobs:
           echo "::notice title=Hugo Build::✅ Site compiled successfully"
           echo "::endgroup::"
 
+      - name: 📦 Check third-party files
+        run: |
+          set -Eeuo pipefail
+          echo "::group::📦 Third-party files"
+
+          # The files from npm must match .github/vendored_assets.json: not edited by hand, and fetched again
+          # (npm run vendor:update) after Renovate updates a version.
+          if ! python3 .github/scripts/check_vendored_assets.py; then
+            echo "::error title=Third-Party Files::❌ A third-party file does not match .github/vendored_assets.json"
+            echo "::endgroup::"
+            exit 1
+          fi
+
+          echo "::endgroup::"
+
+      - name: 🛡️ Check Content Security Policy
+        id: csp
+        run: |
+          set -Eeuo pipefail
+          echo "::group::🛡️ Content Security Policy"
+
+          # Every inline script must be allowed by a hash in the page's policy
+          # (layouts/partials/docs/csp.html), and no page may use inline event
+          # handlers or javascript: URLs. A page that breaks this is not deployed.
+          if ! python3 .github/scripts/check_csp.py public; then
+            echo "::error title=CSP Check Failed::❌ A page has an inline script or handler that its policy blocks"
+            echo "::endgroup::"
+            exit 1
+          fi
+
+          echo "::notice title=CSP Check::✅ Every page matches its Content Security Policy"
+          echo "::endgroup::"
+
       - name: 📤 Upload artifact
         id: upload
         if: env.DRY_RUN != 'true'
@@ -189,6 +222,7 @@ jobs:
         if: always()
         env:
           BUILD_STATUS: ${{ steps.hugo_build.outcome == 'success' && '✅ Success' || '❌ Failed' }}
+          CSP_STATUS: ${{ steps.csp.outcome == 'success' && '✅ Passed' || '❌ Failed' }}
           SASS_STATUS: ${{ steps.dart_sass.outcome == 'success' && '✅ Success' || '❌ Failed' }}
           UPLOAD_STATUS: ${{ steps.upload.outcome == 'success' && '✅ Uploaded' || '⏭️ Skipped' }}
           STEP_PAGES_BASE_URL: ${{ steps.pages.outputs.base_url }}
@@ -207,6 +241,7 @@ jobs:
           | :------------------- | :------------- |
           | 🎨 Dart Sass Install | $SASS_STATUS   |
           | 🔨 Hugo Compilation  | $BUILD_STATUS  |
+          | 🛡️ CSP Check         | $CSP_STATUS    |
           | 📤 Artifact Upload   | $UPLOAD_STATUS |
 
           ### ⚙️ Runtime Configuration

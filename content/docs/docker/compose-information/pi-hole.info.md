@@ -36,19 +36,15 @@ keywords:
   - Infrastructure Monitoring
   - Self-hosted Docker Management
 
-weight: 4100
+weight: 4117
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 This guide explains the setup for **Pi-hole**, a network-level advertisement and
 tracker blocker that acts as a DNS sinkhole and optionally a DHCP server. Below
@@ -64,8 +60,6 @@ Docker.
 - **Description**: Configures a Docker network and the Pi-hole service for
   ad-blocking and DHCP functionalities.
 - **RAW Compose File**: [compose.yml]
-
-<br />
 
 ## Networks Configuration
 
@@ -97,8 +91,6 @@ networks:
       com.pi-hole.network.description: "is an isolated bridge network."
 ```
 
-<br />
-
 - **networks**: This section defines a custom network named `pi-hole_net`.
 - **attachable: false**: Other containers cannot attach to this network.
 - **internal: false**: The network is accessible externally.
@@ -127,8 +119,6 @@ networks:
 - **labels**: Metadata for the network.
   - **com.pi-hole.network.description**: Describes the network as an isolated
     bridge.
-
-<br />
 
 ## Services Configuration
 
@@ -193,8 +183,6 @@ services:
       start_interval: 5s
 ```
 
-<br />
-
 - **services**: This section defines the services to be deployed.
 - **pi-hole_app**: The service name for the Pi-hole container.
   - **deploy.resources.limits.pids: 512**: Limits the number of processes and
@@ -251,8 +239,6 @@ services:
     - **start_interval: 5s**: Interval between starting health checks (5
       seconds).
 
-<br />
-
 ## Quick Start
 
 {{% alert context="info" %}}
@@ -265,8 +251,6 @@ Requires Docker Compose 2.24.0 or later.
    docker compose up -d
    ```
 
-<br />
-
 ## Default Web Access
 
 Access the Pi-hole web interface using the following URL:
@@ -276,8 +260,6 @@ http://your-ip-address:3080/admin/login
 ```
 
 DNS is published on port 5353 (TCP and UDP).
-
-<br />
 
 ## Default Login Credentials
 
@@ -306,8 +288,6 @@ longer be changed from inside the container.
 **For security reasons, it is strongly recommended that you change the default
 credentials after your first login.**
 {{% /alert %}}
-
-<br />
 
 ## Conclusion
 

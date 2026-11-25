@@ -30,18 +30,14 @@ keywords:
   - File management
   - System administration
 
-weight: 7900
+weight: 8902
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Please note that the Linux shell is case-sensitive. {{% /alert %}}
-
-<br />
 
 ## Introduction
 
@@ -52,8 +48,6 @@ tutorial.
 Accessing the command-line may vary depending on your Linux distribution, but
 it's typically found in the Utilities section. On Ubuntu, for example, you can
 open it by pressing `Ctrl+Alt+T.`
-
-<br />
 
 ## Basic Linux Commands Overview
 
@@ -72,8 +66,6 @@ Example output:
 /home/username
 ```
 
-<br />
-
 ### cd (Change Directory)
 
 Navigate directories using `cd`. Provide either the full path or directory name:
@@ -88,8 +80,6 @@ Shortcuts:
 - `cd ..` moves one directory up.
 - `cd` (with no arguments) goes to the home folder.
 - `cd -` moves to the previous directory.
-
-<br />
 
 ### ls (List)
 
@@ -112,8 +102,6 @@ For example:
 ```bash
 ls -al /home/username
 ```
-
-<br />
 
 ### cat (Concatenate)
 
@@ -139,8 +127,6 @@ Other usages:
   cat file1.txt file2.txt > combined.txt
   ```
 
-<br />
-
 ### cp (Copy)
 
 Duplicate files using cp:
@@ -155,8 +141,6 @@ For copying directories, use `-r` (recursive):
 cp -r /source_directory /destination_directory
 ```
 
-<br />
-
 ### mv (Move/Rename)
 
 Move or rename files with `mv`:
@@ -165,8 +149,6 @@ Move or rename files with `mv`:
 mv file.txt /home/username/Documents
 mv oldname.ext newname.ext
 ```
-
-<br />
 
 ### mkdir (Make Directory)
 
@@ -190,8 +172,6 @@ Additional Options:
   mkdir -p Music/2020/Newfile
   ```
 
-<br />
-
 ### rmdir (Remove Directory)
 
 Delete empty directories with `rmdir`:
@@ -199,8 +179,6 @@ Delete empty directories with `rmdir`:
 ```bash
 rmdir emptydir
 ```
-
-<br />
 
 ### rm (Remove)
 
@@ -214,8 +192,6 @@ rm filename.ext
 rm -r directoryname  # to delete a directory and its contents
 ```
 
-<br />
-
 ### touch (Create File)
 
 Create empty files with `touch`:
@@ -223,8 +199,6 @@ Create empty files with `touch`:
 ```bash
 touch /home/username/Documents/Web.html
 ```
-
-<br />
 
 ### locate
 
@@ -240,8 +214,6 @@ Use `-i` for case-insensitivity and asterisks `*` for partial matches:
 locate -i *partoffilename*
 ```
 
-<br />
-
 ### find
 
 Search for files within specified directories:
@@ -255,8 +227,6 @@ Find all .txt files:
 ```bash
 find /home/username -type f -name "*.txt"
 ```
-
-<br />
 
 ### grep
 
@@ -272,8 +242,6 @@ Search recursively in all files within a directory:
 grep -r "search_term" /home/username/Documents
 ```
 
-<br />
-
 ### sudo
 
 Execute commands with administrative privileges:
@@ -281,8 +249,6 @@ Execute commands with administrative privileges:
 ```bash
 sudo apt update
 ```
-
-<br />
 
 ### df (Disk Free)
 
@@ -292,8 +258,6 @@ Check disk space usage with `df`:
 df -h  # human-readable format
 ```
 
-<br />
-
 ### du (Disk Usage)
 
 View file or directory disk usage with `du`:
@@ -301,8 +265,6 @@ View file or directory disk usage with `du`:
 ```bash
 du -sh /home/username/Documents
 ```
-
-<br />
 
 ### head
 
@@ -312,8 +274,6 @@ Display the first lines of a text file:
 head -n 5 filename.ext  # show first 5 lines
 ```
 
-<br />
-
 ### tail
 
 Display the last lines of a text file:
@@ -322,8 +282,6 @@ Display the last lines of a text file:
 tail -n 5 filename.ext  # show last 5 lines
 ```
 
-<br />
-
 ### diff
 
 Compare file contents line by line:
@@ -331,8 +289,6 @@ Compare file contents line by line:
 ```bash
 diff file1.txt file2.txt
 ```
-
-<br />
 
 ### tar
 
@@ -350,8 +306,6 @@ To extract a tar archive:
 tar -xvf archive.tar
 ```
 
-<br />
-
 ### chmod (Change Mode)
 
 Change file or directory permissions with `chmod`:
@@ -359,8 +313,6 @@ Change file or directory permissions with `chmod`:
 ```bash
 chmod 755 filename.ext  # owner can read/write/execute, others can read/execute
 ```
-
-<br />
 
 ### chown (Change Owner)
 
@@ -370,8 +322,6 @@ Change file or directory ownership with `chown`:
 sudo chown username:groupname filename.ext
 ```
 
-<br />
-
 ### jobs
 
 Display current jobs and their statuses:
@@ -379,8 +329,6 @@ Display current jobs and their statuses:
 ```bash
 jobs
 ```
-
-<br />
 
 ### kill
 
@@ -399,8 +347,6 @@ Common signals:
 kill -9 PID
 ```
 
-<br />
-
 ### ping
 
 Check connectivity to a server:
@@ -408,8 +354,6 @@ Check connectivity to a server:
 ```bash
 ping example.com
 ```
-
-<br />
 
 ### wget
 
@@ -419,8 +363,6 @@ Download files from the internet:
 wget http://example.com/file.zip
 ```
 
-<br />
-
 ### uname
 
 Display system information:
@@ -428,8 +370,6 @@ Display system information:
 ```bash
 uname -a  # all information
 ```
-
-<br />
 
 ### top
 
@@ -439,8 +379,6 @@ Monitor running processes and CPU usage:
 top
 ```
 
-<br />
-
 ### history
 
 Review previously entered commands:
@@ -448,8 +386,6 @@ Review previously entered commands:
 ```bash
 history
 ```
-
-<br />
 
 ### man (Manual)
 
@@ -459,8 +395,6 @@ Access manual pages for commands:
 man ls
 ```
 
-<br />
-
 ### echo
 
 Move data into a file using `echo`:
@@ -468,8 +402,6 @@ Move data into a file using `echo`:
 ```bash
 echo "Hello World" > hello.txt
 ```
-
-<br />
 
 ### zip, unzip
 
@@ -485,8 +417,6 @@ Extract zipped files with `unzip`:
 unzip archive.zip
 ```
 
-<br />
-
 ### hostname
 
 Display or set the system's hostname:
@@ -495,8 +425,6 @@ Display or set the system's hostname:
 hostname
 hostnamectl  # show or set the hostname on systemd-based distributions
 ```
-
-<br />
 
 ### useradd, userdel
 
@@ -514,8 +442,6 @@ To delete a user:
 sudo userdel username
 ```
 
-<br />
-
 ## Additional Commands
 
 ### ps (Process Status)
@@ -526,8 +452,6 @@ Displays a list of active processes:
 ps aux
 ```
 
-<br />
-
 ### whoami
 
 Displays the current logged-in username:
@@ -535,8 +459,6 @@ Displays the current logged-in username:
 ```bash
 whoami
 ```
-
-<br />
 
 ### uname -r
 
@@ -546,8 +468,6 @@ Shows the system’s kernel version:
 uname -r
 ```
 
-<br />
-
 ### df -i (Disk Free Inodes)
 
 Shows the number of available inodes:
@@ -555,8 +475,6 @@ Shows the number of available inodes:
 ```bash
 df -i
 ```
-
-<br />
 
 ### free (Memory Usage)
 
@@ -566,8 +484,6 @@ Displays information about memory usage:
 free -h
 ```
 
-<br />
-
 ### scp (Secure Copy)
 
 Copies files between hosts over SSH:
@@ -575,8 +491,6 @@ Copies files between hosts over SSH:
 ```bash
 scp file.txt username@remote_host:/path/to/destination
 ```
-
-<br />
 
 ### rsync
 
@@ -586,8 +500,6 @@ Synchronizes files and directories between two locations:
 rsync -avh /source/directory /destination/directory
 ```
 
-<br />
-
 ### cron (Crontab)
 
 Manages scheduled tasks. Introduce this for explaining how scheduled tasks work:
@@ -595,8 +507,6 @@ Manages scheduled tasks. Introduce this for explaining how scheduled tasks work:
 ```bash
 crontab -e
 ```
-
-<br />
 
 ### iptables
 
@@ -620,8 +530,6 @@ sudo ufw status               # Ubuntu / Debian
 sudo firewall-cmd --list-all  # Fedora / RHEL
 ```
 
-<br />
-
 ### systemctl
 
 Manages systemd services. Essential for modern Linux distributions:
@@ -634,8 +542,6 @@ sudo systemctl enable service_name
 sudo systemctl disable service_name
 ```
 
-<br />
-
 ## Additional Topics
 
 ### Environment Variables
@@ -647,8 +553,6 @@ export VAR_NAME="value"
 echo $VAR_NAME
 ```
 
-<br />
-
 ### Aliases
 
 How to create your own aliases for frequently used commands:
@@ -657,8 +561,6 @@ How to create your own aliases for frequently used commands:
 alias ll='ls -la'
 ```
 
-<br />
-
 ### SSH
 
 Secure access to another computer over the network:
@@ -666,8 +568,6 @@ Secure access to another computer over the network:
 ```bash
 ssh username@hostname
 ```
-
-<br />
 
 ### Package Management
 
@@ -680,8 +580,6 @@ sudo apt install package_name
 sudo dnf install package_name
 ```
 
-<br />
-
 ### Network Commands
 
 Use the `ip` and `ss` commands for network management. They replace the
@@ -693,8 +591,6 @@ ip a         # show IP addresses (replaces ifconfig)
 ip route     # show the routing table (replaces route)
 ss -tuln     # show listening TCP and UDP ports (replaces netstat -tuln)
 ```
-
-<br />
 
 ### Log Files
 
@@ -710,8 +606,6 @@ journalctl -u service_name  # logs of a single service
 tail -f /var/log/syslog   # plain text log (Debian / Ubuntu)
 ```
 
-<br />
-
 ### Shell Scripting
 
 An introduction to shell scripting for automation and more complex tasks:
@@ -720,8 +614,6 @@ An introduction to shell scripting for automation and more complex tasks:
 #!/bin/bash
 echo "Hello, World!"
 ```
-
-<br />
 
 ## Bonus Tips and Tricks
 

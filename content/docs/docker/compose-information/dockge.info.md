@@ -36,19 +36,15 @@ keywords:
   - Infrastructure Monitoring
   - Self-hosted Docker Management
 
-weight: 4100
+weight: 4103
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this `compose.yml` file does in detail for deploying
 Dockge, a user-friendly Docker Compose stack management interface.
@@ -64,8 +60,6 @@ Here's a detailed explanation:
 - **Description**: Configures a Docker network and the Dockge service for
   managing Docker Compose stacks.
 - **RAW Compose File**: [compose.yml]
-
-<br />
 
 ## Networks Configuration
 
@@ -97,8 +91,6 @@ networks:
       com.dockge.network.description: "is an isolated bridge network."
 ```
 
-<br />
-
 - **networks**: This section defines a custom network named `dockge_net`.
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
@@ -127,8 +119,6 @@ networks:
     Unit size for the network.
 - **labels**: Metadata for the network.
   - **com.dockge.network.description**: A description label for the network.
-
-<br />
 
 ## Services Configuration
 
@@ -179,8 +169,6 @@ services:
       start_period: 10s
       start_interval: 5s
 ```
-
-<br />
 
 - **services**: Defines services to be deployed.
 - **dockge_app**: The service name for the Dockge container.
@@ -234,8 +222,6 @@ services:
       will not be counted towards the retries (10 seconds).
     - **start_interval**: The time between starting health checks (5 seconds).
 
-<br />
-
 ## Quick Start
 
 {{% alert context="info" %}}
@@ -248,8 +234,6 @@ Requires Docker Compose 2.24.0 or later.
    docker compose up -d
    ```
 
-<br />
-
 ## Default Web Access
 
 Access the Dockge web interface using the following URL:
@@ -257,8 +241,6 @@ Access the Dockge web interface using the following URL:
 ```bash
 http://your-ip-address:3005
 ```
-
-<br />
 
 ## Default Login Credentials
 
@@ -274,8 +256,6 @@ On the first visit, Dockge asks you to create the admin account.
 **For security reasons, it is strongly recommended to create a strong username
 and password during the setup.**
 {{% /alert %}}
-
-<br />
 
 ## Conclusion
 

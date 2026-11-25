@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+{{- /*
+  Redirect page for an old URL (aliases in front matter). Hugo's own version,
+  plus a Content Security Policy: the page needs no scripts or styles.
+*/}}
+<html lang="{{ site.Language.Lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>{{ .Permalink }}</title>
+  <link rel="canonical" href="{{ .Permalink }}">
+  <meta name="robots" content="noindex">
+  <meta http-equiv="refresh" content="0; url={{ .Permalink }}">
+</head>
+<body>
+  <p><a href="{{ .Permalink }}">{{ .Permalink }}</a></p>
+</body>
+</html>

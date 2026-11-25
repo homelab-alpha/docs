@@ -29,18 +29,14 @@ keywords:
   - Docker automation
   - persistent storage
 
-weight: 9100
+weight: 10220
 
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named
 `uptime_kuma_pr_test_v2.sh`, authored by GJS (homelab-alpha), and its purpose is
@@ -58,8 +54,6 @@ Docker container environment. Here’s a detailed look at each section:
   ports for the app and API.
 - **RAW Script**:[uptime_kuma_pr_test_v2.sh]
 
-<br />
-
 ## Variable Definitions
 
 ```bash
@@ -75,8 +69,6 @@ pgid=$(id -g)
 
 These lines set up default ports (`3000` and `3001`) for the application and
 API, and retrieve user information such as the `username`, `PUID`, and `PGID`.
-
-<br />
 
 ## Helper Function
 
@@ -121,8 +113,6 @@ This function displays usage instructions and script options in a neatly
 formatted menu. It describes how to run the tool, what each option does, and
 provides some guidance on troubleshooting issues with option 2, which uses
 persistent storage.
-
-<br />
 
 ## System Information Display
 
@@ -192,8 +182,6 @@ information:
 - **Filesystem type** with `findmnt`.
 - **Docker and Docker Compose versions**, if installed.
 
-<br />
-
 ## Validation Function
 
 ```bash
@@ -209,8 +197,6 @@ validate_repo_name() {
 Checks if the GitHub repository link entered by the user is in the correct
 format (`owner:repo`). If the format is invalid, it displays an error and exits
 the script.
-
-<br />
 
 ## Docker Run for version 2.x.x
 
@@ -262,8 +248,6 @@ storage:
   (`--no-healthcheck`), and runs it interactively with a terminal
   (`--interactive`, `--tty`).
 
-<br />
-
 ## Docker Run with Persistent Storage
 
 ```bash
@@ -306,8 +290,6 @@ This function is similar to `version_2` but includes persistent storage using a
 volume (`--volume uptime-kuma-pr-test-v2:/app/data`). It allows any changes made
 in the container to be saved across runs.
 
-<br />
-
 ## Cleanup Function
 
 ```bash
@@ -324,8 +306,6 @@ cleanup_dangling_images() {
 
 This function cleans up any unused (dangling) Docker images to free up disk
 space by running `docker image prune`.
-
-<br />
 
 ## Main Execution Logic
 
@@ -397,8 +377,6 @@ This main menu loop:
   The selected function (`version_2` or `version_2_persistent_storage`) is then
   called based on the user’s input.
 
-<br />
-
 ## Prompt for GitHub Repository and Execution
 
 ```bash
@@ -415,8 +393,6 @@ link. The script then:
 - Runs the Docker container as per the selected function (`version_2` or
   `version_2_persistent_storage`).
 - Finally, calls `cleanup_dangling_images` to remove unused Docker images.
-
-<br />
 
 ## Conclusion
 

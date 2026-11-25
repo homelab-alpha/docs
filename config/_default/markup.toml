@@ -1,8 +1,12 @@
 defaultMarkdownHandler = "goldmark"
 
 [markup.highlight]
-  codeFences = false
+  # Code blocks are highlighted at build time with CSS classes (Chroma); the
+  # colors are in assets/docs/scss/custom/plugins/chroma/_github.scss.
+  codeFences = true
+  guessSyntax = false
   lineNumbersInTable = true
+  noClasses = false
 
 [tableOfContents]
   endLevel = 3

@@ -41,13 +41,9 @@ toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named
 `dotfiles_installer.sh`, authored by GJS (homelab-alpha), and its purpose is to
@@ -68,8 +64,6 @@ Here's a detailed explanation:
   dotfiles, including creating backups and restoring them if necessary.
 - **RAW Script**: [dotfiles_installer.sh]
 
-<br />
-
 ## Detailed Explanation
 
 ### Check if Git is Installed
@@ -85,8 +79,6 @@ check_git() {
 
 This function checks if Git is installed on the system. If not, it prompts the
 user to install Git and exits the script.
-
-<br />
 
 ### Create a Backup of Existing Dotfiles
 
@@ -113,8 +105,6 @@ create_backup() {
 This function creates a backup of existing dotfiles. It creates a directory for
 backups and copies each dotfile if it exists. If a file cannot be copied, it
 outputs an error and exits the script.
-
-<br />
 
 ### Install Dotfiles
 
@@ -147,8 +137,6 @@ This function installs new dotfiles. It copies dotfiles from the `dotfiles`
 directory in the user's home directory to the appropriate locations. It also
 removes Git-related directories and files after copying.
 
-<br />
-
 ### Backup Files Before Uninstallation
 
 ```bash
@@ -175,8 +163,6 @@ This function creates a backup of the current dotfiles before uninstallation. It
 is similar to the `create_backup` function but is used during the uninstallation
 process.
 
-<br />
-
 ### Remove Dotfiles
 
 ```bash
@@ -192,8 +178,6 @@ remove_dotfiles() {
 
 This function removes the dotfiles from the home directory. If it encounters an
 error while removing the files, it outputs an error message.
-
-<br />
 
 ### Restore Backup Files
 
@@ -212,8 +196,6 @@ This function restores the backup of the original dotfiles created before
 installation. If it encounters an error, it outputs an error message and exits
 the script.
 
-<br />
-
 ### Main Installation Function
 
 ```bash
@@ -228,8 +210,6 @@ install() {
 This function orchestrates the installation process by calling the
 `create_backup` and `install_dotfiles` functions. It logs the installation
 completion time.
-
-<br />
 
 ### Main Uninstallation Function
 
@@ -254,8 +234,6 @@ This function orchestrates the uninstallation process by calling `backup_files`,
 `remove_dotfiles`, and `restore_backup` functions. It logs the uninstallation
 completion time and removes the `dotfiles` directory from the home directory.
 
-<br />
-
 ### Display Menu for Action Selection
 
 ```bash
@@ -277,8 +255,6 @@ The script presents a menu to the user to choose between installing and
 uninstalling dotfiles. Based on the user's choice, it either calls the
 `check_git` and `install` functions for installation or the `uninstall` function
 for uninstallation. If an invalid choice is entered, it exits the script.
-
-<br />
 
 ## Conclusion
 

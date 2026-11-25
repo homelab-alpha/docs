@@ -5,6 +5,7 @@ description:
   valued and appreciated."
 url: "contributing"
 icon: "heart_plus"
+color: "pink"
 
 weight: 3000
 ---

@@ -33,15 +33,11 @@ toc: true
 katex: true
 ---
 
-<br />
-
 ## Quick install
 
 ```bash
 git clone https://github.com/homelab-alpha/dotfiles.git ~/dotfiles && cd ~/dotfiles && echo 1 | ./dotfiles_installer.sh
 ```
-
-<br />
 
 ## Using the `dotfiles_installer.sh` Script
 
@@ -56,8 +52,6 @@ git clone https://github.com/homelab-alpha/dotfiles.git ~/dotfiles
 This command will clone the dotfiles repository from GitHub to `~/dotfiles`. The
 installer expects the repository in `$HOME/dotfiles`.
 
-<br />
-
 ### Navigate to the Folder
 
 Go to the cloned repository by running the following command:
@@ -65,8 +59,6 @@ Go to the cloned repository by running the following command:
 ```bash
 cd $HOME/dotfiles
 ```
-
-<br />
 
 ### Run the Installation Script
 
@@ -79,8 +71,6 @@ Once you are in the `dotfiles` folder, run the installation script with:
 The script shows a menu. Enter `1` to install the dotfiles or `2` to uninstall
 them. After the installation, the script removes the `.git`, `.github`, and
 `.gitignore` entries from `$HOME/dotfiles`.
-
-<br />
 
 ### Follow Any Instructions
 
@@ -106,14 +96,10 @@ The following files will be backed up before installation:
 
 You can find the backups in `$HOME/dotfiles-backup/before-installation`
 
-<br />
-
 ### Verifying the Installation
 
 After completing the installation script, verify if your dotfiles are installed
 correctly as expected.
-
-<br />
 
 ## Removal of Dotfiles
 
@@ -140,14 +126,10 @@ Similar to pre-installation, your files will be backed up:
 
 These backups are stored in `$HOME/dotfiles-backup/before-uninstallation`
 
-<br />
-
 ### Post-deletion Process
 
 Your dotfiles will be restored from the backup after deletion. The script also
 removes the `$HOME/dotfiles` directory.
-
-<br />
 
 ### Verifying the Uninstallation
 
@@ -156,8 +138,6 @@ After uninstalling, verify if everything has been removed correctly.
 By following these steps, you can effectively manage your dotfiles using the
 `dotfiles_installer.sh` script from the GitHub repository. If you have any
 further questions, feel free to ask!
-
-<br />
 
 ## Log Files
 

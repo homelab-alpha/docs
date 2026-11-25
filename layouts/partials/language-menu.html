@@ -1,0 +1,35 @@
+{{- /*
+  Language menu: a globe button with the code of the current language, and a
+  panel with every language of the site. A language links to the translation
+  of this page, or to the docs home of that language when the page has no
+  translation. Only shown when the site has more than one language. Opened and
+  closed by assets/docs/js/toolbar-menus.js; styles in _reading-menu.scss.
+*/ -}}
+{{- if hugo.IsMultilingual }}
+{{- $page := . -}}
+{{- $docs := site.Params.docs.pathName | default "docs" -}}
+<div class="language-menu theme-menu">
+    <button type="button" class="theme-menu-button" aria-expanded="false" aria-controls="language-menu-panel" title="{{ i18n "language" | default "Language" }}">
+        {{- partial "svg-icon.html" (dict "name" "public" "tag" "span" "class" "theme-menu-icon language-menu-icon") -}}
+        <span class="language-menu-code" aria-hidden="true">{{ site.Language.Lang | upper }}</span>
+        <span class="visually-hidden">{{ i18n "language" | default "Language" }}: {{ site.Language.Label }}</span>
+        {{- partial "svg-icon.html" (dict "name" "navigate_next" "tag" "span" "class" "theme-menu-chevron") -}}
+    </button>
+    <div class="theme-menu-panel language-menu-panel" id="language-menu-panel" hidden>
+        <ul class="language-menu-list" aria-label="{{ i18n "language" | default "Language" }}">
+            {{- range hugo.Sites }}
+            {{- $lang := .Language.Lang }}
+            {{- $url := printf "%s%s/" .Home.RelPermalink $docs }}
+            {{- range $page.AllTranslations }}{{ if eq .Lang $lang }}{{ $url = .RelPermalink }}{{ end }}{{ end }}
+            {{- $current := eq $lang site.Language.Lang }}
+            <li>
+                <a class="theme-menu-option" href="{{ $url }}" hreflang="{{ $lang }}" lang="{{ $lang }}"{{ if $current }} aria-current="true"{{ end }}>
+                    <span class="theme-menu-label">{{ .Language.Label }}</span>
+                    {{- partial "svg-icon.html" (dict "name" "check" "tag" "span" "class" "theme-menu-check") -}}
+                </a>
+            </li>
+            {{- end }}
+        </ul>
+    </div>
+</div>
+{{- end }}

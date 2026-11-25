@@ -33,19 +33,15 @@ keywords:
   - automation tools
   - linux commands
 
-weight: 9200
+weight: 10107
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named `mvg.sh`,
 authored by GJS (homelab-alpha), and its purpose is to create a function called
@@ -63,14 +59,10 @@ are valid and provides functionality to add metadata to itself if it's missing.
   destination and then enters the destination directory.
 - **RAW Script**: [mvg.sh]
 
-<br />
-
 ## Function: `mvg`
 
 The function `mvg` is the core of the script. Here's a step-by-step breakdown of
 what it does:
-
-<br />
 
 ### Argument Check
 
@@ -85,8 +77,6 @@ The script first checks if the number of arguments provided is exactly two (the
 source and the destination). If not, it prints a usage message and exits the
 function with a status of `1`.
 
-<br />
-
 ### Variable Assignment
 
 ```bash
@@ -96,8 +86,6 @@ local destination="$2"
 
 The script assigns the first argument to `source` and the second argument to
 `destination`.
-
-<br />
 
 ### Source Existence Check
 
@@ -110,8 +98,6 @@ fi
 
 It checks if the source exists using the `-e` flag. If the source doesn't exist,
 it prints an error message and exits the function with a status of `1`.
-
-<br />
 
 ### Destination Validity Check
 
@@ -126,8 +112,6 @@ It checks if the destination exists and is a directory using the `-d` flag. If
 the destination is not a directory, it prints an error message and exits the
 function with a status of `1`.
 
-<br />
-
 ### Move and Enter Directory
 
 ```bash
@@ -137,8 +121,6 @@ mv "$source" "$destination" && cd "$destination/$(basename "$source")" || exit
 If both checks pass, the script moves the source to the destination using the
 `mv` command. Then, it tries to change the directory to the new location of the
 moved source using `cd`. If either of these commands fails, it exits the script.
-
-<br />
 
 ## Script Metadata Management
 
@@ -157,8 +139,6 @@ fi
 It checks if the description line is present in the script using `grep`. If not,
 it inserts the description after the second line using `sed`.
 
-<br />
-
 ### Add Usage Example
 
 ```bash
@@ -170,8 +150,6 @@ fi
 
 It checks if the usage example line is present in the script using `grep`. If
 not, it inserts the usage example after the fourth line using `sed`.
-
-<br />
 
 ## Conclusion
 

@@ -12,10 +12,6 @@
   --ordered-list-bg: var(--gray-300);
   --ordered-list-color: var(--gray-800);
   --blockquote-border-color: var(--gray-300);
-
-  --code-block-bg: #212d63;
-  --inline-code-bg: var(--gray-100);
-  --inline-code-border: 1px solid var(--gray-400);
 }
 
 [data-dark-mode] {
@@ -27,10 +23,6 @@
   --ordered-list-bg: var(--gray-700);
   --ordered-list-color: var(--gray-200);
   --blockquote-border-color: var(--primary-200);
-
-  --code-block-bg: var(--gray-900);
-  --inline-code-bg: var(--gray-800);
-  --inline-code-border: 1px solid var(--gray-600);
 }
 
 .docs-content {
@@ -194,6 +186,12 @@ i {
 .docs-content .main-content ul {
   list-style: none;
   line-height: 26px;
+
+  // A loose list (blank lines between the items) puts each item in a
+  // paragraph: give those a smaller gap than the paragraphs of the text.
+  li > p {
+    margin-bottom: 0.5rem;
+  }
 }
 
 // Blockquote
@@ -254,59 +252,10 @@ i {
   }
 }
 
-// Code
-.docs-content .main-content div.highlight {
-  margin: 16px 0;
-  padding: $code-block-padding-top;
-  background: var(--code-block-bg);
-  border-radius: 4px;
-  pre {
-    padding: 0;
-  }
-}
-
-.docs-content .main-content code {
-  // font-size: inherit;
-  // color: var(--text-default);
-  font-weight: 400;
-  padding: 1px 2px;
-  background: var(--inline-code-bg);
-  border: var(--inline-code-border);
-  border-radius: 4px;
-}
-
-.docs-content .main-content pre {
-  margin: 0;
-  // background-color: var(--code-block-bg) !important;
-  border-radius: 4px;
-  padding: $code-block-padding-top;
-
-  code {
-    // color: #f5fbff;
-    font-size: 0.8rem;
-    display: block;
-    // background: var(--code-block-bg);
-    border: none;
-    overflow-x: auto;
-    line-height: 1.5;
-    padding: 0 2.5rem 1.25rem 2.5rem;
-    tab-size: 4;
-    scrollbar-width: thin;
-    //scrollbar-color: transparent transparent;
-  }
-}
-
 // bold code
 .docs-content .main-content strong {
   code {
     font-weight: 700;
-  }
-}
-
-// Chroma Highlighter CSS
-.docs-content .main-content td pre {
-  code {
-    overflow-x: unset !important;
   }
 }
 

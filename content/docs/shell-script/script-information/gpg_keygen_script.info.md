@@ -32,19 +32,15 @@ keywords:
   - software check
   - GPG directory
 
-weight: 9100
+weight: 10208
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named
 `gpg_keygen_script.sh`, authored by GJS (homelab-alpha), and its purpose is to
@@ -64,14 +60,10 @@ for verbose output and specifying the GPG directory.
   specifying the GPG directory.
 - **RAW Script**: [gpg_keygen_script.sh]
 
-<br />
-
 ## Script Header
 
 The script begins with metadata and usage instructions, providing a clear
 overview of its purpose, options, and examples of how to use it.
-
-<br />
 
 ## Functions
 
@@ -97,8 +89,6 @@ print_section_header() {
 }
 ```
 
-<br />
-
 ### Verbose Information Display
 
 - **display_verbose_info()**: If the verbose mode is enabled, this function
@@ -112,8 +102,6 @@ display_verbose_info() {
   fi
 }
 ```
-
-<br />
 
 ### Logging
 
@@ -130,8 +118,6 @@ log_message() {
 }
 ```
 
-<br />
-
 ### Usage Instructions
 
 - **display_usage()**: This function displays usage instructions and exits the
@@ -146,8 +132,6 @@ display_usage() {
   exit 1
 }
 ```
-
-<br />
 
 ### Software Check
 
@@ -165,8 +149,6 @@ check_required_software() {
 }
 ```
 
-<br />
-
 ### Key Pair Generation
 
 - **generate_key_pair()**: This function generates a new GPG key pair using
@@ -180,8 +162,6 @@ generate_key_pair() {
   gpg --full-generate-key
 }
 ```
-
-<br />
 
 ### Key File Existence Check
 
@@ -199,8 +179,6 @@ check_key_file_existence() {
   fi
 }
 ```
-
-<br />
 
 ### Command-Line Options Parsing
 
@@ -229,8 +207,6 @@ parse_command_line_options() {
 }
 ```
 
-<br />
-
 ## Signal Trapping
 
 - **trap_handler**: This function is set to handle interrupt signals (like
@@ -240,8 +216,6 @@ parse_command_line_options() {
 ```bash
 trap trap_handler SIGINT SIGTERM
 ```
-
-<br />
 
 ## Main Program Execution
 
@@ -320,8 +294,6 @@ display_verbose_info
 log_message "Script execution completed."
 log_message "=== end of the log ==="
 ```
-
-<br />
 
 ## Conclusion
 

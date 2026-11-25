@@ -31,19 +31,15 @@ keywords:
   - Docker VLAN
   - host shim interface
 
-weight: 4300
+weight: 4203
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 An `ipvlan` network gives each container its own IP address on your network,
 while all containers share the MAC address of the host interface (the _parent_).

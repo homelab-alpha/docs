@@ -34,19 +34,15 @@ keywords:
   - Scripting
   - Homelab
 
-weight: 9100
+weight: 10216
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named
 `new_docker_project.sh`, authored by GJS (homelab-alpha), and its purpose is to
@@ -65,8 +61,6 @@ structure and configuration files for Docker containers.
   structure and configuration files based on user input.
 - **RAW Script**: [new_docker_project.sh]
 
-<br />
-
 ## Check for sudo Permissions
 
 ```sh
@@ -78,8 +72,6 @@ fi
 
 This section ensures that the script is run with `sudo` to have the necessary
 permissions for creating directories and files.
-
-<br />
 
 ## Validate Existence of Required Commands
 
@@ -96,8 +88,6 @@ This part checks if the required commands (`mkdir`, `touch`, `chown`) are
 available on the system. If any of these commands are missing, the script will
 exit with an error message.
 
-<br />
-
 ## Display Message Function
 
 ```sh
@@ -108,8 +98,6 @@ display_message() {
 
 This function is used to display messages to the user in a formatted manner.
 
-<br />
-
 ## Prompt for Docker Container Name
 
 ```sh
@@ -119,8 +107,6 @@ read -r container_name
 
 The script prompts the user to enter the name of the new Docker container and
 reads the input into the variable `container_name`.
-
-<br />
 
 ## Validate Container Name
 
@@ -134,8 +120,6 @@ fi
 This validation ensures that the container name only contains letters, numbers,
 underscores, and hyphens.
 
-<br />
-
 ## Set Base Directory for Docker Containers
 
 ```sh
@@ -146,8 +130,6 @@ dir_path="$base_dir/$container_name"
 This section sets the base directory for Docker containers. If `docker_base_dir`
 is not set, it defaults to `/docker`. The full directory path for the new
 container is constructed.
-
-<br />
 
 ## Check if Directory Already Exists
 
@@ -160,8 +142,6 @@ fi
 
 This checks if a directory with the specified container name already exists. If
 it does, the script exits with a message.
-
-<br />
 
 ## Create Required Directories
 
@@ -182,8 +162,6 @@ done
 This part creates the required directory structure for the Docker container,
 including directories for notes, production, and testing environments.
 
-<br />
-
 ## Create Docker Startup Files
 
 ```sh
@@ -195,8 +173,6 @@ fi
 
 The script creates essential Docker startup files in the new container
 directory.
-
-<br />
 
 ## Add Content to `compose.yml` for production
 
@@ -460,8 +436,6 @@ sets its project with a top-level `name:`, and lists `.env` and `stack.env` with
 Compose CLI, `stack.env` for Portainer. This needs Docker Compose 2.24.0 or
 later.
 
-<br />
-
 ## Add Content to `compose.yml` for testing
 
 ```sh
@@ -717,8 +691,6 @@ EOL
 
 This section adds content to the `compose.yml` file, specifying the
 configuration for Docker services and networks.
-
-<br />
 
 ## Add Content to `.env` and `.stack.env`
 
@@ -1005,8 +977,6 @@ done
 The `my.cnf` files are created in the `production/config` and `testing/config`
 directories with MariaDB/MySQL configurations for the Docker containers.
 
-<br />
-
 ## Add Content to `.dockerignore`
 
 ```sh
@@ -1028,8 +998,6 @@ EOL
 This section writes predefined content to the `.dockerignore` file to exclude
 certain files from Docker builds.
 
-<br />
-
 ## Add Content to `Dockerfile`
 
 ```sh
@@ -1040,8 +1008,6 @@ EOL
 
 This creates an empty `Dockerfile`, which should be populated with build
 instructions.
-
-<br />
 
 ## Add Content to `README.md`
 
@@ -1106,8 +1072,6 @@ EOL
 This section populates the `README.md` file with a directory structure overview
 and customization instructions.
 
-<br />
-
 ## Completion Message
 
 ```sh
@@ -1116,8 +1080,6 @@ display_message "Docker container directory structure created in $dir_path."
 
 Finally, the script displays a message indicating that the Docker container
 directory structure has been successfully created.
-
-<br />
 
 ## Conclusion
 

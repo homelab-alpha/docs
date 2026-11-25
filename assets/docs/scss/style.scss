@@ -3,13 +3,9 @@ $font-family-secondary:  {{ .Site.Params.secondary_font | default "-apple-system
 $font-family-sans-serif: {{ .Site.Params.sans_serif_font | default "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Ubuntu'" }};
 $font-family-monospace:  {{ .Site.Params.mono_font | default "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace" }};
 
-// Code Padding Variables
-$code-block-padding-top: {{ if eq .Site.Params.docs.prism true -}}0{{ else }}1.25rem 0 0 0{{ end }};
-
 // Fonts
 @import "custom/fonts/fonts";
-
-// Icon Fonts
+@import "custom/fonts/reading-fonts";
 
 // Core files
 @import "../../scss/bootstrap/functions";
@@ -18,11 +14,14 @@ $code-block-padding-top: {{ if eq .Site.Params.docs.prism true -}}0{{ else }}1.2
 @import "../../scss/bootstrap/mixins";
 @import "../../scss/bootstrap/bootstrap";
 @import "variables";
+@import "custom/structure/tokens"; // design tokens (GitHub colors)
+@import "custom/structure/themes"; // GitHub theme variants and contrast
 
 // Structure
 @import "custom/structure/general";
 @import "custom/structure/content";
 @import "custom/structure/sidebar";
+@import "custom/structure/sidebar-list";
 @import "custom/structure/doc-nav";
 @import "custom/structure/toc";
 @import "custom/structure/footer";
@@ -39,14 +38,23 @@ $code-block-padding-top: {{ if eq .Site.Params.docs.prism true -}}0{{ else }}1.2
 @import "custom/components/table";
 @import "custom/components/tabs";
 @import "custom/components/tooltip";
+@import "custom/components/theme-menu";
+@import "custom/components/reading-menu";
+@import "custom/components/toolbar";
+@import "custom/components/mobile-bar";
+@import "custom/components/faq";
 
 // Pages
-@import "custom/pages/features";
 @import "custom/pages/helper";
 @import "custom/pages/landing";
+@import "custom/pages/docs-list";
+@import "custom/pages/site-pages";
 
 // Apple Human Interface Guidelines layer (last, so that it wins over the theme)
 @import "custom/structure/apple-hig";
+
+// New design: the content (after the HIG layer, so that it wins)
+@import "custom/structure/content-hig";
 
 // Content width on large screens (from 1800 px wide)
 @import "custom/structure/content-width";
@@ -56,19 +64,12 @@ $code-block-padding-top: {{ if eq .Site.Params.docs.prism true -}}0{{ else }}1.2
 
 // Plugins
 
-// Prism / Chroma
-{{- if eq .Site.Params.docs.prism true }}
-@import {{ printf "'%s%s'" "custom/plugins/prism/themes/" (.Site.Params.docs.prismTheme | default "lotusdocs") }}; // current prism theme
-@import "custom/plugins/prism/prism";
-{{- else }}
-@import "custom/plugins/chroma/default";
-{{- end -}}
+// Code: Chroma syntax colors (GitHub Light and Dark), highlighted at build time
+@import "custom/plugins/chroma/github";
+@import "custom/components/code";
 
 // FlexSearch
 {{ if or (not (isset .Site.Params.flexsearch "enabled")) (eq .Site.Params.flexsearch.enabled true) -}}@import "custom/plugins/flexsearch/flexsearch";{{ end }}
-
-// Feedback Widget
-{{ if .Site.Params.feedback.enabled | default false -}}@import "custom/plugins/feedback/feedback";{{ end}}
 
 // Mermaid
 @import "custom/plugins/mermaid/mermaid";

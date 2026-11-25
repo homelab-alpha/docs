@@ -1,0 +1,28 @@
+{{- /*
+  Table of contents of an e-reader page, built from the headings of the page.
+  Hugo's own list wraps the headings in an empty outer level when a page
+  starts at h2; here a heading without a title is skipped and its children
+  move up a level, so the indent always matches the outline.
+  Headings below h3 are left out, as in [tableOfContents] in markup.toml.
+  Context: the page being rendered.
+*/ -}}
+{{- define "partials/inline/ereader-toc-list.html" -}}
+  {{- range . -}}
+    {{- if gt .Level 3 -}}
+    {{- else if .Title -}}
+<li><a href="#{{ .ID }}">{{ .Title | safeHTML }}</a>
+      {{- with .Headings }}<ul>{{ partial "inline/ereader-toc-list.html" . }}</ul>{{ end -}}
+</li>
+    {{- else -}}
+      {{- partial "inline/ereader-toc-list.html" .Headings -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- if in .TableOfContents "<li>" -}}
+{{- with .Fragments.Headings -}}
+<nav class="toc" aria-label="Table of contents">
+  <p class="toc-title">On this page</p>
+  <ul>{{ partial "inline/ereader-toc-list.html" . }}</ul>
+</nav>
+{{- end -}}
+{{- end -}}

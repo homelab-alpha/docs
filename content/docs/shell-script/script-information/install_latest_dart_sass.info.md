@@ -30,19 +30,15 @@ keywords:
   - Automated deployment
   - Error handling
 
-weight: 9100
+weight: 10209
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named
 `install_latest_dart_sass.sh`, authored by GJS (homelab-alpha), and its purpose
@@ -59,8 +55,6 @@ from the official GitHub repository.
   official GitHub repository, downloads it, installs it to
   `/usr/local/dart-sass`, and cleans up the downloaded files.
 - **RAW Script**: [install_latest_dart_sass.sh]
-
-<br />
 
 ## Logging
 
@@ -86,8 +80,6 @@ log_error() {
 }
 ```
 
-<br />
-
 ## Fetching the Latest Version
 
 The script starts by fetching the latest version of Dart Sass using the GitHub
@@ -99,8 +91,6 @@ just the version number.
 ```bash
 LATEST_VERSION=$(curl -s https://api.github.com/repos/sass/dart-sass/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
 ```
-
-<br />
 
 ## Error Handling for Version Fetching
 
@@ -115,8 +105,6 @@ if [ -z "$LATEST_VERSION" ]; then
 fi
 ```
 
-<br />
-
 ## Constructing the Download URL
 
 Using the fetched version number, the script constructs the URL to download the
@@ -126,8 +114,6 @@ latest Dart Sass binary.
 DOWNLOAD_URL="https://github.com/sass/dart-sass/releases/download/${LATEST_VERSION}/dart-sass-${LATEST_VERSION}-linux-x64.tar.gz"
 ```
 
-<br />
-
 ## Defining the Download Directory
 
 The script defines a directory where the downloaded file will be saved. In this
@@ -136,8 +122,6 @@ case, it uses the `Downloads` directory in the user's home directory.
 ```bash
 DOWNLOAD_DIR="$HOME/Downloads"
 ```
-
-<br />
 
 ## Downloading the Latest Version
 
@@ -153,8 +137,6 @@ fi
 log "Successfully downloaded Dart Sass version ${LATEST_VERSION} to $DOWNLOAD_DIR."
 ```
 
-<br />
-
 ## Extracting the Downloaded File
 
 The script extracts the contents of the downloaded tar.gz file to the download
@@ -163,8 +145,6 @@ directory using `tar`.
 ```bash
 tar -xzf "$DOWNLOAD_DIR/dart-sass-${LATEST_VERSION}-linux-x64.tar.gz" -C "$DOWNLOAD_DIR"
 ```
-
-<br />
 
 ## Preparing the Installation Directory
 
@@ -176,8 +156,6 @@ ensure a clean installation.
 sudo mkdir -p /usr/local/dart-sass
 sudo rm -rf /usr/local/dart-sass/*
 ```
-
-<br />
 
 ## Moving Files to the Installation Directory
 
@@ -192,8 +170,6 @@ fi
 log "Dart Sass version ${LATEST_VERSION} installed successfully."
 ```
 
-<br />
-
 ## Cleaning Up
 
 The script removes the downloaded tar.gz file and the extracted directory from
@@ -204,8 +180,6 @@ rm -r "$DOWNLOAD_DIR/dart-sass-${LATEST_VERSION}-linux-x64.tar.gz"
 rm -rf "$DOWNLOAD_DIR/dart-sass"
 log "Cleanup complete."
 ```
-
-<br />
 
 ## Checking for Sass Command Availability
 
@@ -223,8 +197,6 @@ else
   log "Sass version: $(sass --version)"
 fi
 ```
-
-<br />
 
 ## Conclusion
 

@@ -38,19 +38,15 @@ keywords:
   - automation tools
   - command-line utilities
 
-weight: 9200
+weight: 10104
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named `ex.sh`,
 authored by GJS (homelab-alpha), and its purpose is to provide a convenient way
@@ -70,8 +66,6 @@ method.
   appropriate extraction method.
 - **RAW Script**: [ex.sh]
 
-<br />
-
 ## Function Declaration
 
 ```bash
@@ -81,8 +75,6 @@ function ex() {
 
 The script defines a function called `ex`. This function is responsible for
 handling the extraction of different archive formats.
-
-<br />
 
 ## File Existence Check
 
@@ -94,8 +86,6 @@ handling the extraction of different archive formats.
 The function starts by checking if the input file (passed as the first argument
 `$1`) exists using the `-f` flag.
 
-<br />
-
 ## Case Statement for File Type Detection
 
 ```bash
@@ -105,8 +95,6 @@ The function starts by checking if the input file (passed as the first argument
 
 The script uses a `case` statement to determine the file type based on the file
 extension of the input file.
-
-<br />
 
 ## Handling Different File Types
 
@@ -118,15 +106,11 @@ Each case within the `case` statement handles a specific file extension:
     *.tar.bz2) tar -jxvf "$1" ;;
   ```
 
-<br />
-
 - **`.tar.gz`**: Extracts using `tar -zxvf`
 
   ```bash
     *.tar.gz) tar -zxvf "$1" ;;
   ```
-
-<br />
 
 - **`.bz2`**: Extracts using `bunzip2`
 
@@ -134,15 +118,11 @@ Each case within the `case` statement handles a specific file extension:
     *.bz2) bunzip2 "$1" ;;
   ```
 
-<br />
-
 - **`.dmg`**: Mounts the disk image using `hdiutil`
 
   ```bash
     *.dmg) hdiutil mount "$1" ;;
   ```
-
-<br />
 
 - **`.gz`**: Extracts using `gunzip`
 
@@ -150,15 +130,11 @@ Each case within the `case` statement handles a specific file extension:
     *.gz) gunzip "$1" ;;
   ```
 
-<br />
-
 - **`.tar`**: Extracts using `tar -xvf`
 
   ```bash
     *.tar) tar -xvf "$1" ;;
   ```
-
-<br />
 
 - **`.tbz2`**: Extracts using `tar -jxvf`
 
@@ -166,15 +142,11 @@ Each case within the `case` statement handles a specific file extension:
     *.tbz2) tar -jxvf "$1" ;;
   ```
 
-<br />
-
 - **`.tgz`**: Extracts using `tar -zxvf`
 
   ```bash
     *.tgz) tar -zxvf "$1" ;;
   ```
-
-<br />
 
 - **`.zip` or `.ZIP`**: Extracts using `unzip`
 
@@ -182,15 +154,11 @@ Each case within the `case` statement handles a specific file extension:
     *.zip | *.ZIP) unzip "$1" ;;
   ```
 
-<br />
-
 - **`.pax`**: Extracts using `pax`
 
   ```bash
     *.pax) pax -r <"$1" ;;
   ```
-
-<br />
 
 - **`.pax.Z`**: Uncompresses and extracts using `uncompress` piped to `pax`
 
@@ -198,23 +166,17 @@ Each case within the `case` statement handles a specific file extension:
     *.pax.Z) uncompress "$1" --stdout | pax -r ;;
   ```
 
-<br />
-
 - **`.rar`**: Extracts using `unrar`
 
   ```bash
     *.rar) unrar x "$1" ;;
   ```
 
-<br />
-
 - **`.Z`**: Extracts using `uncompress`
 
   ```bash
     *.Z) uncompress "$1" ;;
   ```
-
-<br />
 
 ## Unsupported File Format
 
@@ -224,8 +186,6 @@ Each case within the `case` statement handles a specific file extension:
 
 If the file extension does not match any of the supported formats, the script
 prints a message indicating that the file cannot be extracted.
-
-<br />
 
 ## Non-Existent File Handling
 
@@ -237,8 +197,6 @@ prints a message indicating that the file cannot be extracted.
 
 If the input file does not exist, the script prints an error message indicating
 that the file is not valid.
-
-<br />
 
 ## Conclusion
 

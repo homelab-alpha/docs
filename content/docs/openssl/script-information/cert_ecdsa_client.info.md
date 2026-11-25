@@ -40,19 +40,15 @@ keywords:
   - Key management
   - Digital certificate script
 
-weight: 8108
+weight: 9103
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down the script `cert_ecdsa_client.sh`. This script creates an ECDSA
 client certificate, signed by the intermediate certificate authority. It also
@@ -69,8 +65,6 @@ options on.
 - **Description**: This script creates an ECDSA client certificate, signed by
   the intermediate certificate authority.
 - **RAW Script**: [cert_ecdsa_client.sh]
-
-<br />
 
 ## Usage
 
@@ -96,13 +90,9 @@ FQDN.
 - Certificates are stored under `$HOME/tls`.
 - A certificate covers the FQDN. Use `--www` to add `www.<fqdn>`.
 
-<br />
-
 ## Detailed Explanation
 
 The sections below follow the script from top to bottom.
-
-<br />
 
 ### Start `cert.sh` with the fixed options
 
@@ -124,8 +114,6 @@ done
 
 exec bash "$script_dir/cert.sh" --algo ecdsa --role client "$@"
 ```
-
-<br />
 
 ## Conclusion
 

@@ -1,0 +1,22 @@
+{{- /*
+  Site header for the pages without the docs sidebar (landing page, links page,
+  404 page): a translucent toolbar with the logo, Docs, Links, and the appearance
+  switch. Styles: assets/docs/scss/custom/pages/_site-pages.scss.
+*/ -}}
+<header class="site-header">
+    <div class="container site-header-row">
+        <a class="site-header-brand" href="{{ relLangURL "" }}" aria-label="{{ site.Params.docs.title | default site.Title }} home">
+            {{ with resources.Get "images/logos/logo.svg" }}{{ .Content | safeHTML }}{{ end }}
+            <span class="site-header-name">{{ site.Params.docs.title | default site.Title }}</span>
+        </a>
+        <nav class="site-header-nav" aria-label="{{ i18n "site_links" | default "Site links" }}">
+            <a class="site-header-link{{ if hasPrefix .RelPermalink (relLangURL "docs/") }} is-current{{ end }}" href="{{ relLangURL "docs/" }}">{{ i18n "docs" | default "Docs" }}</a>
+            <a class="site-header-link{{ if eq .RelPermalink (relLangURL "links/") }} is-current{{ end }}" href="{{ relLangURL "links/" }}"{{ if eq .RelPermalink (relLangURL "links/") }} aria-current="page"{{ end }}>{{ i18n "links" | default "Links" }}</a>
+            {{ partial "language-menu.html" . }}
+            {{ partial "reading-menu.html" . }}
+            {{ if eq site.Params.docs.darkMode true -}}
+            {{ partial "mode-switch.html" . }}
+            {{- end }}
+        </nav>
+    </div>
+</header>

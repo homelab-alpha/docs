@@ -38,19 +38,15 @@ keywords:
   - Shell Scripting
   - Interactive Script
 
-weight: 9100
+weight: 10206
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named
 `github_pr_inspector.sh`, authored by GJS (homelab-alpha), and its purpose is to
@@ -70,15 +66,11 @@ manage GitHub pull request inspection by allowing users to generate `.patch` and
   ensuring a flexible user experience
 - **RAW Script**: [github_pr_inspector.sh]
 
-<br />
-
 ## Script Header
 
 The script starts with metadata comments, including the script's author,
 version, and a brief description. The header also includes usage instructions,
 with details about required dependencies such as `curl` and `less`.
-
-<br />
 
 ## Requirements
 
@@ -87,8 +79,6 @@ user's system for it to work correctly:
 
 - `curl` (to fetch GitHub PR data)
 - `less` (to view the PR data in the terminal)
-
-<br />
 
 ## Usage
 
@@ -106,8 +96,6 @@ The script can be executed directly with the following command structure:
   - `-r` or `--reset`: Reset the session and start fresh.
   - `-q` or `--quit`: Exit the script.
 
-<br />
-
 ### Examples
 
 1. Generate links for PR #123 in a specific repository:
@@ -122,8 +110,6 @@ The script can be executed directly with the following command structure:
 ./github_pr_inspector.sh
 ```
 
-<br />
-
 ### Aliases
 
 To create convenient aliases for the script, add the following lines to your
@@ -134,8 +120,6 @@ alias github-pr-inspector="$HOME/github_pr_inspector.sh"
 # or
 alias github-pr-inspector="$HOME/.bash_aliases/github_pr_inspector.sh"
 ```
-
-<br />
 
 ## Main Menu
 
@@ -154,8 +138,6 @@ Additionally, users can interact with the following options:
   extension.
 - `q` or `--quit`: Exit the script.
 
-<br />
-
 ### Handling User Input
 
 - The script will ask for a **GitHub repository** and a **pull request number**
@@ -167,8 +149,6 @@ Additionally, users can interact with the following options:
 Once the repository and PR number are validated, the script generates the
 appropriate `.patch` or `.diff` link, depending on the chosen file extension
 (toggled by the user).
-
-<br />
 
 ## Fetching PR Files
 
@@ -183,21 +163,15 @@ file using `curl` and displays it using `less`.
 If the file cannot be retrieved (i.e., a non-200 HTTP status is returned), the
 script will notify the user of the failure.
 
-<br />
-
 ## Reset Functionality
 
 The `--reset` option resets all previously entered data (repository, PR number,
 etc.), allowing the user to start from a clean slate.
 
-<br />
-
 ## Toggle Between .patch and .diff
 
 The script defaults to `.patch` files, but users can toggle between `.patch` and
 `.diff` formats by pressing the `t` or `--toggle` option.
-
-<br />
 
 ## Handling Command-Line Arguments
 
@@ -212,8 +186,6 @@ The script defaults to `.patch` files, but users can toggle between `.patch` and
 
 This will generate both `.patch` and `.diff` links for PR #123 in the
 `username/repository` repository.
-
-<br />
 
 ## Conclusion
 

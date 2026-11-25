@@ -32,11 +32,9 @@ toc: true
 katex: true
 ---
 
-<br />
-
-![Eat Sleep Code Repeat](images/eat_sleep_code_repeat.webp)
-
-<br />
+<!-- prettier-ignore -->
+![Banner with icons and the words eat, sleep, code, repeat](images/eat_sleep_code_repeat.webp)
+{.about-banner}
 
 ## Who is Homelab-Alpha?
 
@@ -64,8 +62,6 @@ stacks and OpenSSL certificates to AdGuard Home filter lists and shell scripts,
 each project is built to empower your home lab. Explore my work, and feel free
 to collaborate!
 
-<br />
-
 ## Who is Homelab-Alpha for?
 
 Homelab-Alpha is a project dedicated to creating and managing a home laboratory
@@ -73,30 +69,19 @@ environment for personal and educational purposes. It aims to provide a platform
 for experimenting with various technologies and learning new skills in a
 hands-on environment.
 
-<br />
-
 ## My Open Source Repositories
 
-- **[AdGuard Home]:** Filter lists for AdGuard Home that block ads, trackers,
-  phishing, and fraudulent websites.
-- **[Docker]:** Docker Compose stacks, network guides, and an image template for
-  a self-hosted homelab.
-- **[dotfiles]:** Dotfiles and a menu-driven installer to customize and
-  configure a Linux shell environment.
-- **[Kairos]:** A Home Assistant Lovelace card for day-ahead electricity prices.
-- **[OpenSSL]:** Configuration files and helper scripts to generate self-signed
-  certificates for a homelab and for testing. Not suitable for production use.
-- **[Shell Script]:** A collection of shell scripts and shell functions for
-  system automation and optimization.
-- **[Docs]:** The source of this documentation site, built with Hugo.
-
-<br />
+{{< project-cards >}}
 
 ## My Skills
 
-![My Skills]
+<!-- prettier-ignore -->
+![Skill icons: Bash, Bitbucket, Debian, Docker, Git, GitHub, GitHub Actions, GitLab, Linux, Markdown, Raspberry Pi, Red Hat, Ubuntu, Visual Studio, and VS Code][My Skills light]
+{.skills-light}
 
-<br />
+<!-- prettier-ignore -->
+![Skill icons: Bash, Bitbucket, Debian, Docker, Git, GitHub, GitHub Actions, GitLab, Linux, Markdown, Raspberry Pi, Red Hat, Ubuntu, Visual Studio, and VS Code][My Skills dark]
+{.skills-dark}
 
 ## Notes
 
@@ -108,26 +93,27 @@ hands-on environment.
 - Follow me for more exciting projects and updates!
 - Remember to enjoy the process and have fun along the way!
 
-<br />
-
 ## Disclaimer
 
+{{% alert context="info" %}}
 The content on the [Homelab-Alpha website] and [Homelab-Alpha GitHub
 repositories] is based on my personal experience and is provided "as-is." Use it
 at your own discretion and risk. For further details, please refer to the
-following documents in the repository: **README**, **CODE OF CONDUCT**,
-**CONTRIBUTING**, **CODE STYLE AND STANDARDS GUIDES**, **SECURITY**, **TERMS OF
-SERVICE**, **LICENSE**, and **NOTICE**.
+following documents in each repository:
 
-[My Skills]:
+- **About the project:** README, ROADMAP, and CHANGELOG.
+- **Community:** CODE OF CONDUCT, CONTRIBUTING, CONTRIBUTORS, GOVERNANCE,
+  MAINTAINERS, and SUPPORT.
+- **Standards and policies:** the CODE STYLE AND STANDARDS GUIDES and the
+  policies in `.github/policies/`, such as the AI contribution policy and the
+  review process.
+- **Legal and security:** SECURITY, TERMS OF SERVICE, LICENSE, and NOTICE.
+{{% /alert %}}
+
+[My Skills light]:
+  https://skillicons.dev/icons?i=bash,bitbucket,debian,docker,git,github,githubactions,gitlab,linux,markdown,raspberrypi,redhat,ubuntu,visualstudio,vscode&theme=light&perline=15
+[My Skills dark]:
   https://skillicons.dev/icons?i=bash,bitbucket,debian,docker,git,github,githubactions,gitlab,linux,markdown,raspberrypi,redhat,ubuntu,visualstudio,vscode&theme=dark&perline=15
-[AdGuard Home]: https://github.com/homelab-alpha/adguard-home
-[Docker]: https://github.com/homelab-alpha/docker
-[dotfiles]: https://github.com/homelab-alpha/dotfiles
-[Kairos]: https://github.com/homelab-alpha/kairos
-[OpenSSL]: https://github.com/homelab-alpha/openssl
-[Shell Script]: https://github.com/homelab-alpha/shell-script
-[Docs]: https://github.com/homelab-alpha/docs
 [contributing guidelines]: /contributing/contribute/
 [Homelab-Alpha website]: https://homelab-alpha.nl
 [Homelab-Alpha GitHub repositories]: https://github.com/homelab-alpha

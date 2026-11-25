@@ -5,6 +5,7 @@ description:
   processes, enhance efficiency, and boost productivity."
 url: "shell-script"
 icon: "deployed_code"
+color: "purple"
 
-weight: 9000
+weight: 10000
 ---

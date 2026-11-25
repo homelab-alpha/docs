@@ -5,6 +5,7 @@ description:
   powerful tools package, distribute, and manage containerized applications."
 url: "docker"
 icon: "devices"
+color: "blue"
 
 weight: 4000
 ---

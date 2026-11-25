@@ -17,21 +17,13 @@
     {{ end -}}
 {{ end -}}
 
-{{ if site.Params.docs.tocMobile | default true }}
-    {{ $tocmobilescrollspy := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/toc-mobile-scrollspy.js") }}
-    {{ $slice = $slice | append $tocmobilescrollspy -}}
-{{ end -}}
+{{- /* Mobile bar and sheet, and the sidebar menu on narrow screens. */ -}}
+{{ $mobileBar := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/mobile-bar.js") }}
+{{ $slice = $slice | append $mobileBar -}}
 
-{{ if eq .Site.Params.docs.prism true -}}
-    {{ $prismManual := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/prism-manual.js") }}
-    {{ $prism := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/prism.js") }}
-    {{- $opts := dict
-        "params" (dict "langPath" (urls.JoinPath .Site.BaseURL "docs/js/components/"))
-    -}}
-    {{ $prism := $prism | js.Build $opts -}}
-    {{ $prismLazy := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/prism-lazy.js") }}
-    {{ $slice = $slice | append $prismManual $prism $prismLazy -}}
-{{ end -}}
+{{- /* Copy buttons of the code blocks (render-codeblock.html). */ -}}
+{{ $codeCopy := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/code-copy.js") }}
+{{ $slice = $slice | append $codeCopy -}}
 
 <!-- Bootstrap JS -->
 {{ $js := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/bootstrap.js") }}

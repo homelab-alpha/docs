@@ -3,7 +3,7 @@
 // This file adapts the design principles of the Apple HIG to the site: legible
 // typography, one accent color, large enough touch targets, a visible keyboard
 // focus, and less motion when the visitor asks for it. It uses no Apple assets:
-// the system font stack renders SF on Apple devices, and Inter on other devices.
+// the system font stack renders SF on Apple devices and the system font elsewhere.
 //
 // It is imported after the structure and the components, so it wins on equal
 // specificity. Keep the rules short and remove a rule here to go back to the
@@ -19,38 +19,8 @@
   // The smallest size of a touch target in the HIG
   --hig-hit-target: 44px;
 
-  // System blue. Light mode uses the darker link blue for a contrast of at
-  // least 4.5:1 on white, and dark mode uses the lighter blue on black.
-  // The accent has two roles. Text, links, and icons use --hig-accent. A solid
-  // fill that carries white text uses --hig-accent-fill. In light mode they are
-  // the same blue; in dark mode the text blue is lighter than the fill blue,
-  // because white text on the light blue has a contrast of only 2.9:1.
-  --hig-accent: #0066cc;
-  --hig-accent-fill: #0066cc;
-  --primary: var(--hig-accent-fill);
-}
-
-// Native controls and scrollbars follow the theme.
-:root {
-  color-scheme: light;
-
-  // Materials (step 2): a translucent bar and a hairline separator. The bar is
-  // the "regular" material of the HIG: a tinted layer with a blur behind it.
-  --hig-material-bg: rgba(255, 255, 255, 0.72);
-  --hig-separator: rgba(60, 60, 67, 0.18);
-  --top-header-bg: var(--hig-material-bg);
-  --sidebar-border-color: var(--hig-separator);
-  --inline-code-border: 1px solid var(--hig-separator);
-}
-
-[data-dark-mode] {
-  color-scheme: dark;
-  --hig-material-bg: rgba(24, 25, 33, 0.72);
-  --hig-separator: rgba(255, 255, 255, 0.1);
-  --hig-accent: #2997ff;
-  --hig-accent-fill: #0071e3;
-  --primary: var(--hig-accent-fill);
-  --primary-300: var(--hig-accent);
+  // Colors (accent, material, separator) come from the design tokens in
+  // _tokens.scss.
 }
 
 // Typography
@@ -78,10 +48,10 @@ body {
   text-wrap: pretty;
 }
 
-// Title hierarchy: Large Title 34, Title 1 28, Title 2 22, Title 3 20, and
+// Title hierarchy: Large Title 40, Title 1 28, Title 2 22, Title 3 20, and
 // Headline 17 (semibold).
 .docs-content .content-title {
-  font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.125rem);
+  font-size: clamp(2rem, 1.6rem + 1.4vw, 2.5rem);
   line-height: 1.12;
   text-wrap: balance;
 }
@@ -189,16 +159,7 @@ body {
   padding-block: 2px;
 }
 
-// Code: larger corner radius and a hairline around the block. The colors of the
-// code blocks are not changed, because the syntax highlighting depends on them.
-.docs-content .main-content div.highlight {
-  border-radius: 10px;
-  border: 1px solid var(--hig-separator);
-}
-
-.docs-content .main-content pre {
-  border-radius: 10px;
-}
+// Code blocks: see components/_code.scss.
 
 .docs-content .main-content :not(pre) > code {
   font-size: 0.875em;

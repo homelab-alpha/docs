@@ -34,8 +34,6 @@ toc: true
 katex: true
 ---
 
-<br />
-
 **Last Updated:** 2026-10-29
 
 Welcome to **docs**. By accessing or using our services, documentation, website,

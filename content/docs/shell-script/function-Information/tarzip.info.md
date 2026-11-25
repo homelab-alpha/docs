@@ -39,19 +39,15 @@ keywords:
   - zip command
   - automated backup
 
-weight: 9200
+weight: 10109
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named
 `tarzip.sh`, authored by GJS (homelab-alpha), and its purpose is to create a
@@ -68,8 +64,6 @@ compressed archive (.zip) of a specified folder using tar and zip commands.
   timestamp in the filename. It also includes verification of the compressed
   file.
 - **RAW Script**: [tarzip.sh]
-
-<br />
 
 The script is written in Bash and defines a single function called `tarzip`.
 Let's go through it step by step.
@@ -99,8 +93,6 @@ is exactly one. If not, it prints a usage message and exits with a return code
 of 1. It then checks if the argument is a valid directory. If not, it prints an
 error message and exits with a return code of 1.
 
-<br />
-
 ## Generating a Timestamp and Filenames
 
 ```bash
@@ -118,8 +110,6 @@ The script generates a timestamp using the `date` command formatted as "Month
 Day, Year - HHMMSS". It then constructs the temporary tar filename and the final
 zip filename by appending the timestamp to the input folder name.
 
-<br />
-
 ## Creating the Tar Archive
 
 ```bash
@@ -130,8 +120,6 @@ zip filename by appending the timestamp to the input folder name.
 It prints a message indicating that it's creating a tar archive for the input
 folder. The `tar` command is used to create a tar archive (`--create`) with the
 specified filename (`--file="$tmp_file"`) and verbose output (`--verbose`).
-
-<br />
 
 ## Checking the Tar File Size
 
@@ -144,8 +132,6 @@ specified filename (`--file="$tmp_file"`) and verbose output (`--verbose`).
 It retrieves the size of the tar file using the `stat` command. This is done to
 ensure that the file was created successfully. It tries two different `stat`
 formats (`-c` and `-f`) for compatibility with different systems.
-
-<br />
 
 ## Compressing the Tar Archive
 
@@ -173,8 +159,6 @@ formats (`-c` and `-f`) for compatibility with different systems.
 4. After compressing, it checks if the tar file exists and removes it to clean
    up.
 
-<br />
-
 ## Verifying the Zip Archive
 
 ```bash
@@ -186,8 +170,6 @@ formats (`-c` and `-f`) for compatibility with different systems.
 The script prints a message indicating that it is verifying the zip file. The
 `zip` command is used again to test the integrity of the zip file (`--test`)
 with verbose output (`--verbose`).
-
-<br />
 
 ## Finalizing
 
@@ -201,8 +183,6 @@ with verbose output (`--verbose`).
 It prints a success message indicating that the zip file has been created and
 verified. It sets the permissions of the zip file to `644` using `chmod`, making
 it readable by everyone but writable only by the owner.
-
-<br />
 
 ## Conclusion
 

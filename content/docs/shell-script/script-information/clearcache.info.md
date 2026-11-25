@@ -34,19 +34,15 @@ keywords:
   - inodes
   - Homelab-Alpha
 
-weight: 9100
+weight: 10204
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named
 `clearcache.sh`, authored by GJS (homelab-alpha), and its purpose is to drop
@@ -64,20 +60,14 @@ help in freeing up memory and improving system performance.
   objects like dentries and inodes.
 - **RAW Script**: [clearcache.sh]
 
-<br />
-
 The script is designed to clear system caches, which is particularly useful for
 system administrators who want to ensure that their Linux systems run
 efficiently by freeing up unused memory.
-
-<br />
 
 ## Logging Configuration
 
 - **Log Directory**: `$HOME/.bash_script`
 - **Log File**: `$log_dir/clearcache_cron.log`
-
-<br />
 
 ## Logging Function
 
@@ -92,8 +82,6 @@ log_message() {
 }
 ```
 
-<br />
-
 ## Initial Logging
 
 The script starts logging by adding a blank line and a start message to the log
@@ -104,8 +92,6 @@ echo "" >>"$log_file"
 log_message "=== beginning of the log ==="
 log_message "INFO: Script execution started."
 ```
-
-<br />
 
 ## Root User Check
 
@@ -119,8 +105,6 @@ if [ "$EUID" -ne 0 ]; then
   exit 1
 fi
 ```
-
-<br />
 
 ## Log Directory Creation
 
@@ -138,8 +122,6 @@ if [ ! -d "$log_dir" ]; then
 fi
 ```
 
-<br />
-
 ## Log File Creation
 
 The script checks if the log file exists. If not, it attempts to create it and
@@ -156,8 +138,6 @@ if [ ! -f "$log_file" ]; then
 fi
 ```
 
-<br />
-
 ## File System Synchronization
 
 The script synchronizes the file system to ensure all buffered modifications are
@@ -166,8 +146,6 @@ written to disk.
 ```bash
 sync
 ```
-
-<br />
 
 ## Clearing Caches
 
@@ -185,8 +163,6 @@ else
 fi
 ```
 
-<br />
-
 ## Completion Logging
 
 The script logs a success message indicating that it has completed successfully
@@ -196,8 +172,6 @@ and ends the log.
 log_message "INFO: Script execution completed successfully."
 log_message "=== end of the log ==="
 ```
-
-<br />
 
 ## Conclusion
 

@@ -34,19 +34,15 @@ keywords:
   - DNS Filtering
   - Self-hosted Docker Management
 
-weight: 4100
+weight: 4101
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this `compose.yml` file does in detail for deploying
 AdGuard Home, a network-wide software for blocking ads and tracking, with Docker
@@ -63,8 +59,6 @@ Here's a detailed explanation:
 - **Description**: Configures a Docker network and the AdGuard Home service for
   blocking ads and tracking across a network.
 - **RAW Compose File**: [compose.yml]
-
-<br />
 
 ## Networks Configuration
 
@@ -96,8 +90,6 @@ networks:
       com.adguard-home.network.description: "is an isolated bridge network."
 ```
 
-<br />
-
 - **networks**: This section defines a custom network named `adguard-home_net`.
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
@@ -128,8 +120,6 @@ networks:
 - **labels**: Metadata for the network.
   - **com.adguard-home.network.description**: A description label for the
     network.
-
-<br />
 
 ## Services Configuration
 
@@ -187,8 +177,6 @@ services:
       disable: true
 ```
 
-<br />
-
 - **services**: Defines services to be deployed.
 - **adguard-home_app**: The service name for the AdGuard Home container.
   - **deploy.resources.limits.pids: 512**: Limits the number of processes and
@@ -238,8 +226,6 @@ services:
   - **healthcheck**: Healthcheck configuration.
     - **disable: true**: Disables the health check.
 
-<br />
-
 ## Quick Start
 
 {{% alert context="info" %}}
@@ -254,8 +240,6 @@ Requires Docker Compose 2.24.0 or later.
    ```bash
    docker compose up -d
    ```
-
-<br />
 
 ## Default Web Access
 
@@ -273,8 +257,6 @@ http://your-ip-address:3000
 http://your-ip-address:80
 ```
 
-<br />
-
 ## Default Login Credentials
 
 **Username**: Created during setup
@@ -287,8 +269,6 @@ The setup wizard has no default credentials: you create the admin account in it.
 **For security reasons, it is strongly recommended to create a strong username
 and password during the setup.**
 {{% /alert %}}
-
-<br />
 
 ## Conclusion
 

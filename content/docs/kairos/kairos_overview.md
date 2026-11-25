@@ -32,13 +32,11 @@ keywords:
   - custom card
 
 draft: false
-weight: 6501
+weight: 7002
 
 toc: true
 katex: true
 ---
-
-<br />
 
 ## Description
 
@@ -53,8 +51,6 @@ battery at the right moment, for a better price.
 
 The card currently reads the Nord Pool integration (Netherlands) with 15-minute
 prices. Support for more sources, such as ENTSO-E, is planned.
-
-<br />
 
 ## Features
 
@@ -72,8 +68,6 @@ prices. Support for more sources, such as ENTSO-E, is planned.
   mode; works on phones, tablets, and wall displays.
 - **Visual editor** — All options in grouped sections, with validation.
 - **Languages** — English and Dutch, in the card and in the visual editor.
-
-<br />
 
 ## Screenshots
 
@@ -171,8 +165,6 @@ Period and calendar menu:
 
 </details>
 
-<br />
-
 ## Project Status
 
 {{% alert context="warning" %}}
@@ -192,23 +184,17 @@ of version 0.1.0 on real devices, reported by the maintainer. See the
 [project status](https://github.com/homelab-alpha/kairos/blob/main/docs/project_status.md)
 in the repository for the current state and open items.
 
-<br />
-
 ## Getting Started
 
 See the [quickstart guide](/kairos/quickstart/) to prepare Home Assistant and
 install the card, and the [configuration reference](/kairos/configuration/) for
 every option.
 
-<br />
-
 ## Contributions to Homelab-Alpha - Kairos
 
 Contributions are not accepted for now. When release v1.0.0 is published,
 contributions are very welcome. See [contribute] for the guidelines, the branch
 names, the commit messages, and the review process.
-
-<br />
 
 ## License
 

@@ -38,19 +38,15 @@ keywords:
   - productivity tools
   - container deployment
 
-weight: 4100
+weight: 4109
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this `compose.yml` file does in detail for deploying
 IT-Tools, a collection of handy online tools for developers, along with its
@@ -67,8 +63,6 @@ Here's a detailed explanation:
 - **Description**: Docker Compose setup for IT-Tools, a suite of
   developer-friendly online tools with network and security configurations.
 - **RAW Compose File**: [compose.yml]
-
-<br />
 
 ## Networks Configuration
 
@@ -100,8 +94,6 @@ networks:
       com.it-tools.network.description: "is an isolated bridge network."
 ```
 
-<br />
-
 - **networks**: Defines a custom network named `it-tools_net`.
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
@@ -130,8 +122,6 @@ networks:
     Unit size for the network.
 - **labels**: Metadata for the network.
   - **com.it-tools.network.description**: A description label for the network.
-
-<br />
 
 ## Services Configuration
 
@@ -185,8 +175,6 @@ services:
       disable: true
 ```
 
-<br />
-
 - **services**: Defines services to be deployed.
 - **it-tools_app**: The service name for the it-tools container.
   - **deploy.resources.limits.pids: 512**: Limits the number of processes and
@@ -229,8 +217,6 @@ services:
   - **healthcheck**: Healthcheck configuration.
     - **disable: true**: Disables health checks for the container.
 
-<br />
-
 ## Quick Start
 
 {{% alert context="info" %}}
@@ -243,8 +229,6 @@ Requires Docker Compose 2.24.0 or later.
    docker compose up -d
    ```
 
-<br />
-
 ## Default Web Access
 
 Access the IT Tools web interface using the following URL:
@@ -253,15 +237,11 @@ Access the IT Tools web interface using the following URL:
 http://your-ip-address:3014
 ```
 
-<br />
-
 ## Default Login Credentials
 
 **Username**: No username is required.
 
 **Password**: No password is required.
-
-<br />
 
 ## Conclusion
 

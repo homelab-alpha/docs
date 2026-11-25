@@ -31,13 +31,11 @@ keywords:
   - percentage difference
   - calculator tips
 
-weight: 2104
+weight: 2103
 
 toc: true
 katex: true
 ---
-
-<br />
 
 ## Taking a Percentage of a Number
 
@@ -56,8 +54,6 @@ $ \ p \times v \div 100 \ $
 
 ---
 
-<br />
-
 ## Increasing a Number by a Certain Percentage
 
 To increase a number by a certain percentage:
@@ -74,8 +70,6 @@ How to calculate it on a calculator:
 $ \ v + (p \times v \div 100) \ $
 
 ---
-
-<br />
 
 ## Decreasing a Number by a Certain Percentage
 
@@ -94,8 +88,6 @@ $ \ v - (p \times v \div 100) \ $
 
 ---
 
-<br />
-
 ## Calculating What Percentage One Number Is of Another
 
 To calculate what percentage one number is of another number:
@@ -113,8 +105,6 @@ $ \ v1 \times 100 \div v2 \ $
 
 ---
 
-<br />
-
 ## Calculating the Percentage Difference
 
 To calculate the percentage difference between two numbers:
@@ -124,10 +114,8 @@ $ \text{Percentage Difference} = \left(\frac{v2 - v1}{v1}\right) \times 100 $
 Where \( v1 \) is the first value and \( v2 \) is the second value. For example,
 to calculate the percentage difference between 20 and 50:
 
-$
-\text{Percentage Difference} = \left(\frac{50 - 20}{20}\right) \times 100 =
-\left(\frac{30}{20}\right) \times 100 = 150\%
-$
+$ \text{Percentage Difference} = \left(\frac{50 - 20}{20}\right) \times 100 =
+\left(\frac{30}{20}\right) \times 100 = 150\% $
 
 How to calculate it on a calculator:
 

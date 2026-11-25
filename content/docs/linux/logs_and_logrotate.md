@@ -34,13 +34,11 @@ keywords:
   - Ubuntu logs
   - Fedora logs
 
-weight: 7800
+weight: 8901
 
 toc: true
 katex: true
 ---
-
-<br />
 
 ## Introduction
 
@@ -54,8 +52,6 @@ they also fill up a disk. This guide covers both sides for Ubuntu and Fedora:
 The examples are tested against Ubuntu 24.04 LTS and Fedora 43. Most commands
 need `sudo`.
 
-<br />
-
 ## How Logging Works
 
 Modern Ubuntu and Fedora both use two layers:
@@ -67,8 +63,6 @@ Modern Ubuntu and Fedora both use two layers:
 
 journald manages the size of its own journal. Text log files grow until
 something rotates them; that is the job of logrotate.
-
-<br />
 
 ## Ubuntu Versus Fedora
 
@@ -85,14 +79,10 @@ something rotates them; that is the job of logrotate.
 | Group to read logs   | `adm`                                   | `wheel` or `systemd-journal`                    |
 | Extra access control | AppArmor                                | SELinux                                         |
 
-<br />
-
 {{% alert context="info" %}}
 On Fedora, most classic files such as `/var/log/messages` and `/var/log/secure`
 do not exist unless you install rsyslog. Use `journalctl` instead.
 {{% /alert %}}
-
-<br />
 
 ## Important Log Locations
 
@@ -108,8 +98,6 @@ do not exist unless you install rsyslog. Use `journalctl` instead.
 | `/var/log/unattended-upgrades/` | Automatic security updates          |
 | `/var/log/journal/`             | Persistent systemd journal (binary) |
 
-<br />
-
 ### Fedora
 
 | File                       | Content                                       |
@@ -120,8 +108,6 @@ do not exist unless you install rsyslog. Use `journalctl` instead.
 | `/var/log/firewalld`       | firewalld messages, if enabled                |
 | `/var/log/messages`        | General messages, only with rsyslog installed |
 | `/var/log/secure`          | Authentication, only with rsyslog installed   |
-
-<br />
 
 ## Reading Logs
 
@@ -141,8 +127,6 @@ sudo zgrep "Failed password" /var/log/auth.log.*.gz
 # Page through a file
 sudo less /var/log/syslog
 ```
-
-<br />
 
 ### The Journal With journalctl
 
@@ -190,8 +174,6 @@ sudo usermod -aG adm "$USER"
 sudo usermod -aG systemd-journal "$USER"
 ```
 
-<br />
-
 ## Managing the Journal Size
 
 By default, journald uses at most 10% of the file system that holds
@@ -200,8 +182,6 @@ By default, journald uses at most 10% of the file system that holds
 ```bash
 journalctl --disk-usage
 ```
-
-<br />
 
 ### Clean Up Once
 
@@ -212,8 +192,6 @@ sudo journalctl --vacuum-size=500M
 # Remove entries older than 30 days
 sudo journalctl --vacuum-time=30d
 ```
-
-<br />
 
 ### Set a Permanent Limit
 
@@ -239,14 +217,10 @@ sudo systemctl restart systemd-journald
 journalctl --disk-usage
 ```
 
-<br />
-
 ## Logrotate
 
 logrotate renames a log file, starts a new empty one, and removes or compresses
 old copies. It runs once a day through a systemd timer on both distributions.
-
-<br />
 
 ### Installation and Status
 
@@ -274,8 +248,6 @@ sudo apt install logrotate
 sudo dnf install logrotate
 sudo systemctl enable --now logrotate.timer
 ```
-
-<br />
 
 ### Configuration Files
 
@@ -314,8 +286,6 @@ include /etc/logrotate.d
 The main difference: Fedora adds a date to rotated files (`messages-20261124`),
 and Ubuntu adds a number (`syslog.1`, `syslog.2.gz`).
 
-<br />
-
 ### Common Directives
 
 | Directive                    | Meaning                                                             |
@@ -335,8 +305,6 @@ and Ubuntu adds a number (`syslog.1`, `syslog.2.gz`).
 | `su user group`              | Rotate as this user; needed when the directory is not owned by root |
 | `sharedscripts`              | Run the scripts once for all matching files                         |
 | `postrotate` ... `endscript` | Commands to run after the rotation                                  |
-
-<br />
 
 ### Example: Rotate an Application Log
 
@@ -368,8 +336,6 @@ If the application cannot reopen its log file on a signal or reload, replace
 `create` and the `postrotate` block with `copytruncate`. A few lines written
 during the copy can be lost.
 
-<br />
-
 ### Example: Rotate Logs in a Home Directory
 
 When the log directory is writable by a user other than root, logrotate refuses
@@ -385,8 +351,6 @@ to rotate it unless you set `su`:
     compress
 }
 ```
-
-<br />
 
 ### Test a Configuration
 
@@ -413,8 +377,6 @@ sudo cat /var/lib/logrotate/status             # Ubuntu
 sudo cat /var/lib/logrotate/logrotate.status   # Fedora
 ```
 
-<br />
-
 ## Fedora: SELinux and Custom Log Paths
 
 On Fedora, SELinux allows logrotate to work only on files with a log label, such
@@ -432,16 +394,12 @@ Check for denials when a rotation fails without a clear reason:
 sudo ausearch -m AVC -ts recent -c logrotate
 ```
 
-<br />
-
 ## Ubuntu: rsyslog Files
 
 On Ubuntu, rsyslog writes `/var/log/syslog`, `auth.log`, and `kern.log`. Its
 rotation rules are in `/etc/logrotate.d/rsyslog`. To keep these logs longer,
 change `rotate` in that file. Package updates may ask you whether to keep your
 changed version.
-
-<br />
 
 ## Optional: rsyslog on Fedora
 
@@ -453,8 +411,6 @@ sudo dnf install rsyslog
 sudo systemctl enable --now rsyslog
 ```
 
-<br />
-
 ## Troubleshooting
 
 | Problem                                                                 | Solution                                                         |
@@ -465,8 +421,6 @@ sudo systemctl enable --now rsyslog
 | Disk still full after rotation                                          | A process holds a deleted file open; check with `sudo lsof +L1`  |
 | Rotation fails on Fedora only                                           | Check the SELinux label and `ausearch -m AVC`                    |
 | Journal uses too much space                                             | Set `SystemMaxUse` in a journald drop-in                         |
-
-<br />
 
 ## Best Practices
 
@@ -480,8 +434,6 @@ sudo systemctl enable --now rsyslog
 5. **Test first**: Run `logrotate -d` after every change.
 6. **Protect log files**: Use `create` with a strict mode such as `0640`, as
    logs can contain sensitive data.
-
-<br />
 
 ## Conclusion
 

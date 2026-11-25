@@ -31,19 +31,15 @@ keywords:
   - certificate verification
   - format conversion
 
-weight: 8109
+weight: 9107
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down the script `cert_rsa_server.sh`. This script creates an RSA
 server certificate, signed by the intermediate certificate authority. It also
@@ -60,8 +56,6 @@ passes all other options on.
 - **Description**: This script creates an RSA server certificate, signed by the
   intermediate certificate authority.
 - **RAW Script**: [cert_rsa_server.sh]
-
-<br />
 
 ## Usage
 
@@ -90,13 +84,9 @@ FQDN.
   because the wildcard already covers www.example.test and does not cover the
   domain itself.
 
-<br />
-
 ## Detailed Explanation
 
 The sections below follow the script from top to bottom.
-
-<br />
 
 ### Start `cert.sh` with the fixed options
 
@@ -118,8 +108,6 @@ done
 
 exec bash "$script_dir/cert.sh" --algo rsa --role server "$@"
 ```
-
-<br />
 
 ## Conclusion
 

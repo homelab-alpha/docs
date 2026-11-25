@@ -1,78 +1,49 @@
 <!DOCTYPE html>
 {{- /*
-  Link page at /links/ (content/links.md). It uses the head, the cards, the
-  dark mode switch, and the footer of the docs, so it has the same style as the
-  rest of the site, without the sidebar. The links are in data/links.yaml.
+  Link page at /links/ (content/links.md), in the new design: the site header,
+  the logo and title, a section of cards per group from data/links.yaml, and
+  the site footer. It uses the docs head and the card style of the docs lists.
 */ -}}
-{{ $.Scratch.Delete "social_list" }}
 {{ $.Scratch.Set "pathName" (printf "%s" (.Site.Params.docs.pathName | default "docs")) }}
 <html lang="{{ .Site.Language.Lang }}" dir="{{ .Site.Language.Direction | default "ltr" }}">
     {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "head.html") . -}}
-    <body>
-        <style>
-            .links-logo svg {
-                display: block;
-                width: 88px;
-                height: 88px;
-            }
-        </style>
-        <main class="links-page container py-5">
-            {{ if eq .Site.Params.docs.darkMode true -}}
-            <div class="d-flex justify-content-end">
-                {{ partial "mode-switch.html" . }}
-            </div>
-            {{ end -}}
-
-            <header class="text-center mb-4">
-                <a class="links-logo d-inline-block" href="{{ relLangURL "" }}" aria-label="Homelab-Alpha documentation">
+    <body class="site-page">
+        {{ partial "skip-link.html" . }}
+        {{ partial "site-header.html" . }}
+        <main id="main" tabindex="-1" class="site-page-main container">
+            <header class="links-header">
+                <span class="links-logo" aria-hidden="true">
                     {{ with resources.Get "images/logos/logo.svg" }}{{ .Content | safeHTML }}{{ end }}
-                </a>
-                <h1 class="content-title mt-3 mb-2">{{ .Site.Params.docs.title | default .Site.Title }}</h1>
-                <p class="lead mb-0">{{ .Description }}</p>
+                </span>
+                <h1 class="content-title">{{ .Site.Params.docs.title | default .Site.Title }}</h1>
+                <p class="lead">{{ .Description }}</p>
             </header>
 
             {{ range hugo.Data.links.sections }}
-            <section class="mt-5">
-                <h2 class="fs-4 fw-semibold mb-0">{{ .title }}</h2>
-                <div class="row">
+            <section class="links-section" aria-labelledby="links-{{ .title | urlize }}">
+                <h2 id="links-{{ .title | urlize }}" class="docs-list-heading">{{ .title }}</h2>
+                <ul class="docs-list list-unstyled">
                     {{ range .links }}
-                    <div class="col-md-4 col-12 mt-4 pt-2">
-                        <a class="text-decoration-none text-reset" href="{{ .url }}" rel="noopener noreferrer" target="_blank">
-                            <div class="card h-100 features feature-full-bg rounded p-4 position-relative overflow-hidden border-1">
-                                <span class="icon-color d-flex my-3">
-                                    {{ partial "svg-icon.html" (dict "name" (.icon | default "link") "tag" "i" "class" "align-middle") }}
-                                    {{ partial "svg-icon.html" (dict "name" "open_in_new" "tag" "i" "class" "icon-faint align-middle ms-auto") }}
-                                </span>
-                                <div class="card-body p-0 content">
-                                    <p class="fs-5 fw-semibold card-title mb-1">{{ .title }}</p>
-                                    <p class="para card-text mb-0">{{ .description }}</p>
-                                </div>
-                            </div>
+                    <li>
+                        <a class="docs-card" href="{{ .url }}" rel="noopener noreferrer" target="_blank">
+                            {{- $tile := partial "docs/tile-color.html" (dict "color" .color "topic" .topic) }}
+                            <span class="docs-card-tile{{ with $tile }} tile-{{ . }}{{ end }}" aria-hidden="true">
+                                {{ partial "svg-icon.html" (dict "name" (.icon | default "link") "tag" "span" "class" "docs-card-icon") }}
+                            </span>
+                            <span class="docs-card-title">{{ .title }}</span>
+                            <span class="docs-card-text">{{ .description }}</span>
+                            <span class="docs-card-meta">{{ replaceRE "^https?://(www\\.)?" "" .url | strings.TrimSuffix "/" }}</span>
                         </a>
-                    </div>
+                    </li>
                     {{ end }}
-                </div>
+                </ul>
             </section>
             {{ end }}
-
-            <p class="text-center mt-5 mb-0">
-                <a href="{{ relLangURL "" }}">Go to the documentation</a>
-            </p>
         </main>
-
-        <!-- Footer in the same container as the cards, so the copyright line starts at the same place -->
-        <footer class="d-print-none">
-            <div class="container">
-                <p class="text-sm-start text-center mb-0">
-                    {{ $yearToken := (cond (isset .Site.Params (lower "copyrightYearToken")) $.Site.Params.copyrightYearToken ":YEAR:") }}
-                    {{ replace $.Site.Params.footer.copyright $yearToken (string (now.Format "2006")) | markdownify }}
-                </p>
-            </div>
-        </footer>
-
+        {{ partial "site-footer.html" (dict) }}
         {{ if eq .Site.Params.docs.darkMode true -}}
-            {{ $darkModeSwitch := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/darkmode-switch.js") | js.Build | minify }}
-            <script>{{ $darkModeSwitch.Content | safeJS }}</script>
+            {{ partial "docs/script.html" (dict "res" (resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/darkmode-switch.js") | js.Build)) }}
         {{ end -}}
+        {{ partial "docs/script.html" (dict "res" (resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/toolbar-menus.js") | js.Build)) }}
     </body>
 </html>

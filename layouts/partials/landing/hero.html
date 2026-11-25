@@ -1,7 +1,14 @@
 {{- /*
   Landing page section: hero. Context: dict "id" "data" "page".
   data: eyebrow, title, subtitle (Markdown), ctaButton, cta2Button
-  (icon, btnText, url), terminal (title, lines).
+  (icon, btnText, url), terminal (title, user, host, lines).
+
+  The lines in the terminal have the style of the Homelab-Alpha GitHub profile
+  README: a two-line prompt "┌──(user@host)-[path]" / "└─$ command". The path
+  starts at "~" and follows every "cd" command. The corner lines ┌── and └─
+  are drawn with CSS (.prompt-block in pages/_landing.scss), not with box
+  drawing characters, so they join on every system and in every font. The
+  title is "user@host: ~" unless the data sets one.
 */ -}}
 {{- with .data }}
 <section id="{{ $.id }}" class="landing-hero">
@@ -26,33 +33,44 @@
             </div>
             {{ with .terminal }}
             <div class="col-lg-6">
+                {{- $user := .user | default "user" -}}
+                {{- $host := .host | default "homelab" -}}
+                {{- $cwd := "~" }}
                 <figure class="landing-terminal mb-0" aria-label="Example terminal session">
                     <div class="landing-terminal-bar">
                         <span></span><span></span><span></span>
-                        {{ with .title }}<figcaption>{{ . }}</figcaption>{{ end }}
+                        <figcaption>{{ .title | default (printf "%s@%s: ~" $user $host) }}</figcaption>
                     </div>
 <pre class="landing-terminal-body"><code>
-{{- range .lines -}}
-    {{- if strings.HasPrefix . "$ " -}}
-        {{- /* A command: the program and the flags get their own color. */ -}}
-        <span class="line"><span class="prompt">$</span>
-        {{- range $i, $word := split (strings.TrimPrefix "$ " .) " " }} <span class="{{ if eq $i 0 }}cmd{{ else if strings.HasPrefix $word "-" }}flag{{ end }}">{{ $word }}</span>{{ end -}}
-        </span>
-    {{- else if strings.HasPrefix . "✔ " -}}
+{{- range $i, $line := .lines -}}
+    {{- if strings.HasPrefix $line "$ " -}}
+        {{- $cmd := strings.TrimPrefix "$ " $line -}}
+        {{- if $i }}<span class="gap" aria-hidden="true"></span>{{ end -}}
+        <span class="prompt-block">
+        {{- partial "inline/landing-prompt.html" (dict "user" $user "host" $host "cwd" $cwd) -}}
+        <span class="line prompt-bottom"><span class="dollar">$</span> {{ $cmd }}</span></span>
+        {{- /* "cd <dir>": the next prompt shows the new path. */ -}}
+        {{- with findRESubmatch `^cd\s+(\S+)$` $cmd 1 -}}
+            {{- $dir := index (index . 0) 1 -}}
+            {{- if or (eq $dir "~") (strings.HasPrefix $dir "/") }}{{ $cwd = $dir }}{{ else }}{{ $cwd = path.Join $cwd $dir }}{{ end -}}
+        {{- end -}}
+    {{- else if strings.HasPrefix $line "✔ " -}}
         {{- /* A Docker Compose result: "✔ <object> <name>  <state>  <time>". */ -}}
-        {{- $m := findRESubmatch `^✔ (.+?)\s{2,}(\S+)(?:\s+(\S+))?$` . 1 -}}
+        {{- $m := findRESubmatch `^✔ (.+?)\s{2,}(\S+)(?:\s+(\S+))?$` $line 1 -}}
         {{- with index $m 0 -}}
             <span class="line result"><span class="ok">✔</span><span class="name"> {{ index . 1 }}</span><span class="state">{{ index . 2 }}</span>{{ with index . 3 }}<span class="time">{{ . }}</span>{{ end }}</span>
         {{- else -}}
-            <span class="line"><span class="ok">✔</span>{{ strings.TrimPrefix "✔" . }}</span>
+            <span class="line"><span class="ok">✔</span>{{ strings.TrimPrefix "✔" $line }}</span>
         {{- end -}}
-    {{- else if strings.HasPrefix . "[+]" -}}
-        <span class="line running">{{ . }}</span>
+    {{- else if strings.HasPrefix $line "[+]" -}}
+        <span class="line running">{{ $line }}</span>
     {{- else -}}
-        <span class="line output">{{ . }}</span>
+        <span class="line output">{{ $line }}</span>
     {{- end -}}
 {{- end -}}
-<span class="line"><span class="prompt">$</span> <span class="cursor" aria-hidden="true"></span></span></code></pre>
+<span class="gap" aria-hidden="true"></span><span class="prompt-block">
+{{- partial "inline/landing-prompt.html" (dict "user" $user "host" $host "cwd" $cwd) -}}
+<span class="line prompt-bottom"><span class="dollar">$</span> <span class="cursor" aria-hidden="true"></span></span></span></code></pre>
                 </figure>
             </div>
             {{ end }}
@@ -60,3 +78,7 @@
     </div>
 </section>
 {{- end }}
+
+{{- define "partials/inline/landing-prompt.html" -}}
+<span class="line prompt-top"><span class="frame">(</span><span class="user">{{ .user }}</span><span class="at">@</span><span class="host">{{ .host }}</span><span class="frame">)-[</span><span class="cwd">{{ .cwd }}</span><span class="frame">]</span></span>
+{{- end -}}

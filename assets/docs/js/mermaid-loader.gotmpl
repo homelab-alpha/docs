@@ -1,0 +1,41 @@
+{{- /*
+  Mermaid loader: JavaScript in a Go text template, rendered once into a file
+  by layouts/docs/single.html (no inline script, for the Content Security
+  Policy). Context: dict with "mermaid", the Mermaid resource.
+*/ -}}
+{{- $mermaid := .mermaid -}}
+// Mermaid is large, so it loads only when a diagram comes near the
+// visible part of the page, not on page load.
+(() => {
+    const diagrams = document.querySelectorAll("pre.mermaid");
+    if (diagrams.length === 0) return;
+    let loading = false;
+    const load = () => {
+        if (loading) return;
+        loading = true;
+        observer.disconnect();
+        const script = document.createElement("script");
+        script.src = {{ $mermaid.RelPermalink | jsonify }};
+        {{- if hugo.IsProduction }}
+        script.integrity = {{ $mermaid.Data.Integrity | jsonify }};
+        script.crossOrigin = "anonymous";
+        {{- end }}
+        script.onload = () => {
+            mermaid.initialize({
+                startOnLoad: false,
+                // The default, set on purpose: labels are escaped and
+                // click events in diagrams are off.
+                securityLevel: "strict",
+                logLevel: "error",
+                align: "center",
+                theme: "null"
+            });
+            mermaid.run({ nodes: diagrams });
+        };
+        document.head.appendChild(script);
+    };
+    const observer = new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) load();
+    }, { rootMargin: "600px 0px" });
+    diagrams.forEach((diagram) => observer.observe(diagram));
+})();

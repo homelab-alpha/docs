@@ -35,13 +35,11 @@ keywords:
   - manage repositories in Linux
   - remove old kernels Fedora
 
-weight: 7100
+weight: 8102
 
 toc: true
 katex: true
 ---
-
-<br />
 
 {{% alert context="primary" %}}
 Please note that the Linux shell is case-sensitive. {{% /alert %}}
@@ -50,8 +48,6 @@ Please note that the Linux shell is case-sensitive. {{% /alert %}}
 Fedora 41 and newer use **DNF5**. RHEL, CentOS Stream, AlmaLinux, and Rocky
 Linux still use DNF4. Where the syntax differs, both forms are shown.
 {{% /alert %}}
-
-<br />
 
 ## Basic Package Management
 
@@ -63,8 +59,6 @@ sudo dnf install <package_name>
 
 Installs the specified package.
 
-<br />
-
 ### Remove a Package
 
 ```bash
@@ -72,8 +66,6 @@ sudo dnf remove <package_name>
 ```
 
 Removes the specified package.
-
-<br />
 
 ### Update a Specific Package
 
@@ -83,8 +75,6 @@ sudo dnf upgrade <package_name>
 
 Updates the specified package to the latest version.
 
-<br />
-
 ### Update All Packages
 
 ```bash
@@ -92,8 +82,6 @@ sudo dnf upgrade
 ```
 
 Updates all installed packages to their latest versions.
-
-<br />
 
 ### List All Installed Packages
 
@@ -103,8 +91,6 @@ dnf list --installed
 
 Displays a list of all installed packages.
 
-<br />
-
 ### Show Package Information
 
 ```bash
@@ -112,8 +98,6 @@ dnf info <package_name>
 ```
 
 Displays detailed information about the specified package.
-
-<br />
 
 ### Search for Packages by Name
 
@@ -123,8 +107,6 @@ dnf search <package_name>
 
 Searches for packages by their names.
 
-<br />
-
 ### Search for Packages by Description
 
 ```bash
@@ -133,8 +115,6 @@ dnf search <keyword>
 
 Searches for packages by keywords in their descriptions.
 
-<br />
-
 ### Download a Package Without Installing
 
 ```bash
@@ -142,8 +122,6 @@ dnf download <package_name>
 ```
 
 Downloads the specified package without installing it.
-
-<br />
 
 ## Repository Management
 
@@ -165,8 +143,6 @@ Or create a `.repo` file manually:
    ```
 2. Add repository details to the file.
 
-<br />
-
 ### Disable a Repository
 
 ```bash
@@ -175,8 +151,6 @@ sudo dnf config-manager setopt <repo_name>.enabled=0
 
 Disables the specified repository. On DNF4, use
 `sudo dnf config-manager --set-disabled <repo_name>`.
-
-<br />
 
 ### Enable a Repository
 
@@ -187,8 +161,6 @@ sudo dnf config-manager setopt <repo_name>.enabled=1
 Enables the specified repository. On DNF4, use
 `sudo dnf config-manager --set-enabled <repo_name>`.
 
-<br />
-
 ### List All Repositories
 
 ```bash
@@ -196,8 +168,6 @@ dnf repolist
 ```
 
 Displays a list of all configured repositories.
-
-<br />
 
 ## Cleaning Up
 
@@ -209,8 +179,6 @@ sudo dnf autoremove
 
 Removes packages that were installed as dependencies but are no longer needed.
 
-<br />
-
 ### Clean Cache
 
 ```bash
@@ -218,8 +186,6 @@ sudo dnf clean all
 ```
 
 Cleans all cached files.
-
-<br />
 
 ### Clean Metadata Cache
 
@@ -229,8 +195,6 @@ sudo dnf clean metadata
 
 Cleans the metadata cache.
 
-<br />
-
 ### Clean Packages Cache
 
 ```bash
@@ -239,8 +203,6 @@ sudo dnf clean packages
 
 Cleans the packages cache.
 
-<br />
-
 ### Clean Expired Cache
 
 ```bash
@@ -248,8 +210,6 @@ sudo dnf clean expire-cache
 ```
 
 Cleans the expired cache.
-
-<br />
 
 ## Group Management
 
@@ -261,8 +221,6 @@ dnf group list
 
 Lists all available package groups.
 
-<br />
-
 ### Install a Group
 
 ```bash
@@ -271,8 +229,6 @@ sudo dnf group install "<group_name>"
 
 Installs all packages in the specified group.
 
-<br />
-
 ### Remove a Group
 
 ```bash
@@ -280,8 +236,6 @@ sudo dnf group remove "<group_name>"
 ```
 
 Removes all packages in the specified group.
-
-<br />
 
 ## History and Rollback
 
@@ -293,8 +247,6 @@ dnf history list
 
 Displays the transaction history. On DNF4, `dnf history` also works.
 
-<br />
-
 ### View Details of a Specific Transaction
 
 ```bash
@@ -302,8 +254,6 @@ dnf history info <transaction_id>
 ```
 
 Displays details of the specified transaction.
-
-<br />
 
 ### Undo a Specific Transaction
 
@@ -313,8 +263,6 @@ sudo dnf history undo <transaction_id>
 
 Undoes the specified transaction.
 
-<br />
-
 ### Redo a Specific Transaction
 
 ```bash
@@ -322,8 +270,6 @@ sudo dnf history redo <transaction_id>
 ```
 
 Redoes the specified transaction.
-
-<br />
 
 ## Additional Commands
 
@@ -335,8 +281,6 @@ dnf check-upgrade
 
 Checks for available updates (`check-update` is an alias).
 
-<br />
-
 ### List Enabled Repositories
 
 ```bash
@@ -345,8 +289,6 @@ dnf repolist --enabled
 
 Lists all enabled repositories.
 
-<br />
-
 ### List Disabled Repositories
 
 ```bash
@@ -354,8 +296,6 @@ dnf repolist --disabled
 ```
 
 Lists all disabled repositories.
-
-<br />
 
 ### Upgrade System to a New Release
 
@@ -368,8 +308,6 @@ Upgrades the system to a new release. On DNF4, the second command is
 `sudo dnf system-upgrade reboot`. Make a backup and fully update the current
 release before you start.
 
-<br />
-
 ### Synchronize Installed Packages to Latest Available Versions
 
 ```bash
@@ -377,8 +315,6 @@ sudo dnf distro-sync
 ```
 
 Synchronizes installed packages to the latest available versions.
-
-<br />
 
 ### Display DNF Version
 
@@ -388,8 +324,6 @@ dnf --version
 
 Displays the current version of DNF.
 
-<br />
-
 ### Get Help on DNF Commands
 
 ```bash
@@ -397,8 +331,6 @@ dnf help
 ```
 
 Displays help information for DNF commands.
-
-<br />
 
 ## Removing Old Kernels
 
@@ -410,8 +342,6 @@ dnf list --installed 'kernel*'
 
 Lists all installed kernels.
 
-<br />
-
 ### Check Current Running Kernel
 
 ```bash
@@ -419,8 +349,6 @@ uname -r
 ```
 
 Displays the current running kernel version.
-
-<br />
 
 ### Automatically Remove Old Kernels
 
@@ -446,8 +374,6 @@ On DNF4, use:
 sudo dnf remove $(dnf repoquery --installonly --latest-limit=-2 -q)
 ```
 
-<br />
-
 ### Manually Remove Specific Old Kernels
 
 1. List all installed kernels:
@@ -460,8 +386,6 @@ sudo dnf remove $(dnf repoquery --installonly --latest-limit=-2 -q)
    ```bash
    sudo dnf remove kernel-core-<version>
    ```
-
-<br />
 
 ### Using `package-cleanup` on DNF4
 

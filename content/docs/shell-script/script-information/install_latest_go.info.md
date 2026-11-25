@@ -29,19 +29,15 @@ keywords:
   - Automated deployment
   - Error handling
 
-weight: 9100
+weight: 10210
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named
 `install_latest_go.sh`, authored by GJS (homelab-alpha), and its purpose is to
@@ -58,8 +54,6 @@ official Go download page.
   official Go download page, downloads it, installs it to `/usr/local/go`, and
   cleans up the downloaded files.
 - **RAW Script**: [install_latest_go.sh]
-
-<br />
 
 ## Logging
 
@@ -85,8 +79,6 @@ log_error() {
 }
 ```
 
-<br />
-
 ## Checking the Installed Version
 
 Before installing, the script checks whether Go is already available and logs
@@ -101,8 +93,6 @@ else
 fi
 ```
 
-<br />
-
 ## Fetching the Latest Version
 
 The script fetches the latest version of Go from the official Go download page.
@@ -114,8 +104,6 @@ the version number.
 log "Fetching the latest version of Go from the official download page..."
 LATEST_VERSION=$(curl -s https://go.dev/VERSION?m=text | head -n 1 | sed 's/^go//')
 ```
-
-<br />
 
 ## Error Handling for Version Fetching
 
@@ -130,8 +118,6 @@ if [ -z "$LATEST_VERSION" ]; then
 fi
 ```
 
-<br />
-
 ## Constructing the Download URL
 
 Using the fetched version number, the script constructs the URL to download the
@@ -141,8 +127,6 @@ latest Go binary.
 DOWNLOAD_URL="https://go.dev/dl/go${LATEST_VERSION}.linux-amd64.tar.gz"
 ```
 
-<br />
-
 ## Defining the Download Directory
 
 The script defines a directory where the downloaded file will be saved. In this
@@ -151,8 +135,6 @@ case, it uses the `Downloads` directory in the user's home directory.
 ```bash
 DOWNLOAD_DIR="$HOME/Downloads"
 ```
-
-<br />
 
 ## Downloading the Latest Version
 
@@ -166,8 +148,6 @@ if ! wget "$DOWNLOAD_URL" -O "$DOWNLOAD_DIR/go${LATEST_VERSION}.linux-amd64.tar.
 fi
 log "Successfully downloaded Go version ${LATEST_VERSION} to $DOWNLOAD_DIR."
 ```
-
-<br />
 
 ## Extracting the Downloaded File
 
@@ -193,8 +173,6 @@ else
 fi
 ```
 
-<br />
-
 ## Preparing the Installation Directory
 
 The script creates the target directory `/usr/local/go` if it does not already
@@ -205,8 +183,6 @@ clean installation.
 sudo mkdir -p /usr/local/go
 sudo rm -rf /usr/local/go
 ```
-
-<br />
 
 ## Moving Files to the Installation Directory
 
@@ -221,8 +197,6 @@ fi
 log "Go version ${LATEST_VERSION} installed successfully to /usr/local/go."
 ```
 
-<br />
-
 ## Cleaning Up
 
 The script removes the extracted `.tar` file from the download directory to
@@ -232,8 +206,6 @@ clean up unnecessary files.
 rm "$DOWNLOAD_DIR/go${LATEST_VERSION}.linux-amd64.tar"
 log "Cleanup complete."
 ```
-
-<br />
 
 ## Checking for Go Command Availability
 
@@ -250,8 +222,6 @@ else
   log "Go version: $(go version)"
 fi
 ```
-
-<br />
 
 ## Conclusion
 

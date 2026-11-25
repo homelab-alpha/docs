@@ -35,19 +35,15 @@ keywords:
   - Linux automation
   - font management
 
-weight: 9100
+weight: 10212
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named
 `install_latest_jetbrains_mono.sh`, authored by GJS (homelab-alpha), and its
@@ -66,8 +62,6 @@ and clean up the downloaded files.
   fonts directory, and cleans up the downloaded files.
 - **Usage**: `sudo ./install_latest_jetbrains_mono.sh`
 - **RAW Script**: [install_latest_jetbrains_mono.sh]
-
-<br />
 
 ## Logging
 
@@ -93,8 +87,6 @@ log_error() {
 }
 ```
 
-<br />
-
 ## Fetching the Latest Version
 
 The script starts by fetching the latest version of JetBrains Mono using the
@@ -106,8 +98,6 @@ using `sed` to isolate just the version number.
 ```bash
 LATEST_VERSION=$(curl -s https://api.github.com/repos/JetBrains/JetBrainsMono/releases/latest | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
 ```
-
-<br />
 
 ## Error Handling for Version Fetching
 
@@ -122,8 +112,6 @@ if [ -z "$LATEST_VERSION" ]; then
 fi
 ```
 
-<br />
-
 ## Constructing the Download URL
 
 Using the fetched version number, the script constructs the URL to download the
@@ -132,8 +120,6 @@ latest JetBrains Mono zip file.
 ```bash
 DOWNLOAD_URL="https://github.com/JetBrains/JetBrainsMono/releases/download/v${LATEST_VERSION}/JetBrainsMono-${LATEST_VERSION}.zip"
 ```
-
-<br />
 
 ## Defining the Download Directory
 
@@ -144,8 +130,6 @@ case, it uses the `Downloads` directory in the user's home directory.
 DOWNLOAD_DIR="$HOME/Downloads"
 ```
 
-<br />
-
 ## Checking and Creating the Download Directory
 
 The script checks if the download directory exists, and if not, it creates it.
@@ -154,8 +138,6 @@ The script checks if the download directory exists, and if not, it creates it.
 log "Ensuring download directory exists: $DOWNLOAD_DIR"
 mkdir -p "$DOWNLOAD_DIR"
 ```
-
-<br />
 
 ## Downloading the Latest Version
 
@@ -169,8 +151,6 @@ if ! wget -v "$DOWNLOAD_URL" -O "$DOWNLOAD_DIR/JetBrainsMono-${LATEST_VERSION}.z
 fi
 ```
 
-<br />
-
 ## Error Handling for Downloading
 
 It checks if `wget` successfully downloaded the file by verifying its existence.
@@ -181,8 +161,6 @@ a status of 1.
 log "Successfully downloaded JetBrains Mono to $DOWNLOAD_DIR."
 ```
 
-<br />
-
 ## Extracting the Downloaded File
 
 The script extracts the contents of the downloaded zip file to the download
@@ -191,8 +169,6 @@ directory using `unzip`.
 ```bash
 unzip "$DOWNLOAD_DIR/JetBrainsMono-${LATEST_VERSION}.zip" -d "$DOWNLOAD_DIR/JetBrainsMono-${LATEST_VERSION}"
 ```
-
-<br />
 
 ## Preparing the Installation Directory
 
@@ -204,8 +180,6 @@ JETBRAINS_MONO_DIR="/usr/share/fonts/jetbrains-mono"
 sudo mkdir -p "$JETBRAINS_MONO_DIR"
 ```
 
-<br />
-
 ## Removing Previous Installations
 
 To avoid conflicts, the script removes any previous installations of JetBrains
@@ -215,8 +189,6 @@ Mono fonts in the target directory.
 sudo rm -rf "$JETBRAINS_MONO_DIR"/*
 ```
 
-<br />
-
 ## Moving Files to the Installation Directory
 
 The script moves the font files to the system-wide fonts directory.
@@ -224,8 +196,6 @@ The script moves the font files to the system-wide fonts directory.
 ```bash
 sudo mv "$DOWNLOAD_DIR/JetBrainsMono-${LATEST_VERSION}/fonts/"* "$JETBRAINS_MONO_DIR"
 ```
-
-<br />
 
 ## Verifying the Installation
 
@@ -240,8 +210,6 @@ if [ ! -f "$JETBRAINS_MONO_DIR/ttf/JetBrainsMono-Regular.ttf" ]; then
 fi
 ```
 
-<br />
-
 ## Updating the Font Cache
 
 The script updates the font cache to make the new fonts available system-wide.
@@ -249,8 +217,6 @@ The script updates the font cache to make the new fonts available system-wide.
 ```bash
 sudo fc-cache -f -v
 ```
-
-<br />
 
 ## Cleaning Up
 
@@ -261,8 +227,6 @@ up unnecessary files.
 rm "$DOWNLOAD_DIR/JetBrainsMono-${LATEST_VERSION}.zip"
 rm -r "$DOWNLOAD_DIR/JetBrainsMono-${LATEST_VERSION}"
 ```
-
-<br />
 
 ## Verifying the Installation by Listing Installed Fonts
 
@@ -277,8 +241,6 @@ if ! fc-list | grep -q "JetBrains Mono"; then
 fi
 log "JetBrains Mono font installed successfully."
 ```
-
-<br />
 
 ## Conclusion
 

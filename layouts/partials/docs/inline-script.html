@@ -1,0 +1,23 @@
+{{- /*
+  A script that must run inline, before the first paint. It returns the
+  minified resource; its Data.Integrity (sha256) is the hash that the Content
+  Security Policy allows (layouts/partials/docs/csp.html). Every inline script
+  of the docs pages comes from here, so the policy and the page always match.
+
+  Context: the name of a file in assets/docs/js/ without ".js":
+    darkmode-init     the theme before the first paint (head)
+    sidebar-state     the collapsed sidebar before the first paint (body)
+    ereader-redirect  Kindle and Kobo browsers to the e-reader version (head)
+  Returns: resource
+*/ -}}
+{{- $res := resources.Get (printf "docs/js/%s.js" .) -}}
+{{- if not $res }}{{ errorf "inline-script: no file assets/docs/js/%s.js" . }}{{ end -}}
+{{- /*
+  Hugo's own minifier, the same one that minifies the HTML: it leaves its own
+  output as it is, so the script in the page keeps the hash below. (esbuild
+  output would be minified again, and the hash would no longer match.) It also
+  keeps the ES3 of ereader-redirect.js as ES3.
+*/ -}}
+{{- $res = $res | minify -}}
+{{- $res = resources.FromString (printf "docs/js/inline/%s.js" .) (strings.TrimSpace $res.Content) | fingerprint "sha256" -}}
+{{- return $res -}}

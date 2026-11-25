@@ -1,0 +1,258 @@
+//
+// code.scss: code blocks (layouts/partials/docs/code-block.html) in the new
+// design. A rounded block in the subtle surface with a header (language and
+// copy button), the code in JetBrains Mono, and highlighted lines in a soft
+// accent. The syntax colors are in plugins/chroma/_github.scss.
+//
+
+.docs-content .main-content .code-block {
+  margin: 0 0 1.5rem;
+  overflow: hidden;
+  border: 1px solid var(--color-border-default);
+  border-radius: 12px;
+  background: var(--color-canvas-subtle);
+}
+
+.code-block-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 4px 0 16px;
+  border-bottom: 1px solid var(--color-border-default);
+  color: var(--color-fg-muted);
+  font-size: 0.8125rem;
+}
+
+.code-block-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+// Copy button: 36 px, 44 px on touch screens, with a "Copied" bubble.
+.code-copy {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-fg-muted);
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+
+  @media (pointer: coarse) {
+    width: 44px;
+    height: 44px;
+  }
+
+  &:hover {
+    background: var(--color-neutral-muted);
+    color: var(--color-fg-default);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent-fg);
+    outline-offset: -2px;
+  }
+
+  .code-copy-icon,
+  .code-copied-icon {
+    display: inline-flex;
+    font-size: 16px;
+
+    svg {
+      width: 1em;
+      height: 1em;
+      fill: currentColor;
+    }
+  }
+
+  .code-copied-icon {
+    display: none;
+  }
+
+  &.is-copied {
+    color: var(--color-success-fg);
+
+    .code-copy-icon {
+      display: none;
+    }
+
+    .code-copied-icon {
+      display: inline-flex;
+    }
+  }
+}
+
+.code-copy-status {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 6px);
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: var(--color-fg-default);
+  color: var(--color-canvas-default);
+  font-size: 0.75rem;
+  line-height: 1.3;
+  white-space: nowrap;
+  pointer-events: none;
+
+  &:empty {
+    display: none;
+  }
+}
+
+// The code. The body scrolls; a focus ring shows when it has keyboard focus.
+.code-block-body {
+  overflow-x: auto;
+  scrollbar-width: thin;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent-fg);
+    outline-offset: -2px;
+  }
+}
+
+.docs-content .main-content .code-block {
+  .highlight {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+  }
+
+  pre.chroma {
+    margin: 0;
+    padding: 14px 16px;
+    overflow: visible;
+    border-radius: 0;
+    background: transparent !important;
+    color: var(--color-fg-default);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    tab-size: 4;
+  }
+
+  pre.chroma code {
+    display: block;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font-size: inherit;
+    overflow: visible;
+    white-space: pre;
+  }
+
+  // Line numbers in a table: no borders, muted numbers.
+  .lntable {
+    width: auto;
+    margin: 0;
+    border: 0;
+
+    td {
+      padding: 0;
+      border: 0;
+    }
+
+    .lntd:first-child pre.chroma {
+      padding-right: 0;
+    }
+  }
+
+  .lnt,
+  .ln {
+    color: var(--color-fg-muted);
+  }
+
+  // Blocks with line numbers: lines of 24 px, so linked numbers are big
+  // enough to tap (WCAG 2.5.8), and both columns stay in line.
+  .lntable pre.chroma {
+    line-height: 24px;
+  }
+
+  .lnlinks {
+    display: inline-block;
+    min-width: 24px;
+    min-height: 24px;
+    line-height: 24px;
+    color: var(--color-fg-muted);
+    text-align: right;
+    text-decoration: none;
+  }
+
+  // Highlighted lines: a soft accent band.
+  .hl {
+    display: block;
+    margin: 0 -16px;
+    padding: 0 16px;
+    background: var(--color-accent-subtle);
+  }
+}
+
+// Mermaid diagrams: no code look, and keyboard scrolling when wide.
+.docs-content .main-content pre.mermaid {
+  overflow-x: auto;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent-fg);
+    outline-offset: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .code-copy {
+    transition: none;
+  }
+}
+
+// Tabs shortcode (layouts/shortcodes/tabs.html): a segmented control above
+// the panels.
+.docs-content .main-content .nav-tabs {
+  display: inline-flex;
+  gap: 2px;
+  margin-bottom: 12px;
+  padding: 2px;
+  border: 0;
+  border-radius: 9px;
+  background: var(--color-neutral-muted);
+
+  .nav-link {
+    min-height: 32px;
+    margin: 0;
+    padding: 4px 14px;
+    border: 0;
+    border-radius: 7px;
+    color: var(--color-fg-muted);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    text-decoration: none;
+
+    &:hover {
+      color: var(--color-fg-default);
+    }
+
+    &.active {
+      background: var(--color-segmented-selected);
+      color: var(--color-fg-default);
+      box-shadow: 0 0 0 1px var(--color-border-default);
+    }
+  }
+}
+
+// A copy button has no use on paper.
+@media print {
+  .code-copy {
+    display: none;
+  }
+}

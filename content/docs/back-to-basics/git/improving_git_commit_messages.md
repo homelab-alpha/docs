@@ -49,13 +49,11 @@ keywords:
   - infrastructure
   - dependencies
 
-weight: 2400
+weight: 2402
 
 toc: true
 katex: true
 ---
-
-<br />
 
 ## Introduction
 
@@ -63,8 +61,6 @@ In software development, maintaining a clear and consistent style for commit
 messages is essential for effective collaboration and code management. Below are
 guidelines for different categories of commit messages, each with a specific
 purpose and format.
-
-<br />
 
 ## Commit Message Conventions
 
@@ -78,8 +74,6 @@ Added: Added user authentication module
 New File: Added README.md
 ```
 
-<br />
-
 ### Removal of Features or Files
 
 ```git
@@ -89,8 +83,6 @@ Deleted: Deleted old API endpoints
 ```git
 Remove: Dropped support for deprecated API version
 ```
-
-<br />
 
 ## Modifications or Improvements
 
@@ -108,15 +100,11 @@ Modified: Updated CSS styles for mobile responsiveness
 Patch: Corrected typo in variable name
 ```
 
-<br />
-
 ### Performance or Efficiency Improvements
 
 ```git
 Optimize: Reduced image loading times by using compressed formats
 ```
-
-<br />
 
 ### Code Refactoring Without Changing Functionality
 
@@ -124,23 +112,17 @@ Optimize: Reduced image loading times by using compressed formats
 Refactor: Reorganized user service methods for better readability
 ```
 
-<br />
-
 ### Making Code or Documentation Consistent
 
 ```git
 Standardize: Applied consistent naming conventions across modules
 ```
 
-<br />
-
 ### Code Style Changes (Without Impacting Functionality)
 
 ```git
 Style: Formatted code according to ESLint rules
 ```
-
-<br />
 
 ## Bugfixes and Critical Solutions
 
@@ -154,23 +136,17 @@ Bugfix: Corrected error handling in login form
 Fix: Resolved issue with user profile loading
 ```
 
-<br />
-
 ### Urgent Fix for a Critical Production Issue
 
 ```git
 Hotfix: Fixed production crash when loading large datasets
 ```
 
-<br />
-
 ### A Quick Bugfix That Has Not Been Fully Tested
 
 ```git
 Coldfix: Temporary fix for navbar rendering issue
 ```
-
-<br />
 
 ## Security and Tests
 
@@ -180,15 +156,11 @@ Coldfix: Temporary fix for navbar rendering issue
 Security: Fixed vulnerability in user authentication
 ```
 
-<br />
-
 ### Adding or Modifying Test Cases
 
 ```git
 Test: Added unit tests for login component
 ```
-
-<br />
 
 ## Maintenance and Documentation
 
@@ -198,15 +170,11 @@ Test: Added unit tests for login component
 Chore: Updated dependencies and cleaned up logs
 ```
 
-<br />
-
 ### Code Cleanup Without Functional Changes
 
 ```git
 Cleanup: Removed unused variables and redundant code
 ```
-
-<br />
 
 ### Adding Documentation or Comments
 
@@ -218,8 +186,6 @@ Note: Added explanation for caching mechanism in comments
 Docs: Updated API documentation with new endpoints
 ```
 
-<br />
-
 ## Version Control and Reversions
 
 ### Bumping a Version or Updating a Dependency
@@ -228,15 +194,11 @@ Docs: Updated API documentation with new endpoints
 Bump: Bumped version from 2.0.0 to 2.0.1
 ```
 
-<br />
-
 ### Reverting to a Previous Stable Version
 
 ```git
 Roll Back: Reverted to version 1.4.0 due to instability
 ```
-
-<br />
 
 ### Undoing or Reversing a Commit
 
@@ -247,8 +209,6 @@ Revert: Reverted commit 123456a
 ```git
 Reversed: Undid changes from commit 123456a
 ```
-
-<br />
 
 ## Preparation and Staging
 

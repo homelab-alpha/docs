@@ -33,13 +33,11 @@ keywords:
   - Markdown basics
   - Markdown crash course
 
-weight: 2500
+weight: 2503
 
 toc: true
 katex: true
 ---
-
-<br />
 
 ## Benchmark Markdown Support
 
@@ -51,8 +49,6 @@ Drop
 [the source of this page](https://raw.githubusercontent.com/RoneoOrg/markdown/main/README.md)
 wherever you want to test _or showcase_ the support of Markdown, and check that
 every single feature is properly rendered.
-
-<br />
 
 ## Basic formatting
 
@@ -68,8 +64,6 @@ Output:
 
 You can mark some text as bold with **two asterisks** or **two underscores**.
 
-<br />
-
 ### _Italic_
 
 Syntax:
@@ -82,8 +76,6 @@ Output:
 
 Use a _single asterisk_ or a _single underscore_ for italic.
 
-<br />
-
 ### **_Bold and italic_**
 
 Syntax:
@@ -93,8 +85,6 @@ Three stars gives `***bold and italic***`
 ```
 
 Three stars gives **_bold and italic_**
-
-<br />
 
 ### ~~Strikethrough~~
 
@@ -108,8 +98,6 @@ Output:
 
 By using \~~two tildes\~~ the text will be ~~striked through~~.
 
-<br />
-
 ## Blockquotes
 
 Syntax:
@@ -121,8 +109,6 @@ Syntax:
 **Output**:
 
 > blockquote
-
-<br />
 
 ### Nested blockquotes
 
@@ -139,8 +125,6 @@ Output:
 > First level
 >
 > > Second level
-
-<br />
 
 ### Markdown in blockquotes
 
@@ -171,8 +155,6 @@ Output:
 > Here's some example code:
 >
 >     return shell_exec("echo $input | $markdown_script");
-
-<br />
 
 ## Lists
 
@@ -214,8 +196,6 @@ Output:
 - Second item
 - Third item
 
-<br />
-
 ### Ordered lists
 
 Incrementation is automatic, you can simply use `1.` everywhere
@@ -233,8 +213,6 @@ Output:
 1. First item
 2. Second item
 3. Third item
-
-<br />
 
 ### Nested list
 
@@ -336,8 +314,6 @@ Output:
       1. Indented item
 1. Sixth item
 
-<br />
-
 ## Linebreaks
 
 **When you hit enter just once** between two lines, both lines are joined into a
@@ -364,8 +340,6 @@ above it.
 
 This will be another paragraph, as it has a blank line above it.
 
-<br />
-
 ### Force line breaks
 
 To force a line break, **end a line with two or more whitespaces**, and then
@@ -381,8 +355,6 @@ Second line
 Output:
 
 This is the first line. Second line
-
-<br />
 
 ### Horizontal lines
 
@@ -406,8 +378,6 @@ Output:
 
 ---
 
-<br />
-
 ## Links
 
 ### Basic links
@@ -424,8 +394,6 @@ Output:
 
 [Semantic description](https://roneo.org/markdown) <address@example.com>
 <https://roneo.org/markdown> works too. Must be used for explicit links.
-
-<br />
 
 ### Links using text reference
 
@@ -451,8 +419,6 @@ Output:
 [this link]: https://roneo.org/markdown
 
 **Note:** The reference text is _not_ case sensitive
-
-<br />
 
 ### Link with a title on hover
 
@@ -480,8 +446,6 @@ Several syntaxes are accepted: [One](https://eff.org "First site")
 
 [random-identifier]: https://roneo.org/markdown "This example has a title"
 
-<br />
-
 ### Links with Markdown style
 
 To **_emphasize_** links, add asterisks before and after the brackets and
@@ -504,8 +468,6 @@ I love supporting the **[EFF](https://eff.org)**. This is the
 _[Markdown Guide](https://www.markdownguide.org)_. See the section on
 [`code`](#code).
 
-<br />
-
 ### Attribute a custom anchor to a heading
 
 Anchors are automatically generated based on the heading's content. You can
@@ -521,15 +483,11 @@ Output:
 
 #### Heading {#custom-id}
 
-<br />
-
 ## Code formatting
 
 ### Inline
 
 Wrap with single backticks to highlight as`` `code` `` → `code`
-
-<br />
 
 ### Codeblocks
 
@@ -595,18 +553,12 @@ test apt install test apt install test apt install test apt install test apt
 install test
 ```
 
-<br />
-
 ### Codeblocks with syntax highlighting
 
 Set the language right after the first backticks (for example `html`) to get
 syntax highlighting
 
-<br />
-
 ## Samples
-
-<br />
 
 ### HTML
 
@@ -638,13 +590,10 @@ Output:
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
-    />
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   </head>
 </html>
 ```
-
-<br />
 
 ### CSS
 
@@ -672,8 +621,6 @@ h3 {
 }
 ```
 
-<br />
-
 ### Bash
 
 Syntax:
@@ -700,8 +647,6 @@ if [[ ! $system =~ Linux|MacOS|BSD ]]; then
 sudo apt install test
 ```
 
-<br />
-
 ### Diff
 
 Syntax:
@@ -723,8 +668,6 @@ Output:
 ! test
 # comment
 ```
-
-<br />
 
 ### Escaping with backslashes
 
@@ -757,8 +700,6 @@ _   underscore
 !   exclamation mark
 ```
 
-<br />
-
 ## Images
 
 ### Basic syntax
@@ -781,8 +722,6 @@ sure to describe the content and function of the picture. In addition to the
 accessibility benefits, `ALT` is useful for SEO. It's also displayed when, for
 some reason, the picture is not loaded by the browser.
 
-<br />
-
 ### Image with title and caption
 
 ```plaintext
@@ -791,8 +730,6 @@ some reason, the picture is not loaded by the browser.
 
 ![Semantic description](https://raw.githubusercontent.com/homelab-alpha/docs/main/assets/images/logos/logo.png "Your title")_Your
 caption_
-
-<br />
 
 ### Clickable images
 
@@ -820,9 +757,9 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit [...]
 
 ![Semantic desc.][image identifier]
 
-[image identifier]: https://raw.githubusercontent.com/homelab-alpha/docs/main/assets/images/logos/logo.png "Title"
-
-<br />
+[image identifier]:
+  https://raw.githubusercontent.com/homelab-alpha/docs/main/assets/images/logos/logo.png
+  "Title"
 
 ## Task lists
 
@@ -837,8 +774,6 @@ Output:
 
 - [x] Write the press release
 - [ ] Update the website
-
-<br />
 
 ## Tables
 
@@ -869,8 +804,6 @@ Output:
 | Header    | Title       |
 | Paragraph | Text        |
 
-<br />
-
 ### Text alignment in tables
 
 Syntax:
@@ -891,8 +824,6 @@ Output:
 | Header    |    Title    | Here's this |
 | Paragraph |    Text     |    And more |
 
-<br />
-
 ## Footnotes
 
 Syntax:
@@ -910,8 +841,6 @@ Here's a sentence with a footnote[^1]. (see the result at the bottom of the
 page)
 
 [^1]: This is the first footnote.
-
-<br />
 
 ### Long footnote
 
@@ -942,8 +871,6 @@ Here's a longer one.[^bignote] (see the result at the bottom of the page)
 
     Note that you can place the footnote anywhere you want in your article
 
-<br />
-
 ## Definition List
 
 Syntax:
@@ -970,8 +897,6 @@ second term : meaning
 complex term : long definition including **bold text**. Velit tempor cillum aute
 culpa pariatur enim laboris consectetur tempor. Aute elit non do ipsum. Nisi
 quis culpa magna esse ipsum. Ad aliquip ullamco minim cillum in ullamco.
-
-<br />
 
 ## Headings
 
@@ -1005,8 +930,6 @@ Pariatur voluptates quam ut, cum aliquid eum, officiis laudantium totam
 suscipit, ducimus odit nobis! Corrupti, doloremque sed optio voluptatibus
 deserunt quas repellat eius minus quasi, ipsam unde esse sequi deleniti.
 
-<br />
-
 ### Heading 3
 
 pedit quia voluptates atque nobis, perspiciatis deserunt perferendis, nostrum,
@@ -1014,8 +937,6 @@ voluptatem voluptas dolorem iure voluptatum? Accusantium a dolores dicta?
 Pariatur voluptates quam ut, cum aliquid eum, officiis laudantium totam
 suscipit, ducimus odit nobis! Corrupti, doloremque sed optio voluptatibus
 deserunt quas repellat eius minus quasi, ipsam unde esse sequi deleniti.
-
-<br />
 
 #### Heading 4
 
@@ -1025,8 +946,6 @@ Pariatur voluptates quam ut, cum aliquid eum, officiis laudantium totam
 suscipit, ducimus odit nobis! Corrupti, doloremque sed optio voluptatibus
 deserunt quas repellat eius minus quasi, ipsam unde esse sequi deleniti.
 
-<br />
-
 ##### Heading 5
 
 pedit quia voluptates atque nobis, perspiciatis deserunt perferendis, nostrum,
@@ -1035,8 +954,6 @@ Pariatur voluptates quam ut, cum aliquid eum, officiis laudantium totam
 suscipit, ducimus odit nobis! Corrupti, doloremque sed optio voluptatibus
 deserunt quas repellat eius minus quasi, ipsam unde esse sequi deleniti.
 
-<br />
-
 ###### Heading 6
 
 pedit quia voluptates atque nobis, perspiciatis deserunt perferendis, nostrum,
@@ -1044,8 +961,6 @@ voluptatem voluptas dolorem iure voluptatum? Accusantium a dolores dicta?
 Pariatur voluptates quam ut, cum aliquid eum, officiis laudantium totam
 suscipit, ducimus odit nobis! Corrupti, doloremque sed optio voluptatibus
 deserunt quas repellat eius minus quasi, ipsam unde esse sequi deleniti.
-
-<br />
 
 ## References
 
@@ -1056,8 +971,6 @@ deserunt quas repellat eius minus quasi, ipsam unde esse sequi deleniti.
 - [Daring Fireball: Markdown Syntax Documentation](https://daringfireball.net/projects/markdown/syntax)
 - [Markdown Guide at Gitlab.com](https://about.gitlab.com/handbook/markdown-guide/)
 - [CommonMark Spec](https://spec.commonmark.org/0.31.2/)
-
-<br />
 
 ## Related projects
 

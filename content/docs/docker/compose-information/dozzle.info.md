@@ -36,19 +36,15 @@ keywords:
   - Infrastructure Monitoring
   - Real-time Log Viewer
 
-weight: 4100
+weight: 4104
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}} Claude has contributed to this document.
 Therefore, it's advisable to treat the information here with caution and verify
 it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this `compose.yml` file does in detail for deploying
 Dozzle, a web-based interface for real-time Docker log monitoring.
@@ -64,8 +60,6 @@ Here's a detailed explanation:
 - **Description**: Configures a Docker network and the Dozzle service for
   real-time Docker log monitoring.
 - **RAW Compose File**: [compose.yml]
-
-<br />
 
 ## Networks Configuration
 
@@ -97,8 +91,6 @@ networks:
       com.dozzle.network.description: "is an isolated bridge network."
 ```
 
-<br />
-
 - **networks**: This section defines a custom network named `dozzle_net`.
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
@@ -127,8 +119,6 @@ networks:
     Unit size for the network.
 - **labels**: Metadata for the network.
   - **com.dozzle.network.description**: A description label for the network.
-
-<br />
 
 ## Services Configuration
 
@@ -189,8 +179,6 @@ services:
       start_period: 10s
       start_interval: 5s
 ```
-
-<br />
 
 - **services**: Defines services to be deployed.
 - **dozzle_app**: The service name for the Dozzle container.
@@ -256,8 +244,6 @@ services:
       will not be counted towards the retries (10 seconds).
     - **start_interval**: The time between starting health checks (5 seconds).
 
-<br />
-
 ## User Configuration
 
 {{% alert context="primary" %}} Dozzle does not support Bcrypt-hashed passwords
@@ -279,8 +265,6 @@ You will get an output like this:
 username:$2y$05$tK8ahNrufhDMcyrMGELXAONvKZ1ydGvwVxtyiwIO7wJYN50XoYsIG
 ```
 
-<br />
-
 ### Using the Hash
 
 Copy **only** the hashed portion (everything after the colon `:`) and paste it
@@ -289,8 +273,6 @@ into the `password` field for the corresponding user:
 ```bash
 $2y$05$tK8ahNrufhDMcyrMGELXAONvKZ1ydGvwVxtyiwIO7wJYN50XoYsIG
 ```
-
-<br />
 
 ### users.yml
 
@@ -312,8 +294,6 @@ users:
     filter: "label=com.example.app" # Optional: Example filter to restrict guest access
 ```
 
-<br />
-
 ## Quick Start
 
 {{% alert context="info" %}}
@@ -329,8 +309,6 @@ Requires Docker Compose 2.24.0 or later.
    docker compose up -d
    ```
 
-<br />
-
 ## Default Web Access
 
 Access the Dozzle web interface using the following URL:
@@ -338,8 +316,6 @@ Access the Dozzle web interface using the following URL:
 ```bash
 http://your-ip-address:3008
 ```
-
-<br />
 
 ## Default Login Credentials
 
@@ -355,8 +331,6 @@ If you have added users in the `users.yml` file, use those credentials instead.
 **For security reasons, it is strongly recommended to configure authentication
 using the `users.yml` file to restrict access.**
 {{% /alert %}}
-
-<br />
 
 ## Conclusion
 

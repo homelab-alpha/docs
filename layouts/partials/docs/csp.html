@@ -1,0 +1,54 @@
+{{- /*
+  Content Security Policy as a meta tag (GitHub Pages cannot send headers). It
+  must come before every script and style in the head.
+
+  - Scripts: only files of this site, plus the inline scripts from
+    layouts/partials/docs/inline-script.html, by their SHA-256 hash. All other
+    scripts are files (layouts/partials/docs/script.html). After a build,
+    .github/scripts/check_csp.py checks that every inline script on every page
+    is allowed, and the Build & Deploy workflow fails when one is not.
+  - Styles: 'unsafe-inline', because KaTeX, Mermaid, and table alignment use
+    style attributes and style elements. Styles cannot run code.
+  - Images: this site, data: URIs (CSS icon masks), and the image hosts in
+    params.toml ([security] imageHosts; a fallback when a fetch fails).
+  - Analytics hosts are added only when Plausible or Google Analytics is set.
+    Hugo's Google Analytics template has an inline script: add its hash to
+    the list before you turn it on.
+  - Not under "hugo server": its live reload injects a script and a WebSocket.
+    frame-ancestors does not work in a meta tag.
+
+  Context: the page being rendered.
+*/ -}}
+{{- if not hugo.IsServer -}}
+  {{- $scripts := slice "'self'" -}}
+  {{- range slice "darkmode-init" "sidebar-state" "ereader-redirect" -}}
+    {{- $scripts = $scripts | append (printf "'%s'" (partial "docs/inline-script.html" .).Data.Integrity) -}}
+  {{- end -}}
+  {{- $connect := slice "'self'" -}}
+  {{- with site.Params.plausible.dataDomain -}}
+    {{- $origin := urls.Parse (site.Params.plausible.scriptURL | default "https://plausible.io/js/script.js") -}}
+    {{- $host := printf "%s://%s" $origin.Scheme $origin.Host -}}
+    {{- $scripts = $scripts | append $host -}}
+    {{- $connect = $connect | append $host -}}
+    {{- with site.Params.plausible.eventAPI }}{{ $u := urls.Parse . }}{{ $connect = $connect | append (printf "%s://%s" $u.Scheme $u.Host) }}{{ end -}}
+  {{- end -}}
+  {{- if site.Config.Services.GoogleAnalytics.ID -}}
+    {{- $scripts = $scripts | append "https://www.googletagmanager.com" -}}
+    {{- $connect = $connect | append "https://www.google-analytics.com" "https://*.google-analytics.com" -}}
+  {{- end -}}
+  {{- $policy := slice
+    "default-src 'self'"
+    (printf "script-src %s" (delimit $scripts " "))
+    "style-src 'self' 'unsafe-inline'"
+    (printf "img-src 'self' data: %s" (delimit site.Params.security.imageHosts " "))
+    "font-src 'self'"
+    (printf "connect-src %s" (delimit (uniq $connect) " "))
+    "object-src 'none'"
+    "base-uri 'self'"
+    "form-action 'self'"
+    "frame-src 'none'"
+    "worker-src 'self'"
+    "manifest-src 'self'"
+  -}}
+<meta http-equiv="Content-Security-Policy" content="{{ delimit $policy "; " }}">
+{{- end -}}

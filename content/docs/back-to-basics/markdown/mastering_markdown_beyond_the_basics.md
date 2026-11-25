@@ -37,17 +37,13 @@ keywords:
   - Markdown formatting
   - Markdown examples
 
-weight: 2500
+weight: 2504
 
 toc: true
 katex: true
 ---
 
-<br />
-
 ## Markdown Syntax
-
-<br />
 
 ## Philosophy
 
@@ -60,8 +56,6 @@ been influenced by several existing text-to-HTML filters -- including
 **Setext**, **atx**, **Textile**, **reStructuredText**, **Grutatext**,and
 **EtText** -- the single biggest source of inspiration for Markdown's syntax is
 the format of plain text email.
-
-<br />
 
 ## Block Elements
 
@@ -81,18 +75,14 @@ Breaks" option) which translate every line break character in a paragraph into a
 When you _do_ want to insert a `<br />` break tag using Markdown, you end a line
 with two or more spaces, then type return.
 
-<br />
-
 ### Headers
 
 Markdown supports two styles of headers, **Setext** and **atx**.
 
-Optionally, you may close atx-style headers. This is purely cosmetic -- you
-can use this if you think it looks better. The closing hashes don't even need to
+Optionally, you may close atx-style headers. This is purely cosmetic -- you can
+use this if you think it looks better. The closing hashes don't even need to
 match the number of hashes used to open the header. (The number of opening
 hashes determines the header level.)
-
-<br />
 
 ### Blockquotes
 
@@ -200,8 +190,6 @@ Any decent text editor should make email-style quoting easy for example, with
 BBEdit, you can make a selection and choose Increase Quote Level from the Text
 menu.
 
-<br />
-
 ### Lists
 
 Markdown supports ordered (numbered) and unordered (bulleted) lists.
@@ -306,8 +294,6 @@ Output:
 3. Bird
 1. McHale
 1. Parish
-
-<br />
 
 You'd get the exact same HTML output. The point is, if you want to, you can use
 ordinal numbers in your ordered Markdown lists, so that the numbers in your
@@ -425,8 +411,6 @@ _twice_ -- 8 spaces or two tabs:
   <code goes here>
   ```
 
-<br />
-
 ### Code Blocks
 
 Pre-formatted code blocks are used for writing about programming or markup
@@ -522,8 +506,6 @@ tell application "Foo"
 end tell
 ```
 
-<br />
-
 ## Span Elements
 
 ### Links
@@ -550,8 +532,6 @@ Output:
 This is [an example](http://example.com/ "This is a link title") inline link.
 
 [This link](http://example.net/) has no title attribute.
-
-<br />
 
 ### Emphasis
 
@@ -580,8 +560,6 @@ _single underscores_
 **double asterisks**
 
 **double underscores**
-
-<br />
 
 ### Code
 

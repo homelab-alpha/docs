@@ -36,19 +36,15 @@ keywords:
   - Docker Environment
   - Self-hosted Monitoring
 
-weight: 4100
+weight: 4126
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this `compose.yml` file does in detail. This file is used
 to configure and deploy an Uptime Kuma instance for monitoring website uptime
@@ -69,8 +65,6 @@ Here's a detailed explanation:
 - **RAW Compose File**: [compose.yml]
 - **RAW Environment File**: [stack.env]
 - **RAW MariaDB Configuration File**: [my.cnf]
-
-<br />
 
 ## Networks Configuration
 
@@ -102,8 +96,6 @@ networks:
       com.uptime-kuma.network.description: "is an isolated bridge network."
 ```
 
-<br />
-
 - **networks**: This section defines a custom network named `uptime-kuma_net`.
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
@@ -134,8 +126,6 @@ networks:
 - **labels**: Metadata for the network.
   - **com.uptime-kuma.network.description**: A description label for the
     network.
-
-<br />
 
 ## Services Configuration
 
@@ -195,8 +185,6 @@ services:
       start_interval: 5s
 ```
 
-<br />
-
 - **services**: Defines services to be deployed.
 - **uptime-kuma_db**: The service name for the MariaDB container.
   - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
@@ -251,8 +239,6 @@ services:
       will not be counted towards the retries (10 seconds).
     - **start_interval**: The time between health checks during the start period
       (5 seconds).
-
-<br />
 
 ### Application Service (`uptime-kuma_app`)
 
@@ -320,8 +306,6 @@ services:
       start_interval: 5s
 ```
 
-<br />
-
 - **uptime-kuma_app**: The service name for the Uptime Kuma container.
   - **deploy.resources.limits.pids: 512**: Limits the number of processes and
     threads in the container, which protects the host against fork bombs.
@@ -368,8 +352,6 @@ services:
     - **interval**, **timeout**, **retries**, **start_period**,
       **start_interval**: Same values as the database service.
 
-<br />
-
 ### `uptime-kuma_socket-proxy`
 
 ```yaml
@@ -411,8 +393,6 @@ services:
         "is a read-only Docker API proxy for Uptime Kuma."
 ```
 
-<br />
-
 - **uptime-kuma_socket-proxy**: The read-only Docker socket proxy.
   `uptime-kuma_app` reaches the Docker API through this proxy on port 2375
   instead of mounting the Docker socket.
@@ -445,15 +425,11 @@ services:
     gaining additional privileges.
   - **labels**: A description label.
 
-<br />
-
 ## Environment Variables
 
 The database credentials are stored in an environment file, outside the compose
 file. Use `.env` for Docker Compose and `stack.env` for Portainer. Both files
 must contain the same values.
-
-<br />
 
 ### Variables in this file
 
@@ -490,8 +466,6 @@ USER_DB=uptime-kuma
 - **`PORT_DB`**: The port MariaDB listens on (default: 3306).
 - **`USER_DB`**: The username Uptime Kuma uses to connect to the database.
 
-<br />
-
 ## MariaDB Configuration
 
 The `my.cnf` file is mounted into the database container as `/etc/my.cnf`. It
@@ -509,8 +483,6 @@ comments. The same file layout is explained in detail on the
 - **Character set**: `utf8mb4` with the `utf8mb4_general_ci` collation.
 - **Security**: `secure-file-priv` restricts imports and exports to
   `/var/lib/mysql/`. The password validation and TLS options are commented out.
-
-<br />
 
 ## Quick Start
 
@@ -535,8 +507,6 @@ Requires Docker Compose 2.24.0 or later.
    daemon `http://uptime-kuma_socket-proxy:2375`. The stack has no direct access
    to the Docker socket; this read-only proxy is the only way in.
 
-<br />
-
 ## Default Web Access
 
 Access the Uptime Kuma web interface using the following URL:
@@ -544,8 +514,6 @@ Access the Uptime Kuma web interface using the following URL:
 ```bash
 http://your-ip-address:3001
 ```
-
-<br />
 
 ## Default Login Credentials
 
@@ -561,8 +529,6 @@ Credentials are created during the initial setup process.
 **For security reasons, it is strongly recommended to create a strong username
 and password during the setup.**
 {{% /alert %}}
-
-<br />
 
 ## Conclusion
 

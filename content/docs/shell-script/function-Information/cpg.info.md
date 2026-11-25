@@ -37,19 +37,15 @@ keywords:
   - bash script
   - function information
 
-weight: 9200
+weight: 10101
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named `cpg.sh`,
 authored by GJS (homelab-alpha), and its purpose is to create a function called
@@ -67,8 +63,6 @@ recursive copying for directories.
   directories from a source to a destination, handling both single files and
   directories recursively.
 - **RAW Script**: [cpg.sh]
-
-<br />
 
 ## Function: cpg
 
@@ -89,8 +83,6 @@ The function `cpg` is defined here. It starts by checking if the number of
 arguments passed is exactly 2. If not, it prints a usage message
 (`Usage: cpg source destination`) and returns an error status (`1`).
 
-<br />
-
 ## Variables Assignment
 
 ```bash
@@ -101,8 +93,6 @@ arguments passed is exactly 2. If not, it prints a usage message
 The script assigns the first argument to a variable named `source` and the
 second argument to a variable named `destination`. This makes the code more
 readable and easier to work with.
-
-<br />
 
 ## Directory Check and Recursive Copy
 
@@ -128,14 +118,10 @@ operation, it changes the current directory to the newly copied directory within
 the `destination` using the `cd` command. If the directory change fails, the
 script exits with an error.
 
-<br />
-
 ## Single File Copy
 
 If the `source` is not a directory, the script simply copies the `source` file
 to the `destination` using the `cp` command.
-
-<br />
 
 ## Error Handling
 
@@ -143,8 +129,6 @@ The script includes basic error handling. If the `destination` is not a
 directory when the `source` is a directory, it prints an error message
 (`Destination is not a directory: $destination`) and returns an error status
 (`1`).
-
-<br />
 
 ## Conclusion
 
