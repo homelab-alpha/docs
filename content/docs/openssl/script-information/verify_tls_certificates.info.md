@@ -39,19 +39,15 @@ keywords:
   - homelab security
   - DevOps tools
 
-weight: 8111
+weight: 9117
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down the script `verify_tls_certificates.sh`. This script verifies
 TLS certificates against their chain of trust:
@@ -75,8 +71,6 @@ script never changes a file.
 - **Description**: This script verifies TLS certificates against their chain of
   trust.
 - **RAW Script**: [verify_tls_certificates.sh]
-
-<br />
 
 ## Usage
 
@@ -107,14 +101,10 @@ The alias is `openssl-verify`.
 - `./verify_tls_certificates.sh -v ca.pem` (verifies intermediate certificate
   with verbose output)
 
-<br />
-
 ## Detailed Explanation
 
 The sections below follow the script from top to bottom. Functions that are not
 defined here, such as `print_error`, come from `scripts/lib/common.sh`.
-
-<br />
 
 ### Stop script on error
 
@@ -127,8 +117,6 @@ callers decide what a failure means.
 set -Eeuo pipefail
 ```
 
-<br />
-
 ### Load the shared functions
 
 The shared functions, such as the messages and the checks, are in
@@ -138,8 +126,6 @@ The shared functions, such as the messages and the checks, are in
 # shellcheck source=scripts/lib/common.sh
 source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/lib/common.sh" || exit 2
 ```
-
-<br />
 
 ### Set the base directory
 
@@ -152,8 +138,6 @@ set_base_dir
 certs_dir="$base_dir/certs"
 ```
 
-<br />
-
 ### Set directories for various components
 
 ```bash
@@ -163,8 +147,6 @@ certs_intermediate_dir="$certs_dir/intermediate"
 certs_certificates_dir="$certs_dir/certificates"
 ```
 
-<br />
-
 ### Default to non-verbose mode
 
 ```bash
@@ -173,8 +155,6 @@ verbose=false
 file_name=""
 failures=0
 ```
-
-<br />
 
 ### Function: verify a certificate against a chain file
 
@@ -208,8 +188,6 @@ verify_certificate() {
   fi
 }
 ```
-
-<br />
 
 ### Function: parse arguments
 
@@ -251,8 +229,6 @@ parse_arguments() {
   fi
 }
 ```
-
-<br />
 
 ### Function: check that a bundle holds a complete chain
 
@@ -298,8 +274,6 @@ verify_bundle() {
 }
 ```
 
-<br />
-
 ### Function: check that the private key in a HAProxy bundle belongs to the certificate
 
 ```bash
@@ -319,8 +293,6 @@ verify_bundle_key() {
 }
 ```
 
-<br />
-
 ### Functions to verify each level of the chain
 
 ```bash
@@ -330,8 +302,6 @@ verify_trusted_id() {
     "$certs_root_dir/trusted_id.pem" "$certs_root_dir/trusted_id.pem"
 }
 ```
-
-<br />
 
 ### Function: `verify_root_ca`
 
@@ -344,8 +314,6 @@ verify_root_ca() {
 }
 ```
 
-<br />
-
 ### Function: `verify_intermediate_ca`
 
 ```bash
@@ -356,8 +324,6 @@ verify_intermediate_ca() {
     "$certs_intermediate_dir/ca.pem" "$certs_intermediate_dir/ca_chain_bundle.pem"
 }
 ```
-
-<br />
 
 ### Function: `verify_leaf`
 
@@ -378,8 +344,6 @@ verify_leaf() {
 }
 ```
 
-<br />
-
 ### Main process
 
 ```bash
@@ -387,8 +351,6 @@ verify_leaf() {
 parse_arguments "$@"
 require_openssl 2
 ```
-
-<br />
 
 ### Determine which sections to verify based on the certificate
 
@@ -423,8 +385,6 @@ fi
 print_cyan "All checks passed."
 exit 0
 ```
-
-<br />
 
 ## Conclusion
 

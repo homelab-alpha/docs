@@ -1,24 +1,30 @@
 {{ define "main" }}
-    <div class="row flex-xl-wrap">
-        {{ range .Pages.ByWeight }}
-        <div id="list-item" class="col-md-4 col-12 mt-4 pt-2">
-            <a class="text-decoration-none text-reset" href="{{ .Permalink }}">
-                <div class="card h-100 features feature-full-bg rounded p-4 position-relative overflow-hidden border-1">
-                    <span class="icon-color d-flex my-3">
-                        {{ partial "svg-icon.html" (dict "name" (.Params.icon | default "article") "tag" "i" "class" "align-middle") }}
-                        {{ if .Draft }}<span class="badge bg-default ms-2 fs-6 align-middle">DRAFT</span>{{ end }}
-                        {{ if .IsSection }}{{ partial "svg-icon.html" (dict "name" "folder" "class" "icon-faint align-middle ms-auto" "title" "Directory") }}{{ end }}
-                    </span>
-                    <div class="card-body p-0 content">
-                        <p class="fs-5 fw-semibold card-title mb-1">{{ .Title }}</p>
-                        <p class="para card-text mb-0">{{ .Description | truncate (.Site.Params.docs.listDescTrunc | default 100) | markdownify }}</p>
-                    </div>
-                    <!-- <div class="position-absolute top-0 end-0">
-                        {{ partial "svg-icon.html" (dict "name" .Params.icon "tag" "i" "class" "opacity-05") }}
-                    </div> -->
-                </div>
+    {{- /*
+      Section lists and the docs home (/docs/) as a grid of cards, after the
+      new design. On the docs home each topic has a tile in its own color (color
+      in the front matter of the topic); in other sections the tiles use the
+      accent color.
+    */ -}}
+    {{- $isDocsHome := eq .RelPermalink (relLangURL "docs/") -}}
+    {{- if $isDocsHome }}
+    <h2 class="docs-list-heading">{{ i18n "topics" | default "Topics" }}</h2>
+    {{- end }}
+    <ul class="docs-list list-unstyled">
+        {{- range $i, $page := .Pages.ByWeight }}
+        <li>
+            <a class="docs-card" href="{{ .RelPermalink }}">
+                {{- $tile := "" }}{{ if $isDocsHome }}{{ $tile = partial "docs/tile-color.html" (dict "color" .Params.color) }}{{ end }}
+                <span class="docs-card-tile{{ with $tile }} tile-{{ . }}{{ end }}" aria-hidden="true">
+                    {{ partial "svg-icon.html" (dict "name" (.Params.icon | default "article") "tag" "span" "class" "docs-card-icon") }}
+                </span>
+                <span class="docs-card-title">
+                    {{ .Title }}
+                    {{ if .Draft }}<span class="badge bg-default ms-1 align-middle">DRAFT</span>{{ end }}
+                </span>
+                {{ with .Description }}<span class="docs-card-text">{{ . | truncate ($.Site.Params.docs.listDescTrunc | default 100) | markdownify }}</span>{{ end }}
+                {{ if .IsSection }}<span class="docs-card-meta">{{ len .Pages }} {{ cond (eq (len .Pages) 1) (i18n "item" | default "item") (i18n "items" | default "items") }}</span>{{ end }}
             </a>
-        </div><!--end col-->
-        {{ end }}
-    </div>
+        </li>
+        {{- end }}
+    </ul>
 {{ end }}

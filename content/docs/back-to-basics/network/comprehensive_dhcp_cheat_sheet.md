@@ -1,5 +1,6 @@
 ---
-title: "Comprehensive DHCP Cheat Sheet: Essentials, Configuration, and
+title:
+  "Comprehensive DHCP Cheat Sheet: Essentials, Configuration, and
   Troubleshooting"
 description:
   "A detailed guide on DHCP, covering key concepts, configuration steps, message
@@ -37,13 +38,11 @@ keywords:
   - DHCP failover
   - Linux DHCP configuration
 
-weight: 2700
+weight: 2702
 
 toc: true
 katex: true
 ---
-
-<br />
 
 ## Overview
 
@@ -51,15 +50,11 @@ This cheat sheet provides a detailed guide on DHCP (Dynamic Host Configuration
 Protocol), covering the essentials, configuration steps, message types, common
 options, troubleshooting tips, and advanced topics like relay and failover.
 
-<br />
-
 ## What is DHCP?
 
 DHCP is a network management protocol used to automate the process of
 configuring devices on IP networks. It assigns IP addresses and other network
 configuration parameters to devices, allowing them to communicate on a network.
-
-<br />
 
 ## Key Terms
 
@@ -74,8 +69,6 @@ configuration parameters to devices, allowing them to communicate on a network.
   networks.
 - **DNS Server**: A server that translates domain names to IP addresses.
 
-<br />
-
 ## DHCP Process (DORA)
 
 1. **Discovery**: The client broadcasts a DHCPDISCOVER message to find available
@@ -86,8 +79,6 @@ configuration parameters to devices, allowing them to communicate on a network.
    server, requesting the offered IP address.
 4. **Acknowledgment**: The DHCP server sends a DHCPACK message, confirming the
    lease of the IP address.
-
-<br />
 
 ## DHCP Message Types
 
@@ -102,8 +93,6 @@ configuration parameters to devices, allowing them to communicate on a network.
 - **DHCPINFORM**: Sent by clients to obtain local configuration parameters
   without IP address allocation.
 
-<br />
-
 ## Common DHCP Options
 
 - **Option 1**: Subnet Mask
@@ -115,8 +104,6 @@ configuration parameters to devices, allowing them to communicate on a network.
 - **Option 53**: DHCP Message Type
 - **Option 54**: DHCP Server Identifier
 - **Option 61**: Client Identifier
-
-<br />
 
 ## DHCP Configuration Example (Linux ISC DHCP Server)
 
@@ -133,8 +120,6 @@ understanding DHCP server configuration and for existing setups.
 sudo apt-get update
 sudo apt-get install isc-dhcp-server
 ```
-
-<br />
 
 ### Configuration File: `/etc/dhcp/dhcpd.conf`
 
@@ -154,15 +139,11 @@ subnet 192.168.1.0 netmask 255.255.255.0 {
 }
 ```
 
-<br />
-
 ### Restart DHCP Server
 
 ```bash
 sudo systemctl restart isc-dhcp-server
 ```
-
-<br />
 
 ## Troubleshooting DHCP
 
@@ -186,8 +167,6 @@ sudo systemctl restart isc-dhcp-server
   On systems that use NetworkManager or systemd-networkd, renew the lease with
   `nmcli device reapply <interface>` or `networkctl renew <interface>`.
 
-<br />
-
 ## Best Practices
 
 1. **Plan IP Addressing Scheme**: Carefully design the IP address ranges to
@@ -198,8 +177,6 @@ sudo systemctl restart isc-dhcp-server
    performance.
 5. **Lease Time Management**: Adjust lease times according to network needs to
    optimize address availability.
-
-<br />
 
 ## Security Practices
 
@@ -214,12 +191,10 @@ network. Here are some security practices to consider:
    authenticated devices receive IP addresses.
 4. **Monitor DHCP Traffic**: Use network monitoring tools to keep an eye on DHCP
    traffic and identify unusual activity.
-5. **Access Control Lists (ACLs)**: Apply ACLs to restrict which devices can send
-   or receive DHCP traffic.
+5. **Access Control Lists (ACLs)**: Apply ACLs to restrict which devices can
+   send or receive DHCP traffic.
 6. **Regular Updates**: Keep the DHCP server software updated to protect against
    known vulnerabilities.
-
-<br />
 
 ## Advanced Topics
 
@@ -227,8 +202,6 @@ network. Here are some security practices to consider:
 
 When clients and DHCP servers are on different subnets, a DHCP relay agent
 forwards DHCP messages between them.
-
-<br />
 
 ### Configuring DHCP Relay (Linux)
 
@@ -242,14 +215,10 @@ INTERFACES="eth0 eth1" # Interfaces to listen on
 sudo systemctl restart isc-dhcp-relay
 ```
 
-<br />
-
 ### DHCP Failover
 
 To provide high availability, you can configure two DHCP servers in failover
 mode. They share lease information and balance load.
-
-<br />
 
 ### Configuring DHCP Failover (ISC DHCP Server)
 
@@ -283,8 +252,6 @@ failover peer "dhcp-failover" {
 }
 ```
 
-<br />
-
 ### Visual Aids
 
 Below are diagrams to help visualize the DHCP process and configurations:
@@ -304,8 +271,6 @@ Below are diagrams to help visualize the DHCP process and configurations:
 +--------+             +--------+             +--------+              +--------+
 ```
 
-<br />
-
 #### DHCP Failover Configuration Diagram
 
 ```c
@@ -320,8 +285,6 @@ Below are diagrams to help visualize the DHCP process and configurations:
 +----------------+          +----------------+
 ```
 
-<br />
-
 ## Real-world Scenarios
 
 Here are some scenarios where DHCP troubleshooting and best practices come into
@@ -334,8 +297,6 @@ play:
   available. Adjust the range if necessary or reduce the lease time to recycle
   addresses more frequently.
 
-<br />
-
 ### Scenario 2: Rogue DHCP Server
 
 - **Problem**: Devices are getting incorrect IP addresses or network
@@ -343,15 +304,11 @@ play:
 - **Solution**: Enable DHCP snooping on switches to block unauthorized DHCP
   servers. Identify and remove the rogue server.
 
-<br />
-
 ### Scenario 3: Network Segmentation
 
 - **Problem**: Devices on different subnets are not receiving IP addresses.
 - **Solution**: Configure a DHCP relay agent to forward requests between
   subnets. Ensure proper relay configuration and connectivity.
-
-<br />
 
 ### Scenario 4: Lease Renewal Issues
 
@@ -360,15 +317,11 @@ play:
   Adjust the lease time and ensure the server has adequate resources to handle
   renewals.
 
-<br />
-
 ### Scenario 5: Misconfigured DHCP Options
 
 - **Problem**: Devices are not receiving the correct DNS server addresses.
 - **Solution**: Verify the DHCP configuration file for correct option settings.
   Use `option domain-name-servers` to specify the correct DNS servers.
-
-<br />
 
 ## Conclusion
 

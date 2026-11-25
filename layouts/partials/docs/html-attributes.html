@@ -1,0 +1,32 @@
+{{- /*
+  HTML attributes from Markdown (attributes such as {.class title="..."}, and
+  link destinations), written safely:
+  - only names of letters, digits, "-", "_", ":", and "."; no event handlers
+    (on...), which would run code;
+  - values are HTML-escaped (quotes included), not Go-quoted;
+  - a URL in href or src with a javascript:, vbscript:, or data: scheme is left
+    out, with a warning.
+  Used by the link and table render hooks:
+    <a{{ partial "docs/html-attributes.html" (dict ...) | safeHTMLAttr }}>
+
+  Context: dict
+    attrs  map of attribute names to values (empty values are skipped)
+    page   the page, for warnings
+  Returns: string, each attribute with a leading space.
+*/ -}}
+{{- $page := .page -}}
+{{- $out := "" -}}
+{{- range $name, $value := .attrs -}}
+  {{- $value = string $value -}}
+  {{- if not $value }}{{ continue }}{{ end -}}
+  {{- if or (not (findRE `^[a-zA-Z][a-zA-Z0-9_:.-]*$` $name)) (findRE `(?i)^on` $name) -}}
+    {{- warnf "Attribute %q left out in %s: not a safe attribute name." $name $page.String -}}
+    {{- continue -}}
+  {{- end -}}
+  {{- if and (in (slice "href" "src") (lower $name)) (findRE `(?i)^[\s\x00-\x1f]*(javascript|vbscript|data):` $value) -}}
+    {{- warnf "Attribute %s=%q left out in %s: unsafe URL scheme." $name $value $page.String -}}
+    {{- continue -}}
+  {{- end -}}
+  {{- $out = printf `%s %s="%s"` $out $name (htmlEscape $value) -}}
+{{- end -}}
+{{- return $out -}}

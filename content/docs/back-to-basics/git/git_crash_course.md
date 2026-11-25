@@ -29,19 +29,15 @@ keywords:
   - Git workflow
   - version control system
 
-weight: 2400
+weight: 2403
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 ## Introduction to Git: A Beginner's Guide
 
@@ -58,8 +54,6 @@ for your projects effectively.
 
 Let's dive in and explore the world of version control with Git!
 
-<br />
-
 ## Setting Up Git
 
 - Install Git on your system if you haven't already.
@@ -73,8 +67,6 @@ Let's dive in and explore the world of version control with Git!
   git config --global init.defaultBranch main
   ```
 
-<br />
-
 ### Initializing a Repository
 
 - Create a new repository:
@@ -82,8 +74,6 @@ Let's dive in and explore the world of version control with Git!
   git init my_project
   cd my_project
   ```
-
-<br />
 
 ### Basic Commands
 
@@ -104,8 +94,6 @@ Let's dive in and explore the world of version control with Git!
   git log
   ```
 
-<br />
-
 ### Working with Branches
 
 - Create a new branch:
@@ -120,8 +108,6 @@ Let's dive in and explore the world of version control with Git!
   ```bash
   git merge <branch_name>
   ```
-
-<br />
 
 ### Remote Repositories
 
@@ -138,8 +124,6 @@ Let's dive in and explore the world of version control with Git!
   git clone <repository_url>
   ```
 
-<br />
-
 ### Resolving Conflicts
 
 - When merging branches, conflicts may arise. Resolve conflicts manually in the
@@ -148,8 +132,6 @@ Let's dive in and explore the world of version control with Git!
   git add <resolved_file>
   git commit -m "Resolved conflicts"
   ```
-
-<br />
 
 ### Undoing Changes
 
@@ -161,8 +143,6 @@ Let's dive in and explore the world of version control with Git!
   ```bash
   git reset HEAD~1
   ```
-
-<br />
 
 ### Miscellaneous
 
@@ -179,8 +159,6 @@ Let's dive in and explore the world of version control with Git!
   git diff <file>
   ```
 
-<br />
-
 ## Example Workflow
 
 ### Initialize a repository
@@ -190,8 +168,6 @@ git init my_project
 cd my_project
 ```
 
-<br />
-
 ### Create a new file and add some content
 
 Add the file to the staging area:
@@ -200,15 +176,11 @@ Add the file to the staging area:
 git add new_file.txt
 ```
 
-<br />
-
 ### Commit the changes
 
 ```bash
 git commit -m "Added: new_file.txt"
 ```
-
-<br />
 
 ### Create a new branch for a new feature
 
@@ -216,15 +188,11 @@ git commit -m "Added: new_file.txt"
 git branch new_feature
 ```
 
-<br />
-
 ### Switch to the new branch
 
 ```bash
 git switch new_feature
 ```
-
-<br />
 
 ### Make changes, add them, and commit
 
@@ -233,16 +201,12 @@ git add modified_file.txt
 git commit -m "Implemented new feature"
 ```
 
-<br />
-
 ### Switch back to the main branch and merge the new feature
 
 ```bash
 git switch main
 git merge new_feature
 ```
-
-<br />
 
 ### Resolve any conflicts if they occur
 

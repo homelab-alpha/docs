@@ -1,0 +1,8 @@
+{{- /*
+  faq shortcode in the e-reader version: the question in bold and the answer
+  below it, always open, without a disclosure element or icons.
+*/ -}}
+<div class="faq-item">
+  <p><strong>{{ .Get "question" | .Page.RenderString }}</strong></p>
+  {{ .InnerDeindent | .Page.RenderString (dict "display" "block") }}
+</div>

@@ -31,19 +31,15 @@ keywords:
   - system health monitoring
   - shell scripting
 
-weight: 9100
+weight: 10202
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named
 `check_pi_throttling.sh`, authored by GJS (homelab-alpha), and its purpose is to
@@ -60,8 +56,6 @@ within safe parameters.
 - **Description**: This script checks the throttling status of a Raspberry Pi by
   querying the `vcgencmd` tool.
 - **RAW Script**: [check_pi_throttling.sh]
-
-<br />
 
 ## Flag Bits
 
@@ -91,8 +85,6 @@ HAS_SOFT_TEMPLIMIT=0x80000
 - `HAS_SOFT_TEMPLIMIT`: Indicates if the Pi has hit a soft temperature limit at
   any time since last reboot.
 
-<br />
-
 ## Text Colors
 
 These define color codes for output text using `tput` for better readability:
@@ -107,8 +99,6 @@ NC=$(tput sgr0)
 - `RED`: Sets text color to red.
 - `NC`: Resets text color to default.
 
-<br />
-
 ## Output Strings
 
 These are used to standardize "good" and "bad" status messages:
@@ -120,8 +110,6 @@ BAD="${RED}YES${NC}"
 
 - `GOOD`: Indicates a non-problematic status with green text "NO".
 - `BAD`: Indicates a problematic status with red text "YES".
-
-<br />
 
 ## Get Status and Extract Hex Value
 
@@ -137,8 +125,6 @@ STATUS=${STATUS#*=}
 - `STATUS=${STATUS#*=}`: Strips the "throttled=" prefix, leaving only the hex
   status value.
 
-<br />
-
 ## Display Status
 
 This part of the script displays the current status in a readable format:
@@ -153,8 +139,6 @@ echo ""
 - `((STATUS != 0)) && echo "${RED}${STATUS}${NC}" || echo "${GREEN}${STATUS}${NC}"`:
   Checks if `STATUS` is non-zero. If true, it prints the status in red;
   otherwise, it prints the status in green.
-
-<br />
 
 ## Detailed Condition Checks
 
@@ -204,8 +188,6 @@ For each condition (Undervolted, Throttled, Frequency Capped, and Softlimit):
    - `((STATUS & HAS_CONDITION != 0)) && echo "${BAD}" || echo "${GOOD}"`:
      Checks if the specific condition has ever been active and prints "YES" (in
      red) if true, or "NO" (in green) if false.
-
-<br />
 
 ## Conclusion
 

@@ -1,6 +1,8 @@
 ---
-title: "Mastering the SQ3R Reading Method: A Complete Guide to Effective Reading"
-description: "Explore the SQ3R Reading Method, a structured approach to improve
+title:
+  "Mastering the SQ3R Reading Method: A Complete Guide to Effective Reading"
+description:
+  "Explore the SQ3R Reading Method, a structured approach to improve
   comprehension and retention through active engagement with texts."
 url: "back-to-basics/mastering-the-sq3r-reading-method"
 aliases:
@@ -27,13 +29,11 @@ keywords:
   - effective reading strategies
   - study techniques
 
-weight: 2900
+weight: 2902
 
 toc: true
 katex: true
 ---
-
-<br />
 
 ## Introduction
 
@@ -60,8 +60,6 @@ technique named for its five steps:
 - Retrieve
 - Review
 
-<br />
-
 ### 1. Survey (S)
 
 The first step, **Survey** or **Skim**, advises that one should resist the
@@ -71,8 +69,6 @@ marginal information, and summary paragraphs. This survey step typically takes
 only 3–5 minutes but provides an outline or framework for what will be
 presented. The reader should identify ideas and formulate questions about the
 chapter’s content.
-
-<br />
 
 ### 2. Question (Q)
 
@@ -84,16 +80,12 @@ Other, more general questions may also be formulated, such as:
 - What question is this chapter trying to answer?
 - How does this information help me?
 
-<br />
-
 ### 3. Read (R1)
 
 Use the background work done in steps **S** and **Q** to start reading actively.
 This means reading with the purpose of answering the questions raised in **Q**.
 Passive reading, on the other hand, results in simply going through the material
 without engaging with it.
-
-<br />
 
 ### 4. Retrieve (R2)
 
@@ -104,8 +96,6 @@ material. Try recalling key points (headings/subheadings) and answers to the
 questions from the **Q** step. This retrieval can be done either orally or in
 written form, and it relates to the **testing effect**, which enhances long-term
 retention.
-
-<br />
 
 ### 5. Review (R3)
 

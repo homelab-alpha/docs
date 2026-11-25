@@ -1,0 +1,8 @@
+{{- /*
+  Skip link: the first element of every page. It is hidden until it gets the
+  keyboard focus (Tab), then it shows at the top and jumps to the element with
+  id="main": the <main> element, or on docs pages the page below the toolbar.
+  It skips the header and the sidebar.
+  Styles: assets/docs/scss/custom/components/_reading-menu.scss.
+*/ -}}
+<a class="skip-link" href="#main">{{ i18n "skip_to_content" | default "Skip to content" }}</a>

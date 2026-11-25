@@ -36,19 +36,15 @@ keywords:
   - user
   - groups
 
-weight: 9100
+weight: 10221
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}} Claude has contributed to this document.
 Therefore, it's advisable to treat the information here with caution and verify
 it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named
 `user_accounts_info.sh`, authored by GJS (homelab-alpha), and its purpose is to
@@ -66,16 +62,12 @@ a formatted manner.
   and organizes them into system and normal user categories.
 - **RAW Script**: [user_accounts_info.sh]
 
-<br />
-
 ## Overview
 
 The script is designed to extract user account information from the system's
 `passwd` file and categorize them into system and normal users based on UID and
 GID values defined in the `login.defs` file. It uses `awk` for data processing
 and displays the information in a tabular format.
-
-<br />
 
 ## Functions
 
@@ -92,8 +84,6 @@ print_header() {
 }
 ```
 
-<br />
-
 ## Main Program
 
 ### File Paths
@@ -104,8 +94,6 @@ The script defines the paths to the `login.defs` and `passwd` files.
 login_defs="/etc/login.defs"
 passwd_file="/etc/passwd"
 ```
-
-<br />
 
 ### File Existence Check
 
@@ -119,8 +107,6 @@ if [ ! -f "$login_defs" ] || [ ! -f "$passwd_file" ]; then
 fi
 ```
 
-<br />
-
 ### Retrieve UID and GID Limits
 
 The script extracts the minimum and maximum UID and GID values from the
@@ -133,8 +119,6 @@ min_gid=$(awk '/^GID_MIN/{print $2}' "$login_defs")
 max_gid=$(awk '/^GID_MAX/{print $2}' "$login_defs")
 ```
 
-<br />
-
 ### Check for `awk` Availability
 
 It verifies if `awk` is available on the system. If not, the script exits with
@@ -146,8 +130,6 @@ if ! command -v awk &>/dev/null; then
   exit 1
 fi
 ```
-
-<br />
 
 ## Print System User Accounts
 
@@ -169,8 +151,6 @@ awk -F':' -v "min_uid=$min_uid" -v "max_uid=$max_uid" -v "min_gid=$min_gid" -v "
     }' "$passwd_file" | sort -n -t ':' -k 2
 ```
 
-<br />
-
 ## Print Normal User Accounts
 
 Similarly, the script prints the header for normal user accounts and uses `awk`
@@ -191,8 +171,6 @@ awk -F':' -v "min_uid=$min_uid" -v "max_uid=$max_uid" -v "min_gid=$min_gid" -v "
         printf "%-15s %-15s %-30s %-25s %-20s\n", "UID: "$3, "GID: "$4, "Shell: "$7, $1, get_user_groups($1)
     }' "$passwd_file" | sort -n -t ':' -k 2
 ```
-
-<br />
 
 ## Notes
 

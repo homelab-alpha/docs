@@ -5,6 +5,7 @@ description:
   primarily for testing purposes. Avoid for production use."
 url: "openssl"
 icon: "shield_locked"
+color: "red"
 
-weight: 8000
+weight: 9000
 ---

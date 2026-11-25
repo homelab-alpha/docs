@@ -37,21 +37,17 @@ keywords:
   - Vim basics
   - Vim features
 
-weight: 2800
+weight: 2802
 
 toc: true
 katex: true
 ---
-
-<br />
 
 ## Introduction to Vim
 
 Vim, short for `Vi IMproved`, is an enhanced version of the classic Unix text
 editor, Vi. Highly customizable, Vim offers features tailored for efficient text
 editing.
-
-<br />
 
 ## Modes in Vim
 
@@ -61,8 +57,6 @@ Vim operates in different modes, each with specific functions:
 2. **Insert Mode**: For inserting and editing text.
 3. **Visual Mode**: Selecting and manipulating text visually.
 4. **Command-Line Mode**: Entering Vim commands.
-
-<br />
 
 ## Basic Navigation
 
@@ -75,8 +69,6 @@ Vim operates in different modes, each with specific functions:
 - `G`: Move to the end of the file.
 - `Ctrl + f`: Scroll down one page.
 - `Ctrl + b`: Scroll up one page.
-
-<br />
 
 ## Editing Text
 
@@ -91,15 +83,11 @@ Vim operates in different modes, each with specific functions:
 - `u`: Undo the last action.
 - `Ctrl + r`: Redo the last undone action.
 
-<br />
-
 ## Visual Mode
 
 - `v`: Select text character by character.
 - `V`: Select entire lines.
 - `Ctrl + v`: Select rectangular blocks of text.
-
-<br />
 
 ## Command-Line Mode
 
@@ -111,8 +99,6 @@ Vim operates in different modes, each with specific functions:
 - `:set nu`: Show line numbers.
 - `:set nonu`: Hide line numbers.
 
-<br />
-
 ## Advanced Features
 
 - **Search**: `/` followed by the search term. Press `n` for next occurrence.
@@ -120,21 +106,15 @@ Vim operates in different modes, each with specific functions:
 - **Buffers**: `:ls` to list open buffers, `:b [number]` to switch buffer.
 - **Tabs**: `:tabnew [file]` to open a file in a new tab, `gt` to switch tabs.
 
-<br />
-
 ## Customization
 
 - **.vimrc**: Customize settings and mappings in Vim configuration file.
-
-<br />
 
 ## Resources for Further Learning
 
 - **Vimtutor**: Run `vimtutor` in the terminal for built-in Vim tutorial.
 - **Online Guides and Tutorials**: Explore various online resources for
   comprehensive Vim guides.
-
-<br />
 
 ## Conclusion
 

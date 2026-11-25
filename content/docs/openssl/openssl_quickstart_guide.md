@@ -28,25 +28,19 @@ keywords:
   - self-signed certificates
   - openssl configuration
 
-weight: 8902
+weight: 9902
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="warning" %}}
 The certificates are meant for a homelab and for testing. Do not use them in
 production. {{% /alert %}}
 
-<br />
-
 ## Requirements
 
 A Linux system with Bash, Git, and OpenSSL.
-
-<br />
 
 ## Quick Install
 
@@ -57,8 +51,6 @@ git clone https://github.com/homelab-alpha/openssl.git ~/openssl && cd ~/openssl
 ```
 
 If you've used the quick install method, you can skip to [get started].
-
-<br />
 
 ## Normal Install
 
@@ -89,8 +81,6 @@ If you prefer to manually install, follow these steps:
    cd && exec bash
    ```
 
-<br />
-
 ## Get Started
 
 ### 1. Set Up OpenSSL Directories and Config Files
@@ -101,8 +91,6 @@ files:
 ```bash
 new-tls-directory-setup
 ```
-
-<br />
 
 ### Upgrading from the `ssl` Directory
 
@@ -128,8 +116,6 @@ an error to prevent a second, empty directory. See the
 [migration section of the README](https://github.com/homelab-alpha/openssl#migrating-from-ssl-to-tls)
 for details.
 
-<br />
-
 ### Upgrading from an Older Version
 
 After you update the repository, an existing `~/tls` keeps working with its old
@@ -148,8 +134,6 @@ See the
 [upgrade section of the README](https://github.com/homelab-alpha/openssl#upgrading-from-an-older-version)
 for all changes in behavior.
 
-<br />
-
 ### 2. Trusted Authority
 
 Generate a self-signed certificate to serve as a trusted authority:
@@ -161,8 +145,6 @@ new-trusted-id
 The script asks for a passphrase and encrypts the private key with it. Keep the
 passphrase: without it the key cannot sign a new root certificate authority.
 
-<br />
-
 ### 3. Root Certificate Authority
 
 Generate a root certificate authority, signed by your trusted authority:
@@ -173,8 +155,6 @@ new-root-ca
 
 This script also asks for a new passphrase for its own key, and for the
 passphrase of the trusted authority, because that key signs the certificate.
-
-<br />
 
 ### 4. Intermediate Certificate Authority
 
@@ -189,8 +169,6 @@ The script asks for the passphrase of the root certificate authority. The key of
 the intermediate certificate authority itself is not encrypted, because the
 certificate scripts and the renewal use it at every run. See [Passphrases of the
 Authority Keys] for the options.
-
-<br />
 
 ### 5. Certificate
 
@@ -210,8 +188,6 @@ Check the chain of trust of the whole chain, including the new certificate:
 openssl-verify localhost
 ```
 
-<br />
-
 ## Passphrases of the Authority Keys
 
 `new-trusted-id` and `new-root-ca` encrypt the private key with a passphrase
@@ -222,8 +198,6 @@ to create a key that is not encrypted.
 Use `new-ca --passphrase` to encrypt the key of the intermediate certificate
 authority too. The scripts then ask for the passphrase, or read it from
 `TLS_CA_PASSPHRASE`. A renewal that runs unattended needs that variable.
-
-<br />
 
 ## Name Constraints (Optional)
 
@@ -246,8 +220,6 @@ new-ca      --name-constraints "DNS:example.test, DNS:localhost, IP:192.168.0.0/
 - The list is part of the certificate of the authority. To change it, create the
   authority again.
 
-<br />
-
 ## Replace an Authority
 
 An existing authority is never changed by accident. To create one again, for
@@ -268,11 +240,7 @@ again: after a new root certificate authority run `new-ca --replace`, and after
 a new intermediate certificate authority run
 `openssl-renew --all --within 400 --yes`.
 
-<br />
-
 ## Unique Subject in OpenSSL
-
-<br />
 
 {{% alert context="primary" %}}
 **Important:** `new-tls-directory-setup` sets `unique_subject = yes`. OpenSSL
@@ -304,8 +272,6 @@ To go back to the default, run:
 echo "unique_subject = yes" > $HOME/tls/db/index.txt.attr
 ```
 
-<br />
-
 ### What Happens With Each Setting?
 
 With `unique_subject = yes` (the default):
@@ -323,8 +289,6 @@ With `unique_subject = no`:
 
 Proceed to the next chapter: **[Create Your Own Certificate]**.
 
-<br />
-
 ## Create Your Own Certificate
 
 ### 1. Certificate for Server Application
@@ -341,8 +305,6 @@ For RSA:
 ```bash
 new-cert-rsa-server
 ```
-
-<br />
 
 ### 2. Certificate for Client Application
 
@@ -397,8 +359,6 @@ A wildcard certificate holds `*.example.test` and `example.test` itself. It does
 not hold `www.<fqdn>`, because the wildcard already covers `www.example.test`. A
 wildcard covers one label only, so `a.b.example.test` is not covered.
 
-<br />
-
 ## Verify Certificates
 
 Check a certificate against its chain of trust. Use the filename without `.pem`
@@ -411,8 +371,6 @@ openssl-verify example.test
 ```
 
 See [verify_tls_certificates] for the options.
-
-<br />
 
 ## Check the Expiry
 
@@ -429,8 +387,6 @@ days ahead. The exit code is `0` when everything is valid longer than its
 threshold, so you can use the script in cron or in a systemd timer. See
 [tls_certificate_status] for all exit codes.
 
-<br />
-
 ## Renew Certificates
 
 Renew server and client certificates before they expire. The script archives the
@@ -444,8 +400,6 @@ openssl-renew --all --within 30 --yes
 
 The authorities (trusted identity, root, and intermediate) are not renewed. See
 [renew_tls_certificates] for the options, the hooks, and a schedule.
-
-<br />
 
 ## Revoke Certificates
 

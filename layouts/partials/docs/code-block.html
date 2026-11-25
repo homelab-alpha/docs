@@ -1,0 +1,32 @@
+{{- /*
+  A highlighted code block with a header: the language (or a title) and a copy
+  button (assets/docs/js/code-copy.js). Hugo (Chroma) highlights the code at
+  build time, in the GitHub colors (assets/docs/scss/custom/plugins/chroma/).
+  The code can get keyboard focus, so a wide block scrolls with the arrow keys
+  (WCAG 2.1.1). Used by the code block render hook and the prism shortcode.
+
+  Context: dict
+    code     the code
+    lang     the language as written (bash, yaml, cnf, ...)
+    options  Chroma options (linenos, linenostart, hl_lines, anchorlinenos)
+    title    optional title for the header, in place of the language
+*/ -}}
+{{- $type := lower (.lang | default "text") -}}
+{{- /* Languages that Chroma does not know get a close one. */ -}}
+{{- $aliases := dict "cnf" "ini" "env" "bash" "terraform" "hcl" "pem" "text" "adblock" "text" "treeview" "text" "none" "text" "plaintext" "text" "log" "text" "git" "text" "yml" "yaml" -}}
+{{- $lexer := index $aliases $type | default $type -}}
+{{- $label := partial "docs/code-label.html" . -}}
+{{- $options := merge (.options | default dict) (dict "noClasses" false) -}}
+<figure class="code-block">
+    <figcaption class="code-block-header">
+        <span class="code-block-label">{{ $label }}</span>
+        <button class="code-copy" type="button" aria-label="{{ i18n "copy_code" | default "Copy code" }}" data-copied="{{ i18n "copied" | default "Copied" }}" data-failed="{{ i18n "copy_failed" | default "Copy failed" }}">
+            {{- partial "svg-icon.html" (dict "name" "content_copy" "tag" "span" "class" "code-copy-icon") -}}
+            {{- partial "svg-icon.html" (dict "name" "check" "tag" "span" "class" "code-copied-icon") -}}
+            <span class="code-copy-status" role="status" aria-live="polite"></span>
+        </button>
+    </figcaption>
+    <div class="code-block-body" tabindex="0" role="region" aria-label="{{ $label }} {{ i18n "code" | default "code" }}">
+        {{ transform.Highlight .code $lexer $options }}
+    </div>
+</figure>

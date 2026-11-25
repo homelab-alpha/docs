@@ -6,7 +6,7 @@
 {{- if eq .Type "alert" -}}
   {{- $title := or .AlertTitle (title (lower .AlertType)) -}}
   <blockquote class="markdown-alert markdown-alert-{{ lower .AlertType }}">
-    <p><strong>{{ $title }}</strong></p>
+    <p class="markdown-alert-title"><strong>{{ $title }}</strong></p>
     {{ .Text }}
   </blockquote>
 {{- else -}}

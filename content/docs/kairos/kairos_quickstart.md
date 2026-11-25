@@ -26,13 +26,11 @@ keywords:
   - custom:kairos-card
 
 draft: false
-weight: 6502
+weight: 7003
 
 toc: true
 katex: true
 ---
-
-<br />
 
 ## Requirements
 
@@ -196,8 +194,6 @@ the card will move there when it is ready.
 2. Add a dashboard resource `/local/kairos_card.js` of the type **JavaScript
    module**.
 3. Reload the browser.
-
-<br />
 
 ## First Card
 

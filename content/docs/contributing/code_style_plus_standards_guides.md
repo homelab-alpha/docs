@@ -40,13 +40,11 @@ keywords:
   - development conventions
   - software engineering practices
 
-weight: 3003
+weight: 3002
 
 toc: true
 katex: true
 ---
-
-<br />
 
 ## Introduction
 

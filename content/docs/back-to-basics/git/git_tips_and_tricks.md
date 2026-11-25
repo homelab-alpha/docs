@@ -29,19 +29,15 @@ keywords:
   - Git commands
   - Advanced Git techniques
 
-weight: 2400
+weight: 2404
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 ## Enhancing Your Version Control Workflow
 
@@ -61,8 +57,6 @@ with your team, or troubleshoot issues effectively, this guide has something for
 everyone. Let's dive in and discover how to leverage Git to its fullest
 potential!
 
-<br />
-
 ## Amending the Last Commit
 
 You can amend the last commit with new changes:
@@ -70,8 +64,6 @@ You can amend the last commit with new changes:
 ```bash
 git commit --amend
 ```
-
-<br />
 
 ## Stashing Changes
 
@@ -81,8 +73,6 @@ Stash changes to temporarily store them:
 git stash
 ```
 
-<br />
-
 ## Cherry-picking Commits
 
 Apply a specific commit from one branch to another:
@@ -90,8 +80,6 @@ Apply a specific commit from one branch to another:
 ```bash
 git cherry-pick <commit-hash>
 ```
-
-<br />
 
 ## Interactive Rebasing
 
@@ -101,8 +89,6 @@ Rewrite commit history interactively:
 git rebase -i HEAD~3  # Rebase last 3 commits
 ```
 
-<br />
-
 ## Viewing Diffs
 
 View the differences between two commits:
@@ -111,8 +97,6 @@ View the differences between two commits:
 git diff <commit1> <commit2>
 ```
 
-<br />
-
 ## Creating Aliases
 
 Create shortcuts for Git commands:
@@ -120,8 +104,6 @@ Create shortcuts for Git commands:
 ```bash
 git config --global alias.sw switch
 ```
-
-<br />
 
 ## Git Bisect
 
@@ -133,8 +115,6 @@ git bisect bad            # Current commit is bad
 git bisect good <commit>  # Known good commit
 ```
 
-<br />
-
 ## Squashing Commits
 
 Combine multiple commits into one:
@@ -142,8 +122,6 @@ Combine multiple commits into one:
 ```bash
 git rebase -i HEAD~3  # Squash last 3 commits
 ```
-
-<br />
 
 ## Git Hooks
 
@@ -154,8 +132,6 @@ Automate tasks by using Git hooks:
 touch .git/hooks/pre-commit
 ```
 
-<br />
-
 ## Git Worktrees
 
 Work on multiple branches simultaneously:
@@ -164,8 +140,6 @@ Work on multiple branches simultaneously:
 git worktree add <path> <branch>
 ```
 
-<br />
-
 ## Git Submodules
 
 Include other Git repositories within your own:
@@ -173,8 +147,6 @@ Include other Git repositories within your own:
 ```bash
 git submodule add <repository-url>
 ```
-
-<br />
 
 ## Reflog
 
@@ -185,8 +157,6 @@ git reflog
 git switch --detach HEAD@{1}  # Inspect a commit from the reflog
 ```
 
-<br />
-
 ## Gitignore Patterns
 
 Exclude files from version control:
@@ -195,8 +165,6 @@ Exclude files from version control:
 # Add a pattern to .gitignore
 echo '*.log' >> .gitignore
 ```
-
-<br />
 
 ## Git Bisect with Script
 

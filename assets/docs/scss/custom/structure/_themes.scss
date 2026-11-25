@@ -1,0 +1,243 @@
+// Theme variants of GitHub (Primer), on top of the default tokens in
+// _tokens.scss: the variants of light and dark that a visitor can choose in the
+// theme menu (layouts/partials/mode-switch.html), each also with increased
+// contrast. The values come from @primer/primitives 11.10.0
+// (dist/css/functional/themes); only the tokens that differ from the default
+// are set. The hover colors of the accent are not in Primer: they are the accent
+// 20 % darker (light) or 30 % lighter (dark).
+//
+// A variant applies only in its own mode, so the choice for the other mode
+// never leaks: html[data-theme] holds the variant of the mode that is shown.
+
+// Light high contrast
+html[data-theme="light_high_contrast"]:not([data-dark-mode]) {
+  --color-canvas-subtle: #e6eaef;
+  --color-canvas-inset: #eff2f5;
+  --color-fg-default: #010409;
+  --color-fg-muted: #454c54;
+  --color-border-default: #454c54;
+  --color-border-muted: #454c54;
+  --color-neutral-muted: #e0e6eb;
+  --color-accent-fg: #023b95;
+  --color-accent-emphasis: #0349b4;
+  --color-accent-subtle: #dff7ff;
+  --color-accent-muted: #368cf9;
+  --color-success-fg: #04591f;
+  --color-success-emphasis: #055d20;
+  --color-attention-fg: #603700;
+  --color-severe-fg: #702c00;
+  --color-danger-fg: #960d1e;
+  --color-done-fg: #5e2bb4;
+  --color-header-bg: rgba(230, 234, 239, 0.85);
+  --color-canvas-overlay: #ffffff;
+  --color-accent-hover: #022f77;
+  --primary-hsl: 217, 97%, 30%;
+  --bs-link-color-rgb: 2, 59, 149;
+  --bs-link-hover-color-rgb: 2, 47, 119;
+}
+
+// Light colorblind
+html[data-theme="light_colorblind"]:not([data-dark-mode]) {
+  --color-success-fg: #0969da;
+  --color-success-emphasis: #0969da;
+  --color-danger-fg: #bc4c00;
+}
+
+// Light colorblind high contrast
+html[data-theme="light_colorblind_high_contrast"]:not([data-dark-mode]) {
+  --color-canvas-subtle: #e6eaef;
+  --color-canvas-inset: #eff2f5;
+  --color-fg-default: #010409;
+  --color-fg-muted: #393f46;
+  --color-border-default: #454c54;
+  --color-border-muted: #454c54;
+  --color-neutral-muted: #e0e6eb;
+  --color-accent-fg: #023b95;
+  --color-accent-emphasis: #0349b4;
+  --color-accent-subtle: #dff7ff;
+  --color-accent-muted: #368cf9;
+  --color-success-fg: #023b95;
+  --color-success-emphasis: #0349b4;
+  --color-attention-fg: #603700;
+  --color-severe-fg: #702c00;
+  --color-danger-fg: #702c00;
+  --color-done-fg: #512598;
+  --color-header-bg: rgba(230, 234, 239, 0.85);
+  --color-canvas-overlay: #ffffff;
+  --color-accent-hover: #022f77;
+  --primary-hsl: 217, 97%, 30%;
+  --bs-link-color-rgb: 2, 59, 149;
+  --bs-link-hover-color-rgb: 2, 47, 119;
+}
+
+// Light tritanopia
+html[data-theme="light_tritanopia"]:not([data-dark-mode]) {
+  --color-success-fg: #0969da;
+  --color-success-emphasis: #0969da;
+  --color-severe-fg: #cf222e;
+}
+
+// Light tritanopia high contrast
+html[data-theme="light_tritanopia_high_contrast"]:not([data-dark-mode]) {
+  --color-canvas-subtle: #e6eaef;
+  --color-canvas-inset: #eff2f5;
+  --color-fg-default: #010409;
+  --color-fg-muted: #393f46;
+  --color-border-default: #454c54;
+  --color-border-muted: #454c54;
+  --color-neutral-muted: #e0e6eb;
+  --color-accent-fg: #023b95;
+  --color-accent-emphasis: #0349b4;
+  --color-accent-subtle: #dff7ff;
+  --color-accent-muted: #368cf9;
+  --color-success-fg: #023b95;
+  --color-success-emphasis: #0349b4;
+  --color-attention-fg: #603700;
+  --color-severe-fg: #86061d;
+  --color-danger-fg: #86061d;
+  --color-done-fg: #512598;
+  --color-header-bg: rgba(230, 234, 239, 0.85);
+  --color-canvas-overlay: #ffffff;
+  --color-accent-hover: #022f77;
+  --primary-hsl: 217, 97%, 30%;
+  --bs-link-color-rgb: 2, 59, 149;
+  --bs-link-hover-color-rgb: 2, 47, 119;
+}
+
+// Dark high contrast
+html[data-theme="dark_high_contrast"][data-dark-mode] {
+  --color-canvas-default: #010409;
+  --color-fg-default: #ffffff;
+  --color-fg-muted: #b7bdc8;
+  --color-border-default: #b7bdc8;
+  --color-border-muted: #b7bdc8;
+  --color-neutral-muted: #212830;
+  --color-accent-fg: #74b9ff;
+  --color-accent-emphasis: #194fb1;
+  --color-accent-subtle: rgba(92, 172, 255, 0.1);
+  --color-accent-muted: #5cacff;
+  --color-success-fg: #2bd853;
+  --color-success-emphasis: #006222;
+  --color-attention-fg: #f0b72f;
+  --color-severe-fg: #fe9a2d;
+  --color-danger-fg: #ff9492;
+  --color-done-fg: #d3abff;
+  --color-accent-hover: #9eceff;
+  --primary-hsl: 210, 100%, 73%;
+  --bs-link-color-rgb: 116, 185, 255;
+  --bs-link-hover-color-rgb: 158, 206, 255;
+}
+
+// Dark dimmed
+html[data-theme="dark_dimmed"][data-dark-mode] {
+  --color-canvas-default: #212830;
+  --color-canvas-subtle: #262c36;
+  --color-canvas-inset: #151b23;
+  --color-fg-default: #d1d7e0;
+  --color-fg-on-emphasis: #f0f6fc;
+  --color-accent-fg: #478be6;
+  --color-accent-emphasis: #316dca;
+  --color-accent-subtle: rgba(65, 132, 228, 0.1);
+  --color-accent-muted: rgba(65, 132, 228, 0.4);
+  --color-success-fg: #57ab5a;
+  --color-success-emphasis: #347d39;
+  --color-attention-fg: #c69026;
+  --color-severe-fg: #cc6b2c;
+  --color-danger-fg: #e5534b;
+  --color-done-fg: #986ee2;
+  --color-header-bg: rgba(21, 27, 35, 0.85);
+  --color-canvas-overlay: #262c36;
+  --color-accent-hover: #7eaeee;
+  --primary-hsl: 214, 76%, 59%;
+  --bs-link-color-rgb: 71, 139, 230;
+  --bs-link-hover-color-rgb: 126, 174, 238;
+}
+
+// Dark dimmed high contrast
+html[data-theme="dark_dimmed_high_contrast"][data-dark-mode] {
+  --color-canvas-default: #212830;
+  --color-canvas-subtle: #262c36;
+  --color-canvas-inset: #151b23;
+  --color-fg-muted: #b7bdc8;
+  --color-border-default: #b7bdc8;
+  --color-border-muted: #b7bdc8;
+  --color-accent-fg: #96d0ff;
+  --color-accent-emphasis: #1b4b91;
+  --color-accent-subtle: rgba(65, 132, 228, 0.1);
+  --color-accent-muted: #6cb6ff;
+  --color-success-fg: #b4f1b4;
+  --color-success-emphasis: #245829;
+  --color-attention-fg: #eac55f;
+  --color-severe-fg: #ffbc6f;
+  --color-danger-fg: #ffb8b0;
+  --color-done-fg: #dcbdfb;
+  --color-header-bg: rgba(21, 27, 35, 0.85);
+  --color-canvas-overlay: #262c36;
+  --color-accent-hover: #b6deff;
+  --primary-hsl: 207, 100%, 79%;
+  --bs-link-color-rgb: 150, 208, 255;
+  --bs-link-hover-color-rgb: 182, 222, 255;
+}
+
+// Dark colorblind
+html[data-theme="dark_colorblind"][data-dark-mode] {
+  --color-success-fg: #58a6ff;
+  --color-success-emphasis: #1f6feb;
+  --color-danger-fg: #f0883e;
+  --color-done-fg: #b7bdc8;
+}
+
+// Dark colorblind high contrast
+html[data-theme="dark_colorblind_high_contrast"][data-dark-mode] {
+  --color-canvas-default: #010409;
+  --color-fg-default: #ffffff;
+  --color-fg-muted: #b7bdc8;
+  --color-border-default: #b7bdc8;
+  --color-border-muted: #b7bdc8;
+  --color-neutral-muted: #212830;
+  --color-accent-fg: #74b9ff;
+  --color-accent-emphasis: #194fb1;
+  --color-accent-subtle: rgba(92, 172, 255, 0.1);
+  --color-accent-muted: #5cacff;
+  --color-success-fg: #addcff;
+  --color-success-emphasis: #194fb1;
+  --color-attention-fg: #f0b72f;
+  --color-severe-fg: #fe9a2d;
+  --color-danger-fg: #ffb757;
+  --color-done-fg: #d3abff;
+  --color-accent-hover: #9eceff;
+  --primary-hsl: 210, 100%, 73%;
+  --bs-link-color-rgb: 116, 185, 255;
+  --bs-link-hover-color-rgb: 158, 206, 255;
+}
+
+// Dark tritanopia
+html[data-theme="dark_tritanopia"][data-dark-mode] {
+  --color-success-fg: #58a6ff;
+  --color-success-emphasis: #1f6feb;
+  --color-severe-fg: #f85149;
+}
+
+// Dark tritanopia high contrast
+html[data-theme="dark_tritanopia_high_contrast"][data-dark-mode] {
+  --color-canvas-default: #010409;
+  --color-fg-default: #ffffff;
+  --color-fg-muted: #b7bdc8;
+  --color-border-default: #b7bdc8;
+  --color-border-muted: #b7bdc8;
+  --color-neutral-muted: #212830;
+  --color-accent-fg: #74b9ff;
+  --color-accent-emphasis: #194fb1;
+  --color-accent-subtle: rgba(92, 172, 255, 0.1);
+  --color-accent-muted: #5cacff;
+  --color-success-fg: #91cbff;
+  --color-success-emphasis: #194fb1;
+  --color-attention-fg: #f0b72f;
+  --color-severe-fg: #ff9492;
+  --color-danger-fg: #ff9492;
+  --color-done-fg: #d3abff;
+  --color-accent-hover: #9eceff;
+  --primary-hsl: 210, 100%, 73%;
+  --bs-link-color-rgb: 116, 185, 255;
+  --bs-link-hover-color-rgb: 158, 206, 255;
+}

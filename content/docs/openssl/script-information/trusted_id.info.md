@@ -28,19 +28,15 @@ keywords:
   - certificate creation
   - format conversion
 
-weight: 8103
+weight: 9116
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down the script `trusted_id.sh`. This script generates the trusted
 identity: the self-signed certificate at the top of the chain. It generates an
@@ -58,8 +54,6 @@ archive first.
 - **Description**: This script generates the trusted identity: the self-signed
   certificate at the top of the chain.
 - **RAW Script**: [trusted_id.sh]
-
-<br />
 
 ## Usage
 
@@ -92,14 +86,10 @@ the environment variable `TLS_TRUSTED_ID_PASSPHRASE`.
   CA, and new certificates.
 - The old files are copied to `$HOME/tls/archive/_ca/trusted_id/` first.
 
-<br />
-
 ## Detailed Explanation
 
 The sections below follow the script from top to bottom. Functions that are not
 defined here, such as `print_error`, come from `scripts/lib/common.sh`.
-
-<br />
 
 ### Stop script on error
 
@@ -107,8 +97,6 @@ defined here, such as `print_error`, come from `scripts/lib/common.sh`.
 # Stop script on error
 set -Eeuo pipefail
 ```
-
-<br />
 
 ### Load the shared functions
 
@@ -119,8 +107,6 @@ The shared functions, such as the messages and the checks, are in
 # shellcheck source=scripts/lib/common.sh
 source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/../lib/common.sh"
 ```
-
-<br />
 
 ### Function: remove the temporary folder
 
@@ -143,8 +129,6 @@ assume_yes=false
 name_constraints_list=""
 key_passphrase=""
 ```
-
-<br />
 
 ### Parse the options
 
@@ -190,8 +174,6 @@ while [[ $# -gt 0 ]]; do
 done
 ```
 
-<br />
-
 ### Validate the permitted names and build the value of the extension
 
 ```bash
@@ -208,8 +190,6 @@ fi
 require_openssl 2
 ```
 
-<br />
-
 ### Define directory paths
 
 ```bash
@@ -225,8 +205,6 @@ cert_file="$certs_root_dir/trusted_id.pem"
 enter_home 2
 ```
 
-<br />
-
 ### Check that everything needed is present, before anything changes
 
 ```bash
@@ -236,8 +214,6 @@ if [[ ! -f "$config_file" || ! -d "$certs_root_dir" || ! -d "$private_root_dir" 
   exit 2
 fi
 ```
-
-<br />
 
 ### An existing trusted identity is only replaced with `--replace`
 
@@ -260,8 +236,6 @@ if [[ -f "$cert_file" ]]; then
 fi
 ```
 
-<br />
-
 ### Ask for the passphrase of the new key
 
 ```bash
@@ -276,8 +250,6 @@ else
   print_warning "The private key of the trusted identity is not encrypted."
 fi
 ```
-
-<br />
 
 ### Work in a temporary folder that only the owner can read
 
@@ -294,8 +266,6 @@ new_key="$work_dir/key.pem"
 new_cert="$work_dir/cert.pem"
 ```
 
-<br />
-
 ### Generate ECDSA key
 
 ```bash
@@ -305,8 +275,6 @@ print_section_header "Generate ECDSA key"
   -pkeyopt ec_paramgen_curve:P-384 -pkeyopt ec_param_enc:named_curve \
   ${key_options[@]+"${key_options[@]}"} -out "$new_key")
 ```
-
-<br />
 
 ### Generate the self-signed certificate
 
@@ -333,8 +301,6 @@ TLS_KEY_PASSPHRASE="$key_passphrase" openssl req -new -x509 -sha384 -config "$si
   -key "$new_key" ${pass_options[@]+"${pass_options[@]}"} -days 10956 -out "$new_cert"
 ```
 
-<br />
-
 ### Perform certificate verifications
 
 ```bash
@@ -342,8 +308,6 @@ TLS_KEY_PASSPHRASE="$key_passphrase" openssl req -new -x509 -sha384 -config "$si
 print_section_header "Verify Certificate"
 openssl verify -CAfile "$new_cert" "$new_cert"
 ```
-
-<br />
 
 ### Check Private Key
 
@@ -359,8 +323,6 @@ fi
 echo "The certificate matches the private key."
 ```
 
-<br />
-
 ### Check Certificate
 
 ```bash
@@ -368,8 +330,6 @@ echo "The certificate matches the private key."
 print_section_header "Check Certificate"
 openssl x509 -in "$new_cert" -text -noout
 ```
-
-<br />
 
 ### Put the files in place, after a copy of the existing files
 
@@ -391,8 +351,6 @@ echo
 print_cyan "--> trusted_id.pem and trusted_id.crt"
 ```
 
-<br />
-
 ### Script completion message
 
 ```bash
@@ -402,8 +360,6 @@ print_cyan "Trusted ID Certificate Authority process successfully completed."
 
 exit 0
 ```
-
-<br />
 
 ## Conclusion
 

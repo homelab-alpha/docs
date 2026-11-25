@@ -36,19 +36,15 @@ keywords:
   - Network Speed Test
   - Infrastructure Monitoring
 
-weight: 4100
+weight: 4116
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down the `compose.yml` file for OpenSpeedTest, which sets up a
 Docker environment for running a network speed test server.
@@ -65,8 +61,6 @@ Here's a detailed explanation:
   OpenSpeedTest service, including detailed network settings and service
   configurations for reliable and secure operation.
 - **RAW Compose File**: [compose.yml]
-
-<br />
 
 ## Networks Configuration
 
@@ -98,8 +92,6 @@ networks:
       com.openspeedtest.network.description: "is an isolated bridge network."
 ```
 
-<br />
-
 - **networks**: This section defines a custom network named `openspeedtest_net`.
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
@@ -130,8 +122,6 @@ networks:
 - **labels**: Metadata for the network.
   - **com.openspeedtest.network.description**: A description label for the
     network.
-
-<br />
 
 ## Services Configuration
 
@@ -185,8 +175,6 @@ services:
       disable: true
 ```
 
-<br />
-
 - **services**: Defines services to be deployed.
 - **openspeedtest_app**: The service name for the OpenSpeedTest container.
   - **deploy.resources.limits.pids: 512**: Limits the number of processes and
@@ -235,8 +223,6 @@ services:
   - **healthcheck**: Healthcheck configuration.
     - **disable: true**: Disables health checks for the container.
 
-<br />
-
 ## Quick Start
 
 {{% alert context="info" %}}
@@ -255,8 +241,6 @@ Requires Docker Compose 2.24.0 or later.
    docker compose up -d
    ```
 
-<br />
-
 ## Default Web Access
 
 Access the OpenSpeedTest web interface using the following URL:
@@ -273,15 +257,11 @@ http://your-ip-address:3009
 https://your-ip-address:3010
 ```
 
-<br />
-
 ## Default Login Credentials
 
 **Username**: No username is required.
 
 **Password**: No password is required.
-
-<br />
 
 ## Conclusion
 

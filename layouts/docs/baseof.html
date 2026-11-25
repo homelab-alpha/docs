@@ -1,26 +1,13 @@
 <!DOCTYPE html>
-{{ $.Scratch.Delete "social_list" }}
 {{ $.Scratch.Set "pathName" (printf "%s" (.Site.Params.docs.pathName | default "docs")) }}
-<!-- social_list -->
-{{ $social_params := slice "github" "twitter" "instagram" "rss" }}
-{{ range $social_params }}
-    {{ if isset site.Params.social . }}
-        {{ $.Scratch.Add "social_list" (slice .) }}
-    {{ end }}
-{{ end }}
 <html lang="{{ .Site.Language.Lang }}" dir="{{ .Site.Language.Direction | default " ltr" }}">
     {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "head.html") . -}}
     <body>
+        {{ partial "skip-link.html" . }}
         <div class="content">
             <div class="page-wrapper toggled">
-                <!-- Keep the sidebar collapsed on desktop when the visitor collapsed it (see js/app.js) -->
-                <script>
-                    try {
-                        if (localStorage.getItem("sidebar-state") === "collapsed" && window.matchMedia("(min-width: 1025px)").matches) {
-                            document.querySelector(".page-wrapper").classList.remove("toggled");
-                        }
-                    } catch (e) {}
-                </script>
+                <!-- Keep the sidebar collapsed on desktop when the visitor collapsed it (inline; its hash is in the CSP) -->
+                <script>{{ (partial (printf "%s/%s" ($.Scratch.Get "pathName") "inline-script.html") "sidebar-state").Content | safeJS }}</script>
                 {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "sidebar.html") . -}}
                     <!-- Start Page Content -->
                     <main class="page-content bg-transparent">
@@ -29,7 +16,8 @@
                         {{ else }}
                             {{- partialCached (printf "%s/%s" ($.Scratch.Get "pathName") "top-header.html") . -}}
                         {{ end }}
-                            <div class="container-fluid">
+                            <!-- The target of the skip link (partials/skip-link.html): the page, past the toolbar. -->
+                            <div id="main" tabindex="-1" class="container-fluid">
                                 <div class="layout-spacing">
                                     {{ $currentPage := . -}}
                                     {{ if site.Params.docs.breadcrumbs | default true }}
@@ -43,14 +31,6 @@
                                             {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "toc.html") . -}}
                                         </div>
                                         {{ end }}
-                                        {{ if site.Params.docs.tocMobile | default true }}
-                                        <div class="docs-toc-mobile {{ if .IsBranch }}visually-hidden{{ else }}{{end}} {{ if and (ne .Params.toc false) (ne .TableOfContents "<nav id=\"TableOfContents\"></nav>") }}{{ else }}visually-hidden{{ end }} {{ if site.Params.docs.tocMobile | default true }}{{ else }}visually-hidden{{ end }} d-print-none d-xl-none">
-                                            <button id="toc-dropdown-btn" class="btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-offset="0,0" aria-expanded="false">
-                                                Table of Contents
-                                            </button>
-                                            {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "toc-mobile.html") . -}}
-                                        </div>
-                                        {{ end -}}
                                         <div class="docs-content col-12 {{ if .IsBranch }}{{ else }}{{ if site.Params.docs.toc | default true }}{{ if and (ne .Params.toc false) (ne .TableOfContents "<nav id=\"TableOfContents\"></nav>") }}col-xl-9{{else}}{{end}}{{ else }}{{ end }}{{ end }} mt-0">
                                             <div class="mb-0 d-flex">
                                                 {{ if site.Params.docs.titleIcon | default false }}
@@ -66,7 +46,7 @@
                                             {{ if site.Params.docs.descriptions | default false }}
                                                 <p class="lead mb-3">{{ $currentPage.Description | markdownify }}</p>
                                             {{ end }}
-                                            <div id="content" class="main-content" {{ if eq .Site.Params.docs.toc true -}}data-bs-spy="scroll" data-bs-root-margin="0px 0px -65%" data-bs-target="#toc-mobile"{{ end }}>
+                                            <div id="content" class="main-content">
                                                 {{ block "main" . }}{{ end }}
                                             </div>
                                             <div>
@@ -77,22 +57,22 @@
                                 </div>
                             </div>
                             {{- partialCached (printf "%s/%s" ($.Scratch.Get "pathName") "footer.html") . -}}
-
+                            {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "mobile-bar.html") . -}}
                     </main>
             </div>
         </div>
 
         {{ if site.Params.docs.backToTop | default true }}
         <!-- Back to top -->
-        <button onclick="topFunction()" id="back-to-top" aria-label="Back to Top Button" class="back-to-top fs-5"><svg width="24" height="24"><path d="M12,10.224l-6.3,6.3L4.32,15.152,12,7.472l7.68,7.68L18.3,16.528Z" style="fill:#fff"/></svg></button>
+        <button type="button" id="back-to-top" aria-label="Back to Top Button" class="back-to-top fs-5"><svg width="24" height="24"><path d="M12,10.224l-6.3,6.3L4.32,15.152,12,7.472l7.68,7.68L18.3,16.528Z" style="fill:#fff"/></svg></button>
         <!-- Back to top -->
         {{ end }}
 
         <!-- Dark Mode Switch JS -->
         {{ if eq .Site.Params.docs.darkMode true -}}
-            {{ $darkModeSwitch := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/darkmode-switch.js") | js.Build | minify }}
-            <script>{{ $darkModeSwitch.Content | safeJS }}</script>
+            {{ partial "docs/script.html" (dict "res" (resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/darkmode-switch.js") | js.Build)) }}
         {{ end -}}
+        {{ partial "docs/script.html" (dict "res" (resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/toolbar-menus.js") | js.Build)) }}
 
         <!-- FlexSearch Config -->
         {{ if or (not (isset .Site.Params.flexsearch "enabled")) (eq .Site.Params.flexsearch.enabled true) -}}

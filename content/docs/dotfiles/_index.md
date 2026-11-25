@@ -5,6 +5,7 @@ description:
   personalize your experience with dotfiles."
 url: "dotfiles"
 icon: "home_storage"
+color: "teal"
 
 weight: 5000
 ---

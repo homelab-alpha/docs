@@ -34,19 +34,15 @@ keywords:
   - Docker network configuration
   - MongoDB init script
 
-weight: 4100
+weight: 4124
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this `compose.yml` file does in detail. This file is used
 to deploy the UniFi Network Application (formerly the UniFi Controller), a
@@ -67,8 +63,6 @@ Here's a detailed explanation:
 - **RAW Compose File**: [compose.yml]
 - **RAW Environment File**: [stack.env]
 - **RAW MongoDB Init Script**: [init-mongo.sh]
-
-<br />
 
 ## Networks Configuration
 
@@ -101,8 +95,6 @@ networks:
         "is an isolated bridge network."
 ```
 
-<br />
-
 - **networks**: Defines a custom network named `unifi-network-application_net`.
 - **attachable: false**: Other containers can't attach to this network.
 - **internal: false**: The network is accessible externally.
@@ -129,8 +121,6 @@ networks:
 - **labels**: Metadata for the network.
   - **com.unifi-network-application.network.description**: A description label
     for the network.
-
-<br />
 
 ## Services Configuration
 
@@ -199,8 +189,6 @@ services:
       start_interval: 5s
 ```
 
-<br />
-
 - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
   threads in the container, which protects the host against fork bombs.
 - **restart: unless-stopped**: Restarts the container unless it is explicitly
@@ -247,8 +235,6 @@ services:
   - **retries**: 3.
   - **start_period**: 10 seconds.
   - **start_interval**: 5 seconds.
-
-<br />
 
 ### Application Service (`unifi-network-application_app`)
 
@@ -321,8 +307,6 @@ services:
       disable: true
 ```
 
-<br />
-
 - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
   threads in the container, which protects the host against fork bombs.
 - **restart**, **logging**, **stop_grace_period**, **pull_policy**: Same
@@ -368,15 +352,11 @@ services:
 - **healthcheck: disable: true**: The health check is disabled for this
   container.
 
-<br />
-
 ## Environment Variables
 
 The database credentials are stored in an environment file, outside the compose
 file. Use `.env` for Docker Compose and `stack.env` for Portainer. Both files
 must contain the same values.
-
-<br />
 
 ### Variables in this file
 
@@ -426,8 +406,6 @@ BASICAUTH=false
   the compose file. Replace it with real credentials.
 - **`BASICAUTH`**: Set to `true` to enable basic authentication.
 
-<br />
-
 ## MongoDB Init Script
 
 The `init-mongo.sh` script is mounted into `/docker-entrypoint-initdb.d/` and
@@ -455,15 +433,11 @@ db.createUser({
 EOF
 ```
 
-<br />
-
 - **mongosh or mongo**: Uses `mongosh` when available and falls back to `mongo`.
 - **use ${MONGO_AUTHSOURCE}**: Selects the authentication database.
 - **db.auth(...)**: Authenticates as the root user.
 - **db.createUser(...)**: Creates the application user with the `dbOwner` role
   on the application database and on the `_stat` database.
-
-<br />
 
 ## Quick Start
 
@@ -484,8 +458,6 @@ Requires Docker Compose 2.24.0 or later.
    docker compose up -d
    ```
 
-<br />
-
 ## Default Web Access
 
 Access the UniFi Network Application web interface using the following URL:
@@ -496,8 +468,6 @@ https://your-ip-address:8443
 
 The application uses a self-signed certificate, so your browser shows a warning
 on the first visit.
-
-<br />
 
 ## Default Login Credentials
 
@@ -514,8 +484,6 @@ restores a backup.
 **For security reasons, it is strongly recommended to create a strong username
 and password during the setup.**
 {{% /alert %}}
-
-<br />
 
 ## Conclusion
 

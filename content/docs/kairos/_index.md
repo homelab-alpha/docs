@@ -5,7 +5,8 @@ description:
   the right moment."
 url: "kairos"
 icon: "bolt"
+color: "orange"
 
 draft: false
-weight: 6500
+weight: 7000
 ---

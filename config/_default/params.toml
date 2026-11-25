@@ -1,6 +1,6 @@
-sans_serif_font = "-apple-system, BlinkMacSystemFont, system-ui, Inter, 'Segoe UI', Roboto, sans-serif"
-secondary_font  = "-apple-system, BlinkMacSystemFont, system-ui, Inter, 'Segoe UI', Roboto, sans-serif"
-mono_font       = "'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace"
+sans_serif_font = "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif"
+secondary_font  = "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif"
+mono_font       = "'JetBrains Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace"
 
 [landingpage]
   enabled = false
@@ -13,20 +13,22 @@ mono_font       = "'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, 'L
   website = "https://homelab-alpha.nl"
   version = "v0.1.3"
 
-[footer]
-copyright = "&copy; [Homelab-Alpha](https://homelab-alpha.nl) 2024. Developed by [GJS](https://github.com/homelab-alpha) is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)"
-  version = true
+# Hosts of the remote images in the content. Keep this list in line with
+# [http] urls in security.toml: Hugo may fetch only from these hosts, and the
+# Content Security Policy (layouts/partials/docs/csp.html and the e-reader
+# head) allows them as image sources, for an image that could not be fetched.
+[security]
+  imageHosts = ["https://raw.githubusercontent.com", "https://res.cloudinary.com", "https://skillicons.dev"]
 
-[social]
-  github = "homelab-alpha"
+[footer]
+copyright = "&copy; Homelab-Alpha :YEAR: · Licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)"
+  version = true
 
 [docs]
   title           = "Homelab-Alpha"
   pathName        = "docs"
   themeColor      = "blue"
   darkMode        = true
-  prism           = true
-  prismTheme      = "main"
 
   repoURL         = "https://github.com/homelab-alpha/docs"
   repoBranch      = "main"
@@ -36,7 +38,6 @@ copyright = "&copy; [Homelab-Alpha](https://homelab-alpha.nl) 2024. Developed by
   GitLastmodTime  = true
 
   toc             = true
-  tocMobile       = false
   scrollSpy       = true
 
   sidebarIcons    = true
@@ -53,7 +54,9 @@ copyright = "&copy; [Homelab-Alpha](https://homelab-alpha.nl) 2024. Developed by
 
   intLinkTooltip  = true
   extLinkNewTab   = true
-  logoLinkURL     = "/docs/"
+  # The book icon (sidebar and toolbar) goes to the home page; the home icon
+  # of the breadcrumbs goes to /docs/.
+  logoLinkURL     = "/"
 
 [flexsearch]
   enabled             = true

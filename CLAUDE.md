@@ -22,7 +22,16 @@ npm ci                          # install the dev tooling
 npm run lint                    # Prettier, textlint, conflict markers (all files)
 npm run lint -- origin/main     # the same, for the files changed since main
 npm run lint:fix                # repair formatting and terminology, then lint again
+npm test                        # links, accessibility, Lighthouse on a built site
+npm run test:screenshots -- x   # screenshots to tests/output/screenshots/x/
+npm run test:csp                # inline scripts match the Content Security Policy
+npm run vendor:check            # third-party files match .github/vendored_assets.json
+npm run vendor:update           # fetch the third-party files from npm
 ```
+
+The tests need a built site (`SITE_DIR`, default `public/`) and Chrome or
+Chromium (`CHROMIUM_PATH`); see `tests/README.md`. Only the CSP check and the
+third-party file check also run in CI (Build & Deploy).
 
 The dev tooling needs the Node.js version in `engines` in `package.json`.
 
@@ -61,6 +70,32 @@ the other linters. For one file, `npx prettier --write <file>` uses the same
   EC private key, and the vendored Mermaid bundle) are in
   `.github/linters/.gitleaks.toml`. Add new example credentials there by rule
   and file or by content, not by line number.
+- The design follows the Apple Human Interface Guidelines in GitHub Primer
+  colors. The colors are tokens in
+  `assets/docs/scss/custom/structure/_tokens.scss`, for light and dark; use the
+  tokens, not fixed colors. The plan and its decisions are in
+  `.github/docs/new_site_design_plan.md`.
+- Code is highlighted at build time by Hugo (Chroma) through
+  `layouts/partials/docs/code-block.html`; there is no Prism. The Chroma colors
+  are in `assets/docs/scss/custom/plugins/chroma/_github.scss`.
+- Security: `config/_default/security.toml` allows only the programs, image
+  hosts, and environment variables that the build uses; add an image host there
+  before a page uses it. Every page has a Content Security Policy
+  (`layouts/partials/docs/csp.html`): scripts are files with SRI
+  (`layouts/partials/docs/script.html`), and the few scripts that must run
+  inline come from `layouts/partials/docs/inline-script.html`, which adds their
+  hash. Never add an inline script or an `on...` attribute; the Build & Deploy
+  workflow fails on them (`.github/scripts/check_csp.py`).
+- Third-party JavaScript and the KaTeX fonts come unchanged from npm (except the
+  KaTeX patches listed there) and are listed in `.github/vendored_assets.json`.
+  Do not edit or format them; after Renovate updates a version, run
+  `npm run vendor:update` and commit the files.
+- Markdown attributes and link URLs are written by
+  `layouts/partials/docs/html-attributes.html` (escaped, no event handlers, no
+  `javascript:` URLs). Raw HTML in Markdown is allowed: review it as code.
+- Every page also has an e-reader version under `/ereader/` (templates with
+  `.ereader` in the name). Keep it plain: no scripts, web fonts, or CSS
+  variables.
 - The code style guide is in `.github/docs/`, not in the site content under
   `content/docs/`.
 - Icons are inline SVG, not a font: `assets/icons/material/<name>.svg`, put in a

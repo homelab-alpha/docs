@@ -29,19 +29,15 @@ keywords:
   - Alias management
   - Shell scripting
 
-weight: 8101
+weight: 9115
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down the script `tls_dotfiles_installer.sh`. This script adds the
 aliases of this repository to `~/.bashrc`. It avoids duplication by checking for
@@ -58,8 +54,6 @@ not remove or change any other file.
 - **Description**: This script adds the aliases of this repository to
   `~/.bashrc`.
 - **RAW Script**: [tls_dotfiles_installer.sh]
-
-<br />
 
 ## Usage
 
@@ -80,13 +74,9 @@ Without options the script appends the aliases to `~/.bashrc`.
 - The script assumes the user has a specific directory structure with the file
   `~/openssl/dotfiles/.bash_aliases` for aliases.
 
-<br />
-
 ## Detailed Explanation
 
 The sections below follow the script from top to bottom.
-
-<br />
 
 ### Stop script on error
 
@@ -94,8 +84,6 @@ The sections below follow the script from top to bottom.
 # Stop script on error
 set -Eeuo pipefail
 ```
-
-<br />
 
 ### Parse the options
 
@@ -114,8 +102,6 @@ while [[ $# -gt 0 ]]; do
 done
 ```
 
-<br />
-
 ### Define the paths to the files
 
 ```bash
@@ -123,8 +109,6 @@ done
 bashrc_path="$HOME/.bashrc"
 aliases_path="$HOME/openssl/dotfiles/.bash_aliases"
 ```
-
-<br />
 
 ### Check if .bashrc exists and is writable
 
@@ -135,8 +119,6 @@ if [[ ! -w "$bashrc_path" ]]; then
   exit 1
 fi
 ```
-
-<br />
 
 ### Add the necessary configuration to .bashrc if it's not already present
 
@@ -163,8 +145,6 @@ else
 fi
 ```
 
-<br />
-
 ### Inform the user about the completion of the script
 
 ```bash
@@ -173,8 +153,6 @@ echo "Installation completed. Open a new shell to use the aliases."
 
 exit 0
 ```
-
-<br />
 
 ## Conclusion
 

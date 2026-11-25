@@ -29,13 +29,11 @@ keywords:
   - Review scale
   - How to rate
 
-weight: 2900
+weight: 2904
 
 toc: true
 katex: true
 ---
-
-<br />
 
 ## Introduction
 
@@ -44,8 +42,6 @@ standard 5-star, and the detailed 10-star scales. It provides a clear, concise
 definition for each score, making it easier to understand and apply these
 ratings across different contexts.
 
-<br />
-
 ## 3-Star Scale
 
 | Star Rating | Emoji | Meaning                                                    |
@@ -53,8 +49,6 @@ ratings across different contexts.
 | **1 Star**  |  👎   | **Bad:** Poor quality with numerous flaws.                 |
 | **2 Stars** |  😐   | **Average:** Decent, but has both positives and negatives. |
 | **3 Stars** |  👍   | **Good:** Solid overall with minor issues.                 |
-
-<br />
 
 ## 5-Star Scale
 
@@ -71,8 +65,6 @@ ratings across different contexts.
 | **4.5 Stars** |  😍   | **Great:** Almost perfect; highly recommendable.                      |
 | **5 Stars**   |  ✨   | **Masterpiece:** Exceptional in every way; a top-tier experience.     |
 
-<br />
-
 ## 10-Star Scale
 
 | Star Rating  | Emoji | Meaning                                                                |
@@ -87,8 +79,6 @@ ratings across different contexts.
 | **8 Stars**  |  ⭐   | **Very Good:** High quality and impressive; a definite recommendation. |
 | **9 Stars**  |  😍   | **Great:** Excellent in almost every way; nearly flawless.             |
 | **10 Stars** |  ✨   | **Masterpiece:** A flawless, unforgettable, and groundbreaking work.   |
-
-<br />
 
 ## Conclusion
 

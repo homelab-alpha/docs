@@ -4,9 +4,9 @@
   from the sections in data/landing.yaml (sorted by weight, one partial in
   layouts/partials/landing/ per section). It uses the head, the cards, and the
   dark mode switch of the docs, so it has the same style as the rest of the
-  site. Without the setting, the home page redirects to /docs/.
+  site. Without the setting, the home page redirects to /docs/ (a meta
+  refresh, no script).
 */ -}}
-{{ $.Scratch.Delete "social_list" }}
 {{ $.Scratch.Set "pathName" (printf "%s" (.Site.Params.docs.pathName | default "docs")) }}
 {{- $enabled := .Site.Params.landingpage.enabled | default false -}}
 {{- $docsURL := relLangURL "docs/" -}}
@@ -14,40 +14,22 @@
 {{- if not $enabled }}
     <head>
         <meta charset="utf-8">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; form-action 'none'">
         <title>{{ .Site.Title }}</title>
         <meta name="robots" content="noindex">
         <meta http-equiv="refresh" content="0; url={{ $docsURL }}">
         <link rel="canonical" href="{{ "docs/" | absLangURL }}">
     </head>
     <body>
-        <script>window.location.replace({{ $docsURL }});</script>
         <p><a href="{{ $docsURL }}">Go to the documentation</a></p>
     </body>
 {{- else }}
     {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "head.html") . -}}
-    <body class="landing">
-        <header class="landing-header">
-            <div class="container d-flex align-items-center">
-                <a class="landing-brand d-flex align-items-center text-reset text-decoration-none" href="{{ relLangURL "" }}" aria-label="Homelab-Alpha home">
-                    {{ with resources.Get "images/logos/logo.svg" }}{{ .Content | safeHTML }}{{ end }}
-                    <span class="fw-semibold ms-2 d-none d-sm-inline">{{ .Site.Params.docs.title | default .Site.Title }}</span>
-                </a>
-                <nav class="ms-auto d-flex align-items-center" aria-label="Main">
-                    <a class="landing-nav-link" href="{{ $docsURL }}">Docs</a>
-                    <a class="landing-nav-link" href="{{ relLangURL "links/" }}">Links</a>
-                    {{ with .Site.Params.social.github }}
-                    <a class="btn btn-icon btn-default ms-1" href="https://github.com/{{ . }}" rel="noopener noreferrer" target="_blank" aria-label="GitHub">
-                        {{ with resources.Get "images/social/github.svg" }}{{ .Content | safeHTML }}{{ end }}
-                    </a>
-                    {{ end }}
-                    {{ if eq .Site.Params.docs.darkMode true -}}
-                    <span class="ms-1">{{ partial "mode-switch.html" . }}</span>
-                    {{- end }}
-                </nav>
-            </div>
-        </header>
+    <body class="landing site-page">
+        {{ partial "skip-link.html" . }}
+        {{ partial "site-header.html" . }}
 
-        <main>
+        <main id="main" tabindex="-1">
             {{- $sections := slice -}}
             {{- range $key, $value := hugo.Data.landing -}}
                 {{- if $value.enable -}}
@@ -60,19 +42,12 @@
             {{- end -}}
         </main>
 
-        <footer class="d-print-none">
-            <div class="container">
-                <p class="text-sm-start text-center mb-0">
-                    {{ $yearToken := (cond (isset .Site.Params (lower "copyrightYearToken")) $.Site.Params.copyrightYearToken ":YEAR:") }}
-                    {{ replace $.Site.Params.footer.copyright $yearToken (string (now.Format "2006")) | markdownify }}
-                </p>
-            </div>
-        </footer>
+        {{ partial "site-footer.html" (dict) }}
 
         {{ if eq .Site.Params.docs.darkMode true -}}
-            {{ $darkModeSwitch := resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/darkmode-switch.js") | js.Build | minify }}
-            <script>{{ $darkModeSwitch.Content | safeJS }}</script>
+            {{ partial "docs/script.html" (dict "res" (resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/darkmode-switch.js") | js.Build)) }}
         {{ end -}}
+        {{ partial "docs/script.html" (dict "res" (resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/toolbar-menus.js") | js.Build)) }}
     </body>
 {{- end }}
 </html>

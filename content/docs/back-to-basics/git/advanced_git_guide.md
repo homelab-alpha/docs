@@ -36,19 +36,15 @@ keywords:
   - Git hooks
   - Git workflows
 
-weight: 2400
+weight: 2401
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 ## Welcome to the Advanced Git Guide
 
@@ -63,8 +59,6 @@ dive deeper into the world of Git and uncover its hidden treasures.
 
 Let's get started!
 
-<br />
-
 ## Branching and Merging
 
 ### Create a new branch
@@ -73,16 +67,12 @@ Let's get started!
 git switch -c new-feature
 ```
 
-<br />
-
 ### Switch between branches
 
 ```bash
 git switch main  # Switch to main branch
 git switch new-feature  # Switch to new-feature branch
 ```
-
-<br />
 
 ### Merge branches
 
@@ -91,15 +81,11 @@ git switch main  # Switch to the branch you want to merge into
 git merge new-feature  # Merge new-feature branch into main
 ```
 
-<br />
-
 ### Resolve merge conflicts
 
 When there are merge conflicts, Git will indicate which files have conflicts.
 Open those files, resolve the conflicts manually, then add the changes and
 commit them.
-
-<br />
 
 ### Delete a branch
 
@@ -107,8 +93,6 @@ commit them.
 git branch -d new-feature  # Deletes the branch if changes are merged
 git branch -D new-feature  # Forcefully deletes the branch
 ```
-
-<br />
 
 ## Rebasing
 
@@ -119,8 +103,6 @@ git switch feature-branch
 git rebase main
 ```
 
-<br />
-
 ### Squash commits during rebase
 
 During the rebase process, you can squash multiple commits into one for cleaner
@@ -130,8 +112,6 @@ history.
 git rebase -i HEAD~3  # Squash last 3 commits
 ```
 
-<br />
-
 ## Stashing
 
 ### Stash changes
@@ -140,15 +120,11 @@ git rebase -i HEAD~3  # Squash last 3 commits
 git stash save "Work in progress"  # Stash changes with a message
 ```
 
-<br />
-
 ### Apply stashed changes
 
 ```bash
 git stash apply stash@{0}  # Apply the first stash
 ```
-
-<br />
 
 ### List stashed changes
 
@@ -156,15 +132,11 @@ git stash apply stash@{0}  # Apply the first stash
 git stash list  # List all stashed changes
 ```
 
-<br />
-
 ### Drop stashed changes
 
 ```bash
 git stash drop stash@{0}  # Drop the first stash
 ```
-
-<br />
 
 ## Rewriting History
 
@@ -174,15 +146,11 @@ git stash drop stash@{0}  # Drop the first stash
 git commit --amend
 ```
 
-<br />
-
 ### Interactive rebase to edit, squash, or reorder commits
 
 ```bash
 git rebase -i HEAD~3  # Interactively rebase last 3 commits
 ```
-
-<br />
 
 ## Git Hooks
 
@@ -194,8 +162,6 @@ Automate checks before committing changes, like linting or running tests.
 # Create a file named pre-commit in .git/hooks/ and make it executable
 ```
 
-<br />
-
 ### Post-merge hook
 
 Automate tasks after a merge, like updating dependencies or generating
@@ -204,8 +170,6 @@ documentation.
 ```bash
 # Create a file named post-merge in .git/hooks/ and make it executable
 ```
-
-<br />
 
 ## Git Workflows
 
@@ -218,8 +182,6 @@ git flow feature start new-feature  # Start a new feature
 git flow feature finish new-feature  # Finish a feature
 ```
 
-<br />
-
 ### GitHub Flow
 
 A simpler workflow focusing on pull requests for collaboration.
@@ -227,8 +189,6 @@ A simpler workflow focusing on pull requests for collaboration.
 ```bash
 # Create a new branch, make changes, push branch, create a pull request, review, merge
 ```
-
-<br />
 
 ## Conclusion
 

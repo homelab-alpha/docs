@@ -1,0 +1,19 @@
+{{- /*
+  alert shortcode in the e-reader version: a plain blockquote with a bold
+  title, the same as a GitHub alert there (render-blockquote.ereader.html). No
+  icons, emoji, or colors, so old e-reader browsers show it well.
+*/ -}}
+{{- $titles := dict
+  "info" "Info" "warning" "Warning" "success" "Success" "danger" "Danger"
+  "primary" "Note" "default" "Note" "light" "Note" "dark" "Note"
+-}}
+{{- $context := .Get "context" | default "default" -}}
+{{- $title := index $titles $context | default "Note" -}}
+<blockquote class="markdown-alert markdown-alert-{{ $context }}">
+  <p class="markdown-alert-title"><strong>{{ $title }}</strong></p>
+  {{- with .Get "text" }}
+  <p>{{ . | $.Page.RenderString }}</p>
+  {{- else }}
+  {{ .InnerDeindent }}
+  {{- end }}
+</blockquote>

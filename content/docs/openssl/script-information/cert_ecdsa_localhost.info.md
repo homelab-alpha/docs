@@ -32,19 +32,15 @@ keywords:
   - HAProxy SSL
   - certificate format conversion
 
-weight: 8106
+weight: 9104
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down the script `cert_ecdsa_localhost.sh`. This script creates an
 ECDSA server certificate for localhost, signed by the intermediate certificate
@@ -61,8 +57,6 @@ ecdsa `--role` server `--localhost` and passes all other options on.
 - **Description**: This script creates an ECDSA server certificate for
   localhost, signed by the intermediate certificate authority.
 - **RAW Script**: [cert_ecdsa_localhost.sh]
-
-<br />
 
 ## Usage
 
@@ -86,13 +80,9 @@ The Common Name is localhost.
 - Certificates are stored under `$HOME/tls`.
 - The certificate covers localhost, `*.localhost`, and 127.0.0.1.
 
-<br />
-
 ## Detailed Explanation
 
 The sections below follow the script from top to bottom.
-
-<br />
 
 ### Start `cert.sh` with the fixed options
 
@@ -114,8 +104,6 @@ done
 
 exec bash "$script_dir/cert.sh" --algo ecdsa --role server --localhost "$@"
 ```
-
-<br />
 
 ## Conclusion
 

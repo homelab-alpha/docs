@@ -1,0 +1,52 @@
+{{- /*
+  Mobile bar: a floating bar at the bottom of narrow screens (below 1200 px,
+  where the table of contents beside the text is hidden), after the HIG: the
+  previous page, "On this page", and the next page. "On this page" opens a
+  sheet (a modal <dialog>) with the table of contents; Escape, the close
+  button, or a link closes it. Script: assets/docs/js/mobile-bar.js.
+*/ -}}
+{{- $pages := where .Site.RegularPages "Section" .Section -}}
+{{- $prev := "" -}}
+{{- $next := "" -}}
+{{- if or .Prev .Next -}}
+  {{- with $pages.Next . }}{{ $prev = . }}{{ end -}}
+  {{- with $pages.Prev . }}{{ $next = . }}{{ end -}}
+{{- end -}}
+{{- $hasToc := and (not .IsBranch) (ne .Params.toc false) (ne .TableOfContents "<nav id=\"TableOfContents\"></nav>") (site.Params.docs.toc | default true) -}}
+{{- if or $prev $next $hasToc -}}
+<nav class="mobile-bar d-print-none" aria-label="{{ i18n "page_navigation" | default "Page navigation" }}">
+    {{- with $prev }}
+    <a class="mobile-bar-button" href="{{ .RelPermalink }}" rel="prev" aria-label="{{ i18n "previous" | default "Previous" }}: {{ .Title }}" title="{{ .Title }}">
+        {{- partial "svg-icon.html" (dict "name" "navigate_before" "tag" "span" "class" "mobile-bar-icon") -}}
+    </a>
+    {{- else }}
+    <span class="mobile-bar-spacer" aria-hidden="true"></span>
+    {{- end }}
+    {{- if $hasToc }}
+    <button class="mobile-bar-toc" type="button" aria-haspopup="dialog" aria-controls="toc-sheet">
+        {{- partial "svg-icon.html" (dict "name" "toc" "tag" "span" "class" "mobile-bar-icon") -}}
+        <span>{{ i18n "on_this_page" | default "On this page" }}</span>
+    </button>
+    {{- else }}
+    <span class="mobile-bar-title">{{ .Title }}</span>
+    {{- end }}
+    {{- with $next }}
+    <a class="mobile-bar-button" href="{{ .RelPermalink }}" rel="next" aria-label="{{ i18n "next" | default "Next" }}: {{ .Title }}" title="{{ .Title }}">
+        {{- partial "svg-icon.html" (dict "name" "navigate_next" "tag" "span" "class" "mobile-bar-icon") -}}
+    </a>
+    {{- else }}
+    <span class="mobile-bar-spacer" aria-hidden="true"></span>
+    {{- end }}
+</nav>
+{{- if $hasToc }}
+<dialog id="toc-sheet" class="toc-sheet" aria-labelledby="toc-sheet-title">
+    <div class="toc-sheet-header">
+        <h2 id="toc-sheet-title" class="toc-sheet-title">{{ i18n "on_this_page" | default "On this page" }}</h2>
+        <button class="toc-sheet-close" type="button" aria-label="{{ i18n "close" | default "Close" }}">
+            {{- partial "svg-icon.html" (dict "name" "close" "tag" "span" "class" "mobile-bar-icon") -}}
+        </button>
+    </div>
+    {{ .TableOfContents | replaceRE "<nav id=\"TableOfContents\">" "<nav class=\"toc-sheet-list\">" | safeHTML }}
+</dialog>
+{{- end }}
+{{- end -}}

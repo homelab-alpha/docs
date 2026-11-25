@@ -1,0 +1,13 @@
+{{- /*
+  Code block of the e-reader version: a label with the language (or a title)
+  and the plain code. No highlighting, line numbers, or copy button.
+
+  Context: dict
+    code   the code
+    lang   the language as written (bash, yaml, ...)
+    title  optional title, such as a filename
+*/ -}}
+<div class="code-block">
+  <p class="code-label">{{ partial "docs/code-label.html" (dict "lang" .lang "title" .title) }}</p>
+  <pre><code>{{ strings.TrimRight "\r\n" .code }}</code></pre>
+</div>

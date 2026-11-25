@@ -29,27 +29,21 @@ keywords:
   - Docker development
   - Docker Compose tutorial
 
-weight: 2300
+weight: 2302
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 ## What is Docker Compose
 
 Docker Compose is a powerful tool designed to manage multiple Docker containers
 as a single, cohesive application. It simplifies the process of building,
 running, and managing complex applications using a single configuration file.
-
-<br />
 
 ## Installation
 
@@ -59,8 +53,6 @@ the [official Docker website]. Docker Compose is included with Docker Desktop.
 On Linux, install the `docker-compose-plugin` package with your package manager.
 Compose is run with `docker compose` (without a hyphen). The old standalone
 `docker-compose` command (v1) is no longer maintained.
-
-<br />
 
 ## The Docker Compose YAML File
 
@@ -79,8 +71,6 @@ services: # List of services to run
       - ENV_VAR=value
 ```
 
-<br />
-
 ## Common Commands
 
 - `docker compose up`: Builds, (re)creates, and starts all services.
@@ -90,8 +80,6 @@ services: # List of services to run
 - `docker compose logs`: Displays the logs of all services.
 - `docker compose exec <service> <command>`: Executes a command in a running
   service.
-
-<br />
 
 ## Pro Tips
 
@@ -121,8 +109,6 @@ This example demonstrates how to define a custom network named `my-network` in a
 Docker Compose file, and how to assign services (`web` and `db`) to this network
 to ensure isolated communication between them.
 
-<br />
-
 ### Volumes
 
 Use volumes to make data persistent even after containers are stopped for
@@ -143,8 +129,6 @@ In this example, a volume named `my-volume` is defined, and it's mounted to the
 `/usr/share/nginx/html` directory within the `web` service container. This
 ensures that data stored in this directory persists even if the container is
 stopped or removed.
-
-<br />
 
 ### Restart Policy
 
@@ -167,8 +151,6 @@ means Docker will always attempt to restart the container if it stops for any
 reason. On the other hand, the `backend` service has a restart policy set to
 `on-failure`, indicating that Docker will only restart the container if it exits
 with a non-zero status code (i.e., if it fails).
-
-<br />
 
 ### Secrets and Configurations
 
@@ -194,8 +176,6 @@ password from a file named `db_password.txt`. This secret is then mounted into
 the `db` service container at the path `/run/secrets/db_password`, allowing the
 PostgreSQL container to access the password securely without exposing it in the
 Docker Compose file.
-
-<br />
 
 ## Advanced Features
 
@@ -239,8 +219,6 @@ This example demonstrates how you can use Docker Compose override files to
 customize configurations for different environments while keeping a common base
 configuration in the `docker-compose.yml` file.
 
-<br />
-
 ### Service Scaling
 
 Easily scale services up or down to meet demand for example:
@@ -268,8 +246,6 @@ performance and resilience.
 In this example, the `docker compose up -d --scale web=3` command scales the
 `web` service to run three instances of the `nginx` container. This demonstrates
 how Docker Compose enables easy scaling of services to meet varying demand.
-
-<br />
 
 ## Conclusion
 

@@ -32,13 +32,11 @@ keywords:
   - Network Performance
   - Networking Guide
 
-weight: 2700
+weight: 2706
 
 toc: true
 katex: true
 ---
-
-<br />
 
 ## What is a VLAN?
 
@@ -47,8 +45,6 @@ network. It allows devices to be grouped together even if they are not on the
 same physical network. Essentially, VLANs partition a physical network into
 multiple, smaller logical networks. This helps improve network management,
 security, and performance.
-
-<br />
 
 ### How VLANs Work
 
@@ -66,8 +62,6 @@ packet. Here's a more detailed breakdown:
    removed, delivering the data to the device as if it were on a regular
    network.
 
-<br />
-
 ### VLAN Types
 
 1. **Default VLAN:** This is the VLAN where all switch ports are initially
@@ -84,8 +78,6 @@ packet. Here's a more detailed breakdown:
    critical for maintaining compatibility with older devices that may not
    support VLAN tagging.
 
-<br />
-
 ## Why Use VLANs?
 
 ### 1. Segmentation
@@ -96,16 +88,12 @@ instance, in a corporate environment, you can have separate VLANs for different
 departments like HR, Finance, and Engineering. This logical segmentation
 simplifies network management and enhances organizational structure.
 
-<br />
-
 ### 2. Security
 
 By isolating sensitive data and devices, VLANs enhance security, preventing
 unauthorized access. For example, finance-related devices can be isolated in a
 VLAN that only finance team members have access to, mitigating the risk of
 sensitive financial data being accessed by unauthorized personnel.
-
-<br />
 
 ### 3. Performance
 
@@ -114,8 +102,6 @@ large network, broadcast traffic (which is sent to all devices) can become
 overwhelming. VLANs limit broadcast traffic to within each VLAN, ensuring that
 network bandwidth is used more efficiently.
 
-<br />
-
 ### 4. Flexibility
 
 VLANs allow for the logical grouping of devices without being tied to their
@@ -123,8 +109,6 @@ physical location. This means that devices can be moved or added to the network
 without needing to reconfigure the physical cabling. For instance, if an
 employee changes their office, their device can remain in the same VLAN,
 preserving network configurations and access permissions.
-
-<br />
 
 ## Real-World Applications
 
@@ -136,8 +120,6 @@ preserving network configurations and access permissions.
 - **Enterprise Environments:** Corporations can use VLANs to separate
   departments, ensuring secure and efficient communication within and between
   departments.
-
-<br />
 
 ## Conclusion
 

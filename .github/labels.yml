@@ -86,6 +86,7 @@
 - { name: "contributors", color: "1f6feb", description: "Related to the contributors list or contributors workflow." }
 - { name: "conversation lock", color: "8b949e", description: "Thread has been locked to prevent further comments." }
 - { name: "dart-sass", color: "1f6feb", description: "Dependency: Dart Sass stylesheet compiler updates." }
+- { name: "dayjs", color: "1f6feb", description: "Dependency: Day.js date library updates (third-party file)." }
 - { name: "dependencies", color: "1f6feb", description: "Updates one or more runtime dependencies." }
 - {
     name: "deprecated",
@@ -200,6 +201,11 @@
   }
 - { name: "feedback", color: "f2cc60", description: "General feedback about the project." }
 - { name: "fix", color: "2ea44f", description: "Resolves a confirmed bug or incorrect behavior." }
+- {
+    name: "flexsearch",
+    color: "1f6feb",
+    description: "Dependency: FlexSearch search library updates (third-party file).",
+  }
 - { name: "followed up", color: "f2cc60", description: "A follow-up message has been sent; waiting for a response." }
 - {
     name: "ghcr.io/alexjustesen/docker-speedtest-tracker",
@@ -297,6 +303,7 @@
     color: "8b949e",
     description: "Does not follow the required issue or pull request template format.",
   }
+- { name: "katex", color: "1f6feb", description: "Dependency: KaTeX math rendering updates (third-party file)." }
 - { name: "localized", color: "8250df", description: "Adds or updates translations or locale-specific content." }
 - {
     name: "lscr.io/linuxserver/socket-proxy",
@@ -308,6 +315,7 @@
     color: "d97706",
     description: "Significant change with broad impact; requires careful review before merging.",
   }
+- { name: "mermaid", color: "1f6feb", description: "Dependency: Mermaid diagram library updates (third-party file)." }
 - {
     name: "migration",
     color: "8250df",
@@ -485,6 +493,7 @@
     color: "d73a4a",
     description: "Confirmed or suspected security vulnerability; handle with restricted visibility.",
   }
+- { name: "simple-scrollspy", color: "1f6feb", description: "Dependency: Simple Scrollspy updates (third-party file)." }
 - {
     name: "spam",
     color: "8b949e",
@@ -523,6 +532,11 @@
     name: "user error",
     color: "8b949e",
     description: "Caused by incorrect usage rather than a defect in the project itself.",
+  }
+- {
+    name: "vendored",
+    color: "1f6feb",
+    description: "Updates a third-party file that the site ships; run npm run vendor:update.",
   }
 - { name: "vite", color: "1f6feb", description: "Dependency: Vite build tool updates." }
 - { name: "vue", color: "1f6feb", description: "Dependency: Vue.js framework updates." }

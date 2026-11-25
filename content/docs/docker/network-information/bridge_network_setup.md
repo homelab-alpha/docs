@@ -30,19 +30,15 @@ keywords:
   - IPAM
   - IP plan
 
-weight: 4200
+weight: 4201
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 A `bridge` network is a private network on the Docker host. Containers on it get
 an address from its subnet, reach each other by name, and reach the internet

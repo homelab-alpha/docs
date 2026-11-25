@@ -32,19 +32,15 @@ keywords:
   - Infrastructure Monitoring
   - Self-hosted Docker Management
 
-weight: 4100
+weight: 4111
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let’s break down what this `compose.yml` file does in detail. This file is used
 to configure and deploy a MariaDB instance using Docker Compose, ensuring
@@ -64,8 +60,6 @@ the system's stability.
 - **RAW .env File**: [.env]
 - **RAW stack.env File**: [stack.env]
 - **RAW my.cnf File**: [my.cnf]
-
-<br />
 
 ## Networks Configuration
 
@@ -97,8 +91,6 @@ networks:
       com.mariadb.network.description: "is an isolated bridge network."
 ```
 
-<br />
-
 - **networks**: Defines a custom network named `mariadb_net`.
 - **attachable**: Set to `true`, allowing other containers to attach to this
   network.
@@ -128,8 +120,6 @@ networks:
 - **labels**: Metadata describing the network.
   - **com.mariadb.network.description**: Describes the network as an isolated
     bridge network.
-
-<br />
 
 ## Services Configuration
 
@@ -189,8 +179,6 @@ services:
       start_period: 10s
       start_interval: 5s
 ```
-
-<br />
 
 - **services**: Defines services to be deployed.
 - **mariadb_db**: The service name for the MariaDB container.
@@ -254,16 +242,12 @@ services:
       considered (10 seconds).
     - **start_interval**: The time between health checks (5 seconds).
 
-<br />
-
 ## Environment Variables
 
 This file contains configuration settings that can be used by various
 applications (such as Docker containers or your MariaDB server). These values
 are stored outside the source code to enhance **security, portability, and
 flexibility**.
-
-<br />
 
 ### Variables in this file
 
@@ -277,14 +261,10 @@ ROOT_PASSWORD_DB=StrongUniqueRootPassword1234
 - **`ROOT_PASSWORD_DB`**: The root user's password for the MariaDB instance.
   This user has full administrative privileges. Use a secure and unique value.
 
-<br />
-
 ## MariaDB/MySQL Configuration
 
 This file configures MariaDB or MySQL behavior, covering server operations,
 performance tuning, replication, security, and character encoding.
-
-<br />
 
 ### Sections in this file
 
@@ -313,8 +293,6 @@ skip-symbolic-links
   prevents non-repeatable reads.
 - **`skip-symbolic-links`**: Disallows symbolic links in data files for security
   reasons.
-
-<br />
 
 #### Performance Optimizations
 
@@ -361,8 +339,6 @@ aria-pagecache-buffer-size = 256M
 - **`aria-pagecache-buffer-size`**: Buffer size for Aria storage engine (if
   used).
 
-<br />
-
 #### Security Settings
 
 ```cnf
@@ -380,8 +356,6 @@ secure-file-priv = /var/lib/mysql/
 - **`plugin-load-add`**: Optional—enables the password validation plugin.
 - **`validate-password-*`**: Enforces strong password policies when creating
   users. Uncomment to enable.
-
-<br />
 
 #### Binary Logging and Replication
 
@@ -409,8 +383,6 @@ slave_connections_needed_for_purge = 0
 - **`slave_connections_needed_for_purge`**: Controls purge dependency on
   replication status.
 
-<br />
-
 #### Character Set and Encoding
 
 ```cnf
@@ -422,8 +394,6 @@ init-connect = 'SET NAMES utf8mb4'
 - **`character-set-server` / `collation-server`**: Defines UTF-8 as the default
   character set and collation.
 - **`init-connect`**: Ensures clients use the same character set on connection.
-
-<br />
 
 #### Monitoring and Debugging
 
@@ -444,8 +414,6 @@ general-log = 0
   monitoring info to logs (disabled here).
 - **`general-log`**: Logs every query—disabled by default for performance.
 
-<br />
-
 #### Temporary Files
 
 ```cnf
@@ -454,8 +422,6 @@ general-log = 0
 
 - **`tmpdir`**: Directory for storing temporary files. Uncomment and customize
   for specific storage needs.
-
-<br />
 
 #### SSL/TLS Security
 
@@ -469,8 +435,6 @@ general-log = 0
 - **SSL/TLS settings**: Optional configuration for encrypted client-server
   communication. Uncomment and configure as needed.
 
-<br />
-
 #### Inclusion of Additional Configuration Files
 
 ```cnf
@@ -480,8 +444,6 @@ general-log = 0
 
 - **`!includedir`**: Includes additional configuration files from specified
   directories, allowing modular config management.
-
-<br />
 
 ## Quick Start
 
@@ -501,8 +463,6 @@ Requires Docker Compose 2.24.0 or later.
    docker compose up -d
    ```
 
-<br />
-
 ## Connection
 
 MariaDB has no web interface. The port is published on the host only
@@ -512,15 +472,11 @@ MariaDB has no web interface. The port is published on the host only
 mariadb --host 127.0.0.1 --port 3306 --user root --password
 ```
 
-<br />
-
 ## Default Login Credentials
 
 **Username**: root
 
 **Password**: The value of `ROOT_PASSWORD_DB` in the `.env` or `stack.env` file.
-
-<br />
 
 ## Conclusion
 

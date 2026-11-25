@@ -66,12 +66,19 @@ basics, and how to contribute.
   basics, contributing, Docker, dotfiles, help, Kairos, Linux, OpenSSL, and
   shell-script.
 - **Hugo site** — Layouts, shortcodes, styles, and configuration for the site.
+  The design follows the Apple Human Interface Guidelines in the colors of
+  GitHub Light Default and GitHub Dark Default. The appearance follows the
+  system, or Light or Dark when chosen. Code is highlighted at build time.
 - **E-reader version** — Every page is also built as a light HTML page under
   `/ereader/` for the browsers of Kindle and Kobo e-readers. It has no scripts,
   web fonts, or CSS variables. Kindle and Kobo browsers are sent there
   automatically; add `?full=1` to a URL to open the full site instead.
 - **Automatic build and deploy** — The `hugo.yml` workflow builds the site on
   every change and publishes it to GitHub Pages from `main`.
+- **Security** — A Content Security Policy on every page, Subresource Integrity
+  for every script and style sheet, a strict Hugo security policy, and
+  `/.well-known/security.txt`. Third-party files are checked against
+  `.github/vendored_assets.json` on every build.
 - **Crawler rules** — The `dark_visitors_agents.yml` workflow rebuilds
   `static/robots.txt` from the list of known crawlers and bots on a schedule.
 
@@ -130,6 +137,12 @@ docker run --rm -e RUN_LOCAL=true -e USE_FIND_ALGORITHM=true \
 
 For quick formatting of a single file, `npx prettier --write <file>` uses the
 same `.prettierrc`.
+
+The site has development tests for links, accessibility, screenshots, and
+Lighthouse, and a check of the Content Security Policy (`npm test`). They run on
+a built site and need Chrome or Chromium; see
+[`tests/README.md`](./tests/README.md). Only the CSP check also runs in CI, in
+the Build & Deploy workflow.
 
 ## Project Structure
 
@@ -222,6 +235,7 @@ docs/
 ├── i18n/                                       # Translations (1 files)
 ├── layouts/                                    # Hugo layouts, partials, and shortcodes (63 files)
 ├── static/                                     # Static files such as fonts, images, and robots.txt (372 files)
+├── tests/                                      # Development tests for the built site
 ├── .editorconfig                               # Editor settings (indent, line endings)
 ├── .gitignore                                  # Git ignore rules
 ├── .gitleaksignore                             # Gitleaks secret scanning allowlist
@@ -242,7 +256,7 @@ docs/
 ├── MAINTAINERS.md                              # Project maintainer list and process
 ├── NOTICE                                      # Attribution and license notice
 ├── package-lock.json                           # Locked versions of the dev tooling
-├── package.json                                # Dev tooling (Prettier, textlint) and lint scripts
+├── package.json                                # Dev tooling (Prettier, textlint, test tools) and scripts
 ├── README.md                                   # Primary repository documentation
 ├── ROADMAP.md                                  # Planned features and milestones
 ├── SECURITY.md                                 # Security policy and reporting guidelines

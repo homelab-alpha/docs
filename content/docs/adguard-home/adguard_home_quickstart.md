@@ -42,8 +42,6 @@ toc: true
 katex: true
 ---
 
-<br />
-
 ## Linux and macOS
 
 ### Using `curl`
@@ -59,8 +57,6 @@ This command will download the installation script and execute it. The flags are
 used to ensure a `-s` silent, `-S` show errors, and `-L` follow redirects
 respectively. The `-v` flag is optional and stands for verbose output.
 
-<br />
-
 ### Using `wget`
 
 Alternatively, if you prefer `wget`, you can run this command in your terminal:
@@ -70,9 +66,8 @@ wget --no-verbose -O - https://raw.githubusercontent.com/AdguardTeam/AdGuardHome
 ```
 
 Similar to `curl`, this command downloads the script and executes it. The\
-`--no-verbose` flag ensures minimal output, while `-O` redirects the output to stdout.
-
-<br />
+`--no-verbose` flag ensures minimal output, while `-O` redirects the output to
+stdout.
 
 ### Using `fetch`
 
@@ -91,8 +86,6 @@ installed on your system. However, make sure to review and understand the
 contents of the script before running it to ensure it aligns with your security
 practices.
 
-<br />
-
 ### Script Options
 
 The installation script provides several options:
@@ -105,8 +98,6 @@ The installation script provides several options:
 {{% alert context="warning" %}}
 Please note that the `-r` and `-u` options cannot be used simultaneously as they
 are mutually exclusive. {{% /alert %}}
-
-<br />
 
 ## Alternative Methods
 

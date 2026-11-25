@@ -31,19 +31,15 @@ keywords:
   - system information
   - disk space check
 
-weight: 9100
+weight: 10219
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}} Claude has contributed to this document.
 Therefore, it's advisable to treat the information here with caution and verify
 it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named
 `sync_containers.sh`, authored by GJS (homelab-alpha), and its purpose is to
@@ -61,15 +57,11 @@ errors to a log file.
   validates container formats, checks system disk space, and logs the actions.
 - **RAW Script**: [sync_containers.sh]
 
-<br />
-
 ## Script Header
 
 The script starts with a metadata section, including the author, version,
 description, and usage instructions. It also provides information about
 available options and necessary dependencies.
-
-<br />
 
 ## Requirements
 
@@ -80,8 +72,6 @@ your system:
 - **Disk space validation**: Ensures sufficient space to download Docker
   containers.
 - **Log directory**: Automatically created if it does not already exist.
-
-<br />
 
 ## Usage
 
@@ -99,8 +89,6 @@ The script can be executed directly with the following command structure:
 - `--info`: Display current system and Docker information.
 - `-h`, `--help`: Show the help menu.
 - `-q`, `--quit`: Exit the script.
-
-<br />
 
 ### Examples
 
@@ -128,8 +116,6 @@ The script can be executed directly with the following command structure:
    ./sync_containers.sh --quit
    ```
 
-<br />
-
 ## Main Menu
 
 Upon execution, the script displays an interactive menu, offering the following
@@ -143,8 +129,6 @@ Additionally, users can interact with the following shortcuts:
 
 - `-h` or `--help`: Show the help menu.
 - `-q` or `--quit`: Exit the script.
-
-<br />
 
 ## Container List and Logging
 
@@ -176,8 +160,6 @@ CONTAINERS=(
 )
 ```
 
-<br />
-
 ## Synchronization Process
 
 The synchronization process consists of the following key steps:
@@ -192,8 +174,6 @@ The synchronization process consists of the following key steps:
    (`sync_containers.log`).
 5. **Summary Report**: After synchronization, the script provides a summary of
    the success, failure, and invalid pulls.
-
-<br />
 
 ### Example Output
 
@@ -214,8 +194,6 @@ Summary:
 Synchronization completed!
 ```
 
-<br />
-
 ## Handling User Input
 
 Upon running the script, users are prompted with the following options:
@@ -225,8 +203,6 @@ Upon running the script, users are prompted with the following options:
 - **Option 3**: Exit the script (`--quit`).
 
 If the user selects an invalid option, the script will ask them to choose again.
-
-<br />
 
 ## Functions
 
@@ -259,8 +235,6 @@ display_help() {
   echo "================================================================================"
 }
 ```
-
-<br />
 
 ### Display System and Docker Information
 
@@ -301,8 +275,6 @@ display_info() {
   echo "================================================================================"
 }
 ```
-
-<br />
 
 ### Synchronize Docker Containers
 
@@ -348,8 +320,6 @@ sync_containers() {
   echo "Synchronization completed!"
 }
 ```
-
-<br />
 
 ### Command-Line Option Parsing
 
@@ -401,8 +371,6 @@ while true; do
   esac
 done
 ```
-
-<br />
 
 ## Conclusion
 

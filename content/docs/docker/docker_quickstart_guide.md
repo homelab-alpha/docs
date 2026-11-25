@@ -36,8 +36,6 @@ toc: true
 katex: true
 ---
 
-<br />
-
 ## Fedora
 
 {{% alert context="primary" %}}
@@ -62,8 +60,6 @@ Set up the repository:
 ```bash
 sudo dnf config-manager addrepo --from-repofile https://download.docker.com/linux/fedora/docker-ce.repo
 ```
-
-<br />
 
 ### Install Docker Engine
 
@@ -115,8 +111,6 @@ sudo dnf config-manager addrepo --from-repofile https://download.docker.com/linu
    [quick install guide portainer](#quick-install-guide-portainer) to get
    started.
 
-<br />
-
 ### Uninstall Docker Engine
 
 1. Stop Docker:
@@ -155,8 +149,6 @@ sudo dnf config-manager addrepo --from-repofile https://download.docker.com/linu
    ```
 
    You have now successfully uninstalled Docker Engine.
-
-<br />
 
 ## Ubuntu
 
@@ -198,14 +190,10 @@ EOF
 sudo apt-get update
 ```
 
-<br />
-
 {{% alert context="primary" %}}
 Ubuntu derivative distributions, such as Linux Mint, are not officially
 supported, though they may work. The command above uses **UBUNTU_CODENAME** when
 it is set, so it also finds the Ubuntu base of a derivative. {{% /alert %}}
-
-<br />
 
 ### Install Docker Engine
 
@@ -254,8 +242,6 @@ it is set, so it also finds the Ubuntu base of a derivative. {{% /alert %}}
    [quick install guide portainer](#quick-install-guide-portainer) to get
    started.
 
-<br />
-
 ### Uninstall Docker Engine
 
 1. Stop Docker:
@@ -301,8 +287,6 @@ it is set, so it also finds the Ubuntu base of a derivative. {{% /alert %}}
    ```
 
    You have now successfully uninstalled Docker Engine.
-
-<br />
 
 ## Quick install guide Portainer
 
@@ -369,8 +353,6 @@ docker run \
   --no-healthcheck \
   docker.io/portainer/portainer-ce:lts
 ```
-
-<br />
 
 ### Business Edition (BE)
 

@@ -33,19 +33,15 @@ keywords:
   - Security automation
   - OpenSSL configuration
 
-weight: 8102
+weight: 9114
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down the script `tls_directory_setup.sh`. This script sets up the
 directory structure for TLS certificate management under `$HOME/tls`. It creates
@@ -82,8 +78,6 @@ of the root CA and the intermediate CA to their own database. A copy of
   certificate management under `$HOME/tls`.
 - **RAW Script**: [tls_directory_setup.sh]
 
-<br />
-
 ## Usage
 
 ```bash
@@ -106,14 +100,10 @@ The alias is `new-tls-directory-setup`.
 - The folders for private keys get mode 700 when the script creates them.
 - The certificates are for a homelab and for testing.
 
-<br />
-
 ## Detailed Explanation
 
 The sections below follow the script from top to bottom. Functions that are not
 defined here, such as `print_error`, come from `scripts/lib/common.sh`.
-
-<br />
 
 ### Stop script on error
 
@@ -121,8 +111,6 @@ defined here, such as `print_error`, come from `scripts/lib/common.sh`.
 # Stop script on error
 set -Eeuo pipefail
 ```
-
-<br />
 
 ### Load the shared functions
 
@@ -133,8 +121,6 @@ The shared functions, such as the messages and the checks, are in
 # shellcheck source=scripts/lib/common.sh
 source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/lib/common.sh"
 ```
-
-<br />
 
 ### Parse the options
 
@@ -165,8 +151,6 @@ done
 require_openssl
 ```
 
-<br />
-
 ### Set base directory
 
 ```bash
@@ -185,8 +169,6 @@ tsa_dir="$base_dir/tsa"
 source_conf_dir="$(dirname "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")")/openssl.cnf"
 ```
 
-<br />
-
 ### Function: create a file with the given content when it does not exist
 
 ```bash
@@ -201,8 +183,6 @@ create_if_missing() {
   fi
 }
 ```
-
-<br />
 
 ### Function: move the database entry of an authority certificate from the shared database
 
@@ -258,8 +238,6 @@ move_authority_entry() {
 }
 ```
 
-<br />
-
 ### Create directory structure
 
 Create directory structure. Private key folders are for the owner only.
@@ -294,8 +272,6 @@ mkdir -p "$certs_dir"/{root,intermediate,certificates} \
   "$tsa_dir"/{certs,db}
 ```
 
-<br />
-
 ### Create the db files
 
 Create the db files. Existing files are kept: a new serial or CRL number would
@@ -317,8 +293,6 @@ for dir in "$db_dir" "$db_dir/trusted_id" "$db_dir/root_ca" "$tsa_dir/db"; do
   create_if_missing "$dir/crlnumber" "1000"
 done
 ```
-
-<br />
 
 ### Copy OpenSSL configuration files to the target directory
 
@@ -349,8 +323,6 @@ else
 fi
 ```
 
-<br />
-
 ### Move the entries of the authorities out of the shared database of an older version
 
 Move the entries of the authorities out of the shared database of an older
@@ -368,8 +340,6 @@ move_authority_entry "$openssl_conf_dir/ca.cnf" "$certs_dir/intermediate/ca.pem"
 [[ "$moved" == "true" ]] || echo "Nothing to move."
 ```
 
-<br />
-
 ### Script completion message
 
 ```bash
@@ -377,8 +347,6 @@ move_authority_entry "$openssl_conf_dir/ca.cnf" "$certs_dir/intermediate/ca.pem"
 echo
 print_cyan "TLS directory setup completed successfully."
 ```
-
-<br />
 
 ## Conclusion
 

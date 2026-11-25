@@ -34,19 +34,15 @@ keywords:
   - linux filesystem
   - efficient directory navigation
 
-weight: 9200
+weight: 10110
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named `up.sh`,
 authored by GJS (homelab-alpha), and its purpose is to create a function called
@@ -65,8 +61,6 @@ without having to type `cd ../../..` repeatedly.
   script in a terminal and provide the number of levels to move up.
 - **RAW Script**: [up.sh]
 
-<br />
-
 ## Function Definition
 
 ```bash
@@ -80,8 +74,6 @@ This defines a function named `up`. `local levels=${1:-1}` sets a local variable
 provided. This determines how many directory levels to move up.
 `local target=""` initializes an empty string `target` to build the path.
 
-<br />
-
 ## Loop to Construct Path
 
 ```bash
@@ -94,8 +86,6 @@ This loop runs from 1 to the number specified in `levels`. Each iteration
 appends `../` to `target`, effectively building the relative path to navigate up
 the desired number of directory levels.
 
-<br />
-
 ## Handling Edge Cases
 
 ```bash
@@ -106,8 +96,6 @@ the desired number of directory levels.
 
 This conditional checks if `target` is empty and sets it to `..` if it is. This
 ensures there's always a valid path to navigate.
-
-<br />
 
 ## Change Directory Command
 
@@ -120,8 +108,6 @@ The `cd "$target"` command attempts to change the directory to the constructed
 `target`. `|| return 1` ensures that if the `cd` command fails (e.g., if the
 target directory doesn't exist), the function will return an error code `1`.
 
-<br />
-
 ## Usage Examples
 
 ## Move up one directory level
@@ -132,8 +118,6 @@ up
 
 This is equivalent to `cd ..`.
 
-<br />
-
 ## Move up three directory levels
 
 ```bash
@@ -142,8 +126,6 @@ up 3
 
 This would navigate up three levels in the directory hierarchy, equivalent to
 `cd ../../../`.
-
-<br />
 
 ## Conclusion
 

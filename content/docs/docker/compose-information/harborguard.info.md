@@ -33,19 +33,15 @@ keywords:
   - Container Security
   - Vulnerability Scanning
 
-weight: 4100
+weight: 4107
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this `compose.yml` file does in detail. This file deploys
 HarborGuard, a container security scanning platform with a web interface for
@@ -63,8 +59,6 @@ Here's a detailed explanation:
 - **Description**: Configures a Docker network and the HarborGuard service.
 - **RAW Compose File**: [compose.yml]
 - **RAW Environment File**: [stack.env]
-
-<br />
 
 ## Networks Configuration
 
@@ -96,8 +90,6 @@ networks:
       com.harborguard.network.description: "is an isolated bridge network."
 ```
 
-<br />
-
 - **networks**: Defines a custom network named `harborguard_net`.
 - **attachable: false**: Other containers can't attach to this network.
 - **internal: false**: The network is accessible externally.
@@ -123,8 +115,6 @@ networks:
     Unit size for the network.
 - **labels**: Metadata for the network.
   - **description label**: Describes the network as an isolated bridge network.
-
-<br />
 
 ## Services Configuration
 
@@ -210,8 +200,6 @@ services:
       start_interval: 5s
 ```
 
-<br />
-
 - **harborguard_app**: The service definition.
   - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
     threads in the container, which protects the host against fork bombs.
@@ -279,15 +267,11 @@ services:
     - **interval / timeout / retries / start_period / start_interval**: 1m30s /
       10s / 3 / 40s / 5s.
 
-<br />
-
 ## Environment Variables
 
 The variables are stored in an environment file, outside the compose file. Use
 `.env` for Docker Compose and `stack.env` for Portainer. Both files must contain
 the same values.
-
-<br />
 
 ### Variables in this file
 
@@ -313,8 +297,6 @@ USER_DB=harborguard
 - **`PASSWORD_DB`**: PostgreSQL user password: no changes needed
 - **`USER_DB`**: PostgreSQL username: no changes needed
 
-<br />
-
 ## Quick Start
 
 {{% alert context="info" %}}
@@ -330,8 +312,6 @@ Requires Docker Compose 2.24.0 or later.
    docker compose up -d
    ```
 
-<br />
-
 ## Default Web Access
 
 Access the Harbor Guard web interface using the following URL:
@@ -339,8 +319,6 @@ Access the Harbor Guard web interface using the following URL:
 ```bash
 http://your-ip-address:3016
 ```
-
-<br />
 
 ## Default Login Credentials
 
@@ -358,8 +336,6 @@ files.
 **Username**: No username is required.
 
 **Password**: No password is required.
-
-<br />
 
 ## Conclusion
 

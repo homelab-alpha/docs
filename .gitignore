@@ -107,6 +107,7 @@ __pycache__/
 .hugo_build.lock
 public/
 resources/
+tests/output/
 
 # --- Tracked exceptions ---
 # A line that starts with ! only works after the pattern it undoes, so this

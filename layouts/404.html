@@ -1,11 +1,35 @@
-{{ define "main"}}
-      <div class="d-flex flex-column justify-content-center align-items-center four-oh-four">
-        <div class="px-1">
-            <h1 class="text-center">Page not found :(</h1>
-            <h4 class="text-center">The page you are looking for doesn't exist or has been moved.</h4>
-        </div>
-        <div class="px-1">
-            <a href="{{ "" | relURL }}">{{ partial "svg-icon.html" (dict "name" "home" "tag" "i" "class" "size-48 me-0") }}</a>
-        </div>
-      </div>
-{{ end }}
+<!DOCTYPE html>
+{{- /*
+  404 page in the new design: the site header, a large title with a short
+  explanation, buttons to the documentation and the links page, and the site
+  footer. It uses the docs head, so it has the same style as the rest of the
+  site.
+*/ -}}
+{{ $.Scratch.Set "pathName" (printf "%s" (.Site.Params.docs.pathName | default "docs")) }}
+<html lang="{{ .Site.Language.Lang }}" dir="{{ .Site.Language.Direction | default "ltr" }}">
+    {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "head.html") . -}}
+    <body class="site-page">
+        {{ partial "skip-link.html" . }}
+        {{ partial "site-header.html" . }}
+        <main id="main" tabindex="-1" class="site-page-main container">
+            <section class="not-found" aria-labelledby="not-found-title">
+                <p class="not-found-code" aria-hidden="true">404</p>
+                <h1 id="not-found-title" class="content-title">{{ i18n "page_not_found" | default "Page not found" }}</h1>
+                <p class="lead">{{ i18n "page_not_found_text" | default "The page you are looking for doesn't exist or has been moved." }}</p>
+                <div class="not-found-actions">
+                    <a class="site-button site-button-primary" href="{{ relLangURL "docs/" }}">
+                        {{ partial "svg-icon.html" (dict "name" "menu_book" "tag" "span" "class" "site-button-icon") }}{{ i18n "go_to_docs" | default "Go to the documentation" }}
+                    </a>
+                    <a class="site-button" href="{{ relLangURL "links/" }}">
+                        {{ partial "svg-icon.html" (dict "name" "link" "tag" "span" "class" "site-button-icon") }}{{ i18n "links" | default "Links" }}
+                    </a>
+                </div>
+            </section>
+        </main>
+        {{ partial "site-footer.html" (dict) }}
+        {{ if eq .Site.Params.docs.darkMode true -}}
+            {{ partial "docs/script.html" (dict "res" (resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/darkmode-switch.js") | js.Build)) }}
+        {{ end -}}
+        {{ partial "docs/script.html" (dict "res" (resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/toolbar-menus.js") | js.Build)) }}
+    </body>
+</html>

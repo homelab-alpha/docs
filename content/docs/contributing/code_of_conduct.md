@@ -36,10 +36,8 @@ keywords:
   - consequences
   - contributor covenant version 2.1
 
-weight: 3002
+weight: 3001
 ---
-
-<br />
 
 ## Our Pledge
 

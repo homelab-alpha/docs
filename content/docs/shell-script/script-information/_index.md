@@ -7,5 +7,5 @@ description:
 url: "shell-script/script-info"
 icon: "foundation"
 
-weight: 9100
+weight: 10200
 ---

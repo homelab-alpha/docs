@@ -36,13 +36,11 @@ keywords:
   - Virtual Private Network
   - Global Area Network
 
-weight: 2700
+weight: 2705
 
 toc: true
 katex: true
 ---
-
-<br />
 
 ## Introduction
 
@@ -54,8 +52,6 @@ of the main network types, detailing their features, uses, and pros and cons.
 Whether you're setting up a home network, managing an enterprise system, or
 simply curious about networking, this guide will help you understand the
 essentials.
-
-<br />
 
 ## Personal Area Network (PAN)
 
@@ -82,8 +78,6 @@ essentials.
 
 - Limited range.
 - Limited data transfer speed.
-
-<br />
 
 ## Home Area Network (HAN)
 
@@ -112,8 +106,6 @@ essentials.
 - Can be costly with advanced systems.
 - Security risks if not properly managed.
 
-<br />
-
 ## Local Area Network (LAN)
 
 ### Overview
@@ -140,8 +132,6 @@ essentials.
 - Limited to a small geographical area.
 - Setup and maintenance costs.
 
-<br />
-
 ## Campus Area Network (CAN)
 
 ### Overview
@@ -166,8 +156,6 @@ essentials.
 
 - Requires significant infrastructure investment.
 - Maintenance can be complex.
-
-<br />
 
 ## Metropolitan Area Network (MAN)
 
@@ -194,8 +182,6 @@ essentials.
 - More expensive than LAN.
 - Requires more infrastructure and maintenance.
 
-<br />
-
 ## Wide Area Network (WAN)
 
 ### Overview
@@ -221,8 +207,6 @@ essentials.
 
 - High setup and operational costs.
 - Slower data transfer speeds compared to LAN.
-
-<br />
 
 ## Storage Area Network (SAN)
 
@@ -252,8 +236,6 @@ essentials.
 - High cost.
 - Requires specialized knowledge for setup and management.
 
-<br />
-
 ## Enterprise Private Network (EPN)
 
 ### Overview
@@ -281,8 +263,6 @@ essentials.
 - Expensive to set up and maintain.
 - Requires specialized management.
 
-<br />
-
 ## Virtual Private Network (VPN)
 
 ### Overview
@@ -309,8 +289,6 @@ essentials.
 - Can be slower due to encryption overhead.
 - Requires configuration and maintenance.
 
-<br />
-
 ## Global Area Network (GAN)
 
 ### Overview
@@ -334,8 +312,6 @@ essentials.
 
 - Highly complex infrastructure.
 - Security and privacy concerns.
-
-<br />
 
 ## Conclusion
 

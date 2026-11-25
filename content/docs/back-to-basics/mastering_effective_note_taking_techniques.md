@@ -27,13 +27,11 @@ keywords:
   - productivity tips
   - note-taking strategies
 
-weight: 2900
+weight: 2901
 
 toc: true
 katex: true
 ---
-
-<br />
 
 ## Introduction
 
@@ -47,8 +45,6 @@ hierarchy, and methods for fast note-taking, you can improve not only your
 comprehension and memory but also the overall quality of your notes. Let’s
 explore the fundamental principles of effective note-taking!
 
-<br />
-
 ## Key Information
 
 - **Key Data**: Essential information that needs to be captured.
@@ -58,16 +54,12 @@ explore the fundamental principles of effective note-taking!
 - **Context and Details**: Background information that aids understanding.
 - **Quotes**: Significant statements that can inspire or support your points.
 
-<br />
-
 ## Hierarchy
 
 - **Topics**: Main themes of the notes.
 - **Subheadings**: Specific aspects of the topics.
 - **Details**: Further explanations and information.
 - **Lists**: Organized information for clarity.
-
-<br />
 
 ## Be Fast and Consistent
 
@@ -78,8 +70,6 @@ explore the fundamental principles of effective note-taking!
 - Use indentation for clarity.
 - Employ abbreviations to save time.
 - Don’t fix writing mistakes while taking notes.
-
-<br />
 
 ## After the Meeting
 

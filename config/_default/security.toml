@@ -1,12 +1,22 @@
+# Hugo security policy. Allow only what the build needs, so a template or a
+# content file cannot run other programs, read other environment variables, or
+# fetch from other hosts. See https://gohugo.io/configuration/security/.
+
 enableInlineShortcodes = false
 
 [exec]
-  allow = ['^(dart-)?sass(-embedded)?$', '^git$', '^go$', '^npx$', '^postcss$' ]
+  # Dart Sass for the styles, Git for the page dates (enableGitInfo), and Go for
+  # the Hugo Modules (Bootstrap).
+  allow = ['^(dart-)?sass(-embedded)?$', '^git$', '^go$']
   osEnv = ['(?i)^((HTTPS?|NO)_PROXY|PATH(EXT)?|APPDATA|TE?MP|TERM|GO\w+|(XDG_CONFIG_)?HOME|USERPROFILE|SSH_AUTH_SOCK|DISPLAY|LANG|SYSTEMDRIVE)$']
 
 [funcs]
-  getenv = ['^HUGO_', '^REPOSITORY_URL$', '^BRANCH$']
+  # No template reads the environment; keep Hugo's own prefix only.
+  getenv = ['^HUGO_']
 
 [http]
-  methods = ['(?i)GET|POST']
-  urls    = ['.*']
+  # resources.GetRemote only fetches the remote images in the content (the
+  # image render hooks). Add a host here, and to [security] imageHosts in
+  # params.toml, when a page uses a new one.
+  methods = ['(?i)GET']
+  urls    = ['^https://raw\.githubusercontent\.com/', '^https://res\.cloudinary\.com/', '^https://skillicons\.dev/']

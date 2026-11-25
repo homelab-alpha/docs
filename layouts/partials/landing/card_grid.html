@@ -1,6 +1,7 @@
 {{- /*
   Landing page section: a grid of link cards. Context: dict "id" "data" "page".
-  data: title, subtitle, items (title, icon, description, url), or
+  data: title, subtitle, items (title, icon, description, url, and optional
+  topic or color for the tile color, see partials/docs/tile-color.html), or
   linksSection (the title of a section in data/links.yaml), external (open the
   links in a new tab).
 */ -}}
@@ -16,24 +17,20 @@
 <section id="{{ $.id }}" class="landing-section">
     <div class="container">
         {{ partial "landing/section_heading.html" . }}
-        <div class="row g-4">
+        <ul class="docs-list list-unstyled">
             {{ range $items }}
-            <div class="col-lg-4 col-md-6 col-12">
-                <a class="text-decoration-none text-reset" href="{{ relLangURL .url }}"{{ if $external }} rel="noopener noreferrer" target="_blank"{{ end }}>
-                    <div class="card h-100 features feature-full-bg rounded p-4 position-relative overflow-hidden border-1">
-                        <span class="icon-color d-flex mb-3">
-                            {{ partial "svg-icon.html" (dict "name" (.icon | default "link") "tag" "i" "class" "align-middle") }}
-                            {{ partial "svg-icon.html" (dict "name" (cond $external "open_in_new" "arrow_forward") "tag" "i" "class" "icon-faint align-middle ms-auto") }}
-                        </span>
-                        <div class="card-body p-0 content">
-                            <h3 class="fs-5 fw-semibold card-title mb-1">{{ .title }}</h3>
-                            <p class="para card-text mb-0">{{ .description }}</p>
-                        </div>
-                    </div>
+            <li>
+                <a class="docs-card" href="{{ relLangURL .url }}"{{ if $external }} rel="noopener noreferrer" target="_blank"{{ end }}>
+                    {{- $tile := partial "docs/tile-color.html" (dict "color" .color "topic" (.topic | default .url)) }}
+                    <span class="docs-card-tile{{ with $tile }} tile-{{ . }}{{ end }}" aria-hidden="true">
+                        {{ partial "svg-icon.html" (dict "name" (.icon | default "link") "tag" "span" "class" "docs-card-icon") }}
+                    </span>
+                    <h3 class="docs-card-title">{{ .title }}</h3>
+                    <span class="docs-card-text">{{ .description }}</span>
                 </a>
-            </div>
+            </li>
             {{ end }}
-        </div>
+        </ul>
     </div>
 </section>
 {{- end }}

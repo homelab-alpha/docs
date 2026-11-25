@@ -9,7 +9,10 @@
   {{- with site.Params.head.description }}
   <p class="lead">{{ . }}</p>
   {{- end }}
-  {{ partial "ereader/items.html" site.Sections.ByWeight }}
+  {{- /* The documentation home is the start page here: one click less. */}}
+  {{- with site.GetPage "/docs" }}
+  {{ partial "ereader/topics.html" . }}
+  {{- end }}
 </main>
 {{ partial "ereader/footer.html" . }}
 </div>

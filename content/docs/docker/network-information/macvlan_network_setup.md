@@ -31,19 +31,15 @@ keywords:
   - host shim interface
   - container MAC address
 
-weight: 4400
+weight: 4204
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 A `macvlan` network makes each container a separate device on your network, with
 its own MAC address and IP address. Use it when a container must look like a

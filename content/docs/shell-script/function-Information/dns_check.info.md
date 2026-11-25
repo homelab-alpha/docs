@@ -36,19 +36,15 @@ keywords:
   - ping test
   - network interface
 
-weight: 9200
+weight: 10102
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let’s break down what this script does in detail. The script is named
 `dns_check.sh`, authored by GJS (homelab-alpha), and its purpose of assessing
@@ -66,14 +62,10 @@ network-related issues.
   availability, aiding in troubleshooting network problems.
 - **RAW Script**: [dns_check.sh]
 
-<br />
-
 ## Function: dns-checker
 
 The script employs a function named `dns-checker()` to carry out the network
 checks. Let's dissect its components:
-
-<br />
 
 ## ANSI Color Codes
 
@@ -86,8 +78,6 @@ end="\e[0m"      # Reset text formatting
 These variables store ANSI color codes for green, red, and resetting text
 formatting, enhancing the readability of log messages.
 
-<br />
-
 ## Timestamp
 
 ```bash
@@ -96,8 +86,6 @@ stamp="$(date +'[%b %d, %Y - %H%M%S]')" # Timestamp for log messages
 
 This line generates a timestamp to append to log messages, providing a
 chronological context for network events.
-
-<br />
 
 ## Logging Function
 
@@ -110,8 +98,6 @@ function log_message() {
 
 The `log_message()` function facilitates logging by adding timestamps to
 provided messages and echoing them to the console.
-
-<br />
 
 ## Ping Checking Function
 
@@ -128,8 +114,6 @@ function check_ping() {
 
 This function, `check_ping()`, tests the reachability of a specified host via a
 single ping. It returns 0 if successful and 1 if unsuccessful.
-
-<br />
 
 ## DNS Server Checks
 
@@ -149,8 +133,6 @@ If the network appears to be down, the script performs further diagnostics by
 pinging external DNS servers (`9.9.9.9` and `149.112.112.112`). This helps
 determine if the problem lies with DNS failures or broader network issues.
 
-<br />
-
 ## Network Interface Logging
 
 ```bash
@@ -159,8 +141,6 @@ ifconfig >>"DNS_failure_interface_${stamp}.txt"
 
 In case of network failures, the script appends network interface information to
 a timestamped log file, aiding in subsequent troubleshooting.
-
-<br />
 
 ## Conclusion
 

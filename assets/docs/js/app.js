@@ -168,20 +168,17 @@ if (document.getElementById("navigation")) {
   }
 }
 
+// Sidebar groups: open and close a group, and keep aria-expanded in step.
 if (document.getElementById("sidebar")) {
-  var elements = document.getElementById("sidebar").getElementsByTagName("button");
-  for (var i = 0, len = elements.length; i < len; i++) {
-    elements[i].onclick = function (elem) {
-      // if(elem.target !== document.querySelectorAll("li.sidebar-dropdown.active > a")[0]){
-      //     document.querySelectorAll("li.sidebar-dropdown.active")[0]?.classList?.toggle("active");
-      //     document.querySelectorAll("div.sidebar-submenu.d-block")[0]?.classList?.toggle("d-block");
-      // }
-      // if(elem.target.getAttribute("href") === "javascript:void(0)") {
-      elem.target.parentElement.classList.toggle("active");
-      elem.target.nextElementSibling.classList.toggle("d-block");
-      // }
-    };
-  }
+  document.querySelectorAll("#sidebar .sidebar-dropdown > button").forEach((button) => {
+    button.addEventListener("click", () => {
+      const item = button.parentElement;
+      const open = !item.classList.contains("active");
+      item.classList.toggle("active", open);
+      button.nextElementSibling?.classList.toggle("d-block", open);
+      button.setAttribute("aria-expanded", String(open));
+    });
+  });
 }
 
 // Menu sticky
@@ -221,6 +218,12 @@ function topFunction() {
   document.documentElement.scrollTop = 0;
 }
 
+// A listener, not an onclick attribute, so the Content Security Policy needs
+// no inline handlers.
+if (mybutton != null) {
+  mybutton.addEventListener("click", topFunction);
+}
+
 // dd-menu
 if (document.getElementsByClassName("dd-menu")) {
   var ddmenu = document.getElementsByClassName("dd-menu");
@@ -248,21 +251,9 @@ if (document.getElementById("relativetime")) {
   dayjs.extend(window.dayjs_plugin_relativeTime);
   const modId = document.getElementById("relativetime");
   let modAgo = dayjs(modId.getAttribute("data-authdate")).fromNow();
-  document.getElementById("relativetime").innerHTML = modAgo;
+  modId.textContent = modAgo;
 }
 
 // Initialize Bootstrap Tooltips
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
 const tooltipList = [...tooltipTriggerList].map((tooltipTriggerEl) => new Tooltip(tooltipTriggerEl));
-
-/**
- * Sanitize and encode all HTML in a user-submitted string
- * https://portswigger.net/web-security/cross-site-scripting/preventing
- * @param  {String} str  The user-submitted string
- * @return {String} str  The sanitized string
- */
-var sanitizeHTML = function (str) {
-  return str.replace(/[^\w. ]/gi, function (c) {
-    return "&#" + c.charCodeAt(0) + ";";
-  });
-};

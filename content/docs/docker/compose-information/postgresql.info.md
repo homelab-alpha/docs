@@ -31,19 +31,15 @@ keywords:
   - PostgreSQL
   - Database
 
-weight: 4100
+weight: 4121
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this `compose.yml` file does in detail. This file deploys
 a PostgreSQL database with a custom configuration file, a persistent data
@@ -61,8 +57,6 @@ Here's a detailed explanation:
 - **RAW Compose File**: [compose.yml]
 - **RAW Environment File**: [stack.env]
 - **RAW PostgreSQL Configuration File**: [config/postgresql.conf]
-
-<br />
 
 ## Networks Configuration
 
@@ -94,8 +88,6 @@ networks:
       com.postgresql.network.description: "is an isolated bridge network."
 ```
 
-<br />
-
 - **networks**: Defines a custom network named `postgresql_net`.
 - **attachable: false**: Other containers can't attach to this network.
 - **internal: false**: The network is accessible externally.
@@ -121,8 +113,6 @@ networks:
     Unit size for the network.
 - **labels**: Metadata for the network.
   - **description label**: Describes the network as an isolated bridge network.
-
-<br />
 
 ## Services Configuration
 
@@ -186,8 +176,6 @@ services:
       start_interval: 5s
 ```
 
-<br />
-
 - **postgresql_db**: The service definition.
   - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
     threads in the container, which protects the host against fork bombs.
@@ -232,15 +220,11 @@ services:
     - **interval / timeout / retries / start_period / start_interval**: 10s / 5s
       / 3 / 10s / 5s.
 
-<br />
-
 ## Environment Variables
 
 The variables are stored in an environment file, outside the compose file. Use
 `.env` for Docker Compose and `stack.env` for Portainer. Both files must contain
 the same values.
-
-<br />
 
 ### Variables in this file
 
@@ -258,8 +242,6 @@ POSTGRES_SUPERUSER_NAME=admin
 - **`POSTGRES_SUPERUSER_NAME`**: PostgreSQL Admin username: Change this to your
   desired username Note: Avoid using 'root' or 'postgres' if possible
 
-<br />
-
 ## PostgreSQL Configuration
 
 The `postgresql.conf` file is mounted into the container and loaded with the
@@ -273,8 +255,6 @@ full file with comments. It contains the following sections:
 - **Full Text Search**
 - **Security and Access Control**
 - **Including Additional Configuration Files**
-
-<br />
 
 ## Quick Start
 
@@ -295,8 +275,6 @@ Requires Docker Compose 2.24.0 or later.
    docker compose up -d
    ```
 
-<br />
-
 ## Connection
 
 PostgreSQL has no web interface. The port is published on the host only
@@ -306,16 +284,12 @@ PostgreSQL has no web interface. The port is published on the host only
 psql --host 127.0.0.1 --port 5432 --username admin
 ```
 
-<br />
-
 ## Default Login Credentials
 
 **Username**: The value of `POSTGRES_SUPERUSER_NAME` (default `admin`).
 
 **Password**: The value of `POSTGRES_SUPERUSER_PASSWORD` in the `.env` or
 `stack.env` file.
-
-<br />
 
 ## Conclusion
 

@@ -6,6 +6,7 @@ description:
   you covered."
 url: "back-to-basics"
 icon: "design_services"
+color: "yellow"
 
 weight: 2000
 ---

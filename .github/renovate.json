@@ -146,6 +146,15 @@
       "description": "Mark dev dependencies",
       "matchDepTypes": ["devDependencies"],
       "addLabels": ["dev dependencies"]
+    },
+    {
+      "description": "Third-party files of the site: one pull request per package, with a reminder to fetch the files",
+      "matchManagers": ["custom.regex"],
+      "matchFileNames": [".github/vendored_assets.json"],
+      "addLabels": ["vendored"],
+      "prBodyNotes": [
+        "Run `npm run vendor:update` on this branch and commit the files; the Build & Deploy check fails until they match."
+      ]
     }
   ],
   "internalChecksFilter": "none",
@@ -172,6 +181,16 @@
       "datasourceTemplate": "github-releases",
       "versioningTemplate": "semver",
       "packageNameTemplate": "sass/dart-sass"
+    },
+    {
+      "description": "Track the third-party files that the site ships (npm packages in .github/vendored_assets.json); then run 'npm run vendor:update'",
+      "customType": "regex",
+      "managerFilePatterns": ["/^\\.github/vendored_assets\\.json$/"],
+      "matchStrings": [
+        "\"(?<depName>[a-z0-9@/._-]+)\":\\s*\\{\\s*\"version\":\\s*\"(?<currentValue>[^\"]+)\""
+      ],
+      "datasourceTemplate": "npm",
+      "versioningTemplate": "npm"
     }
   ]
 }

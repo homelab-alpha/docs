@@ -1,0 +1,233 @@
+//
+// mobile-bar.scss: the floating bar at the bottom of narrow screens, the
+// table of contents sheet, and the dimmed page behind the open menu
+// (layouts/partials/docs/mobile-bar.html, assets/docs/js/mobile-bar.js).
+//
+
+.mobile-bar {
+  display: none;
+}
+
+@media (max-width: 1199.98px) {
+  .mobile-bar {
+    position: fixed;
+    right: 16px;
+    bottom: max(16px, env(safe-area-inset-bottom));
+    left: 16px;
+    z-index: 990;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 6px;
+    border: 1px solid var(--color-border-default);
+    border-radius: 28px;
+    background: var(--color-header-bg);
+    box-shadow: var(--color-shadow-large);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+
+    @media (prefers-reduced-transparency: reduce) {
+      background: var(--color-canvas-overlay);
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+  }
+
+  // Room under the page for the bar, and the back to top button above it.
+  .page-wrapper .page-content {
+    padding-bottom: 88px;
+  }
+
+  .back-to-top {
+    bottom: 96px !important;
+  }
+}
+
+.mobile-bar-button,
+.mobile-bar-spacer {
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+}
+
+.mobile-bar-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-neutral-muted);
+  color: var(--color-fg-default);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--color-accent-fg);
+  }
+}
+
+.mobile-bar-toc {
+  display: inline-flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  border: 0;
+  border-radius: 22px;
+  background: transparent;
+  color: var(--color-fg-default);
+  font-size: 0.9375rem;
+  font-weight: 600;
+
+  &:hover {
+    background: var(--color-neutral-muted);
+  }
+}
+
+.mobile-bar-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--color-fg-muted);
+  font-size: 0.875rem;
+  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.mobile-bar-button,
+.mobile-bar-toc,
+.toc-sheet-close {
+  &:focus-visible {
+    outline: 2px solid var(--color-accent-fg);
+    outline-offset: 2px;
+  }
+}
+
+.mobile-bar-icon {
+  display: inline-flex;
+  font-size: 20px;
+
+  svg {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+  }
+}
+
+// Sheet: a panel that rises from the bottom, over a dimmed page.
+.toc-sheet {
+  position: fixed;
+  inset: auto 0 0;
+  width: min(100%, 560px);
+  max-width: 100%;
+  max-height: min(70vh, 640px);
+  margin: 0 auto;
+  padding: 0 0 max(16px, env(safe-area-inset-bottom));
+  overflow: hidden;
+  border: 1px solid var(--color-border-default);
+  border-bottom: 0;
+  border-radius: 16px 16px 0 0;
+  background: var(--color-canvas-overlay);
+  color: var(--color-fg-default);
+  box-shadow: var(--color-shadow-large);
+
+  &[open] {
+    display: flex;
+    flex-direction: column;
+    animation: toc-sheet-in 0.25s ease-out;
+  }
+
+  &::backdrop {
+    background: rgba(1, 4, 9, 0.45);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &[open] {
+      animation: none;
+    }
+  }
+}
+
+@keyframes toc-sheet-in {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+}
+
+.toc-sheet-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 8px 8px 20px;
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.toc-sheet-title {
+  flex: 1 1 auto;
+  margin: 0;
+  font-size: 1.0625rem;
+  font-weight: 600;
+}
+
+.toc-sheet-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-neutral-muted);
+  color: var(--color-fg-default);
+}
+
+.toc-sheet-list {
+  padding: 8px 12px;
+  overflow-y: auto;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    ul {
+      padding-left: 16px;
+    }
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 6px 10px;
+    border-radius: 9px;
+    color: var(--color-fg-default);
+    font-size: 0.9375rem;
+    text-decoration: none;
+
+    &:hover {
+      background: var(--color-neutral-muted);
+      color: var(--color-fg-default);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-accent-fg);
+      outline-offset: -2px;
+    }
+  }
+}
+
+// The page dims behind the open menu on narrow screens; a tap on it closes the
+// menu (assets/docs/js/app.js).
+@media (max-width: 1024px) {
+  .page-wrapper:not(.toggled) .page-content::before {
+    position: fixed;
+    inset: 0;
+    z-index: 998;
+    background: rgba(1, 4, 9, 0.45);
+    content: "";
+  }
+}

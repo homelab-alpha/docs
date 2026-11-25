@@ -36,8 +36,6 @@ toc: true
 katex: true
 ---
 
-<br />
-
 ## 1. SSH into the Docker Host
 
 Connect to your Docker host via SSH:
@@ -45,8 +43,6 @@ Connect to your Docker host via SSH:
 ```bash
 ssh user@your-docker-server -p 22
 ```
-
-<br />
 
 ## 2. Access the MariaDB Container
 
@@ -59,8 +55,6 @@ Open an interactive shell inside your MariaDB container:
 ```bash
 docker exec -it mariadb bash
 ```
-
-<br />
 
 ## 3. Export the `testing_db` Database
 
@@ -86,8 +80,6 @@ mariadb-dump -u root -p \
 - `--routines`, `--triggers`, `--events`: Includes stored procedures, triggers,
   and scheduled events.
 
-<br />
-
 ## 4. Transfer the Backup to the New Server
 
 Copy the dump file from the Docker host to the new server using `scp`:
@@ -101,8 +93,6 @@ scp /var/lib/mysql/testing_db_backup.sql user@new-server:/var/lib/mysql/
 - `rsync`
 - SFTP clients
 - Physical media (USB drive, etc.)
-
-<br />
 
 ## 5. Import the Database on the New Server
 
@@ -122,8 +112,6 @@ clear the database first to avoid conflicts:
 mariadb -u root -p -e "DROP DATABASE testing_db; CREATE DATABASE testing_db;"
 ```
 
-<br />
-
 ## 6. Verify the Import
 
 Confirm that the import was successful by listing the tables:
@@ -131,8 +119,6 @@ Confirm that the import was successful by listing the tables:
 ```bash
 mariadb -u root -p -e "SHOW TABLES IN testing_db;"
 ```
-
-<br />
 
 ## Conclusion
 

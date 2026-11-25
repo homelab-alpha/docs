@@ -1,0 +1,18 @@
+{{- /*
+  The label of a code block: the title, or else the name of the language.
+  Used by the code block of the full site and of the e-reader version.
+
+  Context: dict
+    lang   the language as written (bash, yaml, cnf, ...)
+    title  optional title, such as a filename
+  Returns: string
+*/ -}}
+{{- $type := lower (.lang | default "text") -}}
+{{- $names := dict
+  "bash" "Bash" "sh" "Shell" "shell" "Shell" "yaml" "YAML" "yml" "YAML" "ini" "INI" "cnf" "Config" "env" "Env"
+  "dockerfile" "Dockerfile" "html" "HTML" "css" "CSS" "javascript" "JavaScript" "js" "JavaScript" "json" "JSON"
+  "markdown" "Markdown" "diff" "Diff" "nginx" "Nginx" "swift" "Swift" "applescript" "AppleScript" "c" "C"
+  "go" "Go" "python" "Python" "terraform" "Terraform" "hcl" "HCL" "pem" "PEM" "adblock" "Filter list"
+  "git" "Git" "treeview" "Tree" "log" "Log" "text" "Text" "plaintext" "Text" "none" "Text"
+-}}
+{{- return (.title | default (index $names $type) | default (title $type)) -}}

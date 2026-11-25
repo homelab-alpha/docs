@@ -1,16 +1,2 @@
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        renderMathInElement(document.getElementById("content"), {
-          // customised options
-          // • auto-render specific keys, e.g.:
-          delimiters: [
-              {left: '$$', right: '$$', display: true},
-              {left: '$', right: '$', display: false},
-              {left: '\\(', right: '\\)', display: false},
-              {left: '\\[', right: '\\]', display: true}
-          ],
-          // • rendering keys, e.g.:
-          throwOnError : false
-        });
-    });
-</script>
+{{- /* KaTeX settings (assets/docs/js/katex-config.js), after katex.js and auto-render.js. */ -}}
+{{ partial "docs/script.html" (dict "res" (resources.Get (printf "/%s/%s" ($.Scratch.Get "pathName") "js/katex-config.js"))) }}

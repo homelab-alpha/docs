@@ -27,19 +27,15 @@ keywords:
   - Shared functions
   - Shell scripting
 
-weight: 8117
+weight: 9108
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down the script `common.sh`. Shared functions for the scripts in
 this repository. This file is not a program: the other scripts load it with
@@ -57,8 +53,6 @@ scripts.
 - **Description**: Shared functions for the scripts in this repository.
 - **RAW Script**: [common.sh]
 
-<br />
-
 ## Usage
 
 ```bash
@@ -71,13 +65,9 @@ source "<path to scripts>/lib/common.sh"
   sets the state variables of `allow_second_entry`.
 - The certificates are for a homelab and for testing.
 
-<br />
-
 ## Detailed Explanation
 
 The sections below follow the script from top to bottom.
-
-<br />
 
 ### Function: print text in cyan color
 
@@ -88,8 +78,6 @@ print_cyan() {
 }
 ```
 
-<br />
-
 ### Function: print an error message
 
 ```bash
@@ -98,8 +86,6 @@ print_error() {
   echo "[ERROR] $1" >&2
 }
 ```
-
-<br />
 
 ### Function: print a warning message
 
@@ -110,8 +96,6 @@ print_warning() {
 }
 ```
 
-<br />
-
 ### Function: print section headers
 
 ```bash
@@ -121,8 +105,6 @@ print_section_header() {
   print_cyan "=== $1 ==="
 }
 ```
-
-<br />
 
 ### Function: show the usage of the calling script
 
@@ -140,8 +122,6 @@ show_usage() {
 }
 ```
 
-<br />
-
 ### Function: stop when OpenSSL is not installed
 
 ```bash
@@ -153,8 +133,6 @@ require_openssl() {
   fi
 }
 ```
-
-<br />
 
 ### Function: set `base_dir`
 
@@ -172,8 +150,6 @@ set_base_dir() {
   fi
 }
 ```
-
-<br />
 
 ### Function: change to `$HOME`
 
@@ -195,8 +171,6 @@ enter_home() {
 }
 ```
 
-<br />
-
 ### Function: check that a value is a usable FQDN
 
 Function to check that a value is a usable FQDN: labels of letters, digits, and
@@ -212,8 +186,6 @@ is_valid_fqdn() {
   [[ -n "$1" && "${#1}" -le 64 && "$1" =~ ^(\*\.)?${label}(\.${label})*$ ]]
 }
 ```
-
-<br />
 
 ### Function: print the path of the database
 
@@ -239,8 +211,6 @@ config_database() {
 }
 ```
 
-<br />
-
 ### Function: check if `unique_subject` is "yes" in `index.txt.attr`
 
 ```bash
@@ -249,8 +219,6 @@ unique_subject_enabled() {
   grep -Eq '^unique_subject[[:space:]]*=[[:space:]]*yes' "$1" 2>/dev/null
 }
 ```
-
-<br />
 
 ### Function: ask for confirmation
 
@@ -265,8 +233,6 @@ confirm() {
 }
 ```
 
-<br />
-
 ### Function: check if a private key file is encrypted with a passphrase
 
 ```bash
@@ -275,8 +241,6 @@ key_is_encrypted() {
   grep -q 'ENCRYPTED' "$1" 2>/dev/null
 }
 ```
-
-<br />
 
 ### Function: get a passphrase
 
@@ -318,8 +282,6 @@ get_passphrase() {
 }
 ```
 
-<br />
-
 ### Function: copy existing files to a dated folder under `$base_dir/archive/<label>/` before they are replaced
 
 Function to copy existing files to a dated folder under
@@ -355,8 +317,6 @@ archive_files() {
 }
 ```
 
-<br />
-
 ### Function: convert an IPv4 address to a number
 
 Function to convert an IPv4 address to a number. Returns 1 when the value is not
@@ -377,8 +337,6 @@ ipv4_to_number() {
 }
 ```
 
-<br />
-
 ### Function: convert a number to an IPv4 address
 
 ```bash
@@ -387,8 +345,6 @@ number_to_ipv4() {
   printf '%d.%d.%d.%d\n' "$((($1 >> 24) & 255))" "$((($1 >> 16) & 255))" "$((($1 >> 8) & 255))" "$(($1 & 255))"
 }
 ```
-
-<br />
 
 ### Function: turn a list of permitted names into the value of the OpenSSL nameConstraints extension
 
@@ -434,8 +390,6 @@ build_name_constraints() {
 }
 ```
 
-<br />
-
 ### Function: write a copy of a configuration file with one extra line in an extension section
 
 Function to write a copy of a configuration file with one extra line in an
@@ -455,8 +409,6 @@ config_with_extension() {
 }
 ```
 
-<br />
-
 ### Function: print the permitted names of the nameConstraints extension of a certificate
 
 Function to print the permitted names of the nameConstraints extension of a
@@ -474,8 +426,6 @@ permitted_names() {
     permitted { gsub(/^[[:space:]]+|[[:space:]]+$/, ""); if ($0 != "") print }' || true
 }
 ```
-
-<br />
 
 ### Function: check a name against the permitted names of a certificate
 
@@ -511,8 +461,6 @@ name_is_permitted() {
 }
 ```
 
-<br />
-
 ### Function: take the lock of the TLS folder
 
 Function to take the lock of the TLS folder, so two scripts do not change a
@@ -543,8 +491,6 @@ acquire_lock() {
   exit "$code"
 }
 ```
-
-<br />
 
 ### Function: put new files in place
 
@@ -594,8 +540,6 @@ install_files() {
 }
 ```
 
-<br />
-
 ### Function: check that no subject has more than one valid entry in a database (`index.txt`)
 
 Function to check that no subject has more than one valid entry in a database
@@ -610,8 +554,6 @@ database_is_unique() {
   [[ -z "$(awk -F'\t' '$1 == "V" { if (seen[$NF]++) print $NF }' "$1")" ]]
 }
 ```
-
-<br />
 
 ### Function: check if the certificate in `$3` has an entry with the status in `$1`
 
@@ -632,8 +574,6 @@ entry_has_status() {
 }
 ```
 
-<br />
-
 ### Function: check if the certificate in `$2` has a valid entry in the database in `$1`
 
 ```bash
@@ -644,8 +584,6 @@ entry_is_valid() {
 }
 ```
 
-<br />
-
 ### Function: check if the certificate in `$2` is revoked in the database in `$1`
 
 ```bash
@@ -655,8 +593,6 @@ entry_is_revoked() {
 }
 ```
 
-<br />
-
 ### State of `allow_second_entry`
 
 ```bash
@@ -665,8 +601,6 @@ second_entry_attr=""
 second_entry_original=""
 second_entry_existed=false
 ```
-
-<br />
 
 ### Function: set `unique_subject` to "no" in the attribute file of a database
 
@@ -688,8 +622,6 @@ allow_second_entry() {
   echo "unique_subject = no" >"$1"
 }
 ```
-
-<br />
 
 ### Function: restore the attribute file that `allow_second_entry` changed
 
@@ -713,8 +645,6 @@ restore_second_entry() {
   second_entry_attr=""
 }
 ```
-
-<br />
 
 ## Conclusion
 

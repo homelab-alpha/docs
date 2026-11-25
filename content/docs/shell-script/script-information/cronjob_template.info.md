@@ -29,19 +29,15 @@ keywords:
   - ping monitoring server
   - cron job example
 
-weight: 9100
+weight: 10205
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named
 `cronjob_template.sh`, authored by GJS (homelab-alpha), and its purpose is to
@@ -59,14 +55,10 @@ system health checks.
 - **Usage**: The script should be executed with root privileges using `sudo`.
 - **RAW Script**: [cronjob_template.sh]
 
-<br />
-
 ## Script Header
 
 The header includes metadata such as the filename, author, date, version, and a
 brief description of its functionality.
-
-<br />
 
 ## Usage Instructions
 
@@ -74,8 +66,6 @@ The script provides usage instructions, emphasizing the need for `curl` to be
 installed and the script to be run with root privileges. It also includes an
 example of how to set up a cron job to execute the script at specified
 intervals.
-
-<br />
 
 ## Cron Job Example
 
@@ -86,8 +76,6 @@ script every 3 hours from 07:00 to 23:00:
 10 07-23/3 * * * /bin/bash /path/to/.bash-script/cronjob_template.sh
 ```
 
-<br />
-
 ## Logging Functions
 
 Several functions handle logging messages to a file:
@@ -97,8 +85,6 @@ Several functions handle logging messages to a file:
 - **`log_debug()`**: Logs debug messages if the debug flag is set.
 - **`log_warning()`**: Logs warning messages.
 
-<br />
-
 ## Ping Function
 
 The function **`send_ping_to_monitor_server()`** handles sending a ping to the
@@ -107,8 +93,6 @@ monitoring server:
 - It first attempts to send a ping without using a self-signed certificate.
 - If the first attempt fails, it retries using a specified certificate.
 - Responses from the server are logged for debugging purposes.
-
-<br />
 
 ## Main Program
 
@@ -137,8 +121,6 @@ while [[ $# -gt 0 ]]; do
 done
 ```
 
-<br />
-
 ## Log Directory and File Setup
 
 The script sets up paths for the log directory and file:
@@ -147,8 +129,6 @@ The script sets up paths for the log directory and file:
 log_dir="$HOME/.bash-script"
 log_file="$log_dir/cronjob_template_cron.log"
 ```
-
-<br />
 
 ## Monitoring Server URL and Certificate
 
@@ -163,8 +143,6 @@ cert_file=""
 The `cert_file` variable is filled in by the script later on. The script marks
 it as "DO NOT EDIT", because changing it breaks the script.
 
-<br />
-
 ## Start Logging
 
 The script starts a new log section with an empty line and a marker, and logs
@@ -175,8 +153,6 @@ echo "" >>"$log_file"
 log_message "=== beginning of the log ==="
 log_message "INFO: Script execution started."
 ```
-
-<br />
 
 ## Root Privileges Check
 
@@ -190,8 +166,6 @@ if [ "$EUID" -ne 0 ]; then
   exit 1
 fi
 ```
-
-<br />
 
 ## Certificate File Path
 
@@ -208,8 +182,6 @@ else
   exit 1
 fi
 ```
-
-<br />
 
 ## Log Directory and File Creation
 
@@ -237,8 +209,6 @@ if [ ! -f "$log_file" ]; then
 fi
 ```
 
-<br />
-
 ## Sending the Ping
 
 Finally, the script sends a ping to the monitoring server and logs the result:
@@ -248,8 +218,6 @@ send_ping_to_monitor_server
 log_message "INFO: Script execution completed successfully."
 log_message "=== end of the log ==="
 ```
-
-<br />
 
 ## Conclusion
 

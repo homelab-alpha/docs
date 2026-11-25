@@ -36,15 +36,11 @@ toc: true
 katex: true
 ---
 
-<br />
-
 ## Introduction
 
 Dotfiles are configuration files used to personalize your system environment.
 This repository contains my customized settings and configurations for various
 command-line tools, editors, and applications that I use regularly.
-
-<br />
 
 ## Contents
 
@@ -62,8 +58,6 @@ command-line tools, editors, and applications that I use regularly.
 - **installer**: The `dotfiles_installer.sh` script that installs and uninstalls
   the dotfiles.
 
-<br />
-
 ## Usage
 
 Feel free to explore and use any of the configurations provided in this
@@ -72,8 +66,6 @@ repository. You can clone this repository to `$HOME/dotfiles` and run the
 copies the dotfiles to your home directory. Alternatively, copy the desired
 configuration files manually. Remember to back up your existing configurations
 before overwriting them.
-
-<br />
 
 ## Log Files
 
@@ -85,16 +77,12 @@ directory such as `/var/log` on Linux.
 The `dotfiles_installer.sh` script appends its log entries to
 `$HOME/dotfiles.log`.
 
-<br />
-
 ## Contributions to Homelab-Alpha - Dotfiles
 
 We value your contribution. We want to make it as easy as possible to submit
 your contributions to the Homelab-Alpha - dotfiles repository. Changes to the
 dotfiles are handled through pull requests against the `main` branch. To learn
 how to contribute, see [contribute].
-
-<br />
 
 ## License
 

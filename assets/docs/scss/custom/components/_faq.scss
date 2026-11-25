@@ -1,0 +1,119 @@
+// FAQ disclosure rows (layouts/shortcodes/faq.html) and the About page parts.
+// The rows look like an inset grouped list: rows that follow each other share
+// one rounded border, as in the Apple Human Interface Guidelines.
+
+.docs-content .main-content .faq-item,
+.faq-item {
+  margin: 0;
+  border: 1px solid var(--color-border-default);
+  background: var(--color-canvas-default);
+
+  & + .faq-item {
+    border-top: 0;
+  }
+
+  // The first row of a group: no row with this class right before it.
+  &:not(.faq-item + .faq-item) {
+    margin-top: 1rem;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+
+  // The last row of a group: no row with this class right after it.
+  &:not(:has(+ .faq-item)) {
+    margin-bottom: 1.5rem;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+  }
+}
+
+.faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  font-weight: 600;
+  color: var(--color-fg-default);
+  cursor: pointer;
+  list-style: none;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  &:hover {
+    color: var(--color-accent-fg);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent-fg);
+    outline-offset: -2px;
+    border-radius: inherit;
+  }
+}
+
+.faq-item:first-child .faq-question:focus-visible {
+  border-radius: 12px 12px 0 0;
+}
+
+.docs-content .main-content .faq-chevron,
+.faq-chevron {
+  flex: none;
+  color: var(--color-fg-muted);
+  transition: transform 0.2s ease;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+.faq-item[open] .faq-chevron {
+  transform: rotate(90deg);
+}
+
+.faq-answer {
+  padding: 0 16px 14px;
+  color: var(--color-fg-muted);
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+.docs-content .main-content .about-banner {
+  margin: 0.5rem 0 1.5rem;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--color-border-default);
+    border-radius: 16px;
+  }
+}
+
+// The skill icons of the About page: one image per theme.
+.docs-content .main-content .skills-dark {
+  display: none;
+}
+
+[data-dark-mode] .docs-content .main-content {
+  .skills-light {
+    display: none;
+  }
+
+  .skills-dark {
+    display: block;
+  }
+}

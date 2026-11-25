@@ -33,21 +33,17 @@ keywords:
   - Access layer design
   - Ubiquiti UniFi equipment
 
-weight: 2700
+weight: 2701
 
 toc: true
 katex: true
 ---
-
-<br />
 
 A 2-tier network architecture simplifies network design by combining the Core
 and Distribution layers into a single layer while keeping the Access layer
 separate. This approach is suitable for small to medium-sized networks, offering
 a balance between performance, scalability, and manageability. This guide will
 help you design a 2-tier network using Ubiquiti's UniFi equipment.
-
-<br />
 
 ## Core-Distribution Layer
 
@@ -56,8 +52,6 @@ help you design a 2-tier network using Ubiquiti's UniFi equipment.
 The Core-Distribution Layer merges the functions of the traditional Core and
 Distribution layers, providing high-speed and reliable connectivity, policy
 enforcement, and routing between different segments of the network.
-
-<br />
 
 ### Key Features
 
@@ -68,8 +62,6 @@ enforcement, and routing between different segments of the network.
 - **Scalability**: Capable of handling increased traffic loads and future
   growth.
 
-<br />
-
 ### Design Considerations
 
 - **Redundancy**: Use redundant hardware and links to avoid single points of
@@ -77,8 +69,6 @@ enforcement, and routing between different segments of the network.
 - **High Bandwidth**: Employ high-capacity links, such as 10 Gbps or higher.
 - **Routing and Switching**: Implement robust routing and switching protocols.
 - **Security**: Enforce security policies and VLAN segmentation.
-
-<br />
 
 ### Example Configuration
 
@@ -102,8 +92,6 @@ core_distribution_layer:
         - VLAN segmentation
 ```
 
-<br />
-
 #### Specifications
 
 **UniFi Switch Aggregation (USW-Aggregation)**
@@ -121,8 +109,6 @@ core_distribution_layer:
   Network application host
 - [More details](https://techspecs.ui.com/unifi/cloud-gateways/udm-pro-max)
 
-<br />
-
 ## Access Layer
 
 ### Purpose
@@ -130,8 +116,6 @@ core_distribution_layer:
 The Access Layer is the edge of the network where end devices such as computers,
 printers, and IoT devices connect. It provides the first level of security and
 control.
-
-<br />
 
 ### Key Features
 
@@ -141,8 +125,6 @@ control.
   access points.
 - **Scalability**: Supports a large number of connected devices.
 
-<br />
-
 ### Design Considerations
 
 - **Port Density**: Ensure sufficient ports to support all end devices.
@@ -150,8 +132,6 @@ control.
   802.1X).
 - **PoE**: Utilize PoE for devices requiring power through Ethernet.
 - **Manageability**: Use managed switches for better control and monitoring.
-
-<br />
 
 ### Example Configuration
 
@@ -177,8 +157,6 @@ access_layer:
           PoE: yes
 ```
 
-<br />
-
 #### Specifications
 
 **UniFi Switch Pro 24 PoE (USW-Pro-24-POE, 400W)**
@@ -197,8 +175,6 @@ access_layer:
 - **Throughput Rates**: Up to 5.8 Gbps on 6 GHz, up to 4.3 Gbps on 5 GHz, up to
   688 Mbps on 2.4 GHz
 - [More details](https://techspecs.ui.com/unifi/wifi/u7-pro)
-
-<br />
 
 ## Best Practices for 2-Tier Network Design
 
@@ -225,8 +201,6 @@ access_layer:
 6. **Documentation**: Keep detailed documentation of your network design,
    including device configurations, IP address schemes, and network diagrams.
    This will be invaluable for troubleshooting and future upgrades.
-
-<br />
 
 ## Conclusion
 

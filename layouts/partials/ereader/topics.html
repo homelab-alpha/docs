@@ -1,0 +1,14 @@
+{{- /*
+  Contents of the documentation home: the topics (sections) and the other
+  pages, such as About, FAQ, License, and Terms. Used by the e-reader home page
+  and the e-reader version of /docs/.
+  Context: the documentation home (the "docs" section).
+*/ -}}
+{{- with .Sections.ByWeight }}
+<h2>Topics</h2>
+{{ partial "ereader/items.html" . }}
+{{- end }}
+{{- with .RegularPages.ByWeight }}
+<h2>More</h2>
+{{ partial "ereader/items.html" . }}
+{{- end }}

@@ -32,19 +32,15 @@ keywords:
   - QR Code Generator
   - Nginx
 
-weight: 4100
+weight: 4112
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this `compose.yml` file does in detail. This file deploys
 Mini QR, a customizable QR code generator, behind an Nginx reverse proxy.
@@ -60,8 +56,6 @@ Here's a detailed explanation:
 - **Description**: Configures a Docker network and the Mini QR service.
 - **RAW Compose File**: [compose.yml]
 - **RAW Nginx Configuration File**: [nginx-proxy.conf]
-
-<br />
 
 ## Networks Configuration
 
@@ -93,8 +87,6 @@ networks:
       com.mini-qr.network.description: "is an isolated bridge network."
 ```
 
-<br />
-
 - **networks**: Defines a custom network named `mini-qr_net`.
 - **attachable: false**: Other containers can't attach to this network.
 - **internal: false**: The network is accessible externally.
@@ -120,8 +112,6 @@ networks:
     Unit size for the network.
 - **labels**: Metadata for the network.
   - **description label**: Describes the network as an isolated bridge network.
-
-<br />
 
 ## Services Configuration
 
@@ -232,8 +222,6 @@ services:
       start_interval: 5s
 ```
 
-<br />
-
 - **mini-qr_app**: The service definition.
   - **deploy.resources.limits.pids: 512**: Limits the number of processes and
     threads in the container, which protects the host against fork bombs.
@@ -298,8 +286,6 @@ services:
   - **labels**: A description label.
   - **healthcheck: disable: true**: The health check is disabled for this
     container.
-
-<br />
 
 ## Nginx Configuration
 
@@ -406,8 +392,6 @@ http {
 }
 ```
 
-<br />
-
 The file is divided into the following sections:
 
 - **Core**
@@ -416,8 +400,6 @@ The file is divided into the following sections:
 - **Proxy defaults (DRY)**
 - **Upstream**
 - **Server**
-
-<br />
 
 ## Quick Start
 
@@ -434,8 +416,6 @@ Requires Docker Compose 2.24.0 or later.
    docker compose up -d
    ```
 
-<br />
-
 ## Default Web Access
 
 Access the Mini QR web interface using the following URL:
@@ -444,15 +424,11 @@ Access the Mini QR web interface using the following URL:
 http://your-ip-address:3017
 ```
 
-<br />
-
 ## Default Login Credentials
 
 **Username**: No username is required.
 
 **Password**: No password is required.
-
-<br />
 
 ## Conclusion
 

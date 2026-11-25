@@ -1,259 +1,196 @@
-/* FlexSearch */
+//
+// flexsearch.scss: the search popover (layouts/partials/docs/top-header.html)
+// in the new design. A panel under the toolbar search field, in the overlay
+// surface with a large shadow: a search field, the results as a list with the
+// selected row in an accent fill, and the keys at the bottom.
+//
 
-:root {
-  --flexsearch-container-bg-color: var(--gray-100);
-  --flexsearch-after-bg-color: var(--primary);
-  --flexsearch-after-color: var(--white);
-  --flexsearch-button-hover-bg-color: none;
-  --flexsearch-key-bg-color: var(--primary);
-  --flexsearch-key-color: #fff;
-  --flexsearch-suggestion-bg-color: var(--white);
-  --flexsearch-suggestion-link-hover-bg-color: #f5f6f7;
-  --flexsearch-suggestion-title-color: var(--primary);
-  --flexsearch-suggestion-title-border-color: var(--gray-300);
-  --flexsearch-suggestion-desc-color: var(--text-default);
-}
-
-[data-dark-mode] {
-  --flexsearch-container-bg-color: var(--dark-secondary);
-  --flexsearch-after-bg-color: hsl(var(--primary-hsl), 0.15);
-  --flexsearch-after-color: var(--primary-200);
-  --flexsearch-button-hover-bg-color: var(--black);
-  --flexsearch-key-bg-color: hsl(var(--primary-hsl), 0.15);
-  --flexsearch-key-color: var(--primary-200);
-  --flexsearch-suggestion-bg-color: var(--dark-secondary);
-  --flexsearch-suggestion-link-hover-bg-color: var(--gray-800);
-  --flexsearch-suggestion-title-color: var(--primary-200);
-  --flexsearch-suggestion-title-border-color: var(--gray-700);
-  --flexsearch-suggestion-desc-color: var(--gray-300);
-}
-
-#FlexSearchCollapse {
-  transition: 0.05s ease;
-  width: fit-content;
-}
-
-.flexsearch-container {
-  background-color: var(--flexsearch-container-bg-color);
-  padding: 0.8rem;
-  .form-control {
-    border: 2px solid var(--primary);
-    font-size: 1.2rem;
-  }
-}
-
-@media (min-width: 768px) {
-  .flexsearch-container {
-    border-radius: 0 0 4px 0;
-  }
-
-  .flexsearch {
-    min-width: 500px;
-    width: 500px;
-  }
-}
-
-.flexsearch-keymap {
-  padding: 0 0 0.8rem 0.5rem;
-  list-style: none;
-  display: flex;
-
-  .flexsearch-button-cmd-key {
-    height: 20px;
-    width: 30px;
-  }
-
-  li:not(:last-of-type) {
-    margin-right: 0.8rem;
-  }
-
-  li {
-    align-items: center;
-    display: flex;
-  }
-}
-
-@media (max-width: 768px) {
-  .flexsearch-keymap {
-    display: none;
-  }
-}
-
-.flexsearch-key-label {
-  color: var(--form-control-placeholder-color);
-  font-size: 0.75em;
-  line-height: 1.6em;
-}
-
-.flexsearch-button-keys {
-  display: flex;
-  min-width: calc(40px + 0.8em);
-}
-
-.flexsearch-button-cmd-key {
-  align-items: center;
-  background: var(--flexsearch-key-bg-color);
-  border-radius: 3px;
-  color: var(--flexsearch-key-color);
-  display: flex;
-  height: 18px;
-  justify-content: center;
-  margin-right: 0.4em;
-  position: relative;
-  border: 0;
-  width: 56px;
-}
-
-.flexsearch-button-key {
-  align-items: center;
-  background: var(--flexsearch-key-bg-color);
-  border-radius: 3px;
-  color: var(--flexsearch-key-color);
-  display: flex;
-  height: 18px;
-  justify-content: center;
-  margin-right: 0.4em;
-  padding: 0;
-  position: relative;
-  border: 0;
-  width: 20px;
-  font-size: 11px;
-}
-
-#flexsearch-button {
-  display: flex;
-  height: 36px;
-  padding: 0 8px;
-  margin: 0 0 0 16px;
-  font-weight: 400;
-  align-items: center;
-  justify-content: space-between;
-  border-radius: 4px;
-
-  .flexsearch-button-placeholder {
-    color: var(--form-control-placeholder-color);
-  }
-}
-
-#flexsearch-button:hover {
-  background: var(--flexsearch-button-hover-bg-color) !important;
-
-  .flexsearch-button-placeholder {
-    color: var(--text-default);
-  }
-}
-
-@media (min-width: 992px) {
-  .flexsearch::after {
-    right: 0.5125rem;
-  }
-}
-
-#suggestions {
+.search-popover {
   position: absolute;
-  background-color: var(--flexsearch-suggestion-bg-color);
+  top: calc(var(--toolbar-height, 56px) - 4px);
+  right: 0;
   left: 0;
-  max-height: 70vh;
+  z-index: 1000;
+  display: none;
+  padding: 0 8px;
+  pointer-events: none;
+
+  &.show,
+  &.collapsing {
+    display: block;
+  }
+
+  // No height animation: the panel appears at once.
+  &.collapsing {
+    height: auto !important;
+    transition: none;
+  }
+}
+
+.search-popover-panel {
+  width: 100%;
+  max-width: 640px;
+  // Under the search field: the script sets margin-left when it opens.
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid var(--color-border-default);
+  border-radius: 14px;
+  background: var(--color-canvas-overlay);
+  box-shadow: var(--color-shadow-large);
+  pointer-events: auto;
+}
+
+.search-popover-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 8px 0 16px;
+  border-bottom: 1px solid var(--color-border-default);
+
+  input {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 48px;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--color-fg-default);
+    font-size: 1.0625rem;
+
+    &::placeholder {
+      color: var(--color-fg-muted);
+    }
+
+    &::-webkit-search-cancel-button {
+      cursor: pointer;
+    }
+  }
+
+  &:focus-within {
+    box-shadow: inset 0 -2px 0 var(--color-accent-fg);
+  }
+}
+
+.search-popover-icon {
+  display: inline-flex;
+  color: var(--color-fg-muted);
+  font-size: 20px;
+
+  svg {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+  }
+}
+
+.search-popover-cancel {
+  min-height: 44px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-accent-fg);
+  font-size: 0.9375rem;
+
+  &:hover {
+    background: var(--color-neutral-muted);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent-fg);
+    outline-offset: -2px;
+  }
+}
+
+// Results
+.search-results {
+  max-height: min(60vh, 480px);
+  padding: 6px;
   overflow-y: auto;
   scrollbar-width: thin;
-  &::-webkit-scrollbar {
-    width: 5px;
+
+  a {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 12px;
+    border-radius: 9px;
+    color: var(--color-fg-default);
+    text-decoration: none;
+    // The selection follows the arrow keys at once.
+    transition: none;
+
+    &:hover {
+      background: var(--color-neutral-muted);
+      color: var(--color-fg-default);
+    }
+
+    &:focus,
+    &[aria-selected="true"] {
+      outline: 0;
+      background: var(--color-accent-emphasis);
+      color: var(--color-fg-on-emphasis);
+
+      .suggestion__title,
+      .suggestion__description {
+        color: var(--color-fg-on-emphasis);
+      }
+    }
   }
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: rgba(155, 155, 155, 0.5);
-    border-radius: 2px;
-    border: transparent;
-  }
-  margin-top: 0.5rem;
-  // width: calc(100vw - 0.3rem);
-  max-width: calc(100vw - 0.15rem);
-  z-index: 999;
-}
-
-@media (min-width: 768px) {
-  #suggestions {
-    // right: -2rem
-  }
-}
-
-@media (min-width: 992px) {
-  #suggestions {
-    left: 0;
-  }
-}
-
-#suggestions a,
-.suggestion__no-results {
-  padding: 0.75rem;
-  margin: 0 0.5rem;
-}
-
-#suggestions a {
-  display: block;
-  text-decoration: none;
-}
-
-#suggestions a:focus {
-  background: var(--flexsearch-suggestion-link-hover-bg-color);
-  border-radius: 4px;
-  outline: 0;
-}
-
-#suggestions div:not(:first-child) {
-  // border-top: 1px dashed #e9ecef
-}
-
-#suggestions div:first-child {
-  margin-top: 0.5rem;
-}
-
-#suggestions div:last-child {
-  margin-bottom: 0.5rem;
-}
-
-#suggestions a:hover {
-  background: var(--flexsearch-suggestion-link-hover-bg-color);
-  border-radius: 4px;
-}
-
-#suggestions span {
-  display: flex;
-  font-size: 1rem;
 }
 
 .suggestion__title {
-  font-weight: 700;
-  color: var(--flexsearch-suggestion-title-color);
+  color: var(--color-fg-default);
+  font-size: 0.9375rem;
+  font-weight: 600;
 }
 
-.suggestion__description,
+.suggestion__description {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--color-fg-muted);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
 .suggestion__no-results {
-  color: var(--flexsearch-suggestion-desc-color);
+  padding: 12px;
+  color: var(--color-fg-muted);
+  font-size: 0.9375rem;
 }
 
-@media (min-width: 992px) {
-  #suggestions {
-    width: 500px;
-    max-width: 500px;
-  }
+// Keys
+.search-popover-keys {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  padding: 8px 16px;
+  border-top: 1px solid var(--color-border-default);
+  color: var(--color-fg-muted);
+  font-size: 0.75rem;
 
-  #suggestions a {
-    display: flex;
-  }
-
-  .suggestion__title {
-    width: 9rem;
-    padding-right: 1rem;
-    border-right: 1px solid var(--flexsearch-suggestion-title-border-color);
+  kbd {
     display: inline-block;
-    text-align: left;
+    min-width: 20px;
+    margin-right: 2px;
+    padding: 0 5px;
+    border: 1px solid var(--color-border-default);
+    border-radius: 5px;
+    background: transparent;
+    color: var(--color-fg-muted);
+    font-family: inherit;
+    font-size: 0.6875rem;
+    line-height: 1.6;
+    text-align: center;
+    box-shadow: none;
   }
 
-  .suggestion__description {
-    width: 20.1rem;
-    padding-left: 1rem;
+  // Touch screens have no arrow keys.
+  @media (pointer: coarse) {
+    display: none;
   }
 }

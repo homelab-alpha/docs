@@ -8,5 +8,5 @@ description:
 url: "linux/fedora"
 icon: "code"
 
-weight: 7100
+weight: 8100
 ---

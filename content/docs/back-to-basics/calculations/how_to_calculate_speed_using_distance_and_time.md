@@ -33,13 +33,11 @@ keywords:
   - Kilometer per hour calculation
   - Physics calculations
 
-weight: 2102
+weight: 2104
 
 toc: true
 katex: true
 ---
-
-<br />
 
 ## Introduction
 
@@ -47,14 +45,10 @@ In this guide, we will walk you through the process of calculating speed using
 distance and time. The formula for speed is simple, but understanding the proper
 conversions and units is essential.
 
-<br />
-
 ## Example Data
 
 - **Distance**: 1000 meters (1.0 kilometer)
 - **Time**: 12 minutes 30 seconds
-
-<br />
 
 ## Convert Time to Hours
 
@@ -62,15 +56,11 @@ To calculate speed in **kilometers per hour (km/h)**, we first need to convert
 the time into hours. This involves converting both minutes and seconds into
 their corresponding hour values.
 
-<br />
-
 ### Convert Minutes to Hours
 
 Since there are 60 minutes in an hour, we divide the time in minutes by 60:
 
 $ \frac{12 \ \text{minutes}}{60} = 0.2 \ \text{hours} $
-
-<br />
 
 ### Convert Seconds to Hours
 
@@ -79,30 +69,23 @@ convert 30 seconds into hours:
 
 $ \frac{30 \ \text{seconds}}{3600} \approx 0.0083 \ \text{hours} $
 
-<br />
-
 ### Total Time in Hours
 
 Now, sum the two time components (minutes and seconds):
 
-$
-\text{Total Time} = 0.2 \ \text{hours} + 0.0083 \ \text{hours} \approx 0.2083
-\ \text{hours}
-$
-
-<br />
+$ \text{Total Time} = 0.2 \ \text{hours} + 0.0083 \ \text{hours} \approx 0.2083
+\ \text{hours} $
 
 ## Calculate Speed
 
 Now that we have the total time in hours, we can calculate the speed by dividing
 the **distance** by the **time**:
 
+<!-- prettier-ignore -->
 $
 \text{Speed} = \frac{\text{Distance}}{\text{Time}} = \frac{1.0
 \ \text{km}}{0.2083 \ \text{hours}} \approx 4.8 \ \text{km/h}
 $
-
-<br />
 
 ## Final Result
 

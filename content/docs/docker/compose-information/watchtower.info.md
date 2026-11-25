@@ -34,19 +34,15 @@ keywords:
   - Docker Environment
   - Portainer Service
 
-weight: 4100
+weight: 4127
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this `compose.yml` file does in detail. This file is used
 to configure and deploy a service using Docker Compose, specifically setting up
@@ -64,8 +60,6 @@ Here's a detailed explanation:
   service for automated container updates. It includes detailed network settings
   and service configurations to ensure Watchtower runs smoothly and securely.
 - **RAW Compose File**: [compose.yml]
-
-<br />
 
 ## Networks Configuration
 
@@ -97,8 +91,6 @@ networks:
       com.watchtower.network.description: "is an isolated bridge network."
 ```
 
-<br />
-
 - **networks**: This section defines a custom network named `watchtower_net`.
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
@@ -127,8 +119,6 @@ networks:
     Unit size for the network.
 - **labels**: Metadata for the network.
   - **com.watchtower.network.description**: A description label for the network.
-
-<br />
 
 ## Services Configuration
 
@@ -173,8 +163,6 @@ services:
       start_period: 10s
       start_interval: 5s
 ```
-
-<br />
 
 - **services**: Defines services to be deployed.
 - **watchtower_app**: The service name for the Watchtower container.
@@ -225,8 +213,6 @@ services:
       will not be counted towards the retries (10 seconds).
     - **start_interval**: The time between starting health checks (5 seconds).
 
-<br />
-
 ## Quick Start
 
 {{% alert context="info" %}}
@@ -239,8 +225,6 @@ Requires Docker Compose 2.24.0 or later.
    docker compose up -d
    ```
 
-<br />
-
 ## Default Access
 
 Watchtower has no web interface. Follow what it does in the logs:
@@ -249,13 +233,9 @@ Watchtower has no web interface. Follow what it does in the logs:
 docker logs watchtower
 ```
 
-<br />
-
 ## Default Login Credentials
 
 Watchtower has no login.
-
-<br />
 
 ## Conclusion
 

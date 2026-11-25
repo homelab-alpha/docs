@@ -32,19 +32,15 @@ keywords:
   - MariaDB
   - Internet Speed Monitoring
 
-weight: 4100
+weight: 4122
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this `compose.yml` file does in detail. This file deploys
 the Speedtest Tracker Beta with a MariaDB database. It uses the `alexjustesen`
@@ -65,8 +61,6 @@ Here's a detailed explanation:
 - **RAW Environment File**: [stack.env]
 - **RAW MariaDB Configuration File**: [my.cnf]
 
-<br />
-
 ## Networks Configuration
 
 ```yaml
@@ -80,8 +74,6 @@ networks:
     name: speedtest-tracker
 ```
 
-<br />
-
 - **networks**: This stack has no network of its own. It joins the network of
   the `speedtest-tracker` stack.
   - **speedtest-tracker_net**: The name of the network inside this Compose file.
@@ -90,8 +82,6 @@ networks:
   - **name: speedtest-tracker**: The name of the network in Docker
     (`172.20.23.0/24`). The database uses `172.20.23.4` and the app
     `172.20.23.5`; `speedtest-tracker` uses `.2` and `.3`.
-
-<br />
 
 ## Services Configuration
 
@@ -151,8 +141,6 @@ services:
       start_interval: 5s
 ```
 
-<br />
-
 - **speedtest-tracker-beta_db**: The service definition.
   - **deploy.resources.limits.pids: 2048**: Limits the number of processes and
     threads in the container, which protects the host against fork bombs.
@@ -191,8 +179,6 @@ services:
   - **healthcheck**: Runs `healthcheck.sh --connect --innodb_initialized`.
     - **interval / timeout / retries / start_period / start_interval**: 10s / 5s
       / 3 / 10s / 5s.
-
-<br />
 
 ### `speedtest-tracker-beta_app`
 
@@ -281,8 +267,6 @@ services:
       start_interval: 5s
 ```
 
-<br />
-
 - **speedtest-tracker-beta_app**: The service definition.
   - **deploy.resources.limits.pids: 512**: Limits the number of processes and
     threads in the container, which protects the host against fork bombs.
@@ -350,15 +334,11 @@ services:
     - **interval / timeout / retries / start_period / start_interval**: 10s / 5s
       / 3 / 10s / 5s.
 
-<br />
-
 ## Environment Variables
 
 The variables are stored in an environment file, outside the compose file. Use
 `.env` for Docker Compose and `stack.env` for Portainer. Both files must contain
 the same values.
-
-<br />
 
 ### Variables in this file
 
@@ -421,8 +401,6 @@ ADMIN_PASSWORD=StrongUniqueUserPassword9012
 - **`ADMIN_NAME`**
 - **`ADMIN_PASSWORD`**
 
-<br />
-
 ## MariaDB Configuration
 
 The `my.cnf` file is mounted into the database container as `/etc/my.cnf`. It is
@@ -430,8 +408,6 @@ identical to the file of the
 [Speedtest Tracker](/docker/compose-info/speedtest-tracker/) and the
 [MariaDB](/docker/compose-info/mariadb/) pages. See [my.cnf] for the full file
 with comments.
-
-<br />
 
 ## Quick Start
 
@@ -456,8 +432,6 @@ Requires Docker Compose 2.24.0 or later.
    docker compose up -d
    ```
 
-<br />
-
 ## Default Web Access
 
 Access the Speedtest Tracker Beta web interface using the following URL:
@@ -473,8 +447,6 @@ http://your-ip-address:80
 ```bash
 https://your-ip-address:443
 ```
-
-<br />
 
 ## Default Login Credentials
 
@@ -499,8 +471,6 @@ StrongUniqueUserPassword9012
 **For security reasons, it is strongly recommended that you change the default
 credentials after your first login.**
 {{% /alert %}}
-
-<br />
 
 ## Conclusion
 

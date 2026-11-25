@@ -1,0 +1,11 @@
+{{- /*
+  security.txt (RFC 9116): how to report a vulnerability. Made on every build;
+  Expires is 11 months after the build (the RFC advises less than a year), so
+  it stays valid as long as the site is deployed now and then. The reporting
+  process is in SECURITY.md.
+*/ -}}
+Contact: https://github.com/homelab-alpha/docs/security/advisories/new
+Expires: {{ (now.AddDate 0 11 0).UTC.Format "2006-01-02T15:04:05Z" }}
+Policy: https://github.com/homelab-alpha/docs/blob/main/SECURITY.md
+Preferred-Languages: en, nl
+Canonical: {{ "/.well-known/security.txt" | absURL }}

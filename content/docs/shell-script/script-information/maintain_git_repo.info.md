@@ -29,19 +29,15 @@ keywords:
   - shell script
   - fresh start Git
 
-weight: 9100
+weight: 10214
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named
 `maintain_git_repo.sh`, authored by GJS (homelab-alpha), and its purpose is to
@@ -61,8 +57,6 @@ for better project management and collaboration.
   This helps in organizing the repository and reducing its size.
 - **RAW Script**: [maintain_git_repo.sh]
 
-<br />
-
 ## Description
 
 The script is designed to streamline the process of cleaning up a Git
@@ -70,8 +64,6 @@ repository. It creates a new branch without the previous commit history, adds
 all files to this new branch, and then replaces the old main branch with this
 new clean branch. The result is a repository with a single, clean commit, which
 can help in managing the repository more effectively.
-
-<br />
 
 ## Create a New Branch Without History
 
@@ -83,8 +75,6 @@ This command creates a new branch called `cleaned-history` without any commit
 history. This is useful for starting fresh without bringing over the old commit
 history.
 
-<br />
-
 ## Add All Files to the Staging Area
 
 ```sh
@@ -93,8 +83,6 @@ git add -A
 
 This command stages all files in the repository, preparing them for the next
 commit.
-
-<br />
 
 ## Make an Initial Commit
 
@@ -105,8 +93,6 @@ git commit -am "maintenance: New start, a clean history"
 This commits all staged files with a message indicating that this is a
 maintenance action to start with a clean history.
 
-<br />
-
 ## Delete the Old `main` Branch
 
 ```sh
@@ -116,8 +102,6 @@ git branch -D main
 This command deletes the old `main` branch. This step is necessary to replace
 the old branch with the new one.
 
-<br />
-
 ## Rename the Current Branch to `main`
 
 ```sh
@@ -126,8 +110,6 @@ git branch -m main
 
 This renames the current branch (previously `cleaned-history`) to `main`, making
 it the new main branch of the repository.
-
-<br />
 
 ## Push the New `main` Branch to the Remote Repository
 
@@ -139,8 +121,6 @@ This forcefully pushes the new `main` branch to the remote repository, replacing
 the old `main` branch. The `-f` (force) option is necessary because the
 histories of the branches do not match.
 
-<br />
-
 ## Close the Terminal
 
 ```sh
@@ -148,8 +128,6 @@ exit 0
 ```
 
 This command closes the terminal session. The script ends here.
-
-<br />
 
 ## Example Usage
 
@@ -163,8 +141,6 @@ fresh. Here’s how you would use it:
 4. Push the changes to your remote repository.
 5. Inform your team members about the maintenance activity to avoid any
    conflicts or misunderstandings.
-
-<br />
 
 ## Conclusion
 

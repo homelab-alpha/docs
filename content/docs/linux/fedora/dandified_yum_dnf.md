@@ -34,18 +34,14 @@ keywords:
   - Red Hat Enterprise Linux
   - DNF commands
 
-weight: 7100
+weight: 8101
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Please note that the Linux shell is case-sensitive. {{% /alert %}}
-
-<br />
 
 ## What is DNF?
 
@@ -62,8 +58,6 @@ syntax differs, both forms are shown. The older `yum` command is only an alias
 for `dnf`.
 {{% /alert %}}
 
-<br />
-
 ## Installing and Updating Packages
 
 ### Installing a Package
@@ -75,8 +69,6 @@ package name. For example, to install `nano`:
 sudo dnf install nano
 ```
 
-<br />
-
 ### Removing a Package
 
 To remove a package, you use the `remove` command:
@@ -84,8 +76,6 @@ To remove a package, you use the `remove` command:
 ```bash
 sudo dnf remove nano
 ```
-
-<br />
 
 ### Updating a Package
 
@@ -96,8 +86,6 @@ alias that still works):
 sudo dnf upgrade nano
 ```
 
-<br />
-
 ### Updating All Packages
 
 To update all installed packages to their latest versions:
@@ -105,8 +93,6 @@ To update all installed packages to their latest versions:
 ```bash
 sudo dnf upgrade
 ```
-
-<br />
 
 ## Searching for Packages
 
@@ -118,8 +104,6 @@ You can search for packages by name using the `search` command:
 dnf search nano
 ```
 
-<br />
-
 ### Searching by Description
 
 If you're not sure about the exact name of the package, you can search by
@@ -128,8 +112,6 @@ description or other attributes:
 ```bash
 dnf search editor
 ```
-
-<br />
 
 ## Managing Repositories
 
@@ -163,8 +145,6 @@ sudo dnf config-manager addrepo --from-repofile=https://repository.url/path/newr
 On DNF4, install `dnf-plugins-core` and use
 `sudo dnf config-manager --add-repo https://repository.url/path/newrepo.repo`.
 
-<br />
-
 ### Disabling a Repository
 
 To disable a repository:
@@ -175,8 +155,6 @@ sudo dnf config-manager setopt newrepo.enabled=0
 
 On DNF4: `sudo dnf config-manager --set-disabled newrepo`.
 
-<br />
-
 ### Enabling a Repository
 
 To enable a repository:
@@ -186,8 +164,6 @@ sudo dnf config-manager setopt newrepo.enabled=1
 ```
 
 On DNF4: `sudo dnf config-manager --set-enabled newrepo`.
-
-<br />
 
 ## Cleaning Up
 
@@ -200,8 +176,6 @@ these orphaned packages:
 sudo dnf autoremove
 ```
 
-<br />
-
 ### Cleaning Cache
 
 DNF caches data for faster operations, but sometimes you need to clean this
@@ -210,8 +184,6 @@ cache:
 ```bash
 sudo dnf clean all
 ```
-
-<br />
 
 ## Additional Commands and Tips
 
@@ -223,8 +195,6 @@ To list all installed packages:
 dnf list --installed
 ```
 
-<br />
-
 ### Showing Package Information
 
 To display detailed information about a package:
@@ -232,8 +202,6 @@ To display detailed information about a package:
 ```bash
 dnf info nano
 ```
-
-<br />
 
 ### Downloading Packages Without Installing
 
@@ -243,8 +211,6 @@ installations):
 ```bash
 dnf download nano
 ```
-
-<br />
 
 ### Group Installations
 
@@ -264,8 +230,6 @@ sudo dnf group install development-tools
 DNF5 shows the group ID in the `dnf group list` output. Using the ID avoids
 problems with spaces and capitals in group names.
 
-<br />
-
 ### History and Rollback
 
 DNF keeps track of all transactions, making it possible to undo changes. To view
@@ -283,8 +247,6 @@ To undo a specific transaction, use the transaction ID from the history:
 sudo dnf history undo <transaction_id>
 ```
 
-<br />
-
 ## Best Practices
 
 1. **Regular Updates**: Keep your system updated regularly to ensure security
@@ -293,8 +255,6 @@ sudo dnf history undo <transaction_id>
 3. **Cleanup**: Regularly clean up unused packages and cache to free up space.
 4. **Dependency Awareness**: Be mindful of dependencies when installing or
    removing packages to avoid breaking your system.
-
-<br />
 
 ## Conclusion
 

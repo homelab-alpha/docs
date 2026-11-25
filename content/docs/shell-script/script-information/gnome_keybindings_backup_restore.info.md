@@ -35,19 +35,15 @@ keywords:
   - dconf
   - shell scripting
 
-weight: 9100
+weight: 10207
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named
 `gnome_keybindings_backup_restore.sh`, authored by GJS (homelab-alpha), and its
@@ -65,8 +61,6 @@ their current keybindings and restore them when needed.
   configurations for various GNOME components.
 - **RAW Script**: [gnome_keybindings_backup_restore.sh]
 
-<br />
-
 ## Script Header
 
 The script starts with a typical bash script header and includes metadata
@@ -76,8 +70,6 @@ purpose. It also outlines the requirements and usage instructions:
 - The script requires the `dconf` utility.
 - Usage involves running the script and choosing an option to either back up or
   restore keybindings.
-
-<br />
 
 ## Check and Create Backup Directory
 
@@ -97,8 +89,6 @@ check_create_backup_dir() {
   home directory.
 - **Process**: Checks if the directory exists; if not, it creates it and prints
   a message.
-
-<br />
 
 ## Perform Backup
 
@@ -128,8 +118,6 @@ perform_backup() {
   - Uses `dconf dump` to export keybinding settings from various GNOME
     components into specific files.
   - Prints a success message with the backup directory location.
-
-<br />
 
 ## Perform Restore
 
@@ -193,8 +181,6 @@ perform_restore() {
   - Loads keybinding settings from the selected backup files.
   - Prints a success message indicating the source of the restored backup.
 
-<br />
-
 ## Main Menu
 
 The script presents a simple menu to the user:
@@ -222,14 +208,10 @@ esac
     on the user's input.
   - Handles invalid input by displaying an error message.
 
-<br />
-
 ## End of Script
 
 The script concludes here, having either backed up or restored the GNOME
 keybindings based on the user's choice.
-
-<br />
 
 ## Conclusion
 

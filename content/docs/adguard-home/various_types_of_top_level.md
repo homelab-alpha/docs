@@ -35,8 +35,6 @@ toc: true
 katex: true
 ---
 
-<br />
-
 ## Introduction
 
 When searching for the perfect domain name, it's important to recognize the
@@ -55,8 +53,6 @@ name, it's important to understand the different TLDs and know what options you
 have. This way, you can choose the best domain name that fits your business and
 your goals.
 
-<br />
-
 ## Country-code TLDs (ccTLDs)
 
 Country-code TLDs (ccTLDs) are domains specifically designed for websites
@@ -65,16 +61,12 @@ country where the website is located. Some examples of ccTLDs are .nl for the
 Netherlands, .de for Germany, .fr for France, .es for Spain, .au for Australia,
 and .jp for Japan. There are currently 316 ccTLDs available.
 
-<br />
-
 ## Generic TLDs (gTLDs)
 
 Generic TLDs (gTLDs) are domains accessible to everyone and can be used by
 anyone. The most common gTLDs are .com, .net, .org, .info, .biz, and .name.
 These domain names can be used for a wide range of purposes, from personal blogs
 to business websites. There are currently over 1,200 gTLDs available.
-
-<br />
 
 ## Generic Restricted TLDs (grTLDs)
 
@@ -84,16 +76,12 @@ focusing on a particular topic or audience. Some examples of grTLDs are .edu for
 schools, .gov for government, .travel for the travel industry, .jobs for
 employment, and .mil for military organizations.
 
-<br />
-
 ## Infrastructure TLDs (iTLDs)
 
 Infrastructure TLDs (iTLDs) are domains used for specific network services, such
 as email, DNS, and other technical services. These domains are typically used
 for managing a network or hosting technical services. The only iTLD currently
 available is .arpa.
-
-<br />
 
 ## Sponsored TLDs (sTLDs)
 
@@ -103,8 +91,6 @@ focusing on a particular topic or audience. Some examples of sTLDs are .museum
 for museums, .aero for the aviation industry, .coop for cooperatives, and .pro
 for professionals. The number of sTLDs can vary, but there are currently more
 than 14 available.
-
-<br />
 
 ## Test TLDs (tTLDs)
 

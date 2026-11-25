@@ -34,15 +34,11 @@ toc: true
 katex: true
 ---
 
-<br />
-
 ## Introduction
 
 AdGuard Home is a powerful and versatile Ad Blocker and privacy protection
 software. In this repository, you'll find various subdirectories containing
 specific components of AdGuard Home, including filters and other related files.
-
-<br />
 
 ## Available filters from Homelab-Alpha
 
@@ -91,16 +87,12 @@ being blocked, allowed, and/or redirected before using any of them.
   domain names.
 - [**Wildcard:**] Filter consisting of a list that blocks Wildcard DNS records.
 
-<br />
-
 ## Contributions to Homelab-Alpha - AdGuard Home
 
 We value your contribution. We want to make it as easy as possible to submit
 your contributions to the Homelab-Alpha - adguard-home repository. Changes to
 the adguard-home are handled through pull requests against the `main` branch. To
 learn how to contribute, see [contribute].
-
-<br />
 
 ## License
 

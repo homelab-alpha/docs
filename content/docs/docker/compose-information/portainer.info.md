@@ -34,19 +34,15 @@ keywords:
   - Docker Environment
   - Portainer Service
 
-weight: 4100
+weight: 4120
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this `compose.yml` file does in detail. This file is used
 to configure and deploy services using Docker Compose, specifically setting up a
@@ -64,8 +60,6 @@ Here's a detailed explanation:
   service to manage Docker containers. It includes detailed network settings and
   service configurations to ensure Portainer runs smoothly and securely.
 - **RAW Compose File**: [compose.yml]
-
-<br />
 
 ## Networks Configuration
 
@@ -97,8 +91,6 @@ networks:
       com.portainer.network.description: "is an isolated bridge network."
 ```
 
-<br />
-
 - **networks**: This section defines a custom network named `portainer_net`.
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
@@ -123,8 +115,6 @@ networks:
   - **mtu: "1500"**: Sets the Maximum Transmission Unit size for the network.
 - **labels**: Metadata for the network.
   - **com.portainer.network.description**: A description label for the network.
-
-<br />
 
 ## Services Configuration
 
@@ -167,8 +157,6 @@ services:
       disable: true
 ```
 
-<br />
-
 - **services**: Defines services to be deployed.
 - **portainer_app**: The service name for the Portainer container.
   - **deploy.resources.limits.pids: 512**: Limits the number of processes and
@@ -209,8 +197,6 @@ services:
   - **healthcheck**: Healthcheck configuration.
     - **disable: true**: Disables health checks for the container.
 
-<br />
-
 ## Quick Start
 
 {{% alert context="info" %}}
@@ -222,8 +208,6 @@ Requires Docker Compose 2.24.0 or later.
    ```bash
    docker compose up -d
    ```
-
-<br />
 
 ## Default Web Access
 
@@ -237,8 +221,6 @@ Portainer is only published over HTTPS. It uses a self-signed certificate by
 default, so your browser shows a warning on the first visit.
 
 Port 8000 is the tunnel server for Edge Agents.
-
-<br />
 
 ## Default Login Credentials
 
@@ -260,8 +242,6 @@ docker compose restart
 **For security reasons, it is strongly recommended to create a strong username
 and password during the setup.**
 {{% /alert %}}
-
-<br />
 
 ## Conclusion
 

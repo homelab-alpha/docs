@@ -85,22 +85,6 @@
   filter: var(--invert);
 }
 
-body .toggle-dark {
-  display: block;
-}
-
-body .toggle-light {
-  display: none;
-}
-
-[data-dark-mode] body .toggle-light {
-  display: block;
-}
-
-[data-dark-mode] body .toggle-dark {
-  display: none;
-}
-
 .btn {
   padding: 8px 20px;
   outline: none;

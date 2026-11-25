@@ -36,13 +36,11 @@ keywords:
   - DNSSEC
   - Network best practices
 
-weight: 2700
+weight: 2703
 
 toc: true
 katex: true
 ---
-
-<br />
 
 ## Basics of DNS
 
@@ -55,8 +53,6 @@ on the network.
   computer network (e.g., 192.168.1.1 for IPv4 or
   2001:0db8:85a3:0000:0000:8a2e:0370:7334 for IPv6).
 
-<br />
-
 ## Key DNS Components
 
 - **DNS Resolver**: The client-side part of DNS; it queries the DNS server.
@@ -68,8 +64,6 @@ on the network.
   top-level domain (like .com, .org).
 - **Authoritative DNS Servers**: Servers that contain DNS records for specific
   domains.
-
-<br />
 
 ## Common DNS Record Types
 
@@ -87,8 +81,6 @@ on the network.
   specified services.
 - **PTR Record**: Pointer record, used for reverse DNS lookups.
 
-<br />
-
 ## DNS Query Types
 
 - **Recursive Query**: The DNS resolver queries multiple DNS servers until it
@@ -98,16 +90,12 @@ on the network.
 - **Non-recursive Query**: The DNS resolver queries the DNS server, and if the
   DNS server has the requested record, it responds immediately.
 
-<br />
-
 ## DNS Caching
 
 - **DNS Cache**: Temporary storage of DNS query results to improve speed and
   reduce the load on DNS servers.
 - **TTL (Time To Live)**: The duration that a DNS record is cached by a DNS
   resolver or server.
-
-<br />
 
 ## DNS Resolution Process
 
@@ -121,16 +109,12 @@ on the network.
 6. **DNS Resolver**: Returns the IP address to the user's browser.
 7. **Browser**: Connects to the server using the provided IP address.
 
-<br />
-
 ## DNS Providers
 
 The DNS providers below focus on showcasing their key features and services so
 you can choose the one that best suits your needs. If you can't decide or can't
 figure out which one best suits your needs, Homelab-Alpha recommends
 [Quad9](#quad9).
-
-<br />
 
 {{% alert context="primary" %}}
 
@@ -154,8 +138,6 @@ figure out which one best suits your needs, Homelab-Alpha recommends
 
 {{% /alert %}}
 
-<br />
-
 ### Quad9
 
 | **Name**                    | Quad9                                             |
@@ -173,8 +155,6 @@ figure out which one best suits your needs, Homelab-Alpha recommends
 | **EDNS Padding**            | Yes                                               |
 | **Filters**                 | Malware, Phishing                                 |
 | **Remarks**                 | Focused on blocking malicious domains             |
-
-<br />
 
 ### AdGuard DNS
 
@@ -194,8 +174,6 @@ figure out which one best suits your needs, Homelab-Alpha recommends
 | **Filters**                 | Ad blocking, Tracking                              |
 | **Remarks**                 | Ideal for ad and tracker blocking                  |
 
-<br />
-
 ### Cloudflare
 
 | **Name**                    | Cloudflare                                              |
@@ -213,8 +191,6 @@ figure out which one best suits your needs, Homelab-Alpha recommends
 | **EDNS Padding**            | Yes                                                     |
 | **Filters**                 | Malware, Adult Content                                  |
 | **Remarks**                 | Known for speed and privacy                             |
-
-<br />
 
 ### Google Public DNS
 
@@ -234,8 +210,6 @@ figure out which one best suits your needs, Homelab-Alpha recommends
 | **Filters**                 | No                                                       |
 | **Remarks**                 | Fast, reliable, no filters                               |
 
-<br />
-
 ### Cisco OpenDNS
 
 | **Name**                    | OpenDNS                                                                |
@@ -254,8 +228,6 @@ figure out which one best suits your needs, Homelab-Alpha recommends
 | **Filters**                 | Malware, Phishing, Custom                                              |
 | **Remarks**                 | Great for families and small businesses                                |
 
-<br />
-
 ## Common DNS Tools
 
 ### dig
@@ -269,8 +241,6 @@ dig example.com MX
 dig -x 192.168.1.1
 ```
 
-<br />
-
 ### nslookup
 
 A network administration command-line tool for querying DNS to obtain domain
@@ -282,8 +252,6 @@ nslookup -type=MX example.com
 nslookup 192.168.1.1
 ```
 
-<br />
-
 ### host
 
 A simple utility for performing DNS lookups.
@@ -294,8 +262,6 @@ host -t MX example.com
 host 192.168.1.1
 ```
 
-<br />
-
 ## Advanced DNS Concepts
 
 - **DNSSEC (DNS Security Extensions)**: Enhances security by adding
@@ -304,8 +270,6 @@ host 192.168.1.1
   single destination address has multiple routing paths.
 - **Split-Horizon DNS**: Provides different DNS responses based on the source of
   the DNS query, often used for internal vs. external users.
-
-<br />
 
 ## DNS Best Practices
 
@@ -318,8 +282,6 @@ host 192.168.1.1
    availability.
 5. **Regular Audits**: Conduct periodic DNS audits to detect and rectify
    configuration errors.
-
-<br />
 
 ## Troubleshooting DNS Issues
 
@@ -352,8 +314,6 @@ host 192.168.1.1
    messages or unusual activity.
 5. **Consult ISP**: If issues persist, contact your Internet Service Provider
    for assistance.
-
-<br />
 
 ## Conclusion
 

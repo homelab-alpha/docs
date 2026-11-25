@@ -26,13 +26,11 @@ keywords:
   - cryptographic algorithms
   - security protocols
 
-weight: 8901
+weight: 9901
 
 toc: true
 katex: true
 ---
-
-<br />
 
 ## Introduction
 
@@ -41,8 +39,6 @@ tools, libraries, and protocols for secure communication over computer networks.
 It supports various encryption algorithms, cryptographic hash functions, and
 protocols, making it a versatile tool for securing data transmission and
 ensuring data integrity.
-
-<br />
 
 ## Self-signed Certificates
 
@@ -54,8 +50,6 @@ CA, and ECDSA and RSA certificates for servers, clients, and localhost.
 {{% alert context="warning" %}}
 The certificates are meant for a homelab and for testing. Do not use them in
 production, where you need third-party validation. {{% /alert %}}
-
-<br />
 
 ## What You Get
 
@@ -92,8 +86,6 @@ The scripts share their functions in one file. Script page:
 Everything is stored in `~/tls`. To install the scripts and create your first
 certificate, follow the [Quickstart Guide].
 
-<br />
-
 ## Examples
 
 In the OpenSSL repository, you will find a folder named `examples`, which
@@ -115,8 +107,6 @@ This CSR is for demonstration purposes only.
 -----END CERTIFICATE REQUEST-----
 ```
 
-<br />
-
 ### .crt/.pem - Certificate Example
 
 ```pem
@@ -128,8 +118,6 @@ This certificate is for demonstration purposes only.
 **DO NOT use in testing or production environments.**
 -----END CERTIFICATE-----
 ```
-
-<br />
 
 ### .key/.pem - Private Key Example
 
@@ -152,16 +140,12 @@ header line `BEGIN PRIVATE KEY`.
 This ensures that no actual certificates or private keys are shared, while still
 demonstrating the correct structure.
 
-<br />
-
 ## Contribute to Homelab-Alpha - OpenSSL
 
 We value your contribution. We want to make it as easy as possible to submit
 your contributions to the Homelab-Alpha - openssl repository. Changes to the
 openssl are handled through pull requests against the `main` branch. To learn
 how to contribute, see [contribute].
-
-<br />
 
 ## Security Considerations
 
@@ -170,8 +154,6 @@ follow best practices and keep the library updated to address any security
 vulnerabilities. Regularly check for updates and security advisories from the
 OpenSSL project.
 
-<br />
-
 ## Resources
 
 - [OpenSSL Official Site]
@@ -179,16 +161,12 @@ OpenSSL project.
 - [OpenSSL Documentation]
 - [GitHub Repository]
 
-<br />
-
 ## Disclaimer
 
 This OpenSSL Overview is for informational purposes only and does not replace
 official documentation or security best practices. Always refer to the official
 OpenSSL documentation and follow best practices when using cryptographic
 libraries and protocols.
-
-<br />
 
 ## License
 

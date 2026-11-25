@@ -32,19 +32,15 @@ keywords:
   - data protection
   - command-line encryption
 
-weight: 9200
+weight: 10103
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this script does in detail. The script is named
 `encrypt_and_decrypt.sh`, authored by GJS (homelab-alpha), and its purpose is to
@@ -61,8 +57,6 @@ encryption algorithm with OpenSSL.
   files or directories using AES-256 encryption with OpenSSL.
 - **RAW Script**: [encrypt_and_decrypt.sh]
 
-<br />
-
 ## Script Overview
 
 The script defines two main functions:
@@ -70,14 +64,10 @@ The script defines two main functions:
 1. `file-encrypt`: Encrypts a given file or directory.
 2. `file-decrypt`: Decrypts a previously encrypted file or directory.
 
-<br />
-
 ## Function: file-encrypt
 
 The `file-encrypt` function encrypts files or directories using the AES-256
 encryption algorithm with OpenSSL.
-
-<br />
 
 ### Usage
 
@@ -86,8 +76,6 @@ file-encrypt <input_file_or_directory>
 ```
 
 - `<input_file_or_directory>`: The file or directory to be encrypted.
-
-<br />
 
 ### Code Breakdown
 
@@ -117,8 +105,6 @@ function file-encrypt() {
 }
 ```
 
-<br />
-
 1. **Parameter Check**: The function first checks if the user provided an input
    file or directory. If not, it prints the usage message and exits with a
    status of 1.
@@ -134,16 +120,12 @@ function file-encrypt() {
    message and sets the permissions of the output file to `644`. If the
    encryption fails, it prints an error message.
 
-<br />
-
 ## Function: file-decrypt
 
 ### Purpose
 
 The `file-decrypt` function decrypts files or directories that were encrypted
 using the AES-256 encryption algorithm with OpenSSL.
-
-<br />
 
 ### Usage
 
@@ -152,8 +134,6 @@ file-decrypt <input_file>
 ```
 
 - `<input_file>`: The file to be decrypted.
-
-<br />
 
 ### Code Breakdown
 
@@ -183,8 +163,6 @@ function file-decrypt() {
 }
 ```
 
-<br />
-
 1. **Parameter Check**: Similar to `file-encrypt`, it checks if an input file is
    provided. If not, it prints the usage message and exits with a status of 1.
 2. **Variables**:
@@ -198,8 +176,6 @@ function file-decrypt() {
 5. **Success Message**: If the decryption is successful, it prints a success
    message and sets the permissions of the output file to `644`. If the
    decryption fails, it prints an error message.
-
-<br />
 
 ## Conclusion
 

@@ -30,19 +30,15 @@ keywords:
   - OpenSSL automation
   - homelab certificates
 
-weight: 8113
+weight: 9109
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down the script `renew_tls_certificates.sh`. This script renews
 server and client certificates before they expire. It detects the kind of each
@@ -79,8 +75,6 @@ scripts instead.
 - **Description**: This script renews server and client certificates before they
   expire.
 - **RAW Script**: [renew_tls_certificates.sh]
-
-<br />
 
 ## Usage
 
@@ -149,14 +143,10 @@ is not executable is skipped. See `examples/hooks.d/` for an example.
 - The script changes to `$HOME`, because configuration files that were copied to
   `$HOME/tls/openssl.cnf` before version 0.2.0 use `HOME = .`.
 
-<br />
-
 ## Detailed Explanation
 
 The sections below follow the script from top to bottom. Functions that are not
 defined here, such as `print_error`, come from `scripts/lib/common.sh`.
-
-<br />
 
 ### Stop script on error
 
@@ -169,8 +159,6 @@ callers decide what a failure means.
 set -Eeuo pipefail
 ```
 
-<br />
-
 ### Load the shared functions
 
 The shared functions, such as the messages and the checks, are in
@@ -180,8 +168,6 @@ The shared functions, such as the messages and the checks, are in
 # shellcheck source=scripts/lib/common.sh
 source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/lib/common.sh" || exit 2
 ```
-
-<br />
 
 ### Define directory paths
 
@@ -202,8 +188,6 @@ script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 certificate_script_dir="$script_dir/certificate"
 ```
 
-<br />
-
 ### Defaults
 
 ```bash
@@ -216,8 +200,6 @@ dry_run=false
 assume_yes=false
 ca_warn_days=180
 ```
-
-<br />
 
 ### State
 
@@ -240,8 +222,6 @@ renewal_old_serial=""
 ca_options=()
 ```
 
-<br />
-
 ### Function: show the help text
 
 ```bash
@@ -251,8 +231,6 @@ show_help() {
 }
 ```
 
-<br />
-
 ### Function: check that a value is a positive integer
 
 ```bash
@@ -261,8 +239,6 @@ is_number() {
   [[ "$1" =~ ^[0-9]+$ ]]
 }
 ```
-
-<br />
 
 ### Function: parse arguments
 
@@ -336,8 +312,6 @@ parse_arguments() {
 }
 ```
 
-<br />
-
 ### Function: check that everything needed is present, before anything changes
 
 ```bash
@@ -395,8 +369,6 @@ preflight() {
 }
 ```
 
-<br />
-
 ### Function: warn about CA certificates that expire soon
 
 ```bash
@@ -414,8 +386,6 @@ warn_ca_certificates() {
 }
 ```
 
-<br />
-
 ### Function: get the normalized subject alternative names of a certificate
 
 ```bash
@@ -425,8 +395,6 @@ get_san() {
   openssl x509 -in "$1" -noout -ext subjectAltName 2>/dev/null | tail -n +2 | tr -d ' ' | tr ',' '\n' | sort || true
 }
 ```
-
-<br />
 
 ### Function: check if a certificate is revoked in the database (status R)
 
@@ -442,8 +410,6 @@ is_revoked() {
     END { exit !found }' "$db_dir/index.txt"
 }
 ```
-
-<br />
 
 ### Function: detect the kind of a certificate and add it to the plan
 
@@ -542,8 +508,6 @@ plan_certificate() {
 }
 ```
 
-<br />
-
 ### Function: select the certificates to renew
 
 ```bash
@@ -584,8 +548,6 @@ select_targets() {
 }
 ```
 
-<br />
-
 ### Function: print the plan
 
 ```bash
@@ -603,8 +565,6 @@ print_plan() {
 }
 ```
 
-<br />
-
 ### Function: normalize a serial number (uppercase, without leading zeros)
 
 ```bash
@@ -614,8 +574,6 @@ normalize_serial() {
   printf '%s' "$value" | tr 'a-f' 'A-F' | sed 's/^0*//'
 }
 ```
-
-<br />
 
 ### Function: list the serial numbers of the valid (V) entries of an FQDN
 
@@ -627,8 +585,6 @@ list_valid_serials() {
     "$db_dir/index.txt"
 }
 ```
-
-<br />
 
 ### Function: mark all valid entries of an FQDN, except one, as superseded
 
@@ -650,8 +606,6 @@ supersede_entries() {
 }
 ```
 
-<br />
-
 ### Function: set `unique_subject` to no for the renewals
 
 ```bash
@@ -666,8 +620,6 @@ disable_unique_subject() {
   echo "unique_subject = no" >"$attr_file"
 }
 ```
-
-<br />
 
 ### Function: restore `index.txt.attr` to its original content
 
@@ -688,8 +640,6 @@ restore_unique_subject() {
   attr_changed=false
 }
 ```
-
-<br />
 
 ### Function: archive the files of a certificate
 
@@ -723,8 +673,6 @@ archive_certificate() {
 }
 ```
 
-<br />
-
 ### Function: restore the archived files of a certificate
 
 ```bash
@@ -737,8 +685,6 @@ restore_archive() {
   done < <(cd "$archive_dir" && find . -type f ! -name renew.log -print0)
 }
 ```
-
-<br />
 
 ### Function: check a renewed certificate
 
@@ -791,8 +737,6 @@ check_renewal() {
 }
 ```
 
-<br />
-
 ### Function: run the hooks after a successful renewal
 
 ```bash
@@ -813,8 +757,6 @@ run_hooks() {
   return $status
 }
 ```
-
-<br />
 
 ### Function: renew one certificate
 
@@ -879,8 +821,6 @@ renew_certificate() {
 }
 ```
 
-<br />
-
 ### Function: restore the old files when the script is interrupted during a renewal
 
 Function to restore the old files when the script is interrupted during a
@@ -903,8 +843,6 @@ on_interrupt() {
   exit 1
 }
 ```
-
-<br />
 
 ### Main process
 
@@ -959,8 +897,6 @@ if [[ "$((failed + plan_failed))" -gt 0 ]]; then
 fi
 exit 0
 ```
-
-<br />
 
 ## Conclusion
 

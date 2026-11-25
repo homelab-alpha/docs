@@ -34,19 +34,15 @@ keywords:
   - SSL/TLS management
   - Cryptographic verification
 
-weight: 8105
+weight: 9101
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down the script `ca.sh`. This script creates the Intermediate
 Certificate Authority (CA), signed by the root CA. It generates an ECDSA key,
@@ -63,8 +59,6 @@ checks passed. An existing key and certificate are copied to the archive first.
 - **Description**: This script creates the Intermediate Certificate Authority
   (CA), signed by the root CA.
 - **RAW Script**: [ca.sh]
-
-<br />
 
 ## Usage
 
@@ -106,14 +100,10 @@ passphrase is asked for, or read from `TLS_CA_PASSPHRASE`.
   (`$HOME/tls/db/root_ca/`), not in the database of the certificates.
 - The old files are copied to `$HOME/tls/archive/_ca/ca/` first.
 
-<br />
-
 ## Detailed Explanation
 
 The sections below follow the script from top to bottom. Functions that are not
 defined here, such as `print_error`, come from `scripts/lib/common.sh`.
-
-<br />
 
 ### Stop script on error
 
@@ -121,8 +111,6 @@ defined here, such as `print_error`, come from `scripts/lib/common.sh`.
 # Stop script on error
 set -Eeuo pipefail
 ```
-
-<br />
 
 ### Load the shared functions
 
@@ -133,8 +121,6 @@ The shared functions, such as the messages and the checks, are in
 # shellcheck source=scripts/lib/common.sh
 source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/../lib/common.sh"
 ```
-
-<br />
 
 ### Function: remove the temporary folder
 
@@ -159,8 +145,6 @@ cleanup() {
   fi
 }
 ```
-
-<br />
 
 ### Function: mark the database entry of a certificate as revoked
 
@@ -192,8 +176,6 @@ name_constraints_list=""
 key_passphrase=""
 signer_passphrase=""
 ```
-
-<br />
 
 ### Parse the options
 
@@ -239,8 +221,6 @@ while [[ $# -gt 0 ]]; do
 done
 ```
 
-<br />
-
 ### Validate the permitted names and build the value of the extension
 
 ```bash
@@ -256,8 +236,6 @@ fi
 
 require_openssl 2
 ```
-
-<br />
 
 ### Define directory paths
 
@@ -278,8 +256,6 @@ parent_chain="$certs_root_dir/root_ca_chain_bundle.pem"
 enter_home 2
 ```
 
-<br />
-
 ### The database of the authority that signs, as named in the configuration file
 
 ```bash
@@ -289,8 +265,6 @@ database=$(config_database "$config_file") || {
   exit 2
 }
 ```
-
-<br />
 
 ### Check that everything needed is present, before anything changes
 
@@ -311,8 +285,6 @@ for dir in "$(dirname "$cert_file")" "$(dirname "$key_file")" "$csr_dir"; do
 done
 [[ "$missing" == "false" ]] || exit 2
 ```
-
-<br />
 
 ### An existing authority is only replaced with `--replace`
 
@@ -336,8 +308,6 @@ if [[ -f "$cert_file" ]]; then
 fi
 ```
 
-<br />
-
 ### Ask for the passphrases: the key that signs, and the new key
 
 ```bash
@@ -356,16 +326,12 @@ if [[ "$use_passphrase" == "true" ]]; then
 fi
 ```
 
-<br />
-
 ### Two scripts must not change the database at the same time
 
 ```bash
 # Two scripts must not change the database at the same time
 acquire_lock 2 120 "Another certificate script is still running. Try again later."
 ```
-
-<br />
 
 ### Work in a temporary folder that only the owner can read
 
@@ -384,8 +350,6 @@ new_cert="$work_dir/cert.pem"
 new_chain="$work_dir/chain_bundle.pem"
 ```
 
-<br />
-
 ### The old certificate is still valid in the database
 
 The old certificate is still valid in the database. Keep a copy to mark it as
@@ -401,8 +365,6 @@ if [[ "$replacing" == "true" ]]; then
 fi
 ```
 
-<br />
-
 ### Generate ECDSA key
 
 ```bash
@@ -413,8 +375,6 @@ print_section_header "Generate ECDSA key"
   ${key_options[@]+"${key_options[@]}"} -out "$new_key")
 ```
 
-<br />
-
 ### Generate Certificate Signing Request (CSR)
 
 ```bash
@@ -423,8 +383,6 @@ print_section_header "Generate Certificate Signing Request"
 TLS_KEY_PASSPHRASE="$key_passphrase" openssl req -new -sha384 -config "$config_file" \
   -key "$new_key" ${pass_options[@]+"${pass_options[@]}"} -out "$new_csr"
 ```
-
-<br />
 
 ### Generate Intermediate Certificate Authority
 
@@ -448,8 +406,6 @@ if [[ -n "$name_constraints" ]]; then
 fi
 ```
 
-<br />
-
 ### From here the database can hold the new entry, also when the command is interrupted
 
 ```bash
@@ -460,8 +416,6 @@ TLS_SIGNER_PASSPHRASE="$signer_passphrase" openssl ca -config "$sign_config" -ex
   ${signer_options[@]+"${signer_options[@]}"} -in "$new_csr" -days 1826 -out "$new_cert"
 ```
 
-<br />
-
 ### Create Intermediate Certificate Authority Chain Bundle
 
 ```bash
@@ -469,8 +423,6 @@ TLS_SIGNER_PASSPHRASE="$signer_passphrase" openssl ca -config "$sign_config" -ex
 print_section_header "Create Intermediate Certificate Authority Chain Bundle"
 cat "$new_cert" "$parent_chain" >"$new_chain"
 ```
-
-<br />
 
 ### Verify the certificate against the chain above it and the private key
 
@@ -485,8 +437,6 @@ if [[ "$(openssl x509 -in "$new_cert" -noout -pubkey)" != \
 fi
 echo "The certificate matches the private key."
 ```
-
-<br />
 
 ### Put the files in place, after a copy of the existing files
 
@@ -514,8 +464,6 @@ install_files \
 [[ "$install_status" -eq 0 ]] || exit 1
 ```
 
-<br />
-
 ### The new certificate is in use, so the old entry is superseded
 
 ```bash
@@ -533,8 +481,6 @@ print_cyan "--> ca.pem and ca.crt"
 print_cyan "--> ca_chain_bundle.pem and ca_chain_bundle.crt"
 ```
 
-<br />
-
 ### Script completion message
 
 ```bash
@@ -544,8 +490,6 @@ print_cyan "Intermediate Certificate Authority process successfully completed."
 
 exit 0
 ```
-
-<br />
 
 ## Conclusion
 

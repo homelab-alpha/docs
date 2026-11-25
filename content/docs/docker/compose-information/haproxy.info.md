@@ -40,19 +40,15 @@ keywords:
   - high availability
   - devops
 
-weight: 4100
+weight: 4106
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this `compose.yml` file does in detail for deploying
 HAProxy, a reliable, high-performance TCP/HTTP load balancer.
@@ -68,8 +64,6 @@ Here's a detailed explanation:
 - **Description**: Docker Compose setup for HAProxy load balancing with SSL and
   network management.
 - **RAW Compose File**: [compose.yml]
-
-<br />
 
 ## Networks Configuration
 
@@ -101,8 +95,6 @@ networks:
       com.haproxy.network.description: "is an isolated bridge network."
 ```
 
-<br />
-
 - **networks**: Defines a custom network named `haproxy_net`.
 - **attachable**: Set to `true`, meaning other containers can attach to this
   network.
@@ -131,8 +123,6 @@ networks:
     Unit size for the network.
 - **labels**: Metadata for the network.
   - **com.haproxy.network.description**: A description label for the network.
-
-<br />
 
 ## Services Configuration
 
@@ -186,8 +176,6 @@ services:
       disable: false
 ```
 
-<br />
-
 - **services**: Defines services to be deployed.
 - **haproxy_app**: The service name for the HAProxy container.
   - **deploy.resources.limits.pids: 512**: Limits the number of processes and
@@ -234,8 +222,6 @@ services:
   - **healthcheck**: Healthcheck configuration.
     - **disable: false**: Enables health checks for the container.
 
-<br />
-
 ## Quick Start
 
 {{% alert context="info" %}}
@@ -251,8 +237,6 @@ Requires Docker Compose 2.24.0 or later.
    docker compose up -d
    ```
 
-<br />
-
 ## Default Access
 
 HAProxy has no web interface. The `main` frontend in `haproxy.cfg` listens on
@@ -265,13 +249,9 @@ http://your-ip-address:80
 Port 8404 is published as well, but `haproxy.cfg` does not define a stats page
 on it.
 
-<br />
-
 ## Default Login Credentials
 
 HAProxy has no login. Configure the frontends and backends in `haproxy.cfg`.
-
-<br />
 
 ## Conclusion
 

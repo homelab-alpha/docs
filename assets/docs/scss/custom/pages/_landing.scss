@@ -5,61 +5,32 @@
 //
 
 :root {
-  --landing-glow: hsla(210, 100%, 40%, 0.14);
-  --landing-section-alt-bg: var(--gray-100);
+  --landing-glow: rgba(9, 105, 218, 0.12);
+  --landing-section-alt-bg: var(--color-canvas-subtle);
   --landing-terminal-bg: #0d1117;
   --landing-terminal-bar: #161b22;
   --landing-terminal-text: #e6edf3;
   --landing-terminal-prompt: #3fb950;
   --landing-terminal-output: #8b949e;
-  --landing-terminal-cmd: #56d4dd;
   --landing-terminal-progress: #a5a0ff;
-  --landing-muted: var(--gray-700);
+  // The prompt, in the colors of the GitHub profile README.
+  --landing-terminal-frame: #f47067;
+  --landing-terminal-at: #daaa3f;
+  --landing-terminal-host: #4493f8;
+  --landing-terminal-cwd: #57ab5a;
+  --landing-muted: var(--color-fg-muted);
 }
 
 [data-dark-mode] {
-  --landing-glow: hsla(210, 100%, 55%, 0.18);
-  --landing-section-alt-bg: rgba(255, 255, 255, 0.03);
+  --landing-glow: rgba(56, 139, 253, 0.16);
+  --landing-section-alt-bg: var(--color-canvas-subtle);
   --landing-terminal-bg: #0b0d12;
   --landing-terminal-bar: #151821;
-  --landing-muted: var(--gray-400);
+  --landing-muted: var(--color-fg-muted);
 }
 
 .landing {
-  // Header: a translucent bar that stays at the top.
-  .landing-header {
-    position: sticky;
-    top: 0;
-    z-index: 1020;
-    padding-block: 0.75rem;
-    background: var(--hig-material-bg);
-    border-bottom: 1px solid var(--hig-separator);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    backdrop-filter: saturate(180%) blur(20px);
-  }
-
-  .landing-brand svg {
-    width: 36px;
-    height: 36px;
-  }
-
-  .landing-nav-link {
-    display: inline-flex;
-    align-items: center;
-    min-height: var(--hig-hit-target);
-    padding-inline: 0.75rem;
-    font-weight: 600;
-    color: inherit;
-    text-decoration: none;
-    &:hover {
-      color: var(--hig-accent);
-    }
-  }
-
-  .landing-header .btn-icon svg {
-    width: 22px;
-    height: 22px;
-  }
+  // The header is the site header (pages/_site-pages.scss).
 
   // Hero
   .landing-hero {
@@ -167,14 +138,67 @@
     .line {
       display: block;
     }
-    .prompt {
-      color: var(--landing-terminal-prompt);
-      font-weight: 700;
+    // An empty line before every prompt.
+    .gap {
+      display: block;
+      height: 0.85em;
     }
-    .cmd {
-      color: var(--landing-terminal-cmd);
+    // The two prompt lines: ┌──(user@host)-[path] / └─$ command. The corner
+    // lines are borders, not box drawing characters: the web font has no box
+    // drawing characters, and those of a system font often leave a gap
+    // between the lines. The text starts where it would after ┌── and └─.
+    .prompt-block {
+      display: block;
+      line-height: 1.5;
+      --frame-line: max(1px, 0.08em);
+      --frame-x: 0.5ch;
+      // The optical middle of a line: a little above the middle of the line
+      // box (0.75em), at the middle of "(" and "$".
+      --frame-mid: 0.65em;
     }
-    .flag,
+    // The lines hang on the first prompt line, so they also fit when a line
+    // wraps on a narrow screen.
+    .prompt-top {
+      position: relative;
+      padding-left: 3ch;
+      // ┌──: the line to "(".
+      &::before {
+        content: "";
+        position: absolute;
+        top: var(--frame-mid);
+        left: var(--frame-x);
+        width: calc(3ch - var(--frame-x) - 0.15ch);
+        border-top: var(--frame-line) solid var(--landing-terminal-frame);
+      }
+      // │ and └─: down to the middle of the first line of the command, then to
+      // "$".
+      &::after {
+        content: "";
+        position: absolute;
+        top: var(--frame-mid);
+        bottom: calc(-1 * var(--frame-mid));
+        left: var(--frame-x);
+        width: calc(2ch - var(--frame-x) - 0.15ch);
+        border-left: var(--frame-line) solid var(--landing-terminal-frame);
+        border-bottom: var(--frame-line) solid var(--landing-terminal-frame);
+      }
+    }
+    .prompt-bottom {
+      padding-left: 2ch;
+    }
+    .frame {
+      color: var(--landing-terminal-frame);
+    }
+    .at,
+    .dollar {
+      color: var(--landing-terminal-at);
+    }
+    .host {
+      color: var(--landing-terminal-host);
+    }
+    .cwd {
+      color: var(--landing-terminal-cwd);
+    }
     .ok,
     .state {
       color: var(--landing-terminal-prompt);

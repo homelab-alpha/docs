@@ -1,9 +1,5 @@
 {{ define "main" }}
-    <!-- override Prism's default copy messages to 'empty'. Required by CSS styling.
-         see: https://prismjs.com/plugins/copy-to-clipboard/#styling -->
-    <div data-prismjs-copy="" data-prismjs-copy-success="" data-prismjs-copy-error="">
-        {{ .Content }}
-    </div>
+    {{ .Content }}
 
     {{ if and .GitInfo .Site.Params.docs.repoURL -}}
         {{ partial (printf "%s/%s" ($.Scratch.Get "pathName") "gitinfo") . }}
@@ -14,48 +10,11 @@
     {{ if hugo.IsProduction }}
         {{ $mermaid = $mermaid | fingerprint "sha384" }}
     {{ end }}
-    <script>
-        // Mermaid is large, so it loads only when a diagram comes near the
-        // visible part of the page, not on page load.
-        (() => {
-            const diagrams = document.querySelectorAll("pre.mermaid");
-            if (diagrams.length === 0) return;
-            let loading = false;
-            const load = () => {
-                if (loading) return;
-                loading = true;
-                observer.disconnect();
-                const script = document.createElement("script");
-                script.src = {{ $mermaid.RelPermalink }};
-                {{- if hugo.IsProduction }}
-                script.integrity = {{ $mermaid.Data.Integrity }};
-                script.crossOrigin = "anonymous";
-                {{- end }}
-                script.onload = () => {
-                    mermaid.initialize({
-                        startOnLoad: false,
-                        logLevel: "error",
-                        align: "center",
-                        theme: "null"
-                    });
-                    mermaid.run({ nodes: diagrams });
-                };
-                document.head.appendChild(script);
-            };
-            const observer = new IntersectionObserver((entries) => {
-                if (entries.some((entry) => entry.isIntersecting)) load();
-            }, { rootMargin: "600px 0px" });
-            diagrams.forEach((diagram) => observer.observe(diagram));
-        })();
-    </script>
+    {{- $loader := resources.Get (printf "%s/%s" ($.Scratch.Get "pathName") "js/mermaid-loader.gotmpl") }}
+    {{- $loader = $loader | resources.ExecuteAsTemplate (printf "%s/%s" ($.Scratch.Get "pathName") "js/mermaid-loader.tmpl.out") (dict "mermaid" $mermaid) }}
+    {{- $loader = resources.FromString (printf "%s/%s" ($.Scratch.Get "pathName") "js/mermaid-loader.js") $loader.Content }}
+    {{ partial "docs/script.html" (dict "res" $loader) }}
     {{ end }}
 
-    {{ if .Site.Params.feedback.enabled | default false -}}
-        {{ if or (.Site.Params.plausible.dataDomain) (.Site.Config.Services.GoogleAnalytics.ID) }}
-            {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "footer/feedback.html") . -}}
-        {{ else }}
-            {{ errorf "Either Google Analytics or Plausible Analytics must be configured before enabling the Feedback Widget." }}
-        {{ end }}
-    {{ end -}}
 
 {{ end }}

@@ -36,19 +36,15 @@ keywords:
   - Operating System Boot
   - Utility Disk Boot
 
-weight: 4100
+weight: 4113
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 Let's break down what this `compose.yml` file does in detail. This file is used
 to configure and deploy the NetBoot service using Docker Compose, enabling
@@ -65,8 +61,6 @@ Here's a detailed explanation:
 - **Description**: Configures a Docker network and the NetBoot service,
   providing an environment for network booting various OS and utility disks.
 - **RAW Compose File**: [compose.yml]
-
-<br />
 
 ## Networks Configuration
 
@@ -98,8 +92,6 @@ networks:
       com.netboot.network.description: "is an isolated bridge network."
 ```
 
-<br />
-
 - **networks**: This section defines a custom network named `netboot_net`.
 - **attachable**: Set to `false`, meaning other containers can't attach to this
   network.
@@ -128,8 +120,6 @@ networks:
     Unit size for the network.
 - **labels**: Metadata for the network.
   - **com.netboot.network.description**: A description label for the network.
-
-<br />
 
 ## Services Configuration
 
@@ -186,8 +176,6 @@ services:
       start_interval: 5s
 ```
 
-<br />
-
 - **services**: Defines services to be deployed.
 - **netboot_app**: The service name for the NetBoot container.
   - **deploy.resources.limits.pids: 512**: Limits the number of processes and
@@ -240,8 +228,6 @@ services:
       will not be counted towards the retries (10 seconds).
     - **start_interval**: The time between starting health checks (5 seconds).
 
-<br />
-
 ## Quick Start
 
 {{% alert context="info" %}}
@@ -257,8 +243,6 @@ Requires Docker Compose 2.24.0 or later.
    docker compose up -d
    ```
 
-<br />
-
 ## Default Web Access
 
 Access the netboot.xyz web interface using the following URL:
@@ -269,8 +253,6 @@ Access the netboot.xyz web interface using the following URL:
 http://your-ip-address:3011
 ```
 
-<br />
-
 ## Default Login Credentials
 
 **Username**: No username is required.
@@ -280,8 +262,6 @@ http://your-ip-address:3011
 {{% alert context="warning" %}}
 **The web interface has no login. Do not expose it outside your network.**
 {{% /alert %}}
-
-<br />
 
 ## Conclusion
 

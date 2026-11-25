@@ -1,0 +1,18 @@
+{{- /*
+  faq shortcode: one question and its answer as a disclosure row (a native
+  <details> element, no script). Rows that follow each other form one grouped
+  list. Usage: {{< faq question="Is the site mobile-friendly?" >}}Answer in
+  Markdown.{{< /faq >}}. Use inline links in the answer: it is rendered on its
+  own, so reference-style links of the page are not found.
+*/ -}}
+{{- $question := .Get "question" -}}
+{{- if not $question }}{{ errorf "faq: missing question (%s)" .Position }}{{ end -}}
+<details class="faq-item">
+  <summary class="faq-question">
+    <span>{{ $question | .Page.RenderString }}</span>
+    {{ partial "svg-icon.html" (dict "name" "navigate_next" "tag" "span" "class" "faq-chevron") }}
+  </summary>
+  <div class="faq-answer">
+    {{ .InnerDeindent | .Page.RenderString (dict "display" "block") }}
+  </div>
+</details>

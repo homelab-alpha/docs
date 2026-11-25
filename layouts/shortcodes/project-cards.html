@@ -1,0 +1,24 @@
+{{- /*
+  project-cards shortcode: the links of one section of data/links.yaml (default
+  "Projects") as the topic-colored cards of the docs lists, the same cards as
+  the /links/ page. Usage: {{< project-cards >}} or
+  {{< project-cards section="Community" >}}.
+*/ -}}
+{{- $name := .Get "section" | default "Projects" -}}
+{{- $section := index (where hugo.Data.links.sections "title" $name) 0 -}}
+{{- if not $section }}{{ errorf "project-cards: no section %q in data/links.yaml (%s)" $name .Position }}{{ end -}}
+<ul class="docs-list list-unstyled">
+  {{- range $section.links }}
+  <li>
+    <a class="docs-card" href="{{ .url }}" rel="noopener noreferrer" target="_blank">
+      {{- $tile := partial "docs/tile-color.html" (dict "color" .color "topic" .topic) }}
+      <span class="docs-card-tile{{ with $tile }} tile-{{ . }}{{ end }}" aria-hidden="true">
+        {{ partial "svg-icon.html" (dict "name" (.icon | default "link") "tag" "span" "class" "docs-card-icon") }}
+      </span>
+      <span class="docs-card-title">{{ .title }}</span>
+      <span class="docs-card-text">{{ .description }}</span>
+      <span class="docs-card-meta">{{ replaceRE "^https?://(www\\.)?" "" .url | strings.TrimSuffix "/" }}</span>
+    </a>
+  </li>
+  {{- end }}
+</ul>

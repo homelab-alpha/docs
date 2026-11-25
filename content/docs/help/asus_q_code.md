@@ -1,6 +1,7 @@
 ---
 title: "ASUS Q-CODE (Error CODE)"
-description: "For ASUS ROG STRIX B650E-E GAMING WIFI (AMD Socket AM5 Motherboard)"
+description:
+  "For ASUS ROG STRIX B650E-E GAMING WIFI (AMD Socket AM5 Motherboard)"
 url: "help/qcode"
 aliases:
   - /qcode
@@ -22,13 +23,11 @@ tags:
 keywords:
   - Q-CODE
 
-weight: 6000
+weight: 6001
 
 toc: true
 katex: true
 ---
-
-<br />
 
 {{% alert context="warning" %}}
 **Caution** - This documentation is in progress {{% /alert %}}
@@ -36,14 +35,10 @@ katex: true
 {{% alert context="primary" %}}
 [Official ASUS Documentation For Q-Code] {{% /alert %}}
 
-<br />
-
 Welcome to the Troubleshooting Guide, your go-to resource for finding solutions
 to common problems. Whether you're dealing with hardware issues, software
 glitches, or connectivity problems, this guide is designed to help you identify
 and fix the most frequent issues you might encounter.
-
-<br />
 
 ## Q-Code
 
@@ -183,8 +178,6 @@ and fix the most frequent issues you might encounter.
 | 0xAC   | System has transitioned into ACPI mode. Interrupt controller is in PIC mode.  |        |      |                          |
 | 0xAA   | System has transitioned into ACPI mode. Interrupt controller is in APIC mode. |        |      |                          |
 
-<br />
-
 ## Problem type
 
 | TYPE | Problem                                                            |
@@ -200,7 +193,8 @@ and fix the most frequent issues you might encounter.
 | 9    | [Boot into the BIOS]                                               |
 | 10   | Boot into the system                                               |
 
-[Official ASUS Documentation For Q-Code]: https://www.asus.com/support/faq/1043948/
+[Official ASUS Documentation For Q-Code]:
+  https://www.asus.com/support/faq/1043948/
 [CPU abnormal]: https://www.asus.com/support/faq/1043948/#2
 [Graphic Card abnormal]: https://www.asus.com/support/faq/1043948/#3
 [Memory abnormal]: https://www.asus.com/support/faq/1043948/#4

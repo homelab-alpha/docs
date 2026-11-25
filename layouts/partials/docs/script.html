@@ -1,0 +1,15 @@
+{{- /*
+  A script tag for a file of this site, with Subresource Integrity outside
+  "hugo server". Scripts are files, not inline code, so the Content Security
+  Policy (layouts/partials/docs/csp.html) can stay strict.
+
+  Context: dict
+    res     the script resource (already built or templated)
+    module  true for <script type="module">
+*/ -}}
+{{- $res := .res -}}
+{{- if not hugo.IsServer -}}
+  {{- $res = $res | minify | fingerprint "sha384" -}}
+{{- end -}}
+<script{{ if .module }} type="module"{{ end }} src="{{ $res.RelPermalink }}"
+  {{- if not hugo.IsServer }} integrity="{{ $res.Data.Integrity }}" crossorigin="anonymous"{{ end }}{{ if not .module }} defer{{ end }}></script>

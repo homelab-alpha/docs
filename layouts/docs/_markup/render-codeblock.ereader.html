@@ -1,2 +1,6 @@
-{{- /* Plain code block: no Prism, no copy button, no line numbers. */ -}}
-<pre><code{{ with .Type }} class="language-{{ . }}"{{ end }}>{{ strings.TrimRight "\r\n" .Inner }}</code></pre>
+{{- /* Code block of the e-reader version (layouts/partials/ereader/code-block.html). */ -}}
+{{- partial "ereader/code-block.html" (dict
+  "code" .Inner
+  "lang" .Type
+  "title" (.Attributes.title | default .Attributes.filename)
+) -}}

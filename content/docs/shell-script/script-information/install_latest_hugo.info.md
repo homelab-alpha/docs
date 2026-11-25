@@ -30,19 +30,15 @@ keywords:
   - Automated deployment
   - Error handling
 
-weight: 9100
+weight: 10211
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 This script, named `install_latest_hugo.sh` and authored by GJS (homelab-alpha),
 automates the process of fetching, downloading, installing, and cleaning up the
@@ -60,8 +56,6 @@ Here's a breakdown of the script's operations:
   official GitHub repository, downloads it, installs it to
   `/usr/local/hugo-extended`, and cleans up the downloaded files.
 - **RAW Script**: [install_latest_hugo.sh]
-
-<br />
 
 ## Logging
 
@@ -87,8 +81,6 @@ log_error() {
 }
 ```
 
-<br />
-
 ## Checking the Current Version
 
 Before it fetches the latest version, the script checks whether Hugo is already
@@ -102,8 +94,6 @@ else
 fi
 ```
 
-<br />
-
 ## Fetching the Latest Version
 
 The script fetches the latest version of Hugo using the GitHub API. It sends a
@@ -113,8 +103,6 @@ The script fetches the latest version of Hugo using the GitHub API. It sends a
 ```bash
 LATEST_VERSION=$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
 ```
-
-<br />
 
 ## Error Handling for Version Fetching
 
@@ -129,8 +117,6 @@ if [ -z "$LATEST_VERSION" ]; then
 fi
 ```
 
-<br />
-
 ## Constructing the Download URL
 
 The script constructs the download URL for the Hugo binary using the fetched
@@ -139,8 +125,6 @@ version number.
 ```bash
 DOWNLOAD_URL="https://github.com/gohugoio/hugo/releases/download/v${LATEST_VERSION}/hugo_extended_${LATEST_VERSION}_linux-amd64.tar.gz"
 ```
-
-<br />
 
 ## Defining the Download Directory
 
@@ -151,8 +135,6 @@ user's home directory.
 DOWNLOAD_DIR="$HOME/Downloads"
 ```
 
-<br />
-
 ## Downloading the Latest Version
 
 The script uses `wget` to download the tar.gz file for the latest Hugo version.
@@ -160,8 +142,6 @@ The script uses `wget` to download the tar.gz file for the latest Hugo version.
 ```bash
 wget "$DOWNLOAD_URL" -O "$DOWNLOAD_DIR/hugo_extended_${LATEST_VERSION}_linux-amd64.tar.gz"
 ```
-
-<br />
 
 ## Error Handling for Downloading
 
@@ -174,8 +154,6 @@ if ! wget "$DOWNLOAD_URL" -O "$DOWNLOAD_DIR/hugo_extended_${LATEST_VERSION}_linu
 fi
 ```
 
-<br />
-
 ## Extracting the Downloaded File
 
 The script extracts the downloaded tar.gz file into the download directory.
@@ -183,8 +161,6 @@ The script extracts the downloaded tar.gz file into the download directory.
 ```bash
 tar -xzf "$DOWNLOAD_DIR/hugo_extended_${LATEST_VERSION}_linux-amd64.tar.gz" -C "$DOWNLOAD_DIR"
 ```
-
-<br />
 
 ## Preparing the Installation Directory
 
@@ -196,8 +172,6 @@ sudo mkdir -p /usr/local/hugo-extended
 sudo rm -rf /usr/local/hugo-extended/*
 ```
 
-<br />
-
 ## Moving Files to the Installation Directory
 
 The Hugo binary and related files are moved to the target installation
@@ -208,8 +182,6 @@ sudo mv "$DOWNLOAD_DIR/hugo" /usr/local/hugo-extended/
 sudo mv "$DOWNLOAD_DIR/LICENSE" /usr/local/hugo-extended/
 sudo mv "$DOWNLOAD_DIR/README.md" /usr/local/hugo-extended/
 ```
-
-<br />
 
 ## Verifying the Installation
 
@@ -223,8 +195,6 @@ if [ ! -f "/usr/local/hugo-extended/hugo" ]; then
 fi
 ```
 
-<br />
-
 ## Cleaning Up
 
 The script cleans up the downloaded tar.gz file from the `Downloads` directory.
@@ -233,8 +203,6 @@ The script cleans up the downloaded tar.gz file from the `Downloads` directory.
 rm "$DOWNLOAD_DIR/hugo_extended_${LATEST_VERSION}_linux-amd64.tar.gz"
 log "Cleanup complete."
 ```
-
-<br />
 
 ## Checking for Hugo Command Availability
 
@@ -253,8 +221,6 @@ else
   log "Hugo version: $(hugo version)"
 fi
 ```
-
-<br />
 
 ## Conclusion
 

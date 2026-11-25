@@ -29,13 +29,11 @@ keywords:
   - Europe
 
 draft: true
-weight: 2700
+weight: 2708
 
 toc: true
 katex: true
 ---
-
-<br />
 
 {{% alert context="warning" %}}
 **Caution** - This documentation is in progress {{% /alert %}}
@@ -47,11 +45,10 @@ efficient wireless network. In Europe, where regulatory constraints and
 environmental factors can affect network performance, choosing the right
 channels can make a significant difference. This guide provides a detailed
 overview of recommended Wi-Fi channels for the 2.4 GHz, 5 GHz, and 6 GHz bands,
-covering various bandwidth options (Wi-Fi 4 to Wi-Fi 7). Whether you’re setting up a home network or
-managing a larger commercial network, this guide will help you navigate channel
-selection to minimize interference and maximize performance.
-
-<br />
+covering various bandwidth options (Wi-Fi 4 to Wi-Fi 7). Whether you’re setting
+up a home network or managing a larger commercial network, this guide will help
+you navigate channel selection to minimize interference and maximize
+performance.
 
 ## Regulatory Compliance and Regional Differences
 
@@ -71,8 +68,6 @@ selection to minimize interference and maximize performance.
   across the EU. The upper 6 GHz band (6425-7125 MHz) has not been released for
   Wi-Fi at EU level yet. Check your national regulator.
 
-<br />
-
 ## 2.4 GHz Band
 
 ### Recommended Channels for 20 MHz Bandwidth
@@ -85,14 +80,10 @@ selection to minimize interference and maximize performance.
 **Tip:** Use these channels to minimize interference and maximize performance.
 {{% /alert %}}
 
-<br />
-
 ### Channels to Avoid for 20 MHz Bandwidth
 
 - **Channel 12 and 13**: 2467 MHz and 2472 MHz
 - **Channel 14**: 2484 MHz (not permitted in Europe)
-
-<br />
 
 ### Recommended Channels for 40 MHz Bandwidth
 
@@ -100,11 +91,9 @@ selection to minimize interference and maximize performance.
 - **Channel 9**: 2452 MHz (combines channels 7 and 11)
 
 {{% alert context="primary" %}}
-**Note:** 40 MHz bandwidth is generally not recommended in the 2.4 GHz
-band due to limited spectrum availability and increased potential for
-interference. {{% /alert %}}
-
-<br />
+**Note:** 40 MHz bandwidth is generally not recommended in the 2.4 GHz band due
+to limited spectrum availability and increased potential for interference.
+{{% /alert %}}
 
 ## 5 GHz Band
 
@@ -122,8 +111,6 @@ interference. {{% /alert %}}
 {{% alert context="primary" %}}
 **Tip:** These channels provide reliable connections without the risk of radar
 interference. {{% /alert %}}
-
-<br />
 
 ### DFS Channels for 20 MHz Bandwidth
 
@@ -148,8 +135,6 @@ interference. {{% /alert %}}
 **Note:** DFS channels require Dynamic Frequency Selection (DFS) and may be
 subject to radar interference. {{% /alert %}}
 
-<br />
-
 ### Recommended Channels for 40 MHz Bandwidth
 
 - **Channel 38**: 5190 MHz (combines channels 36 and 40)
@@ -161,8 +146,6 @@ subject to radar interference. {{% /alert %}}
 **Tip:** For stable connections, use these channels outside of the DFS range.
 {{% /alert %}}
 
-<br />
-
 ### DFS Channels for 40 MHz Bandwidth
 
 - **Channel 54**: 5270 MHz (combines channels 52 and 56)
@@ -173,8 +156,6 @@ subject to radar interference. {{% /alert %}}
 - **Channel 126**: 5630 MHz (combines channels 124 and 128)
 - **Channel 134**: 5670 MHz (combines channels 132 and 136)
 
-<br />
-
 ### Recommended Channels for 80 MHz Bandwidth
 
 - **Channel 42**: 5210 MHz (combines channels 36, 40, 44, and 48)
@@ -184,8 +165,6 @@ subject to radar interference. {{% /alert %}}
 **Tip:** Choose these channels for a balance between speed and stability.
 {{% /alert %}}
 
-<br />
-
 ### DFS Channels for 80 MHz Bandwidth
 
 - **Channel 58**: 5290 MHz (combines channels 52, 56, 60, and 64)
@@ -193,37 +172,32 @@ subject to radar interference. {{% /alert %}}
 - **Channel 122**: 5610 MHz (combines channels 116, 120, 124, and 128)
 - **Channel 138**: 5690 MHz (combines channels 132, 136, 140, and 144)
 
-<br />
-
 ### Recommended Channel for 160 MHz Bandwidth
 
 - **Channel 114**: 5570 MHz (combines channels 100, 104, 108, 112, 116, 120,
   124, and 128)
 
 {{% alert context="primary" %}}
-**Tip:** Use this channel if maximum speed is required and DFS support is available.
+**Tip:** Use this channel if maximum speed is required and DFS support is
+available.
 {{% /alert %}}
-
-<br />
 
 ### Channel for 160 MHz Bandwidth (Lower 5 GHz)
 
-- **Channel 50**: 5250 MHz (combines channels 36, 40, 44, 48, 52, 56, 60, and
-  64)
+- **Channel 50**: 5250 MHz (combines channels 36, 40, 44, 48, 52, 56, 60,
+  and 64)
 
 {{% alert context="primary" %}}
 **Note:** This channel includes DFS channels (52-64), so it requires DFS
 support. Wi-Fi 7 also defines a non-contiguous 240 MHz mode (160 MHz + 80 MHz),
 which is rarely used. {{% /alert %}}
 
-<br />
-
 ## 6 GHz Band (Wi-Fi 6E and Wi-Fi 7)
 
 The lower 6 GHz band (5945-6425 MHz) offers 480 MHz of spectrum without DFS.
-Only devices that support Wi-Fi 6E or Wi-Fi 7 can use it, and WPA3 is
-mandatory. In the EU, the 6 GHz band is limited to indoor use at low power
-(Low Power Indoor, LPI).
+Only devices that support Wi-Fi 6E or Wi-Fi 7 can use it, and WPA3 is mandatory.
+In the EU, the 6 GHz band is limited to indoor use at low power (Low Power
+Indoor, LPI).
 
 ### Channels per Bandwidth
 
@@ -234,12 +208,10 @@ mandatory. In the EU, the 6 GHz band is limited to indoor use at low power
 - **320 MHz** (Wi-Fi 7): Channel 31 (6105 MHz, 5945-6265 MHz)
 
 {{% alert context="primary" %}}
-**Tip:** With 80 MHz channels, you have six non-overlapping channels, which makes
-the 6 GHz band well suited for dense environments. Use 160 MHz or 320 MHz only
-if your clients support it and neighboring networks do not overlap.
+**Tip:** With 80 MHz channels, you have six non-overlapping channels, which
+makes the 6 GHz band well suited for dense environments. Use 160 MHz or 320 MHz
+only if your clients support it and neighboring networks do not overlap.
 {{% /alert %}}
-
-<br />
 
 ## Channel Bonding
 
@@ -250,8 +222,6 @@ if your clients support it and neighboring networks do not overlap.
   160 MHz configurations.
 - **Performance Impact:** While channel bonding can enhance throughput, it may
   also increase interference and overlap with neighboring networks.
-
-<br />
 
 ## Interference and Network Optimization
 
@@ -270,8 +240,6 @@ if your clients support it and neighboring networks do not overlap.
 - **Optimization:** Regularly monitor network performance and make adjustments
   as needed to maintain a stable and efficient network.
 
-<br />
-
 ## WLAN Security
 
 ### Securing Your Network
@@ -282,8 +250,6 @@ if your clients support it and neighboring networks do not overlap.
 - **Security Practices:** Regularly update your router’s firmware and use
   strong, unique passwords for network security.
 
-<br />
-
 ## Troubleshooting
 
 ### Common Issues
@@ -292,8 +258,6 @@ if your clients support it and neighboring networks do not overlap.
   interference from other devices or networks.
 - **Performance Issues:** Troubleshoot slow speeds or connectivity problems by
   examining channel settings and network configuration.
-
-<br />
 
 ## Hardware and Software Support
 
@@ -304,8 +268,6 @@ if your clients support it and neighboring networks do not overlap.
 - **Software:** Check for firmware updates and software compatibility to ensure
   optimal performance and feature support.
 
-<br />
-
 ## Updates and Future Considerations
 
 ### Staying Informed
@@ -315,8 +277,6 @@ if your clients support it and neighboring networks do not overlap.
 
 - **Technological Advances:** Stay informed about new technologies and
   improvements that can enhance your Wi-Fi network.
-
-<br />
 
 ## Summary
 

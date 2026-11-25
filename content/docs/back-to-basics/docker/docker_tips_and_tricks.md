@@ -41,19 +41,15 @@ keywords:
   - Docker container lifecycle management
   - Docker container updates
 
-weight: 2200
+weight: 2203
 
 toc: true
 katex: true
 ---
 
-<br />
-
 {{% alert context="primary" %}}
 Claude has contributed to this document. Therefore, it's advisable to treat the
 information here with caution and verify it if necessary. {{% /alert %}}
-
-<br />
 
 ## Simplify Local Development with Docker Compose
 
@@ -83,8 +79,6 @@ port `8080` on the host, mapping it to port `80` in the container. Similarly,
 the `api` service uses the `node:24-alpine` image, exposes port `3000`, mounts
 the local `./api` directory into the `/app` directory in the container, and sets
 the `NODE_ENV` environment variable to `development`.
-
-<br />
 
 ## Optimize Build Times with Docker Layer Caching
 
@@ -140,8 +134,6 @@ we have a production stage (`production`) where we use a minimal Nginx image and
 copy the built files from the build stage, exposing port 80 and defining the
 command to run the service.
 
-<br />
-
 ## Leverage Official Docker Images
 
 Explore Docker Hub's official images for commonly used software to benefit from
@@ -166,8 +158,6 @@ In this example, we start with the official PostgreSQL image
 initialization scripts. Leveraging the official image saves time and effort
 while ensuring you benefit from maintained and secure software.
 
-<br />
-
 ## Monitor Resource Usage for Optimization
 
 Utilize Docker CLI commands or orchestration tools to monitor container resource
@@ -189,8 +179,6 @@ and make informed decisions about resource allocation.
 
 Monitoring resource usage helps identify potential bottlenecks and optimize
 resource allocation for improved performance and efficiency.
-
-<br />
 
 ## Speed Up Container Startup Time
 
@@ -223,8 +211,6 @@ dependencies, builds the application, and produces the artifact. Then, in the
 second stage, we use a lightweight Nginx image and copy the built artifact from
 the previous stage, resulting in a smaller and faster container startup time.
 
-<br />
-
 ## Automate Container Lifecycle Management
 
 Subscribe to Docker events to automate actions or trigger alerts based on
@@ -254,8 +240,6 @@ received, we perform an action, such as sending an email notification.
 Automating container lifecycle management with Docker events allows you to react
 promptly to changes in your container environment, ensuring smooth operations
 and proactive issue resolution.
-
-<br />
 
 ## Secure Docker Hosts and Containers
 
@@ -301,8 +285,6 @@ Docker Content Trust (DCT) has been retired by Docker and is no longer
 recommended. Use image signing and attestations based on Sigstore instead.
 {{% /alert %}}
 
-<br />
-
 ## Automate Updates with Watchtower
 
 {{% alert context="primary" %}}
@@ -336,8 +318,6 @@ Automating updates with Watchtower streamlines the maintenance process and helps
 ensure that your containers are always running the latest versions, reducing the
 risk of vulnerabilities and downtime.
 
-<br />
-
 ## Optimize Docker Volumes for Performance
 
 Choose volume drivers and plugins based on performance and scalability
@@ -363,8 +343,6 @@ requirements, you can enhance volume functionality and seamlessly integrate
 Docker volumes with external storage systems, ensuring optimal performance for
 your applications.
 
-<br />
-
 ## Document Docker Configuration and Processes
 
 Maintain comprehensive documentation of Docker configuration, Dockerfiles,
@@ -385,8 +363,6 @@ COPY . .
 CMD ["npm", "start"]
 ```
 
-<br />
-
 ### Docker Compose Configuration (docker-compose.yml)
 
 ```yml
@@ -401,16 +377,12 @@ services:
       NODE_ENV: production
 ```
 
-<br />
-
 ### Deployment Process
 
 1. Clone the repository.
 2. Build the Docker image: `docker build -t myapp .`
 3. Run the Docker container: `docker run -d -p 8080:80 myapp`
 4. Access the application at [http://localhost:8080](http://localhost:8080).
-
-<br />
 
 ### Troubleshooting
 
@@ -421,8 +393,6 @@ services:
 
 Documenting Docker configuration and processes in this way helps streamline
 collaboration, onboarding, and troubleshooting for your team.
-
-<br />
 
 ## Conclusion
 

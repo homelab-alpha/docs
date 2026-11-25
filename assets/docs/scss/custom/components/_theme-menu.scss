@@ -1,0 +1,278 @@
+//
+// theme-menu.scss: the theme menu in the toolbar
+// (layouts/partials/mode-switch.html), after the theme settings of GitHub: a
+// button with the icon of the theme mode, and a panel with the theme mode as a
+// segmented control, the light and dark themes as lists, and the contrast as
+// switches. The button icon follows data-theme-mode on <html>.
+//
+
+.theme-menu {
+  position: relative;
+}
+
+.theme-menu-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-fg-default);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--color-neutral-muted);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent-fg);
+    outline-offset: -2px;
+  }
+
+  // Inside the button, so these rules win over the general .material-icons
+  // rule (pages/_helper.scss), which comes later in the style sheet.
+  .theme-menu-icon,
+  .theme-menu-chevron {
+    display: none;
+
+    svg {
+      width: 1em;
+      height: 1em;
+      fill: currentColor;
+    }
+  }
+
+  .theme-menu-icon {
+    font-size: 20px;
+  }
+
+  .theme-menu-chevron {
+    display: inline-flex;
+    font-size: 16px;
+    color: var(--color-fg-muted);
+    transform: rotate(90deg);
+  }
+}
+
+html:not([data-theme-mode="light"], [data-theme-mode="dark"])
+  .theme-menu-button
+  .theme-menu-icon-system,
+html[data-theme-mode="light"] .theme-menu-button .theme-menu-icon-light,
+html[data-theme-mode="dark"] .theme-menu-button .theme-menu-icon-dark {
+  display: inline-flex;
+}
+
+.theme-menu-panel {
+  position: absolute;
+  top: calc(100% + 4px);
+  inset-inline-end: 0;
+  z-index: 1080;
+  width: 300px;
+  max-width: calc(100vw - 16px);
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  padding: 8px;
+  border: 1px solid var(--color-border-default);
+  border-radius: 12px;
+  background: var(--color-canvas-overlay);
+  color: var(--color-fg-default);
+  box-shadow: var(--color-shadow-large);
+  font-size: 0.875rem;
+  text-align: start;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.theme-menu-section {
+  padding: 4px 0 8px;
+
+  & + & {
+    border-top: 1px solid var(--color-border-default);
+    padding-top: 8px;
+  }
+}
+
+.theme-menu-heading {
+  display: block;
+  margin: 0 0 4px;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--color-fg-muted);
+}
+
+// The theme mode: a segmented control of three radio buttons.
+.theme-menu-segmented {
+  display: flex;
+  gap: 2px;
+  margin: 0 4px;
+  padding: 2px;
+  border-radius: 8px;
+  background: var(--color-neutral-muted);
+
+  label {
+    flex: 1;
+    margin: 0;
+  }
+
+  input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  span {
+    display: block;
+    padding: 4px 0;
+    border-radius: 6px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  input:checked + span {
+    background: var(--color-segmented-selected);
+    box-shadow: 0 0 0 1px var(--color-border-default);
+    font-weight: 600;
+  }
+
+  input:focus-visible + span {
+    outline: 2px solid var(--color-accent-fg);
+    outline-offset: 1px;
+  }
+}
+
+// A row: a theme (radio button) or a contrast switch (checkbox).
+.theme-menu-option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 36px;
+  margin: 0;
+  padding: 6px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--color-neutral-muted);
+  }
+
+  input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &:has(input:focus-visible) {
+    outline: 2px solid var(--color-accent-fg);
+    outline-offset: -2px;
+  }
+
+  .theme-menu-label {
+    flex: 1;
+  }
+
+  .theme-menu-check {
+    display: inline-flex;
+    font-size: 16px;
+    visibility: hidden;
+    color: var(--color-accent-fg);
+
+    svg {
+      width: 1em;
+      height: 1em;
+      fill: currentColor;
+    }
+  }
+
+  &:has(input:checked) {
+    .theme-menu-check {
+      visibility: visible;
+    }
+
+    .theme-menu-label {
+      font-weight: 600;
+    }
+  }
+}
+
+// The swatches show the themes themselves, so they use the fixed colors of
+// those themes (_themes.scss), not the tokens of the theme that is shown.
+.theme-menu-swatch {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border-default);
+}
+
+.swatch-light-default {
+  background: #ffffff;
+}
+.swatch-light-colorblind {
+  background: conic-gradient(#0969da 0 50%, #bc4c00 0);
+}
+.swatch-light-tritanopia {
+  background: conic-gradient(#0969da 0 50%, #d1242f 0);
+}
+.swatch-dark-default {
+  background: #0d1117;
+}
+.swatch-dark-dimmed {
+  background: #212830;
+}
+.swatch-dark-colorblind {
+  background: conic-gradient(#1f6feb 0 50%, #f0883e 0);
+}
+.swatch-dark-tritanopia {
+  background: conic-gradient(#1f6feb 0 50%, #f85149 0);
+}
+
+// The contrast switches, as HIG toggle switches: off is gray, on the accent.
+.theme-menu-switch-track {
+  position: relative;
+  flex: none;
+  width: 40px;
+  height: 24px;
+  border-radius: 12px;
+  background: var(--color-fg-muted);
+  transition: background-color 0.2s ease;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    inset-inline-start: 2px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease;
+  }
+}
+
+.theme-menu-switch:has(input:checked) .theme-menu-switch-track {
+  background: var(--color-accent-emphasis);
+
+  &::after {
+    transform: translateX(16px);
+  }
+
+  &:dir(rtl)::after {
+    transform: translateX(-16px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-menu-switch-track,
+  .theme-menu-switch-track::after {
+    transition: none;
+  }
+}
