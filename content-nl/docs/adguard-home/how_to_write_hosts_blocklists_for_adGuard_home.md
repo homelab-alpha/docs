@@ -52,7 +52,7 @@ katex: true
 hosts-blokkeerlijsten][Official: Documentation for write hosts blocklists]
 {{% /alert %}}
 
-## Inleiding
+## Inleiding {#introduction}
 
 Er zijn drie manieren om hosts-blokkeerlijsten te schrijven:
 
@@ -86,7 +86,7 @@ filterlijsten van welk type dan ook, dan is er een tool om blokkeerlijsten voor
 AdGuard Home samen te stellen. Die heet [Hostlist compiler], en AdGuard gebruikt
 hem zelf voor het [AdGuard DNS filter].
 
-## Eenvoudige voorbeelden
+## Eenvoudige voorbeelden {#basic-examples}
 
 - `||example.org^`: blokkeer het domein `example.org` en al zijn subdomeinen,
   zoals `www.example.org`.
@@ -138,7 +138,7 @@ modifiers = [modifier0, modifier1[, ...[, modifierN]]]
 - `modifiers`: parameters die de regel verduidelijken. Ze kunnen de werking van
   de regel beperken of zelfs helemaal veranderen.
 
-## Speciale tekens
+## Speciale tekens {#special-characters}
 
 - `*`: het jokerteken. Het staat voor elke reeks tekens. Dat kan ook een lege
   tekenreeks zijn, of een reeks van elke lengte.
@@ -156,7 +156,7 @@ modifiers = [modifier0, modifier1[, ...[, modifierN]]]
   `ample.org|` bij `example.org`, maar niet bij `example.org.com`. `|example`
   past bij `example.org`, maar niet bij `test.example`.
 
-## Reguliere expressies
+## Reguliere expressies {#regular-expressions}
 
 Wil je nog meer vrijheid bij het maken van regels, dan kun je [reguliere
 expressies][regular expressions] gebruiken in plaats van de standaard,
@@ -175,7 +175,7 @@ pattern = "/" regexp "/"
 {{% alert context="primary" %}}
 Let op: deze regel bevat ook de modifier `important`.{{% /alert %}}
 
-## Opmerkingen
+## Opmerkingen {#comments}
 
 Elke regel die begint met een uitroepteken of een hekje is een opmerking en
 wordt door de filter genegeerd. Opmerkingen staan meestal boven regels en
@@ -186,7 +186,7 @@ beschrijven wat een regel doet, bijvoorbeeld:
 # This is also a comment.
 ```
 
-## Modifiers
+## Modifiers {#rule-modifiers}
 
 Je kunt de werking van een regel aanpassen met modifiers. Modifiers staan aan
 het einde van de regel, na het teken `$`, en worden gescheiden door komma's.

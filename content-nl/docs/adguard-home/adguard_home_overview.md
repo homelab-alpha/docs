@@ -37,13 +37,13 @@ katex: true
 <!-- textlint-disable terminology -->
 <!-- The terminology rules are for English; this page is Dutch. -->
 
-## Inleiding
+## Inleiding {#introduction}
 
 AdGuard Home is krachtige en veelzijdige software die advertenties blokkeert en
 je privacy beschermt. In deze repository vind je verschillende submappen met
 onderdelen voor AdGuard Home, zoals filters en andere bestanden.
 
-## Beschikbare filters van Homelab-Alpha
+## Beschikbare filters van Homelab-Alpha {#available-filters-from-homelab-alpha}
 
 {{% alert context="warning" %}} De filters hieronder zijn mijn persoonlijke
 filters voor AdGuard Home. Bekijk ze eerst goed, zodat je weet wat er wordt
@@ -91,14 +91,14 @@ geblokkeerd, toegestaan en/of omgeleid, voordat je er een gebruikt.
   doorlaat.
 - [**Wildcard:**] filter met een lijst die wildcard-DNS-records blokkeert.
 
-## Bijdragen aan Homelab-Alpha - AdGuard Home
+## Bijdragen aan Homelab-Alpha - AdGuard Home {#contributions-to-homelab-alpha---adguard-home}
 
 We waarderen je bijdrage en maken het je zo makkelijk mogelijk om bij te dragen
 aan de repository Homelab-Alpha - adguard-home. Wijzigingen aan adguard-home
 lopen via pull requests naar de branch `main`. Lees [hoe je
 bijdraagt][contribute].
 
-## Licentie
+## Licentie {#license}
 
 Dit project valt onder de **Creative Commons
 Naamsvermelding-NietCommercieel-GelijkDelen 4.0 Internationaal-licentie** (CC

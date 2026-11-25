@@ -56,7 +56,7 @@ dotfiles te beheren.
 
 Hier volgt een uitgebreide uitleg:
 
-## Scriptgegevens
+## Scriptgegevens {#script-metadata}
 
 - **Bestandsnaam**: `dotfiles_installer.sh`
 - **Auteur**: GJS (homelab-alpha)
@@ -66,9 +66,9 @@ Hier volgt een uitgebreide uitleg:
   daarbij back-ups en zet die zo nodig terug.
 - **RAW-script**: [dotfiles_installer.sh]
 
-## Uitgebreide uitleg
+## Uitgebreide uitleg {#detailed-explanation}
 
-### Controleren of Git is geïnstalleerd
+### Controleren of Git is geïnstalleerd {#check-if-git-is-installed}
 
 ```bash
 check_git() {
@@ -82,7 +82,7 @@ check_git() {
 Deze functie controleert of Git op het systeem staat. Zo niet, dan vraagt het
 script de gebruiker Git te installeren en stopt het.
 
-### Een back-up maken van de bestaande dotfiles
+### Een back-up maken van de bestaande dotfiles {#create-a-backup-of-existing-dotfiles}
 
 ```bash
 create_backup() {
@@ -108,7 +108,7 @@ Deze functie maakt een back-up van de bestaande dotfiles. Ze maakt een map voor
 de back-ups en kopieert elke dotfile die bestaat. Lukt het kopiëren van een
 bestand niet, dan toont ze een fout en stopt het script.
 
-### Dotfiles installeren
+### Dotfiles installeren {#install-dotfiles}
 
 ```bash
 install_dotfiles() {
@@ -139,7 +139,7 @@ Deze functie installeert de nieuwe dotfiles. Ze kopieert de dotfiles uit de map
 `dotfiles` in de thuismap van de gebruiker naar de juiste plekken. Daarna
 verwijdert ze de mappen en bestanden van Git.
 
-### Back-up maken voor het verwijderen
+### Back-up maken voor het verwijderen {#backup-files-before-uninstallation}
 
 ```bash
 backup_files() {
@@ -165,7 +165,7 @@ Deze functie maakt een back-up van de huidige dotfiles voordat ze worden
 verwijderd. Ze lijkt op de functie `create_backup`, maar wordt gebruikt bij het
 verwijderen.
 
-### Dotfiles verwijderen
+### Dotfiles verwijderen {#remove-dotfiles}
 
 ```bash
 remove_dotfiles() {
@@ -181,7 +181,7 @@ remove_dotfiles() {
 Deze functie verwijdert de dotfiles uit de thuismap. Gaat er iets mis bij het
 verwijderen, dan toont ze een foutmelding.
 
-### De back-up terugzetten
+### De back-up terugzetten {#restore-backup-files}
 
 ```bash
 restore_backup() {
@@ -198,7 +198,7 @@ Deze functie zet de back-up terug van de oorspronkelijke dotfiles die vóór de
 installatie is gemaakt. Gaat er iets mis, dan toont ze een foutmelding en stopt
 het script.
 
-### Hoofdfunctie voor de installatie
+### Hoofdfunctie voor de installatie {#main-installation-function}
 
 ```bash
 install() {
@@ -212,7 +212,7 @@ install() {
 Deze functie regelt de installatie door de functies `create_backup` en
 `install_dotfiles` aan te roepen. Ze legt vast wanneer de installatie klaar is.
 
-### Hoofdfunctie voor het verwijderen
+### Hoofdfunctie voor het verwijderen {#main-uninstallation-function}
 
 ```bash
 uninstall() {
@@ -235,7 +235,7 @@ Deze functie regelt het verwijderen door de functies `backup_files`,
 `remove_dotfiles` en `restore_backup` aan te roepen. Ze legt vast wanneer het
 verwijderen klaar is en verwijdert de map `dotfiles` uit de thuismap.
 
-### Menu om een actie te kiezen
+### Menu om een actie te kiezen {#display-menu-for-action-selection}
 
 ```bash
 echo "Welcome to the dotfiles installation/uninstallation tool"
@@ -257,7 +257,7 @@ verwijderen. Afhankelijk van de keuze roept het de functies `check_git` en
 `install` aan om te installeren, of de functie `uninstall` om te verwijderen.
 Bij een ongeldige keuze stopt het script.
 
-## Conclusie
+## Conclusie {#conclusion}
 
 Het script `dotfiles_installer.sh` is een compleet hulpmiddel om dotfiles te
 beheren. Het controleert of Git is geïnstalleerd, maakt back-ups van bestaande

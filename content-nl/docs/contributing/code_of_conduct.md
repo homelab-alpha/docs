@@ -61,7 +61,7 @@ afkomst, sociaal-economische positie, opleidingsniveau of andere status.
 Iedereen die te goeder trouw en volgens dit Covenant deelneemt, krijgt dezelfde
 rechten om mee te doen.
 
-## Gewenst gedrag
+## Gewenst gedrag {#encouraged-behaviors}
 
 We erkennen dat sociale normen verschillen, en we streven er allemaal naar om te
 voldoen aan de verwachtingen van onze community voor positief gedrag. We
@@ -81,7 +81,7 @@ handelen vanuit onze gedeelde waarden, waaronder:
 7. Ons op andere manieren gedragen die het **welzijn van onze community**
    bevorderen en in stand houden.
 
-## Ongewenst gedrag
+## Ongewenst gedrag {#restricted-behaviors}
 
 We spreken af het volgende gedrag in onze community te beperken. Voorvallen van
 dit gedrag, dreigen ermee en het aanmoedigen ervan zijn overtredingen van deze
@@ -103,7 +103,7 @@ gedragscode.
 7. Je op andere manieren gedragen die het **welzijn** van onze community
    **bedreigen**.
 
-### Andere beperkingen
+### Andere beperkingen {#other-restrictions}
 
 1. **Misleidende identiteit.** Je om welke reden dan ook voordoen als iemand
    anders, of je als iemand anders voordoen om handhaving te ontlopen.
@@ -114,7 +114,7 @@ gedragscode.
 4. **Onverantwoorde communicatie.** Inhoud die ander ongewenst gedrag bevat,
    ernaar linkt of het beschrijft, niet op een verantwoorde manier presenteren.
 
-## Een probleem melden
+## Een probleem melden {#reporting-an-issue}
 
 Ook als leden van de community hun best doen om samen te werken, kunnen er
 spanningen ontstaan. Niet elk conflict is een overtreding van de gedragscode, en
@@ -134,7 +134,7 @@ vertrouwelijkheid. Om die waarden te respecteren, vindt handhaving privé plaats
 met de betrokkenen, maar communicatie naar de hele community kan deel uitmaken
 van een oplossing waar iedereen mee instemt.
 
-## Schade aanpakken en herstellen
+## Schade aanpakken en herstellen {#addressing-and-repairing-harm}
 
 Als een onderzoek van de moderatoren uitwijst dat deze gedragscode is
 overtreden, kan de volgende handhavingsladder worden gebruikt om te bepalen hoe
@@ -184,7 +184,7 @@ van een overtreding kunnen lagere treden van de ladder worden overgeslagen.
 Deze handhavingsladder is een richtlijn. Hij beperkt de community managers niet
 in hun eigen oordeel en beslissingen, in het belang van onze community.
 
-## Reikwijdte
+## Reikwijdte {#scope}
 
 Deze gedragscode geldt in alle ruimtes van de community, en ook als iemand de
 community officieel vertegenwoordigt in het openbaar of in andere ruimtes.
@@ -193,7 +193,7 @@ een officieel e-mailadres, berichten plaatsen via een officieel account op
 sociale media, of optreden als aangewezen vertegenwoordiger bij een online of
 offline evenement.
 
-## Naamsvermelding
+## Naamsvermelding {#attribution}
 
 Deze gedragscode is gebaseerd op het Contributor Covenant, versie 3.0, blijvend
 beschikbaar op

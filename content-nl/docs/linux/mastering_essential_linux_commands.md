@@ -42,7 +42,7 @@ katex: true
 {{% alert context="primary" %}}
 Let op: de Linux-shell is hoofdlettergevoelig. {{% /alert %}}
 
-## Inleiding
+## Inleiding {#introduction}
 
 Zorg voordat je aan de lijst met commando's begint dat je weet hoe je de
 opdrachtregel (CLI) opent. Heb je daar hulp bij nodig, volg dan eerst een
@@ -52,9 +52,9 @@ Hoe je de opdrachtregel opent, verschilt per Linux-distributie, maar meestal
 vind je hem bij Hulpmiddelen. Op Ubuntu open je hem bijvoorbeeld met
 `Ctrl+Alt+T`.
 
-## Overzicht van de basiscommando's
+## Overzicht van de basiscommando's {#basic-linux-commands-overview}
 
-### pwd (huidige map tonen)
+### pwd (huidige map tonen) {#pwd-print-working-directory}
 
 Met `pwd` toon je het absolute pad van de map waarin je werkt. Handig om te
 controleren waar je bent in het bestandssysteem:
@@ -69,7 +69,7 @@ Voorbeeld van de uitvoer:
 /home/username
 ```
 
-### cd (van map wisselen)
+### cd (van map wisselen) {#cd-change-directory}
 
 Navigeer door mappen met `cd`. Geef het volledige pad of de naam van de map op:
 
@@ -84,7 +84,7 @@ Snelkoppelingen:
 - `cd` (zonder argumenten) gaat naar je thuismap.
 - `cd -` gaat naar de vorige map.
 
-### ls (lijst)
+### ls (lijst) {#ls-list}
 
 Bekijk de inhoud van een map met `ls`:
 
@@ -106,7 +106,7 @@ Bijvoorbeeld:
 ls -al /home/username
 ```
 
-### cat (samenvoegen)
+### cat (samenvoegen) {#cat-concatenate}
 
 Toon de inhoud van een bestand met `cat`:
 
@@ -130,7 +130,7 @@ Ander gebruik:
   cat file1.txt file2.txt > combined.txt
   ```
 
-### cp (kopiëren)
+### cp (kopiëren) {#cp-copy}
 
 Kopieer bestanden met cp:
 
@@ -144,7 +144,7 @@ Gebruik voor mappen `-r` (recursief):
 cp -r /source_directory /destination_directory
 ```
 
-### mv (verplaatsen/hernoemen)
+### mv (verplaatsen/hernoemen) {#mv-moverename}
 
 Verplaats of hernoem bestanden met `mv`:
 
@@ -153,7 +153,7 @@ mv file.txt /home/username/Documents
 mv oldname.ext newname.ext
 ```
 
-### mkdir (map maken)
+### mkdir (map maken) {#mkdir-make-directory}
 
 Maak mappen met `mkdir`:
 
@@ -175,7 +175,7 @@ Extra opties:
   mkdir -p Music/2020/Newfile
   ```
 
-### rmdir (map verwijderen)
+### rmdir (map verwijderen) {#rmdir-remove-directory}
 
 Verwijder lege mappen met `rmdir`:
 
@@ -183,7 +183,7 @@ Verwijder lege mappen met `rmdir`:
 rmdir emptydir
 ```
 
-### rm (verwijderen)
+### rm (verwijderen) {#rm-remove}
 
 Verwijder mappen met hun inhoud met `rm`.
 
@@ -195,7 +195,7 @@ rm filename.ext
 rm -r directoryname  # to delete a directory and its contents
 ```
 
-### touch (bestand maken)
+### touch (bestand maken) {#touch-create-file}
 
 Maak lege bestanden met `touch`:
 
@@ -254,7 +254,7 @@ Voer commando's uit met beheerdersrechten:
 sudo apt update
 ```
 
-### df (vrije schijfruimte)
+### df (vrije schijfruimte) {#df-disk-free}
 
 Bekijk het gebruik van de schijfruimte met `df`:
 
@@ -262,7 +262,7 @@ Bekijk het gebruik van de schijfruimte met `df`:
 df -h  # human-readable format
 ```
 
-### du (schijfgebruik)
+### du (schijfgebruik) {#du-disk-usage}
 
 Bekijk hoeveel ruimte een bestand of map gebruikt met `du`:
 
@@ -310,7 +310,7 @@ Een tar-archief uitpakken:
 tar -xvf archive.tar
 ```
 
-### chmod (rechten wijzigen)
+### chmod (rechten wijzigen) {#chmod-change-mode}
 
 Wijzig de rechten van een bestand of map met `chmod`:
 
@@ -318,7 +318,7 @@ Wijzig de rechten van een bestand of map met `chmod`:
 chmod 755 filename.ext  # owner can read/write/execute, others can read/execute
 ```
 
-### chown (eigenaar wijzigen)
+### chown (eigenaar wijzigen) {#chown-change-owner}
 
 Wijzig de eigenaar van een bestand of map met `chown`:
 
@@ -391,7 +391,7 @@ Bekijk eerder ingevoerde commando's:
 history
 ```
 
-### man (handleiding)
+### man (handleiding) {#man-manual}
 
 Open de handleiding van een commando:
 
@@ -446,9 +446,9 @@ Een gebruiker verwijderen:
 sudo userdel username
 ```
 
-## Meer commando's
+## Meer commando's {#additional-commands}
 
-### ps (processtatus)
+### ps (processtatus) {#ps-process-status}
 
 Toont een lijst van actieve processen:
 
@@ -472,7 +472,7 @@ Toont de kernelversie van het systeem:
 uname -r
 ```
 
-### df -i (vrije inodes)
+### df -i (vrije inodes) {#df--i-disk-free-inodes}
 
 Toont het aantal beschikbare inodes:
 
@@ -480,7 +480,7 @@ Toont het aantal beschikbare inodes:
 df -i
 ```
 
-### free (geheugengebruik)
+### free (geheugengebruik) {#free-memory-usage}
 
 Toont informatie over het geheugengebruik:
 
@@ -488,7 +488,7 @@ Toont informatie over het geheugengebruik:
 free -h
 ```
 
-### scp (veilig kopiëren)
+### scp (veilig kopiëren) {#scp-secure-copy}
 
 Kopieert bestanden tussen hosts via SSH:
 
@@ -546,9 +546,9 @@ sudo systemctl enable service_name
 sudo systemctl disable service_name
 ```
 
-## Meer onderwerpen
+## Meer onderwerpen {#additional-topics}
 
-### Omgevingsvariabelen
+### Omgevingsvariabelen {#environment-variables}
 
 Omgevingsvariabelen instellen en gebruiken:
 
@@ -557,7 +557,7 @@ export VAR_NAME="value"
 echo $VAR_NAME
 ```
 
-### Aliassen
+### Aliassen {#aliases}
 
 Zo maak je eigen aliassen voor commando's die je vaak gebruikt:
 
@@ -573,7 +573,7 @@ Veilige toegang tot een andere computer via het netwerk:
 ssh username@hostname
 ```
 
-### Pakketbeheer
+### Pakketbeheer {#package-management}
 
 Voorbeelden van pakketbeheerders, zoals `apt` voor Debian/Ubuntu en `dnf` voor
 Fedora en distributies op basis van RHEL (het oudere commando `yum` is nu een
@@ -584,7 +584,7 @@ sudo apt install package_name
 sudo dnf install package_name
 ```
 
-### Netwerkcommando's
+### Netwerkcommando's {#network-commands}
 
 Gebruik de commando's `ip` en `ss` voor netwerkbeheer. Ze vervangen de
 verouderde commando's `ifconfig` en `netstat` uit het pakket `net-tools`, dat op
@@ -596,7 +596,7 @@ ip route     # show the routing table (replaces route)
 ss -tuln     # show listening TCP and UDP ports (replaces netstat -tuln)
 ```
 
-### Logbestanden
+### Logbestanden {#log-files}
 
 Zo bekijk je systeemlogs. De meeste moderne distributies gebruiken het
 systemd-journaal, dat je leest met `journalctl`. Sommige distributies bewaren
@@ -610,7 +610,7 @@ journalctl -u service_name  # logs of a single service
 tail -f /var/log/syslog   # plain text log (Debian / Ubuntu)
 ```
 
-### Shellscripts
+### Shellscripts {#shell-scripting}
 
 Een inleiding in shellscripts voor automatisering en ingewikkeldere taken:
 
@@ -619,7 +619,7 @@ Een inleiding in shellscripts voor automatisering en ingewikkeldere taken:
 echo "Hello, World!"
 ```
 
-## Extra tips en trucs
+## Extra tips en trucs {#bonus-tips-and-tricks}
 
 - Gebruik `clear` om het terminalscherm leeg te maken:
 

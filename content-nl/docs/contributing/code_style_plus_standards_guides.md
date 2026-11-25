@@ -49,14 +49,14 @@ katex: true
 <!-- textlint-disable terminology -->
 <!-- The terminology rules are for English; this page is Dutch. -->
 
-## Inleiding
+## Inleiding {#introduction}
 
 Deze handleiding helpt bijdragers te begrijpen hoe we code schrijven en
 bijdragen opbouwen in de repository docs. Met deze richtlijnen blijft onze code
 consistent, onderhoudbaar en makkelijk te reviewen. Consistentie gaat voor
 persoonlijke voorkeur: sluit bij twijfel aan bij de bestaande stijl.
 
-## Algemene kwaliteit van code
+## Algemene kwaliteit van code {#general-code-quality}
 
 - **Wees consistent**: sluit altijd aan bij de bestaande codestijl. Consistentie
   gaat voor persoonlijke voorkeur.
@@ -72,7 +72,7 @@ persoonlijke voorkeur: sluit bij twijfel aan bij de bestaande stijl.
   API-sleutels vast in de code. Gebruik omgevingsvariabelen of een veilig
   configuratiebeheer.
 
-## Opmaak
+## Opmaak {#formatting}
 
 We gebruiken **Prettier** om onze code automatisch op te maken en te
 controleren. Zo blijft de stijl in het hele project gelijk. Draai Prettier
@@ -87,7 +87,7 @@ Algemene regels voor de opmaak van alle bestandstypen:
 - Houd regels waar mogelijk op maximaal **80 tekens**. Codeblokken mogen tot
   **120 tekens** gaan.
 
-## Afspraken voor bestanden en mappen
+## Afspraken voor bestanden en mappen {#file-and-folder-conventions}
 
 - Namen van bestanden en mappen zijn in **kleine letters**. Bestanden gebruiken
   **underscores** als scheidingsteken (bijvoorbeeld `review_process.md`,
@@ -103,12 +103,12 @@ Algemene regels voor de opmaak van alle bestandstypen:
   buildresultaten, IDE-bestanden, logs en tijdelijke bestanden. Commit die
   nooit.
 
-## Richtlijnen voor Git
+## Richtlijnen voor Git {#git-guidelines}
 
 Met deze richtlijnen blijft onze commitgeschiedenis schoon, leesbaar en
 makkelijk te volgen.
 
-### Richtlijnen voor branchnamen
+### Richtlijnen voor branchnamen {#branch-naming-guidelines}
 
 Maak voor elke wijziging een nieuwe branch. Geef branches een naam die duidelijk
 het doel beschrijft.
@@ -147,7 +147,7 @@ Feature/AddUserAuth  (wrong casing)
 update               (not descriptive)
 ```
 
-### Richtlijnen voor commitberichten
+### Richtlijnen voor commitberichten {#commit-message-guidelines}
 
 Schrijf commitberichten altijd in het **Engels** en volg de specificatie
 [Conventional Commits](https://conventionalcommits.org). Voor een snel
@@ -212,7 +212,7 @@ docs: update installation steps in README
 chore(deps): update super-linter to v8.6.0
 ```
 
-## Richtlijnen per taal
+## Richtlijnen per taal {#language-specific-guidelines}
 
 ### YAML
 
@@ -267,7 +267,7 @@ inspringen met 2 spaties (MD007) en de gebruikelijke leestekens na koppen
 (MD026). De regel voor regellengte (MD013) staat uit, omdat Prettier de tekst
 afbreekt op 80 tekens.
 
-### Omgevingsbestanden
+### Omgevingsbestanden {#environment-files}
 
 Omgevingsbestanden (in de stijl van `.env`) worden gecontroleerd door de
 ENV-linter van Super Linter.
@@ -292,7 +292,7 @@ JSON wordt gebruikt voor de configuratie van Renovate en van linters, zoals
 - Bestanden moeten geldige JSON zijn; controleer dat met een linter of formatter
   voordat je commit.
 
-### Shellscripts
+### Shellscripts {#shell-scripts}
 
 Shellscripts worden gebruikt in workflows van GitHub Actions en als hulpmiddelen
 in de repository (bijvoorbeeld `init.sh`). In beide gevallen gelden dezelfde
@@ -319,7 +319,7 @@ afspraken.
   uitzondering is `.github/scripts/lint.sh` (`npm run lint`): dat heeft Bash 4
   of hoger nodig, en stopt met een melding als Bash ouder is.
 
-### Workflows van GitHub Actions
+### Workflows van GitHub Actions {#github-actions-workflows}
 
 - Workflowbestanden staan in `.github/workflows/` en hebben de extensie `.yml`.
 - Elke workflow zet `permissions: {}` op workflowniveau, en elke job definieert
@@ -391,7 +391,7 @@ Draai Super Linter lokaal voordat je een pull request instuurt, zodat je
 problemen vroeg vindt en onnodige reviewrondes voorkomt.
 {{% /alert %}}
 
-### Super Linter lokaal draaien met Docker
+### Super Linter lokaal draaien met Docker {#run-super-linter-locally-with-docker}
 
 {{% alert context="info" %}}
 Draai Super Linter in de hoofdmap ~docs.
@@ -425,7 +425,7 @@ docker run --rm \
   ghcr.io/super-linter/super-linter:latest
 ```
 
-## Afhankelijkheden beheren
+## Afhankelijkheden beheren {#dependency-management}
 
 Afhankelijkheden worden automatisch beheerd door **Renovate** (zie
 `.github/renovate.json`).
@@ -458,7 +458,7 @@ Afhankelijkheden worden automatisch beheerd door **Renovate** (zie
 Pas vastgezette versies in workflowbestanden niet met de hand aan, tenzij daar
 een duidelijke reden voor is. Laat routine-updates aan Renovate over.
 
-## Beveiliging
+## Beveiliging {#security-practices}
 
 - **Geen geheimen in code**: commit nooit API-sleutels, wachtwoorden, tokens of
   andere gevoelige inloggegevens. Gebruik omgevingsvariabelen of een
@@ -475,7 +475,7 @@ een duidelijke reden voor is. Laat routine-updates aan Renovate over.
 - Beheerders bekijken nieuwe code voordat die in `main` komt, om mogelijke
   beveiligingsproblemen vroeg te vinden.
 
-## Afspraken voor de changelog
+## Afspraken voor de changelog {#changelog-practices}
 
 Dit project volgt de vorm van
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). De workflow Update

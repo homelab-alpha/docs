@@ -39,14 +39,14 @@ voor veelvoorkomende problemen te vinden. Of je nu te maken hebt met
 hardwareproblemen, softwarefouten of verbindingsproblemen, deze handleiding
 helpt je de meest voorkomende problemen te herkennen en op te lossen.
 
-## Inleiding
+## Inleiding {#introduction}
 
 Hoeveel ervaring je ook hebt, problemen oplossen kan lastig zijn. Deze
 handleiding maakt het eenvoudiger met duidelijke instructies, stap voor stap,
 zodat je problemen efficiënt oplost. Een methodische aanpak is de sleutel tot
 succes.
 
-## Algemene tips
+## Algemene tips {#general-troubleshooting-tips}
 
 1. **Blijf kalm**: haal diep adem. Frustratie maakt een probleem vaak groter dan
    het is.
@@ -81,9 +81,9 @@ succes.
    - _Voorbeeld_: installeer en gebruik ClamAV (`sudo apt install clamav` op
      Ubuntu of `sudo dnf install clamav` op Fedora).
 
-## Hardwareproblemen
+## Hardwareproblemen {#hardware-issues}
 
-### Stroomproblemen
+### Stroomproblemen {#power-problems}
 
 Gaat je apparaat niet aan, controleer dan eerst de stroomvoorziening:
 
@@ -98,7 +98,7 @@ Gaat je apparaat niet aan, controleer dan eerst de stroomvoorziening:
    - _Voorbeeld_: probeer een andere oplader om te zien of het aan de oplader
      ligt.
 
-### Oververhitting
+### Oververhitting {#overheating}
 
 Oververhitting kan zorgen dat apparaten uitvallen of trager worden:
 
@@ -114,7 +114,7 @@ Oververhitting kan zorgen dat apparaten uitvallen of trager worden:
   - _Voorbeeld_: wordt je processor te heet, overweeg dan nieuwe koelpasta aan
     te brengen tussen de processor en de koeler.
 
-### Problemen met randapparatuur
+### Problemen met randapparatuur {#peripheral-problems}
 
 Problemen met randapparatuur zoals toetsenborden, muizen of monitoren:
 
@@ -129,7 +129,7 @@ Problemen met randapparatuur zoals toetsenborden, muizen of monitoren:
   - _Voorbeeld_: sluit je printer aan op een andere computer om te zien of hij
     daar wel werkt.
 
-### Geluidsproblemen
+### Geluidsproblemen {#sound-problems}
 
 Hoor je geen geluid of is het geluid vervormd?
 
@@ -142,7 +142,7 @@ Hoor je geen geluid of is het geluid vervormd?
   - _Voorbeeld_: ga in Ubuntu naar 'Instellingen' > 'Geluid' en controleer of
     het juiste uitvoerapparaat is gekozen.
 
-### Beeldproblemen
+### Beeldproblemen {#display-problems}
 
 Werkt je scherm niet goed?
 
@@ -155,9 +155,9 @@ Werkt je scherm niet goed?
   - _Voorbeeld_: werkt je HDMI-aansluiting niet, probeer dan een andere
     HDMI-poort op je tv.
 
-## Softwareproblemen
+## Softwareproblemen {#software-issues}
 
-### Installatiefouten
+### Installatiefouten {#installation-errors}
 
 Lukt het niet om software te installeren?
 
@@ -172,7 +172,7 @@ Lukt het niet om software te installeren?
   - _Voorbeeld_: heb je een .deb-bestand gedownload, download het dan opnieuw
     van de officiële website.
 
-### Prestatieproblemen
+### Prestatieproblemen {#performance-issues}
 
 Voor software die traag is of vastloopt:
 
@@ -187,7 +187,7 @@ Voor software die traag is of vastloopt:
   - _Voorbeeld_: zoek op de website van de software de minimale systeemeisen op
     en vergelijk die met je systeem via commando's als `lscpu` en `free -m`.
 
-### Compatibiliteitsproblemen
+### Compatibiliteitsproblemen {#compatibility-problems}
 
 Werkt software niet zoals verwacht?
 
@@ -203,7 +203,7 @@ Werkt software niet zoals verwacht?
     `apt-cache search library_name` op Ubuntu of `dnf search library_name` op
     Fedora om ze te vinden en te installeren.
 
-### Traag opstarten
+### Traag opstarten {#slow-startup}
 
 Start je computer traag op?
 
@@ -214,7 +214,7 @@ Start je computer traag op?
   - _Voorbeeld_: gebruik `sudo apt-get clean` en `sudo apt-get autoremove` om
     ruimte vrij te maken op je harde schijf.
 
-### Conflicten tussen software
+### Conflicten tussen software {#software-conflicts}
 
 Werken meerdere programma's niet goed samen?
 
@@ -227,9 +227,9 @@ Werken meerdere programma's niet goed samen?
   - _Voorbeeld_: zoek in de instellingen van de software naar een optie om alles
     terug te zetten.
 
-## Netwerkproblemen
+## Netwerkproblemen {#network-issues}
 
-### Verbindingsproblemen
+### Verbindingsproblemen {#connectivity-problems}
 
 Kom je niet op internet?
 
@@ -243,7 +243,7 @@ Kom je niet op internet?
   - _Voorbeeld_: controleer of de netwerkkabel in je computer en in de router
     vastklikt.
 
-### Snelheidsproblemen
+### Snelheidsproblemen {#speed-issues}
 
 Is je internet traag?
 
@@ -258,7 +258,7 @@ Is je internet traag?
   - _Voorbeeld_: is je verbinding steeds traag, bel dan je provider om te vragen
     of er storingen in je omgeving zijn.
 
-### Verbinding valt vaak weg
+### Verbinding valt vaak weg {#frequent-disconnections}
 
 Valt je verbinding vaak weg?
 
@@ -270,7 +270,7 @@ Valt je verbinding vaak weg?
   - _Voorbeeld_: download en installeer de nieuwste firmware via de website van
     de fabrikant van je router.
 
-### VPN-problemen
+### VPN-problemen {#vpn-problems}
 
 Heb je problemen met een VPN-verbinding?
 
@@ -282,7 +282,7 @@ Heb je problemen met een VPN-verbinding?
   - _Voorbeeld_: schakel in de VPN-instellingen over van OpenVPN naar
     L2TP/IPsec.
 
-## Geavanceerd problemen oplossen
+## Geavanceerd problemen oplossen {#advanced-troubleshooting}
 
 Voor ingewikkeldere problemen moet je soms dieper graven:
 
@@ -298,7 +298,7 @@ Voor ingewikkeldere problemen moet je soms dieper graven:
   - _Voorbeeld_: voer `sudo fsck /dev/sdX` uit (vervang `/dev/sdX` door de naam
     van je schijf) om bestandssystemen te controleren en te repareren.
 
-### Gegevens herstellen
+### Gegevens herstellen {#data-recovery}
 
 Bij verlies van gegevens:
 
@@ -312,7 +312,7 @@ Bij verlies van gegevens:
   - _Voorbeeld_: is je harde schijf kapot, dan kan een professionele
     hersteldienst je gegevens vaak nog terughalen.
 
-### Hardwarediagnose
+### Hardwarediagnose {#hardware-diagnostics}
 
 Voor diepere hardwareproblemen:
 
@@ -325,7 +325,7 @@ Voor diepere hardwareproblemen:
   - _Voorbeeld_: gebruik `memtest86+` (`sudo apt install memtest86+` op Ubuntu)
     om je werkgeheugen op fouten te testen.
 
-## Conclusie
+## Conclusie {#conclusion}
 
 Problemen oplossen kan ontmoedigend zijn, maar met deze handleiding heb je de
 tools en tips om veelvoorkomende problemen aan te pakken. Geduld en een

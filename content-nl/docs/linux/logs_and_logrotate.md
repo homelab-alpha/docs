@@ -43,7 +43,7 @@ katex: true
 <!-- textlint-disable terminology -->
 <!-- The terminology rules are for English; this page is Dutch. -->
 
-## Inleiding
+## Inleiding {#introduction}
 
 Logs vertellen wat een systeem deed en waarom iets misging. Zonder onderhoud
 vullen ze ook een schijf. Deze handleiding behandelt beide kanten voor Ubuntu en
@@ -56,7 +56,7 @@ Fedora:
 De voorbeelden zijn getest op Ubuntu 24.04 LTS en Fedora 43. De meeste
 commando's hebben `sudo` nodig.
 
-## Hoe logging werkt
+## Hoe logging werkt {#how-logging-works}
 
 Moderne versies van Ubuntu en Fedora gebruiken allebei twee lagen:
 
@@ -70,7 +70,7 @@ Moderne versies van Ubuntu en Fedora gebruiken allebei twee lagen:
 journald beheert de omvang van zijn eigen journaal. Tekstlogbestanden groeien
 tot iets ze roteert; dat is de taak van logrotate.
 
-## Ubuntu en Fedora vergeleken
+## Ubuntu en Fedora vergeleken {#ubuntu-versus-fedora}
 
 | Onderwerp                   | Ubuntu                                 | Fedora                                         |
 | --------------------------- | -------------------------------------- | ---------------------------------------------- |
@@ -91,7 +91,7 @@ Op Fedora bestaan de meeste klassieke bestanden, zoals `/var/log/messages` en
 `journalctl`.
 {{% /alert %}}
 
-## Belangrijke plekken voor logs
+## Belangrijke plekken voor logs {#important-log-locations}
 
 ### Ubuntu
 
@@ -116,9 +116,9 @@ Op Fedora bestaan de meeste klassieke bestanden, zoals `/var/log/messages` en
 | `/var/log/messages`        | Algemene berichten, alleen met rsyslog         |
 | `/var/log/secure`          | Authenticatie, alleen met rsyslog              |
 
-## Logs lezen
+## Logs lezen {#reading-logs}
 
-### Tekstbestanden
+### Tekstbestanden {#text-files}
 
 ```bash
 # Show the last 50 lines
@@ -135,7 +135,7 @@ sudo zgrep "Failed password" /var/log/auth.log.*.gz
 sudo less /var/log/syslog
 ```
 
-### Het journaal met journalctl
+### Het journaal met journalctl {#the-journal-with-journalctl}
 
 `journalctl` werkt hetzelfde op Ubuntu en Fedora.
 
@@ -181,7 +181,7 @@ sudo usermod -aG adm "$USER"
 sudo usermod -aG systemd-journal "$USER"
 ```
 
-## De omvang van het journaal beheren
+## De omvang van het journaal beheren {#managing-the-journal-size}
 
 Standaard gebruikt journald maximaal 10% van het bestandssysteem waar
 `/var/log/journal/` op staat, met een harde grens van 4 GiB. Bekijk de huidige
@@ -191,7 +191,7 @@ omvang:
 journalctl --disk-usage
 ```
 
-### Eenmalig opruimen
+### Eenmalig opruimen {#clean-up-once}
 
 ```bash
 # Keep at most 500 MB
@@ -201,7 +201,7 @@ sudo journalctl --vacuum-size=500M
 sudo journalctl --vacuum-time=30d
 ```
 
-### Een vaste limiet instellen
+### Een vaste limiet instellen {#set-a-permanent-limit}
 
 Gebruik een drop-inbestand in plaats van `/etc/systemd/journald.conf` aan te
 passen. Een drop-in blijft behouden bij pakketupdates.
@@ -231,7 +231,7 @@ logrotate geeft een logbestand een nieuwe naam, begint een nieuw leeg bestand,
 en verwijdert of comprimeert oude kopieën. Het draait op beide distributies één
 keer per dag via een systemd-timer.
 
-### Installatie en status
+### Installatie en status {#installation-and-status}
 
 logrotate is standaard geïnstalleerd op Ubuntu en Fedora. Controleer het
 programma en de timer:
@@ -259,7 +259,7 @@ sudo dnf install logrotate
 sudo systemctl enable --now logrotate.timer
 ```
 
-### Configuratiebestanden
+### Configuratiebestanden {#configuration-files}
 
 | Pad                   | Doel                                             |
 | --------------------- | ------------------------------------------------ |
@@ -298,7 +298,7 @@ Het belangrijkste verschil: Fedora zet een datum in de naam van geroteerde
 bestanden (`messages-20261124`), en Ubuntu een nummer (`syslog.1`,
 `syslog.2.gz`).
 
-### Veelgebruikte instructies
+### Veelgebruikte instructies {#common-directives}
 
 | Instructie                   | Betekenis                                                                         |
 | ---------------------------- | --------------------------------------------------------------------------------- |
@@ -318,7 +318,7 @@ bestanden (`messages-20261124`), en Ubuntu een nummer (`syslog.1`,
 | `sharedscripts`              | Voer de scripts één keer uit voor alle passende bestanden                         |
 | `postrotate` ... `endscript` | Commando's die na de rotatie worden uitgevoerd                                    |
 
-### Voorbeeld: het log van een toepassing roteren
+### Voorbeeld: het log van een toepassing roteren {#example-rotate-an-application-log}
 
 Dit voorbeeld roteert de logs van een toepassing in `/var/log/myapp/`. Het
 bewaart 14 dagen en laat de service zijn logbestand opnieuw openen.
@@ -349,7 +349,7 @@ herlaadactie, vervang dan `create` en het blok `postrotate` door `copytruncate`.
 Een paar regels die tijdens het kopiëren worden geschreven, kunnen verloren
 gaan.
 
-### Voorbeeld: logs in een thuismap roteren
+### Voorbeeld: logs in een thuismap roteren {#example-rotate-logs-in-a-home-directory}
 
 Kan een andere gebruiker dan root in de logmap schrijven, dan weigert logrotate
 die te roteren, tenzij je `su` instelt:
@@ -365,7 +365,7 @@ die te roteren, tenzij je `su` instelt:
 }
 ```
 
-### Een configuratie testen
+### Een configuratie testen {#test-a-configuration}
 
 Test een nieuw bestand altijd voordat je erop vertrouwt.
 
@@ -391,7 +391,7 @@ sudo cat /var/lib/logrotate/status             # Ubuntu
 sudo cat /var/lib/logrotate/logrotate.status   # Fedora
 ```
 
-## Fedora: SELinux en eigen logpaden
+## Fedora: SELinux en eigen logpaden {#fedora-selinux-and-custom-log-paths}
 
 Op Fedora laat SELinux logrotate alleen werken met bestanden met een loglabel,
 zoals `var_log_t`. Bestanden in `/var/log/` krijgen dat label vanzelf. Logs in
@@ -408,14 +408,14 @@ Controleer op weigeringen als een rotatie zonder duidelijke reden mislukt:
 sudo ausearch -m AVC -ts recent -c logrotate
 ```
 
-## Ubuntu: bestanden van rsyslog
+## Ubuntu: bestanden van rsyslog {#ubuntu-rsyslog-files}
 
 Op Ubuntu schrijft rsyslog `/var/log/syslog`, `auth.log` en `kern.log`. De
 rotatieregels staan in `/etc/logrotate.d/rsyslog`. Wil je deze logs langer
 bewaren, pas dan `rotate` aan in dat bestand. Bij pakketupdates kan worden
 gevraagd of je je aangepaste versie wilt houden.
 
-## Optioneel: rsyslog op Fedora
+## Optioneel: rsyslog op Fedora {#optional-rsyslog-on-fedora}
 
 Wil je op Fedora liever klassieke tekstbestanden, installeer dan rsyslog. Het
 heeft een eigen logrotate-bestand in `/etc/logrotate.d/rsyslog`.
@@ -425,7 +425,7 @@ sudo dnf install rsyslog
 sudo systemctl enable --now rsyslog
 ```
 
-## Problemen oplossen
+## Problemen oplossen {#troubleshooting}
 
 | Probleem                                                                | Oplossing                                                                        |
 | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
@@ -436,7 +436,7 @@ sudo systemctl enable --now rsyslog
 | Rotatie mislukt alleen op Fedora                                        | Controleer het SELinux-label en `ausearch -m AVC`                                |
 | Journaal gebruikt te veel ruimte                                        | Stel `SystemMaxUse` in met een drop-in voor journald                             |
 
-## Aanbevolen werkwijzen
+## Aanbevolen werkwijzen {#best-practices}
 
 1. **Beperk het journaal**: stel `SystemMaxUse` in, zodat het journaal de schijf
    niet kan vullen.
@@ -451,7 +451,7 @@ sudo systemctl enable --now rsyslog
 6. **Bescherm logbestanden**: gebruik `create` met strikte rechten zoals `0640`,
    want logs kunnen gevoelige gegevens bevatten.
 
-## Conclusie
+## Conclusie {#conclusion}
 
 Ubuntu en Fedora gebruiken allebei journald voor de meeste logging en logrotate
 voor tekstlogbestanden. Ubuntu voegt klassieke bestanden van rsyslog toe,

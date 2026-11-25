@@ -50,7 +50,7 @@ Elke optie staat in de visuele editor, in dezelfde volgorde als hieronder.
 Booleans zijn `true` of `false`. Een verkeerde waarde geeft een
 configuratiefout.
 
-## Entiteiten
+## Entiteiten {#entities}
 
 | Optie                  | Standaard                                        | Beschrijving                                                                        |
 | :--------------------- | :----------------------------------------------- | :---------------------------------------------------------------------------------- |
@@ -59,7 +59,7 @@ configuratiefout.
 | `history_entity`       | `sensor.nord_pool_the_netherlands_current_price` | Sensor met de kale prijs in EUR/kWh. Levert eerdere dagen, periodes en de kalender. |
 | `history_quarter_days` | `7`                                              | Aantal dagen terug (0-10) met kwartieren; oudere dagen tonen uurgemiddelden.        |
 
-## Koptekst
+## Koptekst {#header}
 
 | Optie         | Standaard | Beschrijving                                                                          |
 | :------------ | :-------- | :------------------------------------------------------------------------------------ |
@@ -75,7 +75,7 @@ de editor verbergt die twee opties. Voorlopig bepaalt `source` alleen de titel
 en het logo; de kaart leest nog steeds de sensoren die je instelt. Het lezen van
 ENTSO-E-gegevens staat op de planning.
 
-## Gegevens en weergave
+## Gegevens en weergave {#data-and-view}
 
 | Optie                   | Standaard | Beschrijving                                                                                                                                                          |
 | :---------------------- | :-------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -85,7 +85,7 @@ ENTSO-E-gegevens staat op de planning.
 | `period`                | `15min`   | Volgt `day`: een dag biedt `15min` en `hour`, een week `hour` en `day`, een maand `day` en `week`, een jaar `week` en `month`, een kwartaal `day`, `week` en `month`. |
 | `chart_style`           | `bars`    | `auto`, `bars` of `line`; `auto` kiest op basis van de beschikbare breedte.                                                                                           |
 
-## Prijzen en eenheden
+## Prijzen en eenheden {#prices-and-units}
 
 | Optie              | Standaard   | Beschrijving                                                             |
 | :----------------- | :---------- | :----------------------------------------------------------------------- |
@@ -103,7 +103,7 @@ ENTSO-E-gegevens staat op de planning.
 | `axis_am_pm`       | `false`     | Toon AM/PM op de tijdas.                                                 |
 | `axis_minutes`     | `false`     | Toon `00:00` in plaats van `00` op de tijdas.                            |
 
-## Markeringen
+## Markeringen {#highlights}
 
 | Optie               | Standaard | Beschrijving                                                               |
 | :------------------ | :-------- | :------------------------------------------------------------------------- |
@@ -111,7 +111,7 @@ ENTSO-E-gegevens staat op de planning.
 | `best_window_hours` | `0`       | Markeer het goedkoopste aaneengesloten venster van zoveel uur (0 is uit).  |
 | `price_bands`       | `auto`    | `auto` (percentielen), `[low, high]` of `{ low, high }` zoals weergegeven. |
 
-## Grafiek
+## Grafiek {#chart}
 
 | Optie                  | Standaard    | Beschrijving                                                                                        |
 | :--------------------- | :----------- | :-------------------------------------------------------------------------------------------------- |
@@ -129,7 +129,7 @@ ENTSO-E-gegevens staat op de planning.
 | `zoom_buttons_desktop` | `true`       | Toon de knoppen herstellen, `-` en `+` op desktop en laptop.                                        |
 | `zoom_buttons_touch`   | `true`       | Toon de herstelknop tijdens het zoomen op iPhone en iPad.                                           |
 
-## Secties en bediening
+## Secties en bediening {#sections-and-controls}
 
 | Optie                    | Standaard | Beschrijving                                                             |
 | :----------------------- | :-------- | :----------------------------------------------------------------------- |
@@ -144,7 +144,7 @@ ENTSO-E-gegevens staat op de planning.
 | `show_breakdown_button`  | `true`    | Knop voor de opbouwweergave.                                             |
 | `show_cheapest_stepper`  | `false`   | Teller voor het aantal goedkoopste blokken (heatmap, vandaag en morgen). |
 
-## Doorzichtigheid
+## Doorzichtigheid {#opacity}
 
 Waarden van 0 tot 100, per weergave en grafiektype.
 
@@ -153,7 +153,7 @@ Waarden van 0 tot 100, per weergave en grafiektype.
 | `price_bar_opacity`, `heatmap_bar_opacity`, `breakdown_bar_opacity`    | `75`      |
 | `price_line_opacity`, `heatmap_line_opacity`, `breakdown_line_opacity` | `60`      |
 
-## Uiterlijk
+## Uiterlijk {#appearance}
 
 | Optie                    | Standaard | Beschrijving                                                                                       |
 | :----------------------- | :-------- | :------------------------------------------------------------------------------------------------- |
@@ -165,7 +165,7 @@ Waarden van 0 tot 100, per weergave en grafiektype.
 | `pixel_shift`            | `false`   | Verschuif de kaart een beetje om inbranden op wandschermen te voorkomen.                           |
 | `editor_expand_sections` | `true`    | Open alle secties van de visuele editor.                                                           |
 
-## Experimenteel
+## Experimenteel {#experimental}
 
 Deze opties kunnen na een update van Home Assistant ophouden te werken.
 

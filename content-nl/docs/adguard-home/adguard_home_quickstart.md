@@ -46,7 +46,7 @@ katex: true
 
 ## Linux and macOS
 
-### Met `curl`
+### Met `curl` {#using-curl}
 
 Gebruik je liever `curl`, voer dan het volgende commando uit in je terminal:
 
@@ -58,7 +58,7 @@ Dit commando downloadt het installatiescript en voert het uit. De vlaggen zorgen
 voor `-s` stil, `-S` fouten tonen en `-L` omleidingen volgen. De vlag `-v` is
 optioneel en geeft uitgebreide uitvoer.
 
-### Met `wget`
+### Met `wget` {#using-wget}
 
 Gebruik je liever `wget`, voer dan dit commando uit in je terminal:
 
@@ -69,7 +69,7 @@ wget --no-verbose -O - https://raw.githubusercontent.com/AdguardTeam/AdGuardHome
 Net als bij `curl` downloadt dit commando het script en voert het uit. De vlag
 `--no-verbose` beperkt de uitvoer, en `-O` stuurt de uitvoer naar stdout.
 
-### Met `fetch`
+### Met `fetch` {#using-fetch}
 
 Gebruik je FreeBSD of liever `fetch`, voer dan het volgende commando uit in je
 terminal:
@@ -85,7 +85,7 @@ Na het downloaden en uitvoeren van het installatiescript staat AdGuard Home op
 je systeem. Bekijk de inhoud van het script wel eerst goed voordat je het
 uitvoert, zodat je zeker weet dat het past bij je beveiligingspraktijken.
 
-### Scriptopties
+### Scriptopties {#script-options}
 
 Het installatiescript heeft verschillende opties:
 
@@ -98,7 +98,7 @@ Het installatiescript heeft verschillende opties:
 Let op: de opties `-r` en `-u` sluiten elkaar uit en kun je niet samen
 gebruiken. {{% /alert %}}
 
-## Andere methoden
+## Andere methoden {#alternative-methods}
 
 Installeer je liever met de hand, lees dan het artikel **[getting
 started][wiki-start]** op de website van AdGuard Home voor gedetailleerde

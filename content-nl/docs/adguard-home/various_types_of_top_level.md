@@ -37,7 +37,7 @@ katex: true
 <!-- textlint-disable terminology -->
 <!-- The terminology rules are for English; this page is Dutch. -->
 
-## Inleiding
+## Inleiding {#introduction}
 
 Als je de perfecte domeinnaam zoekt, is het belangrijk om de verschillende
 soorten TLD's te kennen. De Internet Assigned Numbers Authority (IANA)
@@ -54,7 +54,7 @@ domeinnaam zorgvuldig. Wil je een domeinnaam kopen, dan is het belangrijk om de
 verschillende TLD's te begrijpen en te weten welke mogelijkheden je hebt. Zo
 kies je de domeinnaam die het beste past bij je bedrijf en je doelen.
 
-## TLD's met een landcode (ccTLD's)
+## TLD's met een landcode (ccTLD's) {#country-code-tlds-cctlds}
 
 TLD's met een landcode (ccTLD's) zijn domeinen voor websites die bij een bepaald
 land horen. Ze hebben twee letters voor het land waar de website is gevestigd.
@@ -62,14 +62,14 @@ Voorbeelden zijn .nl voor Nederland, .de voor Duitsland, .fr voor Frankrijk, .es
 voor Spanje, .au voor Australië en .jp voor Japan. Op dit moment zijn er 316
 ccTLD's.
 
-## Generieke TLD's (gTLD's)
+## Generieke TLD's (gTLD's) {#generic-tlds-gtlds}
 
 Generieke TLD's (gTLD's) zijn domeinen die voor iedereen beschikbaar zijn. De
 bekendste gTLD's zijn .com, .net, .org, .info, .biz en .name. Je kunt ze voor
 allerlei doelen gebruiken, van een persoonlijk blog tot een bedrijfswebsite. Op
 dit moment zijn er meer dan 1.200 gTLD's.
 
-## Generieke beperkte TLD's (grTLD's)
+## Generieke beperkte TLD's (grTLD's) {#generic-restricted-tlds-grtlds}
 
 Generieke beperkte TLD's (grTLD's) zijn domeinen die alleen voor een bepaalde
 sector, organisatie of groep zijn. Ze worden vaak gebruikt door websites die
@@ -77,14 +77,14 @@ zich op een bepaald onderwerp of publiek richten. Voorbeelden zijn .edu voor
 onderwijs, .gov voor de overheid, .travel voor de reisbranche, .jobs voor werk
 en .mil voor militaire organisaties.
 
-## Infrastructuur-TLD's (iTLD's)
+## Infrastructuur-TLD's (iTLD's) {#infrastructure-tlds-itlds}
 
 Infrastructuur-TLD's (iTLD's) zijn domeinen voor bepaalde netwerkdiensten, zoals
 e-mail, DNS en andere technische diensten. Ze worden meestal gebruikt om een
 netwerk te beheren of technische diensten te hosten. De enige iTLD op dit moment
 is .arpa.
 
-## Gesponsorde TLD's (sTLD's)
+## Gesponsorde TLD's (sTLD's) {#sponsored-tlds-stlds}
 
 Gesponsorde TLD's (sTLD's) zijn domeinen die worden gesponsord door bepaalde
 organisaties, bedrijven of groepen. Ze worden vaak gebruikt door websites die

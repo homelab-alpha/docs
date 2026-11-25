@@ -71,7 +71,7 @@ wordt aangenomen. Als je deze richtlijnen volgt, verloopt de review voor
 iedereen soepel en efficiënt.
 {{% /alert %}}
 
-## Gedragscode
+## Gedragscode {#code-of-conduct}
 
 Dit project volgt de
 [gedragscode van het Contributor Covenant 3.0](https://github.com/homelab-alpha/docs/blob/main/CODE_OF_CONDUCT.md).
@@ -82,9 +82,9 @@ te houden.
 Om een mogelijke overtreding van de gedragscode te melden, **stuur je een e-mail
 naar het [team van Homelab-Alpha](mailto:homelab.api@gmail.com)**.
 
-## Aan de slag
+## Aan de slag {#getting-started}
 
-### Vereisten
+### Vereisten {#prerequisites}
 
 Zorg dat je het volgende hebt ingericht voordat je bijdraagt:
 
@@ -97,7 +97,7 @@ Zorg dat je het volgende hebt ingericht voordat je bijdraagt:
   [README](https://github.com/homelab-alpha/docs/blob/main/README.md) om te
   begrijpen wat docs is en hoe het werkt.
 
-### Forken en klonen
+### Forken en klonen {#fork-and-clone}
 
 1. Fork de repository met **Fork** bovenaan de
    [GitHub-pagina](https://github.com/homelab-alpha/docs).
@@ -122,9 +122,9 @@ Zorg dat je het volgende hebt ingericht voordat je bijdraagt:
    git merge upstream/main
    ```
 
-## Hoe je bijdraagt
+## Hoe je bijdraagt {#how-to-contribute}
 
-### Bugs melden
+### Bugs melden {#reporting-bugs}
 
 Kom je een bug tegen,
 [open dan een bugmelding](https://github.com/homelab-alpha/docs/issues/new?template=bug_report.yml)
@@ -141,7 +141,7 @@ Een goede bugmelding bevat:
 - Gegevens over je omgeving (besturingssysteem, softwareversie, runtime
   enzovoort).
 
-### Beveiligingslekken melden
+### Beveiligingslekken melden {#reporting-security-vulnerabilities}
 
 {{% alert context="warning" %}}
 Meld beveiligingslekken **niet** via openbare GitHub-issues.
@@ -157,7 +157,7 @@ met alleen de URL van de advisory, zonder gevoelige details in het issue zelf.
 
 We proberen binnen **72 uur** op meldingen van lekken te reageren.
 
-### Functies voorstellen
+### Functies voorstellen {#requesting-features}
 
 Verzoeken om functies lopen via
 [GitHub Discussions](https://github.com/homelab-alpha/docs/discussions/categories/feature-request).
@@ -165,14 +165,14 @@ Zoek eerst in de bestaande discussies voordat je een nieuwe opent, en geef
 zoveel mogelijk context: het probleem dat je oplost, je voorgestelde oplossing
 en de alternatieven die je hebt overwogen.
 
-### De documentatie verbeteren
+### De documentatie verbeteren {#improving-documentation}
 
 Verbeteringen aan de documentatie worden altijd gewaardeerd. Denk aan typfouten
 verbeteren, bestaande tekst verduidelijken of ontbrekende informatie toevoegen.
 Volg dezelfde afspraken voor branches en commits als hieronder, en gebruik het
 committype `docs`.
 
-### Codewijzigingen insturen
+### Codewijzigingen insturen {#submitting-code-changes}
 
 Codebijdragen zijn welkom! Zorg dat je wijzigingen passen bij de doelen van het
 project en dat je de richtlijnen in dit document volgt voordat je een pull
@@ -182,7 +182,7 @@ Gebruik je AI-tools, lees dan eerst het
 [AI-beleid voor bijdragen](https://github.com/homelab-alpha/docs/blob/main/.github/policies/ai_contribution_policy.md).
 Je blijft volledig verantwoordelijk voor alles wat je instuurt.
 
-## Richtlijnen voor ontwikkeling
+## Richtlijnen voor ontwikkeling {#development-guidelines}
 
 ### Namen van branches {#branch-naming}
 
@@ -222,7 +222,7 @@ Feature/AddExport   (wrong casing)
 update              (too vague)
 ```
 
-#### Ontwikkelbranches (alleen voor de beheerder)
+#### Ontwikkelbranches (alleen voor de beheerder) {#development-branches-maintainer-only}
 
 De beheerder werkt aan een geplande versie in een ontwikkelbranch. Bijdragers
 gebruiken deze branches niet; zij gebruiken de vorm `type/short-description`
@@ -362,7 +362,7 @@ voor alle afspraken over de changelog.
 
 ## Pull Requests
 
-### Voordat je instuurt
+### Voordat je instuurt {#before-you-submit}
 
 - [ ] Je branch volgt de [afspraken voor branchnamen](#branch-naming).
 - [ ] Je commits volgen de [afspraken voor commitberichten](#commit-messages).
@@ -377,7 +377,7 @@ voor alle afspraken over de changelog.
       regel in de changelog.
 - [ ] Je pull request gaat naar de branch `main`.
 
-### Een pull request insturen
+### Een pull request insturen {#submitting-a-pull-request}
 
 1. Push je branch naar je fork:
 
@@ -398,7 +398,7 @@ Pull requests die het sjabloon of de richtlijnen niet volgen, kunnen zonder
 review worden gesloten.
 {{% /alert %}}
 
-### Het reviewproces
+### Het reviewproces {#review-process}
 
 Alle pull requests doorlopen een vast reviewproces om de kwaliteit en
 consistentie van de code te bewaken. Dit kun je verwachten:

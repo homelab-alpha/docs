@@ -183,7 +183,7 @@ beschrijvingen van de codes in de tabel komen van ASUS en zijn niet vertaald.
 | 0xAC   | System has transitioned into ACPI mode. Interrupt controller is in PIC mode.  |      |       |                            |
 | 0xAA   | System has transitioned into ACPI mode. Interrupt controller is in APIC mode. |      |       |                            |
 
-## Soort probleem
+## Soort probleem {#problem-type}
 
 | SOORT | Probleem                                                    |
 | ----- | ----------------------------------------------------------- |

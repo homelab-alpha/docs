@@ -39,13 +39,13 @@ katex: true
 <!-- textlint-disable terminology -->
 <!-- The terminology rules are for English; this page is Dutch. -->
 
-## Inleiding
+## Inleiding {#introduction}
 
 Dotfiles zijn configuratiebestanden waarmee je je systeemomgeving persoonlijk
 maakt. Deze repository bevat mijn eigen instellingen en configuraties voor
 allerlei opdrachtregeltools, editors en toepassingen die ik regelmatig gebruik.
 
-## Inhoud
+## Inhoud {#contents}
 
 - **bash**: configuratiebestanden voor de Bash-shell (`.bashrc`,
   `.bash_aliases`, `.bash_exports` en `.bash_snippets`).
@@ -61,7 +61,7 @@ allerlei opdrachtregeltools, editors en toepassingen die ik regelmatig gebruik.
 - **installer**: het script `dotfiles_installer.sh` dat de dotfiles installeert
   en verwijdert.
 
-## Gebruik
+## Gebruik {#usage}
 
 Bekijk en gebruik gerust alle configuraties in deze repository. Je kunt de
 repository klonen naar `$HOME/dotfiles` en het script `dotfiles_installer.sh`
@@ -70,7 +70,7 @@ dotfiles naar je thuismap. Je kunt de gewenste configuratiebestanden ook met de
 hand kopiëren. Maak wel eerst een back-up van je huidige configuratie voordat je
 die overschrijft.
 
-## Logbestanden
+## Logbestanden {#log-files}
 
 Waar logbestanden staan, verschilt per besturingssysteem en toepassing.
 Logbestanden staan vaak in een submap van de installatiemap van de toepassing,
@@ -79,13 +79,13 @@ of in een systeemmap zoals `/var/log` op Linux.
 Het script `dotfiles_installer.sh` schrijft zijn logregels naar
 `$HOME/dotfiles.log`.
 
-## Bijdragen aan Homelab-Alpha - Dotfiles
+## Bijdragen aan Homelab-Alpha - Dotfiles {#contributions-to-homelab-alpha---dotfiles}
 
 We waarderen je bijdrage en maken het je zo makkelijk mogelijk om bij te dragen
 aan de repository Homelab-Alpha - dotfiles. Wijzigingen aan de dotfiles lopen
 via pull requests naar de branch `main`. Lees [hoe je bijdraagt][contribute].
 
-## Licentie
+## Licentie {#license}
 
 Dit project valt onder de **Creative Commons
 Naamsvermelding-NietCommercieel-GelijkDelen 4.0 Internationaal-licentie** (CC

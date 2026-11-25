@@ -46,7 +46,7 @@ katex: true
 {{% alert context="primary" %}}
 Let op: de Linux-shell is hoofdlettergevoelig. {{% /alert %}}
 
-## Wat is DNF?
+## Wat is DNF? {#what-is-dnf}
 
 DNF, kort voor Dandified YUM, is de opvolger van de pakketbeheerder Yellowdog
 Updater, Modified (YUM) voor distributies op basis van RPM. Het is gemaakt om
@@ -61,9 +61,9 @@ handleiding werken op beide versies. Waar de syntaxis verschilt, staan beide
 vormen erbij. Het oudere commando `yum` is alleen nog een alias voor `dnf`.
 {{% /alert %}}
 
-## Pakketten installeren en bijwerken
+## Pakketten installeren en bijwerken {#installing-and-updating-packages}
 
-### Een pakket installeren
+### Een pakket installeren {#installing-a-package}
 
 Een pakket installeer je met het commando `install`, gevolgd door de naam van
 het pakket. Om bijvoorbeeld `nano` te installeren:
@@ -72,7 +72,7 @@ het pakket. Om bijvoorbeeld `nano` te installeren:
 sudo dnf install nano
 ```
 
-### Een pakket verwijderen
+### Een pakket verwijderen {#removing-a-package}
 
 Een pakket verwijder je met het commando `remove`:
 
@@ -80,7 +80,7 @@ Een pakket verwijder je met het commando `remove`:
 sudo dnf remove nano
 ```
 
-### Een pakket bijwerken
+### Een pakket bijwerken {#updating-a-package}
 
 Een bepaald pakket werk je bij met het commando `upgrade` (`update` is een alias
 die nog steeds werkt):
@@ -89,7 +89,7 @@ die nog steeds werkt):
 sudo dnf upgrade nano
 ```
 
-### Alle pakketten bijwerken
+### Alle pakketten bijwerken {#updating-all-packages}
 
 Alle geïnstalleerde pakketten bijwerken naar de nieuwste versie:
 
@@ -97,9 +97,9 @@ Alle geïnstalleerde pakketten bijwerken naar de nieuwste versie:
 sudo dnf upgrade
 ```
 
-## Pakketten zoeken
+## Pakketten zoeken {#searching-for-packages}
 
-### Zoeken op naam
+### Zoeken op naam {#searching-by-name}
 
 Je zoekt pakketten op naam met het commando `search`:
 
@@ -107,7 +107,7 @@ Je zoekt pakketten op naam met het commando `search`:
 dnf search nano
 ```
 
-### Zoeken op beschrijving
+### Zoeken op beschrijving {#searching-by-description}
 
 Weet je de precieze naam van het pakket niet, dan kun je zoeken op beschrijving
 of andere kenmerken:
@@ -116,9 +116,9 @@ of andere kenmerken:
 dnf search editor
 ```
 
-## Repository's beheren
+## Repository's beheren {#managing-repositories}
 
-### Een repository toevoegen
+### Een repository toevoegen {#adding-a-repository}
 
 Een nieuwe repository voeg je meestal toe met een `.repo`-bestand in de map
 `/etc/yum.repos.d/`. Bijvoorbeeld:
@@ -149,7 +149,7 @@ sudo dnf config-manager addrepo --from-repofile=https://repository.url/path/newr
 Installeer op DNF4 `dnf-plugins-core` en gebruik
 `sudo dnf config-manager --add-repo https://repository.url/path/newrepo.repo`.
 
-### Een repository uitschakelen
+### Een repository uitschakelen {#disabling-a-repository}
 
 Een repository uitschakelen:
 
@@ -159,7 +159,7 @@ sudo dnf config-manager setopt newrepo.enabled=0
 
 Op DNF4: `sudo dnf config-manager --set-disabled newrepo`.
 
-### Een repository inschakelen
+### Een repository inschakelen {#enabling-a-repository}
 
 Een repository inschakelen:
 
@@ -169,9 +169,9 @@ sudo dnf config-manager setopt newrepo.enabled=1
 
 Op DNF4: `sudo dnf config-manager --set-enabled newrepo`.
 
-## Opruimen
+## Opruimen {#cleaning-up}
 
-### Ongebruikte pakketten verwijderen
+### Ongebruikte pakketten verwijderen {#removing-unused-packages}
 
 Na verloop van tijd verzamel je pakketten die niet meer nodig zijn. Deze
 verweesde pakketten verwijder je zo:
@@ -180,7 +180,7 @@ verweesde pakketten verwijder je zo:
 sudo dnf autoremove
 ```
 
-### De cache opschonen
+### De cache opschonen {#cleaning-cache}
 
 DNF bewaart gegevens in een cache om sneller te werken, maar soms moet je die
 cache opschonen:
@@ -189,9 +189,9 @@ cache opschonen:
 sudo dnf clean all
 ```
 
-## Meer commando's en tips
+## Meer commando's en tips {#additional-commands-and-tips}
 
-### Geïnstalleerde pakketten tonen
+### Geïnstalleerde pakketten tonen {#listing-installed-packages}
 
 Alle geïnstalleerde pakketten tonen:
 
@@ -199,7 +199,7 @@ Alle geïnstalleerde pakketten tonen:
 dnf list --installed
 ```
 
-### Informatie over een pakket tonen
+### Informatie over een pakket tonen {#showing-package-information}
 
 Gedetailleerde informatie over een pakket tonen:
 
@@ -207,7 +207,7 @@ Gedetailleerde informatie over een pakket tonen:
 dnf info nano
 ```
 
-### Pakketten downloaden zonder te installeren
+### Pakketten downloaden zonder te installeren {#downloading-packages-without-installing}
 
 Wil je een pakket downloaden zonder het te installeren (handig voor installaties
 zonder internet):
@@ -216,7 +216,7 @@ zonder internet):
 dnf download nano
 ```
 
-### Groepen installeren
+### Groepen installeren {#group-installations}
 
 DNF kan groepen pakketten installeren, handig om een omgeving in te richten.
 Beschikbare groepen tonen:
@@ -234,7 +234,7 @@ sudo dnf group install development-tools
 DNF5 toont de ID van de groep in de uitvoer van `dnf group list`. Met de ID
 voorkom je problemen met spaties en hoofdletters in groepsnamen.
 
-### Geschiedenis en terugdraaien
+### Geschiedenis en terugdraaien {#history-and-rollback}
 
 DNF houdt alle transacties bij, zodat je wijzigingen ongedaan kunt maken. De
 transactiegeschiedenis bekijken:
@@ -252,7 +252,7 @@ geschiedenis:
 sudo dnf history undo <transaction_id>
 ```
 
-## Aanbevolen werkwijzen
+## Aanbevolen werkwijzen {#best-practices}
 
 1. **Regelmatig bijwerken**: werk je systeem regelmatig bij voor veiligheid en
    stabiliteit.
@@ -263,7 +263,7 @@ sudo dnf history undo <transaction_id>
 4. **Let op afhankelijkheden**: houd rekening met afhankelijkheden als je
    pakketten installeert of verwijdert, zodat je je systeem niet stukmaakt.
 
-## Conclusie
+## Conclusie {#conclusion}
 
 DNF is een krachtige en flexibele pakketbeheerder die softwarebeheer op systemen
 met RPM een eitje maakt. Met deze commando's en tips regel je het meeste

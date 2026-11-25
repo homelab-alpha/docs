@@ -37,15 +37,15 @@ katex: true
 <!-- textlint-disable terminology -->
 <!-- The terminology rules are for English; this page is Dutch. -->
 
-## Snel installeren
+## Snel installeren {#quick-install}
 
 ```bash
 git clone https://github.com/homelab-alpha/dotfiles.git ~/dotfiles && cd ~/dotfiles && echo 1 | ./dotfiles_installer.sh
 ```
 
-## Het script `dotfiles_installer.sh` gebruiken
+## Het script `dotfiles_installer.sh` gebruiken {#using-the-dotfiles_installersh-script}
 
-### De repository klonen
+### De repository klonen {#clone-the-repository}
 
 Voer het volgende commando uit in je terminal:
 
@@ -56,7 +56,7 @@ git clone https://github.com/homelab-alpha/dotfiles.git ~/dotfiles
 Dit commando kloont de repository met dotfiles van GitHub naar `~/dotfiles`. Het
 installatiescript verwacht de repository in `$HOME/dotfiles`.
 
-### Naar de map gaan
+### Naar de map gaan {#navigate-to-the-folder}
 
 Ga naar de gekloonde repository met het volgende commando:
 
@@ -64,7 +64,7 @@ Ga naar de gekloonde repository met het volgende commando:
 cd $HOME/dotfiles
 ```
 
-### Het installatiescript uitvoeren
+### Het installatiescript uitvoeren {#run-the-installation-script}
 
 Voer in de map `dotfiles` het installatiescript uit met:
 
@@ -76,11 +76,11 @@ Het script toont een menu. Kies `1` om de dotfiles te installeren of `2` om ze
 te verwijderen. Na de installatie verwijdert het script `.git`, `.github` en
 `.gitignore` uit `$HOME/dotfiles`.
 
-### Volg eventuele instructies
+### Volg eventuele instructies {#follow-any-instructions}
 
 Als het script om meer acties vraagt, volg dan de instructies op het scherm.
 
-### Controlelijst vóór de installatie
+### Controlelijst vóór de installatie {#pre-installation-checklist}
 
 Van de volgende bestanden wordt vóór de installatie een back-up gemaakt:
 
@@ -100,16 +100,16 @@ Van de volgende bestanden wordt vóór de installatie een back-up gemaakt:
 
 Je vindt de back-ups in `$HOME/dotfiles-backup/before-installation`.
 
-### De installatie controleren
+### De installatie controleren {#verifying-the-installation}
 
 Controleer na het installatiescript of je dotfiles goed zijn geïnstalleerd.
 
-## Dotfiles verwijderen
+## Dotfiles verwijderen {#removal-of-dotfiles}
 
 Om de dotfiles te verwijderen, voer je het script `dotfiles_installer.sh`
 opnieuw uit en kies je `2`.
 
-### Controlelijst vóór het verwijderen
+### Controlelijst vóór het verwijderen {#pre-uninstallation-checklist}
 
 Net als bij de installatie wordt er een back-up van je bestanden gemaakt:
 
@@ -129,12 +129,12 @@ Net als bij de installatie wordt er een back-up van je bestanden gemaakt:
 
 Deze back-ups staan in `$HOME/dotfiles-backup/before-uninstallation`.
 
-### Na het verwijderen
+### Na het verwijderen {#post-deletion-process}
 
 Na het verwijderen worden je dotfiles uit de back-up teruggezet. Het script
 verwijdert ook de map `$HOME/dotfiles`.
 
-### Het verwijderen controleren
+### Het verwijderen controleren {#verifying-the-uninstallation}
 
 Controleer na het verwijderen of alles goed is verwijderd.
 
@@ -142,7 +142,7 @@ Met deze stappen beheer je je dotfiles eenvoudig met het script
 `dotfiles_installer.sh` uit de GitHub-repository. Heb je nog vragen? Stel ze
 gerust!
 
-## Logbestanden
+## Logbestanden {#log-files}
 
 Waar logbestanden staan, verschilt per besturingssysteem en toepassing.
 Logbestanden staan vaak in een submap van de installatiemap van de toepassing,

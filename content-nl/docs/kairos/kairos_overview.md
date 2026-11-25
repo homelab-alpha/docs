@@ -41,7 +41,7 @@ katex: true
 <!-- textlint-disable terminology -->
 <!-- The terminology rules are for English; this page is Dutch. -->
 
-## Beschrijving
+## Beschrijving {#description}
 
 **Kairos** toont de stroomprijzen van de day-aheadmarkt in Home Assistant als
 prijsgrafiek, heatmap of kostenopbouw. Het is één JavaScript-bestand zonder
@@ -55,7 +55,7 @@ thuisbatterij op het juiste moment oplaadt, voor een betere prijs.
 De kaart leest nu de Nord Pool-integratie (Nederland) met prijzen per 15
 minuten. Ondersteuning voor meer bronnen, zoals ENTSO-E, staat op de planning.
 
-## Functies
+## Functies {#features}
 
 - **Drie weergaven**: prijs, heatmap en opbouw (dal, piek, dal), met staaf- of
   lijngrafieken.
@@ -72,7 +72,7 @@ minuten. Ondersteuning voor meer bronnen, zoals ENTSO-E, staat op de planning.
 - **Visuele editor**: alle opties in gegroepeerde secties, met validatie.
 - **Talen**: Engels en Nederlands, in de kaart en in de visuele editor.
 
-## Schermafbeeldingen
+## Schermafbeeldingen {#screenshots}
 
 Deze schermafbeeldingen tonen de kaart in Home Assistant, met prijzen van de
 Nord Pool-integratie. De kaart ondersteunt een lichte en een donkere modus; de
@@ -144,7 +144,7 @@ Menu met periode en kalender:
 
 </details>
 
-### Visuele editor
+### Visuele editor {#visual-editor}
 
 <details> <summary>Secties van de editor (klik om uit te klappen)</summary>
 
@@ -164,7 +164,7 @@ Menu met periode en kalender:
 
 </details>
 
-## Projectstatus
+## Projectstatus {#project-status}
 
 {{% alert context="warning" %}}
 **Status:** alfa
@@ -184,19 +184,19 @@ beheerder. Zie de
 [projectstatus](https://github.com/homelab-alpha/kairos/blob/main/docs/project_status.md)
 in de repository voor de huidige stand en open punten.
 
-## Aan de slag
+## Aan de slag {#getting-started}
 
 Zie de [snelstart](/kairos/quickstart/) om Home Assistant voor te bereiden en de
 kaart te installeren, en de [configuratie](/kairos/configuration/) voor alle
 opties.
 
-## Bijdragen aan Homelab-Alpha - Kairos
+## Bijdragen aan Homelab-Alpha - Kairos {#contributions-to-homelab-alpha---kairos}
 
 Bijdragen worden voorlopig niet aangenomen. Zodra release v1.0.0 verschijnt,
 zijn bijdragen van harte welkom. Zie [hoe je bijdraagt][contribute] voor de
 richtlijnen, de namen van branches, de commitberichten en het reviewproces.
 
-## Licentie
+## Licentie {#license}
 
 Dit project valt onder de **Apache License 2.0**. Zie de bestanden [LICENSE] en
 [NOTICE] in de repository voor de volledige licentietekst en de eisen aan de

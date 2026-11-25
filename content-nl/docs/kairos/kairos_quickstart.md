@@ -35,7 +35,7 @@ katex: true
 <!-- textlint-disable terminology -->
 <!-- The terminology rules are for English; this page is Dutch. -->
 
-## Vereisten
+## Vereisten {#requirements}
 
 - Home Assistant met de recorder (onderdeel van `default_config`).
 - De
@@ -51,16 +51,16 @@ katex: true
   geen geschiedenis. Vandaag en morgen werken meteen; eerdere dagen verschijnen
   dag voor dag.
 
-## Home Assistant voorbereiden
+## Home Assistant voorbereiden {#prepare-home-assistant}
 
-### Stap 1: de Nord Pool-integratie installeren
+### Stap 1: de Nord Pool-integratie installeren {#step-1-install-the-nord-pool-integration}
 
 Voeg de
 [Nord Pool-integratie](https://www.home-assistant.io/integrations/nordpool/) toe
 via **Instellingen**, **Apparaten & diensten**, **Integratie toevoegen**. Kies
 het gebied `NL` (Nederland) en de valuta `EUR`.
 
-### Stap 2: de templatesensor maken
+### Stap 2: de templatesensor maken {#step-2-create-the-template-sensor}
 
 Maak `config/templates/nord-pool/the_netherlands_prices.yaml` met de inhoud
 hieronder. De sensor ververst bij het opstarten, om 13:05 (als de prijzen van
@@ -140,7 +140,7 @@ en schakel over naar de **YAML-modus**.
 De sensor krijgt de entiteit-ID `sensor.nord_pool_the_netherlands_prices`, de
 standaard `entity` van de kaart.
 
-### Stap 3: de templates laden in `configuration.yaml`
+### Stap 3: de templates laden in `configuration.yaml` {#step-3-load-the-templates-in-configurationyaml}
 
 Zorg dat `config/configuration.yaml` de map `templates` laadt. Deze regel voegt
 elk templatebestand daarin samen, ook die in de submap `nord-pool`:
@@ -178,7 +178,7 @@ sensor: !include sensors.yaml
 
 Herstart daarna Home Assistant.
 
-### Stap 4: de sensoren controleren
+### Stap 4: de sensoren controleren {#step-4-check-the-sensors}
 
 Open **Ontwikkelhulpmiddelen**, **Statussen**. De sensor
 `sensor.nord_pool_the_netherlands_prices` moet de attributen `today` en
@@ -187,7 +187,7 @@ leeg tot de prijzen bekend zijn. Noteer ook de entiteit-ID van de sensor
 **Current price**; dat is de `history_entity` van de kaart. Die begint zonder
 geschiedenis, dus dagen vóór de installatie blijven leeg.
 
-## Installatie
+## Installatie {#installation}
 
 Installeer de kaart met de hand. Home Assistant bouwt aan een eigen marktplaats,
 en de kaart verhuist daarheen zodra die klaar is.
@@ -199,7 +199,7 @@ en de kaart verhuist daarheen zodra die klaar is.
    **JavaScript-module**.
 3. Laad de browser opnieuw.
 
-## De eerste kaart
+## De eerste kaart {#first-card}
 
 Een minimale kaart:
 
