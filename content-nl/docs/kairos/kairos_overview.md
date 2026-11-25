@@ -38,6 +38,9 @@ toc: true
 katex: true
 ---
 
+<!-- textlint-disable terminology -->
+<!-- The terminology rules are for English; this page is Dutch. -->
+
 ## Beschrijving
 
 **Kairos** toont de stroomprijzen van de day-aheadmarkt in Home Assistant als

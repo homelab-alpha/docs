@@ -36,6 +36,9 @@ toc: true
 katex: true
 ---
 
+<!-- textlint-disable terminology -->
+<!-- The terminology rules are for English; this page is Dutch. -->
+
 ## Inleiding
 
 Dotfiles zijn configuratiebestanden waarmee je je systeemomgeving persoonlijk

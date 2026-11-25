@@ -32,6 +32,9 @@ toc: true
 katex: true
 ---
 
+<!-- textlint-disable terminology -->
+<!-- The terminology rules are for English; this page is Dutch. -->
+
 ## Vereisten
 
 - Home Assistant met de recorder (onderdeel van `default_config`).

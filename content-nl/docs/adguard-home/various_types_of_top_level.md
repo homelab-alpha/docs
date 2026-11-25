@@ -34,6 +34,9 @@ toc: true
 katex: true
 ---
 
+<!-- textlint-disable terminology -->
+<!-- The terminology rules are for English; this page is Dutch. -->
+
 ## Inleiding
 
 Als je de perfecte domeinnaam zoekt, is het belangrijk om de verschillende

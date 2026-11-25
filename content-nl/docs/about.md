@@ -32,6 +32,9 @@ toc: true
 katex: true
 ---
 
+<!-- textlint-disable terminology -->
+<!-- The terminology rules are for English; this page is Dutch. -->
+
 <!-- prettier-ignore -->
 ![Banner met iconen en de woorden eat, sleep, code, repeat](images/eat_sleep_code_repeat.webp)
 {.about-banner}

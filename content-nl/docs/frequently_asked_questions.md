@@ -37,6 +37,9 @@ toc: true
 katex: true
 ---
 
+<!-- textlint-disable terminology -->
+<!-- The terminology rules are for English; this page is Dutch. -->
+
 Antwoorden op veelgestelde vragen over de site, de documentatie en
 ondersteuning. Kies een vraag om het antwoord te tonen.
 

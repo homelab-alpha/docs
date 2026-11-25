@@ -10,4 +10,7 @@ sitemap:
   priority: 0.5
 ---
 
+<!-- textlint-disable terminology -->
+<!-- The terminology rules are for English; this page is Dutch. -->
+
 <!-- The links come from data/links.yaml; the page uses layouts/_default/links.html. -->

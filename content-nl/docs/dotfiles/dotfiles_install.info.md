@@ -40,6 +40,9 @@ toc: true
 katex: true
 ---
 
+<!-- textlint-disable terminology -->
+<!-- The terminology rules are for English; this page is Dutch. -->
+
 {{% alert context="primary" %}}
 Claude heeft bijgedragen aan dit document. Wees daarom voorzichtig met de
 informatie hier en controleer die zo nodig. {{% /alert %}}

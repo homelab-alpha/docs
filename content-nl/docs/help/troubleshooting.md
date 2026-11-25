@@ -31,6 +31,9 @@ toc: true
 katex: true
 ---
 
+<!-- textlint-disable terminology -->
+<!-- The terminology rules are for English; this page is Dutch. -->
+
 Welkom bij de handleiding voor probleemoplossing, je vaste bron om oplossingen
 voor veelvoorkomende problemen te vinden. Of je nu te maken hebt met
 hardwareproblemen, softwarefouten of verbindingsproblemen, deze handleiding

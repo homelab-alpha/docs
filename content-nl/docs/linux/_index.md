@@ -14,3 +14,6 @@ color: "indigo"
 
 weight: 8000
 ---
+
+<!-- textlint-disable terminology -->
+<!-- The terminology rules are for English; this page is Dutch. -->

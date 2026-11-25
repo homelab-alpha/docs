@@ -29,6 +29,9 @@ toc: true
 katex: true
 ---
 
+<!-- textlint-disable terminology -->
+<!-- The terminology rules are for English; this page is Dutch. -->
+
 {{% alert context="warning" %}}
 **Let op** - Deze documentatie is nog in bewerking {{% /alert %}}
 

@@ -7,3 +7,6 @@ icon: "foundation"
 
 weight: 2500
 ---
+
+<!-- textlint-disable terminology -->
+<!-- The terminology rules are for English; this page is Dutch. -->

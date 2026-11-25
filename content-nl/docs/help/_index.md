@@ -8,3 +8,6 @@ color: "gray"
 
 weight: 6000
 ---
+
+<!-- textlint-disable terminology -->
+<!-- The terminology rules are for English; this page is Dutch. -->

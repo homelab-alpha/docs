@@ -8,3 +8,6 @@ url: "docker/network-info"
 icon: "foundation"
 weight: 4200
 ---
+
+<!-- textlint-disable terminology -->
+<!-- The terminology rules are for English; this page is Dutch. -->
