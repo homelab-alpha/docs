@@ -70,7 +70,12 @@ jobs:
           # Individual exceptions, by package URL. A package here may use any license.
           # - pkg:golang/github.com/twbs/bootstrap: https://github.com/homelab-alpha/docs/actions/runs/43231652736
           # - pkg:npm/spdx-exceptions: CC-BY-3.0 (attribution only), a development dependency in the lockfile
-          allow-dependencies-licenses: pkg:golang/github.com/twbs/bootstrap, pkg:npm/spdx-exceptions
+          # - pkg:npm/axe-core: MPL-2.0, a development dependency of the accessibility test (tests/a11y.mjs);
+          #   not shipped with the site
+          # - pkg:npm/sentry: FSL-1.1-Apache-2.0, a development dependency of Lighthouse (tests/lighthouse.mjs);
+          #   not shipped with the site
+          allow-dependencies-licenses:
+            pkg:golang/github.com/twbs/bootstrap, pkg:npm/spdx-exceptions, pkg:npm/axe-core, pkg:npm/sentry
 
       - name: 🚨 Log dependency review failure
         if: failure()
