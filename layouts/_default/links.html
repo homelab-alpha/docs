@@ -19,7 +19,7 @@
                 <p class="lead">{{ .Description }}</p>
             </header>
 
-            {{ range hugo.Data.links.sections }}
+            {{ range (partial "data.html" "links").sections }}
             <section class="links-section" aria-labelledby="links-{{ .title | urlize }}">
                 <h2 id="links-{{ .title | urlize }}" class="docs-list-heading">{{ .title }}</h2>
                 <ul class="docs-list list-unstyled">

@@ -1,9 +1,13 @@
 {{- /*
-  project-cards shortcode in the e-reader version: a plain list of links with
-  their descriptions, no cards, icons, or colors.
+  project-cards shortcode in the e-reader version (see project-cards.html): a
+  plain list of links with their descriptions, no cards, icons, or colors.
 */ -}}
-{{- $name := .Get "section" | default "Projects" -}}
-{{- $section := index (where hugo.Data.links.sections "title" $name) 0 -}}
+{{- $name := .Get "section" | default "projects" -}}
+{{- $sections := (partial "data.html" "links").sections -}}
+{{- $match := where $sections "id" $name -}}
+{{- if not $match }}{{ $match = where $sections "title" $name }}{{ end -}}
+{{- $section := false -}}
+{{- with $match }}{{ $section = index . 0 }}{{ end -}}
 <ul>
   {{- range $section.links }}
   <li><a href="{{ .url }}"><strong>{{ .title }}</strong></a>: {{ .description }}</li>

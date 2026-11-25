@@ -36,7 +36,7 @@
                 {{- $user := .user | default "user" -}}
                 {{- $host := .host | default "homelab" -}}
                 {{- $cwd := "~" }}
-                <figure class="landing-terminal mb-0" aria-label="Example terminal session">
+                <figure class="landing-terminal mb-0" aria-label="{{ i18n "terminal_example" | default "Example terminal session" }}">
                     <div class="landing-terminal-bar">
                         <span></span><span></span><span></span>
                         <figcaption>{{ .title | default (printf "%s@%s: ~" $user $host) }}</figcaption>

@@ -1,0 +1,275 @@
+# Dutch translations of the interface. The keys are the same as in en.toml;
+# keep both files in the same order.
+
+[search_title]
+    other = "Zoek of ga naar..."
+
+[search_navigate]
+    other = "om te navigeren"
+
+[search_select]
+    other = "om te kiezen"
+
+[search_close]
+    other = "om te sluiten"
+
+[search_cancel]
+    other = "Annuleren"
+
+[search_no_results]
+    other = "Geen resultaten voor"
+
+[theme]
+    other = "Thema"
+
+[theme_mode]
+    other = "Themamodus"
+
+[theme_system]
+    other = "Systeem"
+
+[theme_light]
+    other = "Licht"
+
+[theme_dark]
+    other = "Donker"
+
+[theme_light_theme]
+    other = "Licht thema"
+
+[theme_dark_theme]
+    other = "Donker thema"
+
+[theme_default]
+    other = "Standaard"
+
+[theme_dimmed]
+    other = "Gedimd"
+
+[theme_colorblind]
+    other = "Protanopie en deuteranopie"
+
+[theme_tritanopia]
+    other = "Tritanopie"
+
+[theme_contrast]
+    other = "Meer contrast"
+
+[theme_light_mode]
+    other = "Lichte modus"
+
+[theme_dark_mode]
+    other = "Donkere modus"
+
+[toggle_sidebar]
+    other = "Zijbalk tonen of verbergen"
+
+[site_links]
+    other = "Sitelinks"
+
+[docs_navigation]
+    other = "Documentatie"
+
+[breadcrumb]
+    other = "Kruimelpad"
+
+[doc_nav]
+    other = "Vorige en volgende pagina"
+
+[previous]
+    other = "Vorige"
+
+[next]
+    other = "Volgende"
+
+[table]
+    other = "Tabel"
+
+[copy_code]
+    other = "Code kopiëren"
+
+[copied]
+    other = "Gekopieerd"
+
+[copy_failed]
+    other = "Kopiëren mislukt"
+
+[code]
+    other = "code"
+
+[diagram]
+    other = "Diagram"
+
+[search_results]
+    other = "Zoekresultaten"
+
+[page_navigation]
+    other = "Paginanavigatie"
+
+[on_this_page]
+    other = "Op deze pagina"
+
+[close]
+    other = "Sluiten"
+
+[topics]
+    other = "Onderwerpen"
+
+[item]
+    other = "item"
+
+[items]
+    other = "items"
+
+[legal]
+    other = "Juridisch"
+
+[license]
+    other = "Licentie"
+
+[terms]
+    other = "Voorwaarden"
+
+[docs]
+    other = "Docs"
+
+[links]
+    other = "Links"
+
+[page_not_found]
+    other = "Pagina niet gevonden"
+
+[page_not_found_text]
+    other = "De pagina die je zoekt bestaat niet of is verplaatst."
+
+[go_to_docs]
+    other = "Naar de documentatie"
+
+[skip_to_content]
+    other = "Naar de inhoud"
+
+[reading]
+    other = "Leesinstellingen"
+
+[reading_font]
+    other = "Lettertype"
+
+[reading_font_default]
+    other = "Standaard"
+
+[reading_font_legible]
+    other = "Leesbaar"
+
+[reading_font_dyslexic]
+    other = "Dyslexie"
+
+[reading_size]
+    other = "Tekstgrootte"
+
+[reading_size_s]
+    other = "S"
+
+[reading_size_s_label]
+    other = "Klein"
+
+[reading_size_m]
+    other = "M"
+
+[reading_size_m_label]
+    other = "Middel"
+
+[reading_size_l]
+    other = "L"
+
+[reading_size_l_label]
+    other = "Groot"
+
+[reading_size_xl]
+    other = "XL"
+
+[reading_size_xl_label]
+    other = "Extra groot"
+
+[reading_spacing]
+    other = "Afstand"
+
+[reading_spacing_normal]
+    other = "Normaal"
+
+[reading_spacing_wide]
+    other = "Ruim"
+
+[reading_more]
+    other = "Meer leesinstellingen"
+
+[reading_narrow]
+    other = "Smalle tekstkolom"
+
+[reading_motion]
+    other = "Minder beweging"
+
+[reading_preview]
+    other = "Voorbeeld"
+
+[reading_preview_text]
+    other = "Pa's wijze lynx bezag vroom het fikse aquaduct."
+
+[reading_reset]
+    other = "Herstellen"
+
+[language]
+    other = "Taal"
+
+[home]
+    other = "Home"
+
+[more]
+    other = "Meer"
+
+[table_of_contents]
+    other = "Inhoudsopgave"
+
+[terminal_example]
+    other = "Voorbeeld van een terminalsessie"
+
+[ereader_version]
+    other = "E-readerversie"
+
+[back_to_top]
+    other = "Terug naar boven"
+
+[last_updated]
+    other = "Laatst bijgewerkt:"
+
+[full_version]
+    other = "Volledige versie van deze pagina"
+
+[search_error]
+    other = "De zoekindex kon niet worden geladen."
+
+[site_home]
+    other = "Startpagina van {{ .Site }}"
+
+[alert_note]
+    other = "Opmerking"
+
+[alert_tip]
+    other = "Tip"
+
+[alert_important]
+    other = "Belangrijk"
+
+[alert_warning]
+    other = "Waarschuwing"
+
+[alert_caution]
+    other = "Let op"
+
+[alert_info]
+    other = "Info"
+
+[alert_success]
+    other = "Gelukt"
+
+[alert_danger]
+    other = "Gevaar"

@@ -5,10 +5,10 @@
   Context: the documentation home (the "docs" section).
 */ -}}
 {{- with .Sections.ByWeight }}
-<h2>Topics</h2>
+<h2>{{ i18n "topics" | default "Topics" }}</h2>
 {{ partial "ereader/items.html" . }}
 {{- end }}
 {{- with .RegularPages.ByWeight }}
-<h2>More</h2>
+<h2>{{ i18n "more" | default "More" }}</h2>
 {{ partial "ereader/items.html" . }}
 {{- end }}

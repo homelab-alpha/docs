@@ -5,7 +5,7 @@
 */ -}}
 <header class="site-header">
     <div class="container site-header-row">
-        <a class="site-header-brand" href="{{ relLangURL "" }}" aria-label="{{ site.Params.docs.title | default site.Title }} home">
+        <a class="site-header-brand" href="{{ relLangURL "" }}" aria-label="{{ i18n "site_home" (dict "Site" (site.Params.docs.title | default site.Title)) }}">
             {{ with resources.Get "images/logos/logo.svg" }}{{ .Content | safeHTML }}{{ end }}
             <span class="site-header-name">{{ site.Params.docs.title | default site.Title }}</span>
         </a>

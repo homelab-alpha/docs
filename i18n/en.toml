@@ -1,6 +1,3 @@
-[lang_select_title]
-    other = "Select your language"
-
 [search_title]
     other = "Search or jump to..."
 
@@ -219,3 +216,57 @@
 
 [language]
     other = "Language"
+
+[home]
+    other = "Home"
+
+[more]
+    other = "More"
+
+[table_of_contents]
+    other = "Table of contents"
+
+[terminal_example]
+    other = "Example terminal session"
+
+[ereader_version]
+    other = "E-reader version"
+
+[back_to_top]
+    other = "Back to top"
+
+[last_updated]
+    other = "Last updated:"
+
+[full_version]
+    other = "Full version of this page"
+
+[search_error]
+    other = "The search index could not be loaded."
+
+[site_home]
+    other = "{{ .Site }} home"
+
+[alert_note]
+    other = "Note"
+
+[alert_tip]
+    other = "Tip"
+
+[alert_important]
+    other = "Important"
+
+[alert_warning]
+    other = "Warning"
+
+[alert_caution]
+    other = "Caution"
+
+[alert_info]
+    other = "Info"
+
+[alert_success]
+    other = "Success"
+
+[alert_danger]
+    other = "Danger"

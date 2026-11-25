@@ -2,15 +2,15 @@
   Landing page section: a grid of link cards. Context: dict "id" "data" "page".
   data: title, subtitle, items (title, icon, description, url, and optional
   topic or color for the tile color, see partials/docs/tile-color.html), or
-  linksSection (the title of a section in data/links.yaml), external (open the
+  linksSection (the id or title of a section in data/links.yaml), external (open the
   links in a new tab).
 */ -}}
 {{- with .data }}
 {{- $items := .items -}}
 {{- with .linksSection -}}
     {{- $name := . -}}
-    {{- range hugo.Data.links.sections -}}
-        {{- if eq .title $name }}{{ $items = .links }}{{ end -}}
+    {{- range (partial "data.html" "links").sections -}}
+        {{- if or (eq .id $name) (eq .title $name) }}{{ $items = .links }}{{ end -}}
     {{- end -}}
 {{- end -}}
 {{- $external := .external | default false -}}

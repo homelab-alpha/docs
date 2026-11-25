@@ -1,0 +1,153 @@
+---
+# Dutch version of data/landing.yaml (see partials/data.html); keep the same
+# structure. Landing page at / (layouts/index.html). It is shown only when
+# params.landingpage.enabled is true; otherwise / redirects to /docs/.
+#
+# Each section has:
+#   enable:   show the section (true or false)
+#   weight:   order on the page, low to high
+#   template: partial in layouts/partials/landing/ (hero, card_grid,
+#             feature_grid, or cta)
+# Icons are Material Symbols names from assets/icons/material/.
+
+hero:
+  enable: true
+  weight: 10
+  template: hero
+
+  eyebrow: "Opensourcedocumentatie"
+  title: "Homelab-Alpha"
+  subtitle: >-
+    Handleidingen, scripts en configuraties voor een **zelfgehost homelab**. Van Docker Compose-stacks en DNS-filtering
+    tot shellscripts en certificaten.
+
+  ctaButton:
+    icon: menu_book
+    btnText: "Lees de documentatie"
+    url: "/docs/"
+  cta2Button:
+    icon: code
+    btnText: "Bekijk op GitHub"
+    url: "https://github.com/homelab-alpha"
+
+  # Lines in the terminal card, in the style of the GitHub profile README:
+  # every command gets the prompt "┌──(<user>@<host>)-[<path>]" / "└─$"; the
+  # path starts at "~" and follows "cd". The title is "<user>@<host>: ~"
+  # (set "title" to use another). A line that starts with "$ " is a
+  # command,
+  # "[+]" is a progress line, and "✔ " is a Docker Compose result:
+  # "✔ <object> <name>  <state>  <time>" (two spaces before the state).
+  terminal:
+    user: "guest"
+    host: "homelab-alpha"
+    lines:
+      - "$ git clone https://github.com/homelab-alpha/docker.git"
+      - "$ cd docker/compose-files/dozzle"
+      - "$ docker compose up -d"
+      - "[+] Running 2/2"
+      - "✔ Network dozzle  Created  0.1s"
+      - "✔ Container dozzle  Started  0.1s"
+
+docs:
+  enable: true
+  weight: 20
+  template: card_grid
+
+  title: "Ontdek de documentatie"
+  subtitle: "Kies een onderwerp en ga aan de slag."
+
+  items:
+    - title: "AdGuard Home"
+      icon: dns
+      description: "Blokkeer advertenties, trackers en phishing in je hele netwerk met filterlijsten."
+      url: "/adguard-home/"
+    - title: "Back to Basics"
+      icon: design_services
+      description: "Handleidingen over Docker, Markdown en meer, voor beginners en als opfrisser."
+      url: "/back-to-basics/"
+    - title: "Contributing"
+      icon: heart_plus
+      description: "Help de documentatie of de code te verbeteren."
+      url: "/contributing/"
+    - title: "Docker"
+      icon: devices
+      description: "Compose-stacks, netwerken en images voor een homelab met containers."
+      url: "/docker/"
+    - title: "Dotfiles"
+      icon: home_storage
+      description: "Een persoonlijke shellomgeving met een installatieprogramma met menu."
+      url: "/dotfiles/"
+    - title: "Kairos"
+      icon: bolt
+      description: "Een Home Assistant-kaart voor de stroomprijzen van morgen."
+      url: "/kairos/"
+    - title: "Linux"
+      icon: code
+      description: "Commando's, configuratie en tips voor de systemen waarop je homelab draait."
+      url: "/linux/"
+    - title: "OpenSSL"
+      icon: shield_locked
+      description: "Zelfondertekende certificaten voor een homelab en om te testen."
+      url: "/openssl/"
+    - title: "Shell Script"
+      icon: deployed_code
+      description: "Scripts en shellfuncties die dagelijkse systeemtaken automatiseren."
+      url: "/shell-script/"
+
+features:
+  enable: true
+  weight: 30
+  template: feature_grid
+
+  title: "Gemaakt om te lezen"
+  subtitle: "Een snelle, privacyvriendelijke documentatiesite die op elk scherm werkt."
+
+  items:
+    - title: "Snel"
+      icon: speed
+      description: "Scoort 100 in Google Lighthouse. Scripts en diagrammen laden alleen als een pagina ze nodig heeft."
+    - title: "Donkere modus"
+      icon: dark_mode
+      description: "Volgt het thema van je systeem, of kies zelf licht of donker."
+    - title: "Zoeken"
+      icon: search
+      description: "Doorzoek de volledige tekst van alle pagina's, gewoon in de browser."
+    - title: "E-readerversie"
+      icon: chrome_reader_mode
+      description: "Een lichte versie van elke pagina voor e-readers en trage verbindingen."
+    - title: "Geen derde partijen"
+      icon: visibility_off
+      description: "Geen trackers, geen externe lettertypen of iconen. Alles komt van deze site."
+    - title: "Opensource"
+      icon: public
+      description: "Alle inhoud en code staan op GitHub, onder de licentie CC BY-NC-SA 4.0."
+
+projects:
+  enable: true
+  weight: 40
+  template: card_grid
+
+  title: "Projecten op GitHub"
+  subtitle: "De repository's achter de documentatie."
+
+  # Take the items from a section of data/links.yaml (the /links/ page).
+  linksSection: "projects"
+  external: true
+
+community:
+  enable: true
+  weight: 50
+  template: cta
+
+  icon: groups
+  title: "Doe mee met de community"
+  subtitle: "Stel vragen, deel ideeën en krijg hulp bij je homelab."
+
+  ctaButton:
+    icon: forum
+    btnText: "GitHub Discussions"
+    url: "https://github.com/homelab-alpha/homelab-alpha/discussions"
+  cta2Button:
+    icon: link
+    btnText: "Alle links"
+    url: "/links/"

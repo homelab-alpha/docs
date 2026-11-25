@@ -21,7 +21,7 @@
         <link rel="canonical" href="{{ "docs/" | absLangURL }}">
     </head>
     <body>
-        <p><a href="{{ $docsURL }}">Go to the documentation</a></p>
+        <p><a href="{{ $docsURL }}">{{ i18n "go_to_docs" | default "Go to the documentation" }}</a></p>
     </body>
 {{- else }}
     {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "head.html") . -}}
@@ -31,7 +31,7 @@
 
         <main id="main" tabindex="-1">
             {{- $sections := slice -}}
-            {{- range $key, $value := hugo.Data.landing -}}
+            {{- range $key, $value := partial "data.html" "landing" -}}
                 {{- if $value.enable -}}
                     {{- $sections = $sections | append (dict "key" $key "weight" (int ($value.weight | default 0)) "data" $value) -}}
                 {{- end -}}

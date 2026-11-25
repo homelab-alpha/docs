@@ -20,8 +20,8 @@
 {{- end -}}
 {{- if in .TableOfContents "<li>" -}}
 {{- with .Fragments.Headings -}}
-<nav class="toc" aria-label="Table of contents">
-  <p class="toc-title">On this page</p>
+<nav class="toc" aria-label="{{ i18n "table_of_contents" | default "Table of contents" }}">
+  <p class="toc-title">{{ i18n "on_this_page" | default "On this page" }}</p>
   <ul>{{ partial "inline/ereader-toc-list.html" . }}</ul>
 </nav>
 {{- end -}}

@@ -2,7 +2,7 @@
 <nav id="sidebar" class="sidebar-wrapper" aria-label="{{ i18n "docs_navigation" | default "Documentation" }}">
     <div class="sidebar-brand">
         {{- /* The same logo and name as the site header (layouts/partials/site-header.html). */}}
-        <a class="site-header-brand sidebar-brand-link" href='{{ with .Site.Params.docs.logoLinkURL }}{{ . }}{{ else }}{{ relLangURL "" }}{{ end }}' aria-label="{{ .Site.Params.docs.title | default .Site.Title }} home">
+        <a class="site-header-brand sidebar-brand-link" href='{{ with .Site.Params.docs.logoLinkURL }}{{ . }}{{ else }}{{ relLangURL "" }}{{ end }}' aria-label="{{ i18n "site_home" (dict "Site" (.Site.Params.docs.title | default .Site.Title)) }}">
             {{ with resources.Get "images/logos/logo.svg" }}{{ .Content | safeHTML }}{{ end }}
             <span class="sidebar-brand-name">{{ .Site.Params.docs.title | default .Site.Title }}</span>
         </a>

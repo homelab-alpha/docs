@@ -130,7 +130,7 @@ projects:
   subtitle: "The repositories behind the documentation."
 
   # Take the items from a section of data/links.yaml (the /links/ page).
-  linksSection: "Projects"
+  linksSection: "projects"
   external: true
 
 community:

@@ -20,7 +20,7 @@
 {{- $before := $pages.Next . }}
 {{- $after := $pages.Prev . }}
 {{- if or $before $after }}
-<nav class="pager" aria-label="Page navigation">
+<nav class="pager" aria-label="{{ i18n "page_navigation" | default "Page navigation" }}">
   {{- with $before }}{{ with .OutputFormats.Get "ereader" }}
   <a href="{{ .RelPermalink }}"><span class="pager-label">&laquo; Previous</span><span class="pager-title">{{ $before.Title }}</span></a>
   {{- end }}{{ end }}

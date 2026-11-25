@@ -1,0 +1,8 @@
+{{- /*
+  data partial: a data file in the language of the page. For the name "links"
+  it returns data/links_nl.yaml on the Dutch site when that file exists, and
+  data/links.yaml otherwise (the English default). Usage:
+  {{ $links := partial "data.html" "links" }}.
+*/ -}}
+{{- $local := index hugo.Data (printf "%s_%s" . site.Language.Lang) -}}
+{{- return (or $local (index hugo.Data .)) -}}

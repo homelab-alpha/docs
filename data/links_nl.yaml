@@ -1,0 +1,60 @@
+# Dutch version of data/links.yaml (see partials/data.html); keep the same
+# structure and ids. Links on the page /links/ (layouts/_default/links.html).
+# Each section has an id (the same in every language, used by the
+# project-cards shortcode), a title, and links. A link has a title, a description, a URL,
+# and a Material Symbols icon name (the same icons as the sidebar). A project
+# can name its docs topic ("topic", the URL of the topic) to get the tile color
+# of that topic, or set a "color"; without them the tile has the accent color.
+
+sections:
+  - id: "projects"
+    title: "Projecten"
+    links:
+      - title: "AdGuard Home"
+        description:
+          "Filterlijsten voor AdGuard Home die advertenties, trackers, phishing en frauduleuze websites blokkeren."
+        url: "https://github.com/homelab-alpha/adguard-home"
+        topic: "/adguard-home/"
+        icon: "dns"
+      - title: "Docker"
+        description: "Docker Compose-stacks, netwerkhandleidingen en een imagesjabloon voor een zelfgehost homelab."
+        url: "https://github.com/homelab-alpha/docker"
+        topic: "/docker/"
+        icon: "devices"
+      - title: "Docs"
+        description: "De bron van deze documentatiesite, gebouwd met Hugo."
+        url: "https://github.com/homelab-alpha/docs"
+        color: "gray"
+        icon: "menu_book"
+      - title: "Dotfiles"
+        description: "Dotfiles en een installatieprogramma met menu voor een Linux-shellomgeving."
+        url: "https://github.com/homelab-alpha/dotfiles"
+        topic: "/dotfiles/"
+        icon: "home_storage"
+      - title: "Kairos"
+        description: "Een Lovelace-kaart voor Home Assistant met de stroomprijzen van morgen."
+        url: "https://github.com/homelab-alpha/kairos"
+        topic: "/kairos/"
+        icon: "bolt"
+      - title: "OpenSSL"
+        description: "Scripts om zelfondertekende certificaten te maken voor een homelab en om te testen."
+        url: "https://github.com/homelab-alpha/openssl"
+        topic: "/openssl/"
+        icon: "shield_locked"
+      - title: "Shell Script"
+        description: "Shellscripts en shellfuncties voor systeemautomatisering en -optimalisatie."
+        url: "https://github.com/homelab-alpha/shell-script"
+        topic: "/shell-script/"
+        icon: "deployed_code"
+
+  - id: "community"
+    title: "Community"
+    links:
+      - title: "GitHub"
+        description: "Alle repository's en projecten van Homelab-Alpha."
+        url: "https://github.com/homelab-alpha"
+        icon: "code"
+      - title: "GitHub Discussions"
+        description: "Stel vragen, deel ideeën en krijg hulp bij de documentatie."
+        url: "https://github.com/homelab-alpha/homelab-alpha/discussions"
+        icon: "forum"

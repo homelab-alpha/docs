@@ -8,7 +8,7 @@
                     {{- $data.Set "counter" $index }}
                     {{- $data.Add "counter" 1 }}
                     <a itemprop="item" href="{{ .RelPermalink }}">
-                        {{ partial "svg-icon.html" (dict "name" "home" "tag" "i" "class" "size-20 align-text-bottom") }}<span class="visually-hidden" itemprop="name">Home</span>
+                        {{ partial "svg-icon.html" (dict "name" "home" "tag" "i" "class" "size-20 align-text-bottom") }}<span class="visually-hidden" itemprop="name">{{ i18n "home" | default "Home" }}</span>
                     </a>
                     <meta itemprop="position" content='{{ $data.Get "counter"}}' />
                 </li>
@@ -25,7 +25,7 @@
         {{ if eq .Title $docRoot }}
             <li class="breadcrumb-item active" aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
                 {{- $data.Add "counter" 1 }}
-                {{ partial "svg-icon.html" (dict "name" "home" "tag" "i" "class" "size-20 align-text-bottom") }}<span class="visually-hidden" itemprop="name">Home</span>
+                {{ partial "svg-icon.html" (dict "name" "home" "tag" "i" "class" "size-20 align-text-bottom") }}<span class="visually-hidden" itemprop="name">{{ i18n "home" | default "Home" }}</span>
                 <meta itemprop="position" content='{{ $data.Get "counter"}}' />
             </li>
         {{ else }}
