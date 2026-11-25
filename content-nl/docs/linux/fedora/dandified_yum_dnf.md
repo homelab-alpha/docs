@@ -1,7 +1,8 @@
 ---
 title: "Dandified YUM (DNF)"
-description: "DNF, de krachtige pakketbeheerder van Fedora en Red Hat Enterprise Linux"
-(RHEL), and their derivatives."
+description:
+  "DNF, de krachtige pakketbeheerder van Fedora, Red Hat Enterprise Linux (RHEL)
+  en afgeleiden daarvan."
 url: "linux/fedora/dnf"
 aliases:
   - /dnf
