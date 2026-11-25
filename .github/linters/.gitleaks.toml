@@ -20,9 +20,9 @@ regexTarget = "match"
 regexes = ['''UfXXWzQ2B1yVX57GU3QV8EQyTizMUvUm''']
 
 [[allowlists]]
-description = "Example EC private key in the OpenSSL overview"
+description = "Example EC private key in the OpenSSL overview, in English and Dutch"
 targetRules = ["private-key"]
-paths = ['''content/docs/openssl/openssl_overview\.md$''']
+paths = ['''content(-nl)?/docs/openssl/openssl_overview\.md$''']
 
 [[allowlists]]
 description = "False positive in the vendored, minified Mermaid bundle"
