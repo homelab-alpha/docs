@@ -129,7 +129,7 @@
       }
     },
     "simple-scrollspy": {
-      "version": "2.3.6",
+      "version": "2.5.3",
       "files": {
         "assets/docs/js/simple-scrollspy.min.js": {
           "from": "demo/dist/simple-scrollspy.min.js",
