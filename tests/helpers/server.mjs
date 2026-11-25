@@ -72,15 +72,9 @@ export function startServer() {
     let file = resolveFile(req.url);
     let status = 200;
     if (!file) {
-      // A directory path without a trailing slash: redirect, like a real host.
-      // The target is the clean local path, never the raw request URL.
-      const clean = cleanPath(req.url);
-      const dir = clean === null ? null : sitePath(clean);
-      if (dir !== null && !clean.endsWith("/") && existsSync(path.join(dir, "index.html"))) {
-        res.writeHead(301, { Location: clean + "/" });
-        res.end();
-        return;
-      }
+      // resolveFile serves a folder without a trailing slash from its
+      // index.html, so the server needs no redirect (and sends none: a
+      // redirect target from the request URL is an open redirect).
       file = path.join(SITE_DIR, "404.html");
       status = 404;
     }
