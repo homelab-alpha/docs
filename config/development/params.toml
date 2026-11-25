@@ -1,7 +1,0 @@
-# Settings for `hugo server` (the development environment) only. The site that
-# is built for production uses config/_default/ without these settings.
-
-# Show the landing page at / for local testing. In production / redirects to
-# /docs/ until config/_default/params.toml enables it.
-[landingpage]
-  enabled = true
