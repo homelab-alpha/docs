@@ -61,11 +61,11 @@ docs:
       icon: dns
       description: "Blokkeer advertenties, trackers en phishing in je hele netwerk met filterlijsten."
       url: "/adguard-home/"
-    - title: "Back to Basics"
+    - title: "Terug naar de basis"
       icon: design_services
       description: "Handleidingen over Docker, Markdown en meer, voor beginners en als opfrisser."
       url: "/back-to-basics/"
-    - title: "Contributing"
+    - title: "Bijdragen"
       icon: heart_plus
       description: "Help de documentatie of de code te verbeteren."
       url: "/contributing/"

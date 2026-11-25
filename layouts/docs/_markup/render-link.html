@@ -108,6 +108,18 @@ either of these shortcodes in conjunction with this render hook.
 {{- /* Parse destination. */}}
 {{- $u := urls.Parse .Destination }}
 
+{{- /* In a translation, point a site link such as /contributing/ to the
+  translated page (/nl/contributing/) when it exists (partials/docs/lang-urls.html). */}}
+{{- if and (not $u.IsAbs) (strings.HasPrefix $u.Path "/") (ne site.Language.Lang hugo.Sites.Default.Language.Lang) }}
+  {{- $local := relLangURL (strings.TrimPrefix "/" $u.Path) }}
+  {{- if index (partialCached "docs/lang-urls.html" . site.Language.Lang) $local }}
+    {{- $dest := $local }}
+    {{- with $u.RawQuery }}{{ $dest = printf "%s?%s" $dest . }}{{ end }}
+    {{- with $u.Fragment }}{{ $dest = printf "%s#%s" $dest . }}{{ end }}
+    {{- $u = urls.Parse $dest }}
+  {{- end }}
+{{- end }}
+
 {{- /* Set common message. */}}
 {{- $msg := printf "The %q render hook was unable to resolve the destination %q in %s" $renderHookName $u.String $contentPath }}
 

@@ -1,0 +1,12 @@
+{{- /*
+  The URLs of all pages in the current language, as a dict of URL to true. Used
+  by the link render hook to point a site link such as /contributing/ to the
+  translated page (/nl/contributing/) when it exists. Call it with
+  partialCached and the language as the variant, so it is built once per
+  language.
+*/ -}}
+{{- $urls := dict -}}
+{{- range site.Pages -}}
+  {{- $urls = merge $urls (dict .RelPermalink true) -}}
+{{- end -}}
+{{- return $urls -}}
