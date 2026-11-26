@@ -18,8 +18,11 @@
 // code block (layouts/partials/docs/code-block.html) opens a copy of that
 // section next to the block. They are saved and applied the same way:
 // - "code-size": "s" or "l" (data-code-size); absent is "m";
-// - "code-linenos", "code-wrap", "code-dark", "code-ws": "on"
-//   (data-code-linenos, data-code-wrap, data-code-dark, data-code-ws).
+// - "code-linenos", "code-font" (JetBrains Mono), "code-dark": on by default,
+//   "off" when turned off (data-code-linenos="off", data-code-font="off",
+//   data-code-dark="off");
+// - "code-wrap", "code-ws": off by default, "on" when turned on
+//   (data-code-wrap="on", data-code-ws="on").
 // Visible whitespace needs markers around the spaces, tabs, and line ends of
 // the code; they are added the first time it is turned on.
 (() => {
@@ -109,7 +112,16 @@
   const values = { "read-font": ["legible", "dyslexic"], "read-size": ["s", "l", "xl"], "read-spacing": ["wide"] };
   const defaults = { "read-font": "default", "read-size": "m", "read-spacing": "normal" };
 
-  const codeKeys = ["code-linenos", "code-wrap", "code-dark", "code-ws"];
+  // Code switches and their defaults. Only a value other than the default is
+  // saved and set as an attribute.
+  const codeSwitches = {
+    "code-linenos": true,
+    "code-font": true,
+    "code-wrap": false,
+    "code-dark": true,
+    "code-ws": false,
+  };
+  const codeKeys = Object.keys(codeSwitches);
   const codeSection = panel.querySelector("[data-code-options]");
 
   const state = () => {
@@ -123,7 +135,10 @@
     s["read-motion"] = motion === null ? motionQuery.matches : motion === "reduce";
     const size = read("code-size");
     s["code-size"] = size === "s" || size === "l" ? size : "m";
-    codeKeys.forEach((key) => (s[key] = read(key) === "on"));
+    codeKeys.forEach((key) => {
+      const value = read(key);
+      s[key] = value === "on" ? true : value === "off" ? false : codeSwitches[key];
+    });
     return s;
   };
 
@@ -149,7 +164,13 @@
     } else {
       root.setAttribute("data-code-size", s["code-size"]);
     }
-    codeKeys.forEach((key) => root.toggleAttribute("data-" + key, s[key]));
+    codeKeys.forEach((key) => {
+      if (s[key] === codeSwitches[key]) {
+        root.removeAttribute("data-" + key);
+      } else {
+        root.setAttribute("data-" + key, s[key] ? "on" : "off");
+      }
+    });
     document.querySelectorAll("[data-code-option]").forEach((input) => {
       const key = input.dataset.codeOption;
       input.checked = key === "code-size" ? input.value === s[key] : s[key];
@@ -200,7 +221,7 @@
     if (key === "code-size") {
       write(key, input.value === "m" ? null : input.value);
     } else {
-      write(key, input.checked ? "on" : null);
+      write(key, input.checked === codeSwitches[key] ? null : input.checked ? "on" : "off");
     }
     apply();
   };

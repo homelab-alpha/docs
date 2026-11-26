@@ -6,8 +6,9 @@
 //   "dark_dimmed" or "light_high_contrast"; absent for the default;
 // - data-read-font, data-read-size, data-read-spacing, data-read-narrow, and
 //   data-read-motion: the reading settings; absent for the defaults;
-// - data-code-size, data-code-linenos, data-code-wrap, data-code-dark, and
-//   data-code-ws: the code options; absent for the defaults.
+// - data-code-size, data-code-linenos, data-code-font, data-code-wrap,
+//   data-code-dark, and data-code-ws: the code options; absent for the
+//   defaults, "on" or "off" otherwise.
 (() => {
   const read = (key) => {
     try {
@@ -56,8 +57,21 @@
   if (["s", "l"].includes(read("code-size"))) {
     root.setAttribute("data-code-size", read("code-size"));
   }
-  ["code-linenos", "code-wrap", "code-dark", "code-ws"].forEach((key) => {
-    root.toggleAttribute("data-" + key, read(key) === "on");
+  // Code switches and their defaults (on for line numbers and the code font).
+  const codeSwitches = {
+    "code-linenos": true,
+    "code-font": true,
+    "code-wrap": false,
+    "code-dark": true,
+    "code-ws": false,
+  };
+  Object.keys(codeSwitches).forEach((key) => {
+    const value = read(key);
+    if (value === (codeSwitches[key] ? "off" : "on")) {
+      root.setAttribute("data-" + key, value);
+    } else {
+      root.removeAttribute("data-" + key);
+    }
   });
   const motion = read("read-motion");
   root.toggleAttribute(

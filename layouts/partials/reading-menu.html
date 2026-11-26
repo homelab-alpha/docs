@@ -68,6 +68,7 @@
             </div>
             {{- range slice
               (slice "code-linenos" (i18n "code_line_numbers" | default "Line numbers"))
+              (slice "code-font" (i18n "code_font" | default "JetBrains Mono"))
               (slice "code-wrap" (i18n "code_wrap" | default "Wrap lines"))
               (slice "code-dark" (i18n "code_dark" | default "Always dark"))
               (slice "code-ws" (i18n "code_whitespace" | default "Show whitespace")) }}

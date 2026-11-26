@@ -223,6 +223,9 @@
 [code_line_numbers]
     other = "Line numbers"
 
+[code_font]
+    other = "JetBrains Mono"
+
 [code_wrap]
     other = "Wrap lines"
 

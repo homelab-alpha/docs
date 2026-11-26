@@ -4,9 +4,10 @@
   (assets/docs/js/toolbar-menus.js), and a copy button
   (assets/docs/js/code-copy.js). Hugo (Chroma) highlights the code at
   build time, in the GitHub colors (assets/docs/scss/custom/plugins/chroma/).
-  Every block gets inline line numbers. They show when the author asked for
-  them (linenos), or when the visitor turns on line numbers in the code
-  options; the other blocks hide them (code-block-optional-ln). The code can
+  Every block gets inline line numbers, shown by default. Blocks whose author
+  asked for them (linenos) always show them; the other blocks
+  (code-block-optional-ln) hide them when the visitor turns line numbers off
+  in the code options. The code can
   get keyboard focus, so a wide block scrolls with the arrow keys
   (WCAG 2.1.1). Used by the code block render hook and the prism shortcode.
 

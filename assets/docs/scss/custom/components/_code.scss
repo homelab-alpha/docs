@@ -290,18 +290,24 @@
   }
 }
 
-// Line numbers: always on for blocks whose author asked for them, otherwise
-// only with the "Line numbers" option.
-.docs-content .main-content .code-block-optional-ln .ln {
-  display: none;
-}
-
-html[data-code-linenos]
+// Line numbers: on by default. Blocks whose author asked for them always
+// show them; the others hide them when the option is off.
+html[data-code-linenos="off"]
   .docs-content
   .main-content
   .code-block-optional-ln
   .ln {
-  display: inline;
+  display: none;
+}
+
+// Code font: JetBrains Mono by default; the system monospace font when off.
+html[data-code-font="off"] .docs-content .main-content .code-block {
+  pre.chroma,
+  pre.chroma code {
+    font-family:
+      ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+      "Liberation Mono", monospace;
+  }
 }
 
 // Linked line numbers are 24 px high (WCAG 2.5.8); the lines follow.

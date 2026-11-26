@@ -226,6 +226,9 @@
 [code_line_numbers]
     other = "Regelnummers"
 
+[code_font]
+    other = "JetBrains Mono"
+
 [code_wrap]
     other = "Regels afbreken"
 
