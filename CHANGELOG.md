@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- ci(changelog): escape `@mentions` in titles [ae8bb70](https://github.com/homelab-alpha/docs/commit/ae8bb70faa3b794be8e05895f0d49ceb93987366) by [@homelab-alpha](https://github.com/homelab-alpha)
+
 ## [1.0.0] - 2026-11-26
 
 ### Added
