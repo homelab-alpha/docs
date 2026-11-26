@@ -105,12 +105,23 @@ features:
     - title: "Fast"
       icon: speed
       description: "Scores 100 on Google Lighthouse. Scripts and diagrams load only when a page needs them."
-    - title: "Dark mode"
+    - title: "Themes"
       icon: dark_mode
-      description: "Follows the theme of your system, or choose light or dark yourself."
+      description:
+        "Light, dark, or the theme of your system, in the GitHub colors, with high contrast and colorblind themes."
+    - title: "Reading options"
+      icon: text_fields
+      description:
+        "Choose a legible or dyslexia-friendly font, the text size, wider spacing, a narrow column, and less motion."
+    - title: "Code options"
+      icon: code_blocks
+      description: "Line numbers, wrapped lines, dark code, three sizes, and visible whitespace for every code block."
     - title: "Search"
       icon: search
       description: "Full-text search of all pages, right in the browser."
+    - title: "English and Dutch"
+      icon: translate
+      description: "Every page is in English and in Dutch. Switch the language from any page."
     - title: "E-reader version"
       icon: chrome_reader_mode
       description: "A light version of every page for e-readers and slow connections."
