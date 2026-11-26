@@ -107,10 +107,12 @@ features:
       description: "Scores 100 on Google Lighthouse. Scripts and diagrams load only when a page needs them."
     - title: "Themes"
       icon: dark_mode
-      description: "Light, dark, or the theme of your system, in the GitHub colors, with high contrast and colorblind themes."
+      description:
+        "Light, dark, or the theme of your system, in the GitHub colors, with high contrast and colorblind themes."
     - title: "Reading options"
       icon: text_fields
-      description: "Choose a legible or dyslexia-friendly font, the text size, wider spacing, a narrow column, and less motion."
+      description:
+        "Choose a legible or dyslexia-friendly font, the text size, wider spacing, a narrow column, and less motion."
     - title: "Code options"
       icon: code_blocks
       description: "Line numbers, wrapped lines, dark code, three sizes, and visible whitespace for every code block."
