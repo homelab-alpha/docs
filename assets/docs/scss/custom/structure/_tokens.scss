@@ -48,7 +48,9 @@
   --color-shadow-large: 0 8px 24px rgba(140, 149, 159, 0.2);
 }
 
-[data-dark-mode] {
+// Primer dark tokens: for dark mode, and for code blocks with the "Always
+// dark" code option in light mode.
+@mixin primer-dark {
   color-scheme: dark;
 
   --color-canvas-default: #0d1117;
@@ -81,6 +83,11 @@
 
   --color-shadow-medium: 0 3px 6px #010409;
   --color-shadow-large: 0 8px 24px #010409;
+}
+
+[data-dark-mode],
+html[data-code-dark] .code-block {
+  @include primer-dark;
 }
 
 // Theme variables, mapped to the tokens. The same mapping holds in light and

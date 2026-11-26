@@ -13,6 +13,15 @@
 // - "read-narrow": "on" (data-read-narrow);
 // - "read-motion": "reduce" or "normal"; absent follows the system setting
 //   (prefers-reduced-motion). data-read-motion="reduce" when motion is reduced.
+//
+// The code options are in the reading menu too, and the options button of each
+// code block (layouts/partials/docs/code-block.html) opens a copy of that
+// section next to the block. They are saved and applied the same way:
+// - "code-size": "s" or "l" (data-code-size); absent is "m";
+// - "code-linenos", "code-wrap", "code-dark", "code-ws": "on"
+//   (data-code-linenos, data-code-wrap, data-code-dark, data-code-ws).
+// Visible whitespace needs markers around the spaces, tabs, and line ends of
+// the code; they are added the first time it is turned on.
 (() => {
   const root = document.documentElement;
 
@@ -100,6 +109,9 @@
   const values = { "read-font": ["legible", "dyslexic"], "read-size": ["s", "l", "xl"], "read-spacing": ["wide"] };
   const defaults = { "read-font": "default", "read-size": "m", "read-spacing": "normal" };
 
+  const codeKeys = ["code-linenos", "code-wrap", "code-dark", "code-ws"];
+  const codeSection = panel.querySelector("[data-code-options]");
+
   const state = () => {
     const s = {};
     for (const key of Object.keys(values)) {
@@ -109,6 +121,9 @@
     s["read-narrow"] = read("read-narrow") === "on";
     const motion = read("read-motion");
     s["read-motion"] = motion === null ? motionQuery.matches : motion === "reduce";
+    const size = read("code-size");
+    s["code-size"] = size === "s" || size === "l" ? size : "m";
+    codeKeys.forEach((key) => (s[key] = read(key) === "on"));
     return s;
   };
 
@@ -128,11 +143,73 @@
     root.toggleAttribute("data-read-motion", s["read-motion"]);
     panel.querySelector('input[name="read-narrow"]').checked = s["read-narrow"];
     panel.querySelector('input[name="read-motion"]').checked = s["read-motion"];
+
+    if (s["code-size"] === "m") {
+      root.removeAttribute("data-code-size");
+    } else {
+      root.setAttribute("data-code-size", s["code-size"]);
+    }
+    codeKeys.forEach((key) => root.toggleAttribute("data-" + key, s[key]));
+    document.querySelectorAll("[data-code-option]").forEach((input) => {
+      const key = input.dataset.codeOption;
+      input.checked = key === "code-size" ? input.value === s[key] : s[key];
+    });
+    if (s["code-ws"]) {
+      markWhitespace();
+    }
+  };
+
+  // Markers for visible whitespace: a span around each space and tab, and an
+  // empty span before each line end. The text of the code stays the same, so
+  // copying is not affected; CSS shows the markers when data-code-ws is set.
+  const markWhitespace = () => {
+    document.querySelectorAll(".code-block:not([data-ws-marked]) .cl").forEach((line) => {
+      const walker = document.createTreeWalker(line, NodeFilter.SHOW_TEXT);
+      const nodes = [];
+      while (walker.nextNode()) {
+        nodes.push(walker.currentNode);
+      }
+      nodes.forEach((node) => {
+        if (!/[ \t\n]/.test(node.nodeValue)) {
+          return;
+        }
+        const fragment = document.createDocumentFragment();
+        node.nodeValue.split(/([ \t\n])/).forEach((part) => {
+          if (part === " " || part === "\t") {
+            const span = document.createElement("span");
+            span.className = part === " " ? "ws-space" : "ws-tab";
+            span.textContent = part;
+            fragment.append(span);
+          } else if (part === "\n") {
+            const span = document.createElement("span");
+            span.className = "ws-eol";
+            fragment.append(span, part);
+          } else if (part) {
+            fragment.append(part);
+          }
+        });
+        node.replaceWith(fragment);
+      });
+    });
+    document.querySelectorAll(".code-block").forEach((block) => block.setAttribute("data-ws-marked", ""));
+  };
+
+  // A change in the code options, in the reading menu or next to a code block.
+  const changeCode = (input) => {
+    const key = input.dataset.codeOption;
+    if (key === "code-size") {
+      write(key, input.value === "m" ? null : input.value);
+    } else {
+      write(key, input.checked ? "on" : null);
+    }
+    apply();
   };
 
   panel.addEventListener("change", (event) => {
     const input = event.target;
-    if (input.name in values) {
+    if (input.dataset.codeOption) {
+      changeCode(input);
+    } else if (input.name in values) {
       write(input.name, input.value === defaults[input.name] ? null : input.value);
     } else if (input.name === "read-narrow") {
       write("read-narrow", input.checked ? "on" : null);
@@ -144,7 +221,9 @@
   });
 
   panel.querySelector(".reading-menu-reset").addEventListener("click", () => {
-    ["read-font", "read-size", "read-spacing", "read-narrow", "read-motion"].forEach((key) => write(key, null));
+    ["read-font", "read-size", "read-spacing", "read-narrow", "read-motion", "code-size", ...codeKeys].forEach((key) =>
+      write(key, null),
+    );
     apply();
   });
 
@@ -154,6 +233,84 @@
       checked.focus();
     }
   });
+
+  // Options button of the code blocks: opens a copy of the code options of the
+  // reading menu under the button. One panel serves every block; it moves to
+  // the block whose button was used.
+  const codeButtons = document.querySelectorAll(".code-block .code-options-button");
+  if (codeSection && codeButtons.length > 0) {
+    const popover = document.createElement("div");
+    popover.className = "theme-menu-panel code-options-panel";
+    popover.id = "code-options-panel";
+    popover.setAttribute("role", "group");
+    popover.setAttribute("aria-label", codeSection.querySelector(".theme-menu-heading").textContent);
+    popover.hidden = true;
+    const copy = codeSection.cloneNode(true);
+    copy.removeAttribute("aria-labelledby");
+    copy.removeAttribute("data-code-options");
+    copy.querySelector(".theme-menu-heading").removeAttribute("id");
+    copy.querySelectorAll("input").forEach((input) => (input.name = "panel-" + input.name));
+    popover.append(copy);
+    popover.addEventListener("change", (event) => {
+      if (event.target.dataset.codeOption) {
+        changeCode(event.target);
+      }
+    });
+
+    let opener = null;
+    const closeCode = (focusButton) => {
+      if (popover.hidden) {
+        return;
+      }
+      popover.hidden = true;
+      opener.setAttribute("aria-expanded", "false");
+      if (focusButton) {
+        opener.focus();
+      }
+    };
+    codeButtons.forEach((button) => {
+      button.hidden = false;
+      button.setAttribute("aria-controls", popover.id);
+      button.addEventListener("click", () => {
+        if (opener === button && !popover.hidden) {
+          closeCode(false);
+          opener = null;
+          return;
+        }
+        if (opener) {
+          closeCode(false);
+        }
+        opener = button;
+        button.parentElement.append(popover);
+        apply();
+        popover.hidden = false;
+        button.setAttribute("aria-expanded", "true");
+        const first = popover.querySelector("input:checked") || popover.querySelector("input");
+        if (first) {
+          first.focus();
+        }
+      });
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !popover.hidden) {
+        closeCode(popover.contains(document.activeElement));
+      }
+    });
+    document.addEventListener("click", (event) => {
+      if (opener && !popover.contains(event.target) && !opener.contains(event.target)) {
+        closeCode(false);
+        opener = null;
+      }
+    });
+    popover.addEventListener("focusout", (event) => {
+      const to = event.relatedTarget;
+      // As in wire(): a click on a row can focus a container around it.
+      if (to && !popover.contains(to) && to !== opener && !to.contains(popover)) {
+        closeCode(false);
+        opener = null;
+      }
+    });
+  }
 
   motionQuery.addEventListener("change", apply);
   window.addEventListener("storage", apply);

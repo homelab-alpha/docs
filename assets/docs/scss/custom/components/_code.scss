@@ -1,19 +1,22 @@
 //
 // code.scss: code blocks (layouts/partials/docs/code-block.html) in the new
-// design. A rounded block in the subtle surface with a header (language and
-// copy button), the code in JetBrains Mono, and highlighted lines in a soft
-// accent. The syntax colors are in plugins/chroma/_github.scss.
+// design. A rounded block in the subtle surface with a header (language,
+// options button, and copy button), the code in JetBrains Mono, and
+// highlighted lines in a soft accent. The syntax colors are in
+// plugins/chroma/_github.scss. The code options (assets/docs/js/
+// toolbar-menus.js) set data-code-* attributes on <html>; their rules are at
+// the end of this file.
 //
 
 .docs-content .main-content .code-block {
   margin: 0 0 1.5rem;
-  overflow: hidden;
   border: 1px solid var(--color-border-default);
   border-radius: 12px;
   background: var(--color-canvas-subtle);
 }
 
 .code-block-header {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -32,7 +35,9 @@
   text-overflow: ellipsis;
 }
 
-// Copy button: 36 px, 44 px on touch screens, with a "Copied" bubble.
+// Options and copy buttons: 36 px, 44 px on touch screens. The copy button
+// has a "Copied" bubble.
+.code-options-button,
 .code-copy {
   position: relative;
   display: inline-flex;
@@ -66,6 +71,7 @@
     outline-offset: -2px;
   }
 
+  .code-options-icon,
   .code-copy-icon,
   .code-copied-icon {
     display: inline-flex;
@@ -80,6 +86,11 @@
 
   .code-copied-icon {
     display: none;
+  }
+
+  &[aria-expanded="true"] {
+    background: var(--color-neutral-muted);
+    color: var(--color-fg-default);
   }
 
   &.is-copied {
@@ -114,8 +125,11 @@
 }
 
 // The code. The body scrolls; a focus ring shows when it has keyboard focus.
+// The block does not clip, so the options panel can stand out of it; the body
+// keeps the rounded bottom corners.
 .code-block-body {
   overflow-x: auto;
+  border-radius: 0 0 11px 11px;
   scrollbar-width: thin;
 
   &:focus-visible {
@@ -193,7 +207,7 @@
 
   // Highlighted lines: a soft accent band.
   .hl {
-    display: block;
+    display: flex;
     margin: 0 -16px;
     padding: 0 16px;
     background: var(--color-accent-subtle);
@@ -211,6 +225,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .code-options-button,
   .code-copy {
     transition: none;
   }
@@ -250,9 +265,108 @@
   }
 }
 
-// A copy button has no use on paper.
+// The options and copy buttons have no use on paper.
 @media print {
+  .code-options-button,
+  .code-options-panel,
   .code-copy {
     display: none;
+  }
+}
+
+// Code options panel: the code options section of the reading menu, opened
+// under the options button of a code block.
+.code-options-panel {
+  position: absolute;
+  top: calc(100% + 4px);
+  inset-inline-end: 4px;
+  z-index: 20;
+  width: min(300px, calc(100vw - 32px));
+
+  .theme-menu-section {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+}
+
+// Line numbers: always on for blocks whose author asked for them, otherwise
+// only with the "Line numbers" option.
+.docs-content .main-content .code-block-optional-ln .ln {
+  display: none;
+}
+
+html[data-code-linenos]
+  .docs-content
+  .main-content
+  .code-block-optional-ln
+  .ln {
+  display: inline;
+}
+
+// Linked line numbers are 24 px high (WCAG 2.5.8); the lines follow.
+.docs-content .main-content .code-block:has(.lnlinks) pre.chroma {
+  line-height: 24px;
+}
+
+// Wrap lines: long lines break instead of scrolling.
+html[data-code-wrap] .docs-content .main-content .code-block {
+  pre.chroma code,
+  .cl {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  .cl {
+    min-width: 0;
+  }
+}
+
+// Code size: small and large next to the default (0.875rem).
+html[data-code-size="s"] .docs-content .main-content .code-block pre.chroma {
+  font-size: 0.8125rem;
+}
+
+html[data-code-size="l"] .docs-content .main-content .code-block pre.chroma {
+  font-size: 1rem;
+}
+
+// Show whitespace: markers for spaces, tabs, and line ends. The markers are
+// drawn over the characters, so the text and its width stay the same.
+.docs-content .main-content .code-block {
+  .ws-space,
+  .ws-tab {
+    position: relative;
+  }
+
+  .ws-eol::before {
+    content: none;
+  }
+}
+
+html[data-code-ws] .docs-content .main-content .code-block {
+  .ws-space::before,
+  .ws-tab::before {
+    position: absolute;
+    inset: 0;
+    color: var(--color-fg-muted);
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .ws-space::before {
+    content: "·" / "";
+    text-align: center;
+  }
+
+  .ws-tab::before {
+    content: "→" / "";
+  }
+
+  .ws-eol::before {
+    content: "↵" / "";
+    color: var(--color-fg-muted);
+    opacity: 0.6;
+    user-select: none;
   }
 }

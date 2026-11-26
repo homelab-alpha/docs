@@ -5,7 +5,9 @@
 // - data-theme: the GitHub variant of the shown mode, for example
 //   "dark_dimmed" or "light_high_contrast"; absent for the default;
 // - data-read-font, data-read-size, data-read-spacing, data-read-narrow, and
-//   data-read-motion: the reading settings; absent for the defaults.
+//   data-read-motion: the reading settings; absent for the defaults;
+// - data-code-size, data-code-linenos, data-code-wrap, data-code-dark, and
+//   data-code-ws: the code options; absent for the defaults.
 (() => {
   const read = (key) => {
     try {
@@ -51,6 +53,12 @@
     }
   });
   root.toggleAttribute("data-read-narrow", read("read-narrow") === "on");
+  if (["s", "l"].includes(read("code-size"))) {
+    root.setAttribute("data-code-size", read("code-size"));
+  }
+  ["code-linenos", "code-wrap", "code-dark", "code-ws"].forEach((key) => {
+    root.toggleAttribute("data-" + key, read(key) === "on");
+  });
   const motion = read("read-motion");
   root.toggleAttribute(
     "data-read-motion",
