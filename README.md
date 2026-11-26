@@ -66,9 +66,17 @@ basics, and how to contribute.
   basics, contributing, Docker, dotfiles, help, Kairos, Linux, OpenSSL, and
   shell-script.
 - **Hugo site** — Layouts, shortcodes, styles, and configuration for the site.
-  The design follows the Apple Human Interface Guidelines in the colors of
-  GitHub Light Default and GitHub Dark Default. The appearance follows the
-  system, or Light or Dark when chosen. Code is highlighted at build time.
+  The design follows the Apple Human Interface Guidelines in the GitHub Primer
+  colors. Code is highlighted at build time.
+- **Themes** — The appearance follows the system, or Light or Dark when chosen,
+  with the GitHub themes, including high contrast, colorblind, and tritanopia
+  variants.
+- **Reading and code options** — The reading menu (Aa) sets the font (legible or
+  dyslexia-friendly), the text size, the spacing, a narrow column, and less
+  motion. The code options (in the reading menu and on every code block) set the
+  code size, line numbers, the JetBrains Mono font, wrapped lines, dark code,
+  and visible whitespace. The choices are kept in the browser.
+- **English and Dutch** — Every page is in English (`/`) and Dutch (`/nl/`).
 - **E-reader version** — Every page is also built as a light HTML page under
   `/ereader/` for the browsers of Kindle and Kobo e-readers. It has no scripts,
   web fonts, or CSS variables. Kindle and Kobo browsers are sent there
@@ -302,7 +310,7 @@ on push, pull request, and scheduled triggers.
 | `merge_conflicts.yml`                | Push, PR                     | Detects merge conflicts in open pull requests                 |
 | `milestone_manager.yml`              | Manual                       | Automates milestone creation and lifecycle                    |
 | `pull_request.yml`                   | PR events, reviews, manual   | Pull request automation and validation                        |
-| `release_manager.yml`                | Manual                       | Automates GitHub Releases                                     |
+| `release_manager.yml`                | Manual                       | Tags and publishes releases with the new version              |
 | `signing_test.yml`                   | Manual                       | Tests API-based commit and tag signing                        |
 | `stale_issues_and_pull_requests.yml` | Daily schedule, manual       | Marks and closes stale issues and pull requests               |
 | `sync_labels.yml`                    | Push, manual                 | Synchronizes repository labels from `.github/labels.yml`      |
@@ -317,10 +325,13 @@ and structured job summaries.
 The version of the site is the `version` in `package.json`. The site footer
 shows it, linked to its release on GitHub, and every page has it in a `Version`
 meta tag (`layouts/partials/site-version.html`). For a release (release type
-`release`), the Release Manager opens a pull request that updates `CHANGELOG.md`
-and the version in `package.json` and `package-lock.json`; merge it after the
-release, and the next deploy shows the new version. Prereleases (alpha, beta,
-and rc) do not change the version. Do not write the version anywhere else.
+`release`), the Release Manager first makes one commit on
+`chore/changelog-<tag>` that updates `CHANGELOG.md` and the version in
+`package.json` and `package-lock.json`, and tags that commit, so the tag and the
+release have the new version everywhere. A pull request brings the commit to
+`main`; merge it after the release, and the next deploy shows the new version.
+Prereleases (alpha, beta, and rc) do not change the version. Do not write the
+version anywhere else.
 
 The README badges are not fetched from a third-party service. `badges.yml`
 renders them with `.github/scripts/generate_badges.py` (Python standard library
