@@ -144,6 +144,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - docs(landing): update the Made to read features [7fda9f9](https://github.com/homelab-alpha/docs/commit/7fda9f95616095610270941c1967103143f2eedc) by [@homelab-alpha](https://github.com/homelab-alpha)
 - ci(release): tag the release on the version commit [aebf80a](https://github.com/homelab-alpha/docs/commit/aebf80a49d329ee41fbbb7519c46721aa51862ec) by [@homelab-alpha](https://github.com/homelab-alpha)
 - docs(readme): update features and release version [35f03da](https://github.com/homelab-alpha/docs/commit/35f03da6931f10b34a7e19e29ac4e81bb31136e3) by [@homelab-alpha](https://github.com/homelab-alpha)
+- style(content): format three section descriptions [1a26269](https://github.com/homelab-alpha/docs/commit/1a262693ed00acdaa8e8c2da8bbe78de55ca09af) by [@homelab-alpha](https://github.com/homelab-alpha)
 
 ### Deprecated
 
