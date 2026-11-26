@@ -546,6 +546,14 @@ de release. **Squash and merge** is de standaard (zie
 **Create a merge commit** werkt ook. **Rebase and merge** laat geen pull request
 achter in de geschiedenis, dus dan wordt de pull request niet vermeld.
 
+**Versie:** bij een release (releasetype `release`) maakt Release Manager eerst
+één commit die `[Unreleased]` naar de sectie van de release verplaatst en de
+versie in `package.json` en `package-lock.json` zet, op de branch
+`chore/changelog-<tag>`. De tag en de GitHub-release wijzen naar die commit, dus
+daar staat overal de nieuwe versie. Een pull request brengt de commit naar
+`main`: merge die na de release. Prereleases (`alpha`, `beta` en `rc`) maken
+geen commit en houden de versie.
+
 ---
 
 Zie
