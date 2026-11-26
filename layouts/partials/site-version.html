@@ -1,0 +1,11 @@
+{{- /*
+  The version of the site: "v" and the version in package.json, which the
+  Release Manager workflow (.github/workflows/release_manager.yml) updates with
+  every release. Empty when package.json has no version. Used by the site
+  footer and the Version meta tag (layouts/partials/docs/head.html).
+*/ -}}
+{{- $version := "" -}}
+{{- with (transform.Unmarshal (os.ReadFile "package.json")).version -}}
+  {{- $version = printf "v%s" . -}}
+{{- end -}}
+{{- return $version -}}

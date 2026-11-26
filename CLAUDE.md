@@ -68,6 +68,9 @@ the other linters. For one file, `npx prettier --write <file>` uses the same
   never hard-code text in a layout. Dutch data files are `data/<name>_nl.yaml`
   (`layouts/partials/data.html`) and Dutch pages go in `content-nl/`. See
   "Languages" in `README.md`.
+- The site version is the `version` in `package.json`
+  (`layouts/partials/site-version.html`: footer and `Version` meta tag). The
+  Release Manager updates it with every release; do not write it anywhere else.
 - `static/robots.txt` is rebuilt by the workflow `dark_visitors_agents.yml` on a
   schedule. Do not edit it by hand.
 - The pages in `script-information/` show the text of scripts from the other

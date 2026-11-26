@@ -127,6 +127,9 @@
 [license]
     other = "Licentie"
 
+[release_notes]
+    other = "Releaseopmerkingen"
+
 [terms]
     other = "Voorwaarden"
 
