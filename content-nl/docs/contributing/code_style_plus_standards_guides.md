@@ -554,6 +554,11 @@ daar staat overal de nieuwe versie. Een pull request brengt de commit naar
 `main`: merge die na de release. Prereleases (`alpha`, `beta` en `rc`) maken
 geen commit en houden de versie.
 
+Een losse `@naam` in een titel of onder `[Unreleased]` (bijvoorbeeld `use @use`)
+zetten Update Changelog en Release Manager in een codeblokje, zodat GitHub dat
+account niet noemt en niet als bijdrager van de release toont. Alleen de link
+`by [@login](...)` noemt de auteur.
+
 ---
 
 Zie

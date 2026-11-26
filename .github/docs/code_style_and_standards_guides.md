@@ -519,6 +519,11 @@ they have the new version everywhere. A pull request brings the commit to
 `main`: merge it after the release. Prereleases (`alpha`, `beta`, and `rc`) make
 no commit and keep the version.
 
+A bare `@name` in a title or under `[Unreleased]` (for example `use @use`) is
+put in a code span by Update Changelog and Release Manager, so GitHub does not
+mention that account or list it as a contributor of the release. Only the
+`by [@login](...)` link mentions the author.
+
 ---
 
 For contribution workflows, branch conventions, and pull request guidelines, see
