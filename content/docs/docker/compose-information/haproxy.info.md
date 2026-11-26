@@ -258,7 +258,9 @@ HAProxy has no login. Configure the frontends and backends in `haproxy.cfg`.
 This `compose.yml` file sets up a Docker environment for HAProxy, a reliable,
 high-performance TCP/HTTP load balancer. The configuration defines a custom
 bridge network with specific IP settings and security configurations. The
-HAProxy
+HAProxy service always restarts, reads its configuration and SSL certificates
+from the host, uses Quad9 as its DNS servers, and publishes ports 80, 443, and
+8404, with limited logging.
 
 [compose.yml]:
   https://raw.githubusercontent.com/homelab-alpha/docker/main/compose-files/haproxy/compose.yml
