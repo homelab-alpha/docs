@@ -2,7 +2,7 @@
 <div id="top-header" class="top-header d-print-none">
     <div class="header-bar d-flex align-items-center">
         <div class="toolbar-start d-flex align-items-center">
-            <a href='{{ with .Site.Params.docs.logoLinkURL }}{{ . }}{{ else }}{{ relLangURL "" }}{{ end }}' class="logo-icon me-2" aria-label="{{ .Site.Params.docs.title | default .Site.Title }} home">
+            <a href='{{ with .Site.Params.docs.logoLinkURL }}{{ . }}{{ else }}{{ relLangURL "" }}{{ end }}' class="logo-icon me-2" aria-label="{{ i18n "site_home" (dict "Site" (.Site.Params.docs.title | default .Site.Title)) }}">
                 <div class="small">
                     {{ with resources.Get "images/logos/mark.svg" }}
                             {{ .Content | safeHTML }}

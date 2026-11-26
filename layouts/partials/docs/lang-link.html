@@ -1,0 +1,10 @@
+{{- /*
+  The URL of a site page in the current language, or of the English page when
+  the page has no translation yet. Context: the path without a leading slash,
+  for example "license/". Uses partials/docs/lang-urls.html.
+*/ -}}
+{{- $url := relLangURL . -}}
+{{- if not (index (partialCached "docs/lang-urls.html" . site.Language.Lang) $url) -}}
+  {{- $url = printf "/%s" (strings.TrimPrefix "/" .) | relURL -}}
+{{- end -}}
+{{- return $url -}}

@@ -4,7 +4,7 @@
   Opt out: open any page with "?full=1".
 */ -}}
 {{- with .OutputFormats.Get "ereader" }}
-<link rel="alternate" type="text/html" title="E-reader version" href="{{ .Permalink }}">
+<link rel="alternate" type="text/html" title="{{ i18n "ereader_version" | default "E-reader version" }}" href="{{ .Permalink }}">
 {{- /* The script is in assets/docs/js/ereader-redirect.js; its hash is in the CSP. */}}
 <script>{{ (partial "docs/inline-script.html" "ereader-redirect").Content | safeJS }}</script>
 {{- end }}

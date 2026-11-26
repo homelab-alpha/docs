@@ -13,8 +13,8 @@
             </p>
             <nav aria-label="{{ i18n "legal" | default "Legal" }}">
                 <ul class="site-footer-links list-unstyled mb-0">
-                    <li><a href="{{ relLangURL "license/" }}">{{ i18n "license" | default "License" }}</a></li>
-                    <li><a href="{{ relLangURL "terms-of-homelab-alpha/" }}">{{ i18n "terms" | default "Terms" }}</a></li>
+                    <li><a href="{{ partial "docs/lang-link.html" "license/" }}">{{ i18n "license" | default "License" }}</a></li>
+                    <li><a href="{{ partial "docs/lang-link.html" "terms-of-homelab-alpha/" }}">{{ i18n "terms" | default "Terms" }}</a></li>
                 </ul>
             </nav>
         </div>

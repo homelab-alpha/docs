@@ -144,6 +144,22 @@ a built site and need Chrome or Chromium; see
 [`tests/README.md`](./tests/README.md). Only the CSP check also runs in CI, in
 the Build & Deploy workflow.
 
+### Languages
+
+The site is in English at `/` and in Dutch at `/nl/`
+(`config/_default/languages.toml`).
+
+- Interface texts: `i18n/en.toml` and `i18n/nl.toml`, with the same keys.
+- Data files: `data/landing.yaml` and `data/links.yaml`, with Dutch versions in
+  `data/landing_nl.yaml` and `data/links_nl.yaml` (`layouts/partials/data.html`
+  picks the right one).
+- Menus: `config/_default/menus/menus.<language>.toml`.
+- Pages: a Dutch page goes in `content-nl/`, at the same path as the English
+  page in `content/`, so the language menu links the two.
+
+When an English page changes, update the Dutch page as well. This includes the
+pages in `script-information/`, which show the text of the scripts.
+
 ## Project Structure
 
 ```treeview

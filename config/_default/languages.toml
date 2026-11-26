@@ -1,5 +1,24 @@
+# Languages of the site. English is the default language at /; Dutch is at
+# /nl/. The interface texts are in i18n/<language>.toml, translated data files
+# are data/<name>_<language>.yaml (see layouts/partials/data.html), and
+# translated pages are in the content folder of the language.
+
 [en]
-  contentDir   = "content/"
-  languages    = "English"
-  title        = "Homelab-Alpha"
-  weight       = 10
+  contentDir = "content"
+  label      = "English"
+  locale     = "en-US"
+  title      = "Homelab-Alpha"
+  weight     = 10
+
+[nl]
+  contentDir = "content-nl"
+  label      = "Nederlands"
+  locale     = "nl-NL"
+  title      = "Homelab-Alpha"
+  weight     = 20
+
+  [nl.params.head]
+    description = "Jouw toegang tot de opensourcedocumentatie van Homelab-Alpha."
+
+  [nl.params.footer]
+    copyright = "&copy; Homelab-Alpha :YEAR: · Gelicentieerd onder [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)"

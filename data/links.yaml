@@ -1,11 +1,13 @@
 # Links on the page /links/ (layouts/_default/links.html).
-# Each section has a title and links. A link has a title, a description, a URL,
+# Each section has an id (the same in every language, used by the
+# project-cards shortcode), a title, and links. A link has a title, a description, a URL,
 # and a Material Symbols icon name (the same icons as the sidebar). A project
 # can name its docs topic ("topic", the URL of the topic) to get the tile color
 # of that topic, or set a "color"; without them the tile has the accent color.
 
 sections:
-  - title: "Projects"
+  - id: "projects"
+    title: "Projects"
     links:
       - title: "AdGuard Home"
         description: "Filter lists for AdGuard Home that block ads, trackers, phishing, and fraudulent websites."
@@ -43,7 +45,8 @@ sections:
         topic: "/shell-script/"
         icon: "deployed_code"
 
-  - title: "Community"
+  - id: "community"
+    title: "Community"
     links:
       - title: "GitHub"
         description: "All Homelab-Alpha repositories and projects."

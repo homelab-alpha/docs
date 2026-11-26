@@ -7,7 +7,7 @@
 {{- if eq .Type "alert" -}}
   {{- $type := lower .AlertType -}}
   {{- $icons := dict "note" "info" "tip" "light-bulb" "important" "report" "warning" "alert" "caution" "stop" -}}
-  {{- $title := or .AlertTitle (title $type) -}}
+  {{- $title := or .AlertTitle (i18n (printf "alert_%s" $type)) (title $type) -}}
   <div class="markdown-alert markdown-alert-{{ $type }}" role="note">
     <p class="markdown-alert-title">
       {{- with index $icons $type -}}

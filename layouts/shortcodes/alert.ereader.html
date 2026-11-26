@@ -4,11 +4,12 @@
   icons, emoji, or colors, so old e-reader browsers show it well.
 */ -}}
 {{- $titles := dict
-  "info" "Info" "warning" "Warning" "success" "Success" "danger" "Danger"
-  "primary" "Note" "default" "Note" "light" "Note" "dark" "Note"
+  "info" "info" "warning" "warning" "success" "success" "danger" "danger"
+  "primary" "note" "default" "note" "light" "note" "dark" "note"
 -}}
 {{- $context := .Get "context" | default "default" -}}
-{{- $title := index $titles $context | default "Note" -}}
+{{- $key := index $titles $context | default "note" -}}
+{{- $title := i18n (printf "alert_%s" $key) | default (title $key) -}}
 <blockquote class="markdown-alert markdown-alert-{{ $context }}">
   <p class="markdown-alert-title"><strong>{{ $title }}</strong></p>
   {{- with .Get "text" }}

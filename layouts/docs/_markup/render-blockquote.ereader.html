@@ -4,7 +4,7 @@
     icons or colors, so old e-reader browsers show them well.
 */ -}}
 {{- if eq .Type "alert" -}}
-  {{- $title := or .AlertTitle (title (lower .AlertType)) -}}
+  {{- $title := or .AlertTitle (i18n (printf "alert_%s" (lower .AlertType))) (title (lower .AlertType)) -}}
   <blockquote class="markdown-alert markdown-alert-{{ lower .AlertType }}">
     <p class="markdown-alert-title"><strong>{{ $title }}</strong></p>
     {{ .Text }}

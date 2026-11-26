@@ -243,7 +243,7 @@
                 suggestions.replaceChildren();
                 suggestions.classList.remove('d-none');
                 const errorMessage = document.createElement('div');
-                errorMessage.textContent = "The search index could not be loaded.";
+                errorMessage.textContent = {{ i18n "search_error" | default "The search index could not be loaded." | jsonify }};
                 errorMessage.classList.add("suggestion__no-results");
                 errorMessage.setAttribute('role', 'option');
                 errorMessage.setAttribute('aria-disabled', 'true');

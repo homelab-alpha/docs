@@ -1,11 +1,16 @@
 {{- /*
-  project-cards shortcode: the links of one section of data/links.yaml (default
-  "Projects") as the topic-colored cards of the docs lists, the same cards as
-  the /links/ page. Usage: {{< project-cards >}} or
-  {{< project-cards section="Community" >}}.
+  project-cards shortcode: the links of one section of data/links.yaml (in the
+  language of the page, see partials/data.html) as the topic-colored cards of
+  the docs lists, the same cards as the /links/ page. The section is found by
+  its id (default "projects") or its title. Usage: {{< project-cards >}} or
+  {{< project-cards section="community" >}}.
 */ -}}
-{{- $name := .Get "section" | default "Projects" -}}
-{{- $section := index (where hugo.Data.links.sections "title" $name) 0 -}}
+{{- $name := .Get "section" | default "projects" -}}
+{{- $sections := (partial "data.html" "links").sections -}}
+{{- $match := where $sections "id" $name -}}
+{{- if not $match }}{{ $match = where $sections "title" $name }}{{ end -}}
+{{- $section := false -}}
+{{- with $match }}{{ $section = index . 0 }}{{ end -}}
 {{- if not $section }}{{ errorf "project-cards: no section %q in data/links.yaml (%s)" $name .Position }}{{ end -}}
 <ul class="docs-list list-unstyled">
   {{- range $section.links }}

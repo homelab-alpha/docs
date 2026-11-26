@@ -4,7 +4,7 @@
   Context: the page being rendered.
 */ -}}
 {{- if and (not .IsHome) (ne .Path "/docs") }}
-<nav class="breadcrumbs" aria-label="Breadcrumb">
+<nav class="breadcrumbs" aria-label="{{ i18n "breadcrumb" | default "Breadcrumb" }}">
   {{- with site.Home.OutputFormats.Get "ereader" }}
   <a href="{{ .RelPermalink }}">{{ site.Params.docs.title | default site.Title }}</a> &rsaquo;
   {{- end }}

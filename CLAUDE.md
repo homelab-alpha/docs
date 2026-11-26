@@ -62,6 +62,12 @@ the other linters. For one file, `npx prettier --write <file>` uses the same
 - Pages are in `content/docs/<section>/`, layouts in `layouts/`, configuration
   in `config/_default/`, and translations in `i18n/`. A pull request builds the
   site; a push to `main` also deploys it to GitHub Pages.
+- Languages: English at `/`, Dutch at `/nl/` (`config/_default/languages.toml`).
+  When an English page changes, update the Dutch page in `content-nl/` as well.
+  Every interface text is an i18n key in both `i18n/en.toml` and `i18n/nl.toml`;
+  never hard-code text in a layout. Dutch data files are `data/<name>_nl.yaml`
+  (`layouts/partials/data.html`) and Dutch pages go in `content-nl/`. See
+  "Languages" in `README.md`.
 - `static/robots.txt` is rebuilt by the workflow `dark_visitors_agents.yml` on a
   schedule. Do not edit it by hand.
 - The pages in `script-information/` show the text of scripts from the other

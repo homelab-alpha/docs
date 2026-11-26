@@ -1,0 +1,12 @@
+---
+title: "Docker 101"
+description:
+  "Ga snel aan de slag met Docker met deze handleiding voor beginners."
+url: "back-to-basics/docker"
+icon: "foundation"
+
+weight: 2200
+---
+
+<!-- textlint-disable terminology -->
+<!-- The terminology rules are for English; this page is Dutch. -->
