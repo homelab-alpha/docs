@@ -95,10 +95,10 @@ basics, and how to contribute.
 
 ### Requirements
 
-- [Hugo](https://gohugo.io/installation/) (extended edition), version 0.169.0,
-  as used by the `hugo.yml` workflow.
-- [Dart Sass](https://sass-lang.com/install/), version 1.106.1, as used by the
-  `hugo.yml` workflow.
+- [Hugo](https://gohugo.io/installation/) (extended edition), the version in
+  `HUGO_VERSION` in the `hugo.yml` workflow.
+- [Dart Sass](https://sass-lang.com/install/), the version in
+  `DART_SASS_VERSION` in the `hugo.yml` workflow.
 - [Go](https://go.dev/dl/), for the Hugo Modules in `go.mod`.
 
 ### Run the site locally
@@ -272,7 +272,7 @@ docs/
 ├── MAINTAINERS.md                              # Project maintainer list and process
 ├── NOTICE                                      # Attribution and license notice
 ├── package-lock.json                           # Locked versions of the dev tooling
-├── package.json                                # Dev tooling (Prettier, textlint, test tools) and scripts
+├── package.json                                # Version of the site, dev tooling, and scripts
 ├── README.md                                   # Primary repository documentation
 ├── ROADMAP.md                                  # Planned features and milestones
 ├── SECURITY.md                                 # Security policy and reporting guidelines
@@ -313,6 +313,14 @@ All workflows follow the standards documented in
 [`.github/policies/github_actions.md`](./.github/policies/github_actions.md),
 including actions pinned to a commit SHA, concurrency controls, timeout limits,
 and structured job summaries.
+
+The version of the site is the `version` in `package.json`. The site footer
+shows it, linked to its release on GitHub, and every page has it in a `Version`
+meta tag (`layouts/partials/site-version.html`). For a release (release type
+`release`), the Release Manager opens a pull request that updates `CHANGELOG.md`
+and the version in `package.json` and `package-lock.json`; merge it after the
+release, and the next deploy shows the new version. Prereleases (alpha, beta,
+and rc) do not change the version. Do not write the version anywhere else.
 
 The README badges are not fetched from a third-party service. `badges.yml`
 renders them with `.github/scripts/generate_badges.py` (Python standard library

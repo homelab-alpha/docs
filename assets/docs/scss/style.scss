@@ -10,7 +10,7 @@ $font-family-monospace:  {{ .Site.Params.mono_font | default "SFMono-Regular, Me
 // Core files
 @import "../../scss/bootstrap/functions";
 @import "../../scss/bootstrap/variables";
-@import {{ printf "'%s%s'" "custom/colors/" (.Site.Params.docs.themeColor | default "blue") }}; // current theme color
+@import "custom/colors/blue"; // primary color (--primary), mapped to blue
 @import "../../scss/bootstrap/mixins";
 @import "../../scss/bootstrap/bootstrap";
 @import "variables";

@@ -1,6 +1,7 @@
 {{- /*
-  Site footer: the copyright with the current year, the license, and links to
-  the License and Terms pages. Used by the docs, the landing page, the links
+  Site footer: the copyright with the current year, the license, links to the
+  License and Terms pages, and the version of the site, linked to its release
+  (layouts/partials/site-version.html). Used by the docs, the landing page, the links
   page, and the 404 page. The text comes from params.footer.copyright, where
   :YEAR: (or params.copyrightYearToken) becomes the current year.
 */ -}}
@@ -15,6 +16,9 @@
                 <ul class="site-footer-links list-unstyled mb-0">
                     <li><a href="{{ partial "docs/lang-link.html" "license/" }}">{{ i18n "license" | default "License" }}</a></li>
                     <li><a href="{{ partial "docs/lang-link.html" "terms-of-homelab-alpha/" }}">{{ i18n "terms" | default "Terms" }}</a></li>
+                    {{- with partialCached "site-version.html" "site-version" }}
+                    <li><a href="{{ site.Params.docs.repoURL }}/releases/tag/{{ . }}" title="{{ i18n "release_notes" | default "Release notes" }}">{{ . }}</a></li>
+                    {{- end }}
                 </ul>
             </nav>
         </div>

@@ -124,6 +124,9 @@
 [license]
     other = "License"
 
+[release_notes]
+    other = "Release notes"
+
 [terms]
     other = "Terms"
 

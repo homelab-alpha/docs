@@ -37,7 +37,7 @@
     {{- with .Params.website | default (.Site.Params.head.website)}}
     <meta name="website" content="{{.}}" />
     {{- end }}
-    {{- with .Params.version | default (.Site.Params.head.version)}}
+    {{- with partialCached "site-version.html" "site-version" }}
     <meta name="Version" content="{{.}}" />
     {{- end }}
     <!-- favicon -->
