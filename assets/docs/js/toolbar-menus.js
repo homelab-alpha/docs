@@ -215,9 +215,35 @@
     document.querySelectorAll(".code-block").forEach((block) => block.setAttribute("data-ws-marked", ""));
   };
 
+  // The code font is loaded with font-display: optional (fonts/_fonts.scss),
+  // so a font that arrives late is not used on the page that is shown. When a
+  // visitor turns the code font on, they want to see it: add the same font
+  // with font-display: swap, once.
+  let codeFontAdded = false;
+  const showCodeFont = () => {
+    if (codeFontAdded || !("FontFace" in window)) {
+      return;
+    }
+    codeFontAdded = true;
+    const face = new FontFace("JetBrains Mono", 'url("/docs/fonts/jetbrains-mono-latin-wght-normal.woff2")', {
+      weight: "100 800",
+      display: "swap",
+      unicodeRange:
+        "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, " +
+        "U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD",
+    });
+    document.fonts.add(face);
+    face.load().catch(() => {
+      // The font could not be loaded: the fallback font stays.
+    });
+  };
+
   // A change in the code options, in the reading menu or next to a code block.
   const changeCode = (input) => {
     const key = input.dataset.codeOption;
+    if (key === "code-font" && input.checked) {
+      showCodeFont();
+    }
     if (key === "code-size") {
       write(key, input.value === "m" ? null : input.value);
     } else {
