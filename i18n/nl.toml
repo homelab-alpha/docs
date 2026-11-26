@@ -217,6 +217,27 @@
 [reading_reset]
     other = "Herstellen"
 
+[code_options]
+    other = "Code-opties"
+
+[code_size]
+    other = "Codegrootte"
+
+[code_line_numbers]
+    other = "Regelnummers"
+
+[code_font]
+    other = "JetBrains Mono"
+
+[code_wrap]
+    other = "Regels afbreken"
+
+[code_dark]
+    other = "Altijd donker"
+
+[code_whitespace]
+    other = "Witruimte tonen"
+
 [language]
     other = "Taal"
 

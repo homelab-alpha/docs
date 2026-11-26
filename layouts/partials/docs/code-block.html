@@ -1,8 +1,14 @@
 {{- /*
-  A highlighted code block with a header: the language (or a title) and a copy
-  button (assets/docs/js/code-copy.js). Hugo (Chroma) highlights the code at
+  A highlighted code block with a header: the language (or a title), an options
+  button that opens the code options of the reading menu
+  (assets/docs/js/toolbar-menus.js), and a copy button
+  (assets/docs/js/code-copy.js). Hugo (Chroma) highlights the code at
   build time, in the GitHub colors (assets/docs/scss/custom/plugins/chroma/).
-  The code can get keyboard focus, so a wide block scrolls with the arrow keys
+  Every block gets inline line numbers, shown by default. Blocks whose author
+  asked for them (linenos) always show them; the other blocks
+  (code-block-optional-ln) hide them when the visitor turns line numbers off
+  in the code options. The code can
+  get keyboard focus, so a wide block scrolls with the arrow keys
   (WCAG 2.1.1). Used by the code block render hook and the prism shortcode.
 
   Context: dict
@@ -16,10 +22,16 @@
 {{- $aliases := dict "cnf" "ini" "env" "bash" "terraform" "hcl" "pem" "text" "adblock" "text" "treeview" "text" "none" "text" "plaintext" "text" "log" "text" "git" "text" "yml" "yaml" -}}
 {{- $lexer := index $aliases $type | default $type -}}
 {{- $label := partial "docs/code-label.html" . -}}
-{{- $options := merge (.options | default dict) (dict "noClasses" false) -}}
-<figure class="code-block">
+{{- $options := .options | default dict -}}
+{{- $linenos := index $options "linenos" -}}
+{{- $fixed := and $linenos (ne (string $linenos) "false") -}}
+{{- $options = merge $options (dict "noClasses" false "linenos" "inline" "lineNumbersInTable" false) -}}
+<figure class="code-block{{ if not $fixed }} code-block-optional-ln{{ end }}">
     <figcaption class="code-block-header">
         <span class="code-block-label">{{ $label }}</span>
+        <button class="code-options-button" type="button" aria-expanded="false" aria-label="{{ i18n "code_options" | default "Code options" }}" title="{{ i18n "code_options" | default "Code options" }}" hidden>
+            {{- partial "svg-icon.html" (dict "name" "more_horiz" "tag" "span" "class" "code-options-icon") -}}
+        </button>
         <button class="code-copy" type="button" aria-label="{{ i18n "copy_code" | default "Copy code" }}" data-copied="{{ i18n "copied" | default "Copied" }}" data-failed="{{ i18n "copy_failed" | default "Copy failed" }}">
             {{- partial "svg-icon.html" (dict "name" "content_copy" "tag" "span" "class" "code-copy-icon") -}}
             {{- partial "svg-icon.html" (dict "name" "check" "tag" "span" "class" "code-copied-icon") -}}

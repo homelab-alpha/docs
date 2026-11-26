@@ -4,9 +4,12 @@
   - the font: the default, Atkinson Hyperlegible, or OpenDyslexic;
   - the text size: small, medium (the default), large, or extra large;
   - the spacing: normal, or wide (WCAG 1.4.12);
-  - a narrow text column, and reduced motion.
+  - a narrow text column, and reduced motion;
+  - the code options: the code size, line numbers, wrapped lines, always dark
+    code blocks, and visible whitespace. The same section opens from the
+    options button of every code block (layouts/partials/docs/code-block.html).
   A preview shows the choice, and Reset restores the defaults. The settings
-  are saved and applied by assets/docs/js/reading-menu.js; the first paint is
+  are saved and applied by assets/docs/js/toolbar-menus.js; the first paint is
   set by assets/docs/js/darkmode-init.js. Every text comes from i18n, so the
   menu works in every language. Used once per page, next to the theme menu.
   Styles: assets/docs/scss/custom/components/_reading-menu.scss.
@@ -49,6 +52,29 @@
             <label class="theme-menu-option theme-menu-switch">
                 <span class="theme-menu-label">{{ index . 1 }}</span>
                 <input type="checkbox" role="switch" name="{{ index . 0 }}">
+                <span class="theme-menu-switch-track" aria-hidden="true"></span>
+            </label>
+            {{- end }}
+        </div>
+        <div class="theme-menu-section code-options-section" role="group" aria-labelledby="reading-menu-code" data-code-options>
+            <span class="theme-menu-heading" id="reading-menu-code">{{ i18n "code_options" | default "Code options" }}</span>
+            <div class="theme-menu-segmented" role="radiogroup" aria-label="{{ i18n "code_size" | default "Code size" }}">
+                {{- range slice
+                  (slice "s" (i18n "reading_size_s" | default "S") (i18n "reading_size_s_label" | default "Small"))
+                  (slice "m" (i18n "reading_size_m" | default "M") (i18n "reading_size_m_label" | default "Medium"))
+                  (slice "l" (i18n "reading_size_l" | default "L") (i18n "reading_size_l_label" | default "Large")) }}
+                <label title="{{ index . 2 }}"><input type="radio" name="code-size" value="{{ index . 0 }}" aria-label="{{ index . 2 }}" data-code-option="code-size"><span>{{ index . 1 }}</span></label>
+                {{- end }}
+            </div>
+            {{- range slice
+              (slice "code-linenos" (i18n "code_line_numbers" | default "Line numbers"))
+              (slice "code-font" (i18n "code_font" | default "JetBrains Mono"))
+              (slice "code-wrap" (i18n "code_wrap" | default "Wrap lines"))
+              (slice "code-dark" (i18n "code_dark" | default "Always dark"))
+              (slice "code-ws" (i18n "code_whitespace" | default "Show whitespace")) }}
+            <label class="theme-menu-option theme-menu-switch">
+                <span class="theme-menu-label">{{ index . 1 }}</span>
+                <input type="checkbox" role="switch" name="{{ index . 0 }}" data-code-option="{{ index . 0 }}">
                 <span class="theme-menu-switch-track" aria-hidden="true"></span>
             </label>
             {{- end }}

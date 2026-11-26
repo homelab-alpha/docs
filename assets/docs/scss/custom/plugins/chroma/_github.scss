@@ -6,7 +6,7 @@
 // instead (components/_code.scss).
 //
 
-html:not([data-dark-mode]) .chroma {
+html[data-code-dark="off"]:not([data-dark-mode]) .chroma {
   // Error
   .err {
     color: #f6f8fa;
@@ -309,7 +309,8 @@ html:not([data-dark-mode]) .chroma {
   }
 }
 
-[data-dark-mode] .chroma {
+[data-dark-mode] .chroma,
+html:not([data-code-dark="off"]) .chroma {
   // Error
   .err {
     color: #f85149;

@@ -214,6 +214,27 @@
 [reading_reset]
     other = "Reset"
 
+[code_options]
+    other = "Code options"
+
+[code_size]
+    other = "Code size"
+
+[code_line_numbers]
+    other = "Line numbers"
+
+[code_font]
+    other = "JetBrains Mono"
+
+[code_wrap]
+    other = "Wrap lines"
+
+[code_dark]
+    other = "Always dark"
+
+[code_whitespace]
+    other = "Show whitespace"
+
 [language]
     other = "Language"
 
