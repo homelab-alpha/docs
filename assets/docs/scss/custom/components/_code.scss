@@ -310,11 +310,6 @@ html[data-code-font="off"] .docs-content .main-content .code-block {
   }
 }
 
-// Linked line numbers are 24 px high (WCAG 2.5.8); the lines follow.
-.docs-content .main-content .code-block:has(.lnlinks) pre.chroma {
-  line-height: 24px;
-}
-
 // Wrap lines: long lines break instead of scrolling.
 html[data-code-wrap] .docs-content .main-content .code-block {
   pre.chroma code,
@@ -328,13 +323,48 @@ html[data-code-wrap] .docs-content .main-content .code-block {
   }
 }
 
-// Code size: small and large next to the default (0.875rem).
+// Code size: small and large next to the default (0.875rem), for the system
+// monospace font.
 html[data-code-size="s"] .docs-content .main-content .code-block pre.chroma {
   font-size: 0.8125rem;
 }
 
 html[data-code-size="l"] .docs-content .main-content .code-block pre.chroma {
   font-size: 1rem;
+}
+
+// JetBrains Mono (the default code font): 13 px with a line height of 1.2,
+// and 12 px and 15 px for the small and large sizes. Blocks with linked line
+// numbers keep their 24 px lines (below).
+html:not([data-code-font="off"])
+  .docs-content
+  .main-content
+  .code-block
+  pre.chroma {
+  font-size: 0.8125rem;
+  line-height: 1.2;
+}
+
+html:not([data-code-font="off"])[data-code-size="s"]
+  .docs-content
+  .main-content
+  .code-block
+  pre.chroma {
+  font-size: 0.75rem;
+}
+
+html:not([data-code-font="off"])[data-code-size="l"]
+  .docs-content
+  .main-content
+  .code-block
+  pre.chroma {
+  font-size: 0.9375rem;
+}
+
+// Linked line numbers are 24 px high (WCAG 2.5.8); the lines follow, with
+// any font.
+html .docs-content .main-content .code-block:has(.lnlinks) pre.chroma {
+  line-height: 24px;
 }
 
 // Show whitespace: markers for spaces, tabs, and line ends. The markers are
