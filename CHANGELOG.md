@@ -7,9 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- feat(github): add accessibility checks [250f4f3](https://github.com/homelab-alpha/docs/commit/250f4f38fec1a54c8443f7d9890db6b372e71189) by [@homelab-alpha](https://github.com/homelab-alpha)
+
 ### Changed
 
 - ci(changelog): escape `@mentions` in titles [ae8bb70](https://github.com/homelab-alpha/docs/commit/ae8bb70faa3b794be8e05895f0d49ceb93987366) by [@homelab-alpha](https://github.com/homelab-alpha)
+- docs(readme): add values to badge alt text [b9cc9b3](https://github.com/homelab-alpha/docs/commit/b9cc9b3d93e2cdcc17728dd51517a81a56b316b6) by [@homelab-alpha](https://github.com/homelab-alpha)
+- docs: add accessibility statement [08000da](https://github.com/homelab-alpha/docs/commit/08000dac3d483ba82f3149a5980c73e17b9b703e) by [@homelab-alpha](https://github.com/homelab-alpha)
+- docs: link the accessibility statement [aac39b7](https://github.com/homelab-alpha/docs/commit/aac39b7feb92fd21165f5d1acdcd0d39b4d10123) by [@homelab-alpha](https://github.com/homelab-alpha)
+- docs: document NO_COLOR support [4ec922e](https://github.com/homelab-alpha/docs/commit/4ec922e781ad82ceb71b86f7b0bdae98920d613e) by [@homelab-alpha](https://github.com/homelab-alpha)
+- docs: update the accessibility statement [b17ec1a](https://github.com/homelab-alpha/docs/commit/b17ec1aa49be51165eafebc6c9850fe8a38edd8a) by [@homelab-alpha](https://github.com/homelab-alpha)
 
 ## [1.0.0] - 2026-11-26
 
