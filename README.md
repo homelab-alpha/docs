@@ -12,10 +12,10 @@
 [![Build & Deploy](https://github.com/homelab-alpha/docs/raw/badges/hugo.svg)](https://github.com/homelab-alpha/docs/actions/workflows/hugo.yml)
 [![Last commit](https://github.com/homelab-alpha/docs/raw/badges/last_commit.svg)](https://github.com/homelab-alpha/docs/commits/main/)
 [![Repo size](https://github.com/homelab-alpha/docs/raw/badges/repo_size.svg)](https://github.com/homelab-alpha/docs/tree/main)
-[![Changelog](https://github.com/homelab-alpha/docs/raw/badges/changelog.svg)](https://github.com/homelab-alpha/docs/blob/main/CHANGELOG.md)
-[![Contributor Covenant](https://github.com/homelab-alpha/docs/raw/badges/contributor_covenant.svg)](https://github.com/homelab-alpha/docs/blob/main/CODE_OF_CONDUCT.md)
-[![Conventional Commits](https://github.com/homelab-alpha/docs/raw/badges/conventional_commits.svg)](https://conventionalcommits.org)
-[![Semantic Versioning](https://github.com/homelab-alpha/docs/raw/badges/semver.svg)](https://semver.org/spec/v2.0.0.html)
+[![Changelog: Keep a Changelog 1.1.0](https://github.com/homelab-alpha/docs/raw/badges/changelog.svg)](https://github.com/homelab-alpha/docs/blob/main/CHANGELOG.md)
+[![Contributor Covenant: 3.0](https://github.com/homelab-alpha/docs/raw/badges/contributor_covenant.svg)](https://github.com/homelab-alpha/docs/blob/main/CODE_OF_CONDUCT.md)
+[![Conventional Commits: 1.0.0](https://github.com/homelab-alpha/docs/raw/badges/conventional_commits.svg)](https://conventionalcommits.org)
+[![Semantic Versioning: 2.0.0](https://github.com/homelab-alpha/docs/raw/badges/semver.svg)](https://semver.org/spec/v2.0.0.html)
 [![License](https://github.com/homelab-alpha/docs/raw/badges/license.svg)](https://github.com/homelab-alpha/docs/blob/main/LICENSE)
 
 # Docs
