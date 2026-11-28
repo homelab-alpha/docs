@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-11-28
+
 ### Added
 
 - feat(github): add accessibility checks [250f4f3](https://github.com/homelab-alpha/docs/commit/250f4f38fec1a54c8443f7d9890db6b372e71189) by [@homelab-alpha](https://github.com/homelab-alpha)
