@@ -2,7 +2,7 @@
   "$comment": "Third-party files that the site ships, from their npm package. Renovate updates the versions (customManagers in .github/renovate.json); then run 'npm run vendor:update' to fetch the files and their SHA-256. A file is unchanged unless it lists patches: exact text replacements, applied by the script, which fails when a patch no longer matches. The Build & Deploy workflow checks the files against this list (.github/scripts/check_vendored_assets.py).",
   "packages": {
     "mermaid": {
-      "version": "12.3.0",
+      "version": "12.4.0",
       "files": {
         "assets/docs/js/mermaid.min.js": {
           "from": "dist/mermaid.min.js",
