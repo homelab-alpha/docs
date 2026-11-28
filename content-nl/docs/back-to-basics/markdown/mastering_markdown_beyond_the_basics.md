@@ -437,7 +437,9 @@ Syntaxis:
 
 ````plaintext
 ```AppleScript
-tell application "Foo" beep end tell
+tell application "Foo"
+    beep
+end tell
 ```
 ````
 
@@ -461,7 +463,9 @@ Syntaxis:
 
 ````plaintext
 ```HTML
-<div class="footer"> &copy; 2004 Foo Corporation </div>
+<div class="footer">
+    &copy; 2004 Foo Corporation
+</div>
 ```
 ````
 
@@ -481,7 +485,9 @@ Syntaxis:
 
 ````plaintext
 ```Markdown
-tell application "Foo" beep end tell
+tell application "Foo"
+    beep
+end tell
 ```
 ````
 
