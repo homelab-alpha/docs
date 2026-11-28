@@ -64,7 +64,11 @@ Syntaxis:
 
 ````plaintext
 ```JavaScript {linenos=inline,linenostart=19,hl_lines=[1,"4-5"],anchorlinenos=true}
-function foo(bar) { var a = 42, b = "Prism"; return a + bar(b); }
+function foo(bar) {
+  var a = 42,
+    b = "Prism";
+  return a + bar(b);
+}
 ```
 ````
 
@@ -84,9 +88,17 @@ Syntaxis:
 
 ````plaintext
 ```html
-<html> <head> <title>Buy cool new product</title> </head> <body>
+<html>
+  <head>
+    <title>Buy cool new product</title>
+  </head>
+  <body>
     <!-- Use action="/create-checkout-session.php" if your server is PHP based. -->
-    <form action="/create-checkout-session" method="POST"> <button type="submit">Checkout</button> </form> </body> </html>
+    <form action="/create-checkout-session" method="POST">
+      <button type="submit">Checkout</button>
+    </form>
+  </body>
+</html>
 ```
 ````
 
@@ -112,9 +124,19 @@ Syntaxis:
 
 ````plaintext
 ```swift
-let cardParams = STPCardParams() cardParams.name = "Jenny Rosen" cardParams.number = "4242424242424242" cardParams.expMonth = 12 cardParams.expYear = 18 cardParams.cvc = "424"
+let cardParams = STPCardParams()
+cardParams.name = "Jenny Rosen"
+cardParams.number = "4242424242424242"
+cardParams.expMonth = 12
+cardParams.expYear = 18
+cardParams.cvc = "424"
 
-let sourceParams = STPSourceParams.cardParams(withCard: cardParams) STPAPIClient.shared.createSource(with: sourceParams) { (source, error) in if let s = source, s.flow == .none && s.status == .chargeable { self.createBackendChargeWithSourceID(s.stripeID) } }
+let sourceParams = STPSourceParams.cardParams(withCard: cardParams)
+STPAPIClient.shared.createSource(with: sourceParams) { (source, error) in
+    if let s = source, s.flow == .none && s.status == .chargeable {
+        self.createBackendChargeWithSourceID(s.stripeID)
+    }
+}
 ```
 ````
 
@@ -142,7 +164,19 @@ Syntaxis:
 
 ````plaintext
 ```treeview
-├── fonts/ ├── images/ ├── js/ │   ├── vendor/ │   ├── app.js │   └── index.js ├── lambda/ └── scss/ ├── common/ ├── components/ ├── layouts/ ├── vendor/ └── app.scss
+├── fonts/
+├── images/
+├── js/
+│   ├── vendor/
+│   ├── app.js
+│   └── index.js
+├── lambda/
+└── scss/
+    ├── common/
+    ├── components/
+    ├── layouts/
+    ├── vendor/
+    └── app.scss
 ```
 ````
 

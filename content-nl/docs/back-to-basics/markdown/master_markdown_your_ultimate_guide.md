@@ -494,7 +494,8 @@ Syntaxis:
 
 ````plaintext
 ```bash
-sudo apt hello cat /etc/apt/sources.list
+sudo apt hello
+cat /etc/apt/sources.list
 ```
 ````
 
@@ -513,7 +514,8 @@ Syntaxis:
 
 ````plaintext
 ```bash
-sudo apt hello echo "hi"
+sudo apt hello
+echo "hi"
 
 **Vier spaties**
 
@@ -521,7 +523,10 @@ sudo apt hello
 
 Laten we het afbreken van een lange regel testen:
 
-apt install test apt install test apt install test apt install test apt install test apt install test apt install test apt install test apt install test apt install test apt install test apt install test apt install test apt install test
+apt install test apt install test apt install test apt install test apt
+install test apt install test apt install test apt install test apt install
+test apt install test apt install test apt install test apt install test apt
+install test
 ```
 ````
 
@@ -556,7 +561,17 @@ Syntaxis:
 
 ````plaintext
 ```html
-<!DOCTYPE html> <html lang="fr" itemscope itemtype="https://schema.org/WebPage"> <head> <meta charset="utf-8" /> <meta http-equiv="X-UA-Compatible" content="IE=edge" /> <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" /> </head> </html>
+<!DOCTYPE html>
+<html lang="fr" itemscope itemtype="https://schema.org/WebPage">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+  </head>
+</html>
 ```
 ````
 
@@ -581,7 +596,12 @@ Syntaxis:
 
 ````plaintext
 ```css
-/* Comment */ .blog-post h2, h3 { margin-top: 1.6em; margin-bottom: 0.8em; }
+/* Comment */
+.blog-post h2,
+h3 {
+  margin-top: 1.6em;
+  margin-bottom: 0.8em;
+}
 ```
 ````
 
@@ -604,7 +624,8 @@ Syntaxis:
 ```bash
 # Comment
 
-if [[ ! $system =~ Linux|MacOS|BSD ]]; then echo "This version of bashtop does not support $system platform."
+if [[ ! $system =~ Linux|MacOS|BSD ]]; then
+	echo "This version of bashtop does not support $system platform."
 
 sudo apt install test
 ```
@@ -628,7 +649,8 @@ Syntaxis:
 ````plaintext
 ```diff
 - delete
-+ add ! test
++ add
+! test
 # comment
 ```
 ````
