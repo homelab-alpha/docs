@@ -536,7 +536,7 @@
 - {
     name: "vendored",
     color: "1f6feb",
-    description: "Updates a third-party file that the site ships; run npm run vendor:update.",
+    description: "Updates a third-party file that the site ships; run the Update Vendored Assets workflow.",
   }
 - { name: "vite", color: "1f6feb", description: "Dependency: Vite build tool updates." }
 - { name: "vue", color: "1f6feb", description: "Dependency: Vue.js framework updates." }
