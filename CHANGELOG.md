@@ -19,6 +19,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - docs: link the accessibility statement [aac39b7](https://github.com/homelab-alpha/docs/commit/aac39b7feb92fd21165f5d1acdcd0d39b4d10123) by [@homelab-alpha](https://github.com/homelab-alpha)
 - docs: document NO_COLOR support [4ec922e](https://github.com/homelab-alpha/docs/commit/4ec922e781ad82ceb71b86f7b0bdae98920d613e) by [@homelab-alpha](https://github.com/homelab-alpha)
 - docs: update the accessibility statement [b17ec1a](https://github.com/homelab-alpha/docs/commit/b17ec1aa49be51165eafebc6c9850fe8a38edd8a) by [@homelab-alpha](https://github.com/homelab-alpha)
+- ci: add workflow to update vendored assets [744eea2](https://github.com/homelab-alpha/docs/commit/744eea28357580c947af603da867c18f63a46d4d) by [@homelab-alpha](https://github.com/homelab-alpha)
+- chore(renovate): ignore bot and owner commits [eba88b5](https://github.com/homelab-alpha/docs/commit/eba88b5a6e573901b98d9746596a703f0169e44a) by [@homelab-alpha](https://github.com/homelab-alpha)
+
+### Fixed
+
+- fix(content-nl): restore code block line breaks [1a5e4b5](https://github.com/homelab-alpha/docs/commit/1a5e4b54798b728e26974930d0770d2e8d368929) by [@homelab-alpha](https://github.com/homelab-alpha)
+- fix(mermaid): make diagrams readable and complete [6b3456c](https://github.com/homelab-alpha/docs/commit/6b3456ceaa71fa7b93fe45df0eb0f3e8a7b81622) by [@homelab-alpha](https://github.com/homelab-alpha)
 
 ## [1.0.0] - 2026-11-26
 
