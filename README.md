@@ -247,7 +247,8 @@ docs/
 │   │   ├── stale_issues_and_pull_requests.yml  # Stale issue management
 │   │   ├── sync_labels.yml                     # Label synchronization
 │   │   ├── unreproducible_issues.yml           # Unreproducible issue management
-│   │   └── update_changelog.yml                # Changelog entry for merged pull requests
+│   │   ├── update_changelog.yml                # Changelog entry for merged pull requests
+│   │   └── vendor_assets.yml                   # Fetches third-party files for a pull request
 │   ├── CODEOWNERS                              # Code ownership definitions
 │   ├── labels.yml                              # Repository label definitions
 │   ├── pull_request_template.md                # Pull request template
@@ -319,6 +320,7 @@ on push, pull request, and scheduled triggers.
 | `sync_labels.yml`                    | Push, manual                 | Synchronizes repository labels from `.github/labels.yml`      |
 | `unreproducible_issues.yml`          | Issue events, weekly, manual | Manages issues that cannot be reproduced                      |
 | `update_changelog.yml`               | Every 8 hours, manual        | Adds an entry to `CHANGELOG.md` for every merged pull request |
+| `vendor_assets.yml`                  | Manual                       | Fetches the third-party files and commits them to a PR        |
 
 All workflows follow the standards documented in
 [`.github/policies/github_actions.md`](./.github/policies/github_actions.md),
