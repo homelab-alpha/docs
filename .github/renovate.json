@@ -153,9 +153,13 @@
       "matchFileNames": [".github/vendored_assets.json"],
       "addLabels": ["vendored"],
       "prBodyNotes": [
-        "Run `npm run vendor:update` on this branch and commit the files; the Build & Deploy check fails until they match."
+        "Run the Update Vendored Assets workflow with this pull request number; the Build & Deploy check fails until the files match."
       ]
     }
+  ],
+  "gitIgnoredAuthors": [
+    "163113183+homelab-alpha@users.noreply.github.com",
+    "41898282+github-actions[bot]@users.noreply.github.com"
   ],
   "internalChecksFilter": "none",
   "minimumReleaseAge": "3 days",
@@ -183,7 +187,7 @@
       "packageNameTemplate": "sass/dart-sass"
     },
     {
-      "description": "Track the third-party files that the site ships (npm packages in .github/vendored_assets.json); then run 'npm run vendor:update'",
+      "description": "Track the third-party files that the site ships (npm packages in .github/vendored_assets.json); then run the Update Vendored Assets workflow",
       "customType": "regex",
       "managerFilePatterns": ["/^\\.github/vendored_assets\\.json$/"],
       "matchStrings": [
