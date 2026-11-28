@@ -11,8 +11,24 @@
     .messageLine1 {
       stroke: var(--text-default) !important;
     }
-    #arrowhead path,
-    #crosshead path {
+    // Marker IDs start with the diagram ID and can end in "-margin", so match a part.
+    [id*="arrowhead"] path,
+    [id*="crosshead"] path,
+    [id*="filled-head"] path,
+    [id*="barbEnd"] path,
+    [id*="composition"] path,
+    [id*="dependency"] path {
+      fill: var(--text-default) !important;
+      stroke: var(--text-default) !important;
+    }
+    // Open shapes keep their transparent fill.
+    [id*="aggregation"] path,
+    [id*="extension"] path,
+    [id*="extension"] polygon,
+    [id*="lollipop"] circle {
+      stroke: var(--text-default) !important;
+    }
+    circle.state-start {
       fill: var(--text-default) !important;
       stroke: var(--text-default) !important;
     }
@@ -36,12 +52,34 @@
     text {
       fill: var(--text-default) !important;
     }
-    #sequencenumber circle {
+    [id$="sequencenumber"] circle {
       fill: var(--bg-mermaid) !important;
       stroke: var(--text-default) !important;
     }
     .sequenceNumber {
       fill: var(--text-default) !important;
+    }
+    // Sequence diagram loops and other frames.
+    .labelBox {
+      fill: var(--bg-mermaid) !important;
+    }
+    .loopText tspan {
+      fill: var(--text-default) !important;
+    }
+    // C4 relations have no class, only a fixed dark gray.
+    path[stroke="#444444"] {
+      stroke: var(--text-default) !important;
+    }
+    text[fill="#444444"] {
+      fill: var(--text-default) !important;
+    }
+    // These backgrounds have the same color in both modes, so the text does too.
+    .slice,
+    .branch-label1 text {
+      fill: #1f2328 !important;
+    }
+    .branch-label0 text {
+      fill: #ffffff !important;
     }
   }
 }

@@ -167,7 +167,8 @@ end
 Note right of John: Rational thoughts!
 John-->>Alice: Great!
 John->>Bob: How about you?
-Bob-
+Bob-->>John: Jolly good!
+```
 ````
 
 Output:
@@ -194,6 +195,7 @@ Syntax:
 ````plaintext
 ```mermaid
 gantt
+    dateFormat YYYY-MM-DD
     section Section
     Completed    :done,    des1, 2014-01-06,2014-01-08
     Active       :active,  des2, 2014-01-07, 3d
@@ -208,6 +210,7 @@ Output:
 
 ```mermaid
 gantt
+    dateFormat YYYY-MM-DD
     section Section
     Completed    :done,    des1, 2014-01-06,2014-01-08
     Active       :active,  des2, 2014-01-07, 3d
