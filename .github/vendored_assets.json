@@ -6,7 +6,7 @@
       "files": {
         "assets/docs/js/mermaid.min.js": {
           "from": "dist/mermaid.min.js",
-          "sha256": "336df803d87a38b70a01e736e666c8f7601d2ce42f5e47c8fafe5d721074b9a3"
+          "sha256": "c0891e4c0413d0710ad193b431d8cbbe9d031636e51c467d11daa4721ba22094"
         }
       }
     },
