@@ -106,6 +106,10 @@ on:
         description: "🤖 Update Dark Visitors Agents"
         type: boolean
         default: false
+      vendor_assets:
+        description: "📦 Update Vendored Assets: third-party files of a pull request"
+        type: boolean
+        default: false
       dry_run:
         description: "Simulation (do not change any workflow)"
         type: boolean
