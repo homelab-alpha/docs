@@ -1,0 +1,197 @@
+---
+name: 📦 Update Vendored Assets
+
+# Fetches the third-party files in .github/vendored_assets.json from npm (Mermaid, KaTeX, FlexSearch, Day.js,
+# simple-scrollspy, and the fonts) and commits them to a pull request. It runs by hand only, with the pull request
+# number. The pull request must be open and come from a branch in this repository.
+#
+# Commits are made through the GitHub API with GITHUB_TOKEN, so GitHub signs them. The checks on such a commit
+# wait for approval: select "Approve workflows to run" on the pull request.
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "Pull request number"
+        required: true
+        type: number
+
+# No permission for the workflow as a whole. Each job asks for what it needs.
+permissions: {}
+
+concurrency:
+  group: vendor-assets-${{ inputs.pr_number }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  vendor:
+    name: 📦 Fetch and commit third-party files
+    runs-on: ubuntu-26.04
+    timeout-minutes: 10
+
+    permissions:
+      contents: write # Commit the files to the pull request branch.
+      pull-requests: read # Look up the pull request.
+
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PR_NUMBER: ${{ inputs.pr_number }}
+
+    steps:
+      - name: 🏁 Notify start of process
+        run: |
+          echo "::notice title=Workflow Started::📦 Updating third-party files"
+
+      - name: 🔎 Look up pull request
+        id: pr
+        run: |
+          set -Eeuo pipefail
+
+          fail() {
+            echo "::error title=$1::❌ $2"
+            exit 1
+          }
+
+          [[ "${PR_NUMBER}" =~ ^[0-9]+$ ]] || fail "Invalid Input" "The pull request number must be a whole number"
+
+          PR="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}")" ||
+            fail "Lookup Failed" "Could not read pull request #${PR_NUMBER}"
+
+          [[ "$(jq -r '.state' <<<"${PR}")" == "open" ]] ||
+            fail "Pull Request Closed" "Pull request #${PR_NUMBER} is not open"
+
+          [[ "$(jq -r '.head.repo.full_name' <<<"${PR}")" == "${GITHUB_REPOSITORY}" ]] ||
+            fail "Fork Not Allowed" "Pull request #${PR_NUMBER} comes from a fork"
+
+          {
+            echo "head_ref=$(jq -r '.head.ref' <<<"${PR}")"
+            echo "head_sha=$(jq -r '.head.sha' <<<"${PR}")"
+          } >>"$GITHUB_OUTPUT"
+
+      - name: 📑 Checkout pull request branch
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ steps.pr.outputs.head_sha }}
+          persist-credentials: false
+
+      - name: 🟢 Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: package.json
+          package-manager-cache: false
+
+      - name: 📥 Fetch third-party files
+        id: fetch
+        run: |
+          set -Eeuo pipefail
+          echo "::group::📥 Fetching third-party files"
+
+          if ! npm ci || ! npm run vendor:update || ! npm run vendor:check; then
+            echo "::endgroup::"
+            echo "::error title=Fetch Failed::❌ Could not fetch or check the third-party files"
+            exit 1
+          fi
+
+          echo "::endgroup::"
+
+      - name: 🔏 Commit changed files
+        id: commit
+        env:
+          HEAD_REF: ${{ steps.pr.outputs.head_ref }}
+          HEAD_SHA: ${{ steps.pr.outputs.head_sha }}
+        run: |
+          set -Eeuo pipefail
+          trap 'echo "::error title=Commit Failed::❌ Could not commit the third-party files"' ERR
+
+          git add --all
+          if git diff --cached --quiet; then
+            echo "result=No changes" >>"$GITHUB_OUTPUT"
+            echo "::notice title=Up To Date::✅ All third-party files already match"
+            exit 0
+          fi
+
+          echo "::group::🔏 Committing third-party files"
+          git diff --cached --stat
+
+          WORK="$(mktemp -d "${RUNNER_TEMP}/vendor.XXXXXX")"
+          : >"${WORK}/additions.jsonl"
+          : >"${WORK}/deletions.jsonl"
+          git diff --cached --name-status --no-renames -z >"${WORK}/changes"
+
+          # The files go through jq on stdin: some are too large for a command line argument.
+          while IFS= read -r -d '' status && IFS= read -r -d '' path; do
+            if [[ "${status}" == "D" ]]; then
+              jq -cn --arg path "${path}" '{path: $path}' >>"${WORK}/deletions.jsonl"
+            else
+              base64 --wrap=0 "${path}" |
+                jq -cR --arg path "${path}" '{path: $path, contents: .}' >>"${WORK}/additions.jsonl"
+            fi
+          done <"${WORK}/changes"
+
+          # createCommitOnBranch fails when the branch moved after the lookup (expectedHeadOid).
+          jq -n \
+            --arg repo "${GITHUB_REPOSITORY}" \
+            --arg branch "${HEAD_REF}" \
+            --arg oid "${HEAD_SHA}" \
+            --slurpfile additions "${WORK}/additions.jsonl" \
+            --slurpfile deletions "${WORK}/deletions.jsonl" \
+            '{
+              query: ("mutation($input: CreateCommitOnBranchInput!) " +
+                "{ createCommitOnBranch(input: $input) { commit { oid } } }"),
+              variables: {input: {
+                branch: {repositoryNameWithOwner: $repo, branchName: $branch},
+                expectedHeadOid: $oid,
+                message: {headline: "chore(deps): update vendored third-party files"},
+                fileChanges: {additions: $additions, deletions: $deletions}
+              }}
+            }' >"${WORK}/payload.json"
+
+          COMMIT_SHA="$(gh api graphql --input "${WORK}/payload.json" --jq '.data.createCommitOnBranch.commit.oid')"
+
+          VERIFIED="$(gh api "repos/${GITHUB_REPOSITORY}/commits/${COMMIT_SHA}" --jq '.commit.verification.verified')"
+          if [[ "${VERIFIED}" != "true" ]]; then
+            echo "::error title=Signature Verification Failed::❌ Commit ${COMMIT_SHA:0:7} is not verified"
+            exit 1
+          fi
+
+          # The tree of the new commit must match the local result.
+          LOCAL_TREE="$(git write-tree)"
+          REMOTE_TREE="$(gh api "repos/${GITHUB_REPOSITORY}/git/commits/${COMMIT_SHA}" --jq '.tree.sha')"
+          if [[ "${LOCAL_TREE}" != "${REMOTE_TREE}" ]]; then
+            echo "::error title=Tree Mismatch::❌ Commit ${COMMIT_SHA:0:7} differs from the local result"
+            exit 1
+          fi
+
+          echo "result=Commit ${COMMIT_SHA:0:7}" >>"$GITHUB_OUTPUT"
+          echo "::notice title=Files Committed::✅ Verified commit ${COMMIT_SHA:0:7} pushed to ${HEAD_REF}"
+          echo "::warning title=Approval Needed::⚠️ Select 'Approve workflows to run' on the pull request"
+          echo "::endgroup::"
+
+      - name: 📊 Generate job summary
+        if: always()
+        env:
+          OVERALL: ${{ job.status == 'success' && '✅' || '❌' }}
+          FETCH_STATUS: ${{ steps.fetch.outcome == 'success' && '✅ Success' || '❌ Not completed' }}
+          COMMIT_STATUS: ${{ steps.commit.outcome == 'success' && '✅ Success' || '❌ Not completed' }}
+          RESULT: ${{ steps.commit.outputs.result || 'N/A' }}
+        run: |
+          set -Eeuo pipefail
+
+          cat <<EOF >>"$GITHUB_STEP_SUMMARY"
+          ## ${OVERALL} Vendored Assets Summary
+
+          | Target            | Result           |
+          | :---------------- | :--------------- |
+          | Third-party files | ${FETCH_STATUS}  |
+          | Commit            | ${COMMIT_STATUS} |
+
+          - **Pull request:** #${PR_NUMBER}
+          - **Outcome:** ${RESULT}
+          - **Workflow run:** [View details](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID})
+
+          After a new commit, select **Approve workflows to run** on the pull request.
+          EOF
