@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - fix(content-nl): restore code block line breaks [1a5e4b5](https://github.com/homelab-alpha/docs/commit/1a5e4b54798b728e26974930d0770d2e8d368929) by [@homelab-alpha](https://github.com/homelab-alpha)
 - fix(mermaid): make diagrams readable and complete [6b3456c](https://github.com/homelab-alpha/docs/commit/6b3456ceaa71fa7b93fe45df0eb0f3e8a7b81622) by [@homelab-alpha](https://github.com/homelab-alpha)
+- fix(github): add vendor toggle, fix indent [b359ac2](https://github.com/homelab-alpha/docs/commit/b359ac2005440d10654fba49d5be44638359be51) by [@homelab-alpha](https://github.com/homelab-alpha)
 
 ## [1.0.0] - 2026-11-26
 
